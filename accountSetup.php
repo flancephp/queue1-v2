@@ -1,5 +1,73 @@
+<?php include('inc/dbConfig.php'); //connection details
+
+
+if (!isset($_SESSION['adminidusername']))
+{
+echo "<script>window.location='login.php'</script>";
+}
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'account_setup' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+echo "<script>window.location='index.php'</script>";
+}
+
+$selQry = " SELECT * FROM tbl_client WHERE id = '".$_SESSION['accountId']."' ";
+$resResult = mysqli_query($con, $selQry);
+$resRow = mysqli_fetch_array($resResult);
+
+
+if (isset($_POST['submitBtn']))
+{
+
+$picField = '';
+if($_FILES["logo"]["name"] != '')
+{
+$target_dir = dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/';
+$fileName = time().basename($_FILES["logo"]["name"]);
+$target_file = $target_dir . $fileName;
+
+move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file);
+
+$picField = " , logo = '".$fileName."' ";
+
+if($resRow['logo'] != '' && file_exists($target_dir.$resRow['logo']) )
+{
+	@unlink($target_dir.$resRow['logo']);
+}
+}
+
+$sql = "UPDATE `tbl_client` SET
+`accountName` = '".$_POST['accountName']."',
+`name` = '".$_POST['ownerName']."',
+`address_one` = '".$_POST['address1']."',
+`address_two` = '".$_POST['address2']."',
+`city` = '".$_POST['city']."',
+`country` = '".$_POST['country']."',
+`zipCode` = '".$_POST['zipCode']."',
+`email` = '".$_POST['email']."',
+`phone` = '".$_POST['phone']."',
+`taxId` = '".$_POST['taxId']."',
+`created_date` = '".date('Y-m-d H:i:s')."'	
+".$picField."
+
+WHERE id='".$_SESSION['accountId']."' ";
+
+mysqli_query($con, $sql);
+
+echo "<script>window.location='accountSetup.php?updated=1'</script>";
+
+}
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,126 +90,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Account Setup</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Account setup');?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -153,7 +108,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Account Setup</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Account Name');?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -209,7 +164,7 @@
                                 <div class="acnt-Div">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="accountName" class="form-label">Account Name</label>
+                                            <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="accountName"
@@ -219,7 +174,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="ownerName" class="form-label">Owner Name</label>
+                                            <label for="ownerName" class="form-label"><?php echo showOtherLangText('Owner Name');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="ownerName" placeholder="Queue">
@@ -228,7 +183,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="streetAdd-1" class="form-label">Street Address 1</label>
+                                            <label for="streetAdd-1" class="form-label"><?php echo showOtherLangText('Street address 1');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <textarea class="form-control" id="streetAdd-1"
@@ -238,7 +193,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="streetAdd-2" class="form-label">Street Address 2</label>
+                                            <label for="streetAdd-2" class="form-label"><?php echo showOtherLangText('Street address 2');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <textarea class="form-control" id="streetAdd-2"
@@ -248,7 +203,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="inputZip" class="form-label">Zip</label>
+                                            <label for="inputZip" class="form-label"><?php echo showOtherLangText('Zip');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="inputZip" placeholder="4146">
@@ -257,7 +212,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="inputCity" class="form-label">City</label>
+                                            <label for="inputCity" class="form-label"><?php echo showOtherLangText('City');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="inputCity"
@@ -267,22 +222,36 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="selectCountry" class="form-label">Country</label>
+                                            <label for="selectCountry" class="form-label"><?php echo showOtherLangText('Country');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <select class="form-select" aria-label="Default select example"
-                                                id="selectCountry">
-                                                <option selected>Select Country</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
+                                        <select name="country" id="country" class="form-control"
+                                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                                                            onchange="this.setCustomValidity('')" required>
+                                                            <option value=""><?php echo showOtherLangText('Select'); ?>
+                                                            </option>
+                                                            <?php
+$contryQry = " SELECT * FROM tbl_country ";
+$contryRes = mysqli_query($con, $contryQry);
+while ($contryResRow = mysqli_fetch_array($contryRes))
+{	
+$sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : ''; ?>
+                                                            ?>
+
+                                                            <option value="<?php echo $contryResRow['id'];?>"
+                                                                <?php echo $sel; ?>><?php echo $contryResRow['name']; ?>
+                                                            </option>
+
+                                                            <?php
+}
+?>
+                                                        </select>
                                         </div>
                                     </div>
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="email" class="form-control" id="email"
@@ -292,7 +261,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="phone" class="form-label">Phone</label>
+                                            <label for="phone" class="form-label"><?php echo showOtherLangText('Phone');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="tel" class="form-control" id="phone"
@@ -302,7 +271,7 @@
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="taxId" class="form-label">Tax Id</label>
+                                            <label for="taxId" class="form-label"><?php echo showOtherLangText('Tax Id');?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="taxId"
@@ -322,7 +291,7 @@
                                             </div>
                                         </div>
                                         <div class="labelDiv">
-                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> Upload Logotype
+                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> <?php echo showOtherLangText('Logo');?>
                                                 <img src="Assets/icons/Import.svg" alt="Import"
                                                     class="importBtn"></label>
 

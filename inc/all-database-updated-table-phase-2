@@ -1,0 +1,365 @@
+*** Newly added table in 2nd Phase of development***
+---------------------------------------------------------------------
+
+1) tbl_storage_stocktake
+2) tbl_designation 
+3) tbl_designation_section_permission
+4) tbl_designation_sub_section_permission
+
+==========================================================================================================
+
+1) Table structure for table `tbl_storage_stocktake`
+
+  CREATE TABLE `tbl_storage_stocktake` (
+    `id` int(11) NOT NULL,
+    `ordId` int(11) NOT NULL,
+    `account_id` int(11) NOT NULL,
+    `pId` int(11) NOT NULL,
+    `storageType` tinyint(1) NOT NULL COMMENT '1=storageStocktaking, 2=outletStocktaking',
+    `storage` int(11) DEFAULT NULL,
+    `assignUser` int(11) DEFAULT NULL,
+    `date` date NOT NULL,
+    `time` time NOT NULL,
+    `repeatTime` int(11) DEFAULT NULL
+  );
+
+  Indexes for table `tbl_storage_stocktake`
+
+  	ALTER TABLE `tbl_storage_stocktake`
+    	ADD PRIMARY KEY (`id`);
+
+
+  AUTO_INCREMENT for table `tbl_storage_stocktake`
+
+  	ALTER TABLE `tbl_storage_stocktake`
+  	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+=====================================================
+
+2) Table structure for table `tbl_designation`
+
+  CREATE TABLE `tbl_designation` (
+    `id` int(11) NOT NULL,
+    `designation_name` varchar(50) NOT NULL,
+    `is_mobile` tinyint(1) NOT NULL DEFAULT 0,
+    `account_id` int(11) DEFAULT NULL
+  );
+
+
+  Indexes for table `tbl_designation`
+
+  	ALTER TABLE `tbl_designation`
+  	  ADD PRIMARY KEY (`id`);
+
+
+  AUTO_INCREMENT for table `tbl_designation`
+
+  	ALTER TABLE `tbl_designation`
+  	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+====================================================
+
+3) Table structure for table `tbl_designation_section_permission`
+
+  CREATE TABLE `tbl_designation_section_permission` (
+    `id` int(11) NOT NULL,
+    `designation_id` int(11) DEFAULT NULL,
+    `designation_section_list_id` int(11) DEFAULT NULL COMMENT '1=New Order, 2=New Requisition, 3=Running Task, 4=History, 5=stock, 6=New Stocktake 7=Revenue Center, 8=Setup',
+    `is_mobile` tinyint(1) NOT NULL DEFAULT 0,
+    `account_id` int(11) NOT NULL
+  );
+
+
+  Indexes for table `tbl_designation_section_permission`
+
+	ALTER TABLE `tbl_designation_section_permission`
+	  ADD PRIMARY KEY (`id`);
+
+
+  AUTO_INCREMENT for table `tbl_designation_section_permission`
+
+	ALTER TABLE `tbl_designation_section_permission`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+====================================================
+
+4) Table structure for table `tbl_designation_sub_section_permission`
+
+
+  CREATE TABLE `tbl_designation_sub_section_permission` (
+    `id` int(11) NOT NULL,
+    `designation_id` int(11) NOT NULL,
+    `designation_Section_permission_id` int(11) DEFAULT NULL,
+    `type` varchar(100) NOT NULL,
+    `type_id` int(11) NOT NULL,
+    `is_mobile` tinyint(1) NOT NULL DEFAULT 0,
+    `account_id` int(11) NOT NULL
+  );
+
+
+
+Indexes for table `tbl_designation_sub_section_permission`
+
+	ALTER TABLE `tbl_designation_sub_section_permission`
+	  ADD PRIMARY KEY (`id`);
+
+
+
+AUTO_INCREMENT for table `tbl_designation_sub_section_permission`
+
+ALTER TABLE `tbl_designation_sub_section_permission`
+	MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+
+
+
+
+
+==========================================================================================================
+
+SUPERADMIN RELATED NEWLY ADDED TABLE AND NEWLY ADDED COLUMN
+
+
+
+TABLE
+--------------------------------
+1) tbl_business
+2) tbl_client_ezee_setup
+3) tbl_client_section_permission
+4) tbl_language
+5) tbl_sections
+6) tbl_site_main_text
+7) tbl_site_other_language_text
+8) tbl_superadmin
+----------------------------------
+
+=================================================
+1) Table structure for table `tbl_business`
+
+    CREATE TABLE `tbl_business` (
+      `id` int(11) NOT NULL,
+      `name` varchar(255) NOT NULL,
+      `status` tinyint(4) NOT NULL
+    );
+
+
+    Indexes for table `tbl_business`
+
+    ALTER TABLE `tbl_business`
+      ADD PRIMARY KEY (`id`);
+
+
+
+    AUTO_INCREMENT for table `tbl_business`
+
+    ALTER TABLE `tbl_business`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+====================================================
+
+2) Table structure for table `tbl_client_ezee_setup`
+
+
+    CREATE TABLE `tbl_client_ezee_setup` (
+      `id` int(11) NOT NULL,
+      `account_id` int(11) NOT NULL,
+      `hotel_id` varchar(25) NOT NULL,
+      `merchant_id` varchar(25) NOT NULL,
+      `status` tinyint(4) NOT NULL DEFAULT 0
+    );
+
+
+    Indexes for table `tbl_client_ezee_setup`
+
+    ALTER TABLE `tbl_client_ezee_setup`
+      ADD PRIMARY KEY (`id`);
+
+
+
+    AUTO_INCREMENT for table `tbl_client_ezee_setup`
+
+    ALTER TABLE `tbl_client_ezee_setup`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+===================================================
+
+3) Table structure for table `tbl_client_section_permission`
+
+
+    CREATE TABLE `tbl_client_section_permission` (
+      `id` int(11) NOT NULL,
+      `section_id` int(11) NOT NULL,
+      `account_id` int(11) NOT NULL
+    );
+
+
+    Indexes for table `tbl_client_section_permission`
+
+    ALTER TABLE `tbl_client_section_permission`
+      ADD PRIMARY KEY (`id`);
+
+
+   AUTO_INCREMENT for table `tbl_client_section_permission`
+
+    ALTER TABLE `tbl_client_section_permission`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+====================================================
+
+4) Table structure for table `tbl_language`
+
+    CREATE TABLE `tbl_language` (
+      `id` int(11) NOT NULL,
+      `language_name` varchar(50) NOT NULL,
+      `language_type` tinyint(1) NOT NULL,
+      `created_on` datetime NOT NULL
+    );
+
+
+
+Indexes for table `tbl_language`
+
+  ALTER TABLE `tbl_language`
+    ADD PRIMARY KEY (`id`);
+
+
+AUTO_INCREMENT for table `tbl_language`
+
+  ALTER TABLE `tbl_language`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+====================================================
+
+5) Table structure for table `tbl_sections`
+
+
+    CREATE TABLE `tbl_sections` (
+      `id` int(11) NOT NULL,
+      `name` varchar(25) NOT NULL,
+      `is_default` tinyint(4) NOT NULL,
+      `status` tinyint(4) NOT NULL
+    );
+
+
+Indexes for table `tbl_sections`
+
+    ALTER TABLE `tbl_sections`
+      ADD PRIMARY KEY (`id`);
+
+
+AUTO_INCREMENT for table `tbl_sections`
+
+    ALTER TABLE `tbl_sections`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+=====================================================
+
+6) Table structure for table `tbl_site_main_text`
+
+    CREATE TABLE `tbl_site_main_text` (
+      `id` int(11) NOT NULL,
+      `main_text` varchar(255) NOT NULL,
+      `main_text_key` varchar(255) NOT NULL,
+      `created_on` datetime NOT NULL
+    );
+
+
+Indexes for table `tbl_site_main_text`
+
+  ALTER TABLE `tbl_site_main_text`
+    ADD PRIMARY KEY (`id`);
+
+
+AUTO_INCREMENT for table `tbl_site_main_text`
+
+  ALTER TABLE `tbl_site_main_text`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+=====================================================
+
+7) Table structure for table `tbl_site_other_language_text`
+
+
+    CREATE TABLE `tbl_site_other_language_text` (
+      `id` int(11) NOT NULL,
+      `site_main_text_id` int(11) NOT NULL,
+      `other_language_id` int(11) NOT NULL,
+      `other_language_text` varchar(255) CHARACTER SET utf8 NOT NULL,
+      `created_on` datetime NOT NULL
+    );
+
+
+Indexes for table `tbl_site_other_language_text`
+
+  ALTER TABLE `tbl_site_other_language_text`
+    ADD PRIMARY KEY (`id`);
+
+
+AUTO_INCREMENT for table `tbl_site_other_language_text`
+
+  ALTER TABLE `tbl_site_other_language_text`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+=====================================================
+
+8) Table structure for table `tbl_superadmin`
+
+    CREATE TABLE `tbl_superadmin` (
+      `id` int(11) NOT NULL,
+      `name` varchar(25) NOT NULL,
+      `email` varchar(255) NOT NULL,
+      `username` varchar(255) NOT NULL,
+      `password` varchar(255) NOT NULL,
+      `status` tinyint(4) NOT NULL DEFAULT 1
+    );
+
+
+Indexes for table `tbl_superadmin`
+
+  ALTER TABLE `tbl_superadmin`
+    ADD PRIMARY KEY (`id`);
+
+
+AUTO_INCREMENT for table `tbl_superadmin`
+
+  ALTER TABLE `tbl_superadmin`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+==========================================================================================================
+
+
+
+NEWLY ADDED COLUMN
+=======================================
+
+1)-----------------------------
+  ALTER TABLE `tbl_client`
+    ADD COLUMN `language_id` INT(11),
+    ADD COLUMN `accountType` INT(11),
+    ADD COLUMN `fees` decimal (15,4),
+    ADD COLUMN `paymentType` INT(11),
+    ADD COLUMN `status` TINYINT(1),
+    ADD COLUMN `currency_id` INT(11),
+    ADD COLUMN `businessType` INT(11),
+    ADD COLUMN `max_user` INT(11);
+
+
+2)--------------------------------- 
+  ALTER TABLE `tbl_currency`
+    ADD COLUMN `symbol_left` VARCHAR(12),
+    ADD COLUMN `symbol_right` VARCHAR(12),
+    ADD COLUMN `status` TINYINT(1),
+
+
+3)---------------------------------
+ALTER TABLE `tbl_orders`
+    ADD COLUMN `paymentDateTime` datetime NOT NULL;
+
+4)---------------------------------
+  ALTER TABLE `tbl_user`
+    ADD COLUMN `isOwner` tinyint(4) NOT NULL DEFAULT 0;
+
+5)---------------------------------
+  ALTER TABLE `tbl_stocks`
+    ADD COLUMN `tempQty` int(11);

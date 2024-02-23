@@ -1,0 +1,617 @@
+
+
+ALL TABLE NAME OF QUEUE1 DATABASE
+=========================================================
+
+1) tbl_category
+2) tbl_currency
+3) tbl_daily_import
+4) tbl_daily_import_items
+5) tbl_department
+6) tbl_deptusers
+7) tbl_easymapping
+8) tbl_map_category
+9) tbl_map_outletcats
+10) tbl_map_outlets
+11) tbl_mobile_items_temp
+12) tbl_mobile_time_track
+13) tbl_orders
+14) tbl_order_assigned_users
+15) tbl_order_details
+16) tbl_order_items_temp
+17) tbl_outlet_items
+18) tbl_productdepartments
+19) tbl_products
+20) tbl_productsuppliers
+21) tbl_rawitem_products
+22) tbl_recusition_items_temp
+23) tbl_revenue_center
+24) tbl_revenue_center_departments
+25) tbl_revoutletnotes
+26) tbl_stocks
+27) tbl_storage_keepers
+28) tbl_stores
+29) tbl_store_keepers
+30) tbl_suppliers
+31) tbl_user
+32) tbl_user_outlet_report_fields
+===============================================================
+
+
+
+
+
+
+*************NEWLY ADDED TABLE IN DATABASE*********************
+===============================================================
+33) tbl_accounts
+34) tbl_client
+35) tbl_custom_items_fee
+36) tbl_log 
+37) tbl_order_fee
+38) tbl_payment
+39) tbl_payment_history
+40) tbl_payment_mode
+41) tbl_requisition_payment_info
+42) tbl_req_payment
+43) tbl_req_payment_history
+44) tbl_supplier_payment_info
+45) tbl_order_details_temp
+46) tbl_units
+47) tbl_country
+================================================================
+
+
+
+
+
+
+******TABLE STRUCTURE OF NEWLY ADDED TABLE*******************
+-- --------------------------------------------------------
+
+33)-- Table structure for table `tbl_accounts`
+
+CREATE TABLE `tbl_accounts` (
+  `id` int(11) NOT NULL,
+  `account_id` int(5) NOT NULL,
+  `accountName` varchar(50) NOT NULL,
+  `accountNumber` varchar(50) NOT NULL,
+  `currencyId` int(11) NOT NULL,
+  `balanceAmt` double NOT NULL
+)
+
+-- --------------------------------------------------------
+
+34)-- Table structure for table `tbl_client`
+
+CREATE TABLE `tbl_client` (
+  `id` int(11) NOT NULL,
+  `accountNumber` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone_no` int(11) DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp()
+)
+
+-- --------------------------------------------------------
+
+35)-- Table structure for table `tbl_custom_items_fee`
+
+CREATE TABLE `tbl_custom_items_fee` (
+  `id` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `itemName` varchar(100) NOT NULL,
+  `unit` varchar(30) NOT NULL,
+  `amt` double NOT NULL,
+  `visibility` tinyint(4) NOT NULL
+)
+
+-- --------------------------------------------------------
+
+36)-- Table structure for table `tbl_log`
+
+CREATE TABLE `tbl_log` (
+  `id` int(11) NOT NULL,
+  `accountId` int(2) NOT NULL,
+  `section` varchar(200) NOT NULL,
+  `subSection` varchar(200) NOT NULL,
+  `logData` text NOT NULL,
+  `userId` int(3) NOT NULL,
+  `date` datetime NOT NULL
+)
+
+-- --------------------------------------------------------
+
+37)-- Table structure for table `tbl_order_fee`
+
+CREATE TABLE `tbl_order_fee` (
+  `id` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `feeName` varchar(100) NOT NULL,
+  `feeType` tinyint(1) NOT NULL COMMENT '1=fixed,2=percent',
+  `amt` double NOT NULL,
+  `visibility` tinyint(1) NOT NULL
+)
+
+-- --------------------------------------------------------
+
+38)-- Table structure for table `tbl_payment`
+
+CREATE TABLE `tbl_payment` (
+  `id` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `orderId` varchar(50) NOT NULL,
+  `bankAccountId` varchar(20) NOT NULL,
+  `currencyId` varchar(50) NOT NULL,
+  `ordTotAmt` varchar(20) NOT NULL,
+  `amount` varchar(20) NOT NULL,
+  `paymentType` varchar(20) NOT NULL,
+  `paymentStatus` varchar(30) NOT NULL COMMENT '1=Done & 2=Refund',
+  `paymentDateTime` datetime NOT NULL
+)
+
+-- --------------------------------------------------------
+
+39)-- Table structure for table `tbl_payment_history`
+
+CREATE TABLE `tbl_payment_history` (
+  `id` int(11) NOT NULL,
+  `parentPaymentId` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `orderId` varchar(50) NOT NULL,
+  `bankAccountId` varchar(20) NOT NULL,
+  `currencyId` varchar(50) NOT NULL,
+  `ordTotAmt` varchar(10) NOT NULL,
+  `amount` double NOT NULL,
+  `paymentType` varchar(20) NOT NULL,
+  `paymentStatus` varchar(30) NOT NULL COMMENT '1=Done & 2=Refund',
+  `paymentDateTime` datetime NOT NULL
+)
+
+-- --------------------------------------------------------
+
+40)-- Table structure for table `tbl_payment_mode`
+
+CREATE TABLE `tbl_payment_mode` (
+  `id` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `modeName` varchar(20) NOT NULL
+)
+
+-- --------------------------------------------------------
+
+41)-- Table structure for table `tbl_requisition_payment_info`
+
+CREATE TABLE `tbl_requisition_payment_info` (
+  `id` int(11) NOT NULL,
+  `orderId` int(11) NOT NULL,
+  `invoiceName` varchar(250) NOT NULL,
+  `invoiceNumber` int(11) NOT NULL,
+  `invoiceAddress` varchar(400) NOT NULL,
+  `invoiceEmail` varchar(50) NOT NULL,
+  `invoicePhone` varchar(15) NOT NULL,
+  `account_id` int(11) NOT NULL
+)
+
+-- --------------------------------------------------------
+
+42)-- Table structure for table `tbl_req_payment`
+
+CREATE TABLE `tbl_req_payment` (
+  `id` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `orderId` varchar(15) NOT NULL,
+  `bankAccountId` varchar(5) NOT NULL,
+  `currencyId` varchar(5) NOT NULL,
+  `ordTotAmt` varchar(20) NOT NULL,
+  `amount` varchar(20) NOT NULL,
+  `paymentType` varchar(15) NOT NULL,
+  `paymentStatus` varchar(2) NOT NULL,
+  `issueInvoice` tinyint(1) NOT NULL DEFAULT 0,
+  `paymentDateTime` datetime NOT NULL
+)
+
+-- --------------------------------------------------------
+
+43)-- Table structure for table `tbl_req_payment_history`
+
+CREATE TABLE `tbl_req_payment_history` (
+  `id` int(11) NOT NULL,
+  `parentPaymentId` int(11) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `orderId` varchar(15) NOT NULL,
+  `bankAccountId` varchar(5) NOT NULL,
+  `currencyId` varchar(5) NOT NULL,
+  `ordTotAmt` double NOT NULL,
+  `amount` double NOT NULL,
+  `paymentType` varchar(15) NOT NULL,
+  `paymentStatus` varchar(2) NOT NULL,
+  `paymentDateTime` datetime NOT NULL
+)
+
+-- --------------------------------------------------------
+
+44)-- Table structure for table `tbl_supplier_payment_info`
+
+CREATE TABLE `tbl_supplier_payment_info` (
+  `id` int(11) NOT NULL,
+  `orderId` int(11) NOT NULL,
+  `supplierName` text NOT NULL,
+  `supplierInvoice` int(11) NOT NULL,
+  `supplierAddress` varchar(400) NOT NULL,
+  `supplierEmail` varchar(50) NOT NULL,
+  `supplierPhone` varchar(15) NOT NULL,
+  `account_id` int(11) NOT NULL
+)
+
+-------------------------------------------------------------
+
+45)-- Table structure for table `tbl_order_details_temp`
+
+CREATE TABLE `tbl_order_details_temp` (
+  `id` int(11) NOT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  `ordId` int(11) NOT NULL,
+  `pId` int(11) NOT NULL,
+  `factor` int(11) NOT NULL,
+  `price` double NOT NULL,
+  `qty` float NOT NULL,
+  `qtyReceived` float NOT NULL,
+  `totalAmt` double NOT NULL,
+  `note` varchar(100) NOT NULL,
+  `lastPrice` double NOT NULL,
+  `stockPrice` double NOT NULL,
+  `stockQty` int(11) NOT NULL,
+  `curPrice` double NOT NULL,
+  `currencyId` int(11) NOT NULL,
+  `curAmt` double NOT NULL,
+  `customChargeId` int(11) NOT NULL,
+  `customChargeType` int(11) NOT NULL
+)
+
+-------------------------------------------------------------------
+
+46)-- Table structure for table `tbl_units`
+
+CREATE TABLE `tbl_units` (
+  `id` int(11) NOT NULL,
+  `account_id` int(3) NOT NULL,
+  `name` varchar(30) NOT NULL
+)
+
+
+--------------------------------------------------------------------
+
+47)-- Table structure for table `tbl_country`
+
+CREATE TABLE `tbl_country` (
+  `id` int(11) NOT NULL,
+  `iso` char(2) NOT NULL,
+  `name` varchar(80) NOT NULL,
+  `nicename` varchar(80) NOT NULL,
+  `iso3` char(3) DEFAULT NULL,
+  `numcode` smallint(6) DEFAULT NULL,
+  `phonecode` int(5) NOT NULL
+)
+
+
+===============================================================================
+
+
+
+*******INDEXING OF ALL NEWLY ADDED TABLE**********************
+
+
+33)-- Indexes for table `tbl_accounts`
+
+		ALTER TABLE `tbl_accounts`
+		  ADD PRIMARY KEY (`id`);
+
+34)-- Indexes for table `tbl_client`
+
+		ALTER TABLE `tbl_client`
+		  ADD PRIMARY KEY (`id`);
+
+35)-- Indexes for table `tbl_custom_items_fee`
+
+		ALTER TABLE `tbl_custom_items_fee`
+		  ADD PRIMARY KEY (`id`),
+		  ADD KEY `account_id` (`account_id`);
+
+36)-- Indexes for table `tbl_log`
+
+		ALTER TABLE `tbl_log`
+		  ADD PRIMARY KEY (`id`);
+
+37)-- Indexes for table `tbl_order_fee`
+
+		ALTER TABLE `tbl_order_fee`
+		  ADD PRIMARY KEY (`id`),
+		  ADD KEY `account_id` (`account_id`);
+
+38)-- Indexes for table `tbl_payment`
+
+		ALTER TABLE `tbl_payment`
+		  ADD PRIMARY KEY (`id`);
+
+39)-- Indexes for table `tbl_payment_history`
+
+		ALTER TABLE `tbl_payment_history`
+		  ADD PRIMARY KEY (`id`);
+
+40)-- Indexes for table `tbl_payment_mode`
+
+		ALTER TABLE `tbl_payment_mode`
+		  ADD PRIMARY KEY (`id`);
+
+41)-- Indexes for table `tbl_requisition_payment_info`
+
+		ALTER TABLE `tbl_requisition_payment_info`
+		  ADD PRIMARY KEY (`id`),
+		  ADD KEY `account_id` (`account_id`);
+
+42)-- Indexes for table `tbl_req_payment`
+
+		ALTER TABLE `tbl_req_payment`
+		  ADD PRIMARY KEY (`id`),
+		  ADD KEY `account_id` (`account_id`);
+
+43)-- Indexes for table `tbl_req_payment_history`
+
+		ALTER TABLE `tbl_req_payment_history`
+		  ADD PRIMARY KEY (`id`),
+		  ADD KEY `account_id` (`account_id`);
+
+44)-- Indexes for table `tbl_supplier_payment_info`
+
+		ALTER TABLE `tbl_supplier_payment_info`
+		  ADD PRIMARY KEY (`id`);
+
+
+45)-- Indexes for table `tbl_order_details_temp`
+
+    ALTER TABLE `tbl_order_details_temp`
+      ADD PRIMARY KEY (`id`);
+
+
+46)-- Indexes for table `tbl_units`
+
+    ALTER TABLE `tbl_units`
+      ADD PRIMARY KEY (`id`);
+
+
+47)-- Indexes for table `tbl_country`
+
+    ALTER TABLE `tbl_country`
+      ADD PRIMARY KEY (`id`);
+
+====================================================================================================
+
+
+
+*******AUTO_INCREMENT for dumped tables****************
+
+
+
+33)-- AUTO_INCREMENT for table `tbl_accounts`
+
+	ALTER TABLE `tbl_accounts`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+34)-- AUTO_INCREMENT for table `tbl_client`
+
+	ALTER TABLE `tbl_client`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+35)-- AUTO_INCREMENT for table `tbl_custom_items_fee`
+
+	ALTER TABLE `tbl_custom_items_fee`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+36)-- AUTO_INCREMENT for table `tbl_log`
+
+	ALTER TABLE `tbl_log`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+37)-- AUTO_INCREMENT for table `tbl_order_fee`
+
+	ALTER TABLE `tbl_order_fee`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+38)-- AUTO_INCREMENT for table `tbl_payment`
+
+	ALTER TABLE `tbl_payment`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+39)-- AUTO_INCREMENT for table `tbl_payment_history`
+
+	ALTER TABLE `tbl_payment_history`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+40)-- AUTO_INCREMENT for table `tbl_payment_mode`
+
+	ALTER TABLE `tbl_payment_mode`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+41)-- AUTO_INCREMENT for table `tbl_requisition_payment_info`
+
+	ALTER TABLE `tbl_requisition_payment_info`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+42)-- AUTO_INCREMENT for table `tbl_req_payment`
+
+	ALTER TABLE `tbl_req_payment`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+43)-- AUTO_INCREMENT for table `tbl_req_payment_history`
+
+	ALTER TABLE `tbl_req_payment_history`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+44)-- AUTO_INCREMENT for table `tbl_supplier_payment_info`
+
+	ALTER TABLE `tbl_supplier_payment_info`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+45)-- AUTO_INCREMENT for table `tbl_order_details_temp`
+
+    ALTER TABLE `tbl_order_details_temp`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+46)-- AUTO_INCREMENT for table `tbl_units`
+
+    ALTER TABLE `tbl_units`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+
+47)-- AUTO_INCREMENT for table `tbl_country`
+
+    ALTER TABLE `tbl_country`
+      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT
+
+===========================================================================================================
+
+
+
+
+
+
+**********NEW COLUMNS WERE ADDED IN THE EXISTING TABLE************
+
+
+TBL_CLIENT--------------------------------
+
+
+COLUMN(
+
+  accountName
+  address_one
+  address_two
+  city
+  country
+  zipCode
+  taxId
+  logo
+
+
+)
+
+
+TBL_ORDERS---------------------------------
+
+COLUMN(
+	
+	paymentStatus,
+	bankAccountId,
+	paymentId
+)
+
+
+TBL_suppliers-----------------------------
+
+COLUMN(
+
+  address
+  email
+  phone
+
+)
+
+
+
+TBL_ORDER_DETAILS--------------------------
+
+COLUMN(
+	
+	customChargeId
+	customChargeType
+  autoFillQty
+)
+
+
+
+TBL_CURRENCY--------------------------
+
+COLUMN(
+  
+  is_default
+  
+)
+
+
+tbl_daily_import_items--------------------------
+
+COLUMN(
+
+  requisition
+
+)
+
+
+
+tbl_revenue_center--------------------------
+
+COLUMN(
+
+  email
+  address
+  phone
+
+)
+
+
+
+tbl_deptusers--------------------------
+
+COLUMN(
+  
+  receive_inv
+  email
+  address
+  phone
+  
+
+)
+
+
+
+
+**********REMOVED COLUMNS FROM THE EXISTING TABLE************
+
+
+TBL_ORDER_DETAILS--------------------------
+
+COLUMN(
+  
+  supplierId
+  deptId
+
+)
+
+
+
+**********CHANGED COLUMNS NAME FROM THE EXISTING TABLE************
+
+
+TBL_orders-----------------------------------
+
+COLUMN(
+
+  supplierIds   to   supplierId
+
+
+)
