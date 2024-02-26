@@ -43,7 +43,7 @@ if($resRow['logo'] != '' && file_exists($target_dir.$resRow['logo']) )
 }
 }
 
-$sql = "UPDATE `tbl_client` SET
+ $sql = "UPDATE `tbl_client` SET
 `accountName` = '".$_POST['accountName']."',
 `name` = '".$_POST['ownerName']."',
 `address_one` = '".$_POST['address1']."',
@@ -138,8 +138,14 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                         <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
                     </div>
                 </section>
-
+                
                 <section class="ordDetail userDetail">
+                <h6 style="color:#038B00"><?php 
+
+echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successfully').' ' : '';
+
+?></h6>
+                    <form action="" method="post" enctype="multipart/form-data">
                     <div class="container">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
@@ -151,24 +157,25 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                    <button type="submit" name="submitBtn" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span>
-                                        <span class="dsktp-Btn">Add</span></button>
+                                        <span class="dsktp-Btn">Save</span></button>
 
                                 </div>
                             </div>
                         </div>
 
                         <div class="acntStp">
-                            <form class="addUser-Form acntSetup-Form row">
+                            <div class="addUser-Form acntSetup-Form row">
                                 <div class="acnt-Div">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
                                             <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="accountName"
-                                                placeholder="Our Zanz">
+                                            <input type="text" class="form-control" name="accountName" id="accountName" value="<?php echo $resRow['accountName']; ?>"
+                                                            autocomplete="off"
+                                                placeholder="Our Zanz" required>
                                         </div>
                                     </div>
 
@@ -177,7 +184,8 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                                             <label for="ownerName" class="form-label"><?php echo showOtherLangText('Owner Name');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="ownerName" placeholder="Queue">
+                                            <input type="text" value="<?php echo $resRow['name']; ?>" name="ownerName" 
+                                            class="form-control" id="ownerName" placeholder="Queue" required>
                                         </div>
                                     </div>
 
@@ -186,8 +194,8 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                                             <label for="streetAdd-1" class="form-label"><?php echo showOtherLangText('Street address 1');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" id="streetAdd-1"
-                                                placeholder="P.o Box 4146"></textarea>
+                                            <textarea class="form-control" id="address1" name="address1"
+                                                placeholder="P.o Box 4146" required><?php echo $resRow['address_one']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -196,8 +204,8 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                                             <label for="streetAdd-2" class="form-label"><?php echo showOtherLangText('Street address 2');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" id="streetAdd-2"
-                                                placeholder="Jambiani"></textarea>
+                                            <textarea class="form-control" id="address2" name="address2"
+                                                placeholder="Jambiani" required><?php echo $resRow['address_two']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -206,7 +214,8 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                                             <label for="inputZip" class="form-label"><?php echo showOtherLangText('Zip');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="inputZip" placeholder="4146">
+                                            <input type="text" value="<?php echo $resRow['zipCode']; ?>" class="form-control" name="zipCode"
+                                                            id="zipCode" placeholder="4146" required>
                                         </div>
                                     </div>
 
@@ -215,8 +224,8 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
                                             <label for="inputCity" class="form-label"><?php echo showOtherLangText('City');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="inputCity"
-                                                placeholder="Zanzibar">
+                                            <input type="text" class="form-control" value="<?php echo $resRow['city']; ?>"  name="city" id="city"
+                                                placeholder="Zanzibar" required>
                                         </div>
                                     </div>
 
@@ -236,7 +245,7 @@ $contryRes = mysqli_query($con, $contryQry);
 while ($contryResRow = mysqli_fetch_array($contryRes))
 {	
 $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : ''; ?>
-                                                            ?>
+                                                           
 
                                                             <option value="<?php echo $contryResRow['id'];?>"
                                                                 <?php echo $sel; ?>><?php echo $contryResRow['name']; ?>
@@ -254,8 +263,8 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                             <label for="email" class="form-label"><?php echo showOtherLangText('Email');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="email" class="form-control" id="email"
-                                                placeholder="inventory@our-zanzibar.com">
+                                            <input type="email" class="form-control" name="email" id="email" value="<?php echo $resRow['email']; ?>"
+                                                placeholder="inventory@our-zanzibar.com" required>
                                         </div>
                                     </div>
 
@@ -264,8 +273,8 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                             <label for="phone" class="form-label"><?php echo showOtherLangText('Phone');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="tel" class="form-control" id="phone"
-                                                placeholder="+255743419217">
+                                            <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $resRow['phone']; ?>"
+                                                placeholder="+255743419217" required>
                                         </div>
                                     </div>
 
@@ -274,8 +283,8 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                             <label for="taxId" class="form-label"><?php echo showOtherLangText('Tax Id');?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="taxId"
-                                                placeholder="1001/4567892">
+                                            <input type="text" class="form-control" name="taxId" id="taxId" value="<?php echo $resRow['taxId']; ?>"
+                                                placeholder="1001/4567892" required>
                                         </div>
                                     </div>
                                 </div>
@@ -285,26 +294,39 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                         <div class="preview_img">
                                             <div class="main_img">
                                                 <picture>
-                                                    <img src="Assets/images/logo-bkp.png" id="preview" class="preview"
-                                                        alt="LOGO">
+                                                <?php 
+                                               
+				if( $resRow['logo'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$resRow['logo'] ) )
+				{
+
+					echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$resRow['logo'].'" width="100" height="100" style="object-fit: scale-down;">';
+
+				}
+				else
+				{
+					echo '<img src="'.$_POST['imgName'].'" class="previewBlankImg" width="100" height="100" style="display:none;object-fit: scale-down;" >'; 
+				}
+			?>
                                                 </picture>
                                             </div>
                                         </div>
                                         <div class="labelDiv">
-                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> <?php echo showOtherLangText('Logo');?>
-                                                <img src="Assets/icons/Import.svg" alt="Import"
-                                                    class="importBtn"></label>
+                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> <?php //echo showOtherLangText('Logo');?>
+                                                <!-- <img src="Assets/icons/Import.svg" alt="Import"
+                                                    class="importBtn"> -->
+                                                </label>
 
-                                            <input class="imgHidden" id="imgUpload" type="file">
+                                            <input class="" name="logo" id="logo" type="file">
                                         </div>
                                     </div>
                                 </div>
 
-                            </form>
+                            </div>
                         </div>
 
 
                     </div>
+                    </form>
                 </section>
 
             </div>
