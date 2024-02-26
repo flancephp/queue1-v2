@@ -152,14 +152,14 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
                                 <div class="btnBg">
                                     <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" name="submitBtn" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span>
-                                        <span class="dsktp-Btn">Save</span></button>
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
 
                                 </div>
                             </div>
