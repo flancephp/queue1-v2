@@ -1,3 +1,49 @@
+<?php
+include('inc/dbConfig.php'); //connection details
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+if ( !isset($_SESSION['adminidusername']))
+{
+echo "<script>window.location='login.php'</script>";
+}
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'user' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+echo "<script>window.location='index.php'</script>";
+}
+
+if( isset($_GET['delId']) && $_GET['delId'] )
+{
+
+    $sql = "SELECT * FROM tbl_orders WHERE orderBy ='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+    $sqlResult = mysqli_query($con, $sql);
+
+    $sql = "SELECT * FROM tbl_mobile_time_track WHERE userId ='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+    $result = mysqli_query($con, $sql);
+
+    if (mysqli_num_rows($sqlResult) > '0' || mysqli_num_rows($result) > '0') 
+    {
+        echo "<script>window.location='listStorageUsers.php?error=1'</script>";
+    }
+    else
+    {
+        $sql = "DELETE FROM tbl_user WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+        mysqli_query($con, $sql);
+
+        echo "<script>window.location='listStorageUsers.php?delete=1'</script>";
+    }
+
+}
+
+$sql = "SELECT * FROM tbl_user WHERE isAdmin = 0 AND isOwner = 0 AND account_id = '".$_SESSION['accountId']."'  ";
+$result = mysqli_query($con, $sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,124 +64,10 @@
 </head>
 
 <body class="mb-Bgbdy">
-
-    <div class="container-fluid newOrder">
+       <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -158,7 +90,7 @@
                             </div>
                             <div class="user d-flex align-items-center">
                                 <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
+                                <p class="body3 m-0 d-inline-block"><?php echo showOtherLangText('Storage Users') ?></p>
                             </div>
                             <div class="acc-info">
                                 <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
@@ -211,7 +143,7 @@
                                     <div class="usrTbl-Cnt d-flex align-items-center">
                                         <div class="tb-head usrNum-Clm">
                                             <div class="d-flex align-items-center">
-                                                <p>Number</p>
+                                                <p>#</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -221,32 +153,47 @@
                                             </div>
                                         </div>
                                         <div class="tb-head usrName-Clm">
-                                            <p>Name</p>
+                                            <p><?php echo showOtherLangText('Name') ?></p>
                                         </div>
                                         <div class="tb-head usrTtl-Clm">
-                                            <p>Title</p>
+                                            <p><?php echo showOtherLangText('Designation Title') ?></p>
+                                        </div>
+                                        <div class="tb-head usrTtl-Clm">
+                                            <p><?php echo showOtherLangText('User Type') ?></p>
                                         </div>
                                     </div>
                                     <div class="usrTbl-Icns">
                                         <div class="tb-head usrOpt-Clm text-center">
-                                            <p>Options</p>
+                                            <p><?php echo showOtherLangText('Actions') ?></p>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Table Head End -->
+                                <?php 
+				$x= 0;
+				while($row = mysqli_fetch_array($result))
+				{
+					$color = ($x%2 == 0)? 'white': '#FFFFCC';
+					$x++;
 
-                                <!-- Table Body Start -->
+					$sql = " SELECT * FROM tbl_designation WHERE id = '".$row['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+					$resSet = mysqli_query($con, $sql);
+					$resRow = mysqli_fetch_array($resSet);
+					$designationName = $resRow['designation_name']
+					?>
                                 <div class="userTask">
                                     <div class="usrTbl-body align-items-center itmBody">
                                         <div class="usrTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
                                             </div>
                                             <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
+                                                <p class="userName"><?php echo $row['username'];?></p>
                                             </div>
                                             <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
+                                                <p class="userTittle"><?php echo $designationName;?></p>
+                                            </div>
+                                            <div class="tb-bdy usrTtl-Clm">
+                                                <p class="userTittle"><?php echo $row['userType'] == 0 ? 'Web User' : 'Mobile User' ;?></p>
                                             </div>
                                         </div>
                                         <div class="usrTbl-Icns">
@@ -254,263 +201,17 @@
                                                 <a href="editUser.php" class="userLink">
                                                     <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                                 </a>
-                                                <a href="javascript:void(0)" class="userLink">
+                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
                                                     <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName">QDesign</p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle">Supervisor</p>
-                                            </div>
-                                        </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php 
+			     	}
+			    	?>
+                                
 
                                 <!-- Table Body End -->
 
@@ -523,10 +224,37 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+    <div id="dialog" style="display: none;">
+    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
+   </div>
+    <?php require_once('footer.php');?>
+    
 </body>
 
 </html>
+<script>  
+ function getDelNumb(delId){
+
+    $( "#dialog" ).dialog({  
+        autoOpen  : false,
+        modal     : true,
+        //title     : "Title",
+        buttons   : {
+          '<?php echo showOtherLangText('Yes') ?>' : function() {
+            //Do whatever you want to do when Yes clicked
+            $(this).dialog('close');
+            window.location.href='users.php?delId='+delId;
+          },
+
+          '<?php echo showOtherLangText('No') ?>' : function() {
+            //Do whatever you want to do when No clicked
+            $(this).dialog('close');
+          }
+       }    
+    });
+
+    $( "#dialog" ).dialog( "open" );
+    $('.custom-header-text').remove();
+    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+}  
+</script>
