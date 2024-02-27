@@ -1,3 +1,55 @@
+<?php
+include('inc/dbConfig.php'); //connection details
+
+if ( !isset($_SESSION['adminidusername']))
+{
+	echo '<script>window.location="login.php"</script>';
+}
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'supplier' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+
+if( isset($_GET['delId']) && $_GET['delId'] )
+{
+
+
+	$selQry = " SELECT * FROM tbl_orders WHERE supplierId = '".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
+
+	$res = mysqli_query($con, $selQry);
+	$resRow = mysqli_fetch_array($res);
+
+	if ($resRow > 0 || $resultRow > 0) {
+		
+		echo '<script>window.location="listSuppliers.php?err=1"</script>';
+
+	}else{
+
+
+		$sql = "DELETE FROM tbl_suppliers WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+		mysqli_query($con, $sql);
+
+        $sql = "DELETE FROM tbl_designation_sub_section_permission WHERE type_id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."' AND type = 'order_supplier' AND designation_id = '".$_SESSION['designation_id']."' AND designation_Section_permission_id = '1' ";
+        mysqli_query($con, $sql);
+		
+		echo '<script>window.location="listSuppliers.php?delete=1&page='.$_GET['page'].'"</script>';
+
+	}
+}
+
+$sql = "SELECT * FROM tbl_suppliers WHERE account_id = '".$_SESSION['accountId']."' order by name ";
+
+$result = mysqli_query($con, $sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +66,6 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
-
 </head>
 
 <body class="mb-Bgbdy">
@@ -22,126 +73,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Manage Suppliers</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Manage Suppliers') ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -153,7 +91,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Manage Suppliers</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Manage Suppliers') ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -211,7 +149,7 @@
                                     <div class="supTbl-NmCol d-flex align-items-center">
                                         <div class="tb-head supNum-Clm">
                                             <div class="d-flex align-items-center">
-                                                <p>Number</p>
+                                                <p><?php echo showOtherLangText('#') ?></p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -221,289 +159,85 @@
                                             </div>
                                         </div>
                                         <div class="tb-head supName-Clm">
-                                            <p>Name</p>
+                                            <p><?php echo showOtherLangText('Name') ?></p>
                                         </div>
                                         <div class="tb-head supAdd-Clm">
-                                            <p>Address </p>
+                                            <p><?php echo showOtherLangText('Address') ?></p>
                                         </div>
                                     </div>
                                     <div class="supTbl-EmCol d-flex align-items-center">
                                         <div class="tb-head supEml-Clm">
-                                            <p>Email</p>
+                                            <p><?php echo showOtherLangText('Email') ?></p>
                                         </div>
                                         <div class="tb-head supPhn-Clm">
-                                            <p>Phone</p>
+                                            <p><?php echo showOtherLangText('Phone') ?></p>
                                         </div>
                                     </div>
                                     <div class="supTbl-IcnCol">
                                         <div class="tb-head supOpt-Clm">
-                                            <p>Options</p>
+                                            <p><?php echo showOtherLangText('Actions') ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Table Head End -->
 
                                 <!-- Table Body Start -->
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
-                                        <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy supName-Clm">
-                                                <p class="suplName">Logitech</p>
-                                            </div>
-                                            <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs">DC Janakpuri</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p>Logitech@gmail.com</p>
-                                            </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p>+99994341000</p>
-                                            </div>
-                                        </div>
-                                        <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
+                                <?php 
 
+								$x= 0;
+
+								while($row = mysqli_fetch_array($result))
+
+								{
+
+									$color = ($x%2 == 0)? 'white': '#FFFFCC';
+
+									$x++;
+
+									?>
+                                <div class="suplrTask">
+                                    <div class="suplrTbl-body itmBody">
+                                        <div class="supTbl-NmCol d-flex align-items-center">
+                                            <div class="tb-bdy supNum-Clm">
+                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                            </div>
+                                            <div class="tb-bdy supName-Clm">
+                                                <p class="suplName"><?php echo $row['name'];?></p>
+                                            </div>
+                                            <div class="tb-bdy supAdd-Clm">
+                                                <p class="suplAdrs"><?php echo $row['address'];?></p>
+                                            </div>
+                                        </div>
+                                        <div class="supTbl-EmCol align-items-center">
+                                            <div class="tb-head supEml-Clm">
+                                                <p><?php echo $row['email'];?></p>
+                                            </div>
+                                            <div class="tb-head supPhn-Clm">
+                                                <p><?php echo $row['phone'];?></p>
+                                            </div>
+                                        </div>
+                                        <div class="supTbl-IcnCol">
+                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
+                                                <a href="editSupplier.php?id=<?php echo $row['id'];?>" class="userLink">
+                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                </a>
+                                                <a href="javascript:void(0)" class="userLink"
+                                                    onClick="getDelNumb('<?php echo $row['id'];?>');">
+                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center mbTask-Splr">
+                                        <a href="javascript:void(0)" class="suplrLink"><i
+                                                class="fa-solid fa-angle-down"></i></a>
+                                    </div>
+                                </div>
+                                <?php 
+
+								}
+
+								?>
                                 <!-- Table Body End -->
 
                             </div>
@@ -515,10 +249,40 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+    <div id="dialog" style="display: none;">
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 
 </html>
+<script>
+function getDelNumb(delId) {
+
+    $("#dialog").dialog({
+        autoOpen: false,
+        modal: true,
+        //title     : "Title",
+        buttons: {
+            '<?php echo showOtherLangText('Yes') ?>': function() {
+                //Do whatever you want to do when Yes clicked
+                $(this).dialog('close');
+                window.location.href = 'manageSuppliers.php?delId=' + delId;
+            },
+
+            '<?php echo showOtherLangText('No') ?>': function() {
+                //Do whatever you want to do when No clicked
+                $(this).dialog('close');
+            }
+        }
+    });
+
+    $("#dialog").dialog("open");
+    $('.custom-header-text').remove();
+    $('.ui-dialog-content').prepend(
+        '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+}
+</script>

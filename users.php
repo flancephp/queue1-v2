@@ -251,9 +251,9 @@ $result = mysqli_query($con, $sql);
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
    </div>
     <?php require_once('footer.php');?>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
-
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 
 </html>
