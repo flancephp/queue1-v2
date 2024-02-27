@@ -28,14 +28,14 @@ if( isset($_GET['delId']) && $_GET['delId'] )
 
     if (mysqli_num_rows($sqlResult) > '0' || mysqli_num_rows($result) > '0') 
     {
-        echo "<script>window.location='listStorageUsers.php?error=1'</script>";
+        echo "<script>window.location='users.php?error=1'</script>";
     }
     else
     {
         $sql = "DELETE FROM tbl_user WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
         mysqli_query($con, $sql);
 
-        echo "<script>window.location='listStorageUsers.php?delete=1'</script>";
+        echo "<script>window.location='users.php?delete=1'</script>";
     }
 
 }
@@ -117,6 +117,29 @@ $result = mysqli_query($con, $sql);
                 </section>
 
                 <section class="ordDetail userDetail">
+                <div class="alrtMessage">
+                        <div class="container">
+                      
+			 <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p><?php 
+                     echo isset($_GET['added']) ? ' '.showOtherLangText('User Added Successfully').' ' : '';
+                     echo isset($_GET['edit']) ? ' '.showOtherLangText('User Edited Successfully').' ' : '';
+                     echo isset($_GET['delete']) ? ' '.showOtherLangText('User Deleted Successfully').' ' : ''; ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <?php if(isset($_GET['error'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo showOtherLangText('User can not be deleted as it is being used in order'); ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
                     <div class="container">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
@@ -198,7 +221,7 @@ $result = mysqli_query($con, $sql);
                                         </div>
                                         <div class="usrTbl-Icns">
                                             <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php" class="userLink">
+                                                <a href="editUser.php?id=<?php echo $row['id'];?>" class="userLink">
                                                     <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                                 </a>
                                                 <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
@@ -228,7 +251,9 @@ $result = mysqli_query($con, $sql);
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
    </div>
     <?php require_once('footer.php');?>
-    
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 
 </html>

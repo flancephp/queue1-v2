@@ -1,3 +1,133 @@
+<?php 
+include('inc/dbConfig.php'); //connection details
+
+if (!isset($_SESSION['adminidusername']))
+{
+	echo "<script>window.location='login.php'</script>";
+}
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'user' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+
+$accountId = $_SESSION['accountId'];
+
+$sqlQry = " SELECT * FROM tbl_user WHERE account_id = '".$accountId."' AND id = '".$_GET['id']."' ";
+$userRes = mysqli_query($con, $sqlQry);
+$userRow = mysqli_fetch_array($userRes);
+
+
+if (isset($_POST['userType']) && $_POST['userType'] !='') {
+
+	$sqlQry = " SELECT * FROM tbl_designation WHERE account_id = '".$accountId."' AND is_mobile = '".$_POST['userType']."' ";
+	$designationRes = mysqli_query($con, $sqlQry);
+
+	$sql = " SELECT * FROM tbl_user WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+	$result = mysqli_query($con, $sql);
+	$returnResult = mysqli_fetch_array($result);
+	$titleId = $returnResult['designation_id'];
+
+	$selTitle = '<select name="designation_title" class="form-control" id="designationTitle">';
+
+		$selTitle .= '<option value="">'. showOtherLangText('Select Designation Title').'</option>';
+
+		while($desRow = mysqli_fetch_array($designationRes))
+		{
+
+			$sel = $desRow['id'] == $returnResult['designation_id'] ? 'selected="selected"' : '';
+			$selTitle .= '<option value='.$desRow['id'].' '.$sel.'>'.$desRow['designation_name'].'</option>';
+		}
+														
+	$selTitle .= '</select>';
+
+	echo $selTitle;
+	
+	die;
+}
+
+
+if( isset($_POST['user_name']) )
+{
+
+	if ($_POST['mobile_user'] == 1) {
+		$userType = '1';
+	}
+	else
+	{
+		$userType = '0';
+	}
+
+	if ($_SESSION['id'] == $_GET['id']) 
+	{
+		if ($_SESSION['designation_id'] != $_POST['designation_title']) 
+		{
+			unset($_SESSION['designation_id']);
+			$_SESSION['designation_id'] = $_POST['designation_title'];
+		}
+	}
+		
+
+	if($_FILES["imgName"]["name"] != '')
+	{
+
+		$target_dir = dirname(__FILE__)."/uploads/".$accountImgPath.'/users/';
+		$fileName = time(). basename($_FILES["imgName"]["name"]);
+		$target_file = $target_dir . $fileName;
+		
+		move_uploaded_file($_FILES["imgName"]["tmp_name"], $target_file);
+		
+		resize_image($target_file, $target_file, 100,100);
+
+		if ( $userRow['logo'] != '' && file_exists($target_dir.$userRow['logo']) ) 
+		{
+			@unlink($target_dir.$userRow['logo']);
+		}
+
+
+		$sql = "UPDATE `tbl_user` SET
+		`designation_id` = '".$_POST['designation_title']."',
+		`name` = '".$_POST['user_name']."',
+		`username` = '".$_POST['user_name']."',
+		`userType` = '".$userType."',
+		`email` = '".$_POST['email']."',
+		`phone` = '".$_POST['phone']."',
+		`status` = '1',
+		`password` = '".$_POST['password']."',
+		`logo` = '".$fileName."',
+		`account_id` = '".$accountId."' 
+		WHERE id = '".$_GET['id']."' AND account_id = '".$accountId."' ";
+		
+		mysqli_query($con, $sql);
+	}
+	else
+	{
+		$sql = "UPDATE `tbl_user` SET
+		`designation_id` = '".$_POST['designation_title']."',
+		`name` = '".$_POST['user_name']."',
+		`username` = '".$_POST['user_name']."',
+		`userType` = '".$userType."',
+		`email` = '".$_POST['email']."',
+		`phone` = '".$_POST['phone']."',
+		`status` = '1',
+		`password` = '".$_POST['password']."',
+		`account_id` = '".$accountId."' 
+		WHERE id = '".$_GET['id']."' AND account_id = '".$accountId."' ";
+		
+		mysqli_query($con, $sql);
+	}
+
+	echo "<script>window.location='users.php?edit=1'</script>";
+	
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,126 +152,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Edit User</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Edit User'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -153,7 +170,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Edit User</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit User'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -185,43 +202,79 @@
                 </section>
 
                 <section class="ordDetail userDetail">
+                <form name="frm" id="frm" method="post" class="addUser-Form row" enctype="multipart/form-data" action="">
                     <div class="container">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="users.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn">Save</span></button>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="adUsr-Div">
-                            <form class="addUser-Form row">
-                                <input type="text" class="form-control" id="inputName" placeholder="Name">
+                          <input type="text" class="form-control" id="user_name" name="user_name" value="<?php echo $userRow['name'] ?>" placeholder="<?php echo showOtherLangText('User Name'); ?>">
+                                <div>
+													<div><?php echo showOtherLangText('User Type'); ?>:</div>
+													<div>
+														<div style="display:inline-flex;">									<div style="width: 100px;">
+																<input type="radio" name="mobile_user" class="userTypeWeb" value="0" <?php echo ($userRow['userType'] != '1') ? 'checked="checked"' : ''; ?>  onclick="get_mobile_User(this.value)">
+																<label><?php echo showOtherLangText('Web'); ?></label>
+															</div>
 
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select title</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+															<div style="width: 100px;">
+																<input type="radio" name="mobile_user" class="userTypeMob" value="1" <?php echo ($userRow['userType'] == '1') ? 'checked="checked"' : ''; ?> onclick="get_mobile_User(this.value)">
+																<label><?php echo showOtherLangText('Mobile'); ?></label>
+															</div>
+
+														</div>
+													</div>
+												</div>
+                                    <div class="setTitle"></div>
+                               
 
                                 <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                            </form>
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $userRow['email'] ?>" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Email') ?>">
+                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $userRow['phone'] ?>" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Phone') ?>">
+                                <div>
+													<div><?php echo showOtherLangText('Photo') ?>:</div>
+													<div>
+														<input type="file" name="imgName" class="form-control" id="logo" onchange="previewFile()" autocomplete="new-password" style="display:none;">
+														<button type="button" id="upload-img-btn" onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
+													</div>
+													<div>
+														<img src="<?php echo $_POST['imgName']; ?>" class="previewImg" width="100px">
+													</div>
+												</div>
+                                                <div align="center" style="padding-left:40px;">
+														<?php 
+                                                      	if( $userRow['logo'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/users/'.$userRow['logo'] ) )
+														{	
+														 	echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/users/'.$userRow['logo'].'" width="100" class="previewImg" height="100">';
+														}
+														else
+														{
+															echo '<img src="'.$_POST['imgName'].'" class="previewBlankImg" width="100" height="100" style="display:none;" >'; 
+														}
+														?>
+															
+													</div>
+                           
                         </div>
 
 
                     </div>
+                    </form>
                 </section>
-
             </div>
         </div>
     </div>
@@ -229,6 +282,88 @@
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
+    
+<script>
+  $(document).ready(function() {
+    $("#show_hide_password i").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+	});
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		if ($('.userTypeWeb').is(':checked')) {
+			var userType = $('.userTypeWeb').val();
+		}
+		else if ($('.userTypeMob').is(':checked')){
+			var userType = $('.userTypeMob').val();
+		}
+			$.ajax({
+				method:"POST",
+				url: "editUser.php",
+				data: {userType:userType, id:'<?php echo $_GET['id'] ?>'}
+			})
+			.done(function(val){
+				$('.setTitle').html(val);
+			})
+		
+
+	});
+
+	function get_mobile_User(mobileUserVal){
+		$.ajax({
+			method:"POST",
+			url: "editUser.php",
+			data: {userType:mobileUserVal, id:'<?php echo $_GET['id'] ?>'}
+		})
+		.done(function(val){
+			$('.setTitle').html(val);
+		})
+
+	}
+</script>	
+
+<script>
+function previewFile() {
+
+	var logo = '<?php echo $userRow['logo'] ?>';
+
+	if (logo == '') 
+	{
+		$('.previewBlankImg').css('display','block');
+		var preview = document.querySelector('.previewBlankImg');
+	}
+	else
+	{
+		var preview = document.querySelector('.previewImg');
+	}
+  
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }else {
+    preview.src = "";
+  }
+
+}
+</script>
 </body>
 
 </html>
