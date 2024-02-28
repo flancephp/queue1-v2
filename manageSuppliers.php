@@ -29,7 +29,7 @@ if( isset($_GET['delId']) && $_GET['delId'] )
 
 	if ($resRow > 0 || $resultRow > 0) {
 		
-		echo '<script>window.location="listSuppliers.php?err=1"</script>';
+		echo '<script>window.location="manageSuppliers.php?err=1"</script>';
 
 	}else{
 
@@ -40,7 +40,7 @@ if( isset($_GET['delId']) && $_GET['delId'] )
         $sql = "DELETE FROM tbl_designation_sub_section_permission WHERE type_id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."' AND type = 'order_supplier' AND designation_id = '".$_SESSION['designation_id']."' AND designation_Section_permission_id = '1' ";
         mysqli_query($con, $sql);
 		
-		echo '<script>window.location="listSuppliers.php?delete=1&page='.$_GET['page'].'"</script>';
+		echo '<script>window.location="manageSuppliers.php?delete=1&page='.$_GET['page'].'"</script>';
 
 	}
 }
@@ -124,6 +124,28 @@ $result = mysqli_query($con, $sql);
 
                 <section class="ordDetail userDetail">
                     <div class="container">
+                    <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p><?php 
+
+echo isset($_GET['update']) ? ' '.showOtherLangText('Supplier Edited Successfully').' ' : '';
+
+echo isset($_GET['added']) ? ' '.showOtherLangText('Supplier Added Successfully').' ' : '';
+
+echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successfully').' ' : '';s ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <?php if(isset($_GET['err'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Supplier cannot be Deleted as it has been assigned in order').' ' : '';
+ ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -134,7 +156,7 @@ $result = mysqli_query($con, $sql);
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addSupplier.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="addEditSupplier.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan">Supplier</span></span> <span class="dsktp-Btn">Add
                                             Supplier</span></a>
@@ -218,7 +240,7 @@ $result = mysqli_query($con, $sql);
                                         </div>
                                         <div class="supTbl-IcnCol">
                                             <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="editSupplier.php?id=<?php echo $row['id'];?>" class="userLink">
+                                                <a href="addEditSupplier.php?id=<?php echo $row['id'];?>" class="userLink">
                                                     <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                                 </a>
                                                 <a href="javascript:void(0)" class="userLink"
