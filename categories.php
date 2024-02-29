@@ -64,7 +64,7 @@ if( isset($_POST['category']) && $_POST['category'] )
 	if($res > 0)
 	{
 		
-	echo "<script>window.location='categories.php?error=1&parentId=".$_POST['parentId']."'</script>";
+	echo "<script>window.location='categories.php?error_already_exist=1&parentId=".$_POST['parentId']."'</script>";
 	exit;
 
 	}
@@ -98,7 +98,7 @@ elseif( isset($_POST['category']) )
 if( isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0)
 {
 
-	$sql = "select * FROM tbl_category WHERE name = '".trim($_POST['category'])."' AND id != '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+	$sql = "select * FROM tbl_category WHERE name = '".trim($_POST['editCategory'])."' AND id != '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
 
 	$result = mysqli_query($con, $sql);
 
@@ -107,7 +107,7 @@ if( isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
 	if($res)
 	{
 			
-		echo "<script>window.location='categories.php?error=1&id=".$_POST['id']."&parentId=".$_POST['parentId']."'</script>";
+		echo "<script>window.location='categories.php?error_already_exist=1&id=".$_POST['id']."&parentId=".$_POST['parentId']."'</script>";
 
 	}
 
@@ -235,9 +235,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <?php if(isset($_GET['err'])) { ?>
+                            <?php if(isset($_GET['error']) || isset($_GET['error_already_exist'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('Department name already exist').' ' : '';
+                                <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('Category can not be deleted as it has sub categories').' ' : '';
+ ?><?php echo isset($_GET['error_already_exist']) ? ' '.showOtherLangText('Category already exist').' ' : '';
  ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
