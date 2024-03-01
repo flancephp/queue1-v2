@@ -1,5 +1,64 @@
+<?php
+include('inc/dbConfig.php'); //connection details
+
+
+if (!isset($_SESSION['adminidusername']))
+{
+	echo "<script>window.location='login.php'</script>";
+}
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'account' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+  echo "<script>window.location='index.php'</script>";
+}
+
+if( isset($_POST['accountName'])   )
+{
+	
+	$error = '';
+	if(isset($_POST['balanceAmt']) &&  isset($_POST['pass']) )
+	{
+		$query ="SELECT * FROM tbl_user WHERE id = '" . $_SESSION['id'] . "'  AND account_id = '".$_SESSION['accountId']."' AND password = '" . $_POST['pass'] . "' AND status = 1 ";
+		$result = mysqli_query($con, $query);
+		$res = mysqli_fetch_array($result);
+		
+		if ( empty($res) )
+		{
+			$error = ' '.showOtherLangText('Invalid Password').' ';
+		}
+		
+	}
+	
+	if($error == '')
+	{
+
+		$sql = "UPDATE  `tbl_accounts` SET 
+		`accountName` = '".$_POST['accountName']."',
+		`accountNumber` = '".$_POST['accountNumber']."',
+		`currencyId` = '".$_POST['currencyId']."',
+		`balanceAmt` = '".$_POST['balanceAmt']."'
+
+		WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' 	";
+
+		mysqli_query($con, $sql);
+
+		echo "<script>window.location='manageAccounts.php?update=1'</script>";
+
+	}
+	
+}
+
+$res = mysqli_query($con, " select * from tbl_accounts WHERE id='".$_GET['id']."' ");
+$det = mysqli_fetch_array($res);
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,126 +81,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Edit Account</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Edit Account');?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -153,7 +99,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Edit Account</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit Account');?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -186,73 +132,81 @@
 
                 <section class="ordDetail userDetail">
                     <div class="container">
+                        <form  role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="manageAccounts.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back');?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn">Save</span></button>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Save');?></span></button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="edtSup-Div">
-                            <form class="addUser-Form acntSetup-Form">
-
-                                <div class="row align-items-center acntStp-Row">
+                              <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountName" class="form-label">Account Name</label>
+                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account  Name') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="accountName"
-                                            placeholder="Main Sale USD">
+                                        <input type="text" required class="form-control"  name="accountName" id="accountName"
+                                            placeholder="Main Sale USD" value="<?php echo isset($det['accountName']) ? $det['accountName'] : ''; ?>">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountNumber" class="form-label">Account Number</label>
+                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="accountNumber" placeholder="0003">
+                                        <input type="text" required class="form-control" value="<?php echo isset($det['accountNumber']) ? $det['accountNumber'] : ''; ?>" name="accountNumber" id="accountNumber" placeholder="0003">
                                     </div>
                                 </div>
 
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountCurrency" class="form-label">Account Currency</label>
+                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <select class="form-select" aria-label="Default select example"
-                                            id="accountCurrency">
-                                            <option selected>USD</option>
-                                            <option value="1">EUR</option>
-                                            <option value="2">TZS</option>
-                                        </select>
+                                        
+                                        <?php
+											$sqlSet = " SELECT * FROM tbl_currency WHERE account_id = '".$_SESSION['accountId']."'  order by id  ";
+											$resultSet = mysqli_query($con, $sqlSet);
+											?>				
+											<select required name="currencyId" id="currencyId" class="form-select" aria-label="Default select example"
+                                             class="form-control">
+												<option value=""><?php echo showOtherLangText('Select'); ?></option>
+												<?php while( $cur = mysqli_fetch_array($resultSet) ){
+													$sel = $det['currencyId'] == $cur['id'] ? 'selected="selected"' : '';
+													?> 
+													<option value="<?php echo $cur['id'];?>" <?php echo $sel;?> ><?php echo $cur['currency'];?></option>
+												<?php } ?>
+											</select>
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountBalance" class="form-label">Balance</label>
+                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="accountBalance"
+                                        <input type="hidden" name="id"  value="<?php echo $_GET['id'];?>" />
+                                        <input type="text" required value="<?php echo $det['balanceAmt']; ?>" class="form-control"  name="balanceAmt" id="balanceAmt"
                                             placeholder="3220.7939">
                                     </div>
                                 </div>
 
-                            </form>
+                           
                         </div>
-
+                        </form>
                     </div>
                 </section>
 
