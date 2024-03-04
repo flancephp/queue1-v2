@@ -1,5 +1,174 @@
+<?php include('inc/dbConfig.php'); //connection details
+
+
+if (!isset($_SESSION['adminidusername']))
+{
+	echo "<script>window.location='login.php'</script>";
+}
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+//Access Invoice permission for user
+$accessInvoicePermission = get_access_invoice_permission($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'outlet' AND type_id = '' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+if(isset($_POST['name']) && isset($_POST['deptId']) && $_POST['deptId'] > 0)
+{
+
+
+	$checkQry = " SELECT * FROM tbl_deptusers WHERE name='".$_POST['name']."' AND account_id='".$_SESSION['accountId']."' ";
+	$resultSet = mysqli_query($con, $checkQry);
+	$resultRow = mysqli_num_rows($resultSet);
+
+	if ($resultRow==0)
+	{
+
+		$sql = "INSERT INTO `tbl_deptusers` SET
+		`deptId` = '".$_POST['deptId']."',
+		`name` = '".$_POST['name']."',
+		`receive_inv` = '".$_POST['revInv']."',
+		`email` = '".$_POST['email']."',
+		`address` = '".$_POST['address']."',
+		`phone` = '".$_POST['phone']."', 
+		`account_id` = '".$_SESSION['accountId']."'  ";
+		mysqli_query($con, $sql);
+		$deptId = mysqli_insert_id($con);
+
+
+        //Insert Department Details in designation sub section permission table
+        $sql = "INSERT INTO `tbl_designation_sub_section_permission` 
+        SET 
+            `designation_id` = '".$_SESSION['designation_id']."',
+            `designation_Section_permission_id` = '2',
+            `type` = 'member',
+            `type_id` = '".$deptId."', 
+            `account_id` = '".$_SESSION['accountId']."' ";
+        mysqli_query($con, $sql);
+
+	}
+	else
+	{
+
+		echo '<script>window.location="addDepartmentUser.php?error='.$_POST['name'].'&deptId='.$_POST['deptId'].'"</script>';	
+
+	}
+
+
+
+	if(isset($_POST['revCenter']) && $_POST['revCenter'] > 0 && isset($_POST['outLetType']) && $_POST['outLetType'] > 0)
+	{
+
+		$sql = "SELECT * FROM  `tbl_revenue_center_departments`  WHERE `deptId` = '".$deptId."' AND account_id = '".$_SESSION['accountId']."' 	";
+		$qry = mysqli_query($con, $sql);
+		$revCen = mysqli_fetch_array($qry);
+		if(!$revCen)
+		{ 
+			
+			$sql = "INSERT INTO `tbl_revenue_center_departments` SET
+			`revCenterId` = '".$_POST['revCenter']."',
+			`deptId` = '".$deptId."',
+			`outLetType` = '".$_POST['outLetType']."',
+			`account_id` = '".$_SESSION['accountId']."'  ";
+			mysqli_query($con, $sql);
+
+			$outLetId = mysqli_insert_id($con);
+
+		}
+
+
+		$sqlSet = " SELECT * FROM tbl_easymapping WHERE revId = '".$_POST['revCenter']."' AND account_id='".$_SESSION['accountId']."' ";
+		$resultSet = mysqli_query($con, $sqlSet);
+		$resultRowSet = mysqli_fetch_array($resultSet);
+
+		$hotelId = $resultRowSet['hotelId'];
+		$mapId = $resultRowSet['id'];
+
+		$sql = "INSERT INTO `tbl_map_outlets` SET
+		`hotelId` = '".$hotelId."',
+		`mapId` = '".$mapId."',
+		`revId` = '".$_POST['revCenter']."',
+		`outLetId` = '".$outLetId."',
+		`account_id` = '".$_SESSION['accountId']."'  ";
+		mysqli_query($con, $sql);
+
+
+		if (isset($_POST['catIds']))
+		{
+
+			foreach($_POST['catIds'] as $catId)
+			{
+
+				$sql = "INSERT INTO `tbl_map_outletcats` SET
+				`revOutLetId` = '".$outLetId."',
+				`revCatId` = '".$catId."',
+				`account_id` = '".$_SESSION['accountId']."'  ";
+				mysqli_query($con, $sql);
+			}
+
+		}
+
+	}
+
+	echo '<script>window.location="manageOutlets.php?added=1&deptId='.$_POST['deptId'].'"</script>';
+	
+}
+
+
+//$_POST['revenueCenterId'] comes by ajax when changes revenue center
+if (isset($_POST['revenueCenterId']) && $_POST['revenueCenterId'] > 0) 
+{
+
+	$mainMapQry = " SELECT * FROM `tbl_map_category` WHERE revId = '".$_POST['revenueCenterId']."'  AND account_id = '".$_SESSION['accountId']."' ";
+	$mainMapRes = mysqli_query($con, $mainMapQry);
+
+	$strcat='';
+	while($catRes = mysqli_fetch_array($mainMapRes))
+	{ 
+
+		$strcat .= "<input type='checkbox' name='catIds[]' value='".$catRes['id']."' > ".$catRes['catName']." ";
+
+	}
+	echo $strcat;
+	die;
+
+}
+
+
+//$_POST['revenueCenterId'] comes by ajax when changes revenue center
+if (isset($_POST['revenueCenterAddress']) && $_POST['revenueCenterAddress'] > 0) 
+{
+
+	$revCenterQry = " SELECT * FROM `tbl_revenue_center` WHERE id = '".$_POST['revenueCenterAddress']."'  AND account_id = '".$_SESSION['accountId']."' ";
+	$revCenterRes = mysqli_query($con, $revCenterQry);
+	$revCenterRow = mysqli_fetch_array($revCenterRes);
+
+	$email = $revCenterRow['email'];
+	$address = $revCenterRow['address'];
+	$phone = $revCenterRow['phone'];
+
+	$responseArr = ['email'=>$email, 'address'=>$address, 'phone'=>$phone];
+
+	echo json_encode($responseArr);
+	die;
+
+}
+
+
+$deptQry = "SELECT * FROM tbl_department WHERE account_id = '".$_SESSION['accountId']."' ORDER BY name ";
+
+$deptResult = mysqli_query($con, $deptQry);
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,126 +191,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Add Outlet</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Add Outlet'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -153,7 +209,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Add Outlet</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Add Outlet'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -186,26 +242,27 @@
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
+                    <form role="form" action="" method="post" class="container">
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
                                     <a href="manageOutlets.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
-                                    <div class="btnBg">
+                                    <!-- <div class="btnBg">
                                         <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                                 <span class="nstdSpan">Item</span></span> <span class="dsktp-Btn">Add
                                                 Item</span></a>
-                                    </div>
+                                    </div> -->
                                     <div class="btnBg">
                                         <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                                class="dsktp-Btn">Save</span></button>
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                     </div>
                                 </div>
                             </div>
@@ -216,439 +273,154 @@
                         <div class="row">
                             <div class="col-md-8 oltCol-8">
                                 <div class="acntStp">
-                                    <form class="addUser-Form acntSetup-Form row">
+                                    <div class="addUser-Form acntSetup-Form row">
                                         <div class="acnt-Div nmOutlet">
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label">Name</label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" id="oltName"
+                                                    <input type="text" class="form-control" name="name" id="name" required
                                                         placeholder="Casa Kitchen">
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Department" class="form-label">Department</label>
+                                                    <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="cstmSelect">
-                                                        <select class="form-select selectOption"
-                                                            aria-label="Default select example" id="selectDept">
-                                                            <option selected>Select Department</option>
-                                                            <option value="1">Kitchen</option>
-                                                            <option value="2">Bar</option>
-                                                            <option value="3">Other</option>
-                                                        </select>
+                                                    <select name="deptId" id="deptId" class="form-select selectOption">
+                                                    <option value=""><?php echo showOtherLangText('Select'); ?></option>
+                                                    <?php
+                                                    while($deptRow = mysqli_fetch_array($deptResult))
+                                                    {
+                                                    echo '<option value="'.$deptRow['id'].'">'.$deptRow['name'].'</option>';
+                                                    } 
+                                                    ?>
+
+                                                    </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row chkOlt-Row">
                                                 <div class="col-md-4">
-                                                    <label for="receiveInvoice" class="form-label">Receive
-                                                        Invoice</label>
+                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Receive Invoice'); ?></label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input class="form-check-input" type="checkbox" id="revInv" name="revInv" value="">
+                                                </div>
+                                            </div>
+                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                                <div class="col-md-4">
+                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Set as Outlet'); ?></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input class="form-check-input" type="checkbox" value=""
-                                                        id="recInvoice">
+                                                        id="setOtlt">
+                                                </div>
+                                            </div>
+                                            <div class="outletChk" style="display:none;">
+                                                <div class="row align-items-center acntStp-Row">
+                                                    <div class="col-md-4">
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="cstmSelect">
+                                                        <?php
+									$revCenQry = "SELECT id, name FROM tbl_revenue_center WHERE account_id= '".$_SESSION['accountId']."' ORDER BY name ";
+
+									$revCenResult = mysqli_query($con, $revCenQry);
+
+									?>
+                                    <select name="revCenter" id="revCenter" class="form-select selectOption"
+                                                                aria-label="Default select example" id="selectRvcntr"
+                                                    onchange="getrevCenter();">
+
+                                                    <option value=""><?php echo showOtherLangText('Select'); ?></option>
+
+                                                    <?php
+											while($revCenRow = mysqli_fetch_array($revCenResult))
+											{
+
+												echo '<option value="'.$revCenRow['id'].'">'.$revCenRow['name'].'</option>';
+
+											} 
+											?>
+                                                </select>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row align-items-center acntStp-Row">
+                                                    <div class="col-md-4">
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?></label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="cstmSelect">
+                                                            <select name="outLetType" id="outLetType" class="form-select selectOption"
+                                                    onchange="getOutletType();">
+
+                                                    <option value=""><?php echo showOtherLangText('Select'); ?></option>
+                                                    <option value="1"><?php echo showOtherLangText('Sales'); ?></option>
+                                                    <option value="2"><?php echo showOtherLangText('Cost'); ?></option>
+
+                                                        </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="acntLg-Upld setOutlet">
                                             <div class="row align-items-center acntStp-Row chkOlt-Row">
                                                 <div class="col-md-4">
-                                                    <label for="setOutlet" class="form-label">Set as Outlet</label>
+                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="setOtlt" checked>
+                                                <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
+                                            onclick="showRevCenterAddress();">
                                                 </div>
                                             </div>
-                                            <div class="outletChk">
+                                            <div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label">Revenue
-                                                            Center</label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                            <select class="form-select selectOption"
-                                                                aria-label="Default select example" id="selectRvcntr">
-                                                                <option selected>Select Revenue Center</option>
-                                                                <option value="1">Casa</option>
-                                                                <option value="2">Nur</option>
-                                                                <option value="3">Other</option>
-                                                            </select>
+                                                        <textarea class="form-control" style="resize: vertical;" placeholder="Main" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="outletType" class="form-label">Outlet Type</label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
-                                                            <select class="form-select selectOption"
-                                                                aria-label="Default select example" id="selectOtltp">
-                                                                <option selected>Select Outlet Type</option>
-                                                                <option value="1">Sales</option>
-                                                                <option value="2">Sales2</option>
-                                                                <option value="3">Other</option>
-                                                            </select>
-                                                        </div>
+                                                    <input type="email" class="form-control" name="email" id="email" 
+                                                        placeholder="Casa Kitchen">
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row chkOlt-Row">
                                                     <div class="col-md-4">
-                                                        <label for="asgnEzcat" class="form-label">Assign Ezze
-                                                            Category</label>
+                                                        <label for="asgnEzcat" class="form-label"><?php echo showOtherLangText('Phone number'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="asgnEzcat" checked>
+                                                    <input type="text" class="form-control" name="phone" id="phone" 
+                                                        placeholder="Casa Kitchen">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4 oltCol-4"></div>
                         </div>
                     </div>
-                    <div class="container">
-                        <p class="subTittle1 flowItm">Follow Items List</p>
+                   
                     </div>
-                    <div class="container outlet-Tblhead position-relative">
-                        <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable">
-                            <div class="tb-head imgOlt-Clm">
-                                <p>Photo</p>
-                            </div>
-                            <div class="align-items-center shItmOlt-Clm">
-                                <div class="tb-head itmOlt-Clm">
-                                    <p>Item</p>
-                                </div>
-                                <div class="tb-head brCdOlt-Clm">
-                                    <p>Bar Code</p>
-                                </div>
-                                <div class="tb-head typOlt-Clm">
-                                    <p>Type</p>
-                                </div>
-                            </div>
-                            <div class="align-items-center unitOlt-Clm">
-                                <div class="tb-head sbUnOlt-Clm">
-                                    <p>Sub Unit</p>
-                                </div>
-                                <div class="tb-head fctOlt-Clm">
-                                    <p>Factor</p>
-                                </div>
-                                <div class="tb-head minOlt-Clm">
-                                    <p>Min Qyt</p>
-                                </div>
-                                <div class="tb-head maxOlt-Clm">
-                                    <p>Max Qyt</p>
-                                </div>
-                            </div>
-                            <div class="icnOlt-Clm">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <!-- Item Table Head End -->
-                    </div>
-
-                    <!-- Item Table Body Start -->
-                    <div id="boxscroll">
-                        <div class="container cntTable adOtlTable">
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                        </div>
+                    </form>
                     </div>
                     <!-- Item Table Body End -->
 
@@ -658,10 +430,178 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+    <div id="dialog" style="display: none;">
+        <?php echo showOtherLangText('Select Revenue Center First') ?>
+    </div>
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>s
 </body>
 
 </html>
+<script>
+    function showMsg() {
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            //title     : "Title",
+            buttons: {
+                '<?php echo showOtherLangText('Ok') ?>': function() {
+                    //Do whatever you want to do when Yes clicked
+                    $(this).dialog('close');
+                }
+
+            }
+        });
+
+        $("#dialog").dialog("open");
+        $('.custom-header-text').remove();
+        $('.ui-dialog-content').prepend(
+            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    }
+    </script>
+
+    <script>
+    function getOutletType() {
+
+        var outLetType = $('#outLetType').val();
+        if (outLetType == 1) {
+
+            $('.AssignEzeeCategory').show();
+
+        } else {
+
+            $('.AssignEzeeCategory').hide();
+        }
+
+    }
+
+
+    function getrevCenter() {
+
+        var revenueCenterId = $('#revCenter').val();
+
+        if (revenueCenterId != '') {
+
+            $.ajax({
+                    method: "POST",
+                    //url: "addDepartmentUser.php",
+                    data: {
+                        revenueCenterId: revenueCenterId
+                    }
+                })
+                .done(function(htmlRes) {
+                    $('#showCatIds').html(htmlRes);
+                });
+
+        }
+
+
+    }
+
+
+    $("#revInv").change(function() {
+
+        var revInv = $("#revInv").val();
+
+        if (revInv == '' || revInv == '0') {
+
+            $("#revInv").val(1);
+
+        } else {
+
+            $("#revInv").val(0);
+
+        }
+
+    })
+
+
+
+    function showRevOutLetItems() {
+
+        var dropContent = document.getElementById('dropContent').style.display;
+
+        if (dropContent == '' || dropContent == 'none') {
+
+            document.getElementById('dropContent').style.display = 'block';
+
+        } else {
+
+            document.getElementById('dropContent').style.display = 'none';
+
+        }
+
+    }
+
+
+    function showRevCenterAddress() {
+
+        var revenueCenterAddress = $('#revCenter').val();
+        var addressCheck = $('#addressCheck').val();
+
+        if (revenueCenterAddress == '') {
+            // confirm('<?php echo showOtherLangText('Select revenue center first'); ?>');
+            //function to show a dialog box
+            showMsg();
+            $('#addressCheck').prop('checked', false);
+            return false;
+        }
+
+        console.log('addressCheck',addressCheck);
+        if (revenueCenterAddress != '' && (addressCheck == '' || addressCheck == 0)) {
+
+            $('#addressCheck').val(1);
+
+
+            $.ajax({
+                    method: "POST",
+                    url: "addOutlet.php",
+                    dataType: 'json',
+                    data: {
+                        revenueCenterAddress: revenueCenterAddress,
+                        addressCheck: addressCheck
+                    }
+                })
+                .done(function(responseObj) {
+                    $('#email').val(responseObj.email);
+                    $('#address').val(responseObj.address);
+                    $('#phone').val(responseObj.phone);
+                });
+
+        } else {
+
+            $('#addressCheck').val(0);
+            var email = $('#email').val();
+            var address = $('#address').val();
+            var phone = $('#phone').val();
+
+            $("#email").val('');
+            $("#phone").val('');
+            $("#address").val('');
+
+        }
+
+    }
+
+
+    function openPopup(id = '') {
+
+        var w = 700;
+        var h = 550;
+        var title = '<?php echo showOtherLangText('Convert Raw Item'); ?>';
+        var url = 'addOutLetItems.php?outLetId=<?php echo $_GET['outLetId'];?>';
+
+        if (id != '') {
+            var url = 'editOutLetItems.php?id=' + id + '&outLetId=<?php echo $_GET['outLetId'];?>';
+        }
+
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 6);
+        return window.open(url, title,
+            'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+            w + ', height=' + h + ', top=' + top + ', left=' + left);
+    }
+    </script>

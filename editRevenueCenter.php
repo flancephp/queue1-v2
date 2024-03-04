@@ -1,5 +1,142 @@
+<?php 
+include('inc/dbConfig.php'); //connection details
+
+if (!isset($_SESSION['adminidusername']))
+{
+echo "<script>window.location='login.php'</script>";
+}
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+echo "<script>window.location='index.php'</script>";
+}
+
+if( isset($_POST['name']) )
+{
+
+$sqlSet = " SELECT * FROM tbl_revenue_center WHERE name='".$_POST['name']."' AND id != '".$_POST['id']."' AND account_id='".$_SESSION['accountId']."' ";
+$resultSet = mysqli_query($con, $sqlSet);
+$resultSetRow = mysqli_num_rows($resultSet);
+
+if ($resultSetRow > 0)
+{
+
+$errorMes = ' '.showOtherLangText('This Revenue center name already taken.').' ';
+echo "<script>window.location='editrevenueCenter.php?errorMes=".$errorMes."&id=".$_POST['id']."';</script>";
+exit;
+}
+
+
+$sql = "UPDATE  `tbl_revenue_center` SET 
+`name` = '".$_POST['name']."',
+`email` = '".$_POST['email']."',
+`address` = '".$_POST['address']."',
+`phone` = '".$_POST['phone']."'
+WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' 	";
+mysqli_query($con, $sql);
+
+$sql = "UPDATE `tbl_easymapping` SET
+`hotelId` = '".$_POST['hotelId']."'
+WHERE `revId` = '".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+mysqli_query($con, $sql);
+
+
+$selQry = "SELECT * FROM tbl_easymapping WHERE `revId` = '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+$selResult = mysqli_query($con, $selQry);
+$selRow = mysqli_fetch_array($selResult);
+$mapId = $selRow['id'];
+
+
+$selQry = "SELECT * FROM tbl_map_category WHERE `revId` = '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+$selResult = mysqli_query($con, $selQry);
+while($mappedRow = mysqli_fetch_array($selResult) )
+{
+	$existingIds[$mappedRow['id']] = $mappedRow['id'];
+}
+
+/*$delQry = "DELETE FROM tbl_map_category WHERE `revId` = '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+mysqli_query($con, $delQry);*/
+
+
+foreach($_POST['catNames'] as $mapId=>$catName)
+{
+	if( strpos($mapId, 'cat') )
+	{
+		
+		$mapId = str_replace('cat', '', $mapId);
+		
+		unset($existingIds[$mapId]);
+		$sql = "UPDATE `tbl_map_category` SET
+		
+		`catName` = '".$catName."'
+		WHERE `id` = '".$mapId."' and `account_id` = '".$_SESSION['accountId']."' ";
+        
+		mysqli_query($con, $sql);
+	}
+	else
+	{
+		$sql = "INSERT INTO `tbl_map_category` SET
+		`hotelId` = '".$_POST['hotelId']."',
+		`mapId` = '".$mapId."',
+		`revId` = '".$_POST['id']."',
+		`catName` = '".$catName."',
+		`account_id` = '".$_SESSION['accountId']."'  ";
+		mysqli_query($con, $sql);
+	}
+
+}
+
+if( !empty($existingIds) )
+{
+	$delQry = "DELETE FROM tbl_map_category WHERE id in(".implode(',', $existingIds).") AND `revId` = '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+	mysqli_query($con, $delQry);
+}
+
+
+echo "<script>window.location='revenueCenterSetup.php?edit=1';</script>";
+exit;
+
+}
+
+
+$sql = "SELECT * FROM tbl_revenue_center WHERE id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+$result = mysqli_query($con, $sql);
+$revCentArr = mysqli_fetch_array($result);
+
+
+//get mapp data
+$mainMapQry = " SELECT * FROM `tbl_easymapping` WHERE revId = '".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+$mainMapresultSet = mysqli_query($con, $mainMapQry);
+$mainMapRes = mysqli_fetch_array($mainMapresultSet);
+
+
+$hotelId = isset($mainMapRes['hotelId']) && $mainMapRes['hotelId'] ? $mainMapRes['hotelId'] : 0;
+
+$hotelId =  isset($_GET['hotelId']) ? $_GET['hotelId'] : $hotelId; 			
+
+if( $hotelId > 0 )
+{
+$_GET['hotelId'] = $hotelId;
+$merchantId = $hotelsArr[$hotelId];
+
+$date = isset($_GET['date']) ? date('Y-m-d', strtotime($_GET['date']) ) : '2021-11-10';
+$postData['Date'] = $date;
+$easyData = getPosData($merchantId, $postData);
+$easyData  = json_decode($easyData, true);
+if( $easyData['status'] == 'success' )
+{
+$easyDataArr = $easyData['data'];
+}
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,126 +159,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Edit Revenue Center
+                            <h1 class="h1"><?php echo showOtherLangText('Edit Revenue Center'); ?>
                             </h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
@@ -154,13 +178,13 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Edit Revenue Center
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit Revenue Center'); ?>
                                     </h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
                                 <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
+                                <p class="body3 m-0 d-inline-block"><?php echo showOtherLangText('User'); ?></p>
                             </div>
                             <div class="acc-info">
                                 <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
@@ -187,13 +211,15 @@
                 </section>
 
                 <section class="ordDetail userDetail">
+                <form action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
                     <div class="container">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="revenueCenterSetup.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
@@ -201,81 +227,108 @@
 
                                     <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn">Save</span></a></button>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></a></button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="acntStp">
-                            <form class="addUser-Form acntSetup-Form edtRev-cntr row">
+                            <div class="addUser-Form acntSetup-Form edtRev-cntr row">
                                 <div class="col-md-6">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="Name" class="form-label">Name</label>
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="Name" placeholder="Casa">
+                                            <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name'];?>" placeholder="Casa">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="ezzeAddress" class="form-label">Assign Ezze Address</label>
+                                            <label for="ezzeAddress" class="form-label"><?php echo showOtherLangText('Assign Ezee Address'); ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <select class="form-select" aria-label="Default select example"
-                                                id="ezzeAddress">
-                                                <option selected>Select Country</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                           
+                                            <?php
+                                            if ($_SESSION['accountId'] == 1) { ?>
+                                            <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example"
+                                            style="width:250px;">
+                                            <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
+                                            </option>
+                                            <option value="21866"
+                                            <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>
+                                            <?php echo showOtherLangText('Fun Beach Hotel(21866)'); ?>
+                                            </option>
+                                            <option value="21930"
+                                            <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : '';?>>
+                                            <?php echo showOtherLangText('Casa Del Mar Hotel(21930)'); ?>
+                                            </option>
                                             </select>
+                                            <?php
+                                            }elseif($_SESSION['accountId'] == 3){ ?>
+
+                                            <select name="hotelId" id="hotelId" class="form-select"
+                                            style="width:250px;">
+                                            <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
+                                            </option>
+                                            <option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>
+                                            <?php echo showOtherLangText('Mnarani Beach Hotel(29624)'); ?>
+                                            </option>
+                                            </select>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="row align-items-start acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="" class="form-label">Set Ezze Category</label>
+                                            <label for="" class="form-label"><?php echo showOtherLangText('Set Ezze Category'); ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div class="setEze-Ctgry" style="display:none;">
-                                                <input type="text" class="form-control" id="" placeholder="Hot Drinks">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
+                                        <?php
+			$sqlSet = " SELECT * from tbl_map_category where hotelId='".$hotelId."' AND revId='".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+			$mapCatQry = mysqli_query($con, $sqlSet);
+			?>
 
+        <?php 
+			$x=0;
+			$catName = '';
+			$catNameInput = '';
+			$catIdVal = 0;
+			while($catRes = mysqli_fetch_array($mapCatQry) )
+			{
+				if($x==0)
+				{
+					$catNameInput .= '<div class="setEze-Ctgry" id="'.$x.'" style="display:none;">
+                                                <input type="text" class="form-control" name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'" id="" placeholder="Hot Drinks">
+                                                <a href="javascript:void(0)" onclick="removeRow('.$x.')" class="stEze-Lnk"><i
+                                                        class="fa-solid fa-minus"></i></a>
+                                            </div>';
+				}
+				else
+				{
+				//	$catNameInput .= '<span id="'.$x.'"><br><br><input type="text" id="tags'.$x.'"    name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'"  class="frmctrl form-control" />  <a class="btn btn-danger remove" onclick="removeRow('.$x.')">X</a></span>';
+				
+            	$catNameInput .= '<div class="setEze-Ctgry" id="'.$x.'" style="display:none;">
+                                                <input type="text" class="form-control" name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'" id="" placeholder="Hot Drinks">
+                                                <a href="javascript:void(0)" onclick="removeRow('.$x.')" class="stEze-Lnk"><i
+                                                        class="fa-solid fa-minus"></i></a>
+                                            </div>';
+                
+                
+                }
+				$x++;
+
+			}
+            echo $catNameInput;
+            ?>    
+                                         <div id="additionalContent">
+
+                                         </div>
                                             <a href="javascript:void(0)" class="ezeCat-All" style="display:none;">
                                                 <span>All Categories</span> <i class="fa-solid fa-angle-down"></i>
                                             </a>
-
+ 
                                             <a href="javascript:void(0)" class="stEze-addLnk"><i
                                                     class="fa-solid fa-plus"></i></a>
                                         </div>
@@ -285,36 +338,37 @@
                                 <div class="col-md-6">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="address" class="form-label">Address</label>
+                                            <label for="address" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="address" placeholder="Main">
+                                        <textarea class="form-control" style="resize: vertical;" name="address" id="address" cols="20" rows="2" autocomplete="off"><?php echo $revCentArr['address'];?></textarea>
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="email" class="form-control" id="email"
+                                            <input type="email" class="form-control" name="email" id="email" value="<?php echo $revCentArr['email'];?>" autocomplete="off"
                                                 placeholder="casa@our-zanzibar.com">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="phone" class="form-label">Phone number</label>
+                                            <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number'); ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="tel" class="form-control" id="phone"
+                                            <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $revCentArr['phone'];?>" autocomplete="off"
                                                 placeholder="+99994341000">
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
 
                     </div>
+                    </form>
                 </section>
 
             </div>
@@ -327,3 +381,22 @@
 </body>
 
 </html>
+<script>
+function removeRow(id) {
+$('#' + id).remove();
+}
+$(document).ready(function () {
+    var x=<?php echo $x;?>;
+    $(".stEze-addLnk").on("click", function () {
+        x++;
+      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="Hot Drinks">' +
+    '<a href="javascript:void(0)" onclick="removeRow('+x+')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
+    '</div>';
+     // Append the new content to the specified element
+      $("#additionalContent").append(newContent);
+    });
+
+
+
+  });
+</script>

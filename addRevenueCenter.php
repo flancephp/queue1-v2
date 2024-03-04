@@ -63,6 +63,7 @@ $sql = "INSERT INTO `tbl_map_category` SET
 `revId` = '".$revCenterId."',
 `catName` = '".$catName."',
 `account_id` = '".$_SESSION['accountId']."'  ";
+
 mysqli_query($con, $sql);
 }
 
@@ -183,7 +184,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                         <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="name" id="name"  placeholder="Casa">
+                                        <input type="text"  required class="form-control" name="name" id="name"  placeholder="Casa">
                                     </div>
                                 </div>
                                 <div class="row align-items-center acntStp-Row">
@@ -220,15 +221,17 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                 </div>
                                 <div class="row align-items-start acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="" class="form-label">Set Ezze Category</label>
+                                        <label for="" class="form-label"><?php echo showOtherLangText('Set Ezze Category') ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="setEze-Ctgry">
-                                            <input required type="text" class="form-control" id="" placeholder="Hot Drinks">
+                                            <input required type="text" class="form-control"  name="catNames[]" id="" placeholder="Hot Drinks">
                                             <a href="javascript:void(0)" class="stEze-Lnk"><i
                                                     class="fa-solid fa-minus"></i></a>
                                         </div>
+                                        <div id="additionalContent">
 
+                                        </div>
                                         <a href="javascript:void(0)" class="stEze-addLnk"><i
                                                 class="fa-solid fa-plus"></i></a>
                                     </div>
@@ -279,3 +282,24 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
 </body>
 
 </html>
+<?php	$x=0; ?>	
+<script>
+    function removeRow(id)
+{
+$('#'+id).remove();
+}
+  $(document).ready(function () {
+    var x=<?php echo $x;?>;
+    $(".stEze-addLnk").on("click", function () {
+        x++;
+      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="Hot Drinks">' +
+    '<a href="javascript:void(0)" onclick="removeRow('+x+')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
+    '</div>';
+     // Append the new content to the specified element
+      $("#additionalContent").append(newContent);
+    });
+
+
+
+  });
+</script>

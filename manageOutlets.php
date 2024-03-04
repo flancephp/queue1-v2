@@ -1,5 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include('inc/dbConfig.php'); //connection details
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+
+if (!isset($_SESSION['adminidusername']))
+{
+	echo '<script>window.location="login.php"</script>';
+}
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'outlet' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+if( isset($_GET['delId']) && $_GET['delId'] )
+{
+
+
+	 	$sql = " SELECT * FROM tbl_revenue_center_departments WHERE deptId = '".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
+		$result = mysqli_query($con, $sql);
+		$resultRow = mysqli_fetch_array($result);
+
+		$sqlQry = " SELECT * FROM tbl_outlet_items WHERE outLetId = '".$resultRow['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+		$resultSet = mysqli_query($con, $sqlQry);
+		$resultRowSet = mysqli_fetch_array($resultSet);
+		if ($resultRowSet > 0)
+		{
+				echo "<script>window.location='manageOutlets.php?err=1'</script>";
+		}
+		else
+		{
+
+			$sql = "DELETE FROM tbl_deptusers  WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+			mysqli_query($con, $sql);
+
+			$sql = "DELETE FROM tbl_revenue_center_departments  WHERE deptId='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+			mysqli_query($con, $sql);
+
+			$sql = "DELETE FROM tbl_map_outlets  WHERE OutLetId='".$resultRow['id']."' AND revId = '".$resultRow['revCenterId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+			mysqli_query($con, $sql);
+
+			$sql = "DELETE FROM tbl_map_outletcats  WHERE revOutLetId='".$resultRow['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+			mysqli_query($con, $sql);
+
+            $sql = "DELETE FROM tbl_designation_sub_section_permission WHERE type_id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' AND type = 'member' AND designation_id = '".$_SESSION['designation_id']."' AND designation_Section_permission_id = '2' ";
+            mysqli_query($con, $sql);
+
+			echo '<script>window.location="manageOutlets.php?delete=1&deptId='.$_GET['deptId'].'"</script>';
+
+		}
+
+
+
+	
+}
+
+
+?><!DOCTYPE html>
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,126 +85,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Manage Outlets</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Manage Outlets'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -153,7 +103,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Manage Outlets</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Manage Outlets'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -186,6 +136,28 @@
 
                 <section class="ordDetail userDetail">
                     <div class="container">
+                    <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p><?php 
+echo isset($_GET['edit']) ? ' '.showOtherLangText('OutLet Edited Successfully').' ' : '';
+
+echo isset($_GET['added']) ? ' '.showOtherLangText('OutLet Added Successfully').' ' : '';
+
+echo isset($_GET['delete']) ? ' '.showOtherLangText('OutLet Deleted Successfully').' ' : '';
+ ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <?php if(isset($_GET['err'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Supplier cannot be Deleted as it has been assigned in order').' ' : '';
+ ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -211,7 +183,7 @@
                                     <div class="outTbl-Cnt d-flex align-items-center">
                                         <div class="tb-head outNum-Clm">
                                             <div class="d-flex align-items-center">
-                                                <p>Number</p>
+                                                <p>#</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -221,216 +193,64 @@
                                             </div>
                                         </div>
                                         <div class="tb-head outName-Clm">
-                                            <p>Name</p>
+                                            <p><?php echo showOtherLangText('Name'); ?></p>
                                         </div>
                                     </div>
                                     <div class="outTbl-Icns">
                                         <div class="tb-head outOpt-Clm text-center">
-                                            <p>Options</p>
+                                            <p><?php echo showOtherLangText('Actions'); ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Table Head End -->
 
                                 <!-- Table Body Start -->
+                                <?php 
+
+								$pageNo = $pn-1;
+
+								$x= isset($_GET['page']) ? ( ($pageNo*$limit)  ) : 0;
+
+								$sql = " SELECT * FROM tbl_deptusers WHERE account_id = '".$_SESSION['accountId']."'  order by name ";
+								$result = mysqli_query($con, $sql);
+								while($row = mysqli_fetch_array($result))
+								{
+									$selQry = " SELECT * FROM tbl_revenue_center_departments WHERE deptId = '".$row['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+									$selResult = mysqli_query($con, $selQry);
+									$selResultRow = mysqli_fetch_array($selResult);
+
+									$color = ($x%2 == 0)? 'white': '#FFFFCC';
+
+									$x++;
+
+									?>
                                 <div class="userTask">
                                     <div class="usrTbl-body align-items-center itmBody">
                                         <div class="outTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
                                             </div>
                                             <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Bar</p>
+                                                <p class="userName"><?php echo $row['name'];?></p>
                                             </div>
                                         </div>
                                         <div class="outTbl-Icns">
                                             <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
+                                                <a href="editOutlet.php?id=<?php echo $row['id'];?>&deptId=<?php echo $row['deptId'];?>&revCenDeptId=<?php echo $selResultRow['id']; ?>" class="userLink">
                                                     <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                                 </a>
-                                                <a href="javascript:void(0)" class="userLink">
+                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>','<?php echo $row['deptId'];?>');" class="userLink">
                                                     <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Casa Bar</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Casa H.K</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Casa Team</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Casa Office</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Casa H.K</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Spa</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Club</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="outTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span>1</p>
-                                            </div>
-                                            <div class="tb-bdy outName-Clm">
-                                                <p class="userName">Bar</p>
-                                            </div>
-                                        </div>
-                                        <div class="outTbl-Icns">
-                                            <div class="tb-bdy outOpt-Clm d-flex align-items-center">
-                                                <a href="editOutlet.php" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php 
+
+                                }
+
+                                ?>
 
                                 <!-- Table Body End -->
 
@@ -443,10 +263,40 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+    <div id="dialog" style="display: none;">
+    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
+</div>
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 
 </html>
+
+<script>  
+ function getDelNumb(delId, deptId){
+
+    $( "#dialog" ).dialog({  
+        autoOpen  : false,
+        modal     : true,
+        //title     : "Title",
+        buttons   : {
+          '<?php echo showOtherLangText('Yes') ?>' : function() {
+            //Do whatever you want to do when Yes clicked
+            $(this).dialog('close');
+            window.location.href='manageOutlets.php?delId='+delId+'&deptId='+deptId;
+          },
+
+          '<?php echo showOtherLangText('No') ?>' : function() {
+            //Do whatever you want to do when No clicked
+            $(this).dialog('close');
+          }
+       }    
+    });
+
+    $( "#dialog" ).dialog( "open" );
+    $('.custom-header-text').remove();
+    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+}  
+</script> 

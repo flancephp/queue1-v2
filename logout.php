@@ -8,7 +8,7 @@ session_destroy();
 // Jump to login page
 ?>
 <script>
-	window.location='index.php';
+	window.location='login.php';
 </script>
 <?php
 //header('Location: index.php'); //you can change this to the home page of website

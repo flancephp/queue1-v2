@@ -129,7 +129,7 @@ if (isset($_GET['delId']) && $_GET['delId'] > 0)
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['edit']) || isset($_GET['add']) || isset($_GET['delete'])) {?>
+                    <?php if(isset($_GET['edit']) || isset($_GET['added']) || isset($_GET['delete'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 
