@@ -398,7 +398,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     </div>
                                                     <div class="col-md-8">
                                                     <input type="email" class="form-control" name="email" id="email" 
-                                                        placeholder="Casa Kitchen">
+                                                        placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row chkOlt-Row">
@@ -407,7 +407,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     </div>
                                                     <div class="col-md-8">
                                                     <input type="text" class="form-control" name="phone" id="phone" 
-                                                        placeholder="Casa Kitchen">
+                                                        placeholder="">
                                                     </div>
                                                 </div>
                                             </div>

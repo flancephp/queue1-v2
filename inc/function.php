@@ -3593,7 +3593,7 @@ function get_editRequisition_permission($designation_id,$accountId,$orderId){
 	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '".$designation_id."' AND account_id = '".$accountId."' AND designation_section_permission_id = '3' AND type = 'edit_requisition' ";
 	$editOrderPermissionRes = mysqli_query($con, $sql);
 	$editOrderPermissionRow = mysqli_fetch_array($editOrderPermissionRes);
-
+    
 	if ($editOrderPermissionRow['type_id'] == 1) 
 	{
 		echo '<a href="editRecusation.php?orderId='.$orderId.'" class="glyphicon glyphicon-list-alt" style="color:#808080; width: 8%;display: inline-block;text-align: center;" title="'.showOtherLangText('Edit').'"></a>|';
@@ -3615,7 +3615,10 @@ function get_receiveOrder_permission($designation_id, $accountId, $orderId){
 
 	if ($editOrderPermissionRow['type_id'] == 1) 
 	{
-		echo '<a style="width: 22%;display: inline-block;text-align: center;" href="receiveOrder.php?orderId='.$orderId.'">'.showOtherLangText('Receive').'</a>|';
+		echo '<a href="receiveOrder.php?orderId='.$orderId.'" class="runLink">
+	   <span class="isuOut"></span>
+	   <p class="btn2 cn-btn">'.showOtherLangText('Receive').'</p></a>';
+		//echo '<a style="width: 22%;display: inline-block;text-align: center;" href="receiveOrder.php?orderId='.$orderId.'">'.showOtherLangText('Receive').'</a>|';
 	}
 	else
 	{
@@ -3639,12 +3642,17 @@ function get_assignOrder_permission($designation_id, $accountId, $orderId, $orde
 		
 		if ($orderType == 1) 
 		{
-			echo '<a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="assignBtn" onClick="openAssignPopup('.$orderType.', '.$orderId.')" title="'.showOtherLangText('Assign Order To Mobile Users').'">'.showOtherLangText('Assign').'</a>|';
+			///echo '<a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="assignBtn" onClick="openAssignPopup('.$orderType.', '.$orderId.')" title="'.showOtherLangText('Assign Order To Mobile Users').'">'.showOtherLangText('Assign').'</a>|';
+		    echo '<div class="cnfrm text-center d-flex justify-content-center align-items-center"><a openAssignPopup('.$orderType.', '.$orderId.') class="runLink">
+	         <span class="assIgn"></span>
+	         <p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p></a></div>';
 		}
 		
 		if ($orderType == 2) {
-			
-			echo '|<a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="assignBtn" onClick="openAssignPopup('.$orderType.', '.$orderId.')" title="'.showOtherLangText('Assign Order To Mobile Users').'">'.showOtherLangText('Assign').'</a>|';
+			echo '<div class="cnfrm text-center d-flex justify-content-center align-items-center"><a openAssignPopup('.$orderType.', '.$orderId.') class="runLink">
+			<span class="assIgn"></span>
+			<p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p></a></div>';
+			///echo '|<a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="assignBtn" onClick="openAssignPopup('.$orderType.', '.$orderId.')" title="'.showOtherLangText('Assign Order To Mobile Users').'">'.showOtherLangText('Assign').'</a>|';
 		}	
 	}
 	else
@@ -3673,8 +3681,11 @@ function get_issueOut_permission($designation_id, $accountId, $orderId){
 	if ($issueOutPermissionRow['type_id'] == 1) 
 	{
 		?>
-<a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn"
-    onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php echo showOtherLangText('Issue Out') ?></a>
+<!-- <a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn"
+    onclick="cnfIssueOut(<?php //echo $orderId ?>)"><?php //echo showOtherLangText('Issue Out') ?></a> -->
+	<div class="cnfrm text-center d-flex justify-content-center align-items-center"><a onclick="cnfIssueOut(<?php echo $orderId ?>)" class="runLink">
+	   <span class="isuOut"></span>
+	   <p class="btn2 cn-btn"><?php echo showOtherLangText('Issue Out') ?></p></a></div>
 <?php
 	}
 	else
@@ -4189,7 +4200,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 			?>
 
 <span>
-    <!-- <strong><?php echo showOtherLangText('Assigned') ?></strong> -->
+    <!-- <strong><?php //echo showOtherLangText('Assigned') ?></strong> -->
     <strong>
         <a href="javascript:void(0)" style="color:green;" class="assignedBtn"
             onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
@@ -4339,7 +4350,7 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 
 		if ($orderStatus == 1 && !$checkOrdAssing && !$timeTrackDet) 
 		{
-			get_receiveOrder_permission($designation_id,$accountId,$orderId);
+			//get_receiveOrder_permission($designation_id,$accountId,$orderId);
 			
 			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType);
 		
@@ -4351,7 +4362,7 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 
 			get_receiveOrder_permission($designation_id,$accountId,$orderId);
 			?>
-<span style="width: 20%;display: inline-block;text-align: center;">&nbsp;</span>
+<!-- <span style="width: 20%;display: inline-block;text-align: center;">&nbsp;</span> -->
 <?php
 			
 			
@@ -4362,7 +4373,7 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 
 			get_receiveOrder_permission($designation_id,$accountId,$orderId);
 			?>
-<span style="width: 20%;display: inline-block;text-align: center;">&nbsp;</span>
+<!-- <span style="width: 20%;display: inline-block;text-align: center;">&nbsp;</span> -->
 <?php 
 			
 				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
@@ -4373,10 +4384,12 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 		{
 			?>
 
-<a style="width: 20%;display: inline-block;text-align: center;"
-    href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=1"><?php echo showOtherLangText('Confirm') ?></a>
-
-<span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span>
+<!-- <a style="width: 20%;display: inline-block;text-align: center;"
+    href="runningOrders.php?orderId=<?php //echo $orderId ?>&confirm=1"><?php //echo showOtherLangText('Confirm') ?></a> -->
+	<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=1" class="runLink">
+	   <span class="conFirm"></span>
+	   <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p></a>
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
 
 <?php
 			
@@ -4417,7 +4430,7 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 			?>
 <!-- <a style="width: 20%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php echo showOtherLangText('Issue Out') ?></a> -->
 
-<span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span>
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
 
 <?php
 
@@ -4430,7 +4443,7 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 			?>
 <!-- <a style="width: 20%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php echo showOtherLangText('Issue Out') ?></a> -->
 
-<span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span>
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
 
 <?php
 
@@ -4441,11 +4454,13 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 		else
 		{
 			?>
-<a style="width: 20%;display: inline-block;text-align: center;"
-    href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3"><?php echo showOtherLangText('Confirm') ?></a>
+<!-- <a style="width: 20%;display: inline-block;text-align: center;"
+    href="runningOrders.php?orderId=<?php //echo $orderId ?>&confirm=3"><?php //echo showOtherLangText('Confirm') ?></a> -->
 
-<span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span>
-
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
+<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="runLink">
+	   <span class="conFirm"></span>
+	   <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p></a>
 <?php
 
 			get_editRequisition_permission($designation_id,$accountId,$orderId);

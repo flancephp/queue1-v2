@@ -1,5 +1,315 @@
+<?php include('inc/dbConfig.php'); //connection details
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+//check page permission
+$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
+
+if (!in_array('2',$checkPermission))
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+// Get column permission of requisition
+$getColumnPermission = get_column_permission($_SESSION['designation_id'], $_SESSION['accountId'], 2);
+
+//get member permission
+// $memberCond = '';
+// if (!empty(get_member_permission($_SESSION['designation_id'], $_SESSION['accountId']))) {
+
+// $memberCond .= " AND dssp.designation_id = '".$_SESSION['designation_id']."' AND dssp.designation_section_permission_id = '2' AND type = 'member' ";
+// }
+
+
+//Add item charges in list
+if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='1' )
+{
+    $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+}
+
+//Add order charges in list
+if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='3' )
+{
+    $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+}
+
+
+if($_REQUEST['recMemberId'] != '')
+{
+    if ($_SESSION['recMemberId'] !=$_REQUEST['recMemberId'] ) {
+        deleteRecusitionTempData($_SESSION['id']);
+        unset( $_SESSION['deptId'] );
+
+        if (isset($_SESSION['itemCharges'])) {
+            unset($_SESSION['itemCharges']);
+        }
+
+    }
+
+    $_SESSION['recMemberId'] = $_REQUEST['recMemberId'];
+}
+
+if (isset($_SESSION['recMemberId'])) {
+    $sqlQry = " SELECT * FROM tbl_deptusers WHERE id = '".$_SESSION['recMemberId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $deptRes = mysqli_query($con,$sqlQry);
+    $deptRow = mysqli_fetch_array($deptRes);
+    $_SESSION['deptId'] = $deptRow['deptId'];
+}
+
+
+if( isset($_GET['clearTempPro']) )
+{
+    deleteRecusitionTempData($_SESSION['id']);
+    unset( $_SESSION['itemCharges'] );
+    unset( $_SESSION['deptId'] );
+    unset( $_SESSION['recMemberId'] );
+
+    echo '<script>window.location = "addRecusation.php?tempDataCleared=1"</script>';
+}
+
+
+//add item fee & custom fee modal box 
+$sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+$result = mysqli_query($con, $sql);
+
+$sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+$ordFeeFetch = mysqli_query($con, $sqlQry);
+
+
+
+//insert custom charge 
+if( !empty($_POST['itemName']) )
+{ 
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+
+    $sql = "INSERT INTO `tbl_custom_items_fee` SET 
+    `itemName` = '".$_POST['itemName']."',
+    `unit` = '".$_POST['unit']."',
+    `amt` = '".$_POST['itemFeeAmt']."',
+    `visibility` = '".$showHideInList."',
+    `account_id` = '".$_SESSION['accountId']."'  ";
+    mysqli_query($con, $sql);
+    $itemCharges = mysqli_insert_id($con);
+    $_SESSION['itemCharges'][1][$itemCharges] = $itemCharges;
+    echo '<script>window.location = "addRecusation.php"</script>';
+}
+
+
+//insert order charge
+if( !empty($_POST['feeName']) )
+{ 
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+
+    $sql = "INSERT INTO `tbl_order_fee` SET 
+    `feeName` = '".$_POST['feeName']."',
+    `feeType` = '".$_POST['feeType']."',
+    `amt` = '".$_POST['amt']."',
+    `visibility` = '".$showHideInList."',
+    `account_id` = '".$_SESSION['accountId']."'  ";
+
+    mysqli_query($con, $sql);
+
+    $itemCharges = mysqli_insert_id($con);
+
+    $_SESSION['itemCharges'][3][$itemCharges] = $itemCharges;
+
+    echo '<script>window.location = "addRecusation.php"</script>';
+
+}
+
+
+$recRowsTemp = getRecusitionTempData($_SESSION['id']);
+$proTempRows = [];
+if( !empty($recRowsTemp['proDetails']) ) 
+{
+    $proTempRows = $recRowsTemp['proDetails'];
+    $proTempNotes = $recRowsTemp['notesDetail'];
+}
+
+//place order or confirm order
+if(isset($_POST['placeOrder']))
+{
+	
+	unset($_SESSION['productIds']);
+	$noProductQtyFilled = true;
+    //Update for new items
+    foreach($_POST['productIds'] as $productId)
+    {	
+
+        if( isset($_SESSION['productIds'][$productId]) && ( $_POST['qty'][$productId] == '' || $_POST['qty'][$productId] == 0) )
+        {
+            unset($_SESSION['productIds'][$productId]);
+        }
+        elseif( $_POST['qty'][$productId] > 0 )
+        {	
+			$noProductQtyFilled = false;
+			
+            $_SESSION['productIds'][$productId]['qty'] = $_POST['qty'][$productId];
+            $_SESSION['productIds'][$productId]['price'] = $_POST['price'][$productId];
+            $_SESSION['productIds'][$productId]['notes'] = $_POST['notes'][$productId];
+
+        }//end elseif 
+
+    }//End foreach
+	
+	
+	if( $noProductQtyFilled )
+    {
+        echo '<script>window.location = "addRecusation.php?errorProduct=1"</script>';
+		exit;
+    }
+
+
+    deleteRecusitionTempData($_SESSION['id']);
+
+    $sqlSet = " SELECT ordNumber FROM tbl_orders WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY id DESC LIMIT 1 ";
+    $ordQry = mysqli_query($con, $sqlSet);
+    $ordResult = mysqli_fetch_array($ordQry);
+    $ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
+
+    $qry = " INSERT INTO `tbl_orders` SET 
+    `ordType` = 2,
+    `ordNumber` = '".$ordNumber."',
+    `recMemberId`  = '".$_POST['recMemberId']."',
+    `orderBy`  = '".$_SESSION['id']."',
+    `deptId` = '".$_SESSION['deptId']."',
+    `ordDateTime` = '".date('Y-m-d h:i:s')."',
+    `ordAmt` = 0,
+    `account_id` = '".$_SESSION['accountId']."', 
+    `status` = 1  ";
+    mysqli_query($con, $qry);
+    $ordId = mysqli_insert_id($con);
+
+
+    $ordAmt = 0;
+    foreach($_SESSION['productIds'] as $productId=>$productRow)
+    {	
+		
+		
+		if($productRow['qty'] == '')
+		{
+			continue;
+		}
+		
+
+        $autFillQty = 0;
+        if( isset($_POST['autoFillQty'][$productId]) )
+        {
+            $autFillQty = $_POST['autoFillQty'][$productId];
+        }
+
+        $prodPrice = str_replace(',', '', $productRow['price']);
+		
+		 //check stock qty
+		$sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productId."' AND account_id = '".$_SESSION['accountId']."'  ";
+		$stkQry = mysqli_query($con, $sql);
+		$stkRow = mysqli_fetch_array($stkQry);
+
+        $values[] .= " (NULL, 
+        '".$_SESSION['accountId']."',
+        '".$ordId."',
+        '".$productId."', 
+        '".$prodPrice."',
+        '".$productRow['qty']."',
+        '".$productRow['qty']."',
+        '".($prodPrice*$productRow['qty'])."',
+        '".$autFillQty."',
+        '".$productRow['notes']."',
+        '".$stkRow['lastPrice']."',
+        '".$stkRow['stockPrice']."',
+        '".($stkRow['qty'] - $productRow['qty'])."'  ) ";
+
+        $ordAmt += ($prodPrice * $productRow['qty']);
+    }
+
+
+    //insert custom charges ----------------
+    $noteArr= $_POST['itemNotes'];
+    $ordTotArr = insertReqCustomCharges($ordId, $ordAmt, $noteArr,$_SESSION['deptId'] );
+    $ordAmt += $ordTotArr['chargesTot'];
+    //end----------------------
+
+
+    $insertQry = " INSERT INTO `tbl_order_details` (`id`, `account_id`, `ordId`, `pId`, `price`, `requestedQty`, `qty`, `totalAmt`, `autoFillQty`, `note`, `lastPrice`, `stockPrice`, `stockQty` ) VALUES  ".implode(',', $values);
+
+    mysqli_query($con, $insertQry);
+
+    $updateQry = " UPDATE `tbl_orders` SET `ordAmt` = '".$ordAmt."' WHERE id = '".$ordId."' AND account_id='".$accountId."' ";
+    mysqli_query($con, $updateQry);
+
+    $productsRows = $_SESSION['productIds'];
+    unset($_SESSION['productIds']);
+
+    if ($_POST['qty'][$productId] >= 0) 
+    {
+
+        requisitionTotalValue($ordId);
+
+        if( isset($_SESSION['itemCharges']) || isset($_SESSION['deptId']) || isset($_SESSION['recMemberId']))
+        {
+            unset($_SESSION['itemCharges']);
+            unset($_SESSION['deptId']);
+            unset($_SESSION['recMemberId']);	
+        }
+
+        //Insert few data in order journey tbl to show journey 
+        $sql = " SELECT * FROM tbl_orders WHERE id = '".$ordId."' AND account_id = '".$_SESSION['accountId']."' ";
+        $res = mysqli_query($con, $sql);
+        $resRow = mysqli_fetch_array($res);
+
+        $qry = " INSERT INTO `tbl_order_journey` SET 
+        `account_id` = '".$_SESSION['accountId']."',
+        `orderId` = '".$ordId."',
+        `userBy`  = '".$_SESSION['id']."',
+        `ordDateTime` = '".date('Y-m-d h:i:s')."',
+        `amount` = '".$resRow['ordAmt']."',
+        `orderType` = '".$resRow['ordType']."',
+        `notes` = 'Added new Requisition',
+        `action` = 'submit' ";
+        mysqli_query($con, $qry);
+
+        echo '<script>window.location = "runningOrders.php?requisitionAdded=1&orderId='.$ordId.'"</script>';
+
+    }
+    else
+    {
+        echo '<script>window.location = "addRecusation.php?errorProduct=1"</script>';
+    }
+
+}
+
+//delete item/order level charges
+if( isset($_GET['delId']) && $_GET['delId'] )
+{
+    unset($_SESSION['itemCharges'][$_GET['feeType']][$_GET['delId']]);
+
+    echo '<script>window.location = "addRecusation.php?delete=1&deptId='.$_SESSION['deptId'].'"</script>';
+}
+
+
+$cond = '';
+if($_SESSION['deptId'] != '')
+{
+    $cond .= " AND pd.deptId = '".$_SESSION['deptId']."' ";
+	
+	$orderBy = isset($_GET['sort']) ?  ' t.qty desc' : 'p.itemName';
+
+     $sqlSet = " SELECT p.*, IF(u.name!='',u.name,p.unitC) as countingUnit, s.qty stockQty FROM tbl_products p
+    LEFT JOIN tbl_units u ON(u.id=p.unitC) AND u.account_id = p.account_id 
+    INNER JOIN tbl_productdepartments pd ON(p.id = pd.productId) AND p.account_id = pd.account_id
+    INNER JOIN tbl_stocks s ON(s.pId = p.id) AND s.account_id = p.account_id 
+	
+
+	LEFT JOIN tbl_recusition_items_temp t ON(t.pId = p.id) AND t.account_id = p.account_id AND t.deptId = '".$_SESSION['deptId']."' AND t.userId='".$_SESSION['id']."'
+	
+    WHERE p.account_id = '".$_SESSION['accountId']."' ".$cond. " AND p.status=1 GROUP BY(id)  ORDER BY ".$orderBy;
+    $proresultSet = mysqli_query($con, $sqlSet);
+}
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,127 +332,13 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link active text-center dropdown-toggle" aria-current="page"
-                                        href="index.php" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub sbActive" aria-current="page"
-                                                href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">New Requisition</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('New Requisition'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -154,7 +350,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">New Requisition</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('New Requisition'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -392,42 +588,55 @@
                             </div>
                         </div>
                     </div>
+                    <?php
 
+                    //Add custom item charge Here
+                    $totalCustomCharges = 0;
+                    //$x = 0;
+                    if( isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0  )
+                    {
+                        $itemIds = implode(',', $_SESSION['itemCharges'][1]);
+                        
+                        $sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE id IN(".$itemIds.")  AND account_id = '".$_SESSION['accountId']."'  ";
+                        $resRows = mysqli_query($con, $sqlSet);
+
+                    }
+                    ?>
                     <div class="container nordPrice position-relative">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
                             <div class="reqImg tb-head">
-                                <p>Image</p>
+                                <p><?php echo showOtherLangText('Image'); ?></p>
                             </div>
                             <div class="reqCnt-Fst d-flex align-items-center">
                                 <div class="reqClm-Itm tb-head">
-                                    <p>Item</p>
+                                    <p><?php echo showOtherLangText('Item'); ?></p>
                                 </div>
                                 <div class="reqClm-Br tb-head">
-                                    <p>Bar Code</p>
+                                    <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                 </div>
                                 <div class="reqClm-Prc tb-head">
-                                    <p>Price</p>
+                                    <p><?php echo showOtherLangText('Price'); ?></p>
                                 </div>
                                 <div class="reqClm-Unit tb-head">
-                                    <p>C.Unit</p>
+                                    <p><p><?php echo showOtherLangText('C.Unit'); ?></p></p>
                                 </div>
                             </div>
                             <div class="reqSt-Qty tb-head">
-                                <p>S.Quantity</p>
+                                <p><?php echo showOtherLangText('S.Quantity'); ?></p>
                             </div>
                             <div class="reqCnt-Scnd d-flex align-items-center">
                                 <div class="reqClm-Qty tb-head">
-                                    <p>Quantity</p>
+                                    <p><?php echo showOtherLangText('Quantity'); ?></p>
                                 </div>
                                 <div class="reqClm-Ttl tb-head">
-                                    <p>Total</p>
+                                    <p><?php echo showOtherLangText('Total'); ?></p>
                                 </div>
                             </div>
                             <div class="requi-Hide">
                                 <div class="reqClm-Note tb-head">
                                     <div class="mb-ReqCode"></div>
-                                    <p>Note</p>
+                                    <p><?php echo showOtherLangText('Note'); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -437,7 +646,13 @@
                     <div id="boxscroll">
                         <div class="container cntTable">
                             <!-- Item Table Body Start -->
+                        <?php 
 
+                        while( $row = mysqli_fetch_array($resRows) ) //start custom item charge loop
+                        {	
+                            //$x++;
+                            $totalCustomCharges += $row['amt'];
+                            ?>
                             <div class="newReqTask">
                                 <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
                                     <div class="reqImg tb-bdy">
@@ -482,358 +697,8 @@
                                 </div>
 
                             </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <img src="Assets/images/Mango.png" alt="Item" class="ordItm-Img">
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p>Mango</p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">9781462570123</p>
-                                        </div>
-                                        <div class="reqClm-Prc tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p>Kg</p>
-                                        </div>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">10 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" placeholder="1">
-                                        </div>
-                                        <div class="reqClm-Ttl tb-bdy">
-                                            <p>2.6144 $</p>
-                                        </div>
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
+                            <?php 
+                            } ?>
 
 
                             <!-- Item Table Body End -->
