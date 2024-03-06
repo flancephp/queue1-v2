@@ -330,7 +330,7 @@ if( isset($_POST['outLetId']) && !empty($_POST['outLetId']) )
 	$selQry = " SELECT * FROM tbl_outlet_items WHERE `outLetId` = '".$_POST['outLetId']."' AND `pId` = '".$pId."' AND account_id = '".$_SESSION['accountId']."' ".$cond." ";
 	$result = mysqli_query($con, $selQry);
 	$resultRow = mysqli_fetch_array($result);
-
+    
 	if ($resultRow)
 	{	
 		echo "<script>window.location= 'editOutlet.php?error=1&revCenDeptId=".$_POST['outLetId']."&id=".$_GET['id']."&deptId=".$_GET['deptId']."'</script>";
@@ -456,7 +456,7 @@ if( isset($_POST['outLetId']) && !empty($_POST['outLetId']) )
                                 <input type="hidden" name="checkProduct" id="availableProductInOutlet"
                                     value="<?php echo $checkRow; ?>"> 
                    <div class="container">
-                   <?php if(isset($_GET['added']) || isset($_GET['edit'])|| isset($_GET['update']) || isset($_GET['delId'])) {?>
+                   <?php if(isset($_GET['added']) || isset($_GET['edit'])|| isset($_GET['update']) || isset($_GET['itemReportAvailable']) || isset($_GET['delId'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 
@@ -496,10 +496,10 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
                                     <div class="btnBg">
-                                        <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"><span
-                                                class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
-                                                <span class="nstdSpan">Item</span></span> <span class="dsktp-Btn">Add
-                                                Item</span></a>
+                                    <a href="addCategory.php" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal"
+                                        data-bs-target="#add-Item"><span class="mb-UsrBtn"><i
+                                                class="fa-solid fa-plus"></i><span class="nstdSpan">Store</span></span>
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span></a>
                                     </div>
                                     <div class="btnBg">
                                         <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
@@ -701,37 +701,37 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                         </div>
                     </div>
                     <div class="container">
-                        <p class="subTittle1 flowItm">Follow Items List</p>
+                        <p class="subTittle1 flowItm"><?php echo showOtherLangText('Follow Items List'); ?></p>
                     </div>
                     <div class="container outlet-Tblhead position-relative">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
                             <div class="tb-head imgOlt-Clm">
-                                <p>Photo</p>
+                                <p><?php echo showOtherLangText('Photo'); ?></p>
                             </div>
                             <div class="align-items-center shItmOlt-Clm">
                                 <div class="tb-head itmOlt-Clm">
-                                    <p>Item</p>
+                                    <p><?php echo showOtherLangText('Item'); ?></p>
                                 </div>
                                 <div class="tb-head brCdOlt-Clm">
-                                    <p>Bar Code</p>
+                                    <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                 </div>
                                 <div class="tb-head typOlt-Clm">
-                                    <p>Type</p>
+                                    <p><?php echo showOtherLangText('Type'); ?></p>
                                 </div>
                             </div>
                             <div class="align-items-center unitOlt-Clm">
                                 <div class="tb-head sbUnOlt-Clm">
-                                    <p>Sub Unit</p>
+                                    <p><?php echo showOtherLangText('Sub Unit'); ?></p>
                                 </div>
                                 <div class="tb-head fctOlt-Clm">
-                                    <p>Factor</p>
+                                    <p><?php echo showOtherLangText('Factor'); ?></p>
                                 </div>
                                 <div class="tb-head minOlt-Clm">
-                                    <p>Min Qyt</p>
+                                    <p><?php echo showOtherLangText('Min Qty'); ?></p>
                                 </div>
                                 <div class="tb-head maxOlt-Clm">
-                                    <p>Max Qyt</p>
+                                    <p><?php echo showOtherLangText('Max Qty'); ?></p>
                                 </div>
                             </div>
                             <div class="icnOlt-Clm">
@@ -744,44 +744,61 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                     <!-- Item Table Body Start -->
                     <div id="boxscroll">
                         <div class="container cntTable adOtlTable">
+                        <?php 
+
+                        $x= 0;
+                        while($outLetItemRow = mysqli_fetch_array($outLetItemsQry))
+                        { 
+
+                        $color = ($x%2 == 0)? 'white': '#FFFFCC';
+                        $x++;
+
+                        ?>
                             <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
                                 <div class="itmTask-Mng oltTsk-Dtl align-items-center">
                                     <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
+                                    <?php $img = '';
+
+                                    if($outLetItemRow['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$outLetItemRow['imgName']))
+                                    {	
+                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$outLetItemRow['imgName'].'" width="60" height="60">';
+
+                                    }?>
                                     </div>
                                     <div class="align-items-center shItmOlt-Clm">
                                         <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
+                                            <p><?php echo $outLetItemRow['itemName'];?></p>
                                         </div>
                                         <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
+                                            <p><?php echo $outLetItemRow['barCode'];?></p>
                                         </div>
                                         <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
+                                            <p><?php echo $outLetItemRow['itemType'] == 1 ? 'Bar Control' : ($outLetItemRow['itemType'] == 2 ? 'Sales' : 'Usage');?></p>
                                         </div>
                                     </div>
                                     <div class="unitOlt-Clm">
                                         <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
                                             <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
+                                                <p><span class="mblOlt-head">Sub Unit</span> <?php echo $outLetItemRow['subUnit'];?></p>
                                             </div>
                                             <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
+                                                <p><span class="mblOlt-head">Factor</span><?php echo $outLetItemRow['factor'];?></p>
                                             </div>
                                             <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
+                                                <p><span class="mblOlt-head">Min Qyt</span><?php echo $outLetItemRow['minQty'];?></p>
                                             </div>
                                             <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
+                                                <p><span class="mblOlt-head">Max Qyt</span><?php echo $outLetItemRow['maxQty'];?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="icnOlt-Clm">
                                         <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
+                                            <a href="javascript:void(0)" data-editid="<?php echo $outLetItemRow['id'];?>" class="userLink editicon" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-PhyStorage">
                                                 <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                             </a>
-                                            <a href="javascript:void(0)" class="userLink">
+                                            <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $outLetItemRow['id'];?>', '<?php echo $_GET['id'];?>', '<?php echo $_GET['revCenDeptId'];?>', '<?php echo $_GET['deptId'];?>');" class="userLink">
                                                 <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                             </a>
                                         </div>
@@ -792,246 +809,14 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                             class="fa-solid fa-angle-down"></i></a>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
-                                <div class="itmTask-Mng oltTsk-Dtl align-items-center">
-                                    <div class="tb-bdy imgOlt-Clm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
-                                    </div>
-                                    <div class="align-items-center shItmOlt-Clm">
-                                        <div class="tb-bdy itmOlt-Clm">
-                                            <p>Tomato</p>
-                                        </div>
-                                        <div class="tb-bdy brCdOlt-Clm">
-                                            <p>9784456667897</p>
-                                        </div>
-                                        <div class="tb-bdy typOlt-Clm">
-                                            <p>Usage</p>
-                                        </div>
-                                    </div>
-                                    <div class="unitOlt-Clm">
-                                        <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
-                                            <div class="tb-bdy sbUnOlt-Clm">
-                                                <p><span class="mblOlt-head">Sub Unit</span> Pkt</p>
-                                            </div>
-                                            <div class="tb-bdy fctOlt-Clm">
-                                                <p><span class="mblOlt-head">Factor</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy minOlt-Clm">
-                                                <p><span class="mblOlt-head">Min Qyt</span> 1</p>
-                                            </div>
-                                            <div class="tb-bdy maxOlt-Clm">
-                                                <p><span class="mblOlt-head">Max Qyt</span> 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="icnOlt-Clm">
-                                        <div class="tb-bdy d-flex align-items-center justify-content-end">
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                            </a>
-                                            <a href="javascript:void(0)" class="userLink">
-                                                <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="align-items-center mbTask">
-                                    <a href="javascript:void(0)" class="statusLink mb-oltLnk"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                </div>
-                            </div>
+                            <?php 
+					}
+
+					?>
+                            
+                            
+                            
+                            
                         </div>
                     </div>
                     <!-- Item Table Body End -->
@@ -1042,14 +827,162 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
             </div>
         </div>
     </div>
+    <!-- Add Storage Popup Start -->
+    <form role="form" action="" method="post" id="outletItemFrm" name="outletItemFrm" class="addUser-Form row">
+    <div class="modal" tabindex="-1" id="add-Item" aria-labelledby="add-PhyStorageLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Add Follow Item')?></h1>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="itemName" id="tags" required placeholder="<?php echo showOtherLangText('Assign Item'); ?>">
+                    <input type="hidden" name="outLetId" value="<?php echo $_GET['revCenDeptId'];?>" />
+                <input type="hidden" name="itemRowId" id="itemRowId" value="" />
+                <select name="itemType" id="itemType" class="form-control" required>
+                                <option value=""><?php echo showOtherLangText('Select'); ?> <?php echo showOtherLangText('Item Type'); ?>
+                                </option>
+                                <?php 
+							if($outLetDet['outLetType'] == 2)
+							{
+								echo '<option value="3">'.showOtherLangText('Usage').'</option>';
+							}
+							else
+							{
+								echo '<option value="1">'.showOtherLangText('Bar Control').'</option>
+								<option value="2">'.showOtherLangText('Sales').'</option>
+								<option value="3">'.showOtherLangText('Usage').'</option>';
+							}
+							?>
+                            </select>
+                            <select class="form-control" name="subUnit" id="subUnit" required>
+                                <option value=""><?php echo showOtherLangText('Select'); ?> <?php echo showOtherLangText('Sub Unit'); ?>
+                                </option>
 
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+                                <?php 
+							$untQry = " SELECT * FROM tbl_units WHERE account_id='".$_SESSION['accountId']."' ";
+							$untResult = mysqli_query($con, $untQry);
+							while($untRow = mysqli_fetch_array($untResult))
+							{
+								echo "<option value='".$untRow['id']."'>".$untRow['name']."</option>";
+							}
+
+							?>
+                            </select>
+                            <input type="text" class="form-control" name="factor" id="factor" placeholder="<?php echo showOtherLangText('Factor'); ?>" required />
+                            <input type="text" class="form-control" name="minQty" id="minQty" placeholder="<?php echo showOtherLangText('Min Qty'); ?>" value="" />
+                            <input type="text" class="form-control" name="maxQty" id="maxQty" placeholder="<?php echo showOtherLangText('Max Qty'); ?>" value="" />
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- Edit Storage Popup Start -->
+    <!-- <form role="form" action=""  class="addUser-Form row container glbFrm-Cont" method="post">
+    <div class="modal" tabindex="-1" id="edit-PhyStorage" aria-labelledby="edit-PhyStorageLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php //echo showOtherLangText('Edit store'); ?></h1>
+                </div>
+                <div class="modal-body">
+                <input type="hidden" name="id" id="edit-id" value="" /> 
+                        <input type="text" class="form-control" id="editStore" required name="name" placeholder="Name">
+                   
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" class="btn sub-btn std-btn"><?php //echo showOtherLangText('Save'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form> -->
+
+    <form role="form" action=""  class="addUser-Form row container glbFrm-Cont" method="post">
+    <div class="modal" tabindex="-1" id="edit-PhyStorage" aria-labelledby="edit-PhyStorageLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Edit Follow Item')?></h1>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="itemName" id="edittags" required placeholder="<?php echo showOtherLangText('Assign Item'); ?>">
+                    <input type="hidden" name="outLetId" value="<?php echo $_GET['revCenDeptId'];?>" />
+                <input type="hidden" name="itemRowId" id="itemRowId" value="" />
+                <select name="itemType" id="itemType" class="form-control" required>
+                                <option value=""><?php echo showOtherLangText('Select'); ?> <?php echo showOtherLangText('Item Type'); ?>
+                                </option>
+                                <?php 
+							if($outLetDet['outLetType'] == 2)
+							{
+								echo '<option value="3">'.showOtherLangText('Usage').'</option>';
+							}
+							else
+							{
+								echo '<option value="1">'.showOtherLangText('Bar Control').'</option>
+								<option value="2">'.showOtherLangText('Sales').'</option>
+								<option value="3">'.showOtherLangText('Usage').'</option>';
+							}
+							?>
+                            </select>
+                            <select class="form-control" name="subUnit" id="subUnit" required>
+                                <option value=""><?php echo showOtherLangText('Select'); ?> <?php echo showOtherLangText('Sub Unit'); ?>
+                                </option>
+
+                                <?php 
+							$untQry = " SELECT * FROM tbl_units WHERE account_id='".$_SESSION['accountId']."' ";
+							$untResult = mysqli_query($con, $untQry);
+							while($untRow = mysqli_fetch_array($untResult))
+							{
+								echo "<option value='".$untRow['id']."'>".$untRow['name']."</option>";
+							}
+
+							?>
+                            </select>
+                            <input type="text" class="form-control" name="factor" id="factor" placeholder="<?php echo showOtherLangText('Factor'); ?>" required />
+                            <input type="text" class="form-control" name="minQty" id="minQty" placeholder="<?php echo showOtherLangText('Min Qty'); ?>" value="" />
+                            <input type="text" class="form-control" name="maxQty" id="maxQty" placeholder="<?php echo showOtherLangText('Max Qty'); ?>" value="" />
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- Add Storage Popup End -->
+    <div id="dialog1" style="display: none;">
+    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
+</div>
+<div id="outletItemModalPopup" class="modal"></div>
+    <?php require_once('footer.php');?>
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 
 </html>
 <script>
+    $( document ).ready(function() {
+      $('.editicon').click(function(){
+        
+        var editIdValue = this.getAttribute("data-editid");
+        openModal(editIdValue);
+       
+      });
+    });  
     function getDelNumb(delId, id, revCenDeptId, deptId) {
 
         $("#dialog1").dialog({
@@ -1327,7 +1260,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
         var availableTags = [
             <?php 
 	$proRows = getAllProducts();
-	foreach($proRows as $pId=>$pName){
+    foreach($proRows as $pId=>$pName){
 		$itemName = $pName.'('.$pId.')';
 		echo "'$itemName'".',';
 	}
@@ -1335,6 +1268,9 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
         ];
 
         $("#tags").autocomplete({
+            source: availableTags
+        });
+        $("#edittags").autocomplete({
             source: availableTags
         });
 
@@ -1352,16 +1288,16 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                 }
             })
             .done(function(responseObj) {
-                $('#tags').val(responseObj.itemName);
-                $('#itemType').val(responseObj.itemType);
-                $('#subUnit').val(responseObj.unit);
-                $('#factor').val(responseObj.factor);
-                $('#minQty').val(responseObj.minQty);
-                $('#maxQty').val(responseObj.maxQty);
+                $('#edit-PhyStorage #edittags').val(responseObj.itemName);
+                $('#edit-PhyStorage #itemType').val(responseObj.itemType);
+                $('#edit-PhyStorage #subUnit').val(responseObj.unit);
+                $('#edit-PhyStorage #factor').val(responseObj.factor);
+                $('#edit-PhyStorage #minQty').val(responseObj.minQty);
+                $('#edit-PhyStorage #maxQty').val(responseObj.maxQty);
             });
 
-        $('#itemRowId').val(itemRowId);
-        outletItemModalPopup.style.display = "block";
+        $('#edit-PhyStorage #itemRowId').val(itemRowId);
+        ///outletItemModalPopup.style.display = "block";
     }
 
     $('.addItemBtn').click(function() {
