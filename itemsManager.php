@@ -47,7 +47,7 @@ if ($out === TRUE) {
 
 
 
-echo "<script>window.location='listProducts.php?mes=".$mes."'</script>";
+echo "<script>window.location='itemsManager.php?mes=".$mes."'</script>";
 
 }
 
@@ -239,7 +239,7 @@ foreach($rows as $row)
 	
 }
 
-echo "<script>window.location='listProducts.php?imported=1'</script>";
+echo "<script>window.location='itemsManager.php?imported=1'</script>";
 
 }
 }//end //code to import products from csv file
@@ -254,12 +254,12 @@ if(!$stockRow)
 $sql = " DELETE FROM tbl_products  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."' ";
 mysqli_query($con, $sql);
 
-echo "<script>window.location='listProducts.php?delete=1'</script>";
+echo "<script>window.location='itemsManager.php?delete=1'</script>";
 }
 else
 {
 
-echo "<script>window.location='listProducts.php?delete=2'</script>";
+echo "<script>window.location='itemsManager.php?delete=2'</script>";
 
 }
 }
@@ -383,7 +383,7 @@ $deprtOptions .= '</select>';
 //---------------------------------------------
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -406,126 +406,13 @@ $deprtOptions .= '</select>';
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link active text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Items Manager</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Items Manager'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -537,7 +424,7 @@ $deprtOptions .= '</select>';
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Items Manager</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Items Manager'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -570,7 +457,7 @@ $deprtOptions .= '</select>';
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
-                    <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
+                    <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 			
@@ -612,6 +499,7 @@ $deprtOptions .= '</select>';
                             <div class="mbItm-MngIcns">
 
                             </div>
+                            
                             <div class="col-md-6 fetItm-Mng">
                                 <div class="itmLnk-Row">
                                     <div class="itmFeat-Div itmMng-Feature">
@@ -621,8 +509,11 @@ $deprtOptions .= '</select>';
                                         </a>
                                     </div>
 
+                                    
                                     <div class="itmFeat-Div itmMng-Feature">
-                                        <a href="javascript:void(0)" class="dropdown-toggle itm-Feature" role="button"
+                                    <form action="itemsManager.php" id="upload_form" name="upload_form" method="post"
+                                    enctype="multipart/form-data">
+                                    <a href="javascript:void(0)" class="dropdown-toggle itm-Feature" role="button"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="impItem"></span>
                                             <p class="btn2 d-flex justify-content-center align-items-center">
@@ -630,15 +521,22 @@ $deprtOptions .= '</select>';
                                             </p>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item ent-Gstno" href="javascript:void(0)"><?php echo showOtherLangText('Import Items List') ?></a>
-                                            </li>
-                                            <li><a class="dropdown-item gt-Pos" href="javascript:void(0)">Upload Photos
+                                            <li id="btnFileUpload"><a class="dropdown-item ent-Gstno" onClick="return uploadFile();" href="javascript:void(0)"><?php echo showOtherLangText('Import Items List') ?></a>
+                                            </li><input type="file" id="uploadFile" name="uploadFile"
+                                                    style="display:none">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <li><a class="dropdown-item gt-Pos" id="btnZipFileUpload" onClick="return uploadZip();" href="javascript:void(0)">Upload Photos
                                                     (zip file)</a>
-                                            </li>
+                                            </li> <input type="file" id="uploadZipFile" name="uploadZipFile"
+                                                    style="display:none">
+
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
                                             <li><a class="dropdown-item dwn-Sample" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/import-product-hebrew-lang.xlsx' : 'excelSampleFile/english/import-product-english-lang.xlsx'; ?>"> <i
                                                         class="fa-solid fa-arrow-down"></i> <span><?php echo showOtherLangText('Download Sample File'); ?></span></a></li>
                                         </ul>
+                                    </form>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -650,7 +548,8 @@ $deprtOptions .= '</select>';
                                 <div class="col-md-6">
                                     <!-- Search Box Start -->
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" placeholder="Search" id="srch"
+                                        <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search" id="search"
+                                                onKeyUp="myFunction()"
                                             aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
@@ -672,7 +571,7 @@ $deprtOptions .= '</select>';
                                 <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
                                     <div class="d-flex align-items-center itmMng-xlIcn">
                                         <div class="chkStore">
-                                            <a href="javascript:void(0)">
+                                            <a href="item_excel.php" target="_blank">
                                                 <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
                                             </a>
                                         </div>
@@ -690,7 +589,7 @@ $deprtOptions .= '</select>';
                             </div>
                         </div>
                     </div>
-
+                    <form action="itemsManager.php" method="get">
                     <div class="container itmMng-Tblhead position-relative">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
@@ -738,84 +637,29 @@ $deprtOptions .= '</select>';
                                 <div class="tb-head drpDwn-ItmMng subCat-ItmMng">
                                     <div class="d-flex align-items-center">
                                         <div class="dropdown d-flex position-relative">
-                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <span>Sub Catagory</span> <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Sub Catagory
-                                                        1</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Sub Catagory
-                                                        2</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Sub Catagory
-                                                        3</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Sub Catagory
-                                                        4</a>
-                                                </li>
-                                            </ul>
+                                        <?php echo $subCatOptions; ?>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tb-head drpDwn-ItmMng supItm-Mng">
                                     <div class="d-flex align-items-center">
                                         <div class="dropdown d-flex position-relative">
-                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <span>Supplier</span> <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Supplier 1</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Supplier 2</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Supplier 3</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Supplier 4</a>
-                                                </li>
-                                            </ul>
+                                            <?php echo $suppOptions; ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tb-head drpDwn-ItmMng deptItm-Mng">
                                     <div class="d-flex align-items-center">
                                         <div class="dropdown d-flex position-relative">
-                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <span>Department</span> <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Department 1</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Department 2</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Department 3</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Department 4</a>
-                                                </li>
-                                            </ul>
+                                            <?php echo $deprtOptions; ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tb-head drpDwn-ItmMng strgItm-Mng">
                                     <div class="d-flex align-items-center">
                                         <div class="dropdown d-flex position-relative">
-                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <span>Storage</span> <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Storage 1</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Storage 2</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Storage 3</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Storage 4</a>
-                                                </li>
-                                            </ul>
+                                        <?php echo $storageOptions; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -852,54 +696,102 @@ $deprtOptions .= '</select>';
                         </div>
                         <!-- Item Table Head End -->
                     </div>
-
-                    <!-- Item Table Body Start -->
+                    </form>
+                    
                     <div id="boxscroll">
                         <div class="container cntTable">
+                        <?php 
+					$x= 0;
+					while($row = mysqli_fetch_array($mainQry))
+					{
+						$color = ($x%2 == 0)? 'white': '#FFFFCC';
+						$x++;
+						
+						$deptNames = $row['departs'];//getProdcutDepartments($row['id']);
+						$supNames = $row['suppls'];//getProdcutSuppls($row['id']);
+						
+						$catNames = ($row['childCatName'] == 'z' ? '' :  $row['childCatName']);
+						
+						/*$sqlSet = " SELECT * FROM tbl_stores WHERE id = '".$row['storageDeptId']."' ";
+						$resultSet = mysqli_query($con, $sqlSet);
+						$storeRes = mysqli_fetch_array($resultSet);*/
+						$storeName = $row['storeName'];
+							
+
+						$img = '';
+                       // echo '<pre>';
+                       // print_r($row['barCode']);
+                       // exit;
+                       
+						if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/". $accountImgPath .'/products/'.$row['imgName'] ) )
+						 {	
+						 	
+							$img =  '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+						 }
+						  
+						 $colsValArr = 
+						  [
+							1 => $img,
+							2 => $row['itemName'],
+							3 => $row['barCode'],
+							4 => $row['purchaseUnit'] .'/'.$row['factor'].'/'.$row['countingUnit'],
+							
+							5 => $catNames,
+							6 => $supNames,
+							7 => str_replace(',', '<br>', $deptNames),
+							8 => $storeName,
+							9 => ($row['minLevel']),
+							10 => ($row['maxLevel']),
+							11 => getPrice($row['price']) .' '.$getDefCurDet['curCode'],
+							12 => getPrice($row['stockPrice']) .' '.$getDefCurDet['curCode'],
+						  ];
+						  
+						
+				?>
                             <div class="d-flex align-items-center border-bottom itmBody itemManager-Task">
                                 <div class="itmTask-Mng align-items-center">
                                     <div class="tb-bdy imgItm-MngClm">
-                                        <img src="Assets/images/Tomato.png" alt="Item" class="imgItm">
+                                        <?php echo $img; ?>
                                     </div>
                                     <div class="align-items-center brItm-MngClm">
                                         <div class="tb-bdy item-MngClm">
-                                            <p>Tomato</p>
+                                            <p><?php echo $row['itemName']; ?></p>
                                         </div>
                                         <div class="tb-bdy brCode-MngClm">
-                                            <p><span class="mb-CodeItm">Code</span> <strong>18</strong> kg</p>
+                                            <p><?php echo $row['barCode']; ?></p>
                                         </div>
                                         <div class="tb-bdy unit-MngClm bdyCol-Itm">
-                                            <p><span class="mb-UnitItm">Unit P/F/C</span> 2.2$</p>
+                                            <p><span class="mb-UnitItm">Unit P/F/C</span><?php echo $row['purchaseUnit'] .'/'.$row['factor'].'/'.$row['countingUnit']; ?></p>
                                         </div>
                                     </div>
                                     <div class="align-items-center drpItm-MngClm">
                                         <div class="tb-bdy drpDwn-ItmMng subCat-ItmMng">
-                                            <p>Vegetables</p>
+                                            <p><?php echo $catNames; ?></p>
                                         </div>
                                         <div class="tb-bdy drpDwn-ItmMng supItm-Mng">
-                                            <p>Mbero shop</p>
+                                            <p><?php echo $supNames; ?></p>
                                         </div>
                                         <div class="tb-bdy drpDwn-ItmMng deptItm-Mng">
-                                            <p>Kitchen</p>
+                                            <p><?php echo $deptNames; ?></p>
                                         </div>
                                         <div class="tb-bdy drpDwn-ItmMng strgItm-Mng">
-                                            <p>Vegetables/Diary</p>
+                                            <p><?php echo $storeName; ?></p>
                                         </div>
                                     </div>
                                     <div class="align-items-center prcItm-MngClm">
                                         <div class="tb-bdy lastItm-PrcCol bdyCol-Itm">
-                                            <p><span class="mbLst-ItmMng">L. Price</span> 1$</p>
+                                            <p><span class="mbLst-ItmMng">L. Price</span><?php echo getPrice($row['price']) .' '.$getDefCurDet['curCode']; ?></p>
                                         </div>
                                         <div class="tb-bdy stockItm-PrcCol bdyCol-Itm">
-                                            <p><span class="mbLst-ItmMng">S. Price</span> 1$</p>
+                                            <p><span class="mbLst-ItmMng">S. Price</span><?php echo getPrice($row['stockPrice']) .' '.$getDefCurDet['curCode']; ?></p>
                                         </div>
                                     </div>
                                     <div class="icnItm-MngClm">
                                         <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                            <a href="javascript:void(0)" class="userLink">
+                                            <a href="editProduct.php?id=<?php echo $row['id'];?>" class="userLink">
                                                 <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                             </a>
-                                            <a href="javascript:void(0)" class="userLink">
+                                            <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>')" class="userLink">
                                                 <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                             </a>
                                         </div>
@@ -910,7 +802,7 @@ $deprtOptions .= '</select>';
                                             class="fa-solid fa-angle-down"></i></a>
                                 </div>
                             </div>
-                            
+                            <?php } ?>
                                 <div class="align-items-center mbTask">
                                     <a href="javascript:void(0)" class="statusLink mb-itmMngLink"><i
                                             class="fa-solid fa-angle-down"></i></a>
@@ -920,6 +812,7 @@ $deprtOptions .= '</select>';
 
                         </div>
                     </div>
+                    
                     <!-- Item Table Body End -->
 
 
@@ -929,9 +822,108 @@ $deprtOptions .= '</select>';
         </div>
     </div>
 
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+  
+    <div id="dialog" style="display: none;">
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
+
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 
 </html>
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tableId");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the  query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        $('#searchCross').remove();
+        $('#searchBox').append('<span id="searchCross" onClick="resetData();">X</span>');
+        if (filter == '') {
+            $('#searchCross').remove();
+        }
+    }
+
+    function resetData() {
+        $('#search').val('');
+        myFunction();
+        $('#searchCross').remove();
+
+    }
+    </script>
+    <script>
+    function getDelNumb(delId) {
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            //title     : "Title",
+            buttons: {
+                '<?php echo showOtherLangText('Yes') ?>': function() {
+                    //Do whatever you want to do when Yes clicked
+                    $(this).dialog('close');
+                    window.location.href = 'itemsManager.php?delId=' + delId;
+                },
+
+                '<?php echo showOtherLangText('No') ?>': function() {
+                    //Do whatever you want to do when No clicked
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $("#dialog").dialog("open");
+        $('.custom-header-text').remove();
+        $('.ui-dialog-content').prepend(
+            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    }
+    </script>
+    <script type="text/javascript">
+    var fileupload = document.getElementById("uploadFile");
+    var button = document.getElementById("btnFileUpload");
+    button.onclick = function() {
+        fileupload.click();
+    };
+    fileupload.onchange = function() {
+
+        var rightSideLanguage = '<?php echo $rightSideLanguage ?>';
+        //if (rightSideLanguage == 1) {
+
+        //document.getElementById('upload_form').action = 'excel/import/importProducts.php'; 
+        //}
+
+        document.getElementById('upload_form').submit();
+    };
+
+
+
+    function uploadZip() {
+        var fileupload1 = document.getElementById("uploadZipFile");
+        var button1 = document.getElementById("btnZipFileUpload");
+        button1.onclick = function() {
+            fileupload1.click();
+        };
+        fileupload1.onchange = function() {
+            document.getElementById('upload_form').submit();
+        };
+    }
+    </script>

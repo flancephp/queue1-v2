@@ -1,5 +1,4 @@
 <?php 
-
 include('inc/dbConfig.php'); //connection details
 
 //Get language Type 
@@ -8,42 +7,32 @@ $getLangType = getLangType($_SESSION['language_id']);
 $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'item_manager' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-
 if ($permissionRow)
 {
     echo "<script>window.location='index.php'</script>";
 }
 
-//Run ajax to check the barCode to be entered unique or not
-if( isset($_POST['enteredBarCode']) )
-{ 
-    $sql = "SELECT * FROM tbl_products WHERE barCode = '".trim($_POST['enteredBarCode'])."'  AND account_id = '".$_SESSION['accountId']."'  ";
-    $result = mysqli_query($con, $sql);
-    $res = mysqli_fetch_array($result);
-
-    echo $barCodeStatus = !empty($res) ? 1 : 0;
-    die();
-}
 
 
 $msg = '';
-if( isset($_POST['itemName']) )
-{ 
+if(isset($_POST['itemName']))
+{
 
-    //check for barcode exist or not in our database
-     $sql = "SELECT * FROM tbl_products WHERE barCode = '".trim($_POST['barCode'])."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    $sql = "SELECT * FROM tbl_products
+    WHERE barCode = '".trim($_POST['barCode'])."' AND id != '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
     $result = mysqli_query($con, $sql);
     $res = mysqli_fetch_array($result);
-    
-    if ($res > 0) {
-        $msg = ' '.showOtherLangText('Bar Code Already Exist').' ';
-        //exit();
+
+    if($res)
+    {
+        echo "<script>window.location='editProduct.php?error=1&id=".$_POST['id']."'</script>";
     }
     else
     {
+
         if ($_POST['maxLevel'] < $_POST['minLevel']) 
         {
-            $msg1 = ' '.showOtherLangText('MaxLevel should be greater than minLevel.').' ';
+            $msg = ' '.showOtherLangText('MaxLevel should be greater than minLevel.').' ';
         }
         else
         {
@@ -51,62 +40,100 @@ if( isset($_POST['itemName']) )
             if($_FILES["imgName"]["name"] != '')
             {
                 $target_dir = dirname(__FILE__)."/uploads/".$accountImgPath.'/products/';
-                $fileName = time(). basename($_FILES["imgName"]["name"]);
+                $fileName = time().basename($_FILES["imgName"]["name"]);
                 $target_file = $target_dir . $fileName;
 
                 move_uploaded_file($_FILES["imgName"]["tmp_name"], $target_file);
 
-                $picField = " , imgName = '". $fileName."' ";
+                $picField = " , imgName = '".$fileName."' ";
 
-
-                resize_image($target_file, $target_file, 60,60);
+                    if($res['imgName'] != '' && file_exists($target_dir.$res['imgName']) )
+                    {
+                        @unlink($target_dir.$res['imgName']);
+                    }
             }
 
-            $sql = "INSERT INTO `tbl_products` SET
-            `storageDeptId` = '".$_POST['storageDeptId']."',
-            `parentCatId` = '".$_POST['parentId']."',
-            `catId` = '".$_POST['catId']."',
-            `itemName` = '".addslashes($_POST['itemName'])."',
-            `barCode` = '".$_POST['barCode']."',
-            `unitP` = '".$_POST['unitP']."',
-            `factor` = '".$_POST['factor']."',
-            `unitC` = '".$_POST['unitC']."',
-            `price` = '".$_POST['price']."',
-            `minLevel` = '".$_POST['minLevel']."',
-            `maxLevel` = '".$_POST['maxLevel']."',
-            `status` = '".$_POST['status']."',
-            `proType` = '".$_POST['proType']."',
-            `rawProducts` = '".$_POST['rawProducts']."',
-            `account_id` = '".$_SESSION['accountId']."' 
-
-            ".$picField;
+            $sql = "UPDATE `tbl_products` SET
+        	`storageDeptId` = '".$_POST['storageDeptId']."',
+        	`parentCatId` = '".$_POST['parentId']."',
+        	`catId` = '".$_POST['catId']."',
+        	`itemName` = '".addslashes($_POST['itemName'])."',
+        	`barCode` = '".$_POST['barCode']."',
+        	`unitP` = '".$_POST['unitP']."',
+        	`factor` = '".$_POST['factor']."',
+        	`unitC` = '".$_POST['unitC']."',
+        	`price` = '".$_POST['price']."',
+        	`stockPrice` = '".$_POST['stockPrice']."',
+        	`minLevel` = '".$_POST['minLevel']."',
+        	`maxLevel` = '".$_POST['maxLevel']."',
+        	`status` = '".$_POST['status']."',
+        	`proType` = '".$_POST['proType']."',
+        	`rawProducts` = '".$_POST['rawProducts']."'
+        	".$picField."
+        				
+        	WHERE id =  '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
             mysqli_query($con, $sql);
 
-            $productId = mysqli_insert_id($con);
-
-            if (!empty($_POST['deptId'])) {
-                foreach($_POST['deptId'] as $deptId)
+            //update stock price
+            if($_POST['stockPrice'] > 0)
+            {
+                $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+                $stkQry = mysqli_query($con, $sql);
+                $stkRow = mysqli_fetch_array($stkQry);
+                if($stkRow)
                 {
-                    $sql = "INSERT INTO `tbl_productdepartments` SET
-                    `productId` = '".$productId."',
-                    `deptId` = '".$deptId."', 
-                    `account_id` = '".$_SESSION['accountId']."'  ";
-                    mysqli_query($con, $sql);
-                }
+                    $upQry = " UPDATE  `tbl_stocks` SET
+                    `stockPrice` = ".$_POST['stockPrice'].",
+                    `stockValue` = ".($_POST['stockPrice']*$stkRow['qty'])."
+                    WHERE id = '".$stkRow['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+                    mysqli_query($con, $upQry);
+
+                }	
             }
 
-            if (!empty($_POST['supplierId'])) {
-
-                foreach($_POST['supplierId'] as $supplierId)
+            //update last price
+            if($_POST['price'] > 0)
+            {
+                $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+                $stkQry = mysqli_query($con, $sql);
+                $stkRow = mysqli_fetch_array($stkQry);
+                if($stkRow)
                 {
-                    $sql = "INSERT INTO `tbl_productsuppliers` SET
-                    `productId` = '".$productId."',
-                    `supplierId` = '".$supplierId."',
-                    `account_id` = '".$_SESSION['accountId']."'  ";
-                    mysqli_query($con, $sql);
-                }
+                    $upQry = " UPDATE  `tbl_stocks` SET
+                    `lastPrice` = '".$_POST['price']."'
+                    WHERE id = '".$stkRow['id']."' AND account_id = '".$_SESSION['accountId']."'   ";
+                    mysqli_query($con, $upQry);
+                }	
+            }//End
+
+
+            $sql = " DELETE  FROM `tbl_productdepartments` WHERE  productId = '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+            mysqli_query($con, $sql);
+
+            foreach($_POST['deptId'] as $deptId)
+            {
+                $sql = "INSERT INTO `tbl_productdepartments` SET
+                `productId` = '".$_POST['id']."',
+                `deptId` = '".$deptId."',
+                `account_id` = '".$_SESSION['accountId']."'  ";
+                mysqli_query($con, $sql);
             }
 
+            $sql = " DELETE  FROM `tbl_productsuppliers` WHERE  productId = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+            mysqli_query($con, $sql);
+
+            foreach($_POST['supplierId'] as $supplierId)
+            {
+                $sql = "INSERT INTO `tbl_productsuppliers` SET
+                `productId` = '".$_POST['id']."',
+                `supplierId` = '".$supplierId."',
+                `account_id` = '".$_SESSION['accountId']."'  ";
+                mysqli_query($con, $sql);
+            }
+
+
+            $sql = " DELETE  FROM `tbl_rawitem_products` WHERE  rawPid = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+            mysqli_query($con, $sql);
 
             if( isset($_POST['rawProducts']) && $_POST['rawProducts'] != '')
             {
@@ -117,29 +144,44 @@ if( isset($_POST['itemName']) )
                     {
                         if( !empty($proName) )
                         {
-                            $proName = trim($proName);
-                            $proNameFilter = explode('(', $proName);
-                            $convtPid = trim( str_replace(')', '', $proNameFilter[1]) );
-                            if($productId > 0 && $convtPid > 0)
-                            {
-                                $sql = "INSERT INTO `tbl_rawitem_products` SET
-                                `rawPid` = '".$productId."',
-                                `convtPid` = '".$convtPid."',
-                                `account_id` = '".$_SESSION['accountId']."'  ";
-                                mysqli_query($con, $sql);
-                            }
+                        	
+                        	$proNameFilter = explode('(', $proName);
+                        	$cnt = count($proNameFilter)-1;
+                        	$convtPid = trim( str_replace(')', '', $proNameFilter[$cnt]) );
+                        	
+                        	if($_POST['id'] > 0 && $convtPid > 0)
+                        	{
+                        		 $sql = "INSERT INTO `tbl_rawitem_products` SET
+                        		`rawPid` = '".$_POST['id']."',
+                        		`convtPid` = '".$convtPid."',
+                        		`account_id` = '".$_SESSION['accountId']."'  ";
+                               
+                        		mysqli_query($con, $sql);
+                        	}
                         }
                     }
                 }
-
             }
 
-            echo "<script>window.location='itemsManager.php?added=1'</script>";
-
+            echo "<script>window.location='itemsManager.php?edit=1'</script>";
         }
     }
-
 }
+
+
+// Main query goes here
+$sql = "SELECT p.* FROM tbl_products p 
+LEFT JOIN tbl_stocks s 
+    ON (s.pId=p.id) AND s.account_id=p.account_id
+        WHERE p.id = '".$_GET['id']."' AND p.account_id = '".$_SESSION['accountId']."'  ";
+$result = mysqli_query($con, $sql);
+$res = mysqli_fetch_array($result);
+$convertedProducts = '';
+if( $res['proType'] == 3)
+{
+    $convertedProducts = getRawProducts($_GET['id']);
+}
+
 
 
 ?>
@@ -173,7 +215,7 @@ if( isset($_POST['itemName']) )
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Add Product') ?></h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Edit Product'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -185,7 +227,7 @@ if( isset($_POST['itemName']) )
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Add Product') ?></h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit Product'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -218,29 +260,8 @@ if( isset($_POST['itemName']) )
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
-                    <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                            <?php if(isset($msg) && $msg!='') { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo $msg; ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                            <?php if(isset($msg1) && $msg1!='') { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo $msg1; ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
                     <form role="form" action="" method="post" class="container" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?php echo $res['id'];?>" />
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
@@ -294,7 +315,7 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="itemName" id="itemName"
-                                                    value="<?php echo $_POST['itemName']; ?>" autocomplete="off"
+                                                    value="<?php echo $res['itemName'];?>" autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
@@ -305,7 +326,7 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="barCode" id="barCode"
-                                                    value="<?php echo $_POST['barCode'];?>" autocomplete="off"
+                                                    value="<?php echo $res['barCode'];?>" autocomplete="off"
                                                     onfocusout="checkBarCode(this.value)"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
@@ -319,12 +340,12 @@ if( isset($_POST['itemName']) )
                                                 <div class="rdoBtn-New"><input type="radio" name="status" id="status"
                                                         value="1" autocomplete="off" checked="checked"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')" required />
+                                                        onchange="this.setCustomValidity('')" <?php echo $res['status'] == 1 ? 'checked="checked"' : '';?> required />
                                                     <?php echo showOtherLangText('Active') ?>
                                                     <input type="radio" name="status" id="status"
                                                         value="0" autocomplete="off"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')" required />
+                                                        onchange="this.setCustomValidity('')" <?php echo $res['status'] != 1 ? 'checked="checked"' : '';?> required />
                                                     <?php echo showOtherLangText('InActive') ?>
                                                 </div>
                                              </div>
@@ -334,33 +355,57 @@ if( isset($_POST['itemName']) )
                                                     <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                <div class="rdoBtn-New"><input type="radio" name="proType" value="1"
+                                                <div class="rdoBtn-New">
+                                                    <input type="radio" name="proType" value="1"
                                                         onClick="showOtherItems(1);" autocomplete="off"
-                                                        checked="checked"
+                                                        <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?>
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')" required />
+                                                        onchange="this.setCustomValidity('')" <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?> required />
                                                     <?php echo showOtherLangText('Normal') ?>
                                                     <input type="radio" name="proType" value="2"
                                                             onClick="showOtherItems(2);" autocomplete="off"
+                                                            <?php echo $res['proType'] == 2 ? 'checked="checked"' : '';?>
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                            onchange="this.setCustomValidity('')" required />
+                                                            onchange="this.setCustomValidity('')" <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?> required />
                                                         <?php echo showOtherLangText('Dividable') ?>
                                                         <input type="radio" name="proType"
                                                             value="3" onClick="showOtherItems(3);" autocomplete="off"
                                                             id="rawType"
+                                                            <?php echo $res['proType'] == 3 ? 'checked="checked"' : '';?>
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                            onchange="this.setCustomValidity('')" required />
+                                                            onchange="this.setCustomValidity('')" <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?> required />
                                                         <?php echo showOtherLangText('Raw') ?>
                                                 </div>
                                              </div>
                                             </div>
-                                            <div style="display:none;" id="chooseProducts" class="row align-items-center acntStp-Row">
+                                            <div <?php echo $res['proType'] == 3 ? '' : 'style="display:none"';?> id="chooseProducts" class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Select product'); ?></label>
                                                 </div>
                                                 <div class="col-md-8 after-add-more">
-                                                <input type="text" name="rawProducts[]" id="tags" class="frmctrl" />
-                                                    <a class="btn btn-success add-more">+</a>
+                                                <?php
+			$i=0;
+			if($res['proType'] == 3 && $convertedProducts)
+			{
+				
+			 	foreach($convertedProducts as $proName)
+				{
+					$i++;
+					if($i == 1)
+					{
+						echo  '<input type="text"    name="rawProducts[]" id="tags" value="'.$proName.'" class="frmctrl" /> 
+						<a class="btn btn-success add-more">+</a>';
+					}
+					else
+					{ 
+						echo '<span id="'.$i.'"><br><br><input type="text" id="tags'.$i.'"  value="'.$proName.'"  name="rawProducts[]"  class="frmctrl" /> 
+						 <a class="btn btn-danger remove" onclick="removeRow('.$i.')">X</a></span>';
+					}
+				}
+			}else
+			{
+				echo '<input type="text"  name="rawProducts[]" id="tags"  class="frmctrl" />  <a class="btn btn-success add-more">+</a>';
+			} ?>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
@@ -392,7 +437,7 @@ if( isset($_POST['itemName']) )
                                                     while($departRow = mysqli_fetch_array($resultSet))
                                                     {
 
-                                                        $sel = $_REQUEST['storageDeptId'] == $departRow['id'] ? 'selected="selected"' : '';
+                                                        $sel =  ($res['storageDeptId'] == $departRow['id']) ? 'selected = "selected"' : '';
                                                         ?>
 
                                                                                 <option value="<?php echo $departRow['id'];?>" <?php echo $sel;?>>
@@ -421,7 +466,7 @@ if( isset($_POST['itemName']) )
                                                     <?php 
 					while($catRows = mysqli_fetch_array($resultSet))
 					{
-						$sel = $_REQUEST['parentId'] == $catRows['id'] ? 'selected = "selected"' : '';
+						$sel = $res['parentCatId'] == $catRows['id'] ? 'selected = "selected"' : '';
 				 ?>
                                                     <option value="<?php echo $catRows['id'];?>" <?php echo $sel;?>>
                                                         <?php echo $catRows['name'];?></option>
@@ -436,29 +481,19 @@ if( isset($_POST['itemName']) )
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Subcategory'); ?></label>
                                                 </div>
+                                                
+                                                <?php
+	$sqlSet = " SELECT * FROM tbl_category WHERE parentId = '".$res['parentCatId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+	$resultSet = mysqli_query($con, $sqlSet);
+	?>
                                                 <div class="col-md-8">
-                                                <select name="catId" id="catId" class="form-control"
-                                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                    onchange="this.setCustomValidity('')" required>
-
-                                                    <option value=""><?php echo showOtherLangText('Select'); ?></option>
-
-                                                    <?php
-					if(isset($_POST['catId'])) 
-					{ 
-						$sqlSet = " SELECT * FROM tbl_category WHERE id='".$_POST['catId']."' AND account_id = '".$_SESSION['accountId']."' ";
-						$resultSet = mysqli_query($con, $sqlSet);
-						$resultSetRow = mysqli_fetch_array($resultSet);
-
-                        $sel = $_POST['catId'] == $resultSetRow['id'] ? 'selected = "selected"' : '';
-							?>
-
-                                                    <option value="<?php echo $_POST['catId'];?>" <?php echo $sel; ?>>
-                                                        <?php echo $resultSetRow['name'];?>
-                                                    </option>
-
-                                                    <?php }  ?>
-
+                                                <select name="catId" id="catId" class="form-control" required>
+                                                    <?php while( $catRows = mysqli_fetch_array($resultSet) ){
+				$sel = $res['catId'] == $catRows['id'] ? 'selected = "selected"' : '';
+		 ?>
+                                                    <option value="<?php echo $catRows['id'];?>" <?php echo $sel;?>>
+                                                        <?php echo $catRows['name'];?></option>
+                                                    <?php } ?>
                                                 </select>
                                                 </div>
                                             </div>
@@ -478,7 +513,7 @@ if( isset($_POST['itemName']) )
                                                     <?php 
                                                     while($unitsRows = mysqli_fetch_array($resultSet))
                                                     {	
-                                                    $sel = $_REQUEST['unitP'] == $unitsRows['id'] ? 'selected = "selected"' : '';
+                                                    $sel = $res['unitP'] == $unitsRows['id'] ? 'selected = "selected"' : '';
                                                     ?>
                                                     <option value="<?php echo $unitsRows['id'];?>" <?php echo $sel; ?>>
                                                         <?php echo $unitsRows['name'];?></option>
@@ -496,7 +531,7 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="factor" id="factor"
-                                                    value="<?php echo $_POST['factor']; ?>" autocomplete="off"
+                                                    value="<?php echo $res['factor'];?>" autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
@@ -517,7 +552,7 @@ if( isset($_POST['itemName']) )
                                                     <?php 
 					while($unitsRows = mysqli_fetch_array($resultSet))
 					{	
-                        $sel = $_REQUEST['unitC'] == $unitsRows['id'] ? 'selected = "selected"' : '';
+                        $sel = $res['unitC'] == $unitsRows['id'] ? 'selected = "selected"' : '';
 						?>
                                                     <option value="<?php echo $unitsRows['id'];?>" <?php echo $sel; ?>>
                                                         <?php echo $unitsRows['name'];?></option>
@@ -533,7 +568,18 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="price" id="price"
-                                                    value="<?php echo $_POST['price']; ?>" autocomplete="off"
+                                                    value="<?php echo getPrice($res['price']);?>" autocomplete="off"
+                                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                                    onchange="this.setCustomValidity('')" required />
+                                                </div>
+                                            </div>
+                                            <div class="row align-items-center acntStp-Row">
+                                                <div class="col-md-4">
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Stock Price').'('.$getDefCurDet['curCode'].')'; ?></label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                <input type="text" class="form-control" name="stockPrice" id="stockPrice"
+                                                    value="<?php echo getPrice($res['stockPrice']);?>" autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
@@ -544,7 +590,7 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="minLevel" id="minLevel"
-                                                    value="<?php echo $_POST['minLevel']; ?>" autocomplete="off"
+                                                    value="<?php echo $res['minLevel'];?>" autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
@@ -555,7 +601,7 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="maxLevel" id="maxLevel"
-                                                    value="<?php echo $_POST['maxLevel']; ?>" autocomplete="off"
+                                                    value="<?php echo $res['maxLevel'];?>" autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
@@ -632,15 +678,19 @@ if( isset($_POST['itemName']) )
                                                     <input type="checkbox" class="CheckAllOptions" id="CheckAllOptions">
                                                     <label>
                                                         <?php echo showOtherLangText('Check All') ?>
-                                                    </label><br>
+                                                    </label>
                                                 </strong>
 
                                                 <?php
+        $sqlSet = " SELECT GROUP_CONCAT(supplierId) supplierIds FROM tbl_productsuppliers WHERE productId = '".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."' GROUP BY productId ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $proSuppls = mysqli_fetch_array($resultSet);
+
 		$sqlSet = " SELECT * FROM  tbl_suppliers WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
 		$resultSet = mysqli_query($con, $sqlSet);
 		while( $supRow = mysqli_fetch_array($resultSet) ){
-
-            $sel = $_REQUEST['supplierId'] == $supRow['id'] ? 'checked="checked"' : '';
+            $supIdsArr = explode(',', $proSuppls['supplierIds']);
+            $sel = in_array($supRow['id'], $supIdsArr) ? 'checked="checked"' : '';
 		?>
                                                 <input type="checkbox" id="supplierOptionCheck"
                                                     class="supplierOptionCheck" name="supplierId[]"
@@ -664,13 +714,19 @@ if( isset($_POST['itemName']) )
                                                     </label>
                                                 </strong><br>
                                                 <?php
-	
+	    
+        $sqlSet = " SELECT GROUP_CONCAT(deptId) deptIds FROM tbl_productdepartments WHERE productId = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."'  GROUP BY productId ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $proDepartsR = mysqli_fetch_array($resultSet);
+
 		$sqlSet = " SELECT * FROM tbl_department WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
 		$resultSet = mysqli_query($con, $sqlSet);
 		while( $departRows = mysqli_fetch_array($resultSet) ){
+            $deprtIdsArr = explode(',', $proDepartsR['deptIds']);
+            $sel = in_array($departRows['id'], $deprtIdsArr) ? 'checked="checked"' : '';
 						?>
                                                 <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck"
-                                                    name="deptId[]" value="<?php echo $departRows['id'];?>" >
+                                                    name="deptId[]" <?php echo $sel; ?> value="<?php echo $departRows['id'];?>" >
                                                 <?php echo $departRows['name'];?><br>
 
                                                 <?php 
@@ -700,9 +756,6 @@ if( isset($_POST['itemName']) )
             </div>
         </div>
     </div>
-    <div id="dialog" style="display: none;">
-        <?php echo showOtherLangText('Select Revenue Center First') ?>
-    </div>
     <?php require_once('footer.php');?>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -710,13 +763,11 @@ if( isset($_POST['itemName']) )
 </body>
 
 </html>
+
 <script>
     var x = 0;
-    
-
     $(document).ready(function() {
-
-    var availableTags = [
+        var availableTags = [
         <?php 
     $proRows = getAllProducts();
     foreach($proRows as $pId=>$pName){
@@ -729,7 +780,6 @@ if( isset($_POST['itemName']) )
     $("#tags").autocomplete({
         source: availableTags
     });
-
     var totalCount = $('.supplierOptionCheck').length;
 
     var totalCheckedCount = $('.supplierOptionCheck:checked').length;
