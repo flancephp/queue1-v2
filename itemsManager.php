@@ -333,53 +333,67 @@ $mainQry = mysqli_query($con, $sql);
 $sqlSet = " SELECT * FROM  tbl_category	 WHERE parentId > 0  AND account_id = '".$_SESSION['accountId']."' ORDER BY name ";
 $resultSet = mysqli_query($con, $sqlSet);
 							
-$subCatOptions = '<select class="form-control" name="subCatId" onchange="this.form.submit()">';
-$subCatOptions .= '<option value="">'.showOtherLangText('Sub Category').'</option>';
+$subCatOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
+aria-expanded="false">
+<span id="subcategoryText">Sub Catagory</span> <i class="fa-solid fa-angle-down"></i>
+</a>';
+$subCatOptions .= '<ul class="dropdown-menu subcat">';
 while($catRow = mysqli_fetch_array($resultSet) )
 {
-$sel = isset($_GET['subCatId']) && $_GET['subCatId'] == $catRow['id']  ? 'selected="selected"' : '';
-$subCatOptions .= '<option value="'.$catRow['id'].'" '.$sel.'>'.$catRow['name'].'</option>';
+$sel = isset($_GET['subCatId']) && $_GET['subCatId'] == $catRow['id']  ? 'selected' : '';
+//$subCatOptions .= '<option value="'.$catRow['id'].'" '.$sel.'>'.$catRow['name'].'</option>';
+ $subCatOptions .=       '<li data-id="'.$catRow['id'].'" data-value="'.$catRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$catRow['name'].'</a></li>';
 }
-$subCatOptions .= '</select>';
+$subCatOptions .= '</ul>';
 
 
 $sqlSet = " SELECT * FROM  tbl_suppliers WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY name ";
 $resultSet = mysqli_query($con, $sqlSet);
 							
-$suppOptions = '<select class="form-control" name="suppId" onchange="this.form.submit()">';
-$suppOptions .= '<option value="">'.showOtherLangText('Supplier').'</option>';
+$suppOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
+aria-expanded="false">
+<span id="supplierText">Supplier</span> <i class="fa-solid fa-angle-down"></i>
+</a>';
+$suppOptions .= '<ul class="dropdown-menu sort_supplier">';
 while($departRow = mysqli_fetch_array($resultSet) )
 {
-$sel = isset($_GET['suppId']) && $_GET['suppId'] == $departRow['id']  ? 'selected="selected"' : '';
-$suppOptions .= '<option value="'.$departRow['id'].'"  '.$sel.'>'.$departRow['name'].'</option>';
+$sel = isset($_GET['suppId']) && $_GET['suppId'] == $departRow['id']  ? 'selected' : '';
+//$suppOptions .= '<option value="'.$departRow['id'].'"  '.$sel.'>'.$departRow['name'].'</option>';
+$suppOptions .= '<li data-id="'.$departRow['id'].'" data-value="'.$departRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$departRow['name'].'</a></li>';
 }
-$suppOptions .= '</select>';
+$suppOptions .= '</ul>';
 
 
 $sqlSet = " SELECT * FROM  tbl_stores WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY name ";
 $resultSet = mysqli_query($con, $sqlSet);
 							
-$storageOptions = '<select class="form-control" name="storeId" onchange="this.form.submit()">';
-$storageOptions .= '<option value="">'.showOtherLangText('Storage').'</option>';
+$storageOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
+aria-expanded="false">
+<span id="storageTxt">Storage</span> <i class="fa-solid fa-angle-down"></i>
+</a>';
+$storageOptions .= '<ul class="dropdown-menu sort_storage">';
 while($storeRow = mysqli_fetch_array($resultSet) )
 {
-$sel = isset($_GET['storeId']) && $_GET['storeId'] == $storeRow['id']  ? 'selected="selected"' : '';
-$storageOptions .= '<option value="'.$storeRow['id'].'" '.$sel.'>'.$storeRow['name'].'</option>';
+$sel = isset($_GET['storeId']) && $_GET['storeId'] == $storeRow['id']  ? 'selected' : '';
+$storageOptions .= '<li data-id="'.$storeRow['id'].'" data-value="'.$storeRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$storeRow['name'].'</a></li>';
 }
-$storageOptions .= '</select>';
+$storageOptions .= '</ul>';
 
 
 $sqlSet = " SELECT * FROM  tbl_department WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY name ";
 $resultSet = mysqli_query($con, $sqlSet);
 							
-$deprtOptions = '<select class="form-control" name="deptId" onchange="this.form.submit()">';
-$deprtOptions .= '<option value="">'.showOtherLangText('Department').'</option>';
+$deprtOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
+aria-expanded="false">
+<span id="departmentTxt">Department</span> <i class="fa-solid fa-angle-down"></i>
+</a>';
+$deprtOptions .= '<ul class="dropdown-menu sort_department">';
 while($deprtRow = mysqli_fetch_array($resultSet) )
 {
-$sel = isset($_GET['deptId']) && $_GET['deptId'] == $deprtRow['id']  ? 'selected="selected"' : '';
-$deprtOptions .= '<option value="'.$deprtRow['id'].'" '.$sel.'>'.$deprtRow['name'].'</option>';
+$sel = isset($_GET['deptId']) && $_GET['deptId'] == $deprtRow['id']  ? 'selected' : '';
+$deprtOptions .= '<li data-id="'.$deprtRow['id'].'" data-value="'.$deprtRow['name'].'" ><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$deprtRow['name'].'</a></li>';
 }
-$deprtOptions .= '</select>';
+$deprtOptions .= '</ul>';
 //---------------------------------------------
 ?>
 <!DOCTYPE html>
@@ -548,8 +562,8 @@ $deprtOptions .= '</select>';
                                 <div class="col-md-6">
                                     <!-- Search Box Start -->
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search" id="search"
-                                                onKeyUp="myFunction()"
+                                        <input type="search" onKeyUp="myFunction()" id="Search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search" id="search"
+                                               
                                             aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
@@ -589,7 +603,7 @@ $deprtOptions .= '</select>';
                             </div>
                         </div>
                     </div>
-                    <form action="itemsManager.php" method="get">
+                    <form action="itemsManager.php" id="form_sort" method="get">
                     <div class="container itmMng-Tblhead position-relative">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
@@ -633,37 +647,43 @@ $deprtOptions .= '</select>';
                                     </span>
                                 </div>
                             </div>
+                            <!-- <form action="listProducts.php"  method="get"> -->
                             <div class="align-items-center drpItm-MngClm drpHead-ItmMng">
                                 <div class="tb-head drpDwn-ItmMng subCat-ItmMng">
                                     <div class="d-flex align-items-center">
-                                        <div class="dropdown d-flex position-relative">
+                                        <div id="subcat_dropdown" class="dropdown d-flex position-relative">
                                         <?php echo $subCatOptions; ?>
                                             
                                         </div>
                                     </div>
+                                    <input type="hidden" name="subCatId" id="subCatId" value="<?php if(isset($_GET['subCatId'])) { echo $_GET['subCatId']; } ?>">
                                 </div>
                                 <div class="tb-head drpDwn-ItmMng supItm-Mng">
                                     <div class="d-flex align-items-center">
-                                        <div class="dropdown d-flex position-relative">
+                                        <div id="supplier_dropdown" class="dropdown d-flex position-relative">
                                             <?php echo $suppOptions; ?>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="suppId" id="suppId" value="<?php if(isset($_GET['suppId'])) { echo $_GET['suppId']; } ?>">
                                 </div>
                                 <div class="tb-head drpDwn-ItmMng deptItm-Mng">
                                     <div class="d-flex align-items-center">
-                                        <div class="dropdown d-flex position-relative">
+                                        <div id="department_dropdown" class="dropdown d-flex position-relative">
                                             <?php echo $deprtOptions; ?>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="deptId" id="deptId" value="<?php if(isset($_GET['deptId'])) { echo $_GET['deptId']; } ?>">
                                 </div>
                                 <div class="tb-head drpDwn-ItmMng strgItm-Mng">
                                     <div class="d-flex align-items-center">
-                                        <div class="dropdown d-flex position-relative">
+                                        <div id="storage_dropdown" class="dropdown d-flex position-relative">
                                         <?php echo $storageOptions; ?>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="storeId" id="storeId" value="<?php if(isset($_GET['storeId'])) { echo $_GET['storeId']; } ?>">
                                 </div>
                             </div>
+                            <!-- </form> -->
                             <div class="align-items-center prcItm-MngClm">
                                 <div class="tb-head lastItm-PrcCol">
                                     <div class="d-flex align-items-center">
@@ -748,7 +768,7 @@ $deprtOptions .= '</select>';
 						  
 						
 				?>
-                            <div class="d-flex align-items-center border-bottom itmBody itemManager-Task">
+                            <div class="target d-flex align-items-center border-bottom itmBody itemManager-Task">
                                 <div class="itmTask-Mng align-items-center">
                                     <div class="tb-bdy imgItm-MngClm">
                                         <?php echo $img; ?>
@@ -835,40 +855,84 @@ $deprtOptions .= '</select>';
 
 </html>
 <script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableId");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the  query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+     $(document).ready(function () {
+        $(".subcat").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#subcategoryText").text($this.data("value"));
+        $("#subCatId").val($this.data("id"));
+        $("#form_sort").submit();
+      });
+      $(".sort_supplier").on("click", "a", function(e){
+        var $this = $(this).parent();
+        $("#supplierText").text($this.data("value"));
+        $("#suppId").val($this.data("id"));
+        $("#form_sort").submit();
+      });
+      $(".sort_department").on("click", "a", function(e){
+        var $this = $(this).parent();
+        $("#departmentTxt").text($this.data("value"));
+        $("#deptId").val($this.data("id"));
+        $("#form_sort").submit();
+      });
+      $(".sort_storage").on("click", "a", function(e){
+        var $this = $(this).parent();
+        $("#storageTxt").text($this.data("value"));
+        $("#storeId").val($this.data("id"));
+        $("#form_sort").submit();
+      });
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('subCatId')) {
+        var subcatid = urlParams.get('subCatId');
+            if(subcatid!=='')
+            {
+                $("#subcategoryText").text($("#subcat_dropdown .selected").text());
+            }
+            var suppId = urlParams.get('suppId');
+            if(suppId!=='')
+            {
+                $("#supplierText").text($("#supplier_dropdown .selected").text());
+            }
+            var deptId = urlParams.get('deptId');
+            if(deptId!=='')
+            {
+                $("#departmentTxt").text($("#department_dropdown .selected").text());
+            }
+            var storeId = urlParams.get('storeId');
+            if(storeId!=='')
+            {
+                $("#storageTxt").text($("#storage_dropdown .selected").text());
             }
         }
-
-        $('#searchCross').remove();
-        $('#searchBox').append('<span id="searchCross" onClick="resetData();">X</span>');
-        if (filter == '') {
-            $('#searchCross').remove();
-        }
+        
+     });    
+    function myFunction() {
+        // Declare variables
+        var input = document.getElementById("Search");
+       var filter = input.value.toLowerCase();
+      var nodes = document.querySelectorAll('.target');
+     console.log('nodes.length',nodes.length);
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.setProperty("display", "block", "important");
+    } else {
+      nodes[i].style.setProperty("display", "none", "important");
     }
+  }
+
+  
+    }
+
+    $("#Search").on("search", function(evt){
+    if($(this).val().length == 0){
+        resetData();
+    }
+});
 
     function resetData() {
+
         $('#search').val('');
         myFunction();
-        $('#searchCross').remove();
-
-    }
+   }
     </script>
     <script>
     function getDelNumb(delId) {
@@ -926,4 +990,5 @@ $deprtOptions .= '</select>';
             document.getElementById('upload_form').submit();
         };
     }
+    
     </script>

@@ -16,7 +16,7 @@
                                         <p>New Task</p>
                                     </a>
                                     <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub sbActive" aria-current="page" href="index.php">
+                                        <li><a class="nav-link nav_sub sbActive" aria-current="page" href="addOrder.php">
                                                 <img src="Assets/icons/new_order.svg" alt="New order"
                                                     class="navIcon align-middle">
                                                 <img src="Assets/icons/new_order_hv.svg" alt="New order"
