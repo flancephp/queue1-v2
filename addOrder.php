@@ -398,6 +398,39 @@ $currResultSet = mysqli_query($con, $curQry);
                     <div class="tpBar-grn"></div>
                     <div class="stcPart">
                         <div class="container nwOrder-Div">
+                            <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p>
+                                <?php 
+                                
+                                echo isset($_GET['edit']) ? ' '.showOtherLangText('Item Edited Successfully').' ' : '';
+                                echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                                echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                                echo isset($_GET['mes']) ? $_GET['mes'] : '';
+                                
+                                if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                                {
+                                    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                                }
+                                elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                                {
+                                    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                                }
+                                
+                                ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <?php if(isset($_GET['errorProduct'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo showOtherLangText('Select atleast one product to make order successfully.') ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <form action="" id="frm" name="frm" method="post" autocomplete="off" class="container">
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
                                     <div class="ord-Box">
@@ -416,16 +449,42 @@ $currResultSet = mysqli_query($con, $curQry);
                                                 <div class="col-md-7 text-center">
                                                     <div class="row featRow">
                                                         <div class="col-md-3 ordFeature">
-                                                            <a href="javascript:void(0)" class="tabFet">
+                                                            <!-- <a href="javascript:void(0)" class="tabFet">
                                                                 <span class="autoFill"></span>
-                                                                <p class="btn2">Auto Fill</p>
+                                                                <p class="btn2">
+                                                                <?php //echo showOtherLangText('Auto Fill'); ?></p>
+                                                            </a> -->
+                                                            <?php
+if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0)
+{
+    ?>
+                                            
+                                              <a href="addOrder.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>" class="tabFet">
+                                                                <span class="autoFill"></span>
+                                                                <p class="btn2">
+                                                                <?php echo showOtherLangText('Auto Fill'); ?></p>
                                                             </a>
+                                            <?php
+}
+else
+{
+    ?>
+
+                                            <a href="javascript:void(0)" class="tabFet">
+                                                                <span class="autoFill"></span>
+                                                                <p class="btn2">
+                                                                <?php echo showOtherLangText('Auto Fill'); ?></p>
+                                                            </a>
+
+                                            <?php
+}
+ ?>
                                                         </div>
                                                       
-                                                        <div class="col-md-3 ordFeature "><a href="javascript:void(0)"
+                                                        <div class="col-md-3 ordFeature "><a href="javascript:void(0)"onClick="getClearNumb('<?php echo $_SESSION['supplierId'] ?>')"
                                                                 class="tabFet">
                                                                 <span class="clear"></span>
-                                                                <p class="btn2">Clear</p>
+                                                                <p class="btn2"><?php echo showOtherLangText('Clear'); ?></p>
                                                         </a></div>
 
                                                         <div
@@ -434,18 +493,24 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="currency"></span>
-                                                                <p class="btn2">Currency <i
-                                                                        class="fa-solid fa-angle-down"></i></p>
+                                                                <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('Add currency') ?> <i
+                                                                        class="fa-solid fa-angle-down"></i></span></p>
                                                             </a>
 
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)">Dollar</a></li>
-                                                                <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)">Euro</a></li>
-                                                                <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)">Tzs</a></li>
-                                                            </ul>
+                                                            <ul class="dropdown-menu currency_dropdown">
+                                                                
+                                                        <?php
+                                                        while($curRow =mysqli_fetch_array($currResultSet))
+                                                        {
+
+                                                        $sel = $_SESSION['currencyId'] == $curRow['id'] ? 'selected' : '';
+
+                                                        echo '<li data-id="'.$curRow['id'].'" data-value="'.$curRow['currency'].'"><a class="dropdown-item '.$sel.'"
+                                                                        href="javascript:void(0)">'.$curRow['currency'].'</a></li>';
+
+                                                        } ?>
+                                                            <input type="hidden" id="currencyId" name="currencyId" value="">
+                                                        </ul>
 
                                                         </div>
                                                         <div class="col-md-3 ordFeature drpFee position-relative">
@@ -453,20 +518,52 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="fee"></span>
-                                                                <p class="btn2">Fee <i
+                                                                <p class="btn2"><?php echo showOtherLangText('Add Fee'); ?> <i
                                                                         class="fa-solid fa-angle-down"></i>
                                                                 </p>
                                                             </a>
 
                                                             <ul class="dropdown-menu">
                                                                 <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)">Fixed
-                                                                        Fee</a></li>
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
+
+                                                            <ul class="">
+                                                            <?php
+                                                            //add item fee & custom fee modal box 
+                                                            $sql = " SELECT * 
+                                                            FROM tbl_custom_items_fee 
+                                                            WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                            $customItemsResult = mysqli_query($con, $sql);
+
+                                                            //$liCount = 0;
+                                                            while ($resultRow = mysqli_fetch_array($customItemsResult)) 
+                                                            {
+                                                                //$liCount++;
+                                                                echo "<li class='innerLi'><a tabindex='-1' href='addOrder.php?feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." ' >".$resultRow['itemName']."</a></li>";
+                                                            } 
+                                                            ?>
+                                                            </ul>
+                                                                    </li>
+                                                                <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
+                                        data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
                                                                 <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)">Open
-                                                                        Fee</a></li>
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a></li>
                                                                 <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)">Other</a></li>
+                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                        <ul class="">
+                                                                        <?php
+            //add item fee & custom fee modal box 
+            $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+            $ordFeeFetch = mysqli_query($con, $sqlQry);
+            //$innerLiCount = 0;
+            while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+            {
+                // $innerLiCount++;
+                echo "<li class='innerLi'><a tabindex='-1' href='addOrder.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
+            } 
+            ?>
+                                                                         </ul>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -492,7 +589,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                 </div>
                             </div>
                         </div>
-                        <form action="" id="frm" name="frm" method="post" autocomplete="off" class="container">
+                        
                         <input type="hidden" name="supplierId" id="supplierId" value="">
                         <div class="container topOrder">
                             <div class="row">
@@ -514,18 +611,18 @@ $currResultSet = mysqli_query($con, $curQry);
 
                                         while($supRow = mysqli_fetch_array($resultSet))
                                         {
-                                        $sel = $_SESSION['supplierId'] == $supRow['id'] ? 'selected = "selected"' : '';
+                                        $sel = $_SESSION['supplierId'] == $supRow['id'] ? 'selected' : '';
 
                                         $color = checkSupplierForMinLevelProducts($supRow['id']) > 0 ? 'pink' : 'white';
                                         ?>    
-                                        <li data-id=<?php echo $supRow['id'];?> data-value="<?php echo $supRow['name'];?>"><a class="dropdown-item" href="javascript:void(0)"><?php echo  $supRow['name'] ?></a></li>
+                                        <li style="background-color:<?php echo $color;?>" data-id=<?php echo $supRow['id'];?> data-value="<?php echo $supRow['name'];?>"><a class="dropdown-item <?php echo $sel; ?>" href="javascript:void(0)"><?php echo  $supRow['name'] ?></a></li>
                                         <?php } ?>
                                         </ul> 
                                         
                                     </div>
                                     <input type="hidden" name="placeOrder"  value="<?php echo showOtherLangText('Submit'); ?>" />
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" placeholder="Search" id="srch"
+                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search"
                                             aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
@@ -535,53 +632,215 @@ $currResultSet = mysqli_query($con, $curQry);
                                     </div>
 
                                 </div>
-                                <div class="ordInfo">
+
+                                <div id="totalOrdArea" class="ordInfo">
+                                    <?php
+
+$sqlQry=" SELECT * FROM  tbl_order_items_temp WHERE supplierId = '".$_SESSION['supplierId']."' AND account_id = '".$_SESSION['accountId']."'  AND `userId` = '".$_SESSION['id']."'  ";
+$ordTempResult=mysqli_query($con, $sqlQry);
+
+while($ordTempRow=mysqli_fetch_array($ordTempResult)) 
+{
+    $prodQry=" SELECT * FROM tbl_products WHERE id= '".$ordTempRow['pId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    $prodResult= mysqli_query($con, $prodQry);
+    $prodRow= mysqli_fetch_array($prodResult);
+
+    $productPrice += $prodRow['price']*$prodRow['factor']*$ordTempRow['qty'];
+}
+
+//for custom item fee charges
+$customCharge=0;
+if( isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0  )
+{
+    $itemIds = implode(',', $_SESSION['itemCharges'][1]);
+
+    $sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE id IN(".$itemIds.") AND account_id = '".$_SESSION['accountId']."'   ";
+    $customFeeResult = mysqli_query($con, $sqlSet);
+
+    while( $customFeeRow = mysqli_fetch_array($customFeeResult))
+    {
+      $customCharge += $customFeeRow['amt'];
+  }
+
+}//end of custom item fee charges
+
+//total sum value of custom charge and product charge in both currency
+$totalChargePrice= ($productPrice+ $customCharge);
+$totalChargePriceOther = ($totalChargePrice*$curDet['amt']);
+?>
                                     <div class="container">
                                         <div class="prcTable">
+                                            <?php
+                                            if(isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0)
+                                            { ?>
                                             <div class="price justify-content-between">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
-                                                    <p>Total</p>
+                                                    <p><?php echo showOtherLangText('Sub Total'); ?></p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p>23,990 $</p>
+                                                        <p><?php showPrice($totalChargePrice, $getDefCurDet['curCode']) ?></p>
                                                     </div>
+                                                    <?php
+                                                    if ( isset($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id'] ) 
+                                                    { 
+                                                    ?>
                                                     <div class="p-2 otherCurr">
-                                                        <p>23,990 €</p>
+                                                        <p><?php echo showOtherCur($totalChargePriceOther, $_SESSION['currencyId']);?></p>
                                                     </div>
+                                                      <?php 
+                                                     } ?>
                                                 </div>
                                             </div>
+                                              <?php 
+                } ?>
+                                 <?php 
+    $taxCharges=0;
+    $fixedCharges=0;
+    $perCharges=0;
+
+    if(isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0)
+    {
+        $itemIds = implode(',', $_SESSION['itemCharges'][3]);
+
+//start order level fixed discount charges
+$sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(".$itemIds.") AND account_id = '".$_SESSION['accountId']."'  AND feeType =2 ";
+
+$ordFeeResult = mysqli_query($con, $sqlSet);
+
+while($fixedDiscountRow = mysqli_fetch_array($ordFeeResult)) 
+{
+$fixedDiscFeeName = $fixedDiscountRow['feeName'];
+$fixedCharges += $fixedDiscountRow['amt'];
+$fixedChargesOther += ($fixedDiscountRow['amt']*$curDet['amt']);
+?>
                                             <div class="price justify-content-between taxRow">
                                                 <div class="p-2 delIcn text-center">
-                                                    <a href="javascript:void(0)">
+                                                    <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $fixedDiscountRow['id'] ?>', '3', '<?php echo $_SESSION['currencyId'] ?>');">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
                                                 <div class="p-2 txnmRow">
-                                                    <p>VAT 19%</p>
+                                                    <p><?php echo $fixedDiscFeeName ?></p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p>11.362 $</p>
+                                                        <p><?php showPrice($fixedDiscountRow['amt'], $getDefCurDet['curCode']); ?></p>
                                                     </div>
-                                                    <div class="p-2 otherCurr">
-                                                        <p>11.362 €</p>
+                                                    <?php
+if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id'] )
+{ 
+?>                                                  <div class="p-2 otherCurr">
+                                                        <p><?php echo showOtherCur(($fixedDiscountRow['amt']*$curDet['amt']), $_SESSION['currencyId']); ?></p>
                                                     </div>
+                                                    <?php 
+} ?>
+                                                    
                                                 </div>
                                             </div>
+                                       
+<?php 
+} 
+}//while loop close 
+
+$sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(".$itemIds.")  AND account_id = '".$_SESSION['accountId']."' AND feeType = 3  ";
+$resRows = mysqli_query($con, $sqlSet);
+while($perRow = mysqli_fetch_array($resRows))
+{
+
+$feeName = $perRow['feeName'];
+$perCharges += $perRow['amt'];
+$perChargesOther += $perRow['amt'];
+$perChargeTotal = ($totalChargePrice*$perRow['amt']/100);
+$perChargeTotalOther = ($totalChargePriceOther*$perRow['amt']/100);
+?>
+                                                <div class="price justify-content-between taxRow">
+                                                <div class="p-2 delIcn text-center">
+                                                    <a onClick="getDelNumb('<?php echo $perRow['id'] ?>', '3', '<?php echo $_SESSION['currencyId'] ?>');" href="javascript:void(0)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="p-2 txnmRow">
+                                                    <p><?php echo $feeName;?> <?php echo $perRow['amt']; ?> %</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p><?php showPrice($perChargeTotal, $getDefCurDet['curCode']) ?></p>
+                                                    </div>
+                                                   
+                                                    <?php
+if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id'] ) 
+{ 
+?>                                                   <div class="p-2 otherCurr">
+                                                        <p><?php echo showOtherCur($perChargeTotalOther, $_SESSION['currencyId']); ?></p>
+                                                    </div>
+                                                    <?php 
+} ?>
+                                                </div>
+                                            </div>
+                                                <?php 
+}//end of while loop
+$sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(".$itemIds.")  AND account_id = '".$_SESSION['accountId']."' AND feeType = 1  ";
+$resRows = mysqli_query($con, $sqlSet);
+while($perRow = mysqli_fetch_array($resRows))
+{
+
+$feeName = $perRow['feeName'];
+$perCharges += $perRow['amt'];
+$perChargesOther += $perRow['amt'];
+$perChargeTotal = ($totalChargePrice*$perRow['amt']/100);
+$perChargeTotalOther = ($totalChargePriceOther*$perRow['amt']/100);
+?>
+                                                <div class="price justify-content-between taxRow">
+                                                <div class="p-2 delIcn text-center">
+                                                    <a onClick="getDelNumb('<?php echo $taxRow['id'] ?>', '3', '<?php echo $_SESSION['currencyId'] ?>');" href="javascript:void(0)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="p-2 txnmRow">
+                                                    <p><?php echo $feeName;?> <?php echo $perRow['amt']; ?> %</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p><?php showPrice($perChargeTotal, $getDefCurDet['curCode']) ?></p>
+                                                    </div>
+                                                   
+                                                    <?php
+if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id'] ) 
+{ 
+?>                                                   <div class="p-2 otherCurr">
+                                                        <p><?php echo showOtherCur($perChargeTotalOther, $_SESSION['currencyId']); ?></p>
+                                                    </div>
+                                                    <?php 
+} ?>
+                                                </div>
+                                            </div>
+                                                <?php 
+}//end of while loop
+$totalTaxCharges= ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges)*$taxCharges/100);//calculating total tax value 
+$totalTaxChargesOther= ( ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther)*$taxChargesOther/100);//calculating total tax value other 
+$netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
+$netTotalValueOther= ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther+$totalTaxChargesOther);   
+?>
                                             <div class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
-                                                    <p>Grand Total</p>
+                                                    <p><?php echo showOtherLangText('Grand Total'); ?></p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p>23,990 $</p>
+                                                        <p><?php showPrice($netTotalValue, $getDefCurDet['curCode']) ?></p>
                                                     </div>
+                                                    <?php
+if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id'] ) 
+{  ?>
                                                     <div class="p-2 otherCurr">
-                                                        <p>23,990 €</p>
+                                                        <p><?php echo showOtherCur($netTotalValueOther, $_SESSION['currencyId']); ?></p>
                                                     </div>
+<?php 
+
+} ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -654,10 +913,19 @@ $currResultSet = mysqli_query($con, $curQry);
                                     <div class="ttlDft-Crcy tb-head">
                                         <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                     </div>
+                                    <?php 
+                                    $curAmt = 1;
+                                    if( !empty($curDet) )
+                                    {
+                                    ?>
                                     <div class="ttlOtr-Crcy tb-head">
                                         <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
                                     </div>
-                                </div>
+                                    <?php
+                                    $curAmt = $curDet['amt'];
+                                    }
+                                    ?>
+                                   </div>
                             </div>
                             <div class="prdt-Hide">
                                 <div class="prdt-Note tb-bdy">
@@ -671,8 +939,106 @@ $currResultSet = mysqli_query($con, $curQry);
 
                     <div id="boxscroll">
                         <div class="container cntTable">
-                            <!-- Item Table Body Start -->
                             <?php 
+if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
+{
+    while( $row = mysqli_fetch_array($resRows) ) //start custom item charge loop
+    {
+    $x++;
+    $totalCustomCharges += $row['amt'];
+    ?>                          <div class="newOrdTask">
+                                <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                    <div class="prdtImg tb-bdy">
+                                   <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
+                                            onClick="getDelNumb('<?php echo $row['id'] ?>', '1', '<?php echo $_SESSION['currencyId'] ?>');"
+                                            style="color:#808080"><span class="dlTe"></span></a>
+                                    </div>
+                                    <div class="prdtCnt-Fst d-flex align-items-center">
+                                        <div class="Itm-Name tb-bdy">
+                                            <p><?php echo $row['itemName'];?></p>
+                                        </div>
+                                        <div class="Itm-brCode tb-bdy">
+                                            <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                        </div>
+                                        <div class="prdtCr-Unit d-flex">
+                                            <div class="crncy-Type d-flex align-items-center">
+                                                <div class="dflt-Currency tb-bdy">
+                                                    <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
+                                                </div>
+                                                 <?php 
+    if( !empty($curDet) )
+    {
+    $newCurAmt = ($row['amt']*$curDet['amt']);
+    $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+    echo '<div class="dflt-Currency tb-bdy"><p>'.$newCurAmt.'</p></div>';
+    } ?>
+                                                <div class="othr-Currency tb-bdy">
+                                                    <p><?php 
+      if( !empty($curDet) )
+      {
+        $newCurAmt = ($row['price']*$row['factor']*$curDet['amt']);
+        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
+        echo '<td><strong>'.$newCurAmt.'</strong></td>';
+      }
+      ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="itm-Unit tb-bdy">
+                                                <p><?php echo $row['unit'];?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="prdtStk-Qty tb-bdy">
+                                        <div class="itm-Unit tb-bdy">
+                                                <p>&nbsp;</p>
+                                            </div>
+                                    </div>
+                                    <div  class="prdtCnt-Scnd d-flex align-items-center">
+                                        <div class="itm-Quantity tb-bdy">
+                                            <strong>1</strong>
+                                        </div>
+                                        <div class="ttlCr-Type d-flex align-items-center">
+                                            <div class="ttlDft-Crcy tb-bdy">
+                                                <p><strong><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></strong></p>
+                                            </div>
+                                            <?php 
+
+                                    if( !empty($curDet) )
+                                    {
+
+                                   $newCurAmt = ($row['amt']*$curDet['amt']);
+    $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+    echo '<div class="ttlDft-Crcy tb-bdy">
+                                                <p><strong>'.$newCurAmt.'</strong></p>
+                                            </div>';
+                                    }
+
+                                      ?>
+                                        </div>
+                                    </div>
+                                    <div class="prdt-Hide">
+                                        <div class="prdt-Note tb-bdy">
+                                            <div class="mb-brCode"></div>
+                                            <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
+                                            <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
+                                            
+                                            name="itemNotes[<?php echo $row['id'];?>]" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mbLnk-Order">
+                                    <a href="javascript:void(0)" class="orderLink">
+                                        <i class="fa-solid fa-angle-down"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                                <?php 
+
+    }//end custom item charge loop
+
+}
+                          ?>  <?php 
                            if( $_SESSION['supplierId'] != '' )
                            {   
                            
@@ -758,9 +1124,9 @@ $currResultSet = mysqli_query($con, $curQry);
                                         </div>
                                     </div>
                                     <div class="prdtStk-Qty tb-bdy">
-                                        <p class="ord-StockQty"><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                                        <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                     </div>
-                                    <div class="prdtCnt-Scnd d-flex align-items-center">
+                                    <div  class="prdtCnt-Scnd d-flex align-items-center">
                                         <div class="itm-Quantity tb-bdy">
                                             <strong><input type="text" class="form-control qty-itm"
                                                 name="qty[<?php echo $row['id'];?>]"
@@ -769,19 +1135,19 @@ $currResultSet = mysqli_query($con, $curQry);
                                                 autocomplete="off"></strong>
                                         </div>
                                         <div class="ttlCr-Type d-flex align-items-center">
-                                            <div class="ttlDft-Crcy tb-bdy">
+                                            <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
                                                 <p><?php $totalPriceVal = isset($_SESSION['productIds'][$row['id']]['qty'])  ? ($_SESSION['productIds'][$row['id']]['qty'] * $_SESSION['productIds'][$row['id']]['price']) : ($showQtyMinValue*$row['price']*$row['factor']); showPrice($totalPriceVal, $getDefCurDet['curCode']);?></p>
                                             </div>
                                             <?php 
-        if( !empty($curDet) )
-        {
+                                    if( !empty($curDet) )
+                                    {
 
-          $newCurAmt = ($totalPriceVal*$curDet['amt']);
-          echo '<div class="ttlOtr-Crcy tb-bdy"><p>'.showOtherCur($newCurAmt, $curDet['id'], 1).'</p></div>';
-        }
+                                    $newCurAmt = ($totalPriceVal*$curDet['amt']);
+                                    echo '<div id="totalPriceOther'.$x.'" class="ttlOtr-Crcy tb-bdy"><p>'.showOtherCur($newCurAmt, $curDet['id'], 1).'</p></div>';
+                                    }
 
-        ?>
-        </div>
+                                      ?>
+                                        </div>
                                     </div>
                                     <div class="prdt-Hide">
                                         <div class="prdt-Note tb-bdy">
@@ -824,14 +1190,101 @@ $currResultSet = mysqli_query($con, $curQry);
             </div>
         </div>
     </div>
+    <div id="dialog" style="display: none;">
+        <?php echo showOtherLangText('Are you sure to clear data?') ?>
+    </div>
+    <div id="dialog1" style="display: none;">
+        <?php echo showOtherLangText('Are you sure to delete this charges?') ?>
+    </div>
+    <!-- Add Service Item Popup Start -->
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
+    <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
+                </div>
+                <div class="modal-body">
+                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                </div>
+                  <div>
+                    <div class="feeSave">
+                        <input type="checkbox" id="visibility" name="visibility" value="1">
+                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></label><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- Add Category Popup End -->
+    <!-- Add New Fee Popup Start -->
+    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
+    <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
+                    <input type="text" class="form-control" name="feeName" id="feeName" value=""
+                                            style="width:250px;" autocomplete="off"
+                                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required />
+                    <select class="form-control" name="feeType" id="typeOfFee"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
+                                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
+                                            </option>
+                                        </select>
+                    <input type="text" class="form-control" name="feeName" id="feeName" value=""
+                                            style="width:250px;" autocomplete="off"
+                                            placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required />
+                                            <input type="checkbox" name="feeType" id="feeType" value="1">
+                        <label for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label>
+                </div>
+                  <div>
+                    <div class="feeSave">
+                        <input type="checkbox" id="visibility" name="visibility" value="1">
+                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></label><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
-
-
-
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 
 </body>
@@ -853,4 +1306,133 @@ $(".supplier_dropdown").on("click", "a", function(e){
         $("#supplierId").val($this.data("id"));
         $('#frm').submit();
       });
+
+    if($(".supplier_dropdown .selected").length>0)
+    {
+        $("#supplierText").text($(".supplier_dropdown .selected").text());
+    }
+    if($(".currency_dropdown .selected").length>0)
+    {
+        $("#add_currency").text($(".currency_dropdown .selected").text());
+    }
+    function myFunction() {
+        // Declare variables
+        var input = document.getElementById("search");
+       var filter = input.value.toLowerCase();
+      var nodes = document.querySelectorAll('.newOrdTask');
+      
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.setProperty("display", "block", "important");
+    } else {
+      nodes[i].style.setProperty("display", "none", "important");
+    }
+  }
+
+  
+    }
+
+     $("#search").on("search", function(evt){
+    if($(this).val().length == 0){
+        resetData();
+    }
+});
+
+    function resetData() {
+
+        $('#search').val('');
+        myFunction();
+   }
+
+$(".currency_dropdown").on("click", "a", function(e){
+        var $this = $(this).parent();
+        $("#supplierText").text($this.data("value"));
+        $("#currencyId").val($this.data("id"));
+        $('#frm').submit();
+      });
+
 </script>
+<script>
+    function getDelNumb(delId, feeType, currencyId) {
+
+        $("#dialog1").dialog({
+            autoOpen: false,
+            modal: true,
+            //title     : "Title",
+            buttons: {
+                '<?php echo showOtherLangText('Yes') ?>': function() {
+                    //Do whatever you want to do when Yes clicked
+                    $(this).dialog('close');
+                    window.location.href = 'addOrder.php?delId=' + delId + '&feeType=' + feeType +
+                        '&currencyId=' + currencyId;
+                },
+
+                '<?php echo showOtherLangText('No') ?>': function() {
+                    //Do whatever you want to do when No clicked
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $("#dialog1").dialog("open");
+        $('.custom-header-text').remove();
+        $('.ui-dialog-content').prepend(
+            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    }
+
+    function getClearNumb(supplierIdVal) {
+
+         $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            //title     : "Title",
+            buttons: {
+                '<?php echo showOtherLangText('Yes') ?>': function() {
+                    //Do whatever you want to do when Yes clicked
+                    $(this).dialog('close');
+                    window.location.href = 'addOrder.php?supplierIdVal=' + supplierIdVal + '&clear=' + 1;
+                },
+
+                '<?php echo showOtherLangText('No') ?>': function() {
+                    //Do whatever you want to do when No clicked
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $("#dialog").dialog("open");
+        $('.custom-header-text').remove();
+        $('.ui-dialog-content').prepend(
+            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    }
+
+    function showTotal(qty, priceId, pId) {
+        //console.log('hello');
+        //call ajax to save qty changes in database
+        if (isNaN(qty) || qty == '') {
+            qty = 0;
+        }
+
+        $.ajax({
+                method: "POST",
+                url: "addOrderAjax.php",
+                dataType: 'json',
+                data: {
+                    supplierId: '<?php echo $_SESSION['supplierId'];?>',
+                    pId: pId,
+                    qty: qty,
+                    currencyId: '<?php echo $curDet['id'] ?>'
+                }
+            })
+            .done(function(responseObj) {
+                $('#totalOrdArea').html(responseObj.resHtml);
+
+                $('#totalPrice' + priceId).html(responseObj.productPrice);
+
+                $('#totalPriceOther' + priceId).html(responseObj.totalPriceOther);
+            });
+
+        //end  
+
+    }
+    </script>
