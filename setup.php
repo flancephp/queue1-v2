@@ -212,6 +212,12 @@
                                             </div>
                                             <p class="sub-Text">User</p>
                                         </a>
+                                        <a href="listDesignation.php" class="sbMnu-acntStup">
+                                            <div class="sub-Icns">
+                                                <img src="Assets/icons/setup-service.svg" alt="Service item">
+                                            </div>
+                                            <p class="sub-Text">Title</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

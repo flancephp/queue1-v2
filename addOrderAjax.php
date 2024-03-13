@@ -129,23 +129,31 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 	}
 	
 	//--------------------------------------------------------------------------------------------
-	$resHtml ='<div class="grd-ttl"><table width="100%">';
-	
-	if( isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0  )
+	$resHtml ='<div class="container">
+                                        <div class="prcTable">';
+       if( isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0  )
 	{
-		$resHtml .='<tr style="color: #434A54; font-weight: bold;">
-		<td>&nbsp;</td><td>'.showOtherLangText('Sub Total').'</td><td> '.getNumFormtPrice($totalChargePrice, $getDefCurDet['curCode']).'</td>';
-
-		if ($_POST['currencyId']) 
+       $resHtml .=                           '<div class="price justify-content-between">
+                                                <div class="p-2 delIcn text-center"></div>
+                                                <div class="p-2 txnmRow">
+                                                    <p>'.showOtherLangText('Sub Total').'</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p>'.getNumFormtPrice($totalChargePrice, $getDefCurDet['curCode']).'</p>
+                                                    </div>';
+           if ($_POST['currencyId']) 
 		{
-			$resHtml .='<td> '.showOtherCur($totalChargePriceOther, $_POST['currencyId']).'</td>';
+			 $resHtml .=                           '<div class="p-2 otherCurr">
+                                                        <p>'.showOtherCur($totalChargePriceOther, $_POST['currencyId']).'</p>
+                                                    </div>';
 		}
+          
+           $resHtml .=                      '</div>
+                                            </div>';
+         } 
 
-		$resHtml .='</tr>';
-	}
-
-			//show here order level fixed/ percent/ tax charges		
-	$taxCharges=0;
+       $taxCharges=0;
 	$fixedCharges=0;
 	$perCharges=0;
 	if( isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0  )
@@ -161,21 +169,27 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 			$fixedCharges += $fixRow['amt'];
 			$fixedChargesOther += ($fixRow['amt']*$curRow['amt']);
 
-			$resHtml .='<tr> <td align="center">
-
-			<a title="'.showOtherLangText('Delete').'" href="javascript:void(0)" onClick="getDelNumb('.$fixRow['id'].', 3, '.$_POST['currencyId'].');" style="color:#808080" class="glyphicon glyphicon-trash"></a>
-
-			</td> <td>'.$feeName.'</td><td> '.getNumFormtPrice($fixRow['amt'], $getDefCurDet['curCode']).'</td>';
-
-				if ($_POST['currencyId']) 
-					{
-						$resHtml .='<td> '.showOtherCur($fixedChargesOther, $_POST['currencyId']).'</td>';
-					}
-
-					$resHtml .='</tr>';
-		}
-
-		//start order level item percent charges
+       $resHtml .=        '<div class="price justify-content-between taxRow">
+                                                <div class="p-2 delIcn text-center">
+                                                    <a onClick="getDelNumb('.$fixRow['id'].', 3, '.$_POST['currencyId'].');" href="javascript:void(0)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="p-2 txnmRow">
+                                                    <p>'.$feeName.'</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p>'.getNumFormtPrice($fixRow['amt'], $getDefCurDet['curCode']).'</p>
+                                                    </div>';
+                     $resHtml .=        '<div class="p-2 otherCurr">
+                                                        <p>'.showOtherCur($fixedChargesOther, $_POST['currencyId']).'</p>
+                                                    </div>';
+                     $resHtml .=       '</div>
+                                            </div>';
+            }
+        
+        //start order level item percent charges
 		$sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(".$itemIds.") AND account_id = '".$_SESSION['accountId']."'  AND feeType = 3  ";
 		$resRows = mysqli_query($con, $sqlSet);
 		while($perRow = mysqli_fetch_array($resRows))
@@ -186,18 +200,29 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 			$perChargeTotal = ($totalChargePrice*$perRow['amt']/100);
 			$perChargeTotalOther = ($totalChargePriceOther*$perRow['amt']/100);
 
-
-			$resHtml .='<tr> <td align="center"><a title="'.showOtherLangText('Delete').'" href="javascript:void(0)" onClick="getDelNumb('.$perRow['id'].', 3, '.$_POST['currencyId'].');" style="color:#808080" class="glyphicon glyphicon-trash"></a></td> <td>'.$feeName.' '.$perRow['amt'].' %</td><td> '.getNumFormtPrice($perChargeTotal, $getDefCurDet['curCode']).'</td>';
-
-						if ($_POST['currencyId']) 
+             $resHtml .=        '<div class="price justify-content-between taxRow">
+                                                <div class="p-2 delIcn text-center">
+                                                    <a onClick="getDelNumb('.$perRow['id'].', 3, '.$_POST['currencyId'].');" href="javascript:void(0)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="p-2 txnmRow">
+                                                    <p>'.$feeName.' '.$perRow['amt'].' %</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p>'.getNumFormtPrice($perChargeTotal, $getDefCurDet['curCode']).'</p>
+                                                    </div>';
+                                                    if ($_POST['currencyId']) 
 								{
-									$resHtml .='<td> '.showOtherCur($perChargeTotalOther, $_POST['currencyId']).'</td>';
-								}
-
-								$resHtml .='</tr>';
+                     $resHtml .=        '<div class="p-2 otherCurr">
+                                                        <p>'.showOtherCur($perChargeTotalOther, $_POST['currencyId']).'</p>
+                                                    </div>';
+                                                }
+                     $resHtml .=       '</div>
+                                            </div>';
 		}
 
-                   //start order level item tax charges
 		$sqlSetQry = " SELECT * FROM tbl_order_fee WHERE id IN(".$itemIds.")  AND account_id = '".$_SESSION['accountId']."' AND feeType =1 ";
 		$resultRows = mysqli_query($con, $sqlSetQry);
 					//calculating tax charges
@@ -212,41 +237,58 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 						$taxCharges += $taxRow['amt'];
 						$taxPerChargesTotal = ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges )*$taxRow['amt']/100 );
 						$taxPerChargesTotalOther = ( ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther )*$taxRow['amt']/100 );
-
-						$resHtml .='<tr> <td align="center"><a title="'.showOtherLangText('Delete').'" href="javascript:void(0)" onClick="getDelNumb('.$taxRow['id'].', 3, '.$_POST['currencyId'].');" style="color:#808080" class="glyphicon glyphicon-trash"></a></td> <td>'.$feeName.' '.$taxRow['amt'].' %</td><td> '.getNumFormtPrice($taxPerChargesTotal, $getDefCurDet['curCode']).'</td>';
-
-									if ($_POST['currencyId']) 
+                      $resHtml .=        '<div class="price justify-content-between taxRow">
+                                                <div class="p-2 delIcn text-center">
+                                                    <a onClick="getDelNumb('.$fixRow['id'].', 3, '.$_POST['currencyId'].');" href="javascript:void(0)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="p-2 txnmRow">
+                                                    <p>'.$feeName.' '.$taxRow['amt'].' %</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p> '.getNumFormtPrice($taxPerChargesTotal, $getDefCurDet['curCode']).'</p>
+                                                    </div>';
+                                                    if ($_POST['currencyId']) 
 								{
-									$resHtml .='<td> '.showOtherCur($taxPerChargesTotalOther, $_POST['currencyId']).'</td>';
-								}
+                     $resHtml .=        '<div class="p-2 otherCurr">
+                                                        <p>'.showOtherCur($taxPerChargesTotalOther, $_POST['currencyId']).'</p>
+                                                    </div>';
+                                                }
+                     $resHtml .=       '</div>
+                                            </div>';
 
-								$resHtml .='</tr>';
+						}
 
-					}
+				}
 
-				}//if condition ends here
 
-					//calculating net value here
-					$totalTaxCharges= ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges)*$taxCharges/100);//calculating total tax value 
+             $totalTaxCharges= ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges)*$taxCharges/100);//calculating total tax value 
 					$totalTaxChargesOther= ( ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther)*$taxCharges/100);
 					$netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
 					$netTotalValueOther= ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther+$totalTaxChargesOther);
 
-
-                    $style = (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) ? '2px solid #939393' : '';
-
-					$resHtml .='<tr style="color: #434A54; font-weight: bold; border-top: '.$style.' " class="nt-value"><td>&nbsp;</td><td>'.showOtherLangText('Grand Total').'</td><td> '.getNumFormtPrice($netTotalValue, $getDefCurDet['curCode']).'</td>';
-
-					if ($_POST['currencyId']) 
+             $resHtml .= '<div class="price justify-content-between grdTtl-Row">
+                                                <div class="p-2 delIcn text-center"></div>
+                                                <div class="p-2 txnmRow">
+                                                    <p>'.showOtherLangText('Grand Total').'</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end curRow">
+                                                    <div class="p-2">
+                                                        <p> '.getNumFormtPrice($netTotalValue, $getDefCurDet['curCode']).'</p>
+                                                    </div>';
+                        if ($_POST['currencyId']) 
 					{
-						$resHtml .='<td> '.showOtherCur($netTotalValueOther, $_POST['currencyId']).'</td>';
-					}
-
-					$resHtml .='</tr>';
-				
-
-
-				 	$resHtml .= '</table></div>';
+                        $resHtml .= '<div class="p-2 otherCurr">
+                                                        <p>'.showOtherCur($netTotalValueOther, $_POST['currencyId']).'</p>
+                                                    </div>';
+                    }
+                        $resHtml .= '</div>
+                                            </div>
+                                        </div>
+                                    </div>';
+	
 				 
 				 
 			$sqlSet=" SELECT * FROM tbl_products WHERE id= '".$_POST['pId']."'  AND account_id = '".$_SESSION['accountId']."' ";

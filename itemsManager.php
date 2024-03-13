@@ -910,7 +910,7 @@ $deprtOptions .= '</ul>';
         var input = document.getElementById("Search");
        var filter = input.value.toLowerCase();
       var nodes = document.querySelectorAll('.target');
-     console.log('nodes.length',nodes.length);
+    
   for (i = 0; i < nodes.length; i++) {
     if (nodes[i].innerText.toLowerCase().includes(filter)) {
       nodes[i].style.setProperty("display", "block", "important");

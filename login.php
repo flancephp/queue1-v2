@@ -89,7 +89,7 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title>Queue1.com</title>
+    <title>New Order - Queue1</title>
     <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,145 +101,94 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
 
 </head>
 
-<body class="mb-Bgbdy">
+<body>
 
-    <div class="container-fluid newOrder">
-        <div class="row">
-            <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
+    <div class="container-fluid ">
+        <div class="logo pt-3 pb-md-5 pb-3">
+            <img src="Assets/icons/logo_Q.svg" alt="Logo" >            
+        </div>
+
+
+        <div class="row justify-content-center">
+            
+            <div class="col-md-8">
+                <div class="login-outer">
+
                     <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
+                    <h1 class="h1 text-center pb-5"><?php echo showOtherLangText('Login'); ?></h1>
+                    <?php if(isset($msg) && $msg!='') { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo isset($msg) ? $msg:''; ?>
+ </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
-                        </div>
-                        
-                    </div>
-                    
-                </nav>
-            </div>
-            <div class="cntArea">
-                <section class="usr-info">
-                <div class="row">
-                        <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Login'); ?></h1>
-                            
-                        </div>
-                        <div class="col-md-8 d-flex align-items-center justify-content-end">
-                            <div class="mbPage">
-                                <div class="mb-nav" id="mb-nav">
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
-                                    </button>
-                                </div>
-                                <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Login'); ?></h1>
-                                </div>
-                                
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> <?php echo showOtherLangText('Language') ?></span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">English</a></li>
-                                        
-                                       
-                                   
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="landScape">
-                    <div class="container">
-                        <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
-                    </div>
-                </section>
-
-                <section class="ordDetail userDetail">
-                    <div class="container">
-                    <form class="addUser-Form acntSetup-Form row" name="loginForm" id="loginForm" role="form" action="" method="post">    
+                            <?php } ?>
+                    <form class="login-form" name="loginForm" id="loginForm" role="form" action="" method="post">
                         <input type="hidden" name="chksubmit" id="chksubmit" value="">
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                   <p><?php echo showOtherLangText('Please sign in') ?></p>
-                                </div>
-                                <h6 class="form-signin-heading" style="color:red;">
-                        <?php 
-
-					echo $msg;
-
-					if( isset($_GET['activate']) )
-					{
-						echo $_GET['activate'] == 1 ? ' '.showOtherLangText('Your account activated successfully.').' ' : ' '.showOtherLangText('Your activation code is either incorrect or account activated already.').' ';
-					}
-
-				?>
-                    </h6>
+                        <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
+                            <div class="input-group-append">
+                            <span class="btn"><i class=" fa fa-user"></i></span>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" onclick="checksubmit();" class="btn sub-btn std-btn mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span>
-                                        <span class="dsktp-Btn">Login</span></button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="acntStp">
-                         <div class="acnt-Div">
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="accountName" class="form-label"><?php echo showOtherLangText('Username') ?></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" id="username" name="username"
-                                                placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
-                                        </div>
-                                    </div>
-
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="ownerName" class="form-label"><?php echo showOtherLangText('Password') ?></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" autocomplete="off" id="password" name="password" placeholder="<?php echo showOtherLangText('Password') ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="ownerName" class="form-label"><?php echo showOtherLangText('Account id') ?></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" autocomplete="off" id="accountNumber" name="accountNumber" placeholder="<?php echo showOtherLangText('Account id') ?>">
-                                        </div>
-                                    </div>
-                            </form>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
                         </div>
 
 
+                        <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
+                            <div class="input-group-append">
+                            <span class="btn"><i class=" fa fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
+
+                            <div class="input-group-append password-toggle-icon">
+                                <span class="btn"><i class=" fa fa-eye-slash"></i></span>
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
+                            <div class="input-group-append">
+                            <span class="btn"><b><?php echo showOtherLangText('ID') ?></b></span>
+                            </div>
+                            <input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="<?php echo showOtherLangText('Account id') ?>" autocomplete="off">
+                        </div>
+
+                        <div class="py-3 d-flex align-items-center justify-content-center gap-3 mb-2 login-remember">
+
+                            <label for="remember"><?php echo showOtherLangText('Remember Me') ?></label>
+                            <input type="checkbox" name="remember" id="remember" class="form-check-input" checked>
+
+                        </div>
+
+
+                        <div class="text-center">
+                            <button type="submit" onclick="checksubmit();" class="btn sub-btn std-btn mb-usrBkbtn fs-20 py-2 px-4">
+                                <span class="dsktp-Btn px-2 d-inline"><?php echo showOtherLangText('Sign In') ?></span></button>
+                        </div>
+
+
+
+                        <div>
+
+                        </div>
+
+                    </form>
                     </div>
-                </section>
 
+                </div>
             </div>
         </div>
     </div>
 
+
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
-    <script type="text/javascript" src="Assets/js/accountsetup.js"></script>
+
+
+
+
+
 </body>
 
 </html>
