@@ -176,6 +176,7 @@ echo "<script>window.location='".$red."&error=".$error." '</script>";die();
 
 
 //Assign order to mobile user code goes here
+
 if( isset($_POST['checkedTotal']) && $_POST['userIds'] == 0 )
 {
 	$sql = " DELETE FROM `tbl_order_assigned_users` 
@@ -251,7 +252,8 @@ if( isset($_POST['userIds']) && !empty($_POST['userIds']) )
 
 if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
 	
-	$sql = " SELECT * FROM `tbl_order_assigned_users` where orderType = '".$_POST['assignedOrderType']."'  AND account_id = '".$_SESSION['accountId']."'  AND orderId = '".$_POST['assignedOrderId']."' ";
+	 $sql = " SELECT * FROM `tbl_order_assigned_users` where orderType = '".$_POST['assignedOrderType']."'  AND account_id = '".$_SESSION['accountId']."'  AND orderId = '".$_POST['assignedOrderId']."' ";
+	
 	$assignQry = mysqli_query($con, $sql);
 	$userIdsArr = [];
 	while($assignRow = mysqli_fetch_array($assignQry) )
@@ -314,7 +316,7 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Running Tasks</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Running Tasks'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -391,7 +393,7 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
                 ?>
                 <section class="rntskHead">
                     <div class="container">
-                    <?php if(isset($_GET['cancel']) || isset($_GET['added']) || isset($_GET['requisitionAdded']) || isset($_GET['storageAdded'])) {?>
+                    <?php if(isset($_GET['cancel']) || isset($_GET['added']) || isset($_GET['requisitionAdded']) || isset($_GET['storageAdded']) || isset($_GET['storageAdded']) || isset($_GET['status']) || isset($_GET['assigned']) || isset($_GET['unAssigned']) || isset($_GET['updated']) ) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 
@@ -426,7 +428,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <?php if(isset($_GET['error']) || isset($_GET['error_already_exist'])) { ?>
+                            <?php if((isset($_GET['error']) && $_GET['error']!='') || isset($_GET['error_already_exist'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('This Currency is used in order so it cannot be deleted.').' ' : ''; ?>
  </p>
@@ -441,19 +443,19 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                 <div class="d-flex align-items-center" style="width: 60%;">
                                     <div style="width: 3%;">&nbsp;</div>
                                     <div class="d-flex align-items-center">
-                                        <div class="p-1" style="width: 30%;">
+                                        <div class="p-1" style="width: 25%;">
                                             <p><?php echo showOtherLangText('Number'); ?></p>
                                         </div>
-                                        <div class="p-1" style="width: 30%;">
+                                        <div class="p-1" style="width: 25%;">
                                             <p><?php echo showOtherLangText('Member'); ?></p>
                                         </div>
                                         <div class="rnTsk-Num">
                                             <p><?php echo showOtherLangText('User'); ?></p>
                                         </div>
-                                        <div class="p-1" style="width: 30%;">
+                                        <div class="p-1" style="width: 25%;">
                                             <p><?php echo showOtherLangText('Supplier'); ?></p>
                                         </div>
-                                        <div class="p-1">
+                                        <div class="p-1" style="width: 25%;">
                                             <p><?php echo showOtherLangText('Date'); ?></p>
                                         </div>
                                         <div class="p-1">
@@ -574,7 +576,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                         <div class="align-items-center tmpStatus togleOrder">
                                             <div class="py-1 px-1 d-flex align-items-center stsBar">
                                                 <div class="task-status">
-                                                    <p>  <?php
+                                                    <p><?php
 				if ($orderRow['ordType'] == 1)
 				{
 					get_all_type_of_status_of_orderType($orderRow['ordType'],$orderRow['id'],$orderRow['status'],$checkOrdAssing,$timeTrackDet);
@@ -588,15 +590,11 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 					get_all_type_of_status_of_new_stockTake($orderRow['ordType'],$orderRow['status']);
 				}
 				?></p>
-                
                                                 </div>
-                                                <div class="d-flex align-items-center">
-                                                     <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <!-- <a href="javascript:void(0)" class="runLink">
-                                                            <span class="isuOut"></span>
-                                                            <p class="btn2 cn-btn">Issue out</p></a> -->
-                                                            <?php
+                                                <div class="d-flex align-items-center payOptnreq" style="
+    width: 32%;
+">   
+                                 <?php
 				if ($orderRow['ordType'] == 1)
 				{
 					get_all_order_action_of_order_type($orderRow['ordType'],$orderRow['status'],$checkOrdAssing,$timeTrackDet,$orderRow['id'],$_SESSION['designation_id'],$_SESSION['accountId'], $orderRow['orderReceivedByMobUser']);
@@ -613,43 +611,63 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 				}
 				
 				?>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center dleOptnreq">
-                                                    
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
+                                                    <!-- <div
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="docMent"></span>
+                                                            <span class="isuOut"></span>
+                                                            <p class="btn2 cn-btn">Issue out</p>
                                                         </a>
                                                     </div>
-                                                    <?php 
+                                                    <div
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        <a href="javascript:void(0)" class="runLink">
+                                                            <span class="assIgn"></span>
+                                                            <p class="btn2">Assign</p>
+                                                        </a>
+                                                    </div> -->
+                                                    <!-- <div
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                        <a href="javascript:void(0)">
+                                                            <p class="h3">Inv</p>
+                                                        </a>
+                                                    </div> -->
+                                                </div>
+                                                <div class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        <a href="javascript:void(0)" class="runLink">
+                                                            <span class="assIgn"></span>
+                                                            <p class="btn2">View Details</p>
+                                                        </a>
+                                                 </div>
+                                                 <?php 
 			if($orderRow['ordType'] == 1)
 			{
 			//issue in
 				?>
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
+
+                                                <div class="cnfrm text-center d-flex justify-content-center align-items-center">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="docMent"></span>
+                                                            <span class="assIgn"></span>
+                                                            <p class="btn2">Details(Supplier)</p>
                                                         </a>
-                                                    </div>
-                                                    <?php } ?>
-                                                    
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="editRecusation.php?orderId=<?php echo $orderRow['id']; ?>" class="runLink">
-                                                            <span class="edIt"></span>
-                                                        </a>
-                                                    </div>
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                                 </div>
+
+                                                <?php 
+			} 
+			elseif($orderRow['ordType'] == 2)
+			{
+			//issue out
+				?>
+
+                                              
+
+                                                <?php
+			} ?>
+                                                <div class="d-flex align-items-center dleOptnreq">
+                                                	<?php 
+                                                    get_deleteOrder_permission($_SESSION['designation_id'], $_SESSION['accountId'], $orderRow['id'], $orderRow['ordType']);
+
+                                                	?>
+                                                 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -685,6 +703,41 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <form action="" method="post" id="assignUser" name="assignUser">
+    <div class="modal" tabindex="-1" id="assign-order" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Assign Order to User') ?></h1>
+                </div>
+                <div class="modal-body">
+                    
+                    <div>
+                    <input type="hidden" name="orderType" class="orderType" value="">
+                    <input type="hidden" name="orderId" class="orderId" value="">
+                    <input type="hidden" name="checkedTotal" id="checkedTotal" value="">
+                </div>
+                   <div>
+                    <strong class="checkAllSectionBox">
+                        <input type="checkbox" class="CheckAllOptions" id="CheckAllOptions">
+                        <label>
+                            <?php echo showOtherLangText('Check All') ?>
+                        </label>
+                    </strong>
+                </div>
+                <div class="mobUserList">
+                    
+                </div>   
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -713,5 +766,72 @@ function getDelNumb(canId, ordType) {
     $('.custom-header-text').remove();
     $('.ui-dialog-content').prepend(
         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+}
+
+function AssignOrder(orderType, orderId) {
+
+    $('.orderType').val(orderType);
+    $('.orderId').val(orderId);
+
+    $.ajax({
+            method: "POST",
+
+            data: {
+                assignedOrderType: orderType,
+                assignedOrderId: orderId
+            }
+        })
+        .done(function(htmlRes) {
+            $('.mobUserList').html(htmlRes);
+
+            $("#CheckAllOptions").on('click', function() {
+
+                $('.optionCheck:checkbox').not(this).prop('checked', this.checked);
+
+                var totalCount = $('.optionCheck').length;
+                var totalCheckedCount = $('.optionCheck:checked').length;
+
+                if (totalCheckedCount == 0) {
+                    $('#checkedTotal').val(0);
+                } else {
+                    $('#checkedTotal').val(1);
+                }
+            });
+
+            var totalCount = $('.optionCheck').length;
+            var totalCheckedCount = $('.optionCheck:checked').length;
+
+            if (totalCheckedCount == 0) {
+                $('#checkedTotal').val(0);
+            } else {
+                $('#checkedTotal').val(1);
+            }
+
+            if (totalCount == totalCheckedCount) {
+                $('#CheckAllOptions').prop('checked', true);
+            } else {
+                $('#CheckAllOptions').prop('checked', false);
+            }
+
+            $(".optionCheck").on('click', function() {
+
+                var totalCount = $('.optionCheck').length;
+                var totalCheckedCount = $('.optionCheck:checked').length;
+
+                if (totalCheckedCount == 0) {
+                    $('#checkedTotal').val(0);
+                } else {
+                    $('#checkedTotal').val(1);
+                }
+
+                if (totalCount == totalCheckedCount) {
+
+                    $('#CheckAllOptions').prop('checked', true);
+                } else {
+                    $('#CheckAllOptions').prop('checked', false);
+                }
+            });
+        });
+
 }
 </script>

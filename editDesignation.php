@@ -1,16 +1,16 @@
-<?php include('inc/dbConfig.php'); //connection details
+<?php 
+include('inc/dbConfig.php'); //connection details
 
 if(!isset($_SESSION['adminidusername']))
 {
-echo "<script>window.location='login.php'</script>";
+    echo "<script>window.location='login.php'</script>";
 }
-
-
-include_once('script/addDesignation.php');
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
+
+include_once('script/editDesignation.php');
 
 
 ?>
@@ -44,7 +44,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Add Title');?></h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Edit Title'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -56,7 +56,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Add Title');?></h1>
+                                <h1 class="h1"><?php echo showOtherLangText('Edit Title'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -147,7 +147,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                         <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
                                     </div>
                                     <div class="col-md-10">
-                                       <input type="text" name="designation_name" class="form-control"
+                                       <input type="text" value="<?php echo $designationName; ?>" name="designation_name" class="form-control"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                         onchange="this.setCustomValidity('')" required />
                                     </div>
@@ -156,7 +156,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 
                                 <div id="titletype">
 
-                                    <div class="row align-items-center acntStp-Row w-50">
+                                    <div style="display: none;" class="row align-items-center acntStp-Row w-50">
                                         <div class="col-md-2">
                                             <label for="Type" class="form-label d-block"><?php echo showOtherLangText('Title Type'); ?></label>
                                         </div>
@@ -178,15 +178,15 @@ $getLangType = getLangType($_SESSION['language_id']);
 
                                         <div>
                                             <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newOrder">
-                                                <input type="checkbox" name="section_check[]" class="form-check-input" id="new_order" value="1">
+                                                <input type="checkbox" name="section_check[]" class="form-check-input" id="new-order-section" <?php echo ( in_array('1', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?> value="1">
                                                 <label class="medium" for="new_order"><?php echo showOtherLangText('New Order') ?></label>
                                             </div>
 
                                             <div class="collapse py-4" id="newOrder">
                                                 <p class="supplier-text bold pb-2"><?php echo showOtherLangText('Supplier'); ?></p>
                                                 <div class="supplier-text pb-3">
-                                                    <input type="checkbox" class="supplierCheckall form-check-input" class="form-check-input" id="suppliercheckall">
-                                                    <label for="suppliercheckall" class="fs-13 semibold">Check all</label>
+                                                    <input type="checkbox" class="supplierCheckall form-check-input" class="form-check-input" id="supplierCheckall">
+                                                    <label for="suppliercheckall" class="fs-13 semibold"><?php echo showOtherLangText('Check All') ?></label>
                                                 </div>
 
 
@@ -198,7 +198,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     <div class="supplier-main-listbox col-xl-3 col-md-4 col-sm-6 col-6">
                                                         <div class="supplier-inner-listbox">
                                                             <input type="checkbox" name="new_supplierCheck[]" id="supplierCheckbox"
-                                                             class="supplierCheckbox  form-check-input" value="<?php echo $supplierRow['id'] ?>">
+                                                             class="supplierCheckbox  form-check-input" value="<?php echo $supplierRow['id'] ?>" <?php echo in_array($supplierRow['id'], $supIdsArr) ? 'checked="checked"' : ''?>>
                                                             <label><?php echo $supplierRow['name'] ?></label>
                                                         </div>
                                                     </div>
@@ -227,6 +227,10 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                <?php
             foreach ($orderArr as $orderArrSubRow)
             {
+
+                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '".$orderArrSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                            $accessOrderRes = mysqli_query($con, $sql);
+                            $accessOrderRow = mysqli_fetch_array($accessOrderRes);
                 ?>
                                                 <div class="row">
                                                     <div class="col-md-2 col-4"><p class="semibold fs-13"><?php echo showOtherLangText($orderArrSubRow['title']); ?>:</p></div>
@@ -235,12 +239,12 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="order-radio enableOrder">
                                                             <input type="radio" name="<?php echo $orderArrSubRow['name']; ?>"
-                                                                class="form-check-input" value="1" checked>
+                                                                class="order-enable form-check-input" value="1" <?php echo $accessOrderRow['type_id'] == 1 ? 'checked="checked"' : '';?> checked>
                                                             <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                         </div>
                                                         <div class="order-radio desableOrder">
                                                             <input type="radio" name="<?php echo $orderArrSubRow['name']; ?>"
-                                                                class="form-check-input" value="0">
+                                                                class="order-disable form-check-input" <?php echo $accessOrderRow['type_id'] == 0 ? 'checked="checked"' : '';?> value="0">
                                                             <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                         </div>
                                                     </div>
@@ -257,19 +261,19 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                         <div>
-                                            <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newRequisition">
-                                                <input type="checkbox" name="section_check[]" class="form-check-input" id="new-requisition-section" value="2">
+                                            <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-requisition-detail">
+                                                <input type="checkbox" name="section_check[]" class="form-check-input" id="new-requisition-section" value="2" <?php echo ( in_array('2', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?>>
                                                 <label class="medium" for="new-requisition-section"><?php echo showOtherLangText('New Requisition'); ?></label>
                                             </div>
                                         
-                                            <div class="collapse py-4" id="newRequisition">
+                                            <div class="collapse py-4" id="show-requisition-detail">
 
                                                 <p class="bold pb-2"><?php echo showOtherLangText('Members'); ?></p>
 
 
                                                 <div class="supplier-text pb-3">
-                                                    <input type="checkbox" class="form-check-input" id="memberall">
-                                                    <label for="memberall" class="fs-13 semibold">Check all</label>
+                                                    <input type="checkbox" class="form-check-input" id="memberCheckall">
+                                                    <label for="memberCheckall" class="fs-13 semibold"><?php echo showOtherLangText('Check All') ?></label>
                                                 </div>
 
                                                 <div class="row  title-listing-item">
@@ -279,7 +283,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     ?>
                                                     <div class="member-main-listbox  col-xl-3 col-md-4 col-sm-6 col-6 ">
                                                     <div class="member-inner-listbox">
-                                                    <input type="checkbox" name="new_memberCheck[]" id="requisitionCheckbox" class="requisitionCheckbox form-check-input" value="<?php echo $deptUserRow['id'] ?>">
+                                                    <input type="checkbox" name="new_memberCheck[]" id="requisitionCheckbox" class="requisitionCheckbox form-check-input" value="<?php echo $deptUserRow['id'] ?>" <?php echo in_array($deptUserRow['id'], $memIdsArr) ? 'checked="checked"' : ''?>>
                                                     <label><?php echo $deptUserRow['name'] ?></label>
                                                     </div>
                                                     </div>
@@ -311,6 +315,9 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                        <?php
             foreach ($requisitionArr as $requisitionArrSubRow)
             {
+                $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '".$requisitionArrSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                            $accessReqRes = mysqli_query($con, $sql);
+                            $accessReqRow = mysqli_fetch_array($accessReqRes);
                 ?>
                                                 <div class="row align-items-center pb-2">
                                                     <div class="col-md-2 col-4"><p class="semibold fs-13"><?php echo showOtherLangText($requisitionArrSubRow['title']); ?>:</p></div>
@@ -318,11 +325,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="requisition-radio enableRequisition">
-                                                            <input type="radio" name="<?php echo $requisitionArrSubRow['name']; ?>" class="form-check-input" value="1" checked>
+                                                            <input type="radio" name="<?php echo $requisitionArrSubRow['name']; ?>" class="requisition-enable form-check-input" value="1" <?php echo $accessReqRow['type_id'] == 1 ? 'checked="checked"' : '';?>>
                                                             <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                         </div>
                                                         <div class="requisition-radio desableRequisition">
-                                                            <input type="radio" name="<?php echo $requisitionArrSubRow['name']; ?>" class="form-check-input" value="0">
+                                                            <input type="radio" name="<?php echo $requisitionArrSubRow['name']; ?>" class="requisition-disable form-check-input" <?php echo $accessReqRow['type_id'] == 0 ? 'checked="checked"' : '';?> value="0">
                                                             <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                         </div>
                                                     </div>
@@ -339,11 +346,11 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                         <div>
-                                            <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#runningtasks">
-                                                <input type="checkbox" name="section_check[]"  class="form-check-input" id="running_tasks" value="3">
-                                                <label class="medium" for="running_tasks"><?php echo showOtherLangText('Running Tasks'); ?></label>
+                                            <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-runningTask-detail">
+                                                <input type="checkbox" name="section_check[]"  class="form-check-input" id="runningTask-section" <?php echo ( in_array('3', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?> value="3">
+                                                <label class="medium" for="runningTask-section"><?php echo showOtherLangText('Running Tasks'); ?></label>
                                             </div>
-                                            <div class="collapse py-4" id="runningtasks">
+                                            <div class="collapse py-4" id="show-runningTask-detail">
 
 
                                                 <div class="row pb-2">
@@ -365,6 +372,9 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                 <?php
                                                 foreach ($runningTaskArr as $runningTaskSubRow)
                                                 {
+                                                $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '".$runningTaskSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                                             $accessRunningtaskRes = mysqli_query($con, $sql);
+                                             $AccessRunningtaskRow = mysqli_fetch_array($accessRunningtaskRes);
                                                 ?>
 
                                                 <div class="row align-items-center pb-2">
@@ -373,11 +383,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="runningtask-radio enableRunningtask">
-                                                            <input type="radio" name="<?php echo $runningTaskSubRow['name']; ?>" class="form-check-input" value="1" checked>
+                                                            <input type="radio" name="<?php echo $runningTaskSubRow['name']; ?>" class="runningtask-enable form-check-input" value="1" <?php echo $AccessRunningtaskRow['type_id'] == 1 ? 'checked="checked"' : '';?>>
                                                             <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                         </div>
                                                         <div class="runningtask-radio desableRunningtask">
-                                                            <input type="radio" name="<?php echo $runningTaskSubRow['name']; ?>" class="form-check-input" value="0">
+                                                            <input type="radio" name="<?php echo $runningTaskSubRow['name']; ?>" class="runningtask-disable form-check-input" <?php echo $AccessRunningtaskRow['type_id'] == 0 ? 'checked="checked"' : '';?> value="0">
                                                             <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                         </div>
                                                     </div>
@@ -395,11 +405,11 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                         <div>
-                                            <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#history">
-                                                <input type="checkbox"  class="form-check-input" id="t_history" name="section_check[]" value="4">
+                                            <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-history-detail">
+                                                <input type="checkbox"  class="form-check-input" id="history-section" <?php echo ( in_array('4', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?> name="section_check[]" value="4">
                                                 <label class="medium" for="t_history"><?php echo showOtherLangText('History'); ?></label>
                                             </div>
-                                            <div class="collapse py-4" id="history">
+                                            <div class="collapse py-4" id="show-history-detail">
 
 
                                                 <div class="row pb-2">
@@ -407,7 +417,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     <div class="col-md-10 col-8">
                                                         <div class="d-flex align-items-center gap-3">
                                                         <div>
-                                                            <input type="checkbox" class="form-check-input" id="checkallHistory" name="check_all" checked>
+                                                            <input type="checkbox" class="form-check-input" id="checkallHistory" name="check_all" >
                                                             <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                         </div>
                                                         <div>
@@ -421,6 +431,9 @@ $getLangType = getLangType($_SESSION['language_id']);
 
         foreach ($historyArr as $historySubRow)
         {
+            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '". $historySubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+            $accesshistoryRes = mysqli_query($con, $sql);
+            $accesshistoryRow = mysqli_fetch_array($accesshistoryRes);
             ?>
                                                 <div class="row align-items-center pb-2">
                                                     <div class="col-md-2 col-4"><p class="semibold fs-13"><?php echo showOtherLangText($historySubRow['title']); ?>:</p></div>
@@ -428,11 +441,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="history-radio enableHistory">
-                                                            <input type="radio" name="<?php echo $historySubRow['name']; ?>" class="form-check-input history-enable" value="1" checked>
+                                                            <input type="radio" name="<?php echo $historySubRow['name']; ?>" <?php echo $accesshistoryRow['type_id'] == 1 ? 'checked="checked"' : ''; ?> class="form-check-input history-enable" value="1" >
                                                             <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                         </div>
                                                         <div class="history-radio desableHistory">
-                                                            <input type="radio" name="<?php echo $historySubRow['name']; ?>" class="form-check-input history-disable" value="0">
+                                                            <input type="radio" name="<?php echo $historySubRow['name']; ?>" <?php echo $accesshistoryRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> class="form-check-input history-disable" value="0">
                                                             <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                         </div>
                                                     </div>
@@ -448,11 +461,11 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#stock">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="stock-section" value="5">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-stock-detail">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="stock-section" value="5" <?php echo ( in_array('5', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?>>
                                                     <label class="medium" for="stock1"><?php echo showOtherLangText('Stock'); ?></label>
                                                 </div>
-                                                <div class="collapse py-4" id="stock">
+                                                <div class="collapse py-4" id="show-stock-detail">
 
                                                     <p class="supplier-text bold pb-2"><?php echo showOtherLangText('Store Access'); ?>:</p>
 
@@ -464,7 +477,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                 {
                     ?>
                                                         <div class="strAcs-inner-listbox col-xl-3 col-md-4 col-sm-6 col-6">
-                                                            <input type="checkbox" name="store_check[]" id="stock-section" class="stock-section form-check-input" value="<?php echo $storeRow['id'] ?>">
+                                                            <input type="checkbox" name="store_check[]" id="stock-section" class="stock-section form-check-input" value="<?php echo $storeRow['id'] ?>" <?php echo in_array($storeRow['id'], $storeIdsArr) ? 'checked="checked"' : ''?>>
                                                             <label ><?php echo $storeRow['name']; ?></label>
                                                         </div>
                     <?php
@@ -497,6 +510,9 @@ $getLangType = getLangType($_SESSION['language_id']);
             
             foreach ($stockArr as $stockSubRow)
             {
+                $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '". $stockSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                                $accessStockRes = mysqli_query($con, $sql);
+                                $accessStockRow = mysqli_fetch_array($accessStockRes);
                 ?>
                                                     <div class="row align-items-center pb-2">
                                                         <div class="col-md-2 col-4"><p class="semibold fs-13"><?php echo showOtherLangText($stockSubRow['title']) ?>:</p></div>
@@ -504,11 +520,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                         
                                                         <div class="d-flex align-items-center gap-3">
                                                             <div class="stock-radio enableStock">
-                                                                <input type="radio" name="<?php echo $stockSubRow['name'] ?>" class="form-check-input" value="1" checked>
+                                                                <input type="radio" name="<?php echo $stockSubRow['name'] ?>" class="stock-enable form-check-input" value="1" <?php echo $accessStockRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
                                                                 <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                             </div>
                                                             <div class="stock-radio desableStock">
-                                                                <input type="radio" name="<?php echo $stockSubRow['name'] ?>" class="form-check-input" value="0">
+                                                                <input type="radio" name="<?php echo $stockSubRow['name'] ?>" class="form-check-input stock-disable" value="0" <?php echo $accessStockRow['type_id'] == 0 ? 'checked="checked"' : ''; ?>>
                                                                 <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                             </div>
                                                         </div>
@@ -527,11 +543,11 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newstock">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="new_stock" value="6">
-                                                    <label class="medium" for="new_stock"><?php echo showOtherLangText('New Stocktake'); ?></label>
+                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-stocktake-detail">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="new-stocktake-section" <?php echo ( in_array('6', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?>  value="6">
+                                                    <label class="medium" for="new-stocktake-section"><?php echo showOtherLangText('New Stocktake'); ?></label>
                                                 </div>
-                                                <div class="collapse py-4" id="newstock">
+                                                <div class="collapse py-4" id="show-stocktake-detail">
     
     
                                                     <div class="row pb-2">
@@ -552,6 +568,9 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                      <?php
                                             foreach ($newStockTakeArr as $newStockTakeSubRow)
                                                     {
+                                                    $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '". $newStockTakeSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                            $accessNewStockTakeRes = mysqli_query($con, $sql);
+                            $accessNewStockTakeRow = mysqli_fetch_array($accessNewStockTakeRes);
                                                         ?>
                                                     <div class="row align-items-center pb-2">
                                                         <div class="col-md-2 col-4"><p class="semibold fs-13"> <?php echo showOtherLangText($newStockTakeSubRow['title']) ?>:</p></div>
@@ -559,11 +578,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                         
                                                         <div class="d-flex align-items-center gap-3">
                                                             <div class="newStockTake-radio enableNewStockTake">
-                                                                <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" value="1" checked>
+                                                                <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" value="1" <?php echo $accessNewStockTakeRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
                                                                 <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                             </div>
                                                             <div class="newStockTake-radio desableNewStockTake">
-                                                                <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" value="0">
+                                                                <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" <?php echo $accessNewStockTakeRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
                                                                 <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                             </div>
                                                         </div>
@@ -578,11 +597,11 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#revenuecenter">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="revenueCenter-section" value="7">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-revenueCenter-detail">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" <?php echo ( in_array('7', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?> id="revenueCenter-section" value="7">
                                                     <label class="medium" for="revenue_center"><?php echo showOtherLangText('Revenue Center'); ?></label>
                                                 </div>
-                                                <div class="collapse py-4" id="revenuecenter">
+                                                <div class="collapse py-4" id="show-revenueCenter-detail">
     
     
                                                     <div class="row pb-2">
@@ -590,7 +609,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                         <div class="col-md-10 col-8">
                                                             <div class="d-flex align-items-center gap-3">
                                                             <div>
-                                                                <input type="checkbox" class="form-check-input" id="checkallRevenueCenter" name="check_all" checked>
+                                                                <input type="checkbox" class="form-check-input" id="checkallRevenueCenter" name="check_all" >
                                                                 <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                             </div>
                                                             <div>
@@ -604,6 +623,9 @@ $getLangType = getLangType($_SESSION['language_id']);
         
         foreach ($revCenterArr as $RevCenterSubRow)
         {
+            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '". $revCenterSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                        $accessRevCenterRes = mysqli_query($con, $sql);
+                        $accessRevCenterRow = mysqli_fetch_array($accessRevCenterRes);
             ?>
                                                     <div class="row align-items-center pb-2">
                                                         <div class="col-md-2 col-4"><p class="semibold fs-13"><?php echo showOtherLangText($RevCenterSubRow['title']) ?>:</p></div>
@@ -611,11 +633,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                         
                                                         <div class="d-flex align-items-center gap-3">
                                                             <div class="revenueCenter-radio enableRevenueCenter">
-                                                                <input type="radio" name="<?php echo $RevCenterSubRow['name'] ?>" class="form-check-input" value="1" checked>
+                                                                <input type="radio" name="<?php echo $RevCenterSubRow['name'] ?>" class="revenueCenter-enable form-check-input" value="1" <?php echo $accessRevCenterRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
                                                                 <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                             </div>
                                                             <div class="revenueCenter-radio desableRevenueCenter">
-                                                                <input type="radio" name="<?php echo $RevCenterSubRow['name'] ?>" class="form-check-input" value="0">
+                                                                <input type="radio" name="<?php echo $RevCenterSubRow['name'] ?>" class="revenueCenter-disable form-check-input" <?php echo $accessRevCenterRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
                                                                 <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                             </div>
                                                         </div>
@@ -629,11 +651,11 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#setup">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="setup1" value="8">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-setup-detail">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="setup-section" <?php echo ( in_array('8', $selectedSectionArr) && in_array('0', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?> value="8">
                                                     <label class="medium" for="setup1"><?php echo showOtherLangText('Setup'); ?></label>
                                                 </div>
-                                                <div class="collapse py-4" id="setup">
+                                                <div class="collapse py-4" id="show-setup-detail">
     
     
                                                     <div class="row pb-2">
@@ -655,6 +677,9 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     
                                                    foreach ($setupArr as $setupSubRow)
         {
+            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '". $setupSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                        $accessSetupRes = mysqli_query($con, $sql);
+                        $accessSetupRow = mysqli_fetch_array($accessSetupRes);
                                                         ?>
                                                     <div class="row align-items-center pb-2">
                                                         <div class="col-md-2 col-4"><p class="semibold fs-13">  <?php echo showOtherLangText($setupSubRow['title']) ?>:</p></div>
@@ -662,11 +687,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                         
                                                         <div class="d-flex align-items-center gap-3">
                                                              <div class="stock-radio enableSetup">
-                                                                <input type="radio" name="<?php echo $setupSubRow['name'] ?>" class="form-check-input" value="1" checked>
+                                                                <input type="radio" name="<?php echo $setupSubRow['name'] ?>" class="form-check-input setup-enable" value="1" <?php echo $accessSetupRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
                                                                 <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                             </div>
                                                              <div class="stock-radio desableSetup">
-                                                                <input type="radio" name="<?php echo $setupSubRow['name'] ?>" class="form-check-input" value="0">
+                                                                <input type="radio" name="<?php echo $setupSubRow['name'] ?>" class="form-check-input setup-disable" <?php echo $accessSetupRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
                                                                 <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                             </div>
                                                         </div>
@@ -704,7 +729,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 
                                         <div>
                                             <div class="checkbox-list border-bottom pt-3 pb-2" >
-                                                <input type="checkbox" class="form-check-input" name="section_check[]" id="mobile-section" value="1"  checked>
+                                                <input type="checkbox" class="form-check-input" name="section_check[]" id="mobile-section" value="1"  <?php echo ( in_array('1', $selectedSectionArr) && in_array('1', $checkSectionVersion) ) ? 'checked="checked"' : ''; ?>>
                                                 <label class="medium" for="revenue_center"><?php echo showOtherLangText('Mobile Section'); ?></label>
                                             </div>
                                             <div class="py-4" >
@@ -727,6 +752,9 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                 <?php
                                                 foreach ($mobileSectionArr as $mobileSectionSubRow)
                                                 {
+                                                    $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '".$mobileSectionSubRow['name']."' AND designation_id = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+                        $accessMobileSectionRes = mysqli_query($con, $sql);
+                        $AccessMobileSectionRow = mysqli_fetch_array($accessMobileSectionRes);
                                                 ?>
                                                 <div class="row align-items-center pb-2">
                                                     <div class="col-md-2 col-4"><p class="semibold fs-13"><?php echo showOtherLangText($mobileSectionSubRow['title']) ?>:</p></div>
@@ -734,11 +762,11 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                     
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="stock-radio enableMobileSection">
-                                                            <input type="radio" name="<?php echo $mobileSectionSubRow['name'] ?>" class="form-check-input" value="1" checked="">
+                                                            <input type="radio" name="<?php echo $mobileSectionSubRow['name'] ?>" class="mobile-section-enable form-check-input" value="1" <?php echo $AccessMobileSectionRow['type_id'] == 1 ? 'checked="checked"' : '';?>>
                                                             <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                         </div>
                                                         <div class="stock-radio desableMobileSection">
-                                                            <input type="radio" name="<?php echo $mobileSectionSubRow['name'] ?>" class="form-check-input" value="0">
+                                                            <input type="radio" name="<?php echo $mobileSectionSubRow['name'] ?>" class="mobile-section-disable form-check-input" <?php echo $AccessMobileSectionRow['type_id'] == 0 ? 'checked="checked"' : '';?> value="0">
                                                             <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
                                                         </div>
                                                     </div>
@@ -775,58 +803,221 @@ $getLangType = getLangType($_SESSION['language_id']);
 </html>
 <script>
     $(document).ready(function() {
-        // $('#type_web').prop('checked', true);
-        $("#type_web").click();
-        $(".supplierCheckall").on('click', function() {
-           $('.supplierCheckbox:checkbox').not(this).prop('checked', this.checked);
-        });
-        $('#checkallOrder').prop('checked', true);
-        $('.order-enable').prop('checked', true);
-        $("#memberall").on('click', function() {
-        $('.requisitionCheckbox:checkbox').not(this).prop('checked', this.checked);
-        });
-         $('#checkallRunningtask').prop('checked', true);
-        $("#checkallStock").on('click', function() {
-        //alert('clicked');
-        if ($("#uncheckallStock").is(':checked')) {
-            $('#uncheckallStock').prop('checked', false);
+         var designationType = '<?php echo $designationType;?>';
+         if (designationType == 1) {
+         $("#type_mobile").click();
+          if ($('#mobile-section').attr('checked')) {
+                var totalCount = $('.mobile-section-enable').length;
+                var totalEnableCheckedCount = $('.mobile-section-enable:checked').length;
+                var totalDisableCheckedCount = $('.mobile-section-disable:checked').length;
+
+
+                if (totalCount == totalEnableCheckedCount) {
+                    $('#checkallMobileSection').prop('checked', true);
+                } else {
+                    $('#checkallMobileSection').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+
+                    $('#uncheckallMobileSection').prop('checked', true);
+                } else {
+                    $('#uncheckallMobileSection').prop('checked', false);
+                }
+
+                $('.mobile-section-enable, .mobile-section-disable').click(function() {
+
+                    var totalCount = $('.mobile-section-enable').length;
+
+                    var totalEnableCheckedCount = $('.mobile-section-enable:checked').length;
+
+                    var totalDisableCheckedCount = $('.mobile-section-disable:checked').length;
+
+                    if (totalCount == totalEnableCheckedCount) {
+
+                        $('#checkallMobileSection').prop('checked', true);
+                    } else {
+                        $('#checkallMobileSection').prop('checked', false);
+                    }
+
+                    if (totalCount == totalDisableCheckedCount) {
+
+                        $('#uncheckallMobileSection').prop('checked', true);
+                    } else {
+                        $('#uncheckallMobileSection').prop('checked', false);
+                    }
+
+                });
+            }
+         } else 
+         {
+         $("#type_web").click();
+         }
+        if ($('#new-order-section').attr('checked')) {
+            
+            $('#newOrder').addClass('show');
+
+            $("#supplierCheckall").on('click', function() {
+
+                $('.supplierCheckbox:checkbox').not(this).prop('checked', this.checked);
+            });
+
+            var totalCount = $('.supplierCheckbox').length;
+
+            var totalCheckedCount = $('.supplierCheckbox:checked').length;
+            
+
+            if (totalCount == totalCheckedCount) {
+                console.log('totalCount',totalCount,totalCheckedCount);
+                $('#supplierCheckall').prop('checked', true);
+            } else {
+                $('#supplierCheckall').prop('checked', false);
+            }
+
+            $('.supplierCheckbox').click(function() {
+
+                var totalCount = $('.supplierCheckbox').length;
+
+                var totalCheckedCount = $('.supplierCheckbox:checked').length;
+
+                if (totalCount == totalCheckedCount) {
+
+                    $('#supplierCheckall').prop('checked', true);
+                } else {
+                    $('#supplierCheckall').prop('checked', false);
+                }
+
+            });
+
+            //check whether enable/disable is checked or not
+            var totalCount = $('.order-enable').length;
+
+            var totalEnableCheckedCount = $('.order-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.order-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallOrder').prop('checked', true);
+            } else {
+                $('#checkallOrder').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+                $('#uncheckallOrder').prop('checked', true);
+            } else {
+                $('#uncheckallOrder').prop('checked', false);
+            }
+
+            $('.order-enable, .order-disable').click(function() {
+
+                var totalCount = $('.order-enable').length;
+
+                var totalEnableCheckedCount = $('.order-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.order-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+                    $('#checkallOrder').prop('checked', true);
+                } else {
+                    $('#checkallOrder').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+                    $('#uncheckallOrder').prop('checked', true);
+                } else {
+                    $('#uncheckallOrder').prop('checked', false);
+                }
+
+            });
+             };
+
+
+             if ($('#new-requisition-section').attr('checked')) {
+
+            ///$('#show-requisition-detail').css('display', 'block');
+            $('#show-requisition-detail').addClass('show');
+
+            $("#memberCheckall").on('click', function() {
+
+                $('.requisitionCheckbox:checkbox').not(this).prop('checked', this.checked);
+            });
+
+            var totalCount = $('.requisitionCheckbox').length;
+
+            var totalCheckedCount = $('.requisitionCheckbox:checked').length;
+
+
+            if (totalCount == totalCheckedCount) {
+
+                $('#memberCheckall').prop('checked', true);
+            } else {
+                $('#memberCheckall').prop('checked', false);
+            }
+
+            $('.requisitionCheckbox').click(function() {
+
+                var totalCount = $('.requisitionCheckbox').length;
+
+                var totalCheckedCount = $('.requisitionCheckbox:checked').length;
+
+                if (totalCount == totalCheckedCount) {
+
+                    $('#memberCheckall').prop('checked', true);
+                } else {
+                    $('#memberCheckall').prop('checked', false);
+                }
+
+            });
+
+            //check whether enable/disable is checked or not
+            var totalCount = $('.requisition-enable').length;
+
+            var totalEnableCheckedCount = $('.requisition-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.requisition-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallRequisition').prop('checked', true);
+            } else {
+                $('#checkallRequisition').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+                $('#uncheckallRequisition').prop('checked', true);
+            } else {
+                $('#uncheckallRequisition').prop('checked', false);
+            }
+
+            $('.requisition-enable, .requisition-disable').click(function() {
+
+                var totalCount = $('.requisition-enable').length;
+
+                var totalEnableCheckedCount = $('.requisition-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.requisition-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+                    $('#checkallRequisition').prop('checked', true);
+                } else {
+                    $('#checkallRequisition').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+                    $('#uncheckallRequisition').prop('checked', true);
+                } else {
+                    $('#uncheckallRequisition').prop('checked', false);
+                }
+
+            });
         }
 
-        $('.enableStock input:radio').not(this).prop('checked', this.checked);
-        });
 
-        $("#uncheckallStock").on('click', function() {
-        //alert('clicked');
-        if ($("#checkallStock").is(':checked')) {
-            $('#checkallStock').prop('checked', false);
-        }
+       $("#checkallRequisition").on('click', function() {
 
-        $('.desableStock input:radio').not(this).prop('checked', this.checked);
-        });
-
-         
-        
-         $("#checkallOrder").on('click', function() {
-        //alert('clicked');
-        if ($("#uncheckallOrder").is(':checked')) {
-            $('#uncheckallOrder').prop('checked', false);
-        }
-
-        $('.enableOrder input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallOrder").on('click', function() {
-        //alert('clicked');
-        if ($("#checkallOrder").is(':checked')) {
-            $('#checkallOrder').prop('checked', false);
-        }
-
-        $('.desableOrder input:radio').not(this).prop('checked', this.checked);
-       });
-
-        // requisition check all/ uncheck all
-    $("#checkallRequisition").on('click', function() {
-        //alert('clicked');
         if ($("#uncheckallRequisition").is(':checked')) {
             $('#uncheckallRequisition').prop('checked', false);
         }
@@ -835,7 +1026,7 @@ $getLangType = getLangType($_SESSION['language_id']);
     });
 
     $("#uncheckallRequisition").on('click', function() {
-        //alert('clicked');
+
         if ($("#checkallRequisition").is(':checked')) {
             $('#checkallRequisition').prop('checked', false);
         }
@@ -843,42 +1034,388 @@ $getLangType = getLangType($_SESSION['language_id']);
         $('.desableRequisition input:radio').not(this).prop('checked', this.checked);
     });
 
-        $("#checkallRunningtask").on('click', function() {
-        if ($("#uncheckallRunningtask").is(':checked')) {
-            $('#uncheckallRunningtask').prop('checked', false);
-        }
-        $('.enableRunningtask input:radio').not(this).prop('checked', this.checked);
-        });
 
-        $("#uncheckallRunningtask").on('click', function() {
-        //alert('clicked');
-        if ($("#checkallRunningtask").is(':checked')) {
-            $('#checkallRunningtask').prop('checked', false);
+    //Running task section
+        if ($('#runningTask-section').attr('checked')) {
+
+            $('#show-runningTask-detail').addClass("show");
+
+            var totalCount = $('.runningtask-enable').length;
+
+            var totalEnableCheckedCount = $('.runningtask-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.runningtask-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallRunningtask').prop('checked', true);
+            } else {
+                $('#checkallRunningtask').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+                $('#uncheckallRunningtask').prop('checked', true);
+            } else {
+                $('#uncheckallRunningtask').prop('checked', false);
+            }
+
+            $('.runningtask-enable, .runningtask-disable').click(function() {
+
+                var totalCount = $('.runningtask-enable').length;
+
+                var totalEnableCheckedCount = $('.runningtask-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.runningtask-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+                    $('#checkallRunningtask').prop('checked', true);
+                } else {
+                    $('#checkallRunningtask').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+                    $('#uncheckallRunningtask').prop('checked', true);
+                } else {
+                    $('#uncheckallRunningtask').prop('checked', false);
+                }
+
+            });
         }
 
-        $('.desableRunningtask input:radio').not(this).prop('checked', this.checked);
-        });
-    
-          $("#checkallNewStockTake").on('click', function() {
-        //alert('clicked');
+        // History section
+        if ($('#history-section').attr('checked')) {
+
+            $('#show-history-detail').addClass('show');
+
+            var totalCount = $('.history-enable').length;
+
+            var totalEnableCheckedCount = $('.history-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.history-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallHistory').prop('checked', true);
+            } else {
+                $('#checkallHistory').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+
+                $('#uncheckallHistory').prop('checked', true);
+            } else {
+                $('#uncheckallHistory').prop('checked', false);
+            }
+
+            $('.history-enable, .history-disable').click(function() {
+
+                var totalCount = $('.history-enable').length;
+
+                var totalEnableCheckedCount = $('.history-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.history-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+
+                    $('#checkallHistory').prop('checked', true);
+                } else {
+                    $('#checkallHistory').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+
+                    $('#uncheckallHistory').prop('checked', true);
+                } else {
+                    $('#uncheckallHistory').prop('checked', false);
+                }
+
+            });
+        }
+            
+            //History check all/uncheck all
+            $("#checkallHistory").on('click', function() {
+
+            if ($("#uncheckallHistory").is(':checked')) {
+                $('#uncheckallHistory').prop('checked', false);
+            }
+
+            $('.enableHistory input:radio').not(this).prop('checked', this.checked);
+            });
+
+            $("#uncheckallHistory").on('click', function() {
+
+            if ($("#checkallHistory").is(':checked')) {
+                $('#checkallHistory').prop('checked', false);
+            }
+
+            $('.desableHistory input:radio').not(this).prop('checked', this.checked);
+            });
+
+
+            // Stock section
+        if ($('#stock-section').attr('checked')) {
+
+            $('#show-stock-detail').addClass('show');
+
+            var totalCount = $('.stock-enable').length;
+
+            var totalEnableCheckedCount = $('.stock-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.stock-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallStock').prop('checked', true);
+            } else {
+                $('#checkallStock').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+
+                $('#uncheckallStock').prop('checked', true);
+            } else {
+                $('#uncheckallStock').prop('checked', false);
+            }
+
+            $('.stock-enable, .stock-disable').click(function() {
+
+                var totalCount = $('.stock-enable').length;
+
+                var totalEnableCheckedCount = $('.stock-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.stock-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+
+                    $('#checkallStock').prop('checked', true);
+                } else {
+                    $('#checkallStock').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+
+                    $('#uncheckallStock').prop('checked', true);
+                } else {
+                    $('#uncheckallStock').prop('checked', false);
+                }
+
+            });
+        }
+
+        //Stock check all/uncheck all
+    $("#checkallStock").on('click', function() {
+
+        if ($("#uncheckallStock").is(':checked')) {
+            $('#uncheckallStock').prop('checked', false);
+        }
+
+        $('.enableStock input:radio').not(this).prop('checked', this.checked);
+    });
+
+    $("#uncheckallStock").on('click', function() {
+
+        if ($("#checkallStock").is(':checked')) {
+            $('#checkallStock').prop('checked', false);
+        }
+
+        $('.desableStock input:radio').not(this).prop('checked', this.checked);
+    });
+
+       if ($('#new-stocktake-section').attr('checked')) {
+
+            $('#show-stocktake-detail').addClass('show');
+
+            var totalCount = $('.newStockTake-enable').length;
+
+            var totalEnableCheckedCount = $('.newStockTake-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.newStockTake-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallNewStockTake').prop('checked', true);
+            } else {
+                $('#checkallNewStockTake').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+
+                $('#uncheckallNewStockTake').prop('checked', true);
+            } else {
+                $('#uncheckallNewStockTake').prop('checked', false);
+            }
+
+            $('.newStockTake-enable, .newStockTake-disable').click(function() {
+
+                var totalCount = $('.newStockTake-enable').length;
+
+                var totalEnableCheckedCount = $('.newStockTake-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.newStockTake-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+
+                    $('#checkallNewStockTake').prop('checked', true);
+                } else {
+                    $('#checkallNewStockTake').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+
+                    $('#uncheckallNewStockTake').prop('checked', true);
+                } else {
+                    $('#uncheckallNewStockTake').prop('checked', false);
+                }
+
+            });
+        }
+
+        $("#checkallNewStockTake").on('click', function() {
+
         if ($("#uncheckallNewStockTake").is(':checked')) {
             $('#uncheckallNewStockTake').prop('checked', false);
         }
 
         $('.enableNewStockTake input:radio').not(this).prop('checked', this.checked);
-       });
+    });
 
-      $("#uncheckallNewStockTake").on('click', function() {
-        //alert('clicked');
+    $("#uncheckallNewStockTake").on('click', function() {
+
         if ($("#checkallNewStockTake").is(':checked')) {
             $('#checkallNewStockTake').prop('checked', false);
         }
 
         $('.desableNewStockTake input:radio').not(this).prop('checked', this.checked);
-       });
-       
-       $("#checkallSetup").on('click', function() {
-        //alert('clicked');
+    });
+      
+      // RevenueCenter section
+        if ($('#revenueCenter-section').attr('checked')) {
+
+            $('#show-revenueCenter-detail').addClass('show');
+
+            var totalCount = $('.revenueCenter-enable').length;
+
+            var totalEnableCheckedCount = $('.revenueCenter-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.revenueCenter-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallRevenueCenter').prop('checked', true);
+            } else {
+                $('#checkallRevenueCenter').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+
+                $('#uncheckallRevenueCenter').prop('checked', true);
+            } else {
+                $('#uncheckallRevenueCenter').prop('checked', false);
+            }
+
+            $('.revenueCenter-enable, .revenueCenter-disable').click(function() {
+
+                var totalCount = $('.revenueCenter-enable').length;
+
+                var totalEnableCheckedCount = $('.revenueCenter-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.revenueCenter-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+
+                    $('#checkallRevenueCenter').prop('checked', true);
+                } else {
+                    $('#checkallRevenueCenter').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+
+                    $('#uncheckallRevenueCenter').prop('checked', true);
+                } else {
+                    $('#uncheckallRevenueCenter').prop('checked', false);
+                }
+
+            });
+        }
+
+
+        // setup section
+        if ($('#setup-section').attr('checked')) {
+
+            $('#show-setup-detail').addClass('show');
+
+            var totalCount = $('.setup-enable').length;
+
+            var totalEnableCheckedCount = $('.setup-enable:checked').length;
+
+            var totalDisableCheckedCount = $('.setup-disable:checked').length;
+
+
+            if (totalCount == totalEnableCheckedCount) {
+
+                $('#checkallSetup').prop('checked', true);
+            } else {
+                $('#checkallSetup').prop('checked', false);
+            }
+
+            if (totalCount == totalDisableCheckedCount) {
+
+                $('#uncheckallSetup').prop('checked', true);
+            } else {
+                $('#uncheckallSetup').prop('checked', false);
+            }
+
+            $('.setup-enable, .setup-disable').click(function() {
+
+                var totalCount = $('.setup-enable').length;
+
+                var totalEnableCheckedCount = $('.setup-enable:checked').length;
+
+                var totalDisableCheckedCount = $('.setup-disable:checked').length;
+
+                if (totalCount == totalEnableCheckedCount) {
+
+                    $('#checkallSetup').prop('checked', true);
+                } else {
+                    $('#checkallSetup').prop('checked', false);
+                }
+
+                if (totalCount == totalDisableCheckedCount) {
+
+                    $('#uncheckallSetup').prop('checked', true);
+                } else {
+                    $('#uncheckallSetup').prop('checked', false);
+                }
+
+            });
+        }
+
+         $("#checkallRevenueCenter").on('click', function() {
+
+        if ($("#uncheckallRevenueCenter").is(':checked')) {
+            $('#uncheckallRevenueCenter').prop('checked', false);
+        }
+
+        $('.enableRevenueCenter input:radio').not(this).prop('checked', this.checked);
+    });
+
+    $("#uncheckallRevenueCenter").on('click', function() {
+
+        if ($("#checkallRevenueCenter").is(':checked')) {
+            $('#checkallRevenueCenter').prop('checked', false);
+        }
+
+        $('.desableRevenueCenter input:radio').not(this).prop('checked', this.checked);
+    });
+
+    //Setup check all/uncheck all
+    $("#checkallSetup").on('click', function() {
+
         if ($("#uncheckallSetup").is(':checked')) {
             $('#uncheckallSetup').prop('checked', false);
         }
@@ -887,7 +1424,7 @@ $getLangType = getLangType($_SESSION['language_id']);
     });
 
     $("#uncheckallSetup").on('click', function() {
-        //alert('clicked');
+
         if ($("#checkallSetup").is(':checked')) {
             $('#checkallSetup').prop('checked', false);
         }
@@ -895,7 +1432,45 @@ $getLangType = getLangType($_SESSION['language_id']);
         $('.desableSetup input:radio').not(this).prop('checked', this.checked);
     });
 
-       $("#checkallMobileSection").on('click', function() {
+    // Order check all/ uncheck all
+    $("#checkallOrder").on('click', function() {
+
+        if ($("#uncheckallOrder").is(':checked')) {
+            $('#uncheckallOrder').prop('checked', false);
+        }
+
+        $('.enableOrder input:radio').not(this).prop('checked', this.checked);
+    });
+
+    $("#uncheckallOrder").on('click', function() {
+
+        if ($("#checkallOrder").is(':checked')) {
+            $('#checkallOrder').prop('checked', false);
+        }
+
+        $('.desableOrder input:radio').not(this).prop('checked', this.checked);
+    });
+
+    // RunningTask check all/ uncheck all
+    $("#checkallRunningtask").on('click', function() {
+
+        if ($("#uncheckallRunningtask").is(':checked')) {
+            $('#uncheckallRunningtask').prop('checked', false);
+        }
+
+        $('.enableRunningtask input:radio').not(this).prop('checked', this.checked);
+    });
+
+    $("#uncheckallRunningtask").on('click', function() {
+
+        if ($("#checkallRunningtask").is(':checked')) {
+            $('#checkallRunningtask').prop('checked', false);
+        }
+
+        $('.desableRunningtask input:radio').not(this).prop('checked', this.checked);
+    });
+
+    $("#checkallMobileSection").on('click', function() {
 
         if ($("#uncheckallMobileSection").is(':checked')) {
             $('#uncheckallMobileSection').prop('checked', false);
@@ -905,51 +1480,17 @@ $getLangType = getLangType($_SESSION['language_id']);
     });
 
     $("#uncheckallMobileSection").on('click', function() {
-        //alert('clicked');
+
         if ($("#checkallMobileSection").is(':checked')) {
+
             $('#checkallMobileSection').prop('checked', false);
         }
 
         $('.desableMobileSection input:radio').not(this).prop('checked', this.checked);
     });
+
+      });
      
-     //RevenueCenter check all/uncheck all
-    $("#checkallRevenueCenter").on('click', function() {
-        //alert('clicked');
-        if ($("#uncheckallRevenueCenter").is(':checked')) {
-            $('#uncheckallRevenueCenter').prop('checked', false);
-        }
-
-        $('.enableRevenueCenter input:radio').not(this).prop('checked', this.checked);
-    });
-
-    $("#uncheckallRevenueCenter").on('click', function() {
-        //alert('clicked');
-        if ($("#checkallRevenueCenter").is(':checked')) {
-            $('#checkallRevenueCenter').prop('checked', false);
-        }
-
-        $('.desableRevenueCenter input:radio').not(this).prop('checked', this.checked);
-    });
-
-    $("#checkallHistory").on('click', function() {
-        //alert('clicked');
-        if ($("#uncheckallHistory").is(':checked')) {
-            $('#uncheckallHistory').prop('checked', false);
-        }
-
-        $('.enableHistory input:radio').not(this).prop('checked', this.checked);
-    });
-
-    $("#uncheckallHistory").on('click', function() {
-       // alert('clicked');
-        if ($("#checkallHistory").is(':checked')) {
-            $('#checkallHistory').prop('checked', false);
-        }
-
-        $('.desableHistory input:radio').not(this).prop('checked', this.checked);
-    });
-    
-    });
+      
   
 </script>

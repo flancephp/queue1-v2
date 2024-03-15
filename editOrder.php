@@ -1,5 +1,361 @@
+<?php 
+include('inc/dbConfig.php'); //connection details
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_order' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+if(isset($_REQUEST['currencyId'])) 
+{  
+    $curDet = getCurrencyDet($_REQUEST['currencyId']);
+    $curAmtVal = $curDet['amt'];
+    $currencyId = $_REQUEST['currencyId'];
+    
+    $updateQry = " UPDATE  `tbl_orders` SET 
+    `ordCurId` = '".$currencyId."'
+    WHERE id='".$_GET['orderId']."'  ";
+    mysqli_query($con, $updateQry);
+}
+
+
+
+if (!isset($_SESSION['supplierIdOrd']))
+{
+    $selQry = " SELECT * FROM tbl_orders WHERE id='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    $orderResult = mysqli_query($con, $selQry);
+    $orderRow = mysqli_fetch_array($orderResult);
+    $_SESSION['supplierIdOrd'] = $orderRow['supplierId'];
+}
+
+
+//insert data in order_details_temp table when user land on this page
+if (isset($_GET['orderId'])) 
+{
+    $selQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    $ordDetResult = mysqli_query($con, $selQry);
+    while($ordDetRow = mysqli_fetch_array($ordDetResult))
+    {
+      
+        $values[] .= " (NULL, 
+        '".$_SESSION['accountId']."',
+        '".$_GET['orderId']."', 
+        '".$ordDetRow['pId']."',
+        '".$ordDetRow['factor']."',
+        '".$ordDetRow['price']."',
+        '".$ordDetRow['qty']."',
+        '".$ordDetRow['qtyReceived']."',
+        '".$ordDetRow['totalAmt']."',
+        '".$ordDetRow['note']."',
+        '".$ordDetRow['lastPrice']."',
+        '".$ordDetRow['stockPrice']."',
+        '".$ordDetRow['stockQty']."',
+        '".$ordDetRow['curPrice']."',
+        '".$ordDetRow['currencyId']."',
+        '".$ordDetRow['curAmt']."',
+        '".$ordDetRow['customChargeId']."',
+        '".$ordDetRow['customChargeType']."') "; 
+    }
+
+    $selQry = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    $tempOrdDetResult = mysqli_query($con, $selQry);
+    $x=0;
+    while($tempOrdDetRow = mysqli_fetch_array($tempOrdDetResult))
+    {
+        $x++;
+    }
+    if ($x == 0)
+    {
+        $insertQry = " INSERT INTO `tbl_order_details_temp` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`,`note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`) VALUES  ".implode(',', $values);
+        mysqli_query($con, $insertQry);   
+    }
+
+}//end
+
+
+
+$sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+$resultSet = mysqli_query($con, $sqlSet);
+$ordRow = mysqli_fetch_array($resultSet);
+
+
+$curAmtVal = 0;
+$otherCurAmt = 0;
+$currencyId = 0;
+if($ordRow['ordCurId'] > 0)
+{
+    $curDet = getCurrencyDet($ordRow['ordCurId']);
+
+    if(!empty($curDet))
+    {
+        $otherCurAmt = $curDet['amt'];
+        $currencyId = $curDet['id'];
+        $curAmtVal = $curDet['amt'];
+    }
+    
+}
+
+//Add item charges in list
+if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='1' )
+{
+    editCustomCharge($_GET['orderId'],$_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+}
+
+
+//Add order charges in list
+if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='3' )
+{
+    editCustomCharge($_GET['orderId'],$_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+}
+
+
+if( !empty($_POST['itemName']) )
+{ 
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+
+    $sql = " INSERT INTO `tbl_custom_items_fee` SET 
+    `itemName` = '".$_POST['itemName']."',
+    `unit` = '".$_POST['unit']."',
+    `amt` = '".$_POST['itemFeeAmt']."',
+    `visibility` = '".$showHideInList."',
+    `account_id` = '".$_SESSION['accountId']."'  ";
+    mysqli_query($con, $sql);
+    $itemCharges = mysqli_insert_id($con);
+
+    editCustomCharge($_GET['orderId'],1,$itemCharges, $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    
+    echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
+}
+
+
+if( !empty($_POST['feeName']) )
+{ 
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+
+    $sql = " INSERT INTO `tbl_order_fee` SET 
+    `feeName` = '".$_POST['feeName']."',
+    `feeType` = '".$_POST['feeType']."',
+    `amt` = '".$_POST['amt']."',
+    `visibility` = '".$showHideInList."',
+    `account_id` = '".$_SESSION['accountId']."'  ";
+
+    mysqli_query($con, $sql);
+
+    $itemCharges = mysqli_insert_id($con);
+
+    editCustomCharge($_GET['orderId'],3,$itemCharges, $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+
+    echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
+}
+
+
+
+if(isset($_REQUEST['currencyId']))
+{ 
+    $sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  "; 
+    $resultSet= mysqli_query($con, $sql);
+    
+    while($resultRow= mysqli_fetch_array($resultSet))
+    { 
+        $price=$resultRow['price'];
+        $totalAmt=$resultRow['totalAmt'];
+        
+        $update = " UPDATE tbl_order_details_temp SET 
+        `currencyId`='".$currencyId."',
+        `curPrice` = '".($price*$otherCurAmt)."',
+        `curAmt` = '".($totalAmt*$otherCurAmt)."'
+        WHERE id= '".$resultRow['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+        $result= mysqli_query($con, $update);    
+        
+    }
+       orderNetValue($_GET['orderId'],$currencyId);
+
+}
+
+
+
+//add to cart
+if( isset($_POST['updateOrder']) )
+{
+
+    $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $res = mysqli_query($con, $sql);
+    $resRowOld = mysqli_fetch_array($res);
+    
+    //Update for new items
+    foreach($_POST['productIds'] as $productId)
+    { 
+        if($_POST['qty'][$productId] > 0)
+        { 
+            //Add new product in tbl_order_details on update button
+           $sqlQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND pId='".$productId."' ";
+            $orderDetailsResult = mysqli_query($con, $sqlQry);
+            $orderDetailsResRow = mysqli_fetch_array($orderDetailsResult);
+
+            if ( !isset($orderDetailsResRow['pId']) )
+            {
+               $sql = "INSERT INTO `tbl_order_details` SET
+
+                `currencyId` = '".$currencyId."',
+                `ordId` = '".$_GET['orderId']."',
+                `factor` = '".($_POST['factor'][$productId])."', 
+                `pId` = '".$productId."',
+                `price` = '".($_POST['price'][$productId]/$_POST['factor'][$productId])."',
+                `curPrice` = '".(($_POST['price'][$productId]/$_POST['factor'][$productId])*$curAmtVal)."', 
+                `curAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId]*$curAmtVal)."',
+                `qty` = '".$_POST['qty'][$productId]."',
+                `totalAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId])."',
+                `note` = '".$_POST['notes'][$productId]."',
+                `account_id` = '".$_SESSION['accountId']."'   ";
+
+                mysqli_query($con, $sql);
+
+            }
+            else
+            {
+
+                $upQry = " UPDATE  `tbl_order_details` SET
+                `currencyId` = '".$currencyId."',
+                `price` = '".($_POST['price'][$productId]/$_POST['factor'][$productId])."', 
+                `curPrice` = '".(($_POST['price'][$productId]/$_POST['factor'][$productId])*$curAmtVal)."', 
+                `qty` = '".$_POST['qty'][$productId]."', 
+                `totalAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId])."',
+                `curAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId]*$curAmtVal)."',
+                `note` = '".$_POST['notes'][$productId]."'
+                WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."' AND account_id = '".$_SESSION['accountId']."'  ";
+                mysqli_query($con, $upQry);
+                
+                orderNetValue($_GET['orderId'],$currencyId);
+                
+            }
+       
+        } 
+        else
+        {
+            $delQry=" DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND pId='".$productId."' AND account_id='".$_SESSION['accountId']."' ";
+            mysqli_query($con, $delQry);
+            
+            orderNetValue($_GET['orderId'],$currencyId);
+        }
+    }//End foreach
+
+
+    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeType > 0 ";
+    $sqlSet= mysqli_query($con, $sql);  
+    while($tempOrdDetRow = mysqli_fetch_array($sqlSet))
+    {
+        $sql=" SELECT * FROM tbl_order_details WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."'  ";
+        $ordQryData= mysqli_query($con, $sql);  
+        $ordDetRowCheck = mysqli_fetch_array($ordQryData);
+
+        if ($ordDetRowCheck)
+        { 
+            $updateQry = " UPDATE tbl_order_details SET 
+            `note` = '".$tempOrdDetRow['note']."',
+            `curPrice` = '".$tempOrdDetRow['curPrice']."',
+            `currencyId` = '".$tempOrdDetRow['currencyId']."',
+            `curAmt` = '".$tempOrdDetRow['curAmt']."'
+
+            WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
+            mysqli_query($con, $updateQry); 
+                
+        }
+        else
+        {
+        
+            $insertQry = " INSERT INTO `tbl_order_details` SET
+
+              `account_id` = '".$tempOrdDetRow['account_id']."',
+              `ordId` = '".$tempOrdDetRow['ordId']."',
+              `note` = '".$tempOrdDetRow['note']."',
+              `customChargeType` = '".$tempOrdDetRow['customChargeType']."',
+              `customChargeId` = '".$tempOrdDetRow['customChargeId']."',
+              `price` = '".$tempOrdDetRow['price']."',
+              `curPrice` = '".$tempOrdDetRow['curPrice']."',
+              `currencyId` = '".$tempOrdDetRow['currencyId']."',
+              `curAmt` = '".$tempOrdDetRow['curAmt']."',
+              `qty` = '1',
+              `totalAmt` = '".$tempOrdDetRow['totalAmt']."' ";
+
+            mysqli_query($con, $insertQry); 
+            
+        }
+
+    }//end while
+
+
+   
+
+    //show order net value
+    orderNetValue($_GET['orderId'],$currencyId);
+    
+    //Insert few data in order journey tbl to show journey 
+    $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $res = mysqli_query($con, $sql);
+    $resRow = mysqli_fetch_array($res);
+//echo $resRowOld['ordAmt'] .'-'. $resRow['ordAmt'];
+//echo "<br>";
+    $diffPrice =  ($resRow['ordAmt'] - $resRowOld['ordAmt']);
+    $notes = 'Order edited(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+
+    $qry = " INSERT INTO `tbl_order_journey` SET 
+    `account_id` = '".$_SESSION['accountId']."',
+    `orderId` = '".$resRow['id']."',
+    `userBy`  = '".$_SESSION['id']."',
+    `ordDateTime` = '".date('Y-m-d h:i:s')."',
+    `amount` = '".$resRow['ordAmt']."',
+    `otherCur` = '".$resRow['ordCurAmt']."',
+    `otherCurId` = '".$resRow['ordCurId']."',
+    `orderType` = '".$resRow['ordType']."',
+    `notes` = '".$notes."',
+    `action` = 'edit' ";
+    mysqli_query($con, $qry);
+
+
+
+    //delete order_details_temp data after form submit
+    $delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    mysqli_query($con, $delQry);
+
+    echo '<script>window.location="runningOrders.php?updated=1"</script>';
+
+    
+}
+   
+//delete item level / order level charges
+if( isset($_GET['delId']) && $_GET['orderId'])
+{   
+
+    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and id='".$_GET['delId']."' ";
+    $sqlSet= mysqli_query($con, $sql);  
+    $tempOrdDetRow = mysqli_fetch_array($sqlSet);
+
+    $sql= " DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
+    $resultSet= mysqli_query($con, $sql);
+
+    $sql= " DELETE FROM tbl_order_details_temp WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $resultSet= mysqli_query($con, $sql);
+
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    
+    echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&delete=1"</script>';
+
+}//end 
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -21,133 +377,13 @@
         <div class="container-fluid newOrder">
             <div class="row">
                 <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                    <nav class="navbar d-flex flex-wrap align-items-stretch">
-                        <div>
-                            <div class="logo">
-                                <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                                <div class="clsBar" id="clsBar">
-                                    <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                                </div>
-                            </div>
-                            <div class="nav-bar">
-                                <ul class="nav flex-column h2">
-                                    <li class="nav-item dropdown dropend">
-                                        <a class="nav-link active text-center dropdown-toggle" aria-current="page"
-                                            href="index.php" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                            <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                            <p>New Task</p>
-                                        </a>
-                                        <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="nav-link nav_sub sbActive" aria-current="page"
-                                                    href="index.php">
-                                                    <img src="Assets/icons/new_order.svg" alt="New order"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Order</span>
-                                                </a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="newRequisition.php">
-                                                    <img src="Assets/icons/new_req.svg" alt="Req"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Requisition</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Stocktake</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Production</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Payment</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Invoice</span></a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="runningTask.php">
-                                            <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                            <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                                class="navIcon mb_navIcn">
-                                            <p>Running Tasks</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="history.php">
-                                            <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                            <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                            <p>Office</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="stockView.php">
-                                            <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                            <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                            <p>Storage</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="revenueCenter.php">
-                                            <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                            <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue"
-                                                class="mb_navIcn">
-                                            <p>Revenue Centers</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="nav-bar lgOut">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="setup.php">
-                                        <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                        <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                        <p>Setup</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="javascript:void(0)">
-                                        <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                        <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                        <p>Log Out</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                    <?php require_once('nav.php');?>
                 </div>
                 <div class="cntArea">
                     <section class="usr-info">
                         <div class="row">
                             <div class="col-md-4 d-flex align-items-end">
-                                <h1 class="h1">Edit Order</h1>
+                                <h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
                             </div>
                             <div class="col-md-8 d-flex align-items-center justify-content-end">
                                 <div class="mbPage">
@@ -160,7 +396,7 @@
                                         </button>
                                     </div>
                                     <div class="mbpg-name">
-                                        <h1 class="h1">Edit Order</h1>
+                                        <h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
                                     </div>
                                 </div>
                                 <div class="user d-flex align-items-center">
@@ -196,15 +432,30 @@
                         <div class="tpBar-grn"></div>
                         <div class="stcPart">
                             <div class="container erdOrder nwOrder-Div">
+                                <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"
+                        class="container">
                                 <div class="row">
                                     <div class="sltSupp nwOrd-Num">
-                                        <div class="ord-Box">
+                                        <div class="ord-Box w-100">
                                             <div class="ordNum">
-                                                <h4 class="subTittle1"><span>Order#:</span> <span>332974</span></h4>
+                                                <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
                                             </div>
-                                            <div class="ordDate">
+                                            <!-- <div class="ordDate">
                                                 <h4 class="subTittle1">23/05/2022</h4>
+                                            </div> -->
+                                        </div>
+                                        <div class="ord-Box w-100">
+                                            <div class="ordNum">
+                                                <h4 class="subTittle1"><span><?php echo showOtherLangText('Supplier'); ?>:</span> <span><?php
+                        $ordDetQry = " SELECT * FROM tbl_suppliers WHERE id='".$_SESSION['supplierIdOrd']."' AND account_Id='".$_SESSION['accountId']."' ";
+                        $ordDetRes = mysqli_query($con, $ordDetQry);
+                        $ordDetResRow = mysqli_fetch_array($ordDetRes);
+
+                        echo $ordDetResRow['name'];
+
+                        ?></span></h4>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="ordInfo erdInfo newFeatures">
@@ -214,22 +465,41 @@
                                                     <div class="col-md-4 text-center">
                                                         <div class="row featRow">
                                                             <div
-                                                                class="col-md-6 ordFeature dropdown drpCurr brdLft position-relative">
+                                                                class="col-md-6 ordFeature dropdown drpCurr position-relative">
                                                                 <a href="javascript:void(0)"
                                                                     class="dropdown-toggle tabFet" role="button"
                                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="currency"></span>
-                                                                    <p class="btn2">Currency <i
-                                                                            class="fa-solid fa-angle-down"></i></p>
+                                                                    <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('Add currency') ?> <i
+                                                                            class="fa-solid fa-angle-down"></i></span></p>
                                                                 </a>
 
-                                                                <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)">Dollar</a></li>
-                                                                    <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)">Euro</a></li>
-                                                                    <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)">Tzs</a></li>
+                                                        <ul class="currency_dropdown dropdown-menu">
+                                                                    <?php
+                                                        $sqlSet = " SELECT * FROM tbl_currency WHERE is_default = 0 AND account_id = '".$_SESSION['accountId']."' order by currency ";
+                        $resultSet = mysqli_query($con, $sqlSet); 
+                        while($curRow=mysqli_fetch_array($resultSet))
+                                                        {
+                                                $sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id ='".$_SESSION['accountId']."' ";
+                            $result=mysqli_query($con, $sql);
+                            $resultRow= mysqli_fetch_array($result);
+
+                             if (!empty($resultRow['currencyId']))
+                             {
+                                
+                                $sel = $resultRow['currencyId'] == $curRow['id'] ? 'selected' : '';
+
+                            }
+                            else
+                            {
+                                
+                                $sel = $_REQUEST['currencyId'] == $curRow['id'] ? 'selected' : '';
+                            }
+                        echo '<li data-id="'.$curRow['id'].'" data-value="'.$curRow['currency'].'"><a class="dropdown-item '.$sel.' " 
+                                                                            href="javascript:void(0)">'.$curRow['currency'].'</a></li>';
+                                                        }
+                                                        ?>
+                                                                    
                                                                 </ul>
 
                                                             </div>
@@ -238,20 +508,48 @@
                                                                     class="dropdown-toggle tabFet" role="button"
                                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="fee"></span>
-                                                                    <p class="btn2">Fee <i
+                                                                    <p class="btn2"><?php echo showOtherLangText('Add Fee'); ?> <i
                                                                             class="fa-solid fa-angle-down"></i>
                                                                     </p>
                                                                 </a>
 
                                                                 <ul class="dropdown-menu">
                                                                     <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)">Fixed
-                                                                            Fee</a></li>
+                                                                            href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
+                                                                          <ul class="">
+                                                            <?php 
+                                //add item fee & custom fee modal box 
+                                $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                $customItemsResult = mysqli_query($con, $sql);
+
+                                while ($resultRow = mysqli_fetch_array($customItemsResult)) 
+                                {
+                                   echo "<li class='innerLi'><a tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']." '>".$resultRow['itemName']."</a></li>";
+                                }
+                                ?>
+                                                        </ul>
+
+                                                                        </li>
+                                                                        <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
+                                        data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
                                                                     <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)">Open
-                                                                            Fee</a></li>
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a></li>
                                                                     <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)">Other</a></li>
+                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                        <ul class="">
+                                                                        <?php
+            //add item fee & custom fee modal box 
+            $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+            $ordFeeFetch = mysqli_query($con, $sqlQry);
+            //$innerLiCount = 0;
+            while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+            {
+                // $innerLiCount++;
+                echo "<li class='innerLi'><a tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
+            } 
+            ?>
+                                                                         </ul>
+                                                                </li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -260,15 +558,27 @@
                                             </div>
                                         </div>
                                     </div>
+<?php
+$totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
+                   $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
 
+                   $totalDiscountOther = (($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$totalTaxChargesOther/100);
+
+                   $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
+                   $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
+
+
+                 
+                   ?>
                                     <div class="col-md-2 smBtn nwNxt-Btn">
                                         <div class="btnBg">
-                                            <a href="receiveOrder.php" class="btn sub-btn"><span
+                                            <a href="javascript:void(0)" class="btn sub-btn"><span
                                                     class="align-middle">Update</span> <i
                                                     class="fa-solid fa-angle-right"></i></a>
                                         </div>
+                                        <input type="hidden" name="updateOrder"  value="<?php echo showOtherLangText('Update Order'); ?>" />
                                         <div class="btnBg mt-3">
-                                            <a href="index.php" class="sub-btn std-btn">Back</a>
+                                            <a href="runningOrders.php" class="sub-btn std-btn"><?php echo showOtherLangText('Back'); ?></a>
                                         </div>
                                         <div class="fetBtn">
                                             <a href="javascript:void(0)">
@@ -281,8 +591,8 @@
                             <div class="container topOrder erdOrder">
                                 <div class="row">
                                     <div class="sltSupp">
-                                        <div class="input-group srchBx">
-                                            <input type="search" class="form-control" placeholder="Search" id="srch"
+                                        <div id="searchBox2" class="input-group srchBx">
+                                            <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search2" id="search2" onKeyUp="myFunction('search2', 'tableId2', 2)" 
                                                 aria-label="Search">
                                             <div class="input-group-append">
                                                 <button class="btn" type="button">
@@ -293,67 +603,199 @@
 
                                     </div>
 
-                                    <div class="ordInfo erdInfo">
+                                    <div class="ordInfo erdInfo" id="totalOrdArea">
                                         <div class="container">
-                                            <div class="prcTable">
+                                            <div class="prcTable" >
+                                                <?php 
+                        //get the sum of all product and item level charges 
+
+                        $sqlSet="SELECT *,SUM(totalAmt) AS totalAmt, SUM(curAmt) AS totalAmtOther FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
+                        $resultSet = mysqli_query($con, $sqlSet);
+                        $chargeRow = mysqli_fetch_array($resultSet);    
+                        $chargePrice=$chargeRow['totalAmt'];
+                        $chargePriceOther=$chargeRow['totalAmtOther'];
+
+                        //to find order level charge
+                        $ordCount="SELECT * from tbl_order_details_temp where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                        $ordCountResult = mysqli_query($con, $ordCount);
+                        $ordCountRow = mysqli_num_rows($ordCountResult);
+
+                        if ($ordCountRow > 0)
+                            { ?>
                                                 <div class="price justify-content-between">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>Total</p>
+                                                        <p><?php echo showOtherLangText('Sub Total'); ?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>23,990 $</p>
+                                                            <p><?php showPrice($chargePrice, $getDefCurDet['curCode']); ?></p>
                                                         </div>
+                                                        <?php
+                                                    if ($chargeRow['currencyId'] > 0)
+                                                        { ?>
                                                         <div class="p-2 otherCurr">
-                                                            <p>23,990 €</p>
+                                                            <p><?php echo showOtherCur($chargePriceOther, $chargeRow['currencyId']); ?></p>
                                                         </div>
+                                                        <?php  } ?>
                                                     </div>
                                                 </div>
+                                                 <?php  } //Starts order level fixed discount charges
+                $sql = "SELECT od.*, tp.feeName, tp.feeType FROM tbl_order_details_temp od 
+                INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
+
+                $ordQry = mysqli_query($con, $sql);
+
+                $fixedCharges = 0;
+                $fixedChargesOther = 0;
+                while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                {
+                    $fixedCharges += $row['price'];
+                    $fixedChargesOther += $row['curAmt'];
+                    
+                  ?>
                                                 <div class="price justify-content-between taxRow">
                                                     <div class="p-2 delIcn text-center">
-                                                        <a href="javascript:void(0)">
+                                                        <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');" href="javascript:void(0)">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </a>
                                                     </div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>VAT 19%</p>
+                                                        <p><?php echo $row['feeName'];?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>11.362 $</p>
+                                                            <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
                                                         </div>
+                                                        <?php 
+                    if($row['currencyId'] > 0) 
+                    {   ?>
                                                         <div class="p-2 otherCurr">
-                                                            <p>11.362 €</p>
+                                                            <p><?php echo showOtherCur($row['curAmt'],$row['currencyId']);?></p>
                                                         </div>
+                                                        <?php 
+                    } ?>
                                                     </div>
                                                 </div>
-                                                <div class="price justify-content-between">
-                                                    <div class="p-2 delIcn text-center"></div>
+                        <?php } 
+                        $sql = "SELECT od.*, tp.feeName, tp.feeType FROM tbl_order_details_temp od 
+                INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
+                $ordQry = mysqli_query($con, $sql);
+
+                $perCharges = 0;
+                $perChargesOther = 0;
+                while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                {
+                    $perCharges += $row['price'];
+                    $calDiscount = ($chargePrice*$row['price']/100);
+                    $calDiscountOther = ($chargePriceOther*$row['price']/100);
+
+
+                    ?>
+                                                <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');" href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a>
+                                                    </div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>Sub Total</p>
+                                                        <p><?php echo $row['feeName'];?><?php echo  $row['price'];?> %</p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>23,990 $</p>
+                                                            <p><?php showPrice($calDiscount, $getDefCurDet['curCode']);?></p>
                                                         </div>
-                                                        <div class="p-2 otherCurr">
-                                                            <p>23,990 €</p>
+                                                        <?php 
+                                                  if ($row['currencyId'] > 0)
+                                                   {    ?>
+                                                       <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($calDiscountOther,$row['currencyId']);?></p>
                                                         </div>
+                                                    <?php 
+                        } ?>
                                                     </div>
                                                 </div>
+                        <?php }  ?>
+                        <?php 
+                        $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
+                   $totalCalDiscountOther = ($chargePriceOther*$perCharges/100);
+
+
+                   $sql = "SELECT od.*, tp.feeName, tp.feeType FROM tbl_order_details_temp od 
+                   INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                   WHERE od.ordId = '".$_GET['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
+                   $ordQry = mysqli_query($con, $sql);
+
+                   $taxCharges = 0;
+                   $totalTaxChargesOther = 0;
+
+                while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                {
+                    $taxCharges += $row['price'];
+                    $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
+                    $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
+                    //echo"totalDiscountOther=".$totalDiscountOther;
+
+
+
+                        ?>
+                        <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');" href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo $row['feeName'];?><?php echo $row['price'];?> %</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php showPrice($calTax, $getDefCurDet['curCode']);?></p>
+                                                        </div>
+                                                        <?php 
+                        if ($row['currencyId'] > 0)
+                        {?>
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($calTaxOther, $row['currencyId']);?></p>
+                                                        </div>
+                                                        <?php 
+                        } ?>
+                                                    </div>
+                                                </div>
+
+                    <?php } $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
+                   $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
+
+                   $totalDiscountOther = (($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$totalTaxChargesOther/100);
+
+                   $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
+                   $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
+
+
+                 
+                    ?>
                                                 <div class="price justify-content-between grdTtl-Row">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>Grand Total</p>
+                                                        <p><?php echo showOtherLangText('Grand Total'); ?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>23,990 $</p>
+                                                            <p><?php showPrice($netTotalAmt, $getDefCurDet['curCode']) ?></p>
                                                         </div>
-                                                        <div class="p-2 otherCurr">
-                                                            <p>23,990 €</p>
+                                                        <?php 
+                    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+                    $sqlSet= mysqli_query($con, $sql);
+                    $sqlSetRow= mysqli_fetch_array($sqlSet);
+
+                    if (!empty($sqlSetRow['currencyId'])) {?>
+                                                    <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($netTotalAmtOther, $sqlSetRow['currencyId']);?></p>
                                                         </div>
+
+                                                    <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -378,54 +820,96 @@
                                 </div>
                             </div>
                         </div>
+<?php
 
+//other Charge query
+$totalCustomCharges = 0;
+$sql = "SELECT tp.itemName, tp.unit, od.* FROM tbl_order_details_temp od 
+INNER JOIN tbl_custom_items_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+WHERE od.ordId = '".$_GET['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=1 ORDER BY tp.itemName ";
+$chrgQry = mysqli_query($con, $sql);
+
+//main product query
+$sql = "SELECT tp.*, 
+od.totalAmt AS ordPrice, 
+od.qty AS ordQty, 
+od.note, 
+od.ordId, 
+o.supplierId AS SupplierId, 
+o.ordCurId, 
+od.curAmt, 
+s.Qty AS stockQty,
+IF(u.name!='',u.name,tp.unitP) as purchaseUnit 
+FROM tbl_order_details_temp od 
+INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id AND tp.status=1
+LEFT JOIN tbl_stocks s ON(s.pId=tp.id) AND s.account_id=tp.account_Id
+INNER JOIN tbl_orders o ON(o.id = od.ordId) AND o.account_id = od.account_id
+LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."' ORDER BY tp.itemName ";
+$ordQry = mysqli_query($con, $sql);
+
+?>
                         <div class="container nordPrice position-relative">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
                                 <div class="prdtImg tb-head">
-                                    <p>Image</p>
+                                    <p><?php echo showOtherLangText('Image'); ?></p>
                                 </div>
                                 <div class="prdtCnt-Fst d-flex align-items-center">
                                     <div class="Itm-Name tb-head">
-                                        <p>Item</p>
+                                        <p><?php echo showOtherLangText('Item'); ?></p>
                                     </div>
                                     <div class="Itm-brCode tb-head">
-                                        <p>Bar Code</p>
+                                        <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                     </div>
                                     <div class="prdtCr-Unit d-flex align-items-center">
                                         <div class="crncy-Type d-flex align-items-center">
+                                            <?php if($ordRow['ordCurId'] > 0)
+            {   ?>
                                             <div class="dflt-Currency tb-head">
-                                                <p>P.Price($)</p>
+                                                <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                             </div>
                                             <div class="othr-Currency tb-head">
-                                                <p>P.Price(€)</p>
+                                                <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'];?>)</p>
                                             </div>
+                                            <?php }else{ ?>
+                                            <div class="dflt-Currency tb-head">
+                                            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                            </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="itm-Unit tb-head">
-                                            <p>P.Unit</p>
+                                            <p><?php echo showOtherLangText('P.Unit'); ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="prdtStk-Qty tb-head">
-                                    <p>S.Quantity</p>
+                                    <p><?php echo showOtherLangText('S.Qty'); ?></p>
                                 </div>
                                 <div class="prdtCnt-Scnd d-flex align-items-center">
                                     <div class="itm-Quantity tb-head">
-                                        <p>Quantity</p>
+                                        <p><?php echo showOtherLangText('Qty'); ?></p>
                                     </div>
                                     <div class="ttlCr-Type d-flex align-items-center">
+                                        <?php if($ordRow['ordCurId'] > 0)
+                                         {?>
                                         <div class="ttlDft-Crcy tb-head">
-                                            <p>Total($)</p>
+                                            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                         </div>
                                         <div class="ttlOtr-Crcy tb-head">
-                                            <p>Total(€)</p>
+                                            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)</p>
                                         </div>
+                                        <?php }else{ ?>
+                                        <div class="ttlDft-Crcy tb-head">
+                                            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                        </div>
+                                        <?php } ?>    
                                     </div>
                                 </div>
                                 <div class="prdt-Hide">
                                     <div class="prdt-Note tb-bdy">
                                         <div class="mb-brCode"></div>
-                                        <p>Note</p>
+                                        <p><?php echo showOtherLangText('Note'); ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -435,52 +919,82 @@
                         <div id="boxscroll">
                             <div class="container cntTable">
                                 <!-- Item Table Body Start -->
+                                <?php 
+                                $fixedCharges = 0;
+                                $perCharges = 0;
+                                $x = 0;
+                                $y = 0;
+                                while($row = mysqli_fetch_array($chrgQry))//show here order level charges
+                                { 
+
+                                $totalCustomCharges += $row['price'];
+                                $x++;
+                                $y++;
+                                ?>
                                 <div class="newOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
                                         <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
+                                            <a title="<?php echo showOtherLangText('Delete') ?>"
+                                            href="javascript:void(0)"
+                                            onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                            style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a>
                                         </div>
                                         <div class="prdtCnt-Fst d-flex align-items-center">
                                             <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
+                                                <p><?php echo $row['itemName'];?></p>
                                             </div>
                                             <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
+                                                <p class="ord-brCode"></p>
                                             </div>
                                             <div class="prdtCr-Unit d-flex">
                                                 <div class="crncy-Type d-flex align-items-center">
                                                     <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
+                                                        <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
                                                     </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
+                                                    <?php 
+                    if($ordRow['ordCurId'] > 0)
+                    {
+                       
+                       echo '<div class="othr-Currency tb-bdy"><p>'.showOtherCur($row['curAmt'], $row['currencyId']).'</p></div>';
+                    }
+                   
+                    ?>
+                                                    
                                                 </div>
                                                 <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
+                                                    <p><?php echo $row['unit'];?></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
+                                            <p class="ord-StockQty"><span class="tabOn-Stk">On stock</span></p>
                                         </div>
                                         <div class="prdtCnt-Scnd d-flex align-items-center">
                                             <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
+                                                1
                                             </div>
                                             <div class="ttlCr-Type d-flex align-items-center">
                                                 <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
+                                                    <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
                                                 </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
+                                                <?php 
+                    if($ordRow['ordCurId'] > 0)
+                    {
+                                                echo '<div class="ttlOtr-Crcy tb-bdy">
+                                                    <p>'.showOtherCur($row['curAmt'], $row['currencyId']).'</p></div>';
+                                                
+                    }
+                   
+                    ?>
                                             </div>
                                         </div>
                                         <div class="prdt-Hide">
                                             <div class="prdt-Note tb-bdy">
                                                 <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
+                                                <input type="text" class="note-itm form-control" autocomplete="off"
+                                            name="itemNotes[<?php echo $row['id'];?>]" id="itemNotes<?php echo $x;?>"
+                                            onChange="getItemNotesVal('<?php echo $x;?>', '<?php echo $row['id'];?>');"
+                                            value="<?php echo $row['note'];?>">
                                             </div>
                                         </div>
                                     </div>
@@ -491,52 +1005,107 @@
                                     </div>
 
                                 </div>
+                            <?php } 
+                        $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
+                        $pidArr = [];
+                        $x = 0;
+                        while($row = mysqli_fetch_array($ordQry))
+                        {
+                            $pidArr[] = $row['id'];
+                            $x++;
+                            $y++;
+
+                            $stockQty = $row['stockQty'];
+                            $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
+                            $stockQty = $stockQty - $totalProQty;
+
+                            // $sqlSet = " SELECT qty stockQty FROM tbl_stocks WHERE pId = '".$row['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+                            // $resultSet = mysqli_query($con, $sqlSet);
+                            // $stkRow = mysqli_fetch_array($resultSet);
+
+                            // $sqlSet = " SELECT GROUP_CONCAT(s.name) suppls FROM tbl_productsuppliers ps
+                            // INNER JOIN tbl_suppliers s ON(ps.supplierId = s.id) AND ps.account_id = s.account_id WHERE ps.productId = '".$row['id']."' AND ps.account_id = '".$_SESSION['accountId']."'  GROUP BY ps.productId ";
+                            // $resultSet = mysqli_query($con, $sqlSet);
+                            // $supRow = mysqli_fetch_array($resultSet);
+
+                            ?>
+                                <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
+                                <input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
+                                    value="<?php echo $row['SupplierId'];?>" />
+                                <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
+                                    value="<?php echo $row['factor'];?>" />
+                                <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
+                                    value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
                                 <div class="newOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
                                         <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
+                                            <?php 
+                                      if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
+                                       {   
+                                      echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                        
+                                        }
+                                         ?>
                                         </div>
                                         <div class="prdtCnt-Fst d-flex align-items-center">
                                             <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
+                                                <p><?php echo $row['itemName'];?></p>
                                             </div>
                                             <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
+                                                <p class="ord-brCode"><?php echo $row['barCode'];?></p>
                                             </div>
                                             <div class="prdtCr-Unit d-flex">
                                                 <div class="crncy-Type d-flex align-items-center">
                                                     <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
+                                                        <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
+                                                type="hidden" name="price[<?php echo $row['id'];?>]"
+                                                id="<?php echo $x;?>"
+                                                value="<?php echo ($row['price']*$row['factor']);?>" /></p>
                                                     </div>
+                                                    <?php 
+                                if($ordRow['ordCurId'] > 0)
+                                {   ?>
                                                     <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
+                                                        <p><?php  echo showOtherCur(($row['price']*$row['factor']*$curDet['amt']), $row['ordCurId']);
+                                    ?></p>
                                                     </div>
+                                 <?php } ?>
                                                 </div>
                                                 <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
+                                                    <p><?php echo $row['purchaseUnit'];?></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
+                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
                                         <div class="prdtCnt-Scnd d-flex align-items-center">
                                             <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
+                                                <input type="text" class="form-control qty-itm" name="qty[<?php echo $row['id'];?>]"
+                                                autocomplete="off"
+                                                onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
+                                                value="<?php echo $row['ordQty'];?>" size="5">
                                             </div>
                                             <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
+                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
+                                                    <p><?php showPrice($row['ordPrice'], $getDefCurDet['curCode']) ?></p>
                                                 </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
+                                                <?php if($ordRow['ordCurId'] > 0){?>
+                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy">
+                                                    <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $row['ordCurId']);
+
+                                ?></p>
                                                 </div>
+                                                 <?php } ?>
                                             </div>
                                         </div>
                                         <div class="prdt-Hide">
                                             <div class="prdt-Note tb-bdy">
                                                 <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
+                                                <input type="text" class="form-control note-itm" autocomplete="off"
+                                            id="notes<?php echo $row['id'];?>"
+                                            onChange="getnotesVal('<?php echo $row['id'] ?>');"
+                                            name="notes[<?php echo $row['id'];?>]" value="<?php echo $row['note'];?>">
                                             </div>
                                         </div>
                                     </div>
@@ -547,397 +1116,147 @@
                                     </div>
 
                                 </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
-                                            </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
-                                            </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
-                                                    </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
+                            <?php } ?>
 
+                            </div>
+                        </div>
+
+                        <div>
+
+                            <div class="container pt-5 topOrder ">
+                            <div class="row ">
+                                <div class="col-xl-4 col-md-5 col-sm-7 px-0">
+                                    <p class="fs-14 pb-3">Add New Items</p>
+                                <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
+                                    
+                                    <input type="search" class="form-control" placeholder="Search Item" id="srch" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="button" style="background-color: rgb(122, 137, 255);">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
-                                            </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
-                                            </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
-                                                    </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-
                                 </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
-                                            </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
-                                            </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
-                                                    </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
+                            </div>
 
+
+                            <div class="btnBg mt-3">
+                                <a href="#" class="sub-btn std-btn">Add New Items in Order</a>
+                            </div>
+                            </div>
+
+                            <div class="container nordPrice position-relative">
+                                <!-- Item Table Head Start -->
+                                <div class="d-flex align-items-center itmTable">
+                                    <div class="prdtImg tb-head">
+                                        <p>Image</p>
+                                    </div>
+                                    <div class="prdtCnt-Fst d-flex align-items-center">
+                                        <div class="Itm-Name tb-head">
+                                            <p>Item</p>
+                                        </div>
+                                        <div class="Itm-brCode tb-head">
+                                            <p>Bar Code</p>
+                                        </div>
+                                        <div class="prdtCr-Unit d-flex align-items-center">
+                                            <div class="crncy-Type w-50 ">
+                                                <div class="tb-head">
+                                                    <p>P.Price($)</p>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="itm-Unit tb-head">
+                                                <p>P.Unit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="prdtStk-Qty tb-head">
+                                        <p>S.Quantity</p>
+                                    </div>
+                                    <div class="prdtCnt-Scnd d-flex align-items-center">
+                                        <div class="itm-Quantity tb-head">
+                                            <p>Quantity</p>
+                                        </div>
+                                        <div class="ttlCr-Type w-50">
+                                            <div class="ps-xl-5 tb-head">
+                                                <p>Total($)</p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="prdt-Hide">
+                                        <div class="prdt-Note tb-head">
+                                            <div class="mb-brCode" style="display: none;"></div>
+                                            <p>Note</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
+                                <!-- Item Table Head End -->
+                            </div>
+
+                            <div id="boxscroll">
+                                <div class="container cntTable  ">
+                                    <!-- Item Table Body Start -->
+                                    <div class="newOrdTask">
+                                        <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                            <div class="prdtImg tb-bdy">
+                                                <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
                                             </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
+                                            <div class="prdtCnt-Fst d-flex align-items-center">
+                                                <div class="Itm-Name tb-bdy">
+                                                    <p>Meat</p>
+                                                </div>
+                                                <div class="Itm-brCode tb-bdy">
+                                                    <p class="ord-brCode">9781462570123</p>
+                                                </div>
+                                                <div class="prdtCr-Unit d-flex">
+                                                    <div class="crncy-Type w-50">
+                                                        <div class=" tb-bdy">
+                                                            <p>2.6144 $</p>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="itm-Unit tb-bdy">
+                                                        <p>Kg</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
+                                            <div class="prdtStk-Qty tb-bdy">
+                                                <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
+                                            </div>
+                                            <div class="prdtCnt-Scnd d-flex align-items-center">
+                                                <div class="itm-Quantity tb-bdy">
+                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                </div>
+                                                <div class="ttlCr-Type w-50 ps-xl-5">
+                                                    <div class=" tb-bdy">
                                                         <p>2.6144 $</p>
                                                     </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
+                                                   
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
+                                            <div class="prdt-Hide">
+                                                <div class="prdt-Note tb-bdy">
+                                                    <div class="mb-brCode" style="display: none;"></div>
+                                                    <input type="text" class="form-control note-itm" placeholder="Note">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
+                                        <div class="mbLnk-Order">
+                                            <a href="javascript:void(0)" class="orderLink">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
                                         </div>
+    
                                     </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-
+                                    
                                 </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
-                                            </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
-                                            </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
-                                                    </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
+                            </div>
 
-                                </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
-                                            </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
-                                            </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
-                                                    </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
-                                                <p>Meat</p>
-                                            </div>
-                                            <div class="Itm-brCode tb-bdy">
-                                                <p class="ord-brCode">9781462570123</p>
-                                            </div>
-                                            <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
-                                                        <p>2.6144 $</p>
-                                                    </div>
-                                                    <div class="othr-Currency tb-bdy">
-                                                        <p>2.6144 €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="itm-Unit tb-bdy">
-                                                    <p>Kg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
-                                        </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
-                                                <input type="text" class="form-control qty-itm" placeholder="1">
-                                            </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div class="ttlDft-Crcy tb-bdy">
-                                                    <p>2.6144 $</p>
-                                                </div>
-                                                <div class="ttlOtr-Crcy tb-bdy">
-                                                    <p>2.6144 €</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prdt-Hide">
-                                            <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" placeholder="Note">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-
+                            <div class="container pb-4 topOrder">
+                                <div class="btnBg mt-3">
+                                    <a href="#" class="sub-btn std-btn">Add New Items in Order</a>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -949,10 +1268,221 @@
             </div>
         </div>
     </main>
+     <div id="dialog" style="display: none;">
+    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
+</div>
+    <form id="currency_frm_id" name="currency_frm_id" method="post" action="">
+    <input type="hidden" id="currencyId" name="currencyId" value="">
+    <input type="hidden" id="donotsubmit" name="donotsubmit" value="true">
+    </form>
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
+    <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
+                </div>
+                <div class="modal-body">
+                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                </div>
+                  <div>
+                    <div class="feeSave">
+                        <input type="checkbox" id="visibility" name="visibility" value="1">
+                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></label><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" id="addFee" name="addFee" class=""><?php echo showOtherLangText('Add'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
+    <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
+                    <input type="text" class="form-control" name="feeName" id="feeName" value=""
+                                            style="width:250px;" autocomplete="off"
+                                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required />
+                    <select class="form-control" name="feeType" id="typeOfFee"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
+                                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
+                                            </option>
+                                        </select>
+                    <input type="text" class="form-control" id="amt" name="amt" value=""
+                                            style="width:250px;" autocomplete="off"
+                                            placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required />
+                                            <input type="checkbox" name="feeType" id="feeType" value="1">
+                        <label for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label>
+                </div>
+                  <div>
+                    <div class="feeSave">
+                        <input type="checkbox" id="visibility" name="visibility" value="1">
+                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></label><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" id="feesave_add" name="feesave_add" class=""><?php echo showOtherLangText('Add'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+     <?php require_once('footer.php');?>
+     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+     <script type="text/javascript">
+         function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>') {
 
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+        if (isNaN(qty) || qty == '') {
+            qty = 0;
+        }
+
+        if (isNaN(supplierId) || supplierId == '') {
+            supplierId = 0;
+        } else {
+            supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>';
+        }
+
+        $.ajax({
+                method: "POST",
+                url: "editOrderAjax.php",
+                dataType: 'json',
+                data: {
+                    orderId: '<?php echo $_GET['orderId'];?>',
+                    supplierId: supplierId,
+                    pId: pId,
+                    qty: qty,
+                    curAmtVal: '<?php echo $curDet['amt']; ?>',
+                    currencyId: '<?php echo $curDet['id']; ?>'
+                }
+            })
+            .done(function(responseObj) {
+                $('#totalOrdArea').html(responseObj.resHtml);
+
+                $('#totalPrice' + priceId).html(responseObj.productPrice);
+                $('#totalPriceOther' + priceId).html(responseObj.totalPriceOther);
+            });
+
+    } //end  
+     </script>
+     <script>
+    function getDelNumb(delId, orderId, supplierId) {
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            //title     : "Title",
+            buttons: {
+                '<?php echo showOtherLangText('Yes') ?>': function() {
+                    //Do whatever you want to do when Yes clicked
+                    $(this).dialog('close');
+                    window.location.href = 'editOrder.php?delId=' + delId + '&orderId=' + orderId +
+                        '&supplierId=' + supplierId;
+                },
+
+                '<?php echo showOtherLangText('No') ?>': function() {
+                    //Do whatever you want to do when No clicked
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $("#dialog").dialog("open");
+        $('.custom-header-text').remove();
+        $('.ui-dialog-content').prepend(
+            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    }
+
+    $(".currency_dropdown").on("click", "a", function(e){
+        var $this = $(this).parent();
+        $("#add_currency").text($this.data("value"));
+        $("#currencyId").val($this.data("id"));
+        $('#currency_frm_id').submit();
+      });
+
+    $(document).ready(function() {
+               if($(".currency_dropdown .selected").length>0)
+            {
+              $("#add_currency").text($(".currency_dropdown .selected").text());
+            }
+    });
+    function myFunction(searchId, tableId, searchBoxNo) {
+        // Declare variables
+        var input = document.getElementById(searchId);
+       var filter = input.value.toLowerCase();
+      var nodes = document.querySelectorAll('.newOrdTask');
+      
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.setProperty("display", "block", "important");
+    } else {
+      nodes[i].style.setProperty("display", "none", "important");
+    }
+  }
+
+    }
+
+      $("#search2").on("search", function(evt){
+    if($(this).val().length == 0){
+        resetData();
+    }
+});
+
+      function resetData() {
+
+        $('#search2').val('');
+        myFunction('search2', 'tableId2', 2);
+   }
+
+   $(document).ready(function() {
+
+        $('#typeOfFee').change(function() {
+            var getValue = $('#typeOfFee').val();
+
+            if (getValue == '2') {
+
+                $('#amt').attr("placeholder", "Fee amount $");
+
+            } else {
+                $('#amt').attr("placeholder", "Fee percentage %");
+            }
+
+        });
+        $('.sub-btn').click(function(){
+        $('#frmupdateOrder').submit();
+        });
+    });
+    </script>
 </body>
 
 </html>

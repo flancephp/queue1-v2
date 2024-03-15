@@ -54,7 +54,7 @@ if (isset($_POST['designation_name']))
 				'account_id' => $accountId
 
 			];
-
+           
  			insert('tbl_designation_section_permission', $fieldsArr);
 
  			//mobile Section
