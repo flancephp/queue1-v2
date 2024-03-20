@@ -1,5 +1,314 @@
+<?php
+include('inc/dbConfig.php'); //connection details
+
+//for excel file upload with Other language
+use Shuchkin\SimpleXLSX;
+require_once 'SimpleXLSX.php';
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+
+$rightSideLanguage = ($getLangType == 1) ? 1 : 0; 
+
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'receive_order' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$permissionRes = mysqli_query($con, $sql);
+$permissionRow = mysqli_fetch_array($permissionRes);
+if ($permissionRow)
+{
+    echo "<script>window.location='index.php'</script>";
+}
+
+//update invoice number when user change it
+if(isset($_POST['invoiceNumber']) && isset($_POST['orderId'])) 
+{
+    $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    $ordQry = mysqli_query($con, $sqlSet);
+    $ordResult = mysqli_fetch_array($ordQry);
+    if($ordResult['status'] != 2)
+    {
+        $updateQry = " UPDATE `tbl_orders` SET
+        `invNo` = '".$_POST['invoiceNumber']."' 
+        WHERE id = '".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+        mysqli_query($con, $updateQry);
+    }
+    
+
+}//end
+
+
+$sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+$resultSet = mysqli_query($con, $sqlSet);
+$ordRow = mysqli_fetch_array($resultSet);
+
+// get currency detail by order
+$curDetData = getCurrencyDet($ordRow['ordCurId']);
+
+$fileDataRows = [];
+if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
+{
+    $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
+
+
+    $i=0;
+    foreach($xlsx->rows() as $row)
+    {
+        if($i == 0)
+        {
+            $i++;
+            continue;
+        }           
+
+        $rows[] = [
+        'supplierId' => $row[0],
+        'barCode' => $row[1],
+        'qty' => $row[2],
+        'price' => $row[3]
+        ];
+    }
+
+//----------------------------------
+    if( is_array($rows) && !empty($rows) )
+    {
+        foreach($rows as $row)
+        {
+            
+            $fileDataRows[$row['barCode']]['qty'] = trim($row['qty']);
+            $fileDataRows[$row['barCode']]['price'] = isset($row['price']) ? trim($row['price']) : 0;
+            $fileDataRows[$row['barCode']]['supplierId'] = trim($row['supplierId']);
+        }
+        
+    }
+}
+elseif( isset($_POST['updateReceiving']) )
+{
+    $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    $ordQry = mysqli_query($con, $sqlSet);
+    $ordResult = mysqli_fetch_array($ordQry);
+    if($ordResult['status'] == 2)
+    {
+        echo "<script>window.location='receiveOrder.php?orderId=".$_POST['orderId']."&error=alreadyreceived'</script>";die();
+    }
+
+    foreach($_POST['productIds'] as $productId)//update existing products
+    {
+        $price = $_POST['price'][$productId]/$_POST['factor'][$productId];
+
+        $priceOther = str_replace(",","",$_POST['priceOther'][$productId]);
+
+        $priceOther = $ordRow['ordCurId'] > 0 ? ($priceOther/$_POST['factor'][$productId]) : 0;
+
+        $upQry = " UPDATE  `tbl_order_details` SET
+        `qtyReceived` = '".$_POST['qty'][$productId]."', 
+        `price` = '".$price."', 
+        `curPrice` = '".($priceOther)."', 
+        `totalAmt` = '".($_POST['factor'][$productId]*$price*$_POST['qty'][$productId])."',
+        `curAmt` = '".($_POST['factor'][$productId]*$priceOther*$_POST['qty'][$productId])."' 
+        WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'  ";
+        mysqli_query($con, $upQry);
+        
+
+        $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'  ";
+        $stkQry = mysqli_query($con, $sql);
+        $stkRow = mysqli_fetch_array($stkQry);
+        if($stkRow)
+        {
+            $upQry = " UPDATE  `tbl_stocks` SET
+            `qty` = (qty + ".($_POST['factor'][$productId]*$_POST['qty'][$productId])."),
+            `lastPrice` = '".$price."',
+            `stockValue` = ( stockValue + ".($_POST['factor'][$productId]*$price*$_POST['qty'][$productId])." )
+            WHERE id = '".$stkRow['id']."' AND account_id = '".$_SESSION['accountId']."' ";
+            mysqli_query($con, $upQry);
+
+
+            $upQry = " UPDATE  `tbl_stocks` SET
+            `stockPrice` = (stockValue/qty) 
+            WHERE id = '".$stkRow['id']."' AND account_id = '".$_SESSION['accountId']."'    ";
+            mysqli_query($con, $upQry);
+        }   
+        else
+        {
+            $upQry = " INSERT INTO  `tbl_stocks` SET
+            `pId` = '".$productId."', 
+            `qty` = ".($_POST['factor'][$productId]*$_POST['qty'][$productId]).",
+            `lastPrice` = '".$price."',
+            `stockValue` = '".($_POST['factor'][$productId]*$_POST['qty'][$productId]*$price)."',
+            `stockPrice` = '".$price."',
+            `account_id` = '".$_SESSION['accountId']."'  
+            ";
+            mysqli_query($con, $upQry);
+        }       
+
+        $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productId."' AND account_id = '".$_SESSION['accountId']."'   ";
+        $stkQry = mysqli_query($con, $sql);
+        $stkRow = mysqli_fetch_array($stkQry);
+
+        //update last price
+        $upQry = " UPDATE  `tbl_products` SET
+        `price` = '".$stkRow['lastPrice']."',
+        `stockPrice` = '".$stkRow['stockPrice']."'
+        WHERE id = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'   ";
+        mysqli_query($con, $upQry); 
+
+
+        $upQry = " UPDATE  `tbl_order_details` SET
+        `lastPrice` = '".$stkRow['lastPrice']."', 
+        `stockPrice` = '".$stkRow['stockPrice']."',
+        `stockQty` = '".$stkRow['qty']."'
+
+        WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'  ";
+        mysqli_query($con, $upQry);
+
+
+} // end of foreach loop
+
+if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
+{
+    $i=0;
+    foreach($_POST['barCode'] as $barCode)//update existing products
+    {
+        $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '".$barCode."' AND account_id = '".$_SESSION['accountId']."'   and id not in(".implode(',', $_POST['productIds']).")  ";
+
+        $resultSet = mysqli_query($con, $sqlSet);
+        $productRes = mysqli_fetch_array($resultSet);
+        if($productRes)
+        {
+
+            $Qry = " INSERT INTO  `tbl_order_details` SET
+            `ordId` = '".$_GET['orderId']."',
+            `pId` = '".$productRes['id']."', 
+            `price` = '".($_POST['qtyReceivedPrice'][$i]/$productRes['factor'])."', 
+            `factor` = '".$productRes['factor']."', 
+            `qty` = 0,
+            `note` = '',
+            `qtyReceived` = '".$_POST['qtyReceived'][$i]."', 
+            `totalAmt` = '".($_POST['qtyReceivedPrice'][$i]*$_POST['qtyReceived'][$i])."',
+            `account_id` = '".$_SESSION['accountId']."'   
+            ";
+            mysqli_query($con, $Qry);
+
+            $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productRes['id']."' AND account_id = '".$_SESSION['accountId']."'   ";
+            $stkQry = mysqli_query($con, $sql);
+            $stkRow = mysqli_fetch_array($stkQry);
+            if($stkRow)
+            {
+                $upQry = " UPDATE  `tbl_stocks` SET
+                `qty` = (qty + ".($productRes['factor']*$_POST['qtyReceived'][$i])."),
+                `lastPrice` = '".($_POST['qtyReceivedPrice'][$i]/$productRes['factor'])."',
+                `stockValue` = ( stockValue + ".($_POST['qtyReceivedPrice'][$i]*$_POST['qtyReceived'][$i])." )
+                WHERE id = '".$stkRow['id']."'  AND account_id = '".$_SESSION['accountId']."'   ";
+                mysqli_query($con, $upQry);
+
+                $upQry = " UPDATE  `tbl_stocks` SET
+                `stockPrice` = (stockValue/qty) 
+                WHERE id = '".$stkRow['id']."'  AND account_id = '".$_SESSION['accountId']."'   ";
+                mysqli_query($con, $upQry);
+            }   
+            else
+            {
+                $upQry = " INSERT INTO  `tbl_stocks` SET
+                `pId` = '".$productRes['id']."', 
+                `qty` = '".($productRes['factor']*$_POST['qtyReceived'][$i])."',
+                `lastPrice` = '".($_POST['qtyReceivedPrice'][$i]/$productRes['factor'])."',
+                `stockPrice` = '".($_POST['qtyReceivedPrice'][$i]/$productRes['factor'])."',
+                `stockValue` = '".($_POST['qtyReceivedPrice'][$i]*$_POST['qtyReceived'][$i])."',
+                `account_id` = '".$_SESSION['accountId']."'  
+
+                ";
+                mysqli_query($con, $upQry);
+            }       
+
+            $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productRes['id']."' AND account_id = '".$_SESSION['accountId']."'   ";
+            $stkQry = mysqli_query($con, $sql);
+            $stkRow = mysqli_fetch_array($stkQry);
+
+                            //update last price and stock
+            $upQry = " UPDATE  `tbl_products` SET
+            `price` = '".$stkRow['lastPrice']."',
+            `stockPrice` = '".$stkRow['stockPrice']."'
+            WHERE id = '".$productRes['id']."' AND account_id = '".$_SESSION['accountId']."'    ";
+            mysqli_query($con, $upQry);
+                                            //update last price         
+
+            $upQry = " UPDATE  `tbl_order_details` SET
+            `lastPrice` = '".$stkRow['lastPrice']."', 
+            `stockPrice` = '".$stkRow['stockPrice']."',
+            `stockQty` = '".$stkRow['qty']."'
+
+            WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productRes['id']."' AND account_id = '".$_SESSION['accountId']."'   ";
+            mysqli_query($con, $upQry);
+
+            $i++;
+
+        } // end if condition   
+
+    }//end for each barcode
+
+} // end if barcode condition   
+    
+    //update net value in orders tbl
+    $id=$_SESSION['id'];
+    $invNo =$_POST['invNo'];
+    $orderId=$_GET['orderId'];
+    receiveOrdTotal($id,$invNo,$orderId);
+    
+    // $sql=" DELETE  FROM  tbl_mobile_items_temp WHERE stockTakeId = '".$_GET['orderId']."' AND stockTakeType=3  AND status=1  AND account_id = '".$_SESSION['accountId']."'    ";
+    // mysqli_query($con, $sql);
+    
+    // $sql=" DELETE  FROM  tbl_mobile_time_track WHERE stockTakeId = '".$_GET['orderId']."' AND stockTakeType=3  AND status=1  AND account_id = '".$_SESSION['accountId']."'    ";
+    // mysqli_query($con, $sql);
+    
+    // $sql = " DELETE FROM `tbl_order_assigned_users` where  orderId = '".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'   ";
+    // mysqli_query($con, $sql);
+
+    $sql = " SELECT SUM(totalAmt) AS totalAmt FROM 
+    tbl_order_details WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $res = mysqli_query($con, $sql);
+    $resRow = mysqli_fetch_array($res);
+
+    $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $res = mysqli_query($con, $sql);
+    $ordRow = mysqli_fetch_array($res);
+
+    $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
+    $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    
+    $qry = " INSERT INTO `tbl_order_journey` SET 
+    `account_id` = '".$_SESSION['accountId']."',
+    `orderId` = '".$_GET['orderId']."',
+    `userBy`  = '".$_SESSION['id']."',
+    `ordDateTime` = '".date('Y-m-d h:i:s')."',
+    `amount` = '".$ordRow['ordAmt']."',
+    `otherCur` = '".$ordRow['ordCurAmt']."',
+    `otherCurId` = '".$ordRow['ordCurId']."',
+    `invoiceNo` = '".$ordResult['invNo']."',
+    `orderType` = '".$ordResult['ordType']."',
+    `notes` = '".$notes."',
+    `action` = 'Receive' ";
+    mysqli_query($con, $qry);
+
+    echo "<script>window.location = 'history.php?updated=1'</script>";
+
+} // end of elseif condition
+
+
+$sql = "SELECT cif.itemName, cif.unit, tod.* FROM tbl_order_details tod 
+INNER JOIN tbl_custom_items_fee cif ON(tod.customChargeId = cif.id) AND tod.account_id = cif.account_id
+WHERE tod.ordId = '".$_GET['orderId']."' AND tod.account_id = '".$_SESSION['accountId']."'   and tod.customChargeType=1 ORDER BY cif.itemName ";
+$otherChrgQry=mysqli_query($con, $sql); 
+
+
+    $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
+    INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
+    LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+    WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
+    $orderQry = mysqli_query($con, $sql);
+    
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -21,133 +330,13 @@
         <div class="container-fluid newOrder">
             <div class="row">
                 <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                    <nav class="navbar d-flex flex-wrap align-items-stretch">
-                        <div>
-                            <div class="logo">
-                                <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                                <div class="clsBar" id="clsBar">
-                                    <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                                </div>
-                            </div>
-                            <div class="nav-bar">
-                                <ul class="nav flex-column h2">
-                                    <li class="nav-item dropdown dropend">
-                                        <a class="nav-link active text-center dropdown-toggle" aria-current="page"
-                                            href="index.php" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                            <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                            <p>New Task</p>
-                                        </a>
-                                        <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="nav-link nav_sub sbActive" aria-current="page"
-                                                    href="index.php">
-                                                    <img src="Assets/icons/new_order.svg" alt="New order"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Order</span>
-                                                </a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="newRequisition.php">
-                                                    <img src="Assets/icons/new_req.svg" alt="Req"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Requisition</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Stocktake</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Production</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Payment</span></a>
-                                            </li>
-                                            <li><a class="nav-link nav_sub" aria-current="page"
-                                                    href="javascript:void(0)">
-                                                    <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                        class="navIcon align-middle">
-                                                    <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                        class="mb_nvSubIcn align-middle">
-                                                    <span class="align-middle">New Invoice</span></a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="runningTask.php">
-                                            <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                            <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                                class="navIcon mb_navIcn">
-                                            <p>Running Tasks</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="history.php">
-                                            <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                            <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                            <p>Office</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="stockView.php">
-                                            <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                            <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                            <p>Storage</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-center" href="revenueCenter.php">
-                                            <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                            <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue"
-                                                class="mb_navIcn">
-                                            <p>Revenue Centers</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="nav-bar lgOut">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="setup.php">
-                                        <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                        <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                        <p>Setup</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="javascript:void(0)">
-                                        <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                        <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                        <p>Log Out</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                    <?php require_once('nav.php');?>
                 </div>
                 <div class="cntArea">
                     <section class="usr-info">
                         <div class="row">
                             <div class="col-md-4 d-flex align-items-end">
-                                <h1 class="h1">Receive Order</h1>
+                                <h1 class="h1"><?php echo showOtherLangText('Receive Order'); ?></h1>
                             </div>
                             <div class="col-md-8 d-flex align-items-center justify-content-end">
                                 <div class="mbPage">
@@ -160,7 +349,7 @@
                                         </button>
                                     </div>
                                     <div class="mbpg-name">
-                                        <h1 class="h1">Receive Order</h1>
+                                        <h1 class="h1"><?php echo showOtherLangText('Receive Order'); ?></h1>
                                     </div>
                                 </div>
                                 <div class="user d-flex align-items-center">
@@ -200,7 +389,7 @@
                                     <div class="sltSupp nwOrd-Num">
                                         <div class="ord-Box">
                                             <div class="ordNum">
-                                                <h4 class="subTittle1"><span>Order#:</span> <span>332974</span></h4>
+                                                <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -241,7 +430,7 @@
                                             <a href="javascript:void(0)" class="btn sub-btn std-btn">Receive</a>
                                         </div>
                                         <div class="btnBg mt-3">
-                                            <a href="editOrder.php" class="btn sub-btn std-btn">Back</a>
+                                            <a href="runningOrders.php" class="btn sub-btn std-btn">Back</a>
                                         </div>
                                         <div class="fetBtn">
                                             <a href="javascript:void(0)">
@@ -255,10 +444,24 @@
                                 <div class="row">
                                     <div class="suppDetl">
                                         <div class="recvInv">
-                                            <p>Supplier: <span class="supName">Qmb</span></p>
+                                            <p><?php echo showOtherLangText('Supplier'); ?>: <span class="supName"><?php
+                                    $sqlSet = " SELECT GROUP_CONCAT(DISTINCT(s.name)) suppliers FROM tbl_orders o 
+
+                                    INNER JOIN tbl_suppliers s ON(o.supplierId = s.id) AND o.account_id = s.account_id
+
+                                    WHERE o.id =".$_GET['orderId']." AND s.account_id = '".$_SESSION['accountId']."' ";
+
+                                    $resultSet = mysqli_query($con, $sqlSet);
+                                    $supRow = mysqli_fetch_array($resultSet);
+                                    echo  $supRow['suppliers'];
+
+                                    ?></span></p>
                                             <div class="d-flex gap-2 align-items-center">
-                                                <p class="flex-fill flex-grow-0 flex-shrink-0">Invoice No: </p>
-                                                <input type="text" class="form-control invNum" placeholder="1234">
+                                                <p class="flex-fill flex-grow-0 flex-shrink-0"><?php echo showOtherLangText('Invoice No'); ?>: </p>
+                                               <input class="form-control invNum" type="text" name="invNo" id="invNo"
+                                                autocomplete="off" value="<?php echo $ordRow['invNo'] ?>"
+                                                oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                                onChange="getInvNo(),this.setCustomValidity('')" required />
                                             </div>
                                         </div>
                                     </div>
@@ -323,43 +526,63 @@
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
                                 <div class="prdtImg tb-head">
-                                    <p>Image</p>
+                                    <p><?php echo showOtherLangText('Image'); ?></p>
                                 </div>
                                 <div class="recItm-Name tb-head">
-                                    <p>Item</p>
+                                    <p><?php echo showOtherLangText('Item Ordered'); ?></p>
                                 </div>
                                 <div class="recQty-Code d-flex align-items-center">
                                     <div class="recItm-brCode tb-head">
-                                        <p>Bar Code</p>
+                                        <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                     </div>
                                     <div class="qty-Ordred tb-head">
-                                        <p>Qty Ordered</p>
+                                        <p><?php echo showOtherLangText('Qty Ordered'); ?></p>
                                     </div>
                                 </div>
                                 <div class="recPrc-Unit d-flex align-items-center">
                                     <div class="recItm-Unit tb-head">
-                                        <p>P.Unit</p>
+                                        <p><?php echo showOtherLangText('P Unit'); ?></p>
                                     </div>
                                     <div class="qty-Rcvd tb-head">
-                                        <p>Qty Received</p>
+                                        <p><?php echo showOtherLangText('Qty Received'); ?></p>
                                     </div>
+                                         <?php 
+            if($ordRow['ordCurId'] > 0)
+            {
+                $res = mysqli_query($con, " select * from tbl_currency WHERE id='".$ordRow['ordCurId']."' ");
+                $curDet = mysqli_fetch_array($res);
+
+                ?> 
                                     <div class="recCr-Type d-flex align-items-center">
                                         <div class="dflt-RecPrc tb-head">
-                                            <p>P.Price($)</p>
+                                            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                         </div>
                                         <div class="othr-RecPrc tb-head">
-                                            <p>P.Price(€)</p>
+                                            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'];?>)</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="recTtlPrc-Type d-flex align-items-center">
                                     <div class="ttlDft-RecPrc tb-head">
-                                        <p>Total($)</p>
+                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                     </div>
                                     <div class="ttlOtr-RecPrc tb-head">
-                                        <p>Total(€)</p>
+                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)</p>
                                     </div>
                                 </div>
+                            <?php } else { ?>
+                                <div class="recCr-Type d-flex align-items-center">
+                                        <div class="dflt-RecPrc tb-head">
+                                            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="recTtlPrc-Type d-flex align-items-center">
+                                    <div class="ttlDft-RecPrc tb-head">
+                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'];?></p>
+                                    </div>
+                                </div>
+                            <?php } ?>
                             </div>
                             <!-- Item Table Head End -->
                         </div>
@@ -368,8 +591,238 @@
                         <div id="boxscroll">
                             <div class="container cntTable">
                                 <!-- Item Table Body Start -->
+                                <?php   
 
+        $y = 0;
+        while ($showCif= mysqli_fetch_array($otherChrgQry))
+            {  
+                $y++;
+                ?>
                                 <div class="newOrdTask recOrdTask">
+                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
+                                        <div class="prdtImg tb-bdy">
+                                            <!-- <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img"> -->
+                                        </div>
+                                        <div class="recItm-Name tb-bdy">
+                                            <p class="recive-Item"><?php echo $showCif['itemName'];?></p>
+                                        </div>
+                                        <div class="recQty-Code cloneQty-Code align-items-center">
+                                            <div class="recItm-brCode tb-bdy">
+                                                <p></p>
+                                            </div>
+                                            <div class="qty-Ordred tb-bdy">
+                                                <p><strong>1</strong><span class="tabOn-Qty">On stock</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="recPrc-Unit d-flex">
+                                            <div class="tab-RecItm"></div>
+                                            <div class="recItm-Unit tb-bdy">
+                                                <p>1</p>
+                                            </div>
+                                            <div class="qty-Rcvd tb-bdy">
+                                               &nbsp;
+                                            </div>
+                                            <div class="recCr-Type d-flex align-items-center">
+                                                <!-- <div class="dflt-RecPrc tb-bdy">
+                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                </div>
+                                                <div class="othr-RecPrc tb-bdy">
+                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                </div> -->
+                                                <?php if($showCif['currencyId'] > 0){ ?>
+
+                                        <div class="qty-Rcvd tb-bdy">
+                                               &nbsp;
+                                            </div>
+                                        <div class="qty-Rcvd tb-bdy">
+                                               &nbsp;
+                                            </div>
+
+                                        <?php }else{ ?>
+
+                                        <td><strong><?php echo showPrice($showCif['price'],$getDefCurDet['curCode']);?></strong>
+                                        </td>
+
+                                        <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div class="recTtlPrc-Type d-flex align-items-center">
+                                            <div class="tabTtl-Price"></div>
+                                            <div class="ttlDft-RecPrc tb-bdy">
+                                                <p>2.6144 $</p>
+                                            </div>
+                                            <div class="ttlOtr-RecPrc tb-bdy">
+                                                <p>2.6144 €</p>
+                                            </div>
+                                        </div>
+                                        <div class="recBr-Hide">
+                                        </div>
+                                    </div>
+                                    <div class="mbLnk-Order">
+                                        <a href="javascript:void(0)" class="orderLink">
+                                            <i class="fa-solid fa-angle-down"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php   }
+
+
+    $x= 0;
+    $subTotalAmtDol = 0;
+    $subTotalAmtOther = 0;
+    while($row = mysqli_fetch_array($orderQry))
+    {   
+
+        $x++;
+        $y++;
+
+        $sql=" SELECT * FROM  tbl_mobile_items_temp WHERE stockTakeId = '".$ordRow['id']."'
+        AND account_id = '".$_SESSION['accountId']."'   AND stockTakeType=3  AND status=1 AND pId = '".$row['id']."'  ";
+        $itemTempQry = mysqli_query($con, $sql);
+        $itemTempRes = mysqli_fetch_array($itemTempQry);
+
+        if( isset($fileDataRows[$row['barCode']]) )
+        { 
+            $receivedRow = $fileDataRows[$row['barCode']];
+            $qtyVal = $receivedRow['qty'];
+            $ordQty = $receivedRow['qty'];
+            $boxPrice =$receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor']*$row['ordPrice'];
+
+            $boxPriceOther = $receivedRow['priceOther'] > 0 ? $receivedRow['priceOther'] : $row['ordFactor']*$row['curPrice'];
+
+            unset($fileDataRows[$row['barCode']]);
+
+        }
+        elseif($itemTempRes)
+        { 
+            $qtyVal = $itemTempRes['qty'];
+            $ordQty = $itemTempRes['qty'];
+
+            $boxPrice = ($itemTempRes['curId'] > 0 && $curDet['is_default'] == 0 && $curDet['amt']) ? ($itemTempRes['amt']/$curDet['amt']) : $itemTempRes['amt'];
+            $boxPriceOther = $itemTempRes['curId'] > 0 ? $itemTempRes['amt'] : ( ($itemTempRes['amt']*$curDet['amt']) );
+            $subTotalAmtDol += ($boxPrice*$qtyVal);
+            $subTotalAmtOther += ($boxPriceOther*$qtyVal);
+        }
+        else
+        { 
+            $boxPrice = ($row['ordPrice']*$row['ordFactor']);
+            $boxPriceOther = ($row['ordCurPrice']*$row['ordFactor']);           
+            $ordQty = $row['ordQty'];
+            $qtyVal = $row['ordQty'];   
+        }
+
+
+
+
+        ?>
+
+                                    <input type="hidden" name="productIds[]" id="productId<?php echo $x;?>"
+                                        value="<?php echo $row['id'];?>" />
+                                    <input type="hidden" id="<?php echo $x;?>" value="<?php echo $row['price'];?>" />
+                                    <input type="hidden" name="factor[<?php echo $row['id'];?>]"
+                                        id="factor<?php echo $x;?>" value="<?php echo $row['factor'];?>" />
+
+                                     <div class="newOrdTask recOrdTask">
+                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
+                                        <div class="prdtImg tb-bdy">
+                                            <?php $img = '';
+            if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
+            {   
+                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                    //echo  '<img src="'.$siteUrl.'uploads/'.$row['imgName'].'" width="60" height="60">';
+            }?>
+                                        </div>
+                                        <div class="recItm-Name tb-bdy">
+                                            <p class="recive-Item"><?php echo $row['itemName'];?></p>
+                                        </div>
+                                        <div class="recQty-Code cloneQty-Code align-items-center">
+                                            <div class="recItm-brCode tb-bdy">
+                                                <p><?php echo $row['barCode'];?></p>
+                                            </div>
+                                            <div class="qty-Ordred tb-bdy">
+                                                <p><?php echo $row['ordQty'];?> <span class="tabOn-Qty">On stock</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="recPrc-Unit d-flex">
+                                            <div class="tab-RecItm"></div>
+                                            <div class="recItm-Unit tb-bdy">
+                                                <p><?php echo $row['purchaseUnit'];?></p>
+                                            </div>
+                                            <div class="qty-Rcvd tb-bdy">
+                                                <input type="text"  class="form-control qty-itm recQty-Receive" id="qty<?php echo $x;?>"
+                                                    name="qty[<?php echo $row['id'];?>]" autocomplete="off"
+                                                    onChange="showTotal('<?php echo $x;?>')"
+                                                    value="<?php echo  $ordQty;?>" size="5">
+                                            </div>
+                                            <div class="recCr-Type d-flex align-items-center">
+                                                <div class="dflt-RecPrc tb-bdy">
+                                                    <input class="form-control qty-itm" type="text" id="priceId<?php echo $x;?>"
+                                                    name="price[<?php echo $row['id'];?>]" autocomplete="off"
+                                                    value="<?php echo getPrice($boxPrice);?>" size="5"
+                                                    onChange="showTotal('<?php echo $x;?>')">
+                                                <?php echo $getDefCurDet['curCode'] ?>
+                                                </div>
+                                                <!-- <div class="othr-RecPrc tb-bdy">
+                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="recTtlPrc-Type d-flex align-items-center">
+                                            <div class="tabTtl-Price"></div>
+                                            <div class="ttlDft-RecPrc tb-bdy">
+                                                <p id="totalPrice<?php echo $x;?>"><?php echo showPrice($boxPrice*$qtyVal,$getDefCurDet['curCode']);?></p>
+                                            </div>
+                                            <?php 
+                if( isset($curDet) )
+                {
+                    $newCurAmt = ($boxPriceOther*$qtyVal); ?>
+                                            <div class="ttlOtr-RecPrc tb-bdy">
+                                                <p id="totalPriceOther<?php echo $x; ?>"><?php echo showOtherCur($newCurAmt, $curDet['id']); ?></p>
+                                            </div>
+                                      <?php      }
+                ?>
+                                        </div>
+                                        <div class="recBr-Hide">
+                                        </div>
+                                    </div>
+                                    <div class="mbLnk-Order">
+                                        <a href="javascript:void(0)" class="orderLink">
+                                            <i class="fa-solid fa-angle-down"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                        <?php   }
+
+            
+
+        $notFoundProducts = [];
+        if( isset($fileDataRows) && !empty($fileDataRows) )
+        {
+            foreach($fileDataRows as $barCode=>$receivedRow)
+            {
+                $x++;
+                
+                
+                $sql = "SELECT tp.*, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_products tp 
+    LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+    WHERE tp.barCode = '".$barCode."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
+                $resultSet = mysqli_query($con, $sql);
+                $productRes = mysqli_fetch_array($resultSet);
+    
+    
+                if(!$productRes || $productRes['barCode'] == '')
+                {
+                    continue;
+                }
+
+                $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $productRes['factor']*$productRes['price'];
+                $qty = $receivedRow['qty'];
+                ?>
+                                    <tr><input type="hidden" id="factor<?php echo $x;?>" name="factor[]">
+                                        <input type="hidden" id="supplierId<?php echo $x;?>" name="supplierId[]"
+                                            size="5" value="<?php echo $receivedRow['supplierId'];?>">
+                                
+                                 <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
                                         <div class="prdtImg tb-bdy">
                                             <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
@@ -421,318 +874,9 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
-                                        </div>
-                                        <div class="recQty-Code cloneQty-Code align-items-center">
-                                            <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
-                                            </div>
-                                            <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="recPrc-Unit d-flex">
-                                            <div class="tab-RecItm"></div>
-                                            <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
-                                            </div>
-                                            <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
-                                            </div>
-                                            <div class="recCr-Type d-flex align-items-center">
-                                                <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                                <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recTtlPrc-Type d-flex align-items-center">
-                                            <div class="tabTtl-Price"></div>
-                                            <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
-                                            </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div>
-                                        </div>
-                                        <div class="recBr-Hide">
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
-                                        </div>
-                                        <div class="recQty-Code cloneQty-Code align-items-center">
-                                            <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
-                                            </div>
-                                            <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="recPrc-Unit d-flex">
-                                            <div class="tab-RecItm"></div>
-                                            <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
-                                            </div>
-                                            <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
-                                            </div>
-                                            <div class="recCr-Type d-flex align-items-center">
-                                                <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                                <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recTtlPrc-Type d-flex align-items-center">
-                                            <div class="tabTtl-Price"></div>
-                                            <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
-                                            </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div>
-                                        </div>
-                                        <div class="recBr-Hide">
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
-                                        </div>
-                                        <div class="recQty-Code cloneQty-Code align-items-center">
-                                            <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
-                                            </div>
-                                            <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="recPrc-Unit d-flex">
-                                            <div class="tab-RecItm"></div>
-                                            <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
-                                            </div>
-                                            <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
-                                            </div>
-                                            <div class="recCr-Type d-flex align-items-center">
-                                                <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                                <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recTtlPrc-Type d-flex align-items-center">
-                                            <div class="tabTtl-Price"></div>
-                                            <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
-                                            </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div>
-                                        </div>
-                                        <div class="recBr-Hide">
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
-                                        </div>
-                                        <div class="recQty-Code cloneQty-Code align-items-center">
-                                            <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
-                                            </div>
-                                            <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="recPrc-Unit d-flex">
-                                            <div class="tab-RecItm"></div>
-                                            <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
-                                            </div>
-                                            <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
-                                            </div>
-                                            <div class="recCr-Type d-flex align-items-center">
-                                                <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                                <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recTtlPrc-Type d-flex align-items-center">
-                                            <div class="tabTtl-Price"></div>
-                                            <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
-                                            </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div>
-                                        </div>
-                                        <div class="recBr-Hide">
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
-                                        </div>
-                                        <div class="recQty-Code cloneQty-Code align-items-center">
-                                            <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
-                                            </div>
-                                            <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="recPrc-Unit d-flex">
-                                            <div class="tab-RecItm"></div>
-                                            <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
-                                            </div>
-                                            <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
-                                            </div>
-                                            <div class="recCr-Type d-flex align-items-center">
-                                                <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                                <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recTtlPrc-Type d-flex align-items-center">
-                                            <div class="tabTtl-Price"></div>
-                                            <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
-                                            </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div>
-                                        </div>
-                                        <div class="recBr-Hide">
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
-                                        </div>
-                                        <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
-                                        </div>
-                                        <div class="recQty-Code cloneQty-Code align-items-center">
-                                            <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
-                                            </div>
-                                            <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="recPrc-Unit d-flex">
-                                            <div class="tab-RecItm"></div>
-                                            <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
-                                            </div>
-                                            <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
-                                            </div>
-                                            <div class="recCr-Type d-flex align-items-center">
-                                                <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                                <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recTtlPrc-Type d-flex align-items-center">
-                                            <div class="tabTtl-Price"></div>
-                                            <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
-                                            </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div>
-                                        </div>
-                                        <div class="recBr-Hide">
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-Order">
-                                        <a href="javascript:void(0)" class="orderLink">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                                 <?php }
+            } ?>
+
 
                                 <!-- Item Table Body End -->
                             </div>

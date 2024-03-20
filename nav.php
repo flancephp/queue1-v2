@@ -24,7 +24,7 @@
                                                 <span class="align-middle">New Order</span>
                                             </a>
                                         </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
+                                        <li><a class="nav-link nav_sub" aria-current="page" href="addRecusation.php">
                                                 <img src="Assets/icons/new_req.svg" alt="Req"
                                                     class="navIcon align-middle">
                                                 <img src="Assets/icons/new_req_hv.svg" alt="Req"

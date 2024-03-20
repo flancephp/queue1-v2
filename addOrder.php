@@ -81,7 +81,6 @@ if( $_REQUEST['supplierId'] != '' )
   $_SESSION['supplierId'] = $_REQUEST['supplierId'];
 
 }
-
 $ordRowsTemp = getOrderTempData($_SESSION['id']);
 $proTempRows = [];
 if(!empty($ordRowsTemp['proDetails'])) 
@@ -145,10 +144,10 @@ if(isset($_POST['placeOrder']))
   //Give new order number for each new order
   $ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
 
-
+  
   $qry = " INSERT INTO `tbl_orders` SET 
   `ordType` = 1,
-  `supplierId` = '".$_POST['supplierId']."',
+  `supplierId` = '".$_SESSION['supplierId']."',
   `ordNumber` = '".$ordNumber."',
   `orderBy`  = '".$_SESSION['id']."',
   `ordDateTime` = '".date('Y-m-d h:i:s')."',
@@ -448,11 +447,6 @@ $currResultSet = mysqli_query($con, $curQry);
                                                 <div class="col-md-7 text-center">
                                                     <div class="row featRow">
                                                         <div class="col-md-3 ordFeature">
-                                                            <!-- <a href="javascript:void(0)" class="tabFet">
-                                                                <span class="autoFill"></span>
-                                                                <p class="btn2">
-                                                                <?php //echo showOtherLangText('Auto Fill'); ?></p>
-                                                            </a> -->
                                                             <?php
 if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0)
 {
@@ -1172,7 +1166,7 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                 <?php 
   }} //end while
   //do this for auto fill
-  print_r($minProductsArr);
+  ///print_r($minProductsArr);
   if( !empty($minProductsArr) )
   { 
     foreach($minProductsArr as $pId=>$qty)
@@ -1333,7 +1327,7 @@ list'); ?></label><br>
     </div>
     </form>
     <form id="supplier_frm_id" name="supplier_frm_id" method="post" action="">
-     <input type="hidden" name="supplierId" id="supplierId" value="">
+     <input type="text" name="supplierId" id="supplierId" value="">
     </form>
     <form id="currency_frm_id" name="currency_frm_id" method="post" action="">
     <input type="hidden" id="currencyId" name="currencyId" value="">
@@ -1361,8 +1355,9 @@ $('#frm').submit();
 
 $(".supplier_dropdown").on("click", "a", function(e){
         var $this = $(this).parent();
+        console.log('ddd',$this.data("id"),$this.data("value"));
         $("#supplierText").text($this.data("value"));
-        $("#supplierId").val($this.data("id"));
+        $("#supplier_frm_id #supplierId").val($this.data("id"));
         $('#supplier_frm_id').submit();
       });
 

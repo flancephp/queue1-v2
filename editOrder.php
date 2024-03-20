@@ -39,6 +39,7 @@ if (!isset($_SESSION['supplierIdOrd']))
 //insert data in order_details_temp table when user land on this page
 if (isset($_GET['orderId'])) 
 {
+
     $selQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
     $ordDetResult = mysqli_query($con, $selQry);
     while($ordDetRow = mysqli_fetch_array($ordDetResult))
@@ -70,7 +71,9 @@ if (isset($_GET['orderId']))
     while($tempOrdDetRow = mysqli_fetch_array($tempOrdDetResult))
     {
         $x++;
+
     }
+
     if ($x == 0)
     {
         $insertQry = " INSERT INTO `tbl_order_details_temp` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`,`note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`) VALUES  ".implode(',', $values);
@@ -331,7 +334,7 @@ if( isset($_POST['updateOrder']) )
     echo '<script>window.location="runningOrders.php?updated=1"</script>';
 
     
-}
+ }
    
 //delete item level / order level charges
 if( isset($_GET['delId']) && $_GET['orderId'])
@@ -572,7 +575,7 @@ $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//to
                    ?>
                                     <div class="col-md-2 smBtn nwNxt-Btn">
                                         <div class="btnBg">
-                                            <a href="javascript:void(0)" class="btn sub-btn"><span
+                                            <a href="javascript:void(0)" class="btn sub-btn orderupdate"><span
                                                     class="align-middle">Update</span> <i
                                                     class="fa-solid fa-angle-right"></i></a>
                                         </div>
@@ -592,7 +595,7 @@ $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//to
                                 <div class="row">
                                     <div class="sltSupp">
                                         <div id="searchBox2" class="input-group srchBx">
-                                            <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search2" id="search2" onKeyUp="myFunction('search2', 'tableId2', 2)" 
+                                            <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search2" id="search2" onKeyUp="myFunction('search2', 'totalOrdArea', 1)" 
                                                 aria-label="Search">
                                             <div class="input-group-append">
                                                 <button class="btn" type="button">
@@ -1126,10 +1129,10 @@ $ordQry = mysqli_query($con, $sql);
                             <div class="container pt-5 topOrder ">
                             <div class="row ">
                                 <div class="col-xl-4 col-md-5 col-sm-7 px-0">
-                                    <p class="fs-14 pb-3">Add New Items</p>
+                                    <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
                                 <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
                                     
-                                    <input type="search" class="form-control" placeholder="Search Item" id="srch" aria-label="Search">
+                                    <input onKeyUp="myFunction('search3', 'newOrdTask1', 2)" type="search" class="form-control" placeholder="Search Item" id="search3" name="search3" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn" type="button" style="background-color: rgb(122, 137, 255);">
                                             <i class="fa fa-search"></i>
@@ -1138,10 +1141,35 @@ $ordQry = mysqli_query($con, $sql);
                                 </div>
                                 </div>
                             </div>
+                            </form>
+                            <form  id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"
+                        class="container">
 
+
+                        <?php 
+
+                $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
+
+                if($cond != '')
+                {
+                    if( !empty( $pidArr ) )
+                    {
+                        $cond .= " AND p.id NOT IN(".implode(',', $pidArr).") ";
+                    }
+
+                    $sqlSet = " SELECT p.*, 
+                    IF(u.name!='',u.name,p.unitP) as purchaseUnit ,
+                    s.qty AS stockQty
+                    FROM tbl_products p
+                    LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
+                    LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
+                    WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
+                    $proresultSet = mysqli_query($con, $sqlSet);
+                 ?>
+                       
 
                             <div class="btnBg mt-3">
-                                <a href="#" class="sub-btn std-btn">Add New Items in Order</a>
+                                <a href="#" class="sub-btn std-btn add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
                             </div>
                             </div>
 
@@ -1149,37 +1177,37 @@ $ordQry = mysqli_query($con, $sql);
                                 <!-- Item Table Head Start -->
                                 <div class="d-flex align-items-center itmTable">
                                     <div class="prdtImg tb-head">
-                                        <p>Image</p>
+                                        <p><?php echo showOtherLangText('Image'); ?></p>
                                     </div>
                                     <div class="prdtCnt-Fst d-flex align-items-center">
                                         <div class="Itm-Name tb-head">
-                                            <p>Item</p>
+                                            <p><?php echo showOtherLangText('Item'); ?></p>
                                         </div>
                                         <div class="Itm-brCode tb-head">
-                                            <p>Bar Code</p>
+                                            <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                         </div>
                                         <div class="prdtCr-Unit d-flex align-items-center">
                                             <div class="crncy-Type w-50 ">
                                                 <div class="tb-head">
-                                                    <p>P.Price($)</p>
+                                                    <p><?php echo showOtherLangText('P.Price'); ?></p>
                                                 </div>
                                                
                                             </div>
                                             <div class="itm-Unit tb-head">
-                                                <p>P.Unit</p>
+                                                <p><?php echo showOtherLangText('P.Unit'); ?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="prdtStk-Qty tb-head">
-                                        <p>S.Quantity</p>
+                                        <p><?php echo showOtherLangText('S.Qty'); ?></p>
                                     </div>
                                     <div class="prdtCnt-Scnd d-flex align-items-center">
                                         <div class="itm-Quantity tb-head">
-                                            <p>Quantity</p>
+                                            <p><?php echo showOtherLangText('Qty'); ?></p>
                                         </div>
                                         <div class="ttlCr-Type w-50">
                                             <div class="ps-xl-5 tb-head">
-                                                <p>Total($)</p>
+                                                <p><?php echo showOtherLangText('Total'); ?></p>
                                             </div>
                                            
                                         </div>
@@ -1187,7 +1215,7 @@ $ordQry = mysqli_query($con, $sql);
                                     <div class="prdt-Hide">
                                         <div class="prdt-Note tb-head">
                                             <div class="mb-brCode" style="display: none;"></div>
-                                            <p>Note</p>
+                                            <p><?php echo showOtherLangText('Note'); ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1197,40 +1225,78 @@ $ordQry = mysqli_query($con, $sql);
                             <div id="boxscroll">
                                 <div class="container cntTable  ">
                                     <!-- Item Table Body Start -->
-                                    <div class="newOrdTask">
+                                    <?php 
+
+                                $x= $x+1;
+                                $i = 0;
+                                $y = 0;
+                                $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
+                                while($row = mysqli_fetch_array($proresultSet))
+                                {
+                                   $x++;
+                                   $y++;
+                                   $i=1;
+
+                                   $stockQty = $row['stockQty'];
+                                    $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
+                                    $stockQty = $stockQty - $totalProQty;
+                                    ?>
+                                    <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
+                                <input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
+                                    value="<?php echo $row['supplierId'];?>" />
+                                <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
+                                    value="<?php echo $row['factor'];?>" />
+                                <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
+                                    value="" />
+                                    <div class="newOrdTask1">
                                         <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
                                             <div class="prdtImg tb-bdy">
-                                                <img src="Assets/images/meat.png" alt="Item" class="ordItm-Img">
+                                                <?php 
+                                                if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
+                                                {   
+                                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                                }
+                                                 ?>
                                             </div>
                                             <div class="prdtCnt-Fst d-flex align-items-center">
                                                 <div class="Itm-Name tb-bdy">
-                                                    <p>Meat</p>
+                                                    <p><?php echo $row['itemName'];?></p>
                                                 </div>
                                                 <div class="Itm-brCode tb-bdy">
-                                                    <p class="ord-brCode">9781462570123</p>
+                                                    <p class="ord-brCode"><?php echo $row['barCode'];?></p>
                                                 </div>
                                                 <div class="prdtCr-Unit d-flex">
                                                     <div class="crncy-Type w-50">
                                                         <div class=" tb-bdy">
-                                                            <p>2.6144 $</p>
+                                                            <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
+                                            type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
+                                            value="<?php echo getPrice($row['price']);?>" />
+
+
+                                        <input type="hidden" name="curAmt[<?php echo $row['id'];?>]"
+                                            value="<?php echo getPrice($row['curAmt']);?>" /></p>
                                                         </div>
                                                         
                                                     </div>
                                                     <div class="itm-Unit tb-bdy">
-                                                        <p>Kg</p>
+                                                        <p><?php echo $row['purchaseUnit'];?></p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="prdtStk-Qty tb-bdy">
-                                                <p class="ord-StockQty">10 <span class="tabOn-Stk">On stock</span></p>
+                                                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink"' : '';?>>
+                                        <?php echo round(($stockQty/$row['factor']), 1);?> <span class="tabOn-Stk">On stock</span></p>
                                             </div>
                                             <div class="prdtCnt-Scnd d-flex align-items-center">
                                                 <div class="itm-Quantity tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                     <input type="text" class="form-control qty-itm editQty-Rec" name="qty[<?php echo $row['id'];?>]"
+                                            autocomplete="off"
+                                            onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_SESSION['supplierIdOrd'];?>')"
+                                            value="" size="5">
                                                 </div>
                                                 <div class="ttlCr-Type w-50 ps-xl-5">
                                                     <div class=" tb-bdy">
-                                                        <p>2.6144 $</p>
+                                                        <p id="totalPrice<?php echo $x;?>">0</p>
                                                     </div>
                                                    
                                                 </div>
@@ -1238,7 +1304,11 @@ $ordQry = mysqli_query($con, $sql);
                                             <div class="prdt-Hide">
                                                 <div class="prdt-Note tb-bdy">
                                                     <div class="mb-brCode" style="display: none;"></div>
-                                                    <input type="text" class="form-control note-itm" placeholder="Note">
+                                                   
+                                                    <input type="text" class="form-control  note-itm" autocomplete="off"
+                                            id="notes<?php echo $row['id'];?>"
+                                            onChange="getnotesVal('<?php echo $row['id'] ?>');"
+                                            name="notes[<?php echo $row['id'];?>]" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -1249,14 +1319,26 @@ $ordQry = mysqli_query($con, $sql);
                                         </div>
     
                                     </div>
+
+                                  <?php 
+                                }
+                                if($i > 0)
+                                {
+                                    ?>
+
+                                <?php }else{
+                                    echo '<div class="newOrdTask">
+                                        <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">No Product Found.</div> </div>';
+                                } ?>
                                     
                                 </div>
                             </div>
-
+                              <?php } ?>
+                             </form>
                             <div class="container pb-4 topOrder">
                                 <div class="btnBg mt-3">
-                                    <a href="#" class="sub-btn std-btn">Add New Items in Order</a>
-                                </form>
+                                    <a href="#" class="sub-btn std-btn add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+                               
                                 </div>
                             </div>
                         </div>
@@ -1437,10 +1519,16 @@ list'); ?></label><br>
             }
     });
     function myFunction(searchId, tableId, searchBoxNo) {
-        // Declare variables
-        var input = document.getElementById(searchId);
+       var input = document.getElementById(searchId);
        var filter = input.value.toLowerCase();
+       if(searchBoxNo==1)
+       {
+      console.log('searchId',searchBoxNo);
       var nodes = document.querySelectorAll('.newOrdTask');
+       } else {
+      console.log('searchId',searchBoxNo);
+      var nodes = document.querySelectorAll('.newOrdTask1');  
+       }
       
   for (i = 0; i < nodes.length; i++) {
     if (nodes[i].innerText.toLowerCase().includes(filter)) {
@@ -1456,13 +1544,25 @@ list'); ?></label><br>
     if($(this).val().length == 0){
         resetData();
     }
-});
+    });
+
+       $("#search3").on("search", function(evt){
+    if($(this).val().length == 0){
+        resetData1();
+    }
+    });
 
       function resetData() {
 
         $('#search2').val('');
-        myFunction('search2', 'tableId2', 2);
-   }
+        myFunction('search2', 'totalOrdArea', 1);
+     }
+
+      function resetData1() {
+
+        $('#search3').val('');
+        myFunction('search3', 'totalOrdArea1', 2);
+     }
 
    $(document).ready(function() {
 
@@ -1478,10 +1578,35 @@ list'); ?></label><br>
             }
 
         });
-        $('.sub-btn').click(function(){
+        $('.orderupdate').click(function(){
         $('#frmupdateOrder').submit();
         });
+        $('.add-new-items').click(function(){
+        $('#add-new-items').submit();
+        });
     });
+
+   function getnotesVal(pId) {
+
+        var notes = $('#notes' + pId).val();
+
+        $.ajax({
+                method: "POST",
+                url: "editOrderAjax.php",
+
+                data: {
+                    notes: notes,
+                    pId: pId,
+                    orderId: '<?php echo $_GET['orderId'] ?>'
+                }
+            })
+            .done(function(responseObj) {
+
+
+            });
+
+
+    } //end 
     </script>
 </body>
 

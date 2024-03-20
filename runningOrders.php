@@ -387,7 +387,8 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
                 LEFT JOIN tbl_deptusers dm ON(dm.id=o.recMemberId) AND dm.account_id=o.account_id
 
                 WHERE o.status !=2 AND o.ordType IN(1,2,3) AND o.account_id='".$_SESSION['accountId']."' ".$cond." GROUP BY o.id Order by o.id desc";
-
+                // echo $sql;
+                // exit;
                 $result = mysqli_query($con, $sql);
 
                 ?>
@@ -543,9 +544,9 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                     <div class="mbSbar">&nbsp;</div>
                                     <div class="align-items-center dskDetail">
                                         <div class="d-flex align-items-center runDetail mbrDtl-Bg">
-                                            <div class="reqType">&nbsp;</div>
+                                            <div class="<?php if($orderRow['ordType'] == 1) { echo 'reqType'; } else { echo 'ordType'; } ?> ">&nbsp;</div>
                                             <div class="d-flex align-items-center ordeReq">
-                                                <div class="p-1" style="width: 35%;">
+                                                <div class="p-1 reqDtl <?php if($orderRow['ordType'] == 1) { echo 'member-Name'; } else { echo 'supMem-Name'; } ?> " style="width: 35%;">
                                                     <p><?php echo $orderRow['ordNumber'];?></p>
                                                 </div>
                                                 <div class="p-1"  style="width: 35%;">
@@ -738,6 +739,38 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
             </div>
         </div>
     </div>
+   </form>
+   <form method="POST" id="frm_issueOutPopUpFrm" name="issueOutPopUpFrm">
+    <div class="modal" tabindex="-1" id="issue-out" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Please approve one more time the'); ?><br><?php echo showOtherLangText('Issue Out'); ?></h1>
+                </div>
+                <div class="modal-body">
+                    
+                    <div>
+                    <input type="hidden" name="orderId" class="issueOutOrdId" value="">
+                    
+                </div>
+                   <!-- <div>
+                    <div><a href="javascript:void(0)" class="btn btn-primary approveBtn"
+                            name="approveBtn"><?php //echo showOtherLangText('Issue Out'); ?></a></div>
+                </div> -->
+                <!-- <div class="mobUserList">
+                    
+                </div>    -->
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" class="approveBtn btn sub-btn std-btn"><?php echo showOtherLangText('Issue Out'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </form>
 </body>
 
 </html>
@@ -834,4 +867,23 @@ function AssignOrder(orderType, orderId) {
         });
 
 }
+
+
+
+$(document).ready(function(){
+  $('.approveBtn').click(function() {
+
+        let orderId = $('#orderId').val();
+        window.location = "runningOrders.php?confirm=2&orderId=" + orderId;
+    });
+});
+
+function cnfIssueOut(orderId) {
+    
+    $('.issueOutOrdId').val(orderId);
+
+   
+
+}
+
 </script>

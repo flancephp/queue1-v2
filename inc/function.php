@@ -3600,11 +3600,14 @@ function get_editRequisition_permission($designation_id,$accountId,$orderId){
     
 	if ($editOrderPermissionRow['type_id'] == 1) 
 	{
-		echo '<a href="editRecusation.php?orderId='.$orderId.'" class="glyphicon glyphicon-list-alt" style="color:#808080; width: 8%;display: inline-block;text-align: center;" title="'.showOtherLangText('Edit').'"></a>|';
+		echo '<div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="editRequisition.php?orderId='.$orderId.'" class="runLink">
+                                                            <span class="edIt"></span>
+                                                        </a>
+                                                    </div>';
 	}
 	else
 	{
-		echo '<span style="display:inline-block;width: 9%;">&nbsp;</span>';
+		echo '<span style="display:inline-block;width: 9%;">ddd&nbsp;</span>';
 	}
 
 }
@@ -3621,7 +3624,7 @@ function get_receiveOrder_permission($designation_id, $accountId, $orderId){
 	{
 		echo '<div
                                                         class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
+                                                        <a href="receiveOrder.php?orderId='.$orderId.'" class="runLink">
                                                             <span class="isuOut"></span>
                                                             <p class="btn2 cn-btn">'.showOtherLangText('Receive').'</p>
                                                         </a>
@@ -3664,7 +3667,9 @@ function get_assignOrder_permission($designation_id, $accountId, $orderId, $orde
 			
 			echo '<div
                                                         class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
+                                                        <a class="editicon runLink userLink edt_CatLnk"
+                                                    data-bs-toggle="modal"  onClick="AssignOrder('.$orderType.', '.$orderId.')"
+                                                     data-bs-target="#assign-order" >
                                                             <span class="isuOut"></span>
                                                             <p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p>
                                                         </a>
@@ -3700,7 +3705,9 @@ function get_issueOut_permission($designation_id, $accountId, $orderId){
 		?>
 <div
                                                         class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
+                                                        <a onclick="cnfIssueOut(<?php echo $orderId ?>)" class="editicon runLink userLink edt_CatLnk"
+                                                    data-bs-toggle="modal"  
+                                                     data-bs-target="#issue-out">
                                                             <span class="isuOut"></span>
                                                             <p class="btn2 cn-btn">Issue out</p>
                                                         </a>
@@ -4445,7 +4452,7 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 
 			get_issueOut_permission($designation_id, $accountId, $orderId);
 			?>
-<!-- <a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php echo showOtherLangText('Issue Out') ?></a> -->
+<!-- <a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php //echo showOtherLangText('Issue Out') ?></a> -->
 <?Php
 
 			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType); 
