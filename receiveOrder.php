@@ -20,7 +20,7 @@ if ($permissionRow)
     echo "<script>window.location='index.php'</script>";
 }
 
-//update invoice number when user change it
+
 if(isset($_POST['invoiceNumber']) && isset($_POST['orderId'])) 
 {
     $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
@@ -46,6 +46,8 @@ $ordRow = mysqli_fetch_array($resultSet);
 $curDetData = getCurrencyDet($ordRow['ordCurId']);
 
 $fileDataRows = [];
+
+
 if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
 {
     $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
@@ -305,6 +307,33 @@ $otherChrgQry=mysqli_query($con, $sql);
     WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
     $orderQry = mysqli_query($con, $sql);
     
+       
+if(!empty($fileDataRows))
+{
+    $notFoundProducts = [];
+    foreach($fileDataRows as $barCode=>$recRow)
+    {
+        
+        $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '".$barCode."'  AND account_id = '".$_SESSION['accountId']."'   ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $productRes = mysqli_fetch_array($resultSet);
+        if(!$productRes)
+        {
+            $notFoundProducts[] = $barCode;
+        }
+    }
+
+    if( !empty($notFoundProducts) )
+    {
+        $error_file_upload = ''.showOtherLangText('There is no product in product list for these Bar Codes').' : '.implode(', ', $notFoundProducts).'';
+    }
+    else
+    {
+             $success_file_upload = ''.showOtherLangText('Data imported successfully.').'';
+
+    }
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -385,6 +414,48 @@ $otherChrgQry=mysqli_query($con, $sql);
                         <div class="tpBar-grn"></div>
                         <div class="stcPart">
                             <div class="container nwOrder-Div rcvOrder">
+                                 <?php if(isset($_GET['tempDataCleared']) || isset($success_file_upload) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p>
+                                <?php 
+                                echo isset($success_file_upload) ? $success_file_upload : '';
+                                  echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
+                                echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
+                                echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                                echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                                echo isset($_GET['mes']) ? $_GET['mes'] : '';
+                              
+                                if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                                {
+                                    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                                }
+                                elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                                {
+                                    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                                }
+
+                                
+                                ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <?php if(isset($_GET['error']) || (isset($error_file_upload) && $error_file_upload !='' )) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php  if($_GET['error'] == 'alreadyreceived')
+                                   {
+                                    echo ' '.showOtherLangText('This order has been already received').' ';
+                                   }
+                                   if($error_file_upload)
+                                   {
+                                    echo $error_file_upload;
+                                   }
+                              ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                                 <div class="row">
                                     <div class="sltSupp nwOrd-Num">
                                         <div class="ord-Box">
@@ -395,6 +466,8 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     </div>
 
                                     <div class="ordInfo rcvInfo newFeatures">
+                                         <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
+                            name="upload_form" id="upload_form" enctype="multipart/form-data">
                                         <div class="container">
                                             <div class="mbFeature">
                                                 <div class="row gx-3 justify-content-end">
@@ -404,18 +477,18 @@ $otherChrgQry=mysqli_query($con, $sql);
 
                                                             <div
                                                                 class="col-md-6 ordFeature dropdown drpCurr brdLft position-relative">
-                                                                <a href="javascript:void(0)" class="tabFet">
+                                                                <a id="btnFileUpload" href="javascript:void(0)" class="tabFet">
                                                                     <span class="importFile"></span>
-                                                                    <p class="btn2">Import
-                                                                        Receiving File</p>
+                                                                    <p class="btn2"><?php echo showOtherLangText('Import Receiving File'); ?><input type="file" id="uploadFile" name="uploadFile"
+                                                style="display:none"></p>
                                                                 </a>
 
                                                             </div>
                                                             <div class="col-md-6 ordFeature drpFee position-relative">
-                                                                <a href="javascript:void(0)" class="tabFet">
+                                                                <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>"
+                                                target="_blank" class="tabFet">
                                                                     <span class="sampleFile"></span>
-                                                                    <p class="btn2">Download
-                                                                        Sample File</p>
+                                                                    <p class="btn2"><?php echo showOtherLangText('Download Sample File'); ?></p>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -427,10 +500,10 @@ $otherChrgQry=mysqli_query($con, $sql);
 
                                     <div class="col-md-2 text-end smBtn nwNxt-Btn">
                                         <div class="btnBg">
-                                            <a href="javascript:void(0)" class="btn sub-btn std-btn">Receive</a>
+                                            <a href="javascript:void(0)" class="btn sub-btn std-btn receive-btn"><?php echo showOtherLangText('Receive And Issue In');?></a>
                                         </div>
                                         <div class="btnBg mt-3">
-                                            <a href="runningOrders.php" class="btn sub-btn std-btn">Back</a>
+                                            <a href="runningOrders.php" class="btn sub-btn std-btn"><?php echo showOtherLangText('Back');?></a>
                                         </div>
                                         <div class="fetBtn">
                                             <a href="javascript:void(0)">
@@ -440,7 +513,13 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     </div>
                                 </div>
                             </div>
+                           
+                             <input type="hidden" name="updateReceiving" 
+                                    value="<?php echo showOtherLangText('Receive And Issue In');?>" />
+                            <input class="form-control" type="hidden" name="orderId"
+                                value="<?php echo $_GET['orderId'] ?>">
                             <div class="container topOrder rcvOrder">
+                               
                                 <div class="row">
                                     <div class="suppDetl">
                                         <div class="recvInv">
@@ -462,57 +541,213 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                 autocomplete="off" value="<?php echo $ordRow['invNo'] ?>"
                                                 oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                 onChange="getInvNo(),this.setCustomValidity('')" required />
+                                                <div class="error" id="invError"></div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="ordInfo rcvInfo">
+                                    <div id="totalOrdArea" class="ordInfo rcvInfo">
                                         <div class="container">
                                             <div class="prcTable">
+                                                <?php 
+
+                       //get the sum of all product and item level charges 
+                        $sqlSet="SELECT *, SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details 
+
+                        WHERE account_id = '".$_SESSION['accountId']."' AND ordId='".$_GET['orderId']."' AND (customChargeType='1' OR customChargeType='0')";
+
+                        $resultSet = mysqli_query($con, $sqlSet);
+                        $chargeRow = mysqli_fetch_array($resultSet);    
+                        $chargePrice=$chargeRow['sum1'];
+                        $chargePriceOther=$chargeRow['totalAmtOther'];
+
+                        //to find order level charge
+                        $ordCount="SELECT * from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                        $ordCountResult = mysqli_query($con, $ordCount);
+                        $ordCountRow = mysqli_num_rows($ordCountResult);
+
+                        if ($ordCountRow > 0)
+                            { ?>
                                                 <div class="price justify-content-between">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>Total</p>
+                                                        <p><?php echo showOtherLangText('Sub Total');?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>23,990 $</p>
+                                                            <p><?php echo showPrice($chargePrice,$getDefCurDet['curCode']); ?></p>
                                                         </div>
+                                                        <?php 
+                                    if($ordRow['ordCurId'] > 0)
+                                        {?>
                                                         <div class="p-2 otherCurr">
-                                                            <p>23,990 €</p>
+                                                            <p><?php echo showOtherCur($chargePriceOther, $ordRow['ordCurId']);?></p>
                                                         </div>
+                                        <?php } ?>
                                                     </div>
                                                 </div>
+                            <?php
+                                }
+
+                        //Starts order level fixed discount charges
+                        $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                        INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+
+                        WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
+
+                        $ordQry = mysqli_query($con, $sql);
+
+
+                        $fixedCharges = 0;
+                        $fixedChargesOther = 0;
+                        while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                        {
+                            $fixedCharges += $row['price'];
+                            $fixedChargesOther += $row['curAmt'];
+
+
+                            ?>
                                                 <div class="price justify-content-between taxRow">
                                                     <div class="p-2 delIcn text-center">
-                                                        <a href="javascript:void(0)">
+                                                        <!-- <a href="javascript:void(0)">
                                                             <i class="fa-solid fa-trash-can"></i>
-                                                        </a>
+                                                        </a> -->
                                                     </div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>VAT 19%</p>
+                                                        <p><?php echo $row['feeName'];?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>11.362 $</p>
+                                                            <p><?php echo showPrice($row['price'],$getDefCurDet['curCode']);?></p>
                                                         </div>
+                                                        <?php if($ordRow['ordCurId'] > 0){?>
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($row['curAmt'], $ordRow['ordCurId']);?></p>
+                                                        </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                        <?php
+                          } //Ends order lelvel fixed discount charges
+
+
+                    //Starts order level per discount charges
+                      $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                      INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+
+                      WHERE od.ordId = '".$_GET['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'   and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
+                      $ordQry = mysqli_query($con, $sql);
+
+                      $perCharges = 0;
+                      $perChargesOther = 0;
+                    while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                    {
+                        $perCharges += $row['price'];
+                        $perChargesOther = $row['curAmt'];
+
+                        $calDiscount = ($chargePrice*$row['price']/100);
+                        $calDiscountOther = ($chargePriceOther*$row['price']/100);
+
+                        ?>
+                                                    <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <!-- <a href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a> -->
+                                                    </div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo $row['feeName'];?>
+                                                                <?php echo $row['price'] ?> %</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php echo showPrice($calDiscount,$getDefCurDet['curCode']);?></p>
+                                                        </div>
+                                                         <?php if($ordRow['ordCurId'] > 0){?>
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($calDiscountOther, $ordRow['ordCurId']);?></p>
+                                                        </div>
+                                                         <?php } ?>
+                                                    </div>
+                                                </div>
+
+                                                    <?php
+                     } //Ends order lelvel per discount charges
+
+
+                    $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
+                    $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
+
+
+                    $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                    INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+
+                    WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
+                    $ordQry = mysqli_query($con, $sql);
+
+                    $taxCharges = 0;
+                    $totalTaxChargesOther = 0;
+                while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                {
+                    $taxCharges += $row['price'];
+                    $totalTaxChargesOther += $row['curAmt'];
+
+                    $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
+                    $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
+
+
+                    ?>                          <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <!-- <a href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a> -->
+                                                    </div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p> <?php echo $row['feeName'];?>
+                                                                <?php echo $row['price'] ?> %</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php echo showPrice($calTax,$getDefCurDet['curCode']);?></p>
+                                                        </div>
+                                                         <?php 
+                                                        if($ordRow['ordCurId'] > 0){?>
                                                         <div class="p-2 otherCurr">
                                                             <p>11.362 €</p>
                                                         </div>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
+                           <?php
+                } //Ends order lelvel tax discount charges
+
+
+            $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
+            $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
+
+
+            $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
+            $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
+
+            ?>
+                                     
+
+
                                                 <div class="price justify-content-between grdTtl-Row">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
-                                                        <p>Grand Total</p>
+                                                        <p><?php echo showOtherLangText('Grand Total');?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end curRow">
                                                         <div class="p-2">
-                                                            <p>23,990 $</p>
+                                                            <p><?php echo showPrice($netTotalAmt,$getDefCurDet['curCode']) ?></p>
                                                         </div>
+                                                        <?php 
+                                                        if($ordRow['ordCurId'] > 0){?>
                                                         <div class="p-2 otherCurr">
-                                                            <p>23,990 €</p>
+                                                            <p><?php echo showOtherCur($netTotalAmtOther, $ordRow['ordCurId']);?></p>
                                                         </div>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -520,8 +755,9 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     </div>
                                 </div>
                             </div>
+                        </form>
                         </div>
-
+                 
                         <div class="container recPrice position-relative">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
@@ -762,9 +998,21 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                     onChange="showTotal('<?php echo $x;?>')">
                                                 <?php echo $getDefCurDet['curCode'] ?>
                                                 </div>
-                                                <!-- <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div> -->
+                                                     <?php 
+                if( isset($curDet) )
+                {
+                    $showOtherCurrency = showOtherCur($boxPriceOther, $curDet['id']);
+                    $showOtherCurrency = trim($showOtherCurrency, $curDet['curCode']);
+
+                ?><div class="dflt-RecPrc tb-bdy">
+                                                    <input class="form-control qty-itm" type="text" id="priceIdOther<?php echo $x;?>" name="priceOther[<?php echo $row['id'];?>]" autocomplete="off"
+                                                    value="<?php echo $showOtherCurrency; ?>" size="5"
+                                                    onChange="showTotalOther('<?php echo $x;?>')">
+                                                <?php echo $curDet['curCode'];?>
+                                                </div>
+                                        <?php
+            }
+            ?>
                                             </div>
                                         </div>
                                         <div class="recTtlPrc-Type d-flex align-items-center">
@@ -825,31 +1073,40 @@ $otherChrgQry=mysqli_query($con, $sql);
                                  <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
                                         <div class="prdtImg tb-bdy">
-                                            <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img">
+                                           <?php $img = '';
+            if( $productRes['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$productRes['imgName'] )  )
+            {   
+                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$productRes['imgName'].'" width="60" height="60">';
+            }?>
                                         </div>
                                         <div class="recItm-Name tb-bdy">
-                                            <p class="recive-Item">Apple</p>
+                                            <p class="recive-Item"><?php echo $productRes['itemName'];?></p>
                                         </div>
                                         <div class="recQty-Code cloneQty-Code align-items-center">
                                             <div class="recItm-brCode tb-bdy">
-                                                <p>9781462570123</p>
+                                                <p><?php echo $productRes['barCode'];?><input type="hidden"
+                                                id="barCode<?php echo $x;?>" name="barCode[]"
+                                                value="<?php echo $productRes['barCode'];?>" size="10"></p>
                                             </div>
                                             <div class="qty-Ordred tb-bdy">
-                                                <p>10 <span class="tabOn-Qty">On stock</span></p>
+                                                <p> 0 <span class="tabOn-Qty">On stock</span></p>
                                             </div>
                                         </div>
                                         <div class="recPrc-Unit d-flex">
                                             <div class="tab-RecItm"></div>
                                             <div class="recItm-Unit tb-bdy">
-                                                <p>Kg</p>
+                                                <p id="purUnit<?php echo $x;?>"><?php echo $productRes['purchaseUnit'];?></p>
                                             </div>
                                             <div class="qty-Rcvd tb-bdy">
-                                                <input type="text" class="form-control qty-itm recQty-Receive"
-                                                    placeholder="1">
+                                                <input class="form-control qty-itm recQty-Receive" type="text" id="qty<?php echo $x;?>" name="qtyReceived[]"
+                                                onChange="showTotal(<?php echo $x;?>)" size="5"
+                                                value="<?php echo $qty;?>">
                                             </div>
                                             <div class="recCr-Type d-flex align-items-center">
                                                 <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                    <input type="text" class="form-control qty-itm" id="priceId<?php echo $x;?>" name="qtyReceivedPrice[]"
+                                                value="<?php echo $boxPrice;?>" size="5"
+                                                onChange="showTotal(<?php echo $x;?>)">$
                                                 </div>
                                                 <div class="othr-RecPrc tb-bdy">
                                                     <input type="text" class="form-control qty-itm" placeholder="1">
@@ -859,11 +1116,12 @@ $otherChrgQry=mysqli_query($con, $sql);
                                         <div class="recTtlPrc-Type d-flex align-items-center">
                                             <div class="tabTtl-Price"></div>
                                             <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
+                                                <p><span
+                                                id="totalPrice<?php echo $x;?>"><?php echo showPrice($boxPrice*$qty, $getDefCurDet['curCode']);?></span></p>
                                             </div>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
+                                            <!-- <div class="ttlOtr-RecPrc tb-bdy">
                                                 <p>2.6144 €</p>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="recBr-Hide">
                                         </div>
@@ -896,3 +1154,136 @@ $otherChrgQry=mysqli_query($con, $sql);
 </body>
 
 </html>
+<script>
+    function showTotal(slno) {
+        var unitPrice = $('#priceId' + slno).val();
+        var unitPrice = parseFloat(unitPrice.replaceAll(",", ""));
+        var qty = $('#qty' + slno).val();
+        var factor = $('#factor' + slno).val();
+        var pId = $('#productId' + slno).val();
+
+        var totalPriceVal = (qty * unitPrice).toFixed(4);
+
+        $('#totalPrice' + slno).html(totalPriceVal + ' <?php echo $getDefCurDet['curCode'] ?>');
+
+        var otherCurAmt = '<?php echo $curDet['amt'];?>';
+
+        var totalPriceOther = (qty * unitPrice * otherCurAmt).toFixed(4);
+
+        var priceIdOther = (unitPrice * otherCurAmt).toFixed(4);
+
+        $.ajax({
+                method: "POST",
+                url: "receiveOrderAjax.php",
+                dataType: 'json',
+                data: {
+                    orderId: '<?php echo $_GET['orderId'] ?>',
+                    qty: qty,
+                    pId: pId,
+                    unitPrice: unitPrice,
+                    factor: factor,
+                    totalPriceVal: totalPriceVal,
+                    curAmtVal: otherCurAmt,
+                    priceIdOther: priceIdOther,
+                    currencyId: '<?php echo $curDet['id']; ?>'
+
+                }
+            })
+            .done(function(responseObj) {
+
+                $('#totalOrdArea').html(responseObj.resHtml);
+                $('#priceIdOther' + slno).val(responseObj.priceIdOther);
+                $('#totalPriceOther' + slno).html(responseObj.totalPriceOther);
+
+            });
+
+    }
+
+     function showTotalOther(slno, otherAmt = 1) {
+        var unitPrice = $('#priceIdOther' + slno).val();
+        var unitPrice = parseFloat(unitPrice.replaceAll(",", ""));
+        var qty = $('#qty' + slno).val();
+        var factor = $('#factor' + slno).val();
+        var pId = $('#productId' + slno).val();
+        var totalPriceOther = (qty * unitPrice);
+        var otherCurAmt = '<?php echo $curDet['amt'];?>';
+        var dolPrice = (qty * unitPrice) / otherCurAmt;
+        var priceId = (unitPrice / otherCurAmt);
+
+        $.ajax({
+                method: "POST",
+                url: "receiveOrderAjax.php",
+                dataType: 'json',
+                data: {
+                    orderId: '<?php echo $_GET['orderId'] ?>',
+                    qty: qty,
+                    pId: pId,
+                    factor: factor,
+                    unitPrice: unitPrice,
+                    priceId: priceId,
+                    curAmtVal: otherCurAmt,
+                    currencyId: '<?php echo $curDet['id']; ?>',
+                    otherAmt: otherAmt
+
+                }
+            })
+            .done(function(responseObj) {
+
+                $('#totalOrdArea').html(responseObj.resHtml);
+                $('#totalPrice' + slno).html(responseObj.totalPrice);
+                $('#totalPriceOther' + slno).html(responseObj.totalPriceOther);
+                $('#priceId' + slno).val(responseObj.priceId);
+
+            });
+
+    }
+
+    $('.receive-btn').click(function(){
+         var invNo = document.getElementById("invNo");
+         var invError = document.getElementById("invError");
+
+         if (!invNo.checkValidity()) {
+              invNo.reportValidity()
+              
+        } else {
+            
+            $('#upload_form').submit();
+        }
+        
+
+
+    });
+</script>
+<script>
+    //update invoice number when user change/fill invoice section
+    function getInvNo() {
+
+        var invNumber = $("#invNo").val();
+
+        if (invNumber !== '') {
+            $.ajax({
+
+                method: "POST",
+                url: "receiveOrder.php",
+                data: {
+                    invoiceNumber: invNumber,
+                    orderId: '<?php echo $_GET['orderId'] ?>'
+                }
+            })
+
+        }
+
+    }
+    </script>
+    <script type="text/javascript">
+    window.onload = function() {
+        var fileupload = document.getElementById("uploadFile");
+        var button = document.getElementById("btnFileUpload");
+        button.onclick = function() {
+            fileupload.click();
+        };
+        fileupload.onchange = function() {
+            document.getElementById('upload_form').submit();
+        };
+    };
+    </script>
