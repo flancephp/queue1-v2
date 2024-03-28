@@ -68,6 +68,7 @@ $error = '';
 if($_GET['confirm'] == 2)//for recusation
 {	
 			//this is for light box popup once quanity is being updated 
+	        
 			if (isset($_POST['reqQty']) && !empty($_POST['reqQty']) ) {
 				
 				foreach ($_POST['reqQty'] as $productId => $qty) 
@@ -77,7 +78,7 @@ if($_GET['confirm'] == 2)//for recusation
 					mysqli_query($con, $sql);
 				}
 				
-               // requisitionTotalValue($_POST['orderId']);
+                requisitionTotalValue($_POST['orderId']);
 			}
 
            
@@ -103,15 +104,15 @@ if($_GET['confirm'] == 2)//for recusation
 				$stkRow = mysqli_fetch_array($stkQry);
 			
 				$productIds[$ordRow['pId']]['qty'] = $ordRow['qty'];
-			
+			    $stkRow['pId'];
+			   
 				if ($stkRow['pId'] > 0)
 				{
 					if( $stkRow['qty'] < $ordRow['qty']  )
 					{
 						$_SESSION['errorQty'] = 1;
 						$_SESSION['errorQtyOrderId'] = $_GET['orderId'];
-			
-						echo "<script>window.location='runningOrders.php'</script>";die();
+			            echo "<script>window.location='runningOrders.php'</script>";die();
 					}
 				}
 			
@@ -423,6 +424,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Order Updated').' ' : '';
 echo isset($_GET['assigned']) ? ' '.showOtherLangText('User has been assigned successfully for selected order').' ' : '';
 
 echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigned successfully for selected order').' ' : '';
+
 ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -432,6 +434,11 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                             <?php if((isset($_GET['error']) && $_GET['error']!='') || isset($_GET['error_already_exist'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('This Currency is used in order so it cannot be deleted.').' ' : ''; ?>
+                                <?php if( isset($_GET['error']) && $_GET['error'] == 'alreadyIssuedOut')
+	{
+	
+			echo ' '.showOtherLangText('This order has been already issued out').' ';
+	} ?>
  </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
@@ -441,44 +448,30 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                             <div style="width: 3%;">&nbsp;</div>
                             <div class="d-flex align-items-center runTable py-1" style="width: 97%;">
 
-                                <div class="d-flex align-items-center" style="width: 60%;">
+                                <div class="d-flex align-items-center" style="width: 53%;">
                                     <div style="width: 3%;">&nbsp;</div>
-                                    <div class="d-flex align-items-center">
-                                        <div class="p-1" style="width: 25%;">
-                                            <p><?php echo showOtherLangText('Number'); ?></p>
+                                    <div class="d-flex align-items-center" style="width: 60%;">
+                                        <div class="p-1" style="width: 30%;">
+                                            <p>Refer to</p>
                                         </div>
-                                        <div class="p-1" style="width: 25%;">
-                                            <p><?php echo showOtherLangText('Member'); ?></p>
+                                        <div class="p-1" style="width: 17%;">
+                                            <p>Date</p>
                                         </div>
                                         <div class="rnTsk-Num">
-                                            <p><?php echo showOtherLangText('User'); ?></p>
+                                            <p>Number</p>
                                         </div>
-                                        <div class="p-1" style="width: 25%;">
-                                            <p><?php echo showOtherLangText('Supplier'); ?></p>
-                                        </div>
-                                        <div class="p-1" style="width: 25%;">
-                                            <p><?php echo showOtherLangText('Date'); ?></p>
-                                        </div>
+                                    </div>
+                                    <div style="width: 25%;">
                                         <div class="p-1">
-                                            <p><?php echo showOtherLangText('Value'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                            <p>Value</p>
                                         </div>
-                                        <!-- <div class="p-1">
-                                            <p><?php //echo showOtherLangText('Other Cur.'); ?></p>
-                                        </div> -->
-                                      
                                     </div>
-                                    
 
 
                                 </div>
-                                <div class="d-flex align-items-center" style="width: 30%;">
+                                <div class="d-flex align-items-center" style="width: 45%;">
                                     <div class="p-1">
-                                        <p><?php echo showOtherLangText('Status'); ?></p>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center" style="width: 30%;">
-                                    <div class="p-1">
-                                        <p><?php echo showOtherLangText('Action'); ?></p>
+                                        <p>Status</p>
                                     </div>
                                 </div>
                             </div>
@@ -536,31 +529,29 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                     ?>
                         <div class="task">
                             <!-- Confirmed Member Part Start -->
-                            <div class="d-flex align-items-center mt-0 mainRuntsk">
+                            <div class="d-flex align-items-center <?php if($x==1) { echo 'mt-0'; }  else  {?> mt-3 <?php } ?> mainRuntsk">
                                 <div class="srNum">
                                     <p><?php echo $x;?></p>
                                 </div>
                                 <div class="fxdhtBox">
                                     <div class="mbSbar">&nbsp;</div>
                                     <div class="align-items-center dskDetail">
-                                        <div class="d-flex align-items-center runDetail mbrDtl-Bg">
+                                        <div class="d-flex align-items-center runDetail <?php if($orderRow['ordType'] == 1) { echo 'mbrDtl-Bg'; } else { echo 'reqDtl-Bg'; } ?>">
                                             <div class="<?php if($orderRow['ordType'] == 1) { echo 'reqType'; } else { echo 'ordType'; } ?> ">&nbsp;</div>
                                             <div class="d-flex align-items-center ordeReq">
-                                                <div class="p-1 reqDtl <?php if($orderRow['ordType'] == 1) { echo 'member-Name'; } else { echo 'supMem-Name'; } ?> " style="width: 35%;">
-                                                    <p><?php echo $orderRow['ordNumber'];?></p>
+                                                <div class="p-1 reqDtl <?php if($orderRow['ordType'] == 1) { echo 'member-Name'; } else { echo 'supMem-Name'; } ?> ">
+                                                    <p><?php //echo $orderRow['ordNumber'];?><?php if($orderRow['ordType'] == 1) { echo 'Member'; } else { echo 'Supplier'; } ?></p>
                                                 </div>
-                                                <div class="p-1"  style="width: 35%;">
-                                                    <p><?php echo $orderRow['deptMem'];?></p>
+                                               
+                                                <div class="p-1 dt-run">
+                                                    <p><?php echo date('d-m-y', strtotime($orderRow['ordDateTime']) );?></p>
                                                 </div>
-                                                <div class="p-1"  style="width: 35%;">
-                                                    <p><?php echo $orderRow['orderBy'];?></p>
+                                                <div class="p-1 mbrRuntsk" >
+                                                    <p># <?php echo $orderRow['ordNumber'];?></p>
                                                 </div>
-                                                <div class="p-1" style="width: 35%;">
-                                                    <p> <?php echo $orderRow['supplierName'];?></p>
-                                                </div>
-                                                <div class="p-1" style="width: 35%;">
-                                                    <p><?php echo date('d-m-y h:i', strtotime($orderRow['ordDateTime']) );?></p>
-                                                </div>
+                                                <!-- <div class="p-1" >
+                                                    <p><?php //echo date('d-m-y h:i', strtotime($orderRow['ordDateTime']) );?></p>
+                                                </div> -->
                                                 <!-- <div class="p-1 mbrRuntsk" style="width: 30%;">
                                                     <p><?php //echo showPrice($orderRow['ordAmt'], $getDefCurDet['curCode']); ?></p>
                                                 </div> -->
@@ -576,7 +567,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                         </div>
                                         <div class="align-items-center tmpStatus togleOrder">
                                             <div class="py-1 px-1 d-flex align-items-center stsBar">
-                                                <div class="task-status">
+                                                <div class="task-status <?php if($orderRow['status']=='0' || $orderRow['status']==null) { echo 'pending-Sts'; } ?>">
                                                     <p><?php
 				if ($orderRow['ordType'] == 1)
 				{
@@ -612,46 +603,33 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 				}
 				
 				?>
-                                                    <!-- <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="isuOut"></span>
-                                                            <p class="btn2 cn-btn">Issue out</p>
-                                                        </a>
-                                                    </div>
-                                                    <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
-                                                            <p class="btn2">Assign</p>
-                                                        </a>
-                                                    </div> -->
-                                                    <!-- <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
-                                                        <a href="javascript:void(0)">
-                                                            <p class="h3">Inv</p>
-                                                        </a>
-                                                    </div> -->
+                                                    
                                                 </div>
-                                                <div class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
-                                                            <p class="btn2">View Details</p>
+                                                <div class="d-flex align-items-center dleOptnreq">
+                                                    <div
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        <a href="javascript:void(0)" class="dropdown-toggle runLink"
+                                                            role="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <span class="docMent"></span>
+                                                            <p class="btn2">Documents <i
+                                                                    class="fa-solid fa-angle-down"></i>
+                                                            </p>
                                                         </a>
-                                                 </div>
+
+                                                        <ul class="dropdown-menu">
+                                                            
+                                                            <li><a class="dropdown-item"
+                                                                    href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
+                                                            </li>
                                                  <?php 
 			if($orderRow['ordType'] == 1)
 			{
 			//issue in
 				?>
-
-                                                <div class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
-                                                            <p class="btn2">Details(Supplier)</p>
-                                                        </a>
-                                                 </div>
-
+                                                 <li><a class="dropdown-item"
+                                                                    href="javascript:void(0)"><i class="far fa-square pe-2"></i>Details(Supplier)</a>
+                                                            </li>
                                                 <?php 
 			} 
 			elseif($orderRow['ordType'] == 2)
@@ -660,9 +638,12 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 				?>
 
                                               
-
+                     
                                                 <?php
 			} ?>
+			</ul>
+                                                    </div>
+                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
                                                 	<?php 
                                                     get_deleteOrder_permission($_SESSION['designation_id'], $_SESSION['accountId'], $orderRow['id'], $orderRow['ordType']);
@@ -771,11 +752,54 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
         </div>
     </div>
    </form>
+    <form action="runningOrders.php?confirm=2&orderId=<?php echo $_SESSION['errorQtyOrderId'] ?>" method="POST" id="frm_issueOutPopUpFinalFrm"
+        name="issueOutPopUpFrm">
+        <div class="modal" tabindex="-1" id="errorQtyModal" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+             
+
+             <?php 
+			if( isset($_SESSION['errorQty']) && $_SESSION['errorQty'] == 1)
+			{
+				checkStockQtyRequisition($_SESSION['errorQtyOrderId'], $_SESSION['accountId']);
+			}
+			?>
+        </div>
+    </div>
+        <!-- The Modal-1-->
+        
+    </form>
 </body>
 
 </html>
 <script>
 function getDelNumb(canId, ordType) {
+
+    $("#dialog").dialog({
+        autoOpen: false,
+        modal: true,
+        //title     : "Title",
+        buttons: {
+            '<?php echo showOtherLangText('Yes') ?>': function() {
+                //Do whatever you want to do when Yes clicked
+                $(this).dialog('close');
+                window.location.href = 'runningOrders.php?canId=' + canId + '&type=' + ordType;
+            },
+
+            '<?php echo showOtherLangText('No') ?>': function() {
+                //Do whatever you want to do when No clicked
+                $(this).dialog('close');
+            }
+        }
+    });
+
+    $("#dialog").dialog("open");
+    $('.custom-header-text').remove();
+    $('.ui-dialog-content').prepend(
+        '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+}
+
+function show_popup_issue_out() {
 
     $("#dialog").dialog({
         autoOpen: false,
@@ -872,18 +896,69 @@ function AssignOrder(orderType, orderId) {
 
 $(document).ready(function(){
   $('.approveBtn').click(function() {
+         $.ajax({
+            method: "POST",
+            url: "runningOrders.php",
 
-        let orderId = $('#orderId').val();
-        window.location = "runningOrders.php?confirm=2&orderId=" + orderId;
+            data: {
+                clickApproveBtn: 1
+            },
+            success: function (data) {
+           let orderId = $('.issueOutOrdId').val();
+           window.location = "runningOrders.php?confirm=2&orderId=" + orderId;
+           },
+        })   
+        
     });
+
+  $('.submitFinalIssueOut').click(function() {
+         $.ajax({
+            method: "POST",
+            url: "runningOrders.php",
+
+            data: {
+                clickApproveBtn: 1
+            },
+            success: function (data) {
+           $('#frm_issueOutPopUpFinalFrm').submit();
+           },
+        }) 
+        
+    });
+
+  var errorQty = '<?php echo $_SESSION['errorQty'] ?>';
+	if (errorQty != '' && errorQty == 1) {
+		  $('#errorQtyModal').modal('show');
+	}
+
+	window.onclick = function(event) {
+    console.log('event.target',event.target);
+    // if (event.target == modal) {
+    //     modal.style.display = "none";
+    // }
+    // if (event.target == errorQtyModal) {
+    //     errorQtyModal.style.display = "none";
+
+        $.ajax({
+            method: "POST",
+            url: "runningOrders.php",
+
+            data: {
+                clickAnywhere: 1
+            }
+        })
+    
+    // if (event.target == assignModalPopup) {
+    //     assignModalPopup.style.display = "none";
+    // }
+
+}
 });
 
 function cnfIssueOut(orderId) {
     
     $('.issueOutOrdId').val(orderId);
-
-   
-
 }
+
 
 </script>

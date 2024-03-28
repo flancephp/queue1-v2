@@ -3736,7 +3736,7 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 
 <div
                                                         class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="runLink">
+                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '1');" class="runLink">
                                                             <span class="dlTe"></span>
                                                         </a>
                                                     </div>
@@ -3826,17 +3826,19 @@ function access_delete_history_file($designation_id,$accountId,$orderId){
 	{
 
 		?>
-<div style="width:2%;">
+<!-- <div style="width:2%;">
     <strong>|</strong>
 </div>
 <div style="width: 10%; text-align: center;">
-    <!-- <a href="history.php?delOrderId=<?php echo $orderId;?>#del"
-	        onClick="return confirm('<?php echo showOtherLangText('Are you sure to Delete this Record?') ?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash" title="<?php echo showOtherLangText('Delete') ?>"></a> -->
+     <a href="history.php?delOrderId=<?php //echo $orderId;?>#del"
+	        onClick="return confirm('<?php //echo showOtherLangText('Are you sure to Delete this Record?') ?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') ?>"></a> -->
 
-    <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>');" style="color:#000 !important;"
-        class="glyphicon glyphicon-trash" title="<?php echo showOtherLangText('Delete') ?>"></a>
+  <!--   <a href="javascript:void(0)" onClick="getDelNumb('<?php //echo $orderId;?>');" style="color:#000 !important;"
+        class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') ?>"></a>
 
-</div>
+</div> -->
+<div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>');" style="color:#000 !important;"
+        class="glyphicon glyphicon-trash" title="<?php echo showOtherLangText('Delete') ?>"><span class="dlTe"></span></a></div>
 
 <?php
 	}
@@ -4223,9 +4225,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		{
 			?>
 
-<span style="color:red;">
-    <strong><?php echo showOtherLangText('Ordered') ?></strong>
-</span>
+<?php echo showOtherLangText('Ordered') ?>
 
 <?php
 
@@ -4234,14 +4234,11 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		{
 			?>
 
-<span>
-    <!-- <strong><?php //echo showOtherLangText('Assigned') ?></strong> -->
-    <strong>
-        <a href="javascript:void(0)" style="color:green;" class="assignedBtn"
+
+        <a href="javascript:void(0)"  class="assignedBtn"
             onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
             title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
-    </strong>
-</span>
+   
 
 <?php
 
@@ -4250,14 +4247,9 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		{
 			?>
 
-<span>
-    <!-- <strong><?php echo showOtherLangText('Assigned') ?></strong> -->
-    <strong>
-        <a href="javascript:void(0)" style="color:green;" class="assignedBtn"
-            onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
-            title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
-    </strong>
-</span>
+
+        <?php echo showOtherLangText('Assigned') ?>
+    
 
 <?php
 
@@ -4266,9 +4258,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		{
 			?>
 
-<span style="color:red;" title="<?php echo showOtherLangText('Mobile Operator Stock Take Done') ?>">
-    <strong><?php echo showOtherLangText('Done') ?></strong>
-</span>
+<?php echo showOtherLangText('Done') ?>
 
 <?php
 
@@ -4276,9 +4266,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		else
 		{
 			?>
-<span style="color:green;">
-    <strong><?php echo showOtherLangText('Temp Order') ?></strong>
-</span>
+<?php echo showOtherLangText('Temp Order') ?>
 
 <?php
 
@@ -4298,7 +4286,7 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<span style="color:red;"><strong><?php echo showOtherLangText('Requested') ?></strong></span>
+<?php echo showOtherLangText('Requested') ?>
 
 <?php
 
@@ -4307,15 +4295,8 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<span>
-    <!-- <strong><?php echo showOtherLangText('Assigned') ?></strong> -->
-    <strong>
-        <a href="javascript:void(0)" style="color:green;" class="assignedBtn"
-            onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
-            title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
-    </strong>
-</span>
-
+<?php echo showOtherLangText('Assigned') ?>
+    
 <?php
 
 		}
@@ -4323,15 +4304,10 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<span>
-    <!-- <strong><?php echo showOtherLangText('Assigned') ?></strong> -->
-    <strong>
-        <a href="javascript:void(0)" style="color:green;" class="assignedBtn"
+<a href="javascript:void(0)"  class="assignedBtn"
             onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
             title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
-    </strong>
-</span>
-
+   
 <?php
 
 		}
@@ -4349,9 +4325,8 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<span style="color:green;">
-    <strong><?php echo showOtherLangText('Temp Requisition') ?></strong>
-</span>
+<?php echo showOtherLangText('Temp Requisition') ?>
+
 
 <?php
 		}
@@ -5279,44 +5254,76 @@ function checkStockQtyRequisition($orderId, $accountId)
 	$productNames = [];
 	while($ordRow = mysqli_fetch_array($ordQry) )
 	{ 	
-		//$productNames[] = "<div><strong>".'"'. $ordRow['itemName'] .'"'."</strong> ".showOtherLangText('max available Quantity in stock is')." <strong>".$ordRow['qtyInStock'].".</strong> ".showOtherLangText('Please edit it.')." <input type='hidden' name='orderId' value='".$orderId."'><input type='text' name='reqQty[".$ordRow['pId']."]' value='".$ordRow['orderedQty']."'></div>";
+		// $productNames[] = "<div><strong>".'"'. $ordRow['itemName'] .'"'."</strong> ".showOtherLangText('max available Quantity in stock is')." <strong>".$ordRow['qtyInStock'].".</strong> ".showOtherLangText('Please edit it.')." <input type='hidden' name='orderId' value='".$orderId."'><input type='text' name='reqQty[".$ordRow['pId']."]' value='".$ordRow['orderedQty']."'></div>";
 
-		$productNames[] = "<tr><td>". $ordRow['itemName'] ."</td>
-							<td>". $ordRow['qtyInStock'] ."</td>
-							<input type='hidden' name='orderId' value='".$orderId."'>
-							<td><input type='text' class='form-control' name='reqQty[".$ordRow['pId']."]' value='".$ordRow['orderedQty']."'></td></tr>";
+		// $productNames[] = "<tr><td>". $ordRow['itemName'] ."</td>
+		// 					<td>". $ordRow['qtyInStock'] ."</td>
+		// 					<input type='hidden' name='orderId' value='".$orderId."'>
+		// 					<td><input type='text' class='form-control' name='reqQty[".$ordRow['pId']."]' value='".$ordRow['orderedQty']."'></td></tr>";
+
+		$productNames[] =    '<div class="modal-body">
+    <div style="display: inline-block;width: 28%;">'. $ordRow['itemName'] .'</div>
+    <div style="display: inline-block;width: 20%;">'. $ordRow['qtyInStock'] .'</div>
+    <div style="display: inline-block;width: 25%;"><input type="text" class="form-control" name="reqQty['.$ordRow['pId'].']" value='.$ordRow['orderedQty'].'></div>
+    <input type="hidden" name="orderId" value='.$orderId.'></div>';
 	}
 	
 	//print_r($productNames);
-	$errorMes =   showOtherLangText('Below items has less stocks than added in this requisition so please edit it:');
+	//$errorMes =   showOtherLangText('Below items has less stocks than added in this requisition so please edit it:');
+	// $errorMes = '<div class="modal-header">
+    //                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    //                 <h1 class="modal-title h1">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</h1>
+    //             </div>';
 	
-	$errorMes .= "<br><br>";
+	// //$errorMes .= "<br><br>";
 
-	$errorMes .= "<p># ".$qryRow['ordNumber']."</p>";
+	//  $errorMes .= "<p># ".$qryRow['ordNumber']."</p>";
 
-	$errorMes .= "<table class='issueOut-qtyTbl'>
-					<thead>
-						<tr>
-							<th style='width: 60%;'>". showOtherLangText('Item') ."</th>
-							<th style='width: 20%;'>". showOtherLangText('S.Qty') ."</th>
-							<th style='width: 20%;'>". showOtherLangText('Qty') ."</th>
-						</tr>
-					</thead>
-					<tbody>";
+	// $errorMes .= "<div>
+	// 				<div>
+	// 					<div>
+	// 						<div >". showOtherLangText('Item') ."</div>
+	// 						<div >". showOtherLangText('S.Qty') ."</div>
+	// 						<div >". showOtherLangText('Qty') ."</div>
+	// 					</div>
+	// 				</div>
+	// 				<div>";
 	
-	$errorMes .= implode('',$productNames);
-
-	$errorMes .= "</tbody>
-					</table>";
-
-	//$errorMes .= "<br><br>";
-
-	$errorMes .= '<div class="allBtn popupBtn">
-					<div><input type="submit" name="approveBtn" class="btn btn-primary approveBtn" value="'.showOtherLangText('Approve').'"></div>
-					<div><button type="button" class="btn btn-primary backBtn" id="backBtn">'.showOtherLangText('Cancel').'</button></div>
-				</div>';
 	
-	echo '<div style="text-align:center;">' . $errorMes . '</div>';
+
+	// $errorMes .= "</div>
+	// 				</div>";
+
+	// //$errorMes .= "<br><br>";
+
+	$errorMes = '<div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</h1>
+                </div>
+                <div class="modal-body">
+                    <div># '.$qryRow['ordNumber'].'</div>
+                    <div>
+                    <input type="hidden" name="orderId" class="issueOutOrdId" value="">
+                    
+                </div>
+            <div class="modal-body">
+    <div style="display: inline-block;width: 28%;">'. showOtherLangText('Item') .'</div>
+    <div style="display: inline-block;width: 20%;">'. showOtherLangText('S.Qty') .'</div>
+    <div style="display: inline-block;width: 25%;">'. showOtherLangText('Qty') .'</div>
+    <div style="display: inline-block;">
+       
+    </div>
+</div>
+     </div>';
+          $errorMes .= implode('',$productNames);
+
+         $errorMes .=       '<div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" class="submitFinalIssueOut btn sub-btn std-btn">'.showOtherLangText('Approve').'</button></div>
+                    </div>
+                </div>';
+	
+	echo '<div class="modal-content">'. $errorMes .'</div>';
 			
 
 }//End Check stock quantity while issue out

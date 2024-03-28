@@ -18,7 +18,7 @@ if (!in_array('4',$checkPermission))
     echo "<script>window.location='index.php'</script>";
 }
 
-
+    
 //Access payment permission for user
 $accessPaymentPermission = get_access_payment_permission($_SESSION['designation_id'],$_SESSION['accountId']);
 
@@ -398,7 +398,7 @@ $historyQry = mysqli_query($con, $mainSqlQry);
 
 
 //get issued in total and issued out total
-$sql = " SELECT o.ordAmt AS totalOrdAmt, o.ordType 
+$sql = " SELECT o.ordAmt AS totalOrdAmt, o.ordType, o.paymentStatus,od.currencyId 
 FROM tbl_order_details od 
 
 INNER JOIN tbl_orders o 
@@ -415,12 +415,30 @@ WHERE o.status = '2' ".$cond1." AND o.account_id = '".$_SESSION['accountId']."' 
 $issueInAndOutQry = mysqli_query($con, $sql);
 
 $issuedInOutArr = [];
+$issuedInOutArrBills = [];
 while( $inAndOutRow = mysqli_fetch_array($issueInAndOutQry) )
-{
-    $totalSumAmt = $inAndOutRow['totalOrdAmt'];
-    $issuedInOutArr[$inAndOutRow['ordType']] += $totalSumAmt;
-}
-//end
+                    {   
+                    
+                        if($inAndOutRow['ordType'] == 1)
+                        {
+                            $issueInTotal += $inAndOutRow['totalOrdAmt'];
+                        }
+                        if($inAndOutRow['ordType'] == 2)
+                        {
+                            $issueOutTotal += $inAndOutRow['totalOrdAmt'];
+                        }
+                        
+                        if ($inAndOutRow['paymentStatus'] == 0 || $inAndOutRow['paymentStatus'] == 2) { // Sum of total pending order amount and regund which status is 2
+                            $totalSumAmt = $inAndOutRow['totalOrdAmt'];
+                            $issuedInOutPendingArr[$inAndOutRow['ordType']][0] += $totalSumAmt;
+
+                            //$issuedInOutCurCode = $inAndOutRow['currencyId'];
+                        }
+                        elseif ($inAndOutRow['paymentStatus'] == 1) { // Sum of total paid order amount
+                            $totalSumAmt = $inAndOutRow['totalOrdAmt'];
+                            $issuedInOutPaidArr[$inAndOutRow['ordType']][$inAndOutRow['paymentStatus']] += $totalSumAmt;
+                        }
+                    }
 
 
 
@@ -429,13 +447,13 @@ while( $inAndOutRow = mysqli_fetch_array($issueInAndOutQry) )
 $typeArr = [1 => ''.showOtherLangText('Issued In').'', 2 => ''.showOtherLangText('Issued Out').'', 3 => ''.showOtherLangText('Stock Take').'', 4 => ''.showOtherLangText('Raw Item Convert').''];
 
 
-$typeOptions = '<ul class="dropdown-menu">';
+$typeOptions = '<ul class="dropdown-menu type_dropdown">';
 //$typeOptions .= '<option value="">'.showOtherLangText('Type').'</option>';
 foreach($typeArr as $typeKey => $typeVal)
 {
     $sel = isset($_GET['ordType']) && $_GET['ordType'] == $typeKey  ? 'selected' : '';
     //$typeOptions .= '<option value="'.$typeKey.'" '.$sel.'>'.$typeVal.'</option>';
-    $typeOptions .= '<li><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$typeVal.'</a></li>';
+    $typeOptions .= '<li data-id="'.$typeKey.'" data-value="'.$typeVal.'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$typeVal.'</a></li>';
 }
 $typeOptions .= '</ul>';
 
@@ -454,11 +472,11 @@ if ($accessHistoryAccountsPermission['type_id'] == 1) {
 
 
 
-$dateTypeOptions = '<ul class="dropdown-menu">';
+$dateTypeOptions = '<ul class="dropdown-menu date_type">';
 foreach($dateArr as $dateKey => $dateVal)
 {
     $sel = isset($_GET['dateType']) && $_GET['dateType'] == $dateKey  ? 'selected' : '';
-    $dateTypeOptions .= '<li><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$dateVal.'</a></li>';
+    $dateTypeOptions .= '<li data-id="'.$dateKey.'" data-value="'.$dateVal.'"><a  class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$dateVal.'</a></li>';
 
 }
 $dateTypeOptions .= '</ul>';
@@ -502,12 +520,11 @@ if ($accessHistoryAccountsPermission['type_id'] == 0) {
     $statusArr = [3 => ''.showOtherLangText('Pending').''];
 }
 
-$statusTypeOptions = '<ul class="dropdown-menu">';
-//$statusTypeOptions .= '<option value="">'.showOtherLangText('Status').'</option>';
+$statusTypeOptions = '<ul class="dropdown-menu status_type">';
 foreach($statusArr as $statusKey => $statusVal)
 {
 $sel = isset($_GET['statusType']) && $_GET['statusType'] == $statusKey  ? 'selected' : '';
-$statusTypeOptions .= '<li><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$statusVal.'</a>
+$statusTypeOptions .= '<li data-id="'.$statusKey.'" data-value="'.$statusVal.'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$statusVal.'</a>
                                                            </li>
 ';
 }
@@ -610,13 +627,13 @@ INNER JOIN tbl_order_details od
 WHERE o.status = 2 ".$date." ".$showAccount." AND o.paymentStatus = 1 AND a.account_id = '".$_SESSION['accountId']."' GROUP BY o.bankAccountId ORDER BY id ";
 $resultSet = mysqli_query($con, $sqlSet);
 
-$accountOptions = '<ul class="dropdown-menu">';
+$accountOptions = '<ul class="dropdown-menu account_dropdown">';
 //$accountOptions .= '<option value="">'.showOtherLangText('Account').'</option>';
 while($accountRow = mysqli_fetch_array($resultSet) ) 
 {
     $sel = isset($_GET['accountNo']) && $_GET['accountNo'] == $accountRow['id']  ? 'selected' : '';
    // $accountOptions .= '<option value="'.$accountRow['id'].'" '.$sel.'>'.$accountRow['accountName'].'</option>';
-$accountOptions .= '<li><a class="dropdown-item" href="javascript:void(0)">'.$accountRow['accountName'].'</a></li>';
+$accountOptions .= '<li data-id="'.$accountRow['id'].'" data-value="'.$accountRow['accountName'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$accountRow['accountName'].'</a></li>';
 }
 $accountOptions .= '</ul>';
 
@@ -644,7 +661,7 @@ INNER JOIN tbl_order_details od
 WHERE o.status = 2 ".$date." ".$suppDetail." AND s.account_id = '".$_SESSION['accountId']."' GROUP BY o.supplierId ORDER BY name ";
 $result = mysqli_query($con, $sqlQry);
 
-$suppMemStoreOptions = '<ul class="dropdown-menu">';
+$suppMemStoreOptions = '<ul class="dropdown-menu referto_dropdown">';
 //$suppMemStoreOptions .= '<option value="">'.showOtherLangText('Refer To').'</option>';
 while($suppRow = mysqli_fetch_array($result))
 {
@@ -653,11 +670,11 @@ while($suppRow = mysqli_fetch_array($result))
     {
         continue;//exclude this order as user don't have its permission
     }
-    $sel = ($getId == $suppRow['id']) ? 'selected="selected"' : '';
+    $sel = ($getId == $suppRow['id']) ? 'selected' : '';
     if ( $_GET['ordType'] == 1 || ($_GET['ordType'] == '' && $_GET['statusType'] != 2) || ($_GET['ordType'] == '' && $_GET['statusType'] == '') ) {
     
         // $suppMemStoreOptions .= '<option style="color:green;" value="suppId_'.$suppRow['id'].'" '.$sel.'>'.$suppRow['name'].'</option>';
-        $suppMemStoreOptions .=  '<li><a class="dropdown-item isuIn-grReq" href="javascript:void(0)">'.$suppRow['name'].'</a></li>';
+        $suppMemStoreOptions .=  '<li data-id="suppId_'.$suppRow['id'].'" data-value="'.$suppRow['name'].'" ><a class="dropdown-item isuIn-grReq '.$sel.' " href="javascript:void(0)">'.$suppRow['name'].'</a></li>';
 
     }
 }
@@ -693,12 +710,12 @@ while($deptUserRow = mysqli_fetch_array($resultSet) )
     {
         continue;//exclude this order as user don't have its permission
     }
-    $sel = ($getId == $deptUserRow['id']) ? 'selected="selected"' : '';
+    $sel = ($getId == $deptUserRow['id']) ? 'selected' : '';
 
     if ($_GET['ordType'] == 2  || ($_GET['ordType'] == '' && $_GET['statusType'] != 1) || ($_GET['ordType'] == '' && $_GET['statusType'] == '') ) {
 
        // $suppMemStoreOptions .= '<option style="color:Red;" value=deptUserId_'.$deptUserRow['id'].' '.$sel.'>'.$deptUserRow['name'].'</option>';
-        $suppMemStoreOptions .=  '<li><a class="dropdown-item isuOut-rdSup" href="javascript:void(0)">'.$deptUserRow['name'].'</a></li>';
+        $suppMemStoreOptions .=  '<li data-id="deptUserId_'.$deptUserRow['id'].'" data-value="'.$deptUserRow['name'].'"><a class="dropdown-item isuOut-rdSup '.$sel.'" href="javascript:void(0)">'.$deptUserRow['name'].'</a></li>';
     }
 }
 
@@ -716,11 +733,11 @@ $resultSet = mysqli_query($con, $sqlSet);
 while($storeRow = mysqli_fetch_array($resultSet) )
 {
 
-    $sel = ($getId == $storeRow['id']) ? 'selected="selected"' : '';
+    $sel = ($getId == $storeRow['id']) ? 'selected' : '';
     if ($_GET['ordType'] == 3 || ($_GET['ordType'] == '' && $_GET['statusType'] == '' && $_GET['accountNo'] == '' && $_GET['dateType'] != 3) ) {
 
         //$suppMemStoreOptions .= '<option style="color:blue;" value=storeId_'.$storeRow['id'].' '.$sel.'>'.$storeRow['name'].'</option>';
-         $suppMemStoreOptions .=  '<li><a class="dropdown-item stockTake-pr" href="javascript:void(0)">'.$storeRow['name'].'</a></li>';
+         $suppMemStoreOptions .=  '<li data-id="storeId_'.$storeRow['id'].'" data-value="'.$storeRow['name'].'" ><a class="dropdown-item stockTake-pr '.$sel.' " href="javascript:void(0)">'.$storeRow['name'].'</a></li>';
 
     }
 }
@@ -896,22 +913,53 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
 
                     <section class="ordDetail hisTory">
 
-                        <!-- <div class="alrtMessage">
+                        <div class="alrtMessage">
                             <div class="container">
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <p> <strong>Hello User!</strong> You record deleted Successfully.</p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
+                                
+                                    <?php if(isset($_GET['delete']) || isset($_GET['status'])) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p><?php 
 
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+echo isset($_GET['status']) ? ' '.showOtherLangText('New record added successfully').' ' : '';
+
+echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully.').' ' : '';
+
+
+?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                                    
+
+                                <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>Hello User!</strong> You should check your order carefully.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
-                                </div>
+                                </div> -->
                             </div>
-                        </div> -->
+                        </div>
+                        <form name="frm" id="frm" method="get" action="">
+                        <input type="hidden" name="downloadType" id="downloadType" value="" />
+                          <input type="hidden" name="ordType" id="ordType" value="<?php if(isset($_GET['ordType'])) { echo $_GET['ordType']; } ?>">
+                           <input type="hidden" name="dateType" id="dateType" value="<?php if(isset($_GET['dateType'])) { echo $_GET['dateType']; } ?>">
+                            <input type="hidden" name="statusType" id="statusType" value="<?php if(isset($_GET['statusType'])) { echo $_GET['statusType']; } ?>">
+                            <input type="hidden" name="accountNo" id="accountNo" value="<?php if(isset($_GET['accountNo'])) { echo $_GET['accountNo']; } ?>">
+                         <input type="hidden" name="suppMemStoreId" id="suppMemStoreId" value="<?php if(isset($_GET['suppMemStoreId'])) { echo $_GET['suppMemStoreId']; } ?>">
+                        <?php 
+                        if( isset($historyUserFilterFields) )
+                        {   
+                        foreach($historyUserFilterFields as $key=>$val)
+                        { 
+                        ?>
+                        <input type="hidden" name="showFields[<?php echo $key;?>]" <?php echo $sel;?>
+                                        value="<?php echo $val;?>">
 
+                                    <?php 
+                        }
+                        }
+                        ?>
                         <div class="container hisData">
                             <div class="row">
                                 <div class="col-md-6">
@@ -933,13 +981,13 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                         <!-- Date Box Start -->
                                         <div class="prtDate">
                                             <div class="hstDate">
-                                                <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('Click here') ?>"
+                                                <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('From date') ?>"
                                                     name="fromDate" autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDate'];?>">
                                                 <span>-</span>
-                                                <input type="text" size="10" class="datepicker" placeholder="15/02/2023"
-                                                    name="fromDate" autocomplete="off" value="">
+                                                <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('To date') ?>"
+                                                    name="toDate" autocomplete="off" value="<?php echo isset($_SESSION['toDate']) ? $_SESSION['toDate'] : $_GET['toDate'];?>">
                                             </div>
-                                            <div class="reloadBtn">
+                                            <div class="reloadBtn date-box-search">
                                                 <a href="javascript:void(0)"><i
                                                         class="fa-solid fa-arrows-rotate"></i></a>
                                             </div>
@@ -979,6 +1027,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                 </div>
                             </div>
                         </div>
+                        </form>
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">
                             <div class="date-flx"></div>
@@ -989,11 +1038,53 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                             <div class="row">
                                 <div class="col-md-5 is-Incol">
                                     <p class="rd-In">Issue in</p>
-                                    <p class="ttlAmount">4,322.05 $</p>
+                                    <p class="ttlAmount"><?php
+                        
+                        if(isset( $issuedInOutArr[1]))
+                        {
+                            $checkIfPermissionToNewOrderSec = checkIfPermissionToNewOrderSec($_SESSION['designation_id'],$_SESSION['accountId']);
+
+
+                            if( mysqli_num_rows($checkIfPermissionToNewOrderSec) > 0)
+                            {
+                                //$issuedOut = showPrice($issuedInOutArr[1], $getDefCurDet['curCode']);
+                                echo isset( $issuedInOutArr[1] ) ? showPrice($issuedInOutArr[1], $getDefCurDet['curCode']) : 0;
+                            }
+                            else
+                            {
+                                echo '0'.' '.$getDefCurDet['curCode'];
+                            }
+                           //isset( $issuedInOutArr[4] ) ? showPrice($issuedInOutArr[1]+($issuedInOutArr[4]/2), $getDefCurDet['curCode']) : $issuedOut;
+                        }
+                        // elseif( isset( $issuedInOutArr[4] ) )
+                        // {
+                        //    showPrice($issuedInOutArr[4]/2, $getDefCurDet['curCode']);
+                        // }
+                        else
+                        {
+                           echo '0'.' '.$getDefCurDet['curCode'];
+                        }
+
+                        ?></p>
                                 </div>
                                 <div class="col-md-5 is-Outcol">
                                     <p class="gr-Out">Issue Out</p>
-                                    <p class="ttlAmount-rec">3,998.06 $</p>
+                                    <p class="ttlAmount-rec"><?php 
+
+                        $checkIfPermissionToNewReqSec = checkIfPermissionToNewReqSec($_SESSION['designation_id'],$_SESSION['accountId']);
+        
+                        if( mysqli_num_rows($checkIfPermissionToNewReqSec) > 0)
+                        {
+                            echo isset( $issuedInOutArr[2] ) ? showPrice($issuedInOutArr[2], $getDefCurDet['curCode']) : 0;
+                        }
+                        else 
+                        {
+                            echo '0'.' '.$getDefCurDet['curCode'];
+                        }
+
+                        
+
+                        ?></p>
                                 </div>
                                 <div class="col-md-2 maxBtn">
                                     <a href="javascript:void(0)" class="maxLink">
@@ -1004,7 +1095,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                         </div>
 
                         <div class="container detailPrice">
-                            <div class="row">
+                            <div class="row align-items-start">
                                 <div class="tab-mbDtl">
                                     <a href="javascript:void(0)" class="tab-revLnk"><i
                                             class="fa-solid fa-arrow-left"></i></a>
@@ -1018,13 +1109,62 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                     <p class="pendStatus">Pending</p>
                                                 </div>
                                                 <div class="col-md-9 text-center">
-                                                    <p class="rd-In">Issue in</p>
-                                                    <p class="ttlAmount">4,322.05 $</p>
-                                                    <p class="pdAmount">2,718.05 $</p>
-                                                    <p class="pendAmount">1,604 $</p>
+                                                    <p class="rd-In"><?php echo showOtherLangText('Issued In'); ?></p>
+                                                    <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']);?></p>
+                                                    <p class="pdAmount"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                    <p class="pendAmount"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php
+
+                                   $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                                    INNER JOIN tbl_orders o 
+                                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                                    INNER JOIN tbl_currency c
+                                        ON(od.currencyId=c.id) AND od.account_id=c.account_Id
+                                    WHERE o.status = '2' ".$cond1." AND o.account_id = '".$_SESSION['accountId']."' GROUP BY o.id ORDER BY o.id desc ";
+                                    $result = mysqli_query($con, $sql);
+                                    $otherCurrRowArr = [];
+                                    $otherCurrTotalValueArr = [];
+                                    $otherCurrPendingTotalValueArr = [];
+                                    while($otherCurrRows = mysqli_fetch_array($result))
+                                    {
+                                        if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2) ) {
+
+                                            // Total rows of other currency pending amount
+                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                            // Sum of total values of pending amount 
+                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                            $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+
+                                        }
+                                        elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
+
+                                            // Total rows of other currency paid amount
+                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                            // Sum of total values of paid amount 
+                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                            $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                        }
+                                        
+                                        if ($otherCurrRows['currencyId'] > 0 ) {
+
+                                            // Total rows of other currency paid amount
+                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                            // Sum of total values of paid amount 
+                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                            $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                        }
+                                    }
+                                    
+                                    
+
+                                    foreach ($otherCurrRowArr as $otherCurrRow)
+                                    {  ?>
                                         <div class="usdCurr text-center">
                                             <div class="paidIsue d-flex">
                                                 <div class="col-md-3">
@@ -1032,14 +1172,15 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                     <p class="pendStatus">Pending</p>
                                                 </div>
                                                 <div class="col-md-9 text-center">
-                                                    <p class="usd-In">Usd</p>
-                                                    <p class="ttlAmount">318.50 $</p>
-                                                    <p class="pdAmount">318.50 $</p>
-                                                    <p class="pendAmount">-</p>
+                                                    <p class="usd-In"><?php echo ($otherCurrRow['curCode']);?></p>
+                                                    <p class="ttlAmount">xxxx $</p>
+                                                    <p class="pdAmount">xxxx $</p>
+                                                    <p class="pendAmount">xxxx $</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="otrCurr text-center">
+                                    <?php } ?>
+                                        <!-- <div class="otrCurr text-center">
                                             <div class="paidIsue d-flex">
                                                 <div class="col-md-3">
                                                     <p class="pdStatus">Paid</p>
@@ -1047,12 +1188,12 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                 </div>
                                                 <div class="col-md-9 text-center">
                                                     <p class="otr-In">Tzs</p>
-                                                    <p class="ttlAmount">9,209,200 Tzs</p>
-                                                    <p class="pdAmount">5,520,000 Tzs</p>
-                                                    <p class="pendAmount">3,689,200 Tzs</p>
+                                                    <p class="ttlAmount">xxxx Tzs</p>
+                                                    <p class="pdAmount">xxxx Tzs</p>
+                                                    <p class="pendAmount">xxxx Tzs</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="issueOut">
                                         <div class="recIsue d-flex">
@@ -1061,32 +1202,81 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                 <p class="pendStatus">Pending</p>
                                             </div>
                                             <div class="col-md-7 text-center">
-                                                <p class="gr-Out">Issue out</p>
-                                                <p class="ttlAmount-rec">3,998.06 $</p>
-                                                <p class="pdAmount-rec">2,992.30 $</p>
-                                                <p class="pendAmount-rec">1,005.76 $</p>
+                                                <p class="gr-Out"><?php echo showOtherLangText('Issued Out'); ?></p>
+                                                <p class="ttlAmount-rec"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']);?></p>
+                                                <p class="pdAmount-rec"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                <p class="pendAmount-rec"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php
+                                                    $sqlSet = " SELECT od.* FROM tbl_order_details od
+                                                    INNER JOIN tbl_orders o
+                                                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                                                    WHERE o.ordType = '3' AND o.status = '2' ".$cond1." ";
+                                                    $resultSet = mysqli_query($con, $sqlSet);
+                                                    
+                                                    $variancesPosTot = 0;
+                                                    $variancesPosQtyTot = 0;
+                                                    $variancesNevQtyTot = 0;
+                                                    $variancesNevTot = 0;
+                                                    $varaincesVal = 0;
+                                                    while( $resRow = mysqli_fetch_array($resultSet) )
+                                                    {
+                                                        if ($resRow['qtyReceived'] < $resRow['qty'])
+                                                        {
+                                                            $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
+                                                            $variancesPosQtyTot += $varaincesVal;
+                                                            $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
+                                                        }
+                                                        elseif($resRow['qtyReceived'] > $resRow['qty'])
+                                                        {
+                                                            $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
+                                                            
+                                                            $variancesNevQtyTot += $varaincesVal;
+                                                            $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
+                                                        }
+                                                            
+                                                    }
+                                                    ?>
                                     <div class="Variance text-center">
                                         <p class="varDtl">Variances</p>
-                                        <p class="varValue">13 $</p>
-                                        <p class="varDif">-123 $</p>
+                                        <p class="varValue"><?php echo showPrice($variancesNevTot, $getDefCurDet['curCode']) ?></p>
+                                        <p class="varDif"><?php echo showPrice($variancesPosTot, $getDefCurDet['curCode']) ?></p>
                                     </div>
                                 </div>
+                                 <?php
+        if ($accessHistoryAccountsPermission['type_id']==1) 
+        {
+            ?>
                                 <div class="accntDtl">
                                     <p class="accHead text-center">Accounts</p>
-                                    <div class="d-flex">
-                                        <div class="bnkName">
-                                            <p>Safe 02 $</p>
-                                            <p>Stander Bank $</p>
+                                      <?php   
+            $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+            INNER JOIN tbl_currency c 
+                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
+            WHERE a.account_id = '".$_SESSION['accountId']."' ";
+            $result = mysqli_query($con, $sqlSet);
+
+            while($resultRow = mysqli_fetch_array($result))
+            {
+
+                $curCode = $resultRow['curCode'];
+                $balanceAmt = round($resultRow['balanceAmt'], 4);
+                ?>
+                                  
+                                        <div class="d-flex gap-2 py-2 w-100">
+                                            <p class="w-50"><?php echo $resultRow['accountName']?></p>
+                                        
+                                            <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
+                                                    <?php echo $curCode; ?></p>
                                         </div>
-                                        <div class="bnkBalance">
-                                            <p class="negBlnc">-123 $</p>
-                                            <p class="posBlnc">23,990 $</p>
-                                        </div>
-                                    </div>
+                                    
+ <?php
+            } 
+            ?>
                                 </div>
+         <?php } ?>
                             </div>
                         </div>
 
@@ -1111,7 +1301,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                             <div class="dropdown d-flex position-relative">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    <span><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
                                                 <?php echo $dateTypeOptions; ?>
                                                 
@@ -1123,7 +1313,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                             <div class="dropdown d-flex position-relative">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    <span><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
                                                 <?php echo $typeOptions; ?>
                                             </div>
@@ -1132,9 +1322,9 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                     <div class="tb-head hisRefrclm">
                                         <div class="d-flex align-items-center">
                                             <div class="dropdown d-flex position-relative">
-                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
+                                                <a class="dropdown-toggle body3 w-auto" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    <span><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
                                                 <?php echo $suppMemStoreOptions; ?>
                                             </div>
@@ -1158,7 +1348,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                             <div class="dropdown d-flex position-relative">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    <span>Status</span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span id="statusText"><?php echo showOtherLangText('Status'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
                                                 <?php echo $statusTypeOptions; ?>
                                                 
@@ -1170,7 +1360,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                             <div class="dropdown d-flex position-relative">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    <span><?php echo showOtherLangText('Account'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span id="accountTxt"><?php echo showOtherLangText('Account'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
                                                 <?php echo $accountOptions; ?>
                                                 
@@ -1274,11 +1464,11 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
 
             if($orderRow['ordType'] == 1)
             {
-               $ordType = '<span style="color:green"><strong>'.showOtherLangText('Issued In').'</strong></span>';
+               $ordType = showOtherLangText('Issued In');
             }
             elseif($orderRow['ordType'] == 2)
             {
-               $ordType = '<span style="color:red"><strong>'.showOtherLangText('Issued Out').'</strong></span>';
+               $ordType = showOtherLangText('Issued Out');
             }
             elseif($orderRow['ordType'] == 3)
             {
@@ -1289,11 +1479,11 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                 }
 
                 $variancesTotAmt = $variances[$orderRow['id']]['variancesTot'];
-                $ordType = '<span style="color:blue"><strong>'.showOtherLangText('Stock Take').'</strong></span>';
+                $ordType = showOtherLangText('Stock Take');
             }
             else
             {
-                $ordType = '<span style="color:Maroon"><strong>'.showOtherLangText('Raw Item Convert').'</strong></span>';
+                $ordType = showOtherLangText('Raw Item Convert');
             }
 
 
@@ -1477,7 +1667,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                             </div>
                                             <div class="tb-bdy numItmclm">
                                                 <!-- <p class="hisNo">No. V0002349</p> -->
-                                                <p class="hisOrd"><?php echo $orderRow['ordNumber']; ?></p>
+                                                <p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p>
                                             </div>
                                             <div class="tb-bdy hisDateclm">
                                                 <p class="fstDt"><?php echo $dateType; ?></p>
@@ -1486,25 +1676,31 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                             
                                             <div class="tb-bdy hisTypclm">
                                                 <div class="d-flex align-items-center hisOrd-typ">
+                                                    <?php if($ordType=='Issued in') { ?>
                                                     <div class="ordBar-rd">&nbsp;</div>
+                                                    <?php } else { ?>
+                                                    <div class="reqBar-gr">&nbsp;</div>
+                                                    <?php } ?>
                                                     <p><?php echo $ordType; ?></p>
                                                 </div>
                                                 
                                             </div>
                                             <div class="tb-bdy hisRefrclm">
-                                                <p class="refTomember">Member</p>
+                                                <p class="refTomember"><?php echo $suppMemStoreId; ?></p>
                                             </div>
                                         </div>
                                         <div class="tb-bdy hisValclm">
-                                            <p class="dolValcurr">174.30 $</p>
+                                            <p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+               .'<br>'.
+               ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
                                             <!-- <p class="othrValcurr">357,900 Tzs</p> -->
                                         </div>
                                         <div class="stsHiscol d-flex align-items-center">
                                             <div class="tb-bdy hisStatusclm">
-                                                <p class="his-pendStatus">Pending</p>
+                                                <p class="his-pendStatus"><?php echo $paymentStatus; ?></p>
                                             </div>
                                             <div class="tb-bdy hisAcntclm">
-                                                <p class="hisAccount">Safe 02 $</p>
+                                                <p class="hisAccount"><?php echo ($orderRow['paymentStatus']==1 ? $orderRow['accountName'] : ''); ?></p>
                                             </div>
                                         </div>
 
@@ -1541,12 +1737,10 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                          
                                                       </ul>
                                                     </div>
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
+                                                    <?php
+                            access_delete_history_file($_SESSION['designation_id'],$_SESSION['accountId'],$orderRow['id']);
+                            ?>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -1557,6 +1751,29 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                     </div>
                                 </div>
                                  <?php  } ?>
+                                 <?php 
+        if( isset($_GET['delOrderId']) )
+        {
+            ?><br>
+
+                                <div class="hbrw-DelHstry">
+                                    <form method="post" action="" autocomplete="off">
+                                        <input type="hidden" name="delOrderId"
+                                            value="<?php echo $_GET['delOrderId'];?>" />
+
+                                        <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
+                                            <input type="password" value="" placeholder="" name="password">&nbsp;&nbsp;
+                                            <button type="submit"
+                                                class=" btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
+                                            &nbsp;&nbsp;
+
+                                            <a href="history.php" class="class="
+                                                btn-primary><?php echo showOtherLangText('Cancel') ?></a>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <?php } ?>
                                 <!-- <div class="hisTask mt-2">
                                     <div class="mb-hstryBarord">&nbsp;</div>
                                     <div class="align-items-center itmBody">
@@ -2247,8 +2464,114 @@ $(function() {
     $(".datepicker").datepicker({
         dateFormat: 'dd-mm-yy'
     });
+
+      $(".date_type").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#dateTypeText").text($this.data("value"));
+        $("#dateType").val($this.data("id"));
+        $('#frm').submit();
+      });
+
+       $(".type_dropdown").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#TypeText").text($this.data("value"));
+        $("#ordType").val($this.data("id"));
+        $('#frm').submit();
+      });
+
+       $(".referto_dropdown").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#refertotext").text($this.data("value"));
+        $("#suppMemStoreId").val($this.data("id"));
+        $('#frm').submit();
+      });
+
+       $(".status_type").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#statusText").text($this.data("value"));
+        $("#statusType").val($this.data("id"));
+        $('#frm').submit();
+      });
+
+        $(".account_dropdown").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#accountTxt").text($this.data("value"));
+        $("#accountNo").val($this.data("id"));
+        $('#frm').submit();
+      });
+
+      var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('dateType')) {
+        var dateTypeID = urlParams.get('dateType');
+            if(dateTypeID!=='')
+            {
+                $("#dateTypeText").text($(".date_type .selected").text());
+            }
+        }
+        if (urlParams.has('ordType')) {
+        var ordTypeID = urlParams.get('ordType');
+            if(ordTypeID!=='')
+            {
+                $("#TypeText").text($(".type_dropdown .selected").text());
+            }
+        }
+        if (urlParams.has('suppMemStoreId')) {
+        var suppMemStoreId = urlParams.get('suppMemStoreId');
+            if(suppMemStoreId!=='')
+            {
+                $("#refertotext").text($(".referto_dropdown .selected").text());
+            }
+        }
+        if (urlParams.has('statusType')) {
+        var statusType = urlParams.get('statusType');
+            if(statusType!=='')
+            {
+                $("#statusText").text($(".status_type .selected").text());
+            }
+        }
+        if (urlParams.has('accountNo')) {
+        var accountNo = urlParams.get('accountNo');
+            if(accountNo!=='')
+            {
+                $("#accountTxt").text($(".account_dropdown .selected").text());
+            }
+        }
+
 });
+function getDelNumb(delOrderId){
+
+    $( "#dialog" ).dialog({  
+        autoOpen  : false,
+        modal     : true,
+        //title     : "Title",
+        buttons   : {
+          '<?php echo showOtherLangText('Yes') ?>' : function() {
+            //Do whatever you want to do when Yes clicked
+            $(this).dialog('close');
+            window.location.href = 'history.php?delOrderId=' + delOrderId;
+          },
+
+          '<?php echo showOtherLangText('No') ?>' : function() {
+            //Do whatever you want to do when No clicked
+            $(this).dialog('close');
+          }
+       }    
+    });
+
+    $( "#dialog" ).dialog( "open" );
+    $('.custom-header-text').remove();
+    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+}  
+
+ $('.date-box-search').click(function(){
+
+    $('#frm').submit();
+
+ });
 </script>
+ <div id="dialog" style="display: none;">
+    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
+</div>
 </body>
 
 </html>
