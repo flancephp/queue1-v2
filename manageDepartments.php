@@ -313,7 +313,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Department Deleted Successf
                 </div>
                 <div class="modal-body">
                   
-                        <input type="text" class="form-control"  autocomplete="off" required id="name" name="name" placeholder="<?php echo showOtherLangText('Department Name'); ?>">
+                        <input type="text" class="form-control"  autocomplete="off" required id="name" name="name" placeholder="<?php echo showOtherLangText('Department Name'); ?>*">
                     
                 </div>
                 <div class="modal-footer">
@@ -339,7 +339,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Department Deleted Successf
                 </div>
                 <div class="modal-body">
                     
-                    <input type="hidden" name="id" id="edit-id" value="" />    <input type="text" class="form-control" name="editname" id="editname"  placeholder="<?php echo showOtherLangText('Department Name');?>">
+                    <input type="hidden" name="id" id="edit-id" value="" />    <input type="text" class="form-control" name="editname" required id="editname"  placeholder="<?php echo showOtherLangText('Department Name');?>*">
                   
                 </div>
                 <div class="modal-footer">

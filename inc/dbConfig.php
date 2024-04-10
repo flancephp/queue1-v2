@@ -3,7 +3,7 @@ session_start();
 //error_reporting(E_ALL);
 ini_set('display_errors', '');
 //$con = new mysqli("localhost", "root", "", "queue1live_db");
-$con = new mysqli("localhost", "root", "", "development");
+$con = new mysqli("localhost", "root", "", "queue");
 
 if ($con->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;

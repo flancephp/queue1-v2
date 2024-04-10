@@ -75,9 +75,9 @@ mysqli_query($con, $sql);
 // form data save start from here
 if(isset($_POST['name']) && isset($_POST['deptId']))
 {
-    
+  
 // user can update there outlet name and department name from here
-$updateQry = " UPDATE tbl_deptusers SET 
+ $updateQry = " UPDATE tbl_deptusers SET 
 `deptId` = '".$_POST['deptId']."',
 `name` = '".$_POST['name']."',
 `receive_inv` = '".$_POST['receiveInv']."',
@@ -85,6 +85,7 @@ $updateQry = " UPDATE tbl_deptusers SET
 `address` = '".$_POST['address']."',
 `phone` = '".$_POST['phone']."'
 WHERE id='".$_GET['id']."' AND account_id='".$_SESSION['accountId']."' ";
+
 mysqli_query($con, $updateQry);
 
 if(isset($_POST['revCenter']) && $_POST['revCenter'] > 0 && isset($_POST['outLetType']) && $_POST['outLetType'] > 0)
@@ -195,7 +196,6 @@ if(isset($_POST['catIds']) && !empty($_POST['catIds']))
 
 
 }
-
 
 if ($_POST['setOutlet'] < 1) {
 
@@ -575,8 +575,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Set as Outlet'); ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                    id="setOutlet" name="setOutlet"
+                                         <input class="form-check-input" type="checkbox" id="setOutlet" name="setOutlet"
                                         value="<?php echo $sqlResultRow > 0 ? '1': '0'; ?>"
                                         <?php echo $sqlResultRow > 0 ? 'checked': ''; ?>
                                         onClick="showRevOutLetItems();" />
@@ -640,6 +639,34 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                          </select>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                 <div class="dropContent" id="dropContent">
+                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row chkOlt-Row">
+                                                <div class="col-md-4">
+                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                   <span id="showCatIds"><?php
+						$sql = " SELECT * FROM tbl_map_category 
+						WHERE revId='".$sqlResultRow['revCenterId']."' AND account_id = '".$_SESSION['accountId']."' ";
+						$mapCatResult = mysqli_query($con, $sql);
+
+						while($mapCatRow = mysqli_fetch_array($mapCatResult))
+						{
+
+							$sql = " SELECT * FROM tbl_map_outletcats 
+							WHERE revCatId='".$mapCatRow['id']."'  AND revOutLetId = '".$_GET['revCenDeptId']."' AND account_id = '".$_SESSION['accountId']."' ";
+							$mapOutCatResult = mysqli_query($con, $sql);
+							$mapOutCatRow = mysqli_fetch_array($mapOutCatResult);
+
+							$sel = $mapOutCatRow['revCatId'] ? ' checked="checked" ' : '';
+
+							echo "<input class='form-check-input ezeeCatList' type='checkbox' name='catIds[]' value='".$mapCatRow['id']."' '".$sel."' >&nbsp;<label for='revenueCenter' class='form-label'>".$mapCatRow['catName']." </label>&nbsp;&nbsp;";
+
+						}
+						?></span>
+                                                </div>
+                                                </div>
                                                 </div>
                                             </div>
                                             
@@ -1135,8 +1162,8 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
     function showRevCenterAddress() {
         var revenueCenterAddress = $('#revCenter').val();
         var addressCheck = $('#addressCheck').val();
-
-        if (revenueCenterAddress != '' && (addressCheck == '' || addressCheck == 0)) {
+        var addressCheckboxFlag = $("#addressCheck").prop('checked');
+        if (revenueCenterAddress != '' && addressCheckboxFlag==true) {
 
             $('#addressCheck').val(1);
 
@@ -1215,7 +1242,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
             $("#setOutlet").val(1);
         }
 
-    })
+    });
 
 
     function getrevCenter() {

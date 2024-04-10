@@ -338,10 +338,10 @@ aria-expanded="false">
 <span id="subcategoryText">Sub Catagory</span> <i class="fa-solid fa-angle-down"></i>
 </a>';
 $subCatOptions .= '<ul class="dropdown-menu subcat">';
+$subCatOptions .= '<li data-id="" data-value="Sub Catagory"><a class="dropdown-item" href="javascript:void(0)">Sub Catagory</a></li>';
 while($catRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['subCatId']) && $_GET['subCatId'] == $catRow['id']  ? 'selected' : '';
-//$subCatOptions .= '<option value="'.$catRow['id'].'" '.$sel.'>'.$catRow['name'].'</option>';
  $subCatOptions .=       '<li data-id="'.$catRow['id'].'" data-value="'.$catRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$catRow['name'].'</a></li>';
 }
 $subCatOptions .= '</ul>';
@@ -352,13 +352,13 @@ $resultSet = mysqli_query($con, $sqlSet);
 							
 $suppOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
 aria-expanded="false">
-<span id="supplierText">Supplier</span> <i class="fa-solid fa-angle-down"></i>
+<span id="supplierText">'.showOtherLangText('Supplier').'</span> <i class="fa-solid fa-angle-down"></i>
 </a>';
 $suppOptions .= '<ul class="dropdown-menu sort_supplier">';
+$suppOptions .= '<li data-id="" data-value=""><a class="dropdown-item" href="javascript:void(0)">'.showOtherLangText('Supplier').'</a></li>';
 while($departRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['suppId']) && $_GET['suppId'] == $departRow['id']  ? 'selected' : '';
-//$suppOptions .= '<option value="'.$departRow['id'].'"  '.$sel.'>'.$departRow['name'].'</option>';
 $suppOptions .= '<li data-id="'.$departRow['id'].'" data-value="'.$departRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$departRow['name'].'</a></li>';
 }
 $suppOptions .= '</ul>';
@@ -369,9 +369,10 @@ $resultSet = mysqli_query($con, $sqlSet);
 							
 $storageOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
 aria-expanded="false">
-<span id="storageTxt">Storage</span> <i class="fa-solid fa-angle-down"></i>
+<span id="storageTxt">'.showOtherLangText('Storage').'</span> <i class="fa-solid fa-angle-down"></i>
 </a>';
 $storageOptions .= '<ul class="dropdown-menu sort_storage">';
+$storageOptions .= '<li data-id="" data-value=""><a class="dropdown-item" href="javascript:void(0)">'.showOtherLangText('Storage').'</a></li>';
 while($storeRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['storeId']) && $_GET['storeId'] == $storeRow['id']  ? 'selected' : '';
@@ -385,9 +386,10 @@ $resultSet = mysqli_query($con, $sqlSet);
 							
 $deprtOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
 aria-expanded="false">
-<span id="departmentTxt">Department</span> <i class="fa-solid fa-angle-down"></i>
+<span id="departmentTxt">'.showOtherLangText('Department').'</span> <i class="fa-solid fa-angle-down"></i>
 </a>';
 $deprtOptions .= '<ul class="dropdown-menu sort_department">';
+$deprtOptions .= '<li data-id="" data-value="" ><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.showOtherLangText('Department').'</a></li>';
 while($deprtRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['deptId']) && $_GET['deptId'] == $deprtRow['id']  ? 'selected' : '';
@@ -471,7 +473,7 @@ $deprtOptions .= '</ul>';
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
-                    <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
+                    <?php if(isset($_GET['added']) || isset($_GET['edit']) || (isset($_GET['delete']) && $_GET['delete'] == 1) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 			
@@ -490,6 +492,7 @@ $deprtOptions .= '</ul>';
 			}
 			
 			?>
+			
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
@@ -498,6 +501,13 @@ $deprtOptions .= '</ul>';
                             <?php if(isset($_GET['error'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <p><?php echo showOtherLangText('User can not be deleted as it is being used in order'); ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                             <?php if(isset($_GET['delete']) && $_GET['delete']==2) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo showOtherLangText('This item is in stock or ordered by someone so cannot be deleted'); ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>

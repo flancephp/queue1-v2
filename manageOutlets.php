@@ -152,7 +152,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('OutLet Deleted Successfully
                             <?php } ?>
                             <?php if(isset($_GET['err'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Supplier cannot be Deleted as it has been assigned in order').' ' : '';
+                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('OutLet can not be deleted as it has some items').' ' : '';
  ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>

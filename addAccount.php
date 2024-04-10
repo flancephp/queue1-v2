@@ -178,7 +178,7 @@ if( isset($_POST['accountName'])   )
                         <div class="edtSup-Div">
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name'); ?></label>
+                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name'); ?> <span>*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control"  autocomplete="off" required name="accountName" id="accountName" value="<?php echo isset($_POST['accountName']) ? $_POST['accountName'] : ''; ?>"
@@ -188,7 +188,7 @@ if( isset($_POST['accountName'])   )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountNumber" class="form-label">Account Number</label>
+                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?> <span>*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control"name="accountNumber" id="accountNumber" value="<?php echo isset($_POST['accountNumber']) ? $_POST['accountNumber'] : ''; ?>" style="width:250px;" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" autocomplete="off" required  placeholder="0003">
@@ -198,7 +198,7 @@ if( isset($_POST['accountName'])   )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountCurrency" class="form-label">Account Currency</label>
+                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency'); ?> <span>*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                          <?php
@@ -221,7 +221,7 @@ if( isset($_POST['accountName'])   )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountBalance" class="form-label">Balance</label>
+                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance'); ?> <span>*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" onChange="showHidePass(this.value);" name="balanceAmt" id="balanceAmt" autocomplete="off" id="accountBalance"

@@ -133,7 +133,7 @@ if (isset($_POST['revenueCenterId']) && $_POST['revenueCenterId'] > 0)
 	while($catRes = mysqli_fetch_array($mainMapRes))
 	{ 
 
-		$strcat .= "<input type='checkbox' name='catIds[]' value='".$catRes['id']."' > ".$catRes['catName']." ";
+		$strcat .= "<input type='checkbox' class='form-check-input' name='catIds[]' value='".$catRes['id']."' >&nbsp;<label class='form-label'>".$catRes['catName']."</label>&nbsp;&nbsp;";
 
 	}
 	echo $strcat;
@@ -368,6 +368,14 @@ $deptResult = mysqli_query($con, $deptQry);
                                                         </select>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row chkOlt-Row">
+                                                <div class="col-md-4">
+                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                   <span id="showCatIds"></span>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

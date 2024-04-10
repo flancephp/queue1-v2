@@ -175,6 +175,14 @@ if( isset($_POST['feeName']) )
 
                 <section class="ordDetail userDetail">
                     <div class="container">
+                        <?php if(isset($error)) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo isset($error) ? ' '.$error.' ' : ''; ?>
+ </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                     <form role="form" action="" method="post" enctype="multipart/form-data" class="addUser-Form acntSetup-Form">
             <input type="hidden" name="orderId" value="<?php echo $_GET['orderId'];?>" />
 
@@ -228,7 +236,7 @@ if( isset($_POST['feeName']) )
                                         <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="amt" id="amt" placeholder="10">
+                                        <input type="text" required class="form-control" name="amt" value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="10">
                                     </div>
                                 </div>
                                 <?php 
@@ -236,13 +244,9 @@ if( isset($_POST['feeName']) )
 								{ 
 									?>
                                 <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                    <input type="checkbox" id="visibility" name="visibility" value="1">
-                                    </div>
-                                    <div class="col-md-9">
-                                    <div class="col-md-3">
-                                        <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Tax fee'); ?></label>
-                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="checkbox" name="taxfee" id="taxfee" class="form-check-input">
+                                        <label for="taxfee" class="form-label"><?php echo showOtherLangText('Tax fee'); ?></label>
                                     </div>
                                 </div>
                                 <?php 
@@ -251,14 +255,9 @@ if( isset($_POST['feeName']) )
 							  {
 							  	?>
                             <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                    <input type="checkbox" name="feeType" id="feeType" value="1">
-                                    </div>
-                                    <div class="col-md-9">
-                                    <div class="col-md-3">
-                                    <label
-                                        for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label><br>
-                                        </div>
+                                    <div class="col-md-12">
+                                        <input type="checkbox" name="taxfee" id="taxfee" class="form-check-input">
+                                        <label for="taxfee" class="form-label"><?php echo showOtherLangText('Tax fee'); ?></label>
                                     </div>
                                 </div>
                             <?php } ?>

@@ -163,15 +163,15 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
                                 <div class="btnBg">
                                     <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back');?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <a href="addAccount.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
-                                            <span class="nstdSpan">Account</span></span> <span class="dsktp-Btn">Add
-                                            Account</span></a>
+                                            <span class="nstdSpan"><?php echo showOtherLangText('Account');?></span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Add
+                                            Account');?></span></a>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +183,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
                                     <div class="mngAcntTbl-NmCol d-flex align-items-center">
                                         <div class="tb-head acntSrNum-Clm">
                                             <div class="d-flex align-items-center">
-                                                <p>Number</p>
+                                                <p>#</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>

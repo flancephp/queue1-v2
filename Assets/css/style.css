@@ -19608,3 +19608,233 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/******* CUSTOM CSS **********/
+
+.nav-bar > ul > li > a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 75px;
+}
+
+.tpBar-red {
+  border-top: 6px solid #F05D53;
+}
+
+.revTbl-Hd .sale-Varlist {
+    width: 38%;
+}
+
+.hisParent-sec{
+  box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
+}
+
+.hisTblbody, .hisTory, .history-info{
+  margin-left: 0;
+}
+
+.stockView .lstPrcol{
+  width:25%;
+}
+
+.mbFeature .ordFeature {
+  padding: 0 4px;
+}
+.featRow {
+  padding: 0;
+}
+
+.ord-Box{
+  width:max-content;
+}
+
+
+.revTbl-Hd .sale-Cost{
+  width:43%;
+}
+
+.revTbl-Hd .chk-revCnt {
+  width: 11%;
+}
+
+.mainRuntsk .payOptnreq {
+  width: 18%;
+}
+
+.mbFeature .ordFeature > a {
+  padding: 25px 0;
+  display: block;
+  border-radius: 10px;
+}
+
+.mbFeature .ordFeature {
+    padding: 0;
+    border-radius: 10px;
+    position: relative;
+}
+
+.mbFeature .ordFeature:before {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 50px;
+  position: absolute;
+  background: #8c8fa7;
+  top: 20px;
+  left: 0;
+}
+.mbFeature .ordFeature:first-child:before {
+  opacity: 0;
+}
+
+.mbFeature .ordFeature > a:hover {
+  background: #7a89ff;
+}
+.mbFeature .ordFeature > a {
+  padding: 25px 0;
+  display: block;
+}
+
+.mbFeature .ordFeature > a:hover p {
+  color: #fff !important;
+}
+
+.stkTblhead  .stkNamcol, .cntTable .stkNamcol{
+  width: 45%;
+}
+
+.stkTblhead .stkPrcol, .cntTable .stkPrcol{
+  width: 46%;
+}
+
+.stkTblhead .mbShw, .cntTable .mbShw{
+    width: 75%;
+}
+
+.stkTblhead  .mbHde,.cntTable .mbHde  {
+  width: 25%;
+}
+
+.stkTblhead .stkItmclm, .stkTblhead   .stkItmclm{
+  width: 61%;
+}
+
+.stockView .lstPrcol:first-child {
+  width: 28%;
+}
+
+
+.dropdown-submenu ul.dropdown-menu {
+            position: absolute;
+            left: 100% !important;
+            top: 0 !important;
+            margin-left: 5px !important;
+            transform: none !important;
+        }
+
+        .dropdown-submenu a i{
+            float:right;
+            padding-top: 2px;
+        }
+/******* LOGIN CSS **********/
+
+
+.fs-22        {		font-size: 22px;    line-height: 22px;}
+.fs-20    {		font-size: 20px;    line-height: 22px;}
+.fs-19        {		font-size: 19px;	line-height: 21px;}
+.fs-18     {		font-size: 18px;	line-height: 20px;}
+.fs-16        {		font-size: 16px;	line-height: 18px;}
+.fs-14        {		font-size: 14px;	line-height: 16px;}
+.fs-13        {		font-size: 13px;    line-height: 15px;}
+.fs-12        {		font-size: 12px;    line-height: 14px;}
+
+.bold{font-weight: 700;}
+.semibold{font-weight: 600;}
+.medium{font-weight: 500;}
+
+.login-outer h1{
+  font-size: 26PX;
+}
+
+.login-outer {
+  background: rgb(255 255 255 / 56%);
+  min-height: calc(100vh - 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: -10px 10px 30px 0px #6071AF1A;
+}
+
+.login-outer > div {
+  max-width: 480px;
+  width:100%;
+  margin: 0 auto;
+}
+
+.login-form .drp-btn{
+  padding-left: 3px !important;
+}
+
+.login-form  .input-group .btn {
+  padding: 0;
+  min-width: 43px;
+  height:43px;
+  line-height: 43px;
+  font-size: 14px;
+}
+
+form.login-form .form-control {
+  font-size: 16px;
+  color: #8C8FA7;
+  padding-left: 8px;
+}
+
+form.login-form input:focus{
+  outline: 0;
+  border: 0;
+}
+
+.login-remember input{
+  width: 24px;
+  height: 24px;
+  background-size: 16px;
+}
+
+
+.title-listing-item label{
+  font-size: 13px;
+}
+
+.recOrdTask .recItm-Name, .recPrice  .recItm-Name {
+  width: 25%;
+}
+
+.recOrdTask .recTtlPrc-Type, .recPrice .recTtlPrc-Type{
+  width: 12%;
+}
+
+.recOrdTask .recPrc-Unit > *, .recPrice .recPrc-Unit > *{
+  width: 33%;
+}
+
+.recOrdTask .recQty-Code, .recPrice  .recQty-Code {
+  width: 30%;
+}
+
+
+@media(max-width:767px){
+  .login-outer{
+    min-height: auto;
+    padding: 60px 30px;
+  }
+}
+
+body .ui-widget-content {
+  z-index: 9999;
+}

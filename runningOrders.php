@@ -583,9 +583,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 				}
 				?></p>
                                                 </div>
-                                                <div class="d-flex align-items-center payOptnreq" style="
-    width: 32%;
-">   
+                                                <div class="d-flex align-items-center payOptnreq">   
                                  <?php
 				if ($orderRow['ordType'] == 1)
 				{
@@ -606,6 +604,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                                     
                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
+                                                
                                                     <div
                                                         class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
@@ -643,8 +642,20 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 			} ?>
 			</ul>
                                                     </div>
-                                                 </div>
-                                                <div class="d-flex align-items-center dleOptnreq">
+                                                    	<?php
+				if ($orderRow['ordType'] == 1)
+				{
+					get_edit_doctype_order_action_of_order_type($orderRow['ordType'],$orderRow['status'],$checkOrdAssing,$timeTrackDet,$orderRow['id'],$_SESSION['designation_id'],$_SESSION['accountId'], $orderRow['orderReceivedByMobUser']);
+				}
+
+				if ($orderRow['ordType'] == 2) 
+				{
+					get_edit_doctype_action_of_requisition_type($orderRow['ordType'],$orderRow['status'],$checkOrdAssing,$timeTrackDet,$orderRow['id'],$_SESSION['designation_id'],$_SESSION['accountId']);
+				}
+
+				
+				
+				?>
                                                 	<?php 
                                                     get_deleteOrder_permission($_SESSION['designation_id'], $_SESSION['accountId'], $orderRow['id'], $orderRow['ordType']);
 

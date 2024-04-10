@@ -163,7 +163,7 @@ $res = mysqli_fetch_array($result);
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add').' ';?> Supplier</h1>
+                                    <h1 class="h1"><?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add Supplier').' ';?> Supplier</h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -226,40 +226,40 @@ $res = mysqli_fetch_array($result);
                         <div class="edtSup-Div">
                            <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?></label>
+                                        <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?><span> *</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="<?php echo $res['name'];?>" id="name" name="name"
+                                        <input type="text" class="form-control" value="<?php echo $res['name'];?>" id="name" name="name" required
                                             placeholder="Logitech">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierAddress" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
+                                        <label for="supplierAddress" class="form-label"><?php echo showOtherLangText('Address'); ?><span> *</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <textarea class="form-control" id="address" name="address"
+                                        <textarea class="form-control" id="address" name="address" required
                                             placeholder="DC Janakpuri"><?php echo $res['address'];?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierEmail" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
+                                        <label for="supplierEmail" class="form-label"><?php echo showOtherLangText('Email'); ?><span> *</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="email" value="<?php echo $res['email'];?>" class="form-control" id="email" name="email"
+                                        <input type="email" value="<?php echo $res['email'];?>" required     class="form-control" id="email" name="email"
                                             placeholder="Logitech@gmail.com">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierPhone" class="form-label"><?php echo showOtherLangText('Phone'); ?></label>
+                                        <label for="supplierPhone" class="form-label"><?php echo showOtherLangText('Phone'); ?><span> *</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="tel" value="<?php echo $res['phone'];?>" class="form-control" id="phone" name="phone"
+                                        <input type="tel" value="<?php echo $res['phone'];?>" required class="form-control" id="phone" name="phone"
                                             placeholder="+99994341000">
                                     </div>
                                 </div>

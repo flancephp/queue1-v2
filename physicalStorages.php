@@ -231,7 +231,7 @@ if( isset($_POST['name']) )
                                 <div class="btnBg">
                                     <a href="addCategory.php" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal"
                                         data-bs-target="#add-PhyStorage"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-plus"></i><span class="nstdSpan">Store</span></span>
+                                                class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Store'); ?></span></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Add Store'); ?></span></a>
                                 </div>
                             </div>
@@ -329,7 +329,7 @@ if( isset($_POST['name']) )
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Add store'); ?></h1>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="name" id="name" required placeholder="Name">
+                    <input type="text" class="form-control" name="name" id="name" required placeholder="Name*">
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
@@ -353,7 +353,7 @@ if( isset($_POST['name']) )
                 </div>
                 <div class="modal-body">
                 <input type="hidden" name="id" id="edit-id" value="" /> 
-                        <input type="text" class="form-control" id="editStore" required name="name" placeholder="Name">
+                        <input type="text" class="form-control" id="editStore" required name="name" placeholder="Name*">
                    
                 </div>
                 <div class="modal-footer">

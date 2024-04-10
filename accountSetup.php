@@ -316,7 +316,9 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                                     class="importBtn"> -->
                                                 </label>
 
-                                            <input class="" name="logo" id="logo" type="file">
+                                            <input class="" onchange="previewFile()"  name="logo" id="logo" type="file">
+                                              <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;" width="100px"
+                                                    class="previewImg">
                                         </div>
                                     </div>
                                 </div>
@@ -337,3 +339,24 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
 </body>
 
 </html>
+<script>
+    function previewFile() {
+        var preview = document.querySelector('.previewImg');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+
+    }
+    function removeRow(id) {
+        $('#' + id).remove();
+    }
+</script>

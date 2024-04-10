@@ -3654,10 +3654,10 @@ function get_assignOrder_permission($designation_id, $accountId, $orderId, $orde
 		{
 			echo '<div
                                                         class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a class="editicon userLink edt_CatLnk"
+                                                        <a class="editicon edt_CatLnk runLink"
                                                     data-bs-toggle="modal" onClick="AssignOrder('.$orderType.', '.$orderId.')"
                                                      data-bs-target="#assign-order" href="javascript:void(0)" class="runLink">
-                                                            <span class="isuOut"></span>
+                                                            <span class="assIgn"></span>
                                                             <p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p>
                                                         </a>
                                                     </div>';
@@ -3667,10 +3667,10 @@ function get_assignOrder_permission($designation_id, $accountId, $orderId, $orde
 			
 			echo '<div
                                                         class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a class="editicon runLink userLink edt_CatLnk"
+                                                        <a class="editicon runLink edt_CatLnk runLink"
                                                     data-bs-toggle="modal"  onClick="AssignOrder('.$orderType.', '.$orderId.')"
                                                      data-bs-target="#assign-order" >
-                                                            <span class="isuOut"></span>
+                                                            <span class="assIgn"></span>
                                                             <p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p>
                                                         </a>
                                                     </div>';
@@ -3705,7 +3705,7 @@ function get_issueOut_permission($designation_id, $accountId, $orderId){
 		?>
 <div
                                                         class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a onclick="cnfIssueOut(<?php echo $orderId ?>)" class="editicon runLink userLink edt_CatLnk"
+                                                        <a onclick="cnfIssueOut(<?php echo $orderId ?>)" class="editicon runLink edt_CatLnk"
                                                     data-bs-toggle="modal"  
                                                      data-bs-target="#issue-out">
                                                             <span class="isuOut"></span>
@@ -4365,7 +4365,7 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 			
 			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType);
 		
-			get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+			//get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
 			
 			
 		}elseif ($orderStatus == 1 && $checkOrdAssing && !$timeTrackDet)
@@ -4373,21 +4373,21 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 
 			get_receiveOrder_permission($designation_id,$accountId,$orderId);
 			?>
-<span style="width: 20%;display: inline-block;text-align: center;">&nbsp;</span>
+
 <?php
 			
 			
-				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+				//get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
 			
 
 		}elseif($timeTrackDet) {
 
 			get_receiveOrder_permission($designation_id,$accountId,$orderId);
 			?>
-<span style="width: 20%;display: inline-block;text-align: center;">&nbsp;</span>
+
 <?php 
 			
-				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+				//get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
 			
 
 		}
@@ -4405,14 +4405,68 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 
 <?php
 			
-				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+				//get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
 			
 
 		}
 	}
 }
 
+function get_edit_doctype_order_action_of_order_type($orderType,$orderStatus,$checkOrdAssing,$timeTrackDet,$orderId,$designation_id,$accountId, $orderReceivedByMobUser=0){
 
+
+	global $con;
+
+	if ($orderType == 1) {//order
+
+	$memRes['name'] = '';
+
+		if ($orderStatus == 1 && !$checkOrdAssing && !$timeTrackDet) 
+		{
+			//get_receiveOrder_permission($designation_id,$accountId,$orderId);
+			
+			//get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType);
+		
+			get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+			
+			
+		}elseif ($orderStatus == 1 && $checkOrdAssing && !$timeTrackDet)
+		{
+
+			//get_receiveOrder_permission($designation_id,$accountId,$orderId);
+			?>
+
+<?php
+			
+			
+				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+			
+
+		}elseif($timeTrackDet) {
+
+			//get_receiveOrder_permission($designation_id,$accountId,$orderId);
+			?>
+
+<?php 
+			
+				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+			
+
+		}
+		else
+		{
+			?>
+
+                 
+
+<?php
+			
+				get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
+			
+
+		}
+	}
+}
 //Start Getting All Order Action Of Order Type = 2 (Requisition)
 function get_all_order_action_of_requisition_type($orderType,$orderStatus,$checkOrdAssing,$timeTrackDet,$orderId,$designation_id,$accountId)
 {
@@ -4432,7 +4486,7 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 
 			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType); 
 
-			get_editRequisition_permission($designation_id,$accountId,$orderId);
+			//get_editRequisition_permission($designation_id,$accountId,$orderId);
 
 		}
 		elseif($orderStatus == 3 && $checkOrdAssing && !$timeTrackDet)
@@ -4446,7 +4500,7 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 
 <?php
 
-			get_editRequisition_permission($designation_id,$accountId,$orderId);
+			//get_editRequisition_permission($designation_id,$accountId,$orderId);
 
 		}
 		elseif($timeTrackDet) 
@@ -4454,6 +4508,76 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 			get_issueOut_permission($designation_id, $accountId, $orderId);
 			?>
 <!-- <a style="width: 20%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php echo showOtherLangText('Issue Out') ?></a> -->
+
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
+
+<?php
+
+			//get_editRequisition_permission($designation_id,$accountId,$orderId);
+
+
+		}
+		else
+		{
+			?>
+<!-- <a style="width: 20%;display: inline-block;text-align: center;"
+    href="runningOrders.php?orderId=<?php //echo $orderId ?>&confirm=3"><?php //echo showOtherLangText('Confirm') ?></a> -->
+
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
+<div class="cnfrm text-center d-flex justify-content-center align-items-center">
+<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="runLink">
+	   <span class="conFirm"></span>
+	   <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p></a>
+		</div>
+<?php
+
+			//get_editRequisition_permission($designation_id,$accountId,$orderId);
+
+		}
+
+	}
+}
+
+function get_edit_doctype_action_of_requisition_type($orderType,$orderStatus,$checkOrdAssing,$timeTrackDet,$orderId,$designation_id,$accountId)
+{
+
+	global $con;
+
+	if($orderType == 2)//recusition
+	{
+
+		if ($orderStatus == 3 && !$checkOrdAssing && !$timeTrackDet) 
+		{
+
+			//get_issueOut_permission($designation_id, $accountId, $orderId);
+			?>
+<!-- <a style="width: 21%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php //echo showOtherLangText('Issue Out') ?></a> -->
+<?Php
+
+			//get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType); 
+
+			get_editRequisition_permission($designation_id,$accountId,$orderId);
+
+		}
+		elseif($orderStatus == 3 && $checkOrdAssing && !$timeTrackDet)
+		{
+
+			//get_issueOut_permission($designation_id, $accountId, $orderId);
+			?>
+<!-- <a style="width: 20%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php //echo showOtherLangText('Issue Out') ?></a> -->
+
+<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
+
+<?php
+
+			get_editRequisition_permission($designation_id,$accountId,$orderId);
+
+		}
+		elseif($timeTrackDet) 
+		{
+			//get_issueOut_permission($designation_id, $accountId, $orderId);
+			?>
+<!-- <a style="width: 20%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php //echo showOtherLangText('Issue Out') ?></a> -->
 
 <!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
 
@@ -4470,9 +4594,7 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
     href="runningOrders.php?orderId=<?php //echo $orderId ?>&confirm=3"><?php //echo showOtherLangText('Confirm') ?></a> -->
 
 <!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
-<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="runLink">
-	   <span class="conFirm"></span>
-	   <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p></a>
+
 <?php
 
 			get_editRequisition_permission($designation_id,$accountId,$orderId);

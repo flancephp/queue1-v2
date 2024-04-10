@@ -153,7 +153,7 @@ $det = mysqli_fetch_array($res);
                         <div class="edtSup-Div">
                               <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account  Name') ?></label>
+                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account  Name') ?></label> <span>*</span>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control"  name="accountName" id="accountName"
@@ -163,7 +163,7 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?></label>
+                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?></label> <span>*</span>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" value="<?php echo isset($det['accountNumber']) ? $det['accountNumber'] : ''; ?>" name="accountNumber" id="accountNumber" placeholder="0003">
@@ -173,7 +173,7 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency') ?></label>
+                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency') ?> <span>*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         
@@ -195,7 +195,7 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance') ?></label>
+                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance') ?> <span>*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="hidden" name="id"  value="<?php echo $_GET['id'];?>" />

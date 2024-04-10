@@ -360,20 +360,20 @@ if( $res['proType'] == 3)
                                                         onClick="showOtherItems(1);" autocomplete="off"
                                                         <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?>
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')" <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?> required />
+                                                        onchange="this.setCustomValidity('')"  required />
                                                     <?php echo showOtherLangText('Normal') ?>
                                                     <input type="radio" name="proType" value="2"
                                                             onClick="showOtherItems(2);" autocomplete="off"
                                                             <?php echo $res['proType'] == 2 ? 'checked="checked"' : '';?>
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                            onchange="this.setCustomValidity('')" <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?> required />
+                                                            onchange="this.setCustomValidity('')"  required />
                                                         <?php echo showOtherLangText('Dividable') ?>
                                                         <input type="radio" name="proType"
                                                             value="3" onClick="showOtherItems(3);" autocomplete="off"
                                                             id="rawType"
                                                             <?php echo $res['proType'] == 3 ? 'checked="checked"' : '';?>
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                            onchange="this.setCustomValidity('')" <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?> required />
+                                                            onchange="this.setCustomValidity('')"  required />
                                                         <?php echo showOtherLangText('Raw') ?>
                                                 </div>
                                              </div>
