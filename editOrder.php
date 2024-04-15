@@ -435,8 +435,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                         <div class="tpBar-grn"></div>
                         <div class="stcPart">
                             <div class="container erdOrder nwOrder-Div">
-                                <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"
-                        class="container">
+                                <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
                                 <div class="row">
                                     <div class="sltSupp nwOrd-Num">
                                         <div class="ord-Box w-100">
@@ -473,7 +472,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                                                     class="dropdown-toggle tabFet" role="button"
                                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="currency"></span>
-                                                                    <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('Add currency') ?> <i
+                                                                    <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('currency') ?> <i
                                                                             class="fa-solid fa-angle-down"></i></span></p>
                                                                 </a>
 
@@ -511,7 +510,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                                                     class="dropdown-toggle tabFet" role="button"
                                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="fee"></span>
-                                                                    <p class="btn2"><?php echo showOtherLangText('Add Fee'); ?> <i
+                                                                    <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
                                                                             class="fa-solid fa-angle-down"></i>
                                                                     </p>
                                                                 </a>
@@ -1080,7 +1079,7 @@ $ordQry = mysqli_query($con, $sql);
                                             </div>
                                         </div>
                                         <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
                                         <div class="prdtCnt-Scnd d-flex align-items-center">
                                             <div class="itm-Quantity tb-bdy">
@@ -1142,8 +1141,7 @@ $ordQry = mysqli_query($con, $sql);
                                 </div>
                             </div>
                             </form>
-                            <form  id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"
-                        class="container">
+                            <form  id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
 
 
                         <?php 
@@ -1284,7 +1282,7 @@ $ordQry = mysqli_query($con, $sql);
                                                 </div>
                                             </div>
                                             <div class="prdtStk-Qty tb-bdy">
-                                                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink"' : '';?>>
+                                                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink;height: 30px;"' : '';?>>
                                         <?php echo round(($stockQty/$row['factor']), 1);?> <span class="tabOn-Stk">On stock</span></p>
                                             </div>
                                             <div class="prdtCnt-Scnd d-flex align-items-center">

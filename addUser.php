@@ -206,7 +206,7 @@ if( isset($_POST['user_name']) )
                                 <div class="setTitle"></div>
                                
 
-                                <input type="password" required class="form-control" id="inputPassword" placeholder="Password">
+                                <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
                                 <input type="email" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Email') ?>">
                                 <input type="text" class="form-control" id="phone" name="phone" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Phone') ?>">
                                 <div>

@@ -242,7 +242,7 @@ if( isset($_POST['user_name']) )
                                     <div class="setTitle"></div>
                                
 
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $userRow['email'] ?>" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Email') ?>">
                                 <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $userRow['phone'] ?>" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Phone') ?>">
                                 <div>
@@ -251,11 +251,11 @@ if( isset($_POST['user_name']) )
 														<input type="file" name="imgName" class="form-control" id="logo" onchange="previewFile()" autocomplete="new-password" style="display:none;">
 														<button type="button" id="upload-img-btn" onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
 													</div>
-													<div>
-														<img src="<?php echo $_POST['imgName']; ?>" class="previewImg" width="100px">
-													</div>
+													<!-- <div>
+														<img src="<?php //echo $_POST['imgName']; ?>" class="previewImg" width="100px">
+													</div> -->
 												</div>
-                                                <div align="center" style="padding-left:40px;">
+                                                <div align="center" style="padding-left: 218px;padding-top: 43px;">
 														<?php 
                                                       	if( $userRow['logo'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/users/'.$userRow['logo'] ) )
 														{	

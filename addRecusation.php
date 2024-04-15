@@ -385,7 +385,7 @@ if($_SESSION['deptId'] != '')
                 </section>
 
                 <section class="ordDetail">
-                    <div class="tpBar-grn"></div>
+                    <div class="tpBar-grn  tpBar-red"></div>
                     <div class="stcPart">
                         <div class="container topOrder newReq nwOrder-Div">
                             <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
@@ -415,13 +415,10 @@ if($_SESSION['deptId'] != '')
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <!-- <form action="" id="frm" name="frm" method="post" autocomplete="off" class="container"> -->
+                            
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
                                     <div class="ord-Box">
-                                        <!-- <div class="ordNum">
-                                            <h4 class="subTittle1"><span>Order#:</span> <span>332974</span></h4>
-                                        </div> -->
                                         <div class="ordDate">
                                             <h4 class="subTittle1"><?php echo date("d-m-Y"); ?></h4>
                                         </div>
@@ -1041,18 +1038,19 @@ else
 
 
 <?php require_once('footer.php');?>
-<form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
-    <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+
+    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
+        <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
                 </div>
-                <div class="modal-body">
+                <div class="addUser-Form modal-body">
                     <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
                     <input type="text" class="form-control" name="feeName" id="feeName" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
@@ -1064,29 +1062,33 @@ else
                                             </option>
                                         </select>
                     <input type="text" class="form-control" id="amt" name="amt" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
-                                            <input type="checkbox" name="feeType" id="feeType" value="1">
-                        <label for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label>
+                                            
+                     
                 </div>
-                  <div>
+                 <div class="feeSave">
+                        <input type="checkbox" name="feeType" id="feeType" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('Tax fee'); ?></span><br>
+                   
+                </div>
                     <div class="feeSave">
-                        <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
-                    </div>
+                        <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
+                   
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </form>
+    </div></form>
+    
 <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
     <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -1108,14 +1110,14 @@ list'); ?></label><br>
                 </div>
                   <div>
                     <div class="feeSave">
-                        <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <input type="checkbox" class="optionCheck"  id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>

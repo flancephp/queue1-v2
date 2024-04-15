@@ -299,12 +299,12 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
 				if( $resRow['logo'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$resRow['logo'] ) )
 				{
 
-					echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$resRow['logo'].'" width="100" height="100" style="object-fit: scale-down;">';
+					echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$resRow['logo'].'" class="previewImg" width="100" height="100" style="object-fit: scale-down;">';
 
 				}
 				else
 				{
-					echo '<img src="'.$_POST['imgName'].'" class="previewBlankImg" width="100" height="100" style="display:none;object-fit: scale-down;" >'; 
+					echo '<img src="'.$_POST['imgName'].'" class="previewImg previewBlankImg" width="100" height="100" style="display:none;object-fit: scale-down;" >'; 
 				}
 			?>
                                                 </picture>
@@ -317,8 +317,7 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                                 </label>
 
                                             <input class="" onchange="previewFile()"  name="logo" id="logo" type="file">
-                                              <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;" width="100px"
-                                                    class="previewImg">
+                                              
                                         </div>
                                     </div>
                                 </div>
@@ -346,6 +345,7 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
         var reader = new FileReader();
 
         reader.onloadend = function() {
+            $('.previewImg').show();
             preview.src = reader.result;
         }
 

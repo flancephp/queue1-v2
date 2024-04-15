@@ -428,7 +428,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <form action="" id="frm" name="frm" method="post" autocomplete="off" class="container">
+                            <form action="" id="frm" class="frm" name="frm" method="post" autocomplete="off">
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
                                     <div class="ord-Box">
@@ -486,7 +486,7 @@ else
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="currency"></span>
-                                                                <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('Add currency') ?> <i
+                                                                <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('Currency') ?> <i
                                                                         class="fa-solid fa-angle-down"></i></span></p>
                                                             </a>
 
@@ -511,7 +511,7 @@ else
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="fee"></span>
-                                                                <p class="btn2"><?php echo showOtherLangText('Add Fee'); ?> <i
+                                                                <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
                                                                         class="fa-solid fa-angle-down"></i>
                                                                 </p>
                                                             </a>
@@ -570,7 +570,7 @@ else
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
                                     
-                                        <a href="javascript:void(0)" class="btn sub-btn"><span
+                                        <a href="javascript:void(0)" class="btn sub-btn submit_new_order"><span
                                                 class="align-middle">Submit</span> <i
                                                 class="fa-solid fa-angle-right"></i></a>
                                     </div>
@@ -1108,7 +1108,7 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
       {
         $newCurAmt = ($row['price']*$row['factor']*$curDet['amt']);
         $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
-        echo '<td><strong>'.$newCurAmt.'</strong></td>';
+        echo $newCurAmt;
       }
       ?></p>
                                                 </div>
@@ -1256,7 +1256,7 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                 <div class="modal-body">
                     <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
                     <input type="text" class="form-control" name="feeName" id="feeName" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
@@ -1268,23 +1268,24 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                             </option>
                                         </select>
                     <input type="text" class="form-control" id="amt" name="amt" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
-                                            <input type="checkbox" name="feeType" id="feeType" value="1">
-                        <label for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label>
+                                            
                 </div>
                   <div>
+                    <input type="checkbox" name="feeType" id="feeType" class="optionCheck" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
                     <div class="feeSave">
-                        <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="feesave_add" name="feesave_add" class=""><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="feesave_add" name="feesave_add" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1300,26 +1301,26 @@ list'); ?></label><br>
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
                 </div>
                 <div class="modal-body">
-                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
+                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?> *" autocomplete="off"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required>
-                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>" autocomplete="off"
+                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?> *" autocomplete="off"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required>
-                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
+                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required>
                 </div>
                   <div>
                     <div class="feeSave">
-                        <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="addFee" name="addFee" class=""><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1349,13 +1350,12 @@ list'); ?></label><br>
 // this.form.submit();
 // });
 
-$('.sub-btn').click(function(){
+$('.submit_new_order').click(function(){
 $('#frm').submit();
 });
 
 $(".supplier_dropdown").on("click", "a", function(e){
         var $this = $(this).parent();
-        console.log('ddd',$this.data("id"),$this.data("value"));
         $("#supplierText").text($this.data("value"));
         $("#supplier_frm_id #supplierId").val($this.data("id"));
         $('#supplier_frm_id').submit();

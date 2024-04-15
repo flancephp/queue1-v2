@@ -374,7 +374,7 @@ $ordRow = mysqli_fetch_array($resultSet);
 ?>
                 <section class="ordDetail">
                     <div class="tpBar-grn tpBar-red"></div>
-                     <form action="" id="frm" name="frm" method="post" autocomplete="off" class="container">
+                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                     <div class="stcPart">
                         <div class="container topOrder edtReq nwOrder-Div">
                             
@@ -974,7 +974,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                               </form>
                               <form
                         action="editRequisition.php?orderId=<?php echo $_GET['orderId'];?>&deptId=<?php echo $ordRow['deptId'];?>"
-                        method="post" autocomplete="off" id="frm_add_new_items" name="frm_add_new_items" class="container">
+                        method="post" autocomplete="off" id="frm_add_new_items" name="frm_add_new_items">
                             <div class="btnBg mt-3">
                                 <a href="javascript:void(0);" class="sub-btn std-btn add_new_items_in_req"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                             </div>

@@ -452,18 +452,18 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                     <div style="width: 3%;">&nbsp;</div>
                                     <div class="d-flex align-items-center" style="width: 60%;">
                                         <div class="p-1" style="width: 30%;">
-                                            <p>Refer to</p>
+                                            <p><?php echo showOtherLangText('Refer to') ?></p>
                                         </div>
                                         <div class="p-1" style="width: 17%;">
-                                            <p>Date</p>
+                                            <p><?php echo showOtherLangText('Date') ?></p>
                                         </div>
                                         <div class="rnTsk-Num">
-                                            <p>Number</p>
+                                            <p><?php echo showOtherLangText('Number') ?></p>
                                         </div>
                                     </div>
                                     <div style="width: 25%;">
                                         <div class="p-1">
-                                            <p>Value</p>
+                                            <p><?php echo showOtherLangText('Value') ?></p>
                                         </div>
                                     </div>
 
@@ -471,7 +471,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                 </div>
                                 <div class="d-flex align-items-center" style="width: 45%;">
                                     <div class="p-1">
-                                        <p>Status</p>
+                                        <p><?php echo showOtherLangText('Status') ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -536,11 +536,11 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                 <div class="fxdhtBox">
                                     <div class="mbSbar">&nbsp;</div>
                                     <div class="align-items-center dskDetail">
-                                        <div class="d-flex align-items-center runDetail <?php if($orderRow['ordType'] == 1) { echo 'mbrDtl-Bg'; } else { echo 'reqDtl-Bg'; } ?>">
-                                            <div class="<?php if($orderRow['ordType'] == 1) { echo 'reqType'; } else { echo 'ordType'; } ?> ">&nbsp;</div>
+                                        <div class="d-flex align-items-center runDetail <?php if($orderRow['ordType'] == 1) { echo 'reqDtl-Bg'; } else { echo 'mbrDtl-Bg'; } ?>">
+                                            <div class="<?php if($orderRow['ordType'] == 1) { echo 'ordType';  } else {echo 'reqType'; } ?> ">&nbsp;</div>
                                             <div class="d-flex align-items-center ordeReq">
-                                                <div class="p-1 reqDtl <?php if($orderRow['ordType'] == 1) { echo 'member-Name'; } else { echo 'supMem-Name'; } ?> ">
-                                                    <p><?php //echo $orderRow['ordNumber'];?><?php if($orderRow['ordType'] == 1) { echo 'Member'; } else { echo 'Supplier'; } ?></p>
+                                                <div class="p-1 reqDtl <?php if($orderRow['ordType'] == 1) { echo 'supMem-Name'; } else { echo 'member-Name'; } ?> ">
+                                                    <p><?php if($orderRow['ordType'] == 1) { echo 'Supplier';  } else { echo 'Member'; } ?></p>
                                                 </div>
                                                
                                                 <div class="p-1 dt-run">
@@ -549,19 +549,15 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                                 <div class="p-1 mbrRuntsk" >
                                                     <p># <?php echo $orderRow['ordNumber'];?></p>
                                                 </div>
-                                                <!-- <div class="p-1" >
-                                                    <p><?php //echo date('d-m-y h:i', strtotime($orderRow['ordDateTime']) );?></p>
-                                                </div> -->
-                                                <!-- <div class="p-1 mbrRuntsk" style="width: 30%;">
-                                                    <p><?php //echo showPrice($orderRow['ordAmt'], $getDefCurDet['curCode']); ?></p>
-                                                </div> -->
-                                                <!-- <div class="p-1 mbrRuntsk" style="width: 30%;">
-                                                    <p></p>
-                                                </div> -->
-                                                
                                             </div>
                                             <div class="p-1 val-run">
-                                                <p class="otherCurr"><?php echo showPrice($orderRow['ordAmt'], $getDefCurDet['curCode']); ?></p>
+                                            	<p class="otherCurr"><?php 
+				if($orderRow['ordCurAmt'] > 0)
+				{
+					echo showOtherCur($orderRow['ordCurAmt'],$orderRow['ordCurId']);
+				}
+						?></p>
+                                                <p><?php echo showPrice($orderRow['ordAmt'], $getDefCurDet['curCode']); ?></p>
                                             </div>
 
                                         </div>

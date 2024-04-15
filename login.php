@@ -130,7 +130,7 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
                             <div class="input-group-append">
                             <span class="btn"><i class=" fa fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
+                            <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_COOKIE['usernameChk']) ? $_COOKIE['usernameChk'] : '';?>" placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
                         </div>
 
 
@@ -138,7 +138,7 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
                             <div class="input-group-append">
                             <span class="btn"><i class=" fa fa-lock"></i></span>
                             </div>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
+                            <input type="password" class="form-control" id="password" name="password" value="<?php echo isset($_COOKIE['passwordChk']) ? $_COOKIE['passwordChk'] : '';?>" placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
 
                             <div class="input-group-append password-toggle-icon">
                                 <span class="btn"><i class=" fa fa-eye-slash"></i></span>
@@ -156,7 +156,7 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
                         <div class="py-3 d-flex align-items-center justify-content-center gap-3 mb-2 login-remember">
 
                             <label for="remember"><?php echo showOtherLangText('Remember Me') ?></label>
-                            <input type="checkbox" name="remember" id="remember" class="form-check-input" checked>
+                            <input type="checkbox" value="1" name="cookieChk" id="cookieChk" class="form-check-input" <?php echo (isset($_COOKIE['usernameChk']) && $_COOKIE['usernameChk'] != '') ? 'checked="checked"' : '';?>>
 
                         </div>
 

@@ -236,30 +236,30 @@ $res = mysqli_fetch_array($result);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierAddress" class="form-label"><?php echo showOtherLangText('Address'); ?><span> *</span></label>
+                                        <label for="supplierAddress" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <textarea class="form-control" id="address" name="address" required
+                                        <textarea class="form-control" id="address" name="address" 
                                             placeholder="DC Janakpuri"><?php echo $res['address'];?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierEmail" class="form-label"><?php echo showOtherLangText('Email'); ?><span> *</span></label>
+                                        <label for="supplierEmail" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="email" value="<?php echo $res['email'];?>" required     class="form-control" id="email" name="email"
+                                        <input type="email" value="<?php echo $res['email'];?>"     class="form-control" id="email" name="email"
                                             placeholder="Logitech@gmail.com">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierPhone" class="form-label"><?php echo showOtherLangText('Phone'); ?><span> *</span></label>
+                                        <label for="supplierPhone" class="form-label"><?php echo showOtherLangText('Phone'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="tel" value="<?php echo $res['phone'];?>" required class="form-control" id="phone" name="phone"
+                                        <input type="tel" value="<?php echo $res['phone'];?>"  class="form-control" id="phone" name="phone"
                                             placeholder="+99994341000">
                                     </div>
                                 </div>

@@ -193,6 +193,7 @@ $result = mysqli_query($con, $sql);
                                 </div>
                                 <?php 
 				$x= 0;
+
 				while($row = mysqli_fetch_array($result))
 				{
 					$color = ($x%2 == 0)? 'white': '#FFFFCC';
@@ -210,7 +211,7 @@ $result = mysqli_query($con, $sql);
                                                 <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
                                             </div>
                                             <div class="tb-bdy usrName-Clm">
-                                                <p class="userName"><?php echo $row['username'];?></p>
+                                                <p class="userName"><?php echo $row['username'];?><?php echo $row['password'];?></p>
                                             </div>
                                             <div class="tb-bdy usrTtl-Clm">
                                                 <p class="userTittle"><?php echo $designationName;?></p>
