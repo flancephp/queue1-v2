@@ -285,10 +285,10 @@ if( isset($_POST['itemName']) )
                             <?php } ?>
                         <div class="row">
                             <div class="col-md-8 oltCol-8">
-                                <div class="acntStp">
+                                <div class="">
                                     <div class="addUser-Form acntSetup-Form row">
-                                        <div class="acnt-Div nmOutlet">
-                                            <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-6 nmOutlet">
+                                            <div class="row align-items-center acntStp-Row1">
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Item'); ?></label>
                                                 </div>
@@ -311,56 +311,70 @@ if( isset($_POST['itemName']) )
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
                                             </div>
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                            <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
                                                     <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Status') ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                <div class="rdoBtn-New"><input type="radio" name="status" id="status"
+                                                <div class="rdoBtn-New d-flex gap-2">
+                                                    <span class="fs-13 d-flex align-items-center gap-1">
+                                                    <input type="radio" class="form-check-input mt-0" name="status" id="status"
                                                         value="1" autocomplete="off" checked="checked"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                         onchange="this.setCustomValidity('')" required />
                                                     <?php echo showOtherLangText('Active') ?>
-                                                    <input type="radio" name="status" id="status"
+                                                    </span>
+                                                    <span class="fs-13 d-flex align-items-center gap-1 ms-2">
+                                                    <input type="radio" class="form-check-input mt-0" name="status" id="status"
                                                         value="0" autocomplete="off"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                         onchange="this.setCustomValidity('')" required />
                                                     <?php echo showOtherLangText('InActive') ?>
+                                                    </span>
                                                 </div>
                                              </div>
                                             </div>
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                            <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
                                                     <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                <div class="rdoBtn-New"><input type="radio" name="proType" value="1"
+                                                <div class="rdoBtn-New d-flex gap-2">
+                                                    <span class="fs-13 d-flex align-items-center gap-1">    
+                                                    <input type="radio" class="form-check-input mt-0" name="proType" value="1"
                                                         onClick="showOtherItems(1);" autocomplete="off"
                                                         checked="checked"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                         onchange="this.setCustomValidity('')" required />
                                                     <?php echo showOtherLangText('Normal') ?>
-                                                    <input type="radio" name="proType" value="2"
+                                                    </span>
+                                                    <span class="fs-13 d-flex align-items-center gap-1"> 
+                                                    <input type="radio" class="form-check-input mt-0" name="proType" value="2"
                                                             onClick="showOtherItems(2);" autocomplete="off"
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                             onchange="this.setCustomValidity('')" required />
                                                         <?php echo showOtherLangText('Dividable') ?>
-                                                        <input type="radio" name="proType"
+                                                    </span>
+                                                    <span class="fs-13 d-flex align-items-center gap-1"> 
+                                                        <input type="radio" class="form-check-input mt-0" name="proType"
                                                             value="3" onClick="showOtherItems(3);" autocomplete="off"
                                                             id="rawType"
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                             onchange="this.setCustomValidity('')" required />
                                                         <?php echo showOtherLangText('Raw') ?>
+                                                    </span>
                                                 </div>
                                              </div>
                                             </div>
-                                            <div style="display:none;" id="chooseProducts" class="row align-items-center acntStp-Row">
+                                            <div style="display:none;" id="chooseProducts" class="row align-items-start acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Select product'); ?></label>
+                                                    <label for="Name" class="form-label pt-2"><?php echo showOtherLangText('Select product'); ?></label>
                                                 </div>
                                                 <div class="col-md-8 after-add-more">
-                                                <input type="text" name="rawProducts[]" id="tags" class="frmctrl" />
+                                                    <div class=" d-flex gap-3">
+                                                    <input type="text" name="rawProducts[]" id="tags" class="frmctrl form-control" />
                                                     <a class="btn btn-success add-more">+</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
@@ -370,7 +384,7 @@ if( isset($_POST['itemName']) )
                                                 <div class="col-md-8">
                                                 <input type="file" class="form-control" name="imgName" id="logo"
                                                     onchange="previewFile()" autocomplete="off" style="display:none;" />
-                                                <button type="button" id="upload-img-btn"
+                                                <button type="button" id="upload-img-btn" class="sub-btn"
                                                     onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
                                             </div> 
                                                     <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;" width="100px"
@@ -566,7 +580,7 @@ if( isset($_POST['itemName']) )
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
+                                                        <div class="cstmSelect  fs-14">
                                                         <?php
 									$revCenQry = "SELECT id, name FROM tbl_revenue_center WHERE account_id= '".$_SESSION['accountId']."' ORDER BY name ";
 
@@ -597,7 +611,7 @@ if( isset($_POST['itemName']) )
                                                         <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
+                                                        <div class="cstmSelect  fs-14">
                                                             <select name="outLetType" id="outLetType" class="form-select selectOption"
                                                     onchange="getOutletType();">
 
@@ -611,8 +625,8 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="acntLg-Upld setOutlet">
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                        <div class="col-md-6 setOutlet ps-lg-4">
+                                            <div class="row align-items-start acntStp-Row chkOlt-Row">
                                                 <!-- <div class="col-md-4">
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label>
                                                 </div>
@@ -622,18 +636,18 @@ if( isset($_POST['itemName']) )
                                                 </div> -->
                                             </div>
                                             <div>
-                                                <div class="row align-items-center acntStp-Row">
+                                                <div class="row align-items-start acntStp-Row">
                                                     <div class="col-md-4">
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
-                                                        <strong class="checkAllSectionBox">
-                                                    <input type="checkbox" class="CheckAllOptions" id="CheckAllOptions">
+                                                        <div class="cstmSelect  fs-14">
+                                                        <span class="semibold d-flex align-items-center gap-1 mb-2">
+                                                    <input type="checkbox" class="CheckAllOptions form-check-input mt-0" id="CheckAllOptions">
                                                     <label>
                                                         <?php echo showOtherLangText('Check All') ?>
-                                                    </label><br>
-                                                </strong>
+                                                    </label>
+                                                </span>
 
                                                 <?php
 		$sqlSet = " SELECT * FROM  tbl_suppliers WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
@@ -642,36 +656,40 @@ if( isset($_POST['itemName']) )
 
             $sel = $_REQUEST['supplierId'] == $supRow['id'] ? 'checked="checked"' : '';
 		?>
+                                                <span class="d-flex align-items-center gap-1 mb-1 fs-13">
                                                 <input type="checkbox" id="supplierOptionCheck"
-                                                    class="supplierOptionCheck" name="supplierId[]"
+                                                    class="supplierOptionCheck form-check-input mt-0"  name="supplierId[]"
                                                     value="<?php echo $supRow['id'];?>" <?php echo $sel; ?> >
-                                                <?php echo $supRow['name'];?><br>
+                                                    <label ><?php echo $supRow['name'];?></label>
+                                                </span>
 
                                                 <?php } ?> 
                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row align-items-center acntStp-Row">
+                                                <div class="row align-items-start acntStp-Row">
                                                     <div class="col-md-4">
                                                         <label for="outletType" class="form-label"><?php echo showOtherLangText('Department'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                    <strong class="checkAllSectionBox">
-                                                    <input type="checkbox" class="CheckAllDeptOptions"
+
+                                                    <span class="semibold d-flex align-items-center gap-1 mb-2 fs-14">
+                                                    <input type="checkbox" class="CheckAllDeptOptions form-check-input mt-0"
                                                         id="CheckAllDeptOptions">
                                                     <label>
                                                         <?php echo showOtherLangText('Check All') ?>
                                                     </label>
-                                                </strong><br>
+                                                    </span>
                                                 <?php
 	
 		$sqlSet = " SELECT * FROM tbl_department WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
 		$resultSet = mysqli_query($con, $sqlSet);
 		while( $departRows = mysqli_fetch_array($resultSet) ){
-						?>
-                                                <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck"
+						?>                      <span class="d-flex align-items-center gap-1 mb-1 fs-13">
+                                                <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck form-check-input mt-0"
                                                     name="deptId[]" value="<?php echo $departRows['id'];?>" >
-                                                <?php echo $departRows['name'];?><br>
+                                                <?php echo $departRows['name'];?>
+                                                </span>
 
                                                 <?php 
 		} 
@@ -793,9 +811,9 @@ if (totalCount == totalCheckedCount) {
     $("body").on("click", ".add-more", function() {
             x++;
             var html = $(".after-add-more").append('<span id="' + x +
-                '"><br><br><input type="text" id="tags' + x +
-                '" name="rawProducts[]"  class="frmctrl" />  <a class="btn btn-danger remove" onclick="removeRow(' +
-                x + ')">X</a></span>');
+                '"><div class="mt-4 d-flex gap-3"><input type="text" id="tags' + x +
+                '" name="rawProducts[]"  class="frmctrl form-control" />  <a class="btn btn-danger remove" onclick="removeRow(' +
+                x + ')"><i class="fas fa-close fs-12"></i></a></div></span>');
 
 
             var availableTags = [

@@ -5369,81 +5369,73 @@ function checkStockQtyRequisition($orderId, $accountId)
 	    WHERE od.ordId = '".$orderId."'  AND od.account_id = '".$accountId."' AND s.qty < od.qty ";
 	$ordQry = mysqli_query($con, $sql);	
 
-	$sql = " SELECT * FROM tbl_orders WHERE id = '".$orderId."' AND account_id = '".$_SESSION['accountId']."' ";
+	$sql = " SELECT * FROM tbl_orders WHERE id = '".$orderId."' AND account_id = '1' ";
 	$result = mysqli_query($con, $sql);
 	$qryRow = mysqli_fetch_array($result);		
 	
 	$productNames = [];
 	while($ordRow = mysqli_fetch_array($ordQry) )
 	{ 	
-		// $productNames[] = "<div><strong>".'"'. $ordRow['itemName'] .'"'."</strong> ".showOtherLangText('max available Quantity in stock is')." <strong>".$ordRow['qtyInStock'].".</strong> ".showOtherLangText('Please edit it.')." <input type='hidden' name='orderId' value='".$orderId."'><input type='text' name='reqQty[".$ordRow['pId']."]' value='".$ordRow['orderedQty']."'></div>";
 
-		// $productNames[] = "<tr><td>". $ordRow['itemName'] ."</td>
-		// 					<td>". $ordRow['qtyInStock'] ."</td>
-		// 					<input type='hidden' name='orderId' value='".$orderId."'>
-		// 					<td><input type='text' class='form-control' name='reqQty[".$ordRow['pId']."]' value='".$ordRow['orderedQty']."'></td></tr>";
+        $productNames[] = '<tr>
+                                <td>'. $ordRow['itemName'] .'</td>
+                                <td>'. $ordRow['qtyInStock'] .'</td>
+                                <td><input type="number" name="reqQty['.$ordRow['pId'].']" value='.$ordRow['orderedQty'].'></td>
+                            </tr>';
 
-		$productNames[] =    '<div class="modal-body">
-    <div style="display: inline-block;width: 28%;">'. $ordRow['itemName'] .'</div>
-    <div style="display: inline-block;width: 20%;">'. $ordRow['qtyInStock'] .'</div>
-    <div style="display: inline-block;width: 25%;"><input type="text" class="form-control" name="reqQty['.$ordRow['pId'].']" value='.$ordRow['orderedQty'].'></div>
-    <input type="hidden" name="orderId" value='.$orderId.'></div>';
+	// 	$productNames[] =    '<div class="modal-body">
+    // <div style="display: inline-block;width: 28%;">'. $ordRow['itemName'] .'</div>
+    // <div style="display: inline-block;width: 20%;">'. $ordRow['qtyInStock'] .'</div>
+    // <div style="display: inline-block;width: 25%;"><input type="text" class="form-control" name="reqQty['.$ordRow['pId'].']" value='.$ordRow['orderedQty'].'></div>
+    // <input type="hidden" name="orderId" value='.$orderId.'></div>';
 	}
 	
-	//print_r($productNames);
-	//$errorMes =   showOtherLangText('Below items has less stocks than added in this requisition so please edit it:');
-	// $errorMes = '<div class="modal-header">
-    //                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    //                 <h1 class="modal-title h1">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</h1>
-    //             </div>';
-	
-	// //$errorMes .= "<br><br>";
+	$errorMes = '<div class="modal-body  fs-15"><div class="pb-3">
+                            <p>'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</p>
+                            <p class="mt-3"># '.$qryRow['ordNumber'].'</p> <input type="hidden" name="orderId" class="issueOutOrdId" value="'.$orderId.'">
+                        </div>';
+    $errorMes .= '<table class="issueout2-table w-100 fs-13">
+                            <tr class="semibold">
+                                <th>'. showOtherLangText('Item') .'</th>
+                                <th>'. showOtherLangText('S.Qty') .'</th>
+                                <th>'. showOtherLangText('Qty') .'</th>
+                            </tr>';
+    $errorMes .= implode('',$productNames);
+    $errorMes .=  '</table></div>';
+    $errorMes .= '<div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="submitFinalIssueOut btn btn-secondary" >'.showOtherLangText('Approve').'</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                    </div>';
 
-	//  $errorMes .= "<p># ".$qryRow['ordNumber']."</p>";
-
-	// $errorMes .= "<div>
-	// 				<div>
-	// 					<div>
-	// 						<div >". showOtherLangText('Item') ."</div>
-	// 						<div >". showOtherLangText('S.Qty') ."</div>
-	// 						<div >". showOtherLangText('Qty') ."</div>
-	// 					</div>
-	// 				</div>
-	// 				<div>";
-	
-	
-
-	// $errorMes .= "</div>
-	// 				</div>";
-
-	// //$errorMes .= "<br><br>";
-
-	$errorMes = '<div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</h1>
-                </div>
-                <div class="modal-body">
-                    <div># '.$qryRow['ordNumber'].'</div>
-                    <div>
-                    <input type="hidden" name="orderId" class="issueOutOrdId" value="">
+// 	$errorMes = '<div class="modal-body  fs-15">
+//                             <p>Below items has less stocks than added in this requisition so please edit it:</p>
+//                             <p class="mt-3"># 123119</p>
+//                         </div><div class="modal-header">
+//                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//                     <h1 class="modal-title h1">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</h1>
+//                 </div>
+//                 <div class="modal-body">
+//                     <div># '.$qryRow['ordNumber'].'</div>
+//                     <div>
+//                     <input type="hidden" name="orderId" class="issueOutOrdId" value="">
                     
-                </div>
-            <div class="modal-body">
-    <div style="display: inline-block;width: 28%;">'. showOtherLangText('Item') .'</div>
-    <div style="display: inline-block;width: 20%;">'. showOtherLangText('S.Qty') .'</div>
-    <div style="display: inline-block;width: 25%;">'. showOtherLangText('Qty') .'</div>
-    <div style="display: inline-block;">
+//                 </div>
+//             <div class="modal-body">
+//     <div style="display: inline-block;width: 28%;">'. showOtherLangText('Item') .'</div>
+//     <div style="display: inline-block;width: 20%;">'. showOtherLangText('S.Qty') .'</div>
+//     <div style="display: inline-block;width: 25%;">'. showOtherLangText('Qty') .'</div>
+//     <div style="display: inline-block;">
        
-    </div>
-</div>
-     </div>';
-          $errorMes .= implode('',$productNames);
+//     </div>
+// </div>
+//      </div>';
+//           $errorMes .= implode('',$productNames);
 
-         $errorMes .=       '<div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="button" class="submitFinalIssueOut btn sub-btn std-btn">'.showOtherLangText('Approve').'</button></div>
-                    </div>
-                </div>';
+//          $errorMes .=       '<div class="modal-footer">
+//                     <div class="btnBg">
+//                         <button type="button" class="submitFinalIssueOut btn sub-btn std-btn">'.showOtherLangText('Approve').'</button></div>
+//                     </div>
+//                 </div>';
 	
 	echo '<div class="modal-content">'. $errorMes .'</div>';
 			

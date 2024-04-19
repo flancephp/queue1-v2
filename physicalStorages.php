@@ -246,9 +246,9 @@ if( isset($_POST['name']) )
                                             <div class="d-flex align-items-center">
                                                 <p>#</p>
                                                 <span class="dblArrow">
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i
+                                                    <a href="javascript:void(0)" onclick="sortRows(1);" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i
+                                                    <a href="javascript:void(0)" onclick="sortRows(0);" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-down"></i></a>
                                                 </span>
                                             </div>
@@ -259,10 +259,11 @@ if( isset($_POST['name']) )
                                     </div>
                                     <div class="phyStrgTbl-Icns">
                                         <div class="tb-head outOpt-Clm text-center">
-                                            <p><?php echo showOtherLangText('Actions') ?></p>
+                                            <p><?php echo showOtherLangText('Options') ?></p>
                                         </div>
                                     </div>
                                 </div>
+                                 <div id="myRecords">
                                 <?php 
 
                                 $x= 0;
@@ -308,7 +309,7 @@ if( isset($_POST['name']) )
                                 
 
                                 <!-- Table Body End -->
-
+                              </div>
                             </div>
                         </div>
 
@@ -374,6 +375,25 @@ if( isset($_POST['name']) )
 <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -384,33 +404,36 @@ $( document ).ready(function() {
         
         var editIdValue = this.getAttribute("data-editid");
         var editnameValue = this.getAttribute("data-name");
-        console.log('editnameValue',editnameValue,editIdValue);
         $('#editStore').val(editnameValue);
         $('#edit-id').val(editIdValue);
       });
 });  
+ 
  function getDelNumb(delId){
+var newOnClick = "window.location.href='physicalStorages.php?delId=" + delId + "'";
 
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='physicalStorages.php?delId='+delId;
-          },
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
+ }  
 
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-}  
-</script> 
+ jQuery.fn.orderBy = function(keySelector) {
+        return this.sort(function(a, b) {
+            a = keySelector.apply(a);
+            b = keySelector.apply(b);
+            if (a > b) return 1;
+            if (a < b) return -1;
+            return 0;
+        });
+    };
+
+    // Function to sort and reorder the .userTask elements
+    function sortRows(sort) {
+        var uu = $(".userTask").orderBy(function() {
+             var number = +$(this).find(".userNumber").text().replace('No. ', '');
+             return sort === 1 ? number : -number; 
+        }).appendTo("#myRecords");
+
+
+    }
+</script>  

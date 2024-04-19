@@ -60,6 +60,7 @@ if( isset($_GET['canId']) && $_GET['canId'] )
 	echo "<script>window.location='runningOrders.php?cancel=1&type=".$_GET['type']." '</script>";
 
 }
+//$_SESSION['errorQty'] = 1;
 
 if( isset($_GET['orderId']) && isset($_GET['confirm']) )
 {
@@ -73,7 +74,7 @@ if($_GET['confirm'] == 2)//for recusation
 				
 				foreach ($_POST['reqQty'] as $productId => $qty) 
 				{
-					$sql = " UPDATE tbl_order_details SET qty = '".$qty."',
+					 $sql = " UPDATE tbl_order_details SET qty = '".$qty."',
 					totalAmt = price*$qty WHERE pId = '".$productId."' AND ordId = '".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
 					mysqli_query($con, $sql);
 				}
@@ -99,7 +100,7 @@ if($_GET['confirm'] == 2)//for recusation
 			$productIds = [];
 			while($ordRow = mysqli_fetch_array($ordQry) )
 			{ 	
-				$sql = "SELECT * FROM tbl_stocks WHERE pId = '".$ordRow['pId']."' AND account_id = '".$_SESSION['accountId']."' ";
+				 $sql = "SELECT * FROM tbl_stocks WHERE pId = '".$ordRow['pId']."' AND account_id = '".$_SESSION['accountId']."' ";
 				$stkQry = mysqli_query($con, $sql);
 				$stkRow = mysqli_fetch_array($stkQry);
 			
@@ -448,9 +449,9 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                             <div style="width: 3%;">&nbsp;</div>
                             <div class="d-flex align-items-center runTable py-1" style="width: 97%;">
 
-                                <div class="d-flex align-items-center" style="width: 53%;">
+                                <div class="d-flex align-items-center" style="width: 55%;">
                                     <div style="width: 3%;">&nbsp;</div>
-                                    <div class="d-flex align-items-center" style="width: 60%;">
+                                    <div class="d-flex align-items-center" style="width: 72%;">
                                         <div class="p-1" style="width: 30%;">
                                             <p><?php echo showOtherLangText('Refer to') ?></p>
                                         </div>
@@ -563,7 +564,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                         </div>
                                         <div class="align-items-center tmpStatus togleOrder">
                                             <div class="py-1 px-1 d-flex align-items-center stsBar">
-                                                <div class="task-status <?php if($orderRow['status']=='0' || $orderRow['status']==null) { echo 'pending-Sts'; } ?>">
+                                                <div class="task-status <?php  if($orderRow['status']=='1' && $orderRow['ordType'] == 2) { echo 'pending-Sts'; } ?> <?php  if($orderRow['status']=='0' || $orderRow['status']==null) { echo 'pending-Sts'; } ?>">
                                                     <p><?php
 				if ($orderRow['ordType'] == 1)
 				{
@@ -614,8 +615,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 
                                                         <ul class="dropdown-menu">
                                                             
-                                                            <li><a class="dropdown-item"
-                                                                    href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
+                                                            <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')"  ><i class="far fa-square pe-2"></i>View Details</a>
                                                             </li>
                                                  <?php 
 			if($orderRow['ordType'] == 1)
@@ -623,7 +623,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 			//issue in
 				?>
                                                  <li><a class="dropdown-item"
-                                                                    href="javascript:void(0)"><i class="far fa-square pe-2"></i>Details(Supplier)</a>
+                                                                    href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
                                                             </li>
                                                 <?php 
 			} 
@@ -731,51 +731,46 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
    <form method="POST" id="frm_issueOutPopUpFrm" name="issueOutPopUpFrm">
     <div class="modal" tabindex="-1" id="issue-out" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Please approve one more time the'); ?><br><?php echo showOtherLangText('Issue Out'); ?></h1>
-                </div>
-                <div class="modal-body">
-                    
-                    <div>
-                    <input type="hidden" name="orderId" class="issueOutOrdId" value="">
-                    
-                </div>
-                   <!-- <div>
-                    <div><a href="javascript:void(0)" class="btn btn-primary approveBtn"
-                            name="approveBtn"><?php //echo showOtherLangText('Issue Out'); ?></a></div>
-                </div> -->
-                <!-- <div class="mobUserList">
-                    
-                </div>    -->
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="button" class="approveBtn btn sub-btn std-btn"><?php echo showOtherLangText('Issue Out'); ?></button>
+                    <div class="modal-content">
+
+                    <div class="modal-body text-center fs-13">
+                       <p><?php echo showOtherLangText('Please approve one more time the'); ?></p>
+                       <input type="hidden" name="orderId" class="issueOutOrdId" value="">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                        <button type="button" class="approveBtn btn btn-primary"><?php echo showOtherLangText('Issue Out'); ?></button>
+                    </div>
                     </div>
                 </div>
-            </div>
-        </div>
+
     </div>
    </form>
     <form action="runningOrders.php?confirm=2&orderId=<?php echo $_SESSION['errorQtyOrderId'] ?>" method="POST" id="frm_issueOutPopUpFinalFrm"
         name="issueOutPopUpFrm">
-        <div class="modal" tabindex="-1" id="errorQtyModal" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-             
+        <div class="modal" id="errorQtyModal" tabindex="-1" aria-labelledby="issueout2label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-550">
+                    
 
-             <?php 
+                     <?php 
 			if( isset($_SESSION['errorQty']) && $_SESSION['errorQty'] == 1)
 			{
 				checkStockQtyRequisition($_SESSION['errorQtyOrderId'], $_SESSION['accountId']);
 			}
 			?>
-        </div>
-    </div>
-        <!-- The Modal-1-->
-        
+                  
+                </div>
+                </div>
+                
     </form>
+    
+     <div class="modal" tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+                <div id="order_details_supplier" class="modal-content p-2">
+        
+      </div>
+      </div>
+      </div>
 </body>
 
 </html>
@@ -966,6 +961,52 @@ function cnfIssueOut(orderId) {
     
     $('.issueOutOrdId').val(orderId);
 }
+ 
+  function getDelNumb(delId){
+var newOnClick = "window.location.href='users.php?delId=" + delId + "'";
 
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
+
+ }
+
+ function openPopup(ordType, ordId) {
+    if (ordType == 1) {
+    	
+       showOrderJourney(ordId, ordType);
+        return false;
+        
+    } else if (ordType == 2) {
+
+        showRequisitionJourney(ordId);
+        return false;
+        
+    } 
+
+    
+}
+
+function showOrderJourney(ordId, ordType, isSupOrder = 0) {
+     $.ajax({
+            method: "POST",
+            url: "ordershare_ajax_pdf.php",
+
+            data: {
+                orderId: ordId,
+                orderType: ordType,
+                isSupDet: isSupOrder
+            }
+        })
+        .done(function(htmlRes) {
+             $('#order_details_supplier').html(htmlRes);
+            $('#order_details').modal('show');
+
+            
+            //orderAndReqJsCode();
+        });
+
+       
+
+}
 
 </script>

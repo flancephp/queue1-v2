@@ -242,7 +242,7 @@ $deptResult = mysqli_query($con, $deptQry);
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
-                    <form role="form" action="" method="post" class="container">
+                    <form role="form" action="" method="post">
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">

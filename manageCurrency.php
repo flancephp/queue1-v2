@@ -179,6 +179,7 @@ $curResult = mysqli_query($con, $sql);
                                     <div class="mngCurTbl-Cnt d-flex align-items-center">
                                     <div class="tb-head mngCur-Clm">
                                             <p><?php echo showOtherLangText('#') ?></p>
+                                            
                                         </div>
                                         <div class="tb-head mngCur-Clm">
                                             <p><?php echo showOtherLangText('Currency') ?></p>
@@ -192,7 +193,7 @@ $curResult = mysqli_query($con, $sql);
                                     </div>
                                     <div class="mngCurTbl-Icns">
                                         <div class="tb-head mngCurOpt-Clm text-center">
-                                            <p><?php echo showOtherLangText('Action') ?></p>
+                                            <p><?php echo showOtherLangText('Options') ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -267,32 +268,33 @@ $curResult = mysqli_query($con, $sql);
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
-
+<div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </html>
 
 <script>  
  function getDelNumb(delId){
 
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='manageCurrency.php?delId='+delId;
-          },
+   var newOnClick = "window.location.href='manageCurrency.php?delId=" + delId + "'";
 
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
-
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 }  
 </script>

@@ -124,21 +124,35 @@ $result = mysqli_query($con, $sql);
 
                 <section class="ordDetail userDetail">
 
-                <?php $color = (isset($_GET['delete']) && $_GET['delete'] > 0 || isset($_GET['err']) && $_GET['err'] > 0) ? 'color: #FF0000' : 'color: #038B00';?>
-
-							<h6 style="<?php echo $color?>"><?php 
-
-								echo isset($_GET['update']) ? ' '.showOtherLangText('Service Fee Edited Successfully').' ' : '';
-
-								echo isset($_GET['added']) ? ' '.showOtherLangText('Service Fee Added Successfully').' ' : '';
-
-								echo isset($_GET['delete']) ? ' '.showOtherLangText('Service Fee Deleted Successfully').' ' : '';
-
-								echo isset($_GET['err']) ? ' '.showOtherLangText('Service Fee cannot be deleted as it is being used in order').' ' : '';
-
-							?></h6>
+                
 
                     <div class="container">
+                        <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p><?php 
+
+echo isset($_GET['update']) ? ' '.showOtherLangText('Service Fee Edited Successfully').' ' : '';
+
+                                echo isset($_GET['added']) ? ' '.showOtherLangText('Service Fee Added Successfully').' ' : '';
+
+                                echo isset($_GET['delete']) ? ' '.showOtherLangText('Service Fee Deleted Successfully').' ' : '';
+
+                              
+
+?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                            <?php if(isset($_GET['err'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Service Fee cannot be deleted as it is being used in order').' ' : '';
+ ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -163,11 +177,11 @@ $result = mysqli_query($con, $sql);
                                     <div class="srvFeeTbl-NmCol d-flex align-items-center">
                                         <div class="tb-head feeNum-Clm">
                                             <div class="d-flex align-items-center">
-                                                <p><?php echo showOtherLangText('Number') ?></p>
+                                                <p>#</p>
                                                 <span class="dblArrow">
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i
+                                                    <a href="javascript:void(0)" onclick="sortRows(1);" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i
+                                                    <a href="javascript:void(0)" onclick="sortRows(0);" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-down"></i></a>
                                                 </span>
                                             </div>
@@ -191,7 +205,7 @@ $result = mysqli_query($con, $sql);
                                     </div>
                                 </div>
                                 <!-- Table Head End -->
-
+                                 <div id="myRecords">
                                 <!-- Table Body Start -->
 
                                 <?php 
@@ -239,7 +253,7 @@ $result = mysqli_query($con, $sql);
                                 </div>
                                 <?php }?>
                                 <!-- Table Body End -->
-
+                             </div>
                             </div>
                         </div>
 
@@ -261,34 +275,54 @@ $result = mysqli_query($con, $sql);
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
    
 
-   
+   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>  
- function getDelNumb(delId){
-
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='manageServiceFee.php?delId='+delId;
-          },
-
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
-
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-}  
-</script> 
 </body>
-
 </html>
+<script>  
+ function getDelNumb(delId){
+var newOnClick = "window.location.href='manageServiceFee.php?delId=" + delId + "'";
+
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
+
+ }  
+
+ jQuery.fn.orderBy = function(keySelector) {
+        return this.sort(function(a, b) {
+            a = keySelector.apply(a);
+            b = keySelector.apply(b);
+            if (a > b) return 1;
+            if (a < b) return -1;
+            return 0;
+        });
+    };
+
+    // Function to sort and reorder the .userTask elements
+    function sortRows(sort) {
+        var uu = $(".SerFeeTask").orderBy(function() {
+             var number = +$(this).find(".feeSrNumber").text().replace('No. ', '');
+             return sort === 1 ? number : -number; 
+        }).appendTo("#myRecords");
+
+
+    }   
+</script> 

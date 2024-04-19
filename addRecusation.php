@@ -1,16 +1,11 @@
 <?php include('inc/dbConfig.php'); //connection details
 
 //Get language Type 
-$getLangType = getLangType($_SESSION['language_id']);
 
-//check page permission
-$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
-
-if (!in_array('2',$checkPermission))
+if (!isset($_SESSION['adminidusername']))
 {
-    echo "<script>window.location='index.php'</script>";
+  echo '<script>window.location ="login.php"</script>';
 }
-
 // Get column permission of requisition
 $getColumnPermission = get_column_permission($_SESSION['designation_id'], $_SESSION['accountId'], 2);
 
@@ -1031,7 +1026,7 @@ else
 
                 </section>
 
-
+ </form>
             </div>
         </div>
     </div>
@@ -1070,7 +1065,7 @@ else
                      
                 </div>
                  <div class="feeSave">
-                        <input type="checkbox" name="feeType" id="feeType" value="1">
+                        <input type="checkbox" class="optionCheck" name="feeType" id="feeType" value="1">
                         <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('Tax fee'); ?></span><br>
                    
                 </div>

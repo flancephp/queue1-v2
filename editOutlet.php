@@ -450,7 +450,7 @@ if( isset($_POST['outLetId']) && !empty($_POST['outLetId']) )
                 </section>
 
                 <section class="ordDetail userDetail itmMngDetail">
-                   <form class="container" action="" method="post"> <div action="" method="post" id="outletItemFrm" name="outletItemFrm">
+                   <form action="" method="post" id="outletItemFrm" name="outletItemFrm"> <div >
                    <input type="hidden" name="deptUserId" id="deptUserId"
                                     value="<?php echo $_GET['id']; ?>">
                                 <input type="hidden" name="checkProduct" id="availableProductInOutlet"
@@ -727,6 +727,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                             <div class="col-md-4 oltCol-4"></div>
                         </div>
                     </div>
+                    </form>
                     <div class="container">
                         <p class="subTittle1 flowItm"><?php echo showOtherLangText('Follow Items List'); ?></p>
                     </div>
@@ -848,7 +849,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                     </div>
                     <!-- Item Table Body End -->
 
-                    </form>
+                  
                 </section>
 
             </div>

@@ -861,6 +861,25 @@ $deprtOptions .= '</ul>';
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -947,28 +966,10 @@ $deprtOptions .= '</ul>';
     <script>
     function getDelNumb(delId) {
 
-        $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'itemsManager.php?delId=' + delId;
-                },
+      var newOnClick = "window.location.href='itemsManager.php?delId=" + delId + "'";
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
-
-        $("#dialog").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
     }
     </script>
     <script type="text/javascript">

@@ -192,7 +192,7 @@ if( $res['proType'] == 3)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title>Add Product - Queue1</title>
+    <title>Edit Product - Queue1</title>
     <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -261,8 +261,7 @@ if( $res['proType'] == 3)
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
                     <form role="form" action="" method="post" class="container" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?php echo $res['id'];?>" />
-                        <div class="row">
+                    <input type="hidden" name="id" value="<?php echo $res['id'];?>" /><div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
                                     <a href="itemsManager.php" class="sub-btn std-btn mb-usrBkbtn"><span
@@ -285,10 +284,7 @@ if( $res['proType'] == 3)
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="container itmMng-Src outletFrm">
+                        </div> <div class="container itmMng-Src outletFrm">
                     <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p>
@@ -306,10 +302,10 @@ if( $res['proType'] == 3)
                             <?php } ?>
                         <div class="row">
                             <div class="col-md-8 oltCol-8">
-                                <div class="acntStp">
+                                <div class="">
                                     <div class="addUser-Form acntSetup-Form row">
-                                        <div class="acnt-Div nmOutlet">
-                                            <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-6 nmOutlet">
+                                            <div class="row align-items-center acntStp-Row1">
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Item'); ?></label>
                                                 </div>
@@ -332,80 +328,91 @@ if( $res['proType'] == 3)
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
                                             </div>
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                            <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
                                                     <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Status') ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                <div class="rdoBtn-New"><input type="radio" name="status" id="status"
-                                                        value="1" autocomplete="off" checked="checked"
+                                                <div class="rdoBtn-New d-flex gap-2">
+                                                    <span class="fs-13 d-flex align-items-center gap-1">
+                                                    <input type="radio" class="form-check-input mt-0" name="status" id="status"
+                                                        value="1" autocomplete="off" <?php echo $res['status'] == 1 ? 'checked="checked"' : '';?>
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')" <?php echo $res['status'] == 1 ? 'checked="checked"' : '';?> required />
+                                                        onchange="this.setCustomValidity('')" required />
                                                     <?php echo showOtherLangText('Active') ?>
-                                                    <input type="radio" name="status" id="status"
-                                                        value="0" autocomplete="off"
+                                                    </span>
+                                                    <span class="fs-13 d-flex align-items-center gap-1 ms-2">
+                                                    <input type="radio" class="form-check-input mt-0" name="status" id="status"
+                                                        value="0" <?php echo $res['status'] != 1 ? 'checked="checked"' : '';?> autocomplete="off"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')" <?php echo $res['status'] != 1 ? 'checked="checked"' : '';?> required />
+                                                        onchange="this.setCustomValidity('')" required />
                                                     <?php echo showOtherLangText('InActive') ?>
+                                                    </span>
                                                 </div>
                                              </div>
                                             </div>
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                            <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
                                                     <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                <div class="rdoBtn-New">
-                                                    <input type="radio" name="proType" value="1"
+                                                <div class="rdoBtn-New d-flex gap-2">
+                                                    <span class="fs-13 d-flex align-items-center gap-1">    
+                                                    <input type="radio" class="form-check-input mt-0" name="proType" value="1"
                                                         onClick="showOtherItems(1);" autocomplete="off"
                                                         <?php echo $res['proType'] == 1 ? 'checked="checked"' : '';?>
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onchange="this.setCustomValidity('')"  required />
+                                                        onchange="this.setCustomValidity('')" required />
                                                     <?php echo showOtherLangText('Normal') ?>
-                                                    <input type="radio" name="proType" value="2"
+                                                    </span>
+                                                    <span class="fs-13 d-flex align-items-center gap-1"> 
+                                                    <input type="radio" class="form-check-input mt-0" name="proType" value="2"
                                                             onClick="showOtherItems(2);" autocomplete="off"
                                                             <?php echo $res['proType'] == 2 ? 'checked="checked"' : '';?>
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                            onchange="this.setCustomValidity('')"  required />
+                                                            onchange="this.setCustomValidity('')" required />
                                                         <?php echo showOtherLangText('Dividable') ?>
-                                                        <input type="radio" name="proType"
+                                                    </span>
+                                                    <span class="fs-13 d-flex align-items-center gap-1"> 
+                                                        <input type="radio" class="form-check-input mt-0" name="proType"
+                                                        <?php echo $res['proType'] == 3 ? 'checked="checked"' : '';?>
                                                             value="3" onClick="showOtherItems(3);" autocomplete="off"
                                                             id="rawType"
-                                                            <?php echo $res['proType'] == 3 ? 'checked="checked"' : '';?>
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                            onchange="this.setCustomValidity('')"  required />
+                                                            onchange="this.setCustomValidity('')" required />
                                                         <?php echo showOtherLangText('Raw') ?>
+                                                    </span>
                                                 </div>
                                              </div>
                                             </div>
-                                            <div <?php echo $res['proType'] == 3 ? '' : 'style="display:none"';?> id="chooseProducts" class="row align-items-center acntStp-Row">
+                                            <div <?php echo $res['proType'] == 3 ? '' : 'style="display:none"';?> id="chooseProducts" class="row align-items-start acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Select product'); ?></label>
+                                                    <label for="Name" class="form-label pt-2"><?php echo showOtherLangText('Select product'); ?></label>
                                                 </div>
                                                 <div class="col-md-8 after-add-more">
+                                                
                                                 <?php
-			$i=0;
-			if($res['proType'] == 3 && $convertedProducts)
-			{
-				
-			 	foreach($convertedProducts as $proName)
-				{
-					$i++;
-					if($i == 1)
-					{
-						echo  '<input type="text"    name="rawProducts[]" id="tags" value="'.$proName.'" class="frmctrl" /> 
-						<a class="btn btn-success add-more">+</a>';
-					}
-					else
-					{ 
-						echo '<span id="'.$i.'"><br><br><input type="text" id="tags'.$i.'"  value="'.$proName.'"  name="rawProducts[]"  class="frmctrl" /> 
-						 <a class="btn btn-danger remove" onclick="removeRow('.$i.')">X</a></span>';
-					}
-				}
-			}else
-			{
-				echo '<input type="text"  name="rawProducts[]" id="tags"  class="frmctrl" />  <a class="btn btn-success add-more">+</a>';
-			} ?>
+            $i=0;
+
+            if($res['proType'] == 3 && $convertedProducts)
+            {
+                
+                foreach($convertedProducts as $proName)
+                {
+                    $i++;
+                    if($i == 1)
+                    {
+                        echo  '<div class=" d-flex gap-3"><span id="'.$i.'"><div class="mt-4 d-flex gap-3"><input type="text" id="tags" name="rawProducts[]" value="'.$proName.'"  class="frmctrl form-control ui-autocomplete-input" /> <a class="btn btn-success add-more">+</a></div></span></div>';
+                    }
+                    else
+                    { 
+                        echo  '<span id="'.$i.'"><div class="mt-4 d-flex gap-3"><input type="text" id="tags'.$i.'" name="rawProducts[]" value="'.$proName.'"  class="frmctrl form-control ui-autocomplete-input" />  <a class="btn btn-danger remove" onclick="removeRow('.$i.')"><i class="fas fa-close fs-12"></i></a></div></span>';
+                    }
+                }
+            }else
+            {
+                echo '<div class=" d-flex gap-3"><span id="'.$i.'"><div class="mt-4 d-flex gap-3"><input type="text"  name="rawProducts[]" id="tags"  class="frmctrl form-control ui-autocomplete-input" />  <a class="btn btn-success add-more">+</a></div></span></div>';
+            } ?>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
@@ -415,11 +422,19 @@ if( $res['proType'] == 3)
                                                 <div class="col-md-8">
                                                 <input type="file" class="form-control" name="imgName" id="logo"
                                                     onchange="previewFile()" autocomplete="off" style="display:none;" />
-                                                <button type="button" id="upload-img-btn"
+                                                <button type="button" id="upload-img-btn" class="sub-btn"
                                                     onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
                                             </div> 
+                                            <div>
+                                            <?php 
+             if( $res['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/products/'.$res['imgName'] ) )
+             {  
+                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$res['imgName'].'" class="previewImg" >';
+             }
+            ?>
                                                     <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;" width="100px"
                                                     class="previewImg">
+                                                </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
@@ -437,7 +452,7 @@ if( $res['proType'] == 3)
                                                     while($departRow = mysqli_fetch_array($resultSet))
                                                     {
 
-                                                        $sel =  ($res['storageDeptId'] == $departRow['id']) ? 'selected = "selected"' : '';
+                                                         $sel =  ($res['storageDeptId'] == $departRow['id']) ? 'selected = "selected"' : '';
                                                         ?>
 
                                                                                 <option value="<?php echo $departRow['id'];?>" <?php echo $sel;?>>
@@ -455,25 +470,25 @@ if( $res['proType'] == 3)
                                                 </div>
                                                 <div class="col-md-8">
                                                 <?php
-				$sqlSet = " SELECT * FROM tbl_category WHERE parentId = 0  AND account_id = '".$_SESSION['accountId']."'  and id != '".$_GET['id']."'  ";
-				$resultSet = mysqli_query($con, $sqlSet);
-				?>
+                $sqlSet = " SELECT * FROM tbl_category WHERE parentId = 0  AND account_id = '".$_SESSION['accountId']."'  and id != '".$_GET['id']."'  ";
+                $resultSet = mysqli_query($con, $sqlSet);
+                ?>
 
                                                 <select name="parentId" id="parentId" class="form-control"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
                                                     onchange="this.setCustomValidity('')" required>
                                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                     <?php 
-					while($catRows = mysqli_fetch_array($resultSet))
-					{
-						$sel = $res['parentCatId'] == $catRows['id'] ? 'selected = "selected"' : '';
-				 ?>
+                    while($catRows = mysqli_fetch_array($resultSet))
+                    {
+                       $sel = $res['parentCatId'] == $catRows['id'] ? 'selected = "selected"' : '';
+                 ?>
                                                     <option value="<?php echo $catRows['id'];?>" <?php echo $sel;?>>
                                                         <?php echo $catRows['name'];?></option>
                                                     <?php 
-					} 
+                    } 
 
-					?>
+                    ?>
                                                 </select>
                                                 </div>
                                             </div>
@@ -481,19 +496,25 @@ if( $res['proType'] == 3)
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Subcategory'); ?></label>
                                                 </div>
-                                                
-                                                <?php
-	$sqlSet = " SELECT * FROM tbl_category WHERE parentId = '".$res['parentCatId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-	$resultSet = mysqli_query($con, $sqlSet);
-	?>
+    <?php 
+    $sqlSet = " SELECT * FROM tbl_category WHERE parentId = '".$res['parentCatId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    ?>
                                                 <div class="col-md-8">
-                                                <select name="catId" id="catId" class="form-control" required>
-                                                    <?php while( $catRows = mysqli_fetch_array($resultSet) ){
-				$sel = $res['catId'] == $catRows['id'] ? 'selected = "selected"' : '';
-		 ?>
+                                                <select name="catId" id="catId" class="form-control"
+                                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                                                    onchange="this.setCustomValidity('')" required>
+
+                                                   <?php while( $catRows = mysqli_fetch_array($resultSet) ){
+                $sel = $res['catId'] == $catRows['id'] ? 'selected = "selected"' : '';
+         ?>
                                                     <option value="<?php echo $catRows['id'];?>" <?php echo $sel;?>>
                                                         <?php echo $catRows['name'];?></option>
                                                     <?php } ?>
+
+                                                  
+                    
+
                                                 </select>
                                                 </div>
                                             </div>
@@ -512,8 +533,8 @@ if( $res['proType'] == 3)
                                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                     <?php 
                                                     while($unitsRows = mysqli_fetch_array($resultSet))
-                                                    {	
-                                                    $sel = $res['unitP'] == $unitsRows['id'] ? 'selected = "selected"' : '';
+                                                    {   
+                                                      $sel = $res['unitP'] == $unitsRows['id'] ? 'selected = "selected"' : '';
                                                     ?>
                                                     <option value="<?php echo $unitsRows['id'];?>" <?php echo $sel; ?>>
                                                         <?php echo $unitsRows['name'];?></option>
@@ -550,15 +571,15 @@ if( $res['proType'] == 3)
                                                     onchange="this.setCustomValidity('')" required>
                                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                     <?php 
-					while($unitsRows = mysqli_fetch_array($resultSet))
-					{	
+                    while($unitsRows = mysqli_fetch_array($resultSet))
+                    {   
                         $sel = $res['unitC'] == $unitsRows['id'] ? 'selected = "selected"' : '';
-						?>
+                        ?>
                                                     <option value="<?php echo $unitsRows['id'];?>" <?php echo $sel; ?>>
                                                         <?php echo $unitsRows['name'];?></option>
 
                                                     <?php 
-					} ?>
+                    } ?>
                                                 </select>
                                                 </div>
                                             </div>
@@ -569,17 +590,6 @@ if( $res['proType'] == 3)
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="price" id="price"
                                                     value="<?php echo getPrice($res['price']);?>" autocomplete="off"
-                                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                    onchange="this.setCustomValidity('')" required />
-                                                </div>
-                                            </div>
-                                            <div class="row align-items-center acntStp-Row">
-                                                <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Stock Price').'('.$getDefCurDet['curCode'].')'; ?></label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                <input type="text" class="form-control" name="stockPrice" id="stockPrice"
-                                                    value="<?php echo getPrice($res['stockPrice']);?>" autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
@@ -612,13 +622,13 @@ if( $res['proType'] == 3)
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
+                                                        <div class="cstmSelect  fs-14">
                                                         <?php
-									$revCenQry = "SELECT id, name FROM tbl_revenue_center WHERE account_id= '".$_SESSION['accountId']."' ORDER BY name ";
+                                    $revCenQry = "SELECT id, name FROM tbl_revenue_center WHERE account_id= '".$_SESSION['accountId']."' ORDER BY name ";
 
-									$revCenResult = mysqli_query($con, $revCenQry);
+                                    $revCenResult = mysqli_query($con, $revCenQry);
 
-									?>
+                                    ?>
                                     <select name="revCenter" id="revCenter" class="form-select selectOption"
                                                                 aria-label="Default select example" id="selectRvcntr"
                                                     onchange="getrevCenter();">
@@ -626,13 +636,13 @@ if( $res['proType'] == 3)
                                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
                                                     <?php
-											while($revCenRow = mysqli_fetch_array($revCenResult))
-											{
+                                            while($revCenRow = mysqli_fetch_array($revCenResult))
+                                            {
 
-												echo '<option value="'.$revCenRow['id'].'">'.$revCenRow['name'].'</option>';
+                                                echo '<option value="'.$revCenRow['id'].'">'.$revCenRow['name'].'</option>';
 
-											} 
-											?>
+                                            } 
+                                            ?>
                                                 </select>
                                                            
                                                         </div>
@@ -643,7 +653,7 @@ if( $res['proType'] == 3)
                                                         <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
+                                                        <div class="cstmSelect  fs-14">
                                                             <select name="outLetType" id="outLetType" class="form-select selectOption"
                                                     onchange="getOutletType();">
 
@@ -657,8 +667,8 @@ if( $res['proType'] == 3)
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="acntLg-Upld setOutlet">
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
+                                        <div class="col-md-6 setOutlet ps-lg-4">
+                                            <div class="row align-items-start acntStp-Row chkOlt-Row">
                                                 <!-- <div class="col-md-4">
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label>
                                                 </div>
@@ -668,71 +678,74 @@ if( $res['proType'] == 3)
                                                 </div> -->
                                             </div>
                                             <div>
-                                                <div class="row align-items-center acntStp-Row">
+                                                <div class="row align-items-start acntStp-Row">
                                                     <div class="col-md-4">
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="cstmSelect">
-                                                        <strong class="checkAllSectionBox">
-                                                    <input type="checkbox" class="CheckAllOptions" id="CheckAllOptions">
+                                                        <div class="cstmSelect  fs-14">
+                                                        <span class="semibold d-flex align-items-center gap-1 mb-2">
+                                                    <input type="checkbox" class="CheckAllOptions form-check-input mt-0" id="CheckAllOptions">
                                                     <label>
                                                         <?php echo showOtherLangText('Check All') ?>
                                                     </label>
-                                                </strong>
+                                                </span>
 
                                                 <?php
         $sqlSet = " SELECT GROUP_CONCAT(supplierId) supplierIds FROM tbl_productsuppliers WHERE productId = '".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."' GROUP BY productId ";
         $resultSet = mysqli_query($con, $sqlSet);
         $proSuppls = mysqli_fetch_array($resultSet);
 
-		$sqlSet = " SELECT * FROM  tbl_suppliers WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
-		$resultSet = mysqli_query($con, $sqlSet);
-		while( $supRow = mysqli_fetch_array($resultSet) ){
+        $sqlSet = " SELECT * FROM  tbl_suppliers WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        while( $supRow = mysqli_fetch_array($resultSet) ){
             $supIdsArr = explode(',', $proSuppls['supplierIds']);
             $sel = in_array($supRow['id'], $supIdsArr) ? 'checked="checked"' : '';
-		?>
+        ?>
+                                                <span class="d-flex align-items-center gap-1 mb-1 fs-13">
                                                 <input type="checkbox" id="supplierOptionCheck"
-                                                    class="supplierOptionCheck" name="supplierId[]"
+                                                    class="supplierOptionCheck form-check-input mt-0"  name="supplierId[]" <?php echo $sel; ?>
                                                     value="<?php echo $supRow['id'];?>" <?php echo $sel; ?> >
-                                                <?php echo $supRow['name'];?><br>
+                                                    <label ><?php echo $supRow['name'];?></label>
+                                                </span>
 
                                                 <?php } ?> 
                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row align-items-center acntStp-Row">
+                                                <div class="row align-items-start acntStp-Row">
                                                     <div class="col-md-4">
                                                         <label for="outletType" class="form-label"><?php echo showOtherLangText('Department'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                    <strong class="checkAllSectionBox">
-                                                    <input type="checkbox" class="CheckAllDeptOptions"
+
+                                                    <span class="semibold d-flex align-items-center gap-1 mb-2 fs-14">
+                                                    <input type="checkbox" class="CheckAllDeptOptions form-check-input mt-0"
                                                         id="CheckAllDeptOptions">
                                                     <label>
                                                         <?php echo showOtherLangText('Check All') ?>
                                                     </label>
-                                                </strong><br>
+                                                    </span>
                                                 <?php
-	    
         $sqlSet = " SELECT GROUP_CONCAT(deptId) deptIds FROM tbl_productdepartments WHERE productId = '".$_GET['id']."' AND account_id = '".$_SESSION['accountId']."'  GROUP BY productId ";
         $resultSet = mysqli_query($con, $sqlSet);
         $proDepartsR = mysqli_fetch_array($resultSet);
 
-		$sqlSet = " SELECT * FROM tbl_department WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
-		$resultSet = mysqli_query($con, $sqlSet);
-		while( $departRows = mysqli_fetch_array($resultSet) ){
-            $deprtIdsArr = explode(',', $proDepartsR['deptIds']);
+        $sqlSet = " SELECT * FROM tbl_department WHERE `account_id` = '".$_SESSION['accountId']."' ORDER BY name  ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        while( $departRows = mysqli_fetch_array($resultSet) ){
+             $deprtIdsArr = explode(',', $proDepartsR['deptIds']);
             $sel = in_array($departRows['id'], $deprtIdsArr) ? 'checked="checked"' : '';
-						?>
-                                                <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck"
+                        ?>                      <span class="d-flex align-items-center gap-1 mb-1 fs-13">
+                                                <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck form-check-input mt-0"
                                                     name="deptId[]" <?php echo $sel; ?> value="<?php echo $departRows['id'];?>" >
-                                                <?php echo $departRows['name'];?><br>
+                                                <?php echo $departRows['name'];?>
+                                                </span>
 
                                                 <?php 
-		} 
+        } 
 
-		?>
+        ?>
                                                     </div>
                                                 </div>
                                                
@@ -765,7 +778,7 @@ if( $res['proType'] == 3)
 </html>
 
 <script>
-    var x = 0;
+    var x = <?php echo $i;?>;
     $(document).ready(function() {
         var availableTags = [
         <?php 
@@ -839,13 +852,13 @@ if (totalCount == totalCheckedCount) {
             $('#chooseProducts').hide();
         }
     }
-    var x = 0;
+   
     $("body").on("click", ".add-more", function() {
             x++;
-            var html = $(".after-add-more").append('<span id="' + x +
-                '"><br><br><input type="text" id="tags' + x +
-                '" name="rawProducts[]"  class="frmctrl" />  <a class="btn btn-danger remove" onclick="removeRow(' +
-                x + ')">X</a></span>');
+           var html = $(".after-add-more").append('<span id="' + x +
+                '"><div class="mt-4 d-flex gap-3"><input type="text" id="tags' + x +
+                '" name="rawProducts[]"  class="frmctrl form-control ui-autocomplete-input" />  <a class="btn btn-danger remove" onclick="removeRow(' +
+                x + ')"><i class="fas fa-close fs-12"></i></a></div></span>');
 
 
             var availableTags = [

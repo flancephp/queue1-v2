@@ -193,19 +193,29 @@ if( isset($_POST['user_name']) )
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="adUsr-Div">
+                            <form class="addUser-Form row">
+                                <input type="text" class="form-control" name="user_name" id="user_name" placeholder="<?php //echo showOtherLangText('User Name') ?>">
 
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Select title</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            </form>
+                        </div> -->
                         <div class="adUsr-Div">
                         <input type="text" class="form-control" id="user_name" required name="user_name" placeholder="<?php echo showOtherLangText('User Name') ?>">
-                                <div>
-                                <?php echo showOtherLangText('User Type') ?>:<input type="radio" name="mobile_user" class="userTypeWeb" value="0" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-																<label><?php echo showOtherLangText('Web') ?></label>
-                                                                <input type="radio" name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-																<label><?php echo showOtherLangText('Mobile') ?></label>
-															
-                                </div>
+                                
+                                <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('User Type') ?></label><input type="radio" name="mobile_user" class="userTypeWeb" value="0" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
+								<label><?php echo showOtherLangText('Web') ?></label>
+                                <input type="radio" name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
+								<label><?php echo showOtherLangText('Mobile') ?></label>
+								
                                 <div class="setTitle"></div>
-                               
-
                                 <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
                                 <input type="email" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Email') ?>">
                                 <input type="text" class="form-control" id="phone" name="phone" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Phone') ?>">

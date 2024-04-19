@@ -1164,7 +1164,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                         </div>
                 <?php } ?>
                 </section>
-
+              </form>
 
             </div>
         </div>
@@ -1181,7 +1181,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                 <div class="modal-body">
                     <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
                     <input type="text" class="form-control" name="feeName" id="feeName" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
@@ -1193,23 +1193,27 @@ $ordRow = mysqli_fetch_array($resultSet);
                                             </option>
                                         </select>
                     <input type="text" class="form-control" id="amt" name="amt" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
-                                            <input type="checkbox" name="feeType" id="feeType" value="1">
-                        <label for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label>
+                                           
+                </div>
+                 <div class="feeSave">
+                        <input type="checkbox" class="optionCheck" name="feeType" id="feeType" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('Tax fee'); ?></span><br>
+                   
                 </div>
                   <div>
                     <div class="feeSave">
-                        <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1237,14 +1241,14 @@ list'); ?></label><br>
                 </div>
                   <div>
                     <div class="feeSave">
-                        <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <input type="checkbox" class="optionCheck"  id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>

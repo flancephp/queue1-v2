@@ -137,16 +137,17 @@ $result = mysqli_query($con, $sql);
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
+                            
                             <?php } ?>
                         </div>
-                    </div>
+                           </div>
                     <div class="container">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
@@ -154,7 +155,7 @@ $result = mysqli_query($con, $sql);
                                     <a href="addUser.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><img src="Assets/icons/add-user.svg" alt="Add User"
                                                 class="ad-UsrImg"></span>
-                                        <span class="dsktp-Btn">Add User</span></a>
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add User'); ?></span></a>
                                 </div>
                             </div>
                         </div>
@@ -168,9 +169,9 @@ $result = mysqli_query($con, $sql);
                                             <div class="d-flex align-items-center">
                                                 <p>#</p>
                                                 <span class="dblArrow">
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i
+                                                    <a href="javascript:void(0)" onclick="sortRows(1);" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i
+                                                    <a href="javascript:void(0)" onclick="sortRows(0);" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-down"></i></a>
                                                 </span>
                                             </div>
@@ -179,7 +180,7 @@ $result = mysqli_query($con, $sql);
                                             <p><?php echo showOtherLangText('Name') ?></p>
                                         </div>
                                         <div class="tb-head usrTtl-Clm">
-                                            <p><?php echo showOtherLangText('Designation Title') ?></p>
+                                            <p><?php echo showOtherLangText('Title') ?></p>
                                         </div>
                                         <div class="tb-head usrTtl-Clm">
                                             <p><?php echo showOtherLangText('User Type') ?></p>
@@ -187,16 +188,16 @@ $result = mysqli_query($con, $sql);
                                     </div>
                                     <div class="usrTbl-Icns">
                                         <div class="tb-head usrOpt-Clm text-center">
-                                            <p><?php echo showOtherLangText('Actions') ?></p>
+                                            <p><?php echo showOtherLangText('Options') ?></p>
                                         </div>
                                     </div>
                                 </div>
+                                <div id="myRecords">
                                 <?php 
 				$x= 0;
-
+                
 				while($row = mysqli_fetch_array($result))
 				{
-					$color = ($x%2 == 0)? 'white': '#FFFFCC';
 					$x++;
 
 					$sql = " SELECT * FROM tbl_designation WHERE id = '".$row['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
@@ -228,6 +229,9 @@ $result = mysqli_query($con, $sql);
                                                 <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
                                                     <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                                 </a>
+                                                 <!-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete-popup" class="userLink">
+                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                </a> -->
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +242,7 @@ $result = mysqli_query($con, $sql);
                                 
 
                                 <!-- Table Body End -->
-
+                            </div>
                             </div>
                         </div>
 
@@ -255,32 +259,57 @@ $result = mysqli_query($con, $sql);
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <!-- Add department Popup Start -->
+   
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
 </body>
 
 </html>
 <script>  
  function getDelNumb(delId){
+var newOnClick = "window.location.href='users.php?delId=" + delId + "'";
 
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='users.php?delId='+delId;
-          },
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
+ }  
 
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-}  
+ jQuery.fn.orderBy = function(keySelector) {
+        return this.sort(function(a, b) {
+            a = keySelector.apply(a);
+            b = keySelector.apply(b);
+            if (a > b) return 1;
+            if (a < b) return -1;
+            return 0;
+        });
+    };
+
+    // Function to sort and reorder the .userTask elements
+    function sortRows(sort) {
+        var uu = $(".userTask").orderBy(function() {
+             var number = +$(this).find(".userNumber").text().replace('No. ', '');
+             return sort === 1 ? number : -number; 
+        }).appendTo("#myRecords");
+
+
+    }
 </script>

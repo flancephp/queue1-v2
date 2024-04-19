@@ -230,7 +230,7 @@ if( isset($_POST['itemName']) )
                                     <div class="col-md-9">
                                     <input placeholder="20" type="text" class="form-control" name="amt" id="amt"
                                                     value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>"
-                                                    style="width:250px;" autocomplete="off"
+                                                     autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                     onChange="this.setCustomValidity('')" required />
                                     </div>
