@@ -85,23 +85,28 @@ $content .= '<div class="modal-header pb-3">
                                                     </button>
                                                     <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                            <input type="checkbox" checked="checked" name="checkAll" class="headChk-All form-check-input" value="1">
                                                             <span class="fs-13">Check All</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
+                                                            <input type="checkbox" checked="checked" name="address" class="form-check-input header-address headCheckbox" value="1" onClick="hideCheckbox(\'adrsClm\')">
                                                             <span class="fs-13">Address</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="orderDetails" class="form-check-input" value="3">
+                                                            <input type="checkbox" checked="checked" name="orderDetails" class="form-check-input headCheckbox"
+                                                                onClick="hideCheckbox(\'orderDet\')" value="1">
                                                             <span class="fs-13">Order details</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="logo" class="form-check-input" value="4">
+                                                            <input type="checkbox" checked="checked" name="logo" class="form-check-input headCheckbox" 
+                                                              onClick="hideCheckbox(\'logoClm\')"
+                                                                value="1">
                                                             <span class="fs-13">Logo</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="currentDate" class="form-check-input" value="5">
+                                                            <input type="checkbox" checked="checked" name="currentDate" class="form-check-input headCheckbox"
+                                                                onClick="hideCheckbox(\'curDate\')"
+                                                                value="1">
                                                             <span class="fs-13">Current Date</span>
                                                         </li>
                                                     </ul>
@@ -113,23 +118,29 @@ $content .= '<div class="modal-header pb-3">
                                                     </button>
                                                     <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                            <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input"
+                                                            onClick="hideCheckbox(\'smryDiv\')" value="1">
                                                             <span class="fs-13">Check All</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="defaultCurrencyAmount" class="form-check-input" value="2">
+                                                            <input type="checkbox"  name="defaultCurrencyAmount" onClick="showHideByClassSummary(\'smryDef_Val\');" class="smryCheckbox summary-default-currency form-check-input" 
+                                                                '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                                                value="1">
                                                             <span class="fs-13">Default Currency Amount</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="secondCurrencyAmount" class="form-check-input" value="3">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                    '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' name="secondCurrencyAmount" class="form-check-input smryCheckbox summary-second-currency" value="1">
                                                             <span class="fs-13">Second Currency Amount</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="supplierInvoice" class="form-check-input" value="4">
+                                                            <input type="checkbox" onClick="showHideByClassSummary(\'smrySuplr\')"
+                                    value="1"
+                                    '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' name="supplierInvoice" class="form-check-input smryCheckbox summary-payment" value="1">
                                                             <span class="fs-13">Supplier Invoice #</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="payment" class="form-check-input" value="5">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' name="payment" class="form-check-input smryCheckbox summary-payment" value="5">
                                                             <span class="fs-13">Payment #</span>
                                                         </li>
                                                     </ul>
@@ -141,51 +152,61 @@ $content .= '<div class="modal-header pb-3">
                                                     </button>
                                                     <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                            <input type="checkbox" checked="checked" name="checkAll" 
+                                                                onClick="hideCheckbox(\'itemDiv\')" class="itemChk-All form-check-input" value="1" >
                                                             <span class="fs-13">Check All</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="Photo" class="form-check-input" value="2">
+                                                            <input type="checkbox"  name="Photo" onClick="showHideByClassItems(\'photo\');" class="itmTblCheckbox item-name form-check-input" value="2">
                                                             <span class="fs-13">Photo</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="itemName" class="form-check-input" value="3">
+                                                            <input type="checkbox" checked="checked"
+                                                            onClick="showHideByClassItems(\'itmProd\');" name="itemName" class="itmTblCheckbox item-name form-check-input" value="3">
                                                             <span class="fs-13">Item Name</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="barcode" class="form-check-input" value="4">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                                            onClick="showHideByClassItems(\'itmCode\');" name="barcode" class="itmTblCheckbox item-barcode form-check-input" value="1">
                                                             <span class="fs-13">Barcode</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="price" class="form-check-input" value="5">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                    onClick="showHideByClassItems(\'itmPrc\');" class="itmTblCheckbox item-price form-check-input" name="price" class="form-check-input" value="1">
                                                             <span class="fs-13">Price</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="secondCurrencyPrice" class="form-check-input" value="6">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).'
+                                
+                                    onClick="showHideByClassItems(\'otherCurPrice\');" class="form-check-input itmTblCheckbox" name="secondCurrencyPrice" class="form-check-input" value="1">
                                                             <span class="fs-13">Second Currency Price</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="unit" class="form-check-input" value="7">
+                                                            <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPrcunit\');" name="unit" class="itmTblCheckbox item-unit form-check-input" value="1">
                                                             <span class="fs-13">Unit</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="qty" class="form-check-input" value="8">
+                                                            <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPurqty\');" name="qty" class="itmTblCheckbox item-purchase-qty form-check-input" value="1">
                                                             <span class="fs-13">Qty</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="receivedQty" class="form-check-input" value="9">
-                                                            <span class="fs-13">Received Qty</span>
+                                                            <input type="checkbox" onClick="showHideByClassItems(\'itmRecqty\');"  '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' name="receivedQty" class="itmTblCheckbox item-receive-qty form-check-input" value="1">
+                                                            <span class="itmTblCheckbox item-receive-qty fs-13">Received Qty</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="total" class="form-check-input" value="10">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                    onClick="showHideByClassItems(\'itmTotal\');" name="total" class="itmTblCheckbox item-total item-total form-check-input" value="1">
                                                             <span class="fs-13">Total</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="secondCurrencyTotal" class="form-check-input" value="11">
+                                                            <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).'
+                                    onClick="showHideByClassItems(\'otherCurTotal\');" name="secondCurrencyTotal" class="itmTblCheckbox form-check-input" value="1">
                                                             <span class="fs-13">Second Currency Total</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="note" class="form-check-input" value="12">
+                                                            <input type="checkbox" checked="checked" name="note" onClick="showHideByClassItems(\'itmNote\');" class="itmTblCheckbox item-note form-check-input" value="12">
                                                             <span class="fs-13">Note</span>
                                                         </li>
                                                     </ul>
@@ -197,7 +218,9 @@ $content .= '<div class="modal-header pb-3">
                                                     </button>
                                                     <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="taskRecord" class="form-check-input" value="1">
+                                                            <input type="checkbox" name="taskRecord" class="form-check-input" id="taskRecord"
+                            '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                            onClick="hideCheckbox(\'taskDiv\')" value="1">
                                                             <span class="fs-13">Task Record</span>
                                                         </li>
                                                     </ul>
@@ -210,13 +233,13 @@ $content .= '<div class="modal-header pb-3">
                                     
 
                                     </div>
-                                    <a href="#" class="btn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                                    <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></button>
                                 </div>
                             </div></form>';
              $content  .= '<div class="modal-body px-2 py-3">
                                 <div class="row pb-3">
                                     <div class="col-md-4">
-                                        <div class="modal-address ">
+                                        <div id="adrsClm" class="headerTxt modal-address ">
                                             <h6 class="semibold fs-14">'.$clientDetRow['accountName'].'</h6>
                                             <div class="fs-13 ">
                                                 <p>'.$clientDetRow['address_one'].'</p>
@@ -227,11 +250,11 @@ $content .= '<div class="modal-header pb-3">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <h4 class="text-center semibold">'.showOtherLangText('Order Details').'</h4>
+                                    <div  class="col-md-4">
+                                        <h4 id="orderDet" class="headerTxt text-center semibold">'.showOtherLangText('Order Details').'</h4>
                                     </div>
                                     <div class="col-md-4 text-md-end">
-                                        <div class="modal-logo">';
+                                        <div id="logoClm" class="headerTxt modal-logo">';
                                         if(!isset($_GET['pdfDownload']) || $clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
                                         {  
                                             $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 50px; width: auto;">';
@@ -241,89 +264,312 @@ $content .= '<div class="modal-header pb-3">
                                             $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 50px; width: auto;">';
                                         }
                                      $content .='</div>
-                                        <div class="modal-date pt-1">
+                                        <div id="curDate"  class="headerTxt modal-date pt-1">
                                             <p>'.date('d/m/Y').'</p>
                                         </div>
                                     </div>
                                 </div>';
 
-                         $content .=   '<div class="modal-table fs-12 w-100">
+                         $content .=   '<div class="show-smry-cls"><div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell medium">'.showOtherLangText('Task No.').'</div>
                                         <div class="table-cell medium">'.showOtherLangText('Supplier').'</div>
-                                        <div class="table-cell medium">'.showOtherLangText('Total').'</div>
+                                        <div class="amountSections smryHead sumBreakupAmtText table-cell medium">'.showOtherLangText('Total').'</div>
                                     </div>
                                     <div class="table-row thead">
                                         <div class="table-cell">'.$ordDet['ordNumber'].'</div>
                                         <div class="table-cell">'.$suppliers.'</div>
                                         <div class="table-row">
-                                            <div class="table-cell">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</div>
-                                            <div class="table-cell">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</div>
+                                            <div class="table-cell smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</div>
+                                            <div class="table-cell smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</div>
                                         </div>
                                     </div>
                                     <div class="table-row">
                                         <div class="table-cell" style="width: 30%;">
                                             <div class="sub-table w-100" style="">
                                                 <div class="table-row">
-                                                    <div class="table-cell"># Supplier Invoice</div>
-                                                    <div class="table-cell">'.$ordDet['invNo'].'</div>
+                                                    <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"> # Supplier Invoice</span></div>
+                                                    <div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="table-cell" style="width: 35%;"></div>
-                                        <div class="table-cell" style="width: 35%;"></div>
-                                    </div>
-                                </div>';
 
-                         $content .=     '<div class="modal-table fs-12 w-100 mt-4">
-                                    <div class="table-row thead">
-                                        <div class="table-cell">#</div>
-                                        <div class="table-cell">Item</div>
-                                        <div class="table-cell">Barcode</div>
-                                        <div class="table-cell">Price</div>
-                                        <div class="table-cell">P. Unit</div>
-                                        <div class="table-cell">P. Qty.</div>
-                                        <div class="table-cell">Rec Qty.</div>
-                                        <div class="table-cell">Total($)</div>
-                                        <div class="table-cell">Note</div>
+                                        <div class="table-cell" style="width: 35%;"></div>
+                                        <div class="table-cell" style="width: 35%;"></div>
                                     </div>';
+
+                                    $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
+                             $resultSet = mysqli_query($con, $sqlSet);
+                             $chargeRow = mysqli_fetch_array($resultSet);   
+                             $chargePrice=$chargeRow['sum1'];
+                             $chargePriceOther=$chargeRow['totalAmtOther'];
+                             
+     
+                             //to find order level charge
+                             $ordCount="SELECT * from tbl_order_details where ordId='".$_REQUEST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                             $ordCountResult = mysqli_query($con, $ordCount);
+                             $ordCountRow = mysqli_num_rows($ordCountResult);
+                             $showGrandTotal = false;
+
+                             if ($ordCountRow > 0)
+                             { 
+
+                                $showGrandTotal = true;
+                                    $content .= '<div class="table-row">
+                                        <div class="table-cell" style="width: 30%;">
+                                            
+                                        </div>
+
+                                        <div class="table-cell" style="width: 35%;"></div>
+                                        <div class="table-cell" style="width: 35%;">
+                                        <div class="sub-table w-100" style="display: table;">
+                                                <div class="table-row">
+                                                    <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherLangText('Sub Total').'</span></div>';
+                                            $content .=  '<div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'
+                                        </span></div>';
+                                            if($ordDet['ordCurId'] > 0)
+                                    {
+                                            $content .= '<div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($chargePriceOther, $ordDet['ordCurId']).'
+                                        </span></div>';
+                                    }
+                                            $content .=    '</div>
+                                            </div>
+                                        </div>
+                                       </div>';
+                                   }
+
+                     $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                             INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                             WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
+     
+                             $ordQry = mysqli_query($con, $sql);
+                     
+                 
+                     $fixedCharges = 0;
+                     $fixedChargesOther = 0;
+                     while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                     {
+                             $fixedCharges += $row['price'];
+                             $fixedChargesOther += $row['curAmt'];
+                                  $content .=  '<div class="table-row">
+                                        <div class="table-cell" style="width: 30%;">
+                                            
+                                        </div>
+
+                                        <div class="table-cell" style="width: 35%;"></div>
+                                        <div class="table-cell" style="width: 35%;">
+                                        <div class="sub-table w-100" style="display: table;">
+                                                <div class="table-row">
+                                                    <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
+                                                    <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'
+                                            </span></div>
+                                                    <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($row['curAmt'], $ordDet['ordCurId']).'
+                                        </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>';
+                            }
+
+                             $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                             INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                             WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
+                             $ordQry = mysqli_query($con, $sql);
+                     
+                     $perCharges = 0;
+                     $perChargesOther = 0;
+                     while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                     {
+                         
+                             $perCharges += $row['price'];
+                         $perChargesOther = $row['curAmt'];
+     
+     
+                         $calDiscount = ($chargePrice*$row['price']/100);
+                         $calDiscountOther = ($chargePriceOther*$row['price']/100);
+
+                                   $content .=    '<div class="table-row">
+                                        <div class="table-cell" style="width: 30%;">
+                                            
+                                        </div>
+
+                                        <div class="table-cell" style="width: 35%;"></div>
+                                        <div class="table-cell" style="width: 35%;">
+                                        <div class="sub-table w-100" style="display: table;">
+                                                <div class="table-row">
+                                                    <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
+                                                    <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'
+                         </span></div>
+                                                    <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($calDiscountOther, $ordDet['ordCurId']).'
+                         </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>';
+                                   }
+
+                                      $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
+                         $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
+                  
+                   
+                     $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                             INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                             WHERE od.ordId = '".$_REQUEST['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
+                     $ordQry = mysqli_query($con, $sql);
+                     
+                     $taxCharges = 0;
+                     $totalTaxChargesOther = 0;
+                     while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                     {
+                         $taxCharges += $row['price'];
+                         $totalTaxChargesOther += $row['curAmt'];
+     
+                         $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
+                         $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
+
+                                         $content .=    '<div class="table-row">
+                                        <div class="table-cell" style="width: 30%;">
+                                            
+                                        </div>
+
+                                        <div class="table-cell" style="width: 35%;"></div>
+                                        <div class="table-cell" style="width: 35%;">
+                                        <div class="sub-table w-100" style="display: table;">
+                                                <div class="table-row">
+                                                    <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'padding:5px 0px !important;">'.$row['feeName'].'</span></div>
+                                                    <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'padding:5px 10px !important;">'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'
+                            </span></div>
+                                                    <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'padding:5px 10 !important;">'.showOtherCur($calTaxOther, $ordDet['ordCurId']).'
+                            </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>';
+                    }
+
+                     $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
+                          $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
+     
+     
+                         $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
+                         $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
+     
+                         if($showGrandTotal)
+                         {
+                                         $content .=    '<div class="table-row">
+                                        <div class="table-cell" style="width: 30%;">
+                                            
+                                        </div>
+
+                                        <div class="table-cell" style="width: 35%;"></div>
+                                        <div class="table-cell" style="width: 35%;">
+                                        <div class="sub-table w-100" style="display: table;">
+                                                <div class="table-row">
+                                                    <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'padding:5px 0px !important;">'.showOtherLangText('Grand Total').'</span></div>
+                                                    <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'padding:5px 10px !important;">'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'
+                            </span></div>
+                                                    <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'padding:5px 10px !important;">'.showOtherCur($netTotalAmtOther, $ordDet['ordCurId']).'
+                            </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>';
+                              }
+                                  $content .= '</div>
+                                                </div>
+                                            </div>
+                                        </div></div>';
+                             
+                       
+
+                         $content .=     '<div id="itemDiv"><div class="modal-table fs-12 w-100 mt-4">
+                                    <div class="table-row thead">';
+                           $content .=    '<div class="table-cell">#</div>';
+                           $content .=    '<div class="table-cell"><span style="display:none;"   class="photo">Photo</span></div>';
+                           $content .=   '<div class="table-cell"><span   class="itmProd">Item</span></div>';
+                           $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmCode">Barcode</span></div>';
+                           $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmPrc">Price('.$getDefCurDet['curCode'].')</div>';
+                            if($ordDet['ordCurId'] > 0)
+                            {
+                            $content .=   '<div style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'" class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="otherCurPrice">Price('.$curDet['curCode'].')</span></div>';    
+                            }
+                           $content .=   '<div class="table-cell"><span   class="itmPrcunit">Unit</span></div>';
+                           $content .=   '<div class="table-cell"><span   class="itmPurqty">Qty.</span></div>';
+                           $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmRecqty">Rec Qty.</span></div>';
+                           $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmTotal">Total('.$getDefCurDet['curCode'].')</span></div>';
+                            if($ordDet['ordCurId'] > 0)
+                           {
+                           $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="otherCurTotal">Total('.$curDet['curCode'].')</span></div>';
+                           }
+                           $content .=   '<div class="table-cell"><span   class="itmNote">Note</span></div>';
+                           $content .=   '</div>';
                                     $i = 0;
                                     while($row = mysqli_fetch_array($otherChrgQry) )
                                     {
                                         $i++;  
-                                $content .= '<div class="table-row">
-                                        <div class="table-cell">'.$i.'</div>
-                                        <div class="table-cell">'.$row['itemName'].'</div>
-                                        <div class="table-cell">'.$row['barCode'].'</div>
-                                        <div class="table-cell">'.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</div>
-                                        <div class="table-cell">'.$row['purchaseUnit'].'</div>
-                                        <div class="table-cell">'.$row['qty'].'</div>
-                                        <div class="table-cell">'.$row['qtyReceived'].'</div>
-                                        <div class="table-cell">'.getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']).'</div>
-                                        <div class="table-cell">'.$row['note'].'</div>
-                                    </div>';
+                                $content .= '<div class="table-row">';
+                                $content .= '<div class="table-cell">'.$i.'</div>';
+                                $img = '';
+                                $content .= '<div class="table-cell"><span class="photo" style="display:none;" >'.$img.'</span></div>';
+                                $content .= '<div class="table-cell"><span class="itmProd">'.$row['itemName'].'</span></div>';
+                                $content .=   '<div class="table-cell"><span   style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'" class="itmCode"></div>';
+
+                                $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmPrc">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</span></div>';
+                                if($ordDet['ordCurId'] > 0)
+                                {
+                                $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurPrice">'.getPriceWithCur(($row['curAmt']), $curDet['curCode']).'</span></div>';
+                                }
+                                $content .=  '<div class="table-cell"><span    class="itmPrcunit">'.$row['unit'].'</span></div>';
+                                $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmPrcunit">1</span></div>';
+                                $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmRecqty">1</span></div>';
+                               
+
+                                $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmTotal">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</span></div>';
+
+                                 if($ordDet['ordCurId'] > 0)
+        {
+            $content .= '<div class="table-cell">
+        <span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurTotal">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</span></div';
+        }
+                                 $content .= '<div class="table-cell"><span  class="itmNote">'.$row['note'].'</span></div>';
+                                $content .=   '</div>';
                                     }
 
                                     while($row = mysqli_fetch_array($proresultSet) )
                                     {
                                         $i++;  
-                                $content .= '<div class="table-row">
-                                        <div class="table-cell">'.$i.'</div>
-                                        <div class="table-cell">'.$row['itemName'].'</div>
-                                        <div class="table-cell">'.$row['barCode'].'</div>
-                                        <div class="table-cell">'.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</div>
-                                        <div class="table-cell">'.$row['purchaseUnit'].'</div>
-                                        <div class="table-cell">'.$row['qty'].'</div>
-                                        <div class="table-cell">'.$row['qtyReceived'].'</div>
-                                        <div class="table-cell">'.getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']).'</div>
-                                        <div class="table-cell">'.$row['note'].'</div>
-                                    </div>';
+                                $content .= '<div class="table-row">';
+                                $content .= '<div class="table-cell">'.$i.'</div>';
+                                $img = '';
+                                if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
+                                {  
+                                $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                }
+                                $content .= '<div class="table-cell"><span class="photo" style="display:none;" >'.$img.'</span></div>';
+                                $content .= '<div class="table-cell"><span class="itmProd">'.$row['itemName'].'</span></div>';
+                                 $content .= '<div class="table-cell"><span   style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'" class="itmCode">'.$row['barCode'].'</span></div>';
+                                $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmPrc">'.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</span></div>';
+                                 if($ordDet['ordCurId'] > 0)
+                                 {
+                                 $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurPrice">'.getPriceWithCur(($row['curPrice']*$row['factor']), $curDet['curCode']).'</span></div>'; 
+                                 }
+                                $content .= '<div class="table-cell"><span    class="itmPrcunit">'.$row['purchaseUnit'].'</span></div>';
+                                $content .= '<div class="table-cell"><span    class="itmPurqty">'.$row['qty'].'</span></div>';
+                                $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmRecqty">'.$row['qtyReceived'].'</span></div>';
+                                $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmTotal">'.getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']).'</span></div>';
+                                if($ordDet['ordCurId'] > 0)
+                                {
+                                $content .= '<div class="table-cell">
+                                <span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurTotal">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</span></div>';
+                                }
+                                 $content .= '<div class="table-cell"><span  class="itmNote">'.$row['note'].'</span></div>';
+                                $content .= '</div>';
                                     }
           
                                     
-                             $content .= '</div>
+                             $content .= '</div></div>';
 
-                                <div class="modal-table fs-12 w-100 mt-4">
+                             $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"><div class="modal-table fs-12 w-100 mt-4">
                                     <div class="table-row thead">
                                         <div class="table-cell">Status</div>
                                         <div class="table-cell">Date</div>
@@ -354,124 +600,8 @@ $content .= '<div class="modal-header pb-3">
                                 }
                                     
                               $content .=    '</div>
-                            </div>';
-                      $content1 .=  '<div class="table-row thead">
-                                        <div class="table-cell">'.$ordDet['ordNumber'].'</div>
-                                        <div class="table-cell">'.$suppliers.'</div>
-                                        <div class="table-cell">Our Zazibar</div>
-                                        <div class="table-cell p-0">
-                                            <div class="sub-table w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell" style="width: 40%;"></div>
-                                                    <div class="table-cell">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</div>
-                                                    <div class="table-cell" style="width: 20%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 16%;"></div>
-                                        <div class="table-cell" style="width: 34%;">
-                                            <div class="sub-table w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell">Grand Total</div>
-                                                    <div class="table-cell">157 $</div>
-                                                    <div class="table-cell">138.888 €</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal-table fs-12 w-100 mt-4">
-                                    <div class="table-row thead">
-                                        <div class="table-cell">#</div>
-                                        <div class="table-cell">Item</div>
-                                        <div class="table-cell">Barcode</div>
-                                        <div class="table-cell">Price</div>
-                                        <div class="table-cell">P. Unit</div>
-                                        <div class="table-cell">P. Qty.</div>
-                                        <div class="table-cell">Rec Qty.</div>
-                                        <div class="table-cell">Total($)</div>
-                                        <div class="table-cell">Note</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">1</div>
-                                        <div class="table-cell">Bitter Lemon 300 Ml</div>
-                                        <div class="table-cell">569856285</div>
-                                        <div class="table-cell">5.32 $</div>
-                                        <div class="table-cell">box</div>
-                                        <div class="table-cell">3</div>
-                                        <div class="table-cell">3</div>
-                                        <div class="table-cell">13.32 $</div>
-                                        <div class="table-cell">Lorem Ipsum dolor sit amet</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">1</div>
-                                        <div class="table-cell">Bitter Lemon 300 Ml</div>
-                                        <div class="table-cell">569856285</div>
-                                        <div class="table-cell">5.32 $</div>
-                                        <div class="table-cell">box</div>
-                                        <div class="table-cell">3</div>
-                                        <div class="table-cell">3</div>
-                                        <div class="table-cell">13.32 $</div>
-                                        <div class="table-cell">Lorem Ipsum dolor sit amet</div>
-                                    </div>
-                                </div>
-
-                                <div class="modal-table fs-12 w-100 mt-4">
-                                    <div class="table-row thead">
-                                        <div class="table-cell">Status</div>
-                                        <div class="table-cell">Date</div>
-                                        <div class="table-cell">User</div>
-                                        <div class="table-cell">Price($)</div>
-                                        <div class="table-cell">Price(Tsh)</div>
-                                        <div class="table-cell">Note</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Submit</div>
-                                        <div class="table-cell">07/04/2024 <br>09:54AM</div>
-                                        <div class="table-cell">Salehqa(Supervisor)</div>
-                                        <div class="table-cell">344.62 $</div>
-                                        <div class="table-cell">844,318.02</div>
-                                        <div class="table-cell">Added new order</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Submit</div>
-                                        <div class="table-cell">07/04/2024 <br>09:54AM</div>
-                                        <div class="table-cell">Salehqa(Supervisor)</div>
-                                        <div class="table-cell">344.62 $</div>
-                                        <div class="table-cell">844,318.02</div>
-                                        <div class="table-cell">Added new order</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Submit</div>
-                                        <div class="table-cell">07/04/2024 <br>09:54AM</div>
-                                        <div class="table-cell">Salehqa(Supervisor)</div>
-                                        <div class="table-cell">344.62 $</div>
-                                        <div class="table-cell">844,318.02</div>
-                                        <div class="table-cell">Added new order</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Submit</div>
-                                        <div class="table-cell">07/04/2024 <br>09:54AM</div>
-                                        <div class="table-cell">Salehqa(Supervisor)</div>
-                                        <div class="table-cell">344.62 $</div>
-                                        <div class="table-cell">844,318.02</div>
-                                        <div class="table-cell">Added new order</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Submit</div>
-                                        <div class="table-cell">07/04/2024 <br>09:54AM</div>
-                                        <div class="table-cell">Salehqa(Supervisor)</div>
-                                        <div class="table-cell">344.62 $</div>
-                                        <div class="table-cell">844,318.02</div>
-                                        <div class="table-cell">Added new order</div>
-                                    </div>
-                                </div>
-                            </div>';
+                            </div></div>';
+                     
                             echo $content ;
 
 

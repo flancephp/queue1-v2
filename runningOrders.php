@@ -1009,4 +1009,177 @@ function showOrderJourney(ordId, ordType, isSupOrder = 0) {
 
 }
 
+ function hideCheckbox(targetId) {
+
+    if ($('#' + targetId).is(":visible")) {
+        $('#' + targetId).css('display', 'none');
+    } else {
+        $('#' + targetId).css('display', 'block');
+    }
+}
+
+$('body').on('change', '.headCheckbox', function() {
+        if ($(".headCheckbox").length == $(".headCheckbox:checked").length)
+            $(".headChk-All").prop('checked', true);
+        else
+            $(".headChk-All").prop('checked', false);
+    });
+
+$('body').on('click', '.headChk-All', function() {
+
+        //$('#show-header').show();
+        $('#show-header').css('display', 'block');
+
+        if ($(".headChk-All:checked").length == 1) {
+            $("#header").prop('checked', true);
+            $(".headCheckbox").prop('checked', true);
+            $('.headerTxt').css('display', 'block');
+        } else {
+            $("#header").prop('checked', false);
+            $(".headCheckbox").prop('checked', false);
+            $('.headerTxt').css('display', 'none');
+        }
+
+    });
+
+    function showHideByClassItems(targetId) {
+
+    if ($('.' + targetId).is(":visible")) {
+        $('.' + targetId).css('display', 'none');
+
+
+    } else {
+        $('.' + targetId).css('display', 'block');
+
+        if ( !$('#itemDiv').is(":visible")) {
+
+            $('#itemDiv').css('display', 'block');
+        }
+        
+    }
+
+}
+
+function showHideByClassSummary(targetId) {
+
+    console.log('targetId',targetId);
+    if ($('.' + targetId).is(":visible")) {
+        $('.' + targetId).css('display', 'none');
+
+
+    } else {
+        $('.' + targetId).css('display', 'block');
+
+        if ( !$('.show-smry-cls').is(":visible")) {
+
+            $('.show-smry-cls').css('display', 'block');
+        }
+
+        if (targetId == 'smryDef_Val' || targetId == 'smryOtr_Val') 
+        {
+            $('.sumBreakupAmtText').css('display', 'block');
+        }
+        
+    }
+
+}
+
+$('body').on('click', '.smryChk-All', function() {
+
+        $('#show-smry').css('display', 'block');
+        $('#show-header').css('display', 'none');
+        $('#show-itm').css('display', 'none');
+
+
+        if ($(".smryChk-All:checked").length == 1) {
+
+            $('.show-smry-cls').css('display', 'block');
+            $('#smrySuplr').css('display', 'block');
+            $('#smryPayment').css('display', 'block');
+            $('.smryHead').css('display', 'block');
+            $('.smryDef_Val').css('display', 'block');
+            $('.smryOtr_Val').css('display', 'block');
+
+            $("#summary").prop('checked', true);
+            $(".smryCheckbox").prop('checked', true);
+
+        } else {
+            $("#summary").prop('checked', false);
+            $(".smryCheckbox").prop('checked', false);
+            $('.show-smry-cls').css('display', 'none');
+            $('#smrySuplr').css('display', 'none');
+            $('#smryPayment').css('display', 'none');
+            $('.smryHead').css('display', 'none');
+            $('.smryDef_Val').css('display', 'none');
+            $('.smryOtr_Val').css('display', 'none');
+
+        }
+
+
+    });
+
+     $('body').on('change', '.summary-default-currency, .summary-second-currency', function() {
+
+        updateVisibility();
+    });
+
+    function updateVisibility() {
+
+    var otherCurId = $('#ordCurId').val();
+
+    if (!$(".summary-default-currency").is(":checked") && ( !$(".summary-second-currency").is(
+            ":checked") || otherCurId == 0)) {
+
+        $('.amountSections').css('display', 'none');
+       // $('.smryTtl').css('display', 'none');
+
+    }
+    else
+    {
+        $('.sumBreakupAmtText').css('display', 'block');
+    } 
+    }
+
+    $('body').on('click', '.itemChk-All', function() {
+
+        $('#show-itm').css('display', 'block');
+
+
+        if ($(".itemChk-All:checked").length == 1) {
+            $("#itemTable").prop('checked', true);
+            $(".itmTblCheckbox").prop('checked', true);
+
+            $('.photo').css('display', 'block');
+            $('.itmProd').css('display', 'block');
+            $('.itmCode').css('display', 'block');
+
+            $('.itmTotal').css('display', 'block');
+            $('.itmPrc').css('display', 'block');
+            $('.otherCurPrice').css('display', 'block');
+            $('.itmPrcunit').css('display', 'block');
+            $('.itmPurqty').css('display', 'block');
+            $('.itmRecqty').css('display', 'block');
+            $('.otherCurTotal').css('display', 'block');
+            $('.itmNote').css('display', 'block');
+
+
+        } else {
+            $("#itemTable").prop('checked', false);
+            $(".itmTblCheckbox").prop('checked', false);
+
+            $('.photo').css('display', 'none');
+            $('.itmProd').css('display', 'none');
+            $('.itmCode').css('display', 'none');
+            $('.itmTotal').css('display', 'none');
+            $('.itmPrc').css('display', 'none');
+            $('.otherCurPrice').css('display', 'none');
+            $('.itmPrcunit').css('display', 'none');
+            $('.itmPurqty').css('display', 'none');
+            $('.itmRecqty').css('display', 'none');
+            $('.otherCurTotal').css('display', 'none');
+            $('.itmNote').css('display', 'none');
+        }
+
+    });
+
 </script>

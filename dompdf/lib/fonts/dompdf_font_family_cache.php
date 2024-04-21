@@ -82,4 +82,11 @@
     'normal' => $fontDir . '/open_sans_normal_2bf6e8a03908d49a7fa7b1094b0c2804',
     '600' => $fontDir . '/open_sans_600_94288badef373364367fbfb769e688ce',
   ),
+  'inter' => array(
+    'normal' => $fontDir . '/inter_normal_3ba32a48b7860dfb008d0b1457da683a',
+    '500' => $fontDir . '/inter_500_5227956572435006df168ae4e07c5148',
+    '600' => $fontDir . '/inter_600_d0d96b12edf8a78fd85c552d12762fb0',
+    'bold' => $fontDir . '/inter_bold_868976cd8a549429e4b1d38e6b1b6bed',
+    '800' => $fontDir . '/inter_800_1909e5290c7f23524b9891a4fa9896a2',
+  ),
 ) ?>

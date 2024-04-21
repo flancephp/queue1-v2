@@ -2568,6 +2568,17 @@ function getDelNumb(delOrderId){
     $('#frm').submit();
 
  });
+
+  function hideCheckbox(targetId) {
+
+    if ($('#' + targetId).is(":visible")) {
+        $('#' + targetId).css('display', 'none');
+    } else {
+        $('#' + targetId).css('display', 'block');
+    }
+
+ 
+}
 </script>
  <div id="dialog" style="display: none;">
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
