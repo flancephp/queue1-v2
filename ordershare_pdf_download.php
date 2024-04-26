@@ -13,7 +13,8 @@ $dompdf = new Dompdf();
 
 
 include('ordershare_final_pdf.php'); // Include history_final_pdf.php file to get content variable
-
+// echo $content;
+// exit;
 // Load content from html file 
 //$html = file_get_contents("http://localhost/queue1/devnew/history_final_pdf.php");
 

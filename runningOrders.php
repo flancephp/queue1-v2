@@ -303,7 +303,7 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style_new.css">
 
 </head>
 
@@ -1009,6 +1009,29 @@ function showOrderJourney(ordId, ordType, isSupOrder = 0) {
 
 }
 
+function showRequisitionJourney(ordId) {
+
+$.ajax({
+        method: "POST",
+        url: "requisitionshare_ajax_pdf.php",
+
+        data: {
+            orderId: ordId
+        }
+    })
+    .done(function(htmlRes) {
+        $('#order_details_supplier').html(htmlRes);
+            $('#order_details').modal('show');
+
+        //orderAndReqJsCode();
+    });
+
+
+   
+
+
+}//end requisition journey function
+
  function hideCheckbox(targetId) {
 
     if ($('#' + targetId).is(":visible")) {
@@ -1019,10 +1042,27 @@ function showOrderJourney(ordId, ordType, isSupOrder = 0) {
 }
 
 $('body').on('change', '.headCheckbox', function() {
-        if ($(".headCheckbox").length == $(".headCheckbox:checked").length)
-            $(".headChk-All").prop('checked', true);
+ if ($(".headCheckbox").length == $(".headCheckbox:checked").length)
+     $(".headChk-All").prop('checked', true);
+ else
+     $(".headChk-All").prop('checked', false);
+});
+
+$('body').on('change', '.itmTblCheckbox', function() {
+	    
+	    console.log('sssss',$(".itmTblCheckbox").length,$(".itmTblCheckbox:checked").length);
+        if ($(".itmTblCheckbox").length == $(".itmTblCheckbox:checked").length)
+            $(".itemChk-All").prop('checked', true);
         else
-            $(".headChk-All").prop('checked', false);
+            $(".itemChk-All").prop('checked', false);
+    });
+
+$('body').on('change', '.smryCheckbox', function() {
+	   
+        if ($(".smryCheckbox").length == $(".smryCheckbox:checked").length)
+            $(".smryChk-All").prop('checked', true);
+        else
+            $(".smryChk-All").prop('checked', false);
     });
 
 $('body').on('click', '.headChk-All', function() {
@@ -1062,8 +1102,7 @@ $('body').on('click', '.headChk-All', function() {
 
 function showHideByClassSummary(targetId) {
 
-    console.log('targetId',targetId);
-    if ($('.' + targetId).is(":visible")) {
+     if ($('.' + targetId).is(":visible")) {
         $('.' + targetId).css('display', 'none');
 
 

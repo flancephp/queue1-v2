@@ -80,8 +80,8 @@ $content .= '<html lang="en">';
     </style>
     </head>';
 
-$content .= '<body style="font-family: Inter, Sans- serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
-if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['orderDetails'] == 1 || $_GET['curDate'] == 1)
+$content .= '<body style="font-family: \'Inter\', Sans- serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
+if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['orderDetails'] == 1 || $_GET['currentDate'] == 1)
     {
 $content .= '<table style="width: 100%; border-spacing: 0;">
     <tr valign="top">
@@ -127,7 +127,7 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
                                 $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 50px; width: auto;">';
                             }
                    }
-      if($_GET['curDate'] == 1)
+      if($_GET['currentDate'] == 1)
                     {
   $content .=  '<table style="width: 100%; border-spacing: 0;">
                 <tr>
@@ -160,7 +160,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
          $content .=   '</table>
             </td> 
         </tr>
-        <tr style="background-color: rgb(122 137 255 / 20%);">
+        <tr style="background-color: rgba(122, 137, 255, 0.2);">
             <td style="padding:8px 5px;font-weight: 700;;">'.$ordDet['ordNumber'].'</td>
             <td style="text-align: center;padding:8px 5px; font-weight: 700;">'.$suppliers.'</td>
             <td>
@@ -176,21 +176,25 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                         <td width="20%" style="padding: 5px;">';
                   if( $_GET['secondCurrency']  == 1 )  
                                 {
-                 $content .= $content .= showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']);
+                 $content .= showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']);
                                 }
                  $content .= '</td>
                     </tr>
                 </table></td>
         </tr>';
-         $content .= '<tr>';
-         $content .=   '<td width="33%" valign="top">
-                <table style="width: 100%;">
+         $content .= '<tr><td width="33%" valign="top">';
+         if(  $_GET['supplierInvoice']  == 1)  
+                { 
+         $content .=   '<table style="width: 100%;">
                     <tr>
                         <td style="padding: 5px;"># Supplier Invoice</td>
                         <td style="padding: 5px;">'.$ordDet['invNo'].'</td>
                     </tr>
-                </table>
-            </td>';
+                </table>';
+                }
+        $content .=  '</td>';
+             if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1 )  
+            {
             $content .= '<td width="33%"></td>
             <td width="34%">
                 <table style="width: 100%;border-collapse: collapse;">';
@@ -210,13 +214,19 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                              if ($ordCountRow > 0)
                              { 
                               $showGrandTotal = true;
-            $content .=  '<tr>
-                        <td style="padding: 5px;">'.showOtherLangText('Sub Total').'</td>
-                        <td style="padding: 5px;">';
+            $content .=  '<tr>';
+            $content .=  '<td style="padding: 5px;">'.showOtherLangText('Sub Total').'</td>';
+            $content .=  '<td style="padding: 5px;">';
+            if(  $_GET['defaultCurrencyAmount']  == 1  )  
+                            { 
             $content .= getPriceWithCur($chargePrice, $getDefCurDet['curCode']);
-            $content .= '</td>
-                        <td style="padding: 5px;">';
+                            }
+            $content .= '</td>';
+              $content .= '<td style="padding: 5px;">';
+            if(  $_GET['secondCurrency']  == 1  )  
+                             {
             $content .= showOtherCur($chargePriceOther, $ordDet['ordCurId']);
+                             }
             $content .= '</td>
                        </tr>';
                              }
@@ -272,19 +282,22 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                         <td style="padding: 5px;">';
              if(  $_GET['defaultCurrencyAmount']  == 1  )  
                             { 
-                                $content .=getPriceWithCur($row['price'], $getDefCurDet['curCode']);
+                               $content .=getPriceWithCur($calDiscount, $getDefCurDet['curCode']);
                             }
               $content .= '</td>
                         <td style="padding: 5px;">';
                     if(  $_GET['secondCurrency']  == 1  )  
                              { 
-                                $content .= showOtherCur($row['curAmt'], $ordDet['ordCurId']);
+                                 $content .= showOtherCur($calDiscountOther, $ordDet['ordCurId']);
                              }
                 $content .=  '</td>
                     </tr>';
                      }
 
-
+                 
+                 $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
+                        
+                     $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
                   $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
                              INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
                              WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
@@ -306,13 +319,13 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                         <td style="padding: 5px;">';
              if(  $_GET['defaultCurrencyAmount']  == 1  )  
                             { 
-                                $content .=getPriceWithCur($row['price'], $getDefCurDet['curCode']);
+                                $content .= getPriceWithCur($calTax, $getDefCurDet['curCode']);
                             }
               $content .= '</td>
                         <td style="padding: 5px;">';
                     if(  $_GET['secondCurrency']  == 1  )  
                              { 
-                                $content .= showOtherCur($row['curAmt'], $ordDet['ordCurId']);
+                                $content .= showOtherCur($calTaxOther, $ordDet['ordCurId']);
                              }
                 $content .=  '</td>
                     </tr>';
@@ -320,7 +333,6 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                  
                  $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
                           $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
-     
      
                          $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
                          $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
@@ -336,19 +348,20 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                             }
                 $content .= '</td>
                         <td style="padding: 5px;">';
-                if(  $_GET['otherCurTotal']  == 1  )  
+                if(  $_GET['secondCurrency']  == 1  )  
                             { 
                 $content .= showOtherCur($netTotalAmtOther, $ordDet['ordCurId']);
                             }
                 $content .=  '</td>
                     </tr>';
                       }
+                  }
 
            $content .= '</table></td></tr></table>';
 
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">
     
-    <tr style=" background-color: rgb(122 137 255 / 20%);">
+    <tr style="background-color: rgba(122, 137, 255, 0.2);">
         <th style="font-weight:700;padding:8px 5px;">#</th>';
  if( $_GET['photo'] == 1)
             {
@@ -369,140 +382,263 @@ if( $_GET['barcode'] == 1)
             } else {
   $content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';              
             }
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Price('.$getDefCurDet['curCode'].')</th>';                               
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Unit</th>
-        <th style="font-weight:700;padding:8px 5px;">Qty.</th>
-        <th style="font-weight:700;padding:8px 5px;">Rec Qty.</th>
-        <th style="font-weight:700;padding:8px 5px;">Total</th>
-        <th style="font-weight:700;padding:8px 5px;">Note</th>
-    </tr>
+ if( $_GET['price'] == 1)
+            {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Price('.$getDefCurDet['curCode'].')</th>';
+            }
+            else
+            {
+$content .=  '<th style="font-weight:700;"></th>';
+            }
+            if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
+            {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Price('.$curDet['curCode'].')</th>';
+            }
+            else
+            {
+$content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';
+            }
+        if( $_GET['unit'] == 1)
+            {                                 
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Unit</th>';
+            } else {
+  $content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';     
+            }
+            if( $_GET['qty'] == 1)
+            {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Qty.</th>';
+             } else {
+  $content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';
+             }
+             if( $_GET['receivedQty'] == 1)
+            {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Rec Qty.</th>';
+            } else {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';   
+            }
+            if( $_GET['total'] == 1)
+            {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Total('.$getDefCurDet['curCode'].')</th>';
+            } else {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';      
+            }
+             if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
+            {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">Total('.$curDet['curCode'].')</th>';               
+            } else {
+ $content .=  '<th style="font-weight:700;padding:8px 5px;"></th>';  
+            }
+         if( $_GET['note'] == 1)
+            {
+ $content .= '<th style="font-weight:700;padding:8px 5px;">Note</th>';
+            } else {
+ $content .= '<th style="font-weight:700;padding:8px 5px;"></th>';             
+            }
+ $content .=    '</tr>';
+   $i = 0;
+        while($row = mysqli_fetch_array($otherChrgQry) )
+        {
+            $i++;
+  $content .=   '<tr>';
+  $content .=   '<td style="padding: 5px;">'.$i.'</td>';
+  if( $_GET['photo'] == 1)
+  {
+  $content .= '<td style="padding: 5px;"></td>';
+  } else {
+   $content .= '<td style="padding: 5px;"></td>';  
+  }
+   if( $_GET['itemName'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['itemName'].'</td>';
+  } else {
+   $content .=  '<td style="padding: 5px;"></td>';  
+  }
+   if( $_GET['barcode'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;"></td>';
+      } else {
+   $content .=  '<td style="padding: 5px;"></td>';
+   }
+   if( $_GET['price'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</td>';
+   } else {
+  $content .=  '<td style="padding: 5px;"></td>';  
+   }
 
-    <tr>
-        <td style="padding: 5px;">1</td>
-        <td style="padding: 5px;"><img src="https://queue1.net/newdesign/Assets/images/Tomato.png" alt="Item" style="width:30px; height:auto;"></td>
-        <td style="padding: 5px;">Bitter Lemon 300 Ml</td>
-        <td style="padding: 5px;">569856285</td>
-        <td style="padding: 5px;">5.32 $</td>
-        <td style="padding: 5px;">box</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">13.32 $</td>
-        <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-    </tr> 
+  if( $_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0)
+            {
+  $content .=  '<td style="padding: 5px;">
+                '.getPriceWithCur(($row['curAmt']), $curDet['curCode']).'</td>';
+   } else {
+  $content .=  '<td style="padding: 5px;"></td>';  
+   }
+  
+    if( $_GET['unit'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">box</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';              
+            }
+             if( $_GET['qty'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">1</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';               
+            }
+         if( $_GET['receivedQty'] == 1)
+         {
+  $content .=  '<td style="padding: 5px;">1</td>';
+         } else {
+   $content .=  '<td style="padding: 5px;"></td>';         
+         }
+         if( $_GET['total'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</td>';
+            } else {
+    $content .=  '<td style="padding: 5px;"></td>';            
+            }
+             if($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0)
+            {
+  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</td>';
+            } else {
+    $content .=  '<td style="padding: 5px;"></td>';            
+            }
+        if( $_GET['Note'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['note'].'</td>';
+            } else {
+   $content .=  '<td style="padding: 5px;"></td>';             
+            }
+  $content .=  '</tr>'; 
+        }
 
-    <tr>
-        <td style="padding: 5px;">1</td>
-        <td style="padding: 5px;"><img src="https://queue1.net/newdesign/Assets/images/Tomato.png" alt="Item" style="width:30px; height:auto;"></td>
-        <td style="padding: 5px;">Bitter Lemon 300 Ml</td>
-        <td style="padding: 5px;">569856285</td>
-        <td style="padding: 5px;">5.32 $</td>
-        <td style="padding: 5px;">box</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">13.32 $</td>
-        <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-    </tr> 
+          while($row = mysqli_fetch_array($proresultSet) )
+        {
+            $i++;
+  $content .=   '<tr>';
+  $content .=   '<td style="padding: 5px;">'.$i.'</td>';
+   if( $_GET['photo'] == 1)
+            {
 
-    <tr>
-        <td style="padding: 5px;">1</td>
-        <td style="padding: 5px;"><img src="https://queue1.net/newdesign/Assets/images/Tomato.png" alt="Item" style="width:30px; height:auto;"></td>
-        <td style="padding: 5px;">Bitter Lemon 300 Ml</td>
-        <td style="padding: 5px;">569856285</td>
-        <td style="padding: 5px;">5.32 $</td>
-        <td style="padding: 5px;">box</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">13.32 $</td>
-        <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-    </tr> 
+        $img = '';
+                if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
+                {  
+                    $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                }
+       $content .= '<td style="padding: 5px;">'.$img.'</td>';
+           } else {
+      $content .= '<td style="padding: 5px;"></td>';       
+           }
 
+           if( $_GET['itemName'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['itemName'].'</td>';
+            }
+            else
+            {
+    $content .=  '<td style="padding: 5px;"></td>';
+            }
+             if( $_GET['barcode'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['barCode'].'</td>';
+            } else {
+   $content .=  '<td style="padding: 5px;"></td>';             
+            }
+             if( $_GET['price'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">
+                '.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';              
+            }
+             if(  $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
+            {
+  $content .=  '<td style="padding: 5px;">
+                '.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';              
+            }
+   if( $_GET['unit'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['purchaseUnit'].'</td>';
+            } else {
+ $content .=  '<td style="padding: 5px;"></td>';
+            }
+             if( $_GET['qty'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['qty'].'</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';              
+            }
+             if( $_GET['receivedQty'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">
+                '.$row['qtyReceived'].'</td>';
+            } else {
+    $content .=  '<td style="padding: 5px;"></td>';             
+            }
+             if( $_GET['total'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">
+                '.getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']).'</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';              
+            }
+            if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
+            {
+  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';              
+            }
+            if( $_GET['note'] == 1)
+            {
+  $content .=  '<td style="padding: 5px;">'.$row['note'].'</td>';
+            } else {
+  $content .=  '<td style="padding: 5px;"></td>';     
+            }
+  $content .=  '</tr>'; 
+        }
 
-    <tr>
-        <td style="padding: 5px;">1</td>
-        <td style="padding: 5px;"><img src="https://queue1.net/newdesign/Assets/images/Tomato.png" alt="Item" style="width:30px; height:auto;"></td>
-        <td style="padding: 5px;">Bitter Lemon 300 Ml</td>
-        <td style="padding: 5px;">569856285</td>
-        <td style="padding: 5px;">5.32 $</td>
-        <td style="padding: 5px;">box</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">13.32 $</td>
-        <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-    </tr> 
+    
 
-    <tr>
-        <td style="padding: 5px;">1</td>
-        <td style="padding: 5px;"><img src="https://queue1.net/newdesign/Assets/images/Tomato.png" alt="Item" style="width:30px; height:auto;"></td>
-        <td style="padding: 5px;">Bitter Lemon 300 Ml</td>
-        <td style="padding: 5px;">569856285</td>
-        <td style="padding: 5px;">5.32 $</td>
-        <td style="padding: 5px;">box</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">13.32 $</td>
-        <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-    </tr> 
+  $content .=  '</table>';
 
-</table>';
-
-
+if( $_GET['taskRecord'] == 1)
+{
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">
     
-        <tr style=" background-color: rgb(122 137 255 / 20%);">
+        <tr style="background-color: rgba(122, 137, 255, 0.2);">
             <th style="font-weight:700;padding:8px 5px;">Status</th>
             <th style="font-weight:700;padding:8px 5px;">Date</th>
-            <th style="font-weight:700;padding:8px 5px;">User</th>
-            <th style="font-weight:700;padding:8px 5px;">Price($)</th>
-            <th style="font-weight:700;padding:8px 5px;">Price(€)</th>                               
-            <th style="font-weight:700;padding:8px 5px;">Note</th>
-        </tr>
+            <th style="font-weight:700;padding:8px 5px;">User</th>';
+ $content .= '<th style="font-weight:700;padding:8px 5px;">Price('.$getDefCurDet['curCode'].')</th>';
+ if($_GET['secondCurrency'] == 1 &&  $curDet['curCode'] != '')
+            {
+ $content .= '<th style="font-weight:700;padding:8px 5px;">Price('.$curDet['curCode'].')</th>';       
+            }              
+ $content .= '<th style="font-weight:700;padding:8px 5px;">Note</th></tr>';
+   while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
+        {  
+ $content .= '<tr>
+            <td style="padding: 5px;">'.ucfirst($orderJourney['action']).'</td>                          
+            <td style="padding: 5px;">'.date('d/m/Y
+                h:iA', strtotime($orderJourney['ordDateTime']) ).'</td>
+            <td style="padding: 5px;">
+                '.ucfirst($orderJourney['name']).'('.ucfirst($orderJourney['designation_name']).')</td>
+            <td style="padding: 5px;">'.
+                getPriceWithCur($orderJourney['amount'], $getDefCurDet['curCode']).'</td>';
+    if($_GET['secondCurrency'] == 1 && $curDet['curCode'] != '')
+                {
+   $content .=  '<td style="padding: 5px;">'.
+                    getPriceWithCur($orderJourney['otherCur'], $curDet['curCode']).'</td>'; 
+   }                          
+ $content .=  '<td style="padding: 5px;">'.ucfirst($orderJourney['notes']).'</td>';
+ $content .=   '</tr>';
+        }  
     
-        <tr>
-            <td style="padding: 5px;">Submit</td>                          
-            <td style="padding: 5px;">27/02/2024 01:30AM</td>
-            <td style="padding: 5px;">Our Zazibar(Admin)</td>
-            <td style="padding: 5px;">29.28 $</td>
-            <td style="padding: 5px;">33.54 €</td>                           
-            <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-        </tr>   
-        
-        <tr>
-            <td style="padding: 5px;">Submit</td>                          
-            <td style="padding: 5px;">27/02/2024 01:30AM</td>
-            <td style="padding: 5px;">Our Zazibar(Admin)</td>
-            <td style="padding: 5px;">29.28 $</td>
-            <td style="padding: 5px;">33.54 €</td>                           
-            <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-        </tr>   
-
-        <tr>
-            <td style="padding: 5px;">Submit</td>                          
-            <td style="padding: 5px;">27/02/2024 01:30AM</td>
-            <td style="padding: 5px;">Our Zazibar(Admin)</td>
-            <td style="padding: 5px;">29.28 $</td>
-            <td style="padding: 5px;">33.54 €</td>                           
-            <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-        </tr>   
-
-        <tr>
-            <td style="padding: 5px;">Submit</td>                          
-            <td style="padding: 5px;">27/02/2024 01:30AM</td>
-            <td style="padding: 5px;">Our Zazibar(Admin)</td>
-            <td style="padding: 5px;">29.28 $</td>
-            <td style="padding: 5px;">33.54 €</td>                           
-            <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-        </tr>   
-
-        <tr>
-            <td style="padding: 5px;">Submit</td>                          
-            <td style="padding: 5px;">27/02/2024 01:30AM</td>
-            <td style="padding: 5px;">Our Zazibar(Admin)</td>
-            <td style="padding: 5px;">29.28 $</td>
-            <td style="padding: 5px;">33.54 €</td>                           
-            <td style="padding: 5px;">Lorem Ipsum dolor sit amet</td>
-        </tr>   
-   
-</table>';
+ $content .= '</table>';
+}
 
 
 
