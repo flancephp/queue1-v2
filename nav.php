@@ -9,27 +9,37 @@
                         <div class="nav-bar">
                             <ul class="nav flex-column h2">
                                 <li class="nav-item dropdown dropend">
-                                    <a class="nav-link active text-center dropdown-toggle" aria-current="page"
-                                        href="index.php" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link <?php echo isMenuActive(['addOrder.php','addRecusation.php']); ?>  text-center dropdown-toggle" aria-current="page"
+                                        href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
                                         <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
                                         <p>New Task</p>
                                     </a>
                                     <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub sbActive" aria-current="page" href="addOrder.php">
+                                        <li><a class="nav-link nav_sub <?php echo isSubMenuActive('addOrder.php'); ?>" aria-current="page" href="addOrder.php">
                                                 <img src="Assets/icons/new_order.svg" alt="New order"
                                                     class="navIcon align-middle">
                                                 <img src="Assets/icons/new_order_hv.svg" alt="New order"
                                                     class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
+                                                <span class="align-middle"><?php
+                        if ($showOtherLangText = showOtherLangText('New_Order')) 
+                        {
+                            echo $showOtherLangText;
+                        }
+                        ?></span>
                                             </a>
                                         </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="addRecusation.php">
+                                        <li><a class="nav-link nav_sub <?php echo isSubMenuActive('addRecusation.php'); ?>" aria-current="page" href="addRecusation.php">
                                                 <img src="Assets/icons/new_req.svg" alt="Req"
                                                     class="navIcon align-middle">
                                                 <img src="Assets/icons/new_req_hv.svg" alt="Req"
                                                     class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
+                                                <span class="align-middle"><?php
+                        if ($showOtherLangText = showOtherLangText('New_Requisition')) 
+                        {
+                            echo $showOtherLangText;
+                        }
+                        ?></span></a>
                                         </li>
                                         <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
                                                 <img src="Assets/icons/new_stock.svg" alt="Stock"
@@ -62,7 +72,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningOrders.php">
+                                    <a class="nav-link <?php echo isMenuActive(['runningOrders.php','receiveOrder.php','editRequisition.php','editOrder.php']); ?> text-center" href="runningOrders.php">
                                         <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
                                         <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
                                             class="navIcon mb_navIcn">
@@ -70,21 +80,21 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
+                                    <a class="nav-link <?php echo isMenuActive('history.php'); ?> text-center" href="history.php">
                                         <img src="Assets/icons/office.svg" alt="office" class="navIcon">
                                         <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
                                         <p>Office</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
+                                    <a class="nav-link <?php echo isMenuActive('stockView.php'); ?> text-center" href="stockView.php">
                                         <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
                                         <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
                                         <p>Storage</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-center" href="revenueCenter.php">
+                                    <a class="nav-link text-center" <?php echo isMenuActive('revenueCenter.php'); ?> href="revenueCenter.php">
                                         <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
                                         <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
                                         <p>Revenue Centers</p>
@@ -96,7 +106,7 @@
                     <div class="nav-bar lgOut">
                         <ul class="nav flex-column h2">
                             <li class="nav-item">
-                                <a class="nav-link text-center" href="setup.php">
+                                <a class="<?php echo isMenuActive(['setup.php','accountSetup.php','users.php','addUser.php','editUser.php','listDesignation.php','addDesignation.php','editDesignation.php','manageSuppliers.php','addEditSupplier.php','manageOutlets.php','addOutlet.php','editOutlet.php','revenueCenterSetup.php','addRevenueCenter.php','editRevenueCenter.php','itemsManager.php','addProduct.php','editProduct.php','physicalStorages.php','manageDepartments.php','categories.php','subCategories.php','manageUnits.php','manageCurrency.php','addCurrency.php','editCurrency.php','editMainCurrency.php','manageAccounts.php','addAccount.php','editAccount.php','manageServiceFee.php','addServiceFee.php','editServiceFee.php','manageAdditionalFee.php','addAdditionalFee.php','editAdditionalFee.php']); ?> nav-link text-center" href="setup.php">
                                     <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
                                     <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
                                     <p>Setup</p>

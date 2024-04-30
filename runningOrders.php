@@ -451,8 +451,8 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 
                                 <div class="d-flex align-items-center" style="width: 55%;">
                                     <div style="width: 3%;">&nbsp;</div>
-                                    <div class="d-flex align-items-center" style="width: 72%;">
-                                        <div class="p-1" style="width: 30%;">
+                                    <div class="d-flex align-items-center" style="width: 58%;">
+                                        <div class="p-1" style="width: 39%;">
                                             <p><?php echo showOtherLangText('Refer to') ?></p>
                                         </div>
                                         <div class="p-1" style="width: 17%;">
@@ -580,7 +580,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 				}
 				?></p>
                                                 </div>
-                                                <div class="d-flex align-items-center payOptnreq">   
+                                                <div style="width:22% !important;" class="d-flex align-items-center payOptnreq">   
                                  <?php
 				if ($orderRow['ordType'] == 1)
 				{
@@ -623,7 +623,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 			//issue in
 				?>
                                                  <li><a class="dropdown-item"
-                                                                    href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
+                                                                    href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-share-square"></i> <?php echo showOtherLangText('Details(Supplier)') ?></a>
                                                             </li>
                                                 <?php 
 			} 
@@ -771,35 +771,54 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
       </div>
       </div>
       </div>
+      <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script>
-function getDelNumb(canId, ordType) {
+// function getDelNumb(canId, ordType) {
 
-    $("#dialog").dialog({
-        autoOpen: false,
-        modal: true,
-        //title     : "Title",
-        buttons: {
-            '<?php echo showOtherLangText('Yes') ?>': function() {
-                //Do whatever you want to do when Yes clicked
-                $(this).dialog('close');
-                window.location.href = 'runningOrders.php?canId=' + canId + '&type=' + ordType;
-            },
+//     $("#dialog").dialog({
+//         autoOpen: false,
+//         modal: true,
+//         //title     : "Title",
+//         buttons: {
+//             '<?php echo showOtherLangText('Yes') ?>': function() {
+//                 //Do whatever you want to do when Yes clicked
+//                 $(this).dialog('close');
+//                 window.location.href = 'runningOrders.php?canId=' + canId + '&type=' + ordType;
+//             },
 
-            '<?php echo showOtherLangText('No') ?>': function() {
-                //Do whatever you want to do when No clicked
-                $(this).dialog('close');
-            }
-        }
-    });
+//             '<?php echo showOtherLangText('No') ?>': function() {
+//                 //Do whatever you want to do when No clicked
+//                 $(this).dialog('close');
+//             }
+//         }
+//     });
 
-    $("#dialog").dialog("open");
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend(
-        '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-}
+//     $("#dialog").dialog("open");
+//     $('.custom-header-text').remove();
+//     $('.ui-dialog-content').prepend(
+//         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+// }
 
 function show_popup_issue_out() {
 
@@ -962,8 +981,8 @@ function cnfIssueOut(orderId) {
     $('.issueOutOrdId').val(orderId);
 }
  
-  function getDelNumb(delId){
-var newOnClick = "window.location.href='users.php?delId=" + delId + "'";
+  function getDelNumb(canId, ordType){
+var newOnClick = "window.location.href='runningOrders.php?canId=" + canId + "&type=" + ordType+ "'";
 
       $('.deletelink').attr('onclick', newOnClick);
      $('#delete-popup').modal('show');
@@ -1104,7 +1123,7 @@ function showHideByClassSummary(targetId) {
 
      if ($('.' + targetId).is(":visible")) {
         $('.' + targetId).css('display', 'none');
-
+      
 
     } else {
         $('.' + targetId).css('display', 'block');
@@ -1118,6 +1137,7 @@ function showHideByClassSummary(targetId) {
         {
             $('.sumBreakupAmtText').css('display', 'block');
         }
+
         
     }
 
@@ -1170,12 +1190,15 @@ $('body').on('click', '.smryChk-All', function() {
             ":checked") || otherCurId == 0)) {
 
         $('.amountSections').css('display', 'none');
+       $('.SummaryItems').css('display', 'none');
+
        // $('.smryTtl').css('display', 'none');
 
     }
     else
     {
         $('.sumBreakupAmtText').css('display', 'block');
+         $('.SummaryItems').css('display', 'table-row');
     } 
     }
 

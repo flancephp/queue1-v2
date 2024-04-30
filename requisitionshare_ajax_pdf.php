@@ -89,7 +89,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                                             <span class="fs-13">Check All</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="address" class="headCheckbox header-address form-check-input" value="1" onClick="hideCheckbox(\'adrsClm\')">
+                                                            <input type="checkbox"  name="address" class="headCheckbox header-address form-check-input" value="1" onClick="hideCheckbox(\'adrsClm\')">
                                                             <span class="fs-13">Address</span>
                                                         </li>
                                                         <li>
@@ -97,11 +97,11 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                                             <span class="fs-13">Requisition details</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="logo" class="form-check-input headCheckbox header-logo" value="1" onClick="hideCheckbox(\'logoClm\')">
+                                                            <input type="checkbox"  name="logo" class="form-check-input headCheckbox header-logo" value="1" onClick="hideCheckbox(\'logoClm\')">
                                                             <span class="fs-13">Logo</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" checked="checked" name="currentDate" class="headCheckbox header-currentDate form-check-input" value="1" onClick="hideCheckbox(\'currentDate\')">
+                                                            <input type="checkbox"  name="currentDate" class="headCheckbox header-currentDate form-check-input" value="1" onClick="hideCheckbox(\'currentDate\')">
                                                             <span class="fs-13">Current Date</span>
                                                         </li>
                                                     </ul>
@@ -223,7 +223,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                       $content  .= '<div class="modal-body px-2 py-3">
                                 <div class="row pb-3">
                                     <div class="col-md-4">
-                                        <div id="adrsClm" class="headerTxt modal-address">
+                                        <div id="adrsClm"  style="display:none;" class="headerTxt modal-address">
                                             <h6 class="semibold fs-14">'.$clientDetRow['accountName'].'</h6>
                                             <div class="fs-13 ">
                                                 <p>'.$clientDetRow['address_one'].'</p>
@@ -238,7 +238,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <h4 id="orderDetailsText" class="headerTxt orderDetailsText text-center semibold">'.showOtherLangText('Requisition Details').'</h4>
                                     </div>
                                     <div class="col-md-4 text-md-end">
-                                        <div class="modal-logo"><div id="logoClm" class="headerTxt">';
+                                        <div class="modal-logo"><div id="logoClm" class="headerTxt" style="display:none;">';
                                  if( file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
                                 {  
                                     $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 50px; width: auto;">';
@@ -249,7 +249,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                 }
                                    $content  .=     '</div></div>
                                         <div class="modal-date pt-1">
-                                            <p class="headerTxt currentDate" id="currentDate">'.date('d/m/Y').'</p>
+                                            <p style="display:none;" class="headerTxt currentDate" id="currentDate">'.date('d/m/Y').'</p>
                                         </div>
                                     </div>
                                 </div>

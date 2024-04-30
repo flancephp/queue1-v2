@@ -3754,7 +3754,7 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 
 <div
                                                         class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="runLink">
+                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '2');" class="runLink">
                                                             <span class="dlTe"></span>
                                                         </a>
                                                     </div>
@@ -5628,4 +5628,34 @@ function getRevenueTotals($outLetId, $fromDate, $toDate)
 	return $outLetDataArr;
 }
 
+function isMenuActive($pages) {
+    // Get the current page URL
+    $current_url = $_SERVER['REQUEST_URI'];
+    
+    if (!is_array($pages)) {
+        $pages = [$pages];
+    }
+    
+    // Check if the current URL contains any of the given pages
+    foreach ($pages as $page) {
+        if (strpos($current_url, $page) !== false) {
+            return "active"; // Return 'active' if it matches any page
+        }
+    }
+    
+    // Return empty string if none of the pages match
+    return "";
+}
+
+function isSubMenuActive($page) {
+    // Get the current page URL
+    $current_url = $_SERVER['REQUEST_URI'];
+    
+    // Check if the current URL contains the given page
+    if (strpos($current_url, $page) !== false) {
+        return "sbActive"; // Return 'active' if it matches
+    } else {
+        return ""; // Return empty string if it doesn't match
+    }
+}
 ?>

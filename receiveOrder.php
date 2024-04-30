@@ -4,6 +4,8 @@ include('inc/dbConfig.php'); //connection details
 //for excel file upload with Other language
 use Shuchkin\SimpleXLSX;
 require_once 'SimpleXLSX.php';
+$tbl_order_main_or_temp = 'tbl_order_details';
+
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
@@ -20,7 +22,7 @@ if ($permissionRow)
     echo "<script>window.location='index.php'</script>";
 }
 
-
+//update invoice number when user change it
 if(isset($_POST['invoiceNumber']) && isset($_POST['orderId'])) 
 {
     $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
@@ -46,8 +48,6 @@ $ordRow = mysqli_fetch_array($resultSet);
 $curDetData = getCurrencyDet($ordRow['ordCurId']);
 
 $fileDataRows = [];
-
-
 if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
 {
     $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
@@ -71,8 +71,23 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
     }
 
 //----------------------------------
+
+
     if( is_array($rows) && !empty($rows) )
     {
+        $tbl_order_main_or_temp = 'tbl_order_details_temp_receive';
+
+        $sqlSet = " DELETE FROM tbl_order_details_temp_receive WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+        mysqli_query($con, $sqlSet);
+
+         $sqlSet = " INSERT INTO tbl_order_details_temp_receive( `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`, `note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`, `requestedQty`)
+        SELECT  `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`, `note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`, `requestedQty` FROM tbl_order_details
+         WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+        mysqli_query($con, $sqlSet);
+
+
+        
+
         foreach($rows as $row)
         {
             
@@ -80,6 +95,51 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
             $fileDataRows[$row['barCode']]['price'] = isset($row['price']) ? trim($row['price']) : 0;
             $fileDataRows[$row['barCode']]['supplierId'] = trim($row['supplierId']);
         }
+
+
+
+        //update excel data
+                        $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
+                         FROM ".$tbl_order_main_or_temp." od 
+
+                        INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
+
+                        LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+
+                        WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
+
+                        $ordQry = mysqli_query($con, $sql);
+                                                                                            
+                        while($row = mysqli_fetch_array($ordQry))
+                        { 
+                            if( isset($fileDataRows[$row['barCode']]) )
+                            { 
+
+                                $receivedRow = $fileDataRows[$row['barCode']];
+                                $qtyVal = $receivedRow['qty'];
+                                $ordQty = $receivedRow['qty'];
+                                $boxPrice =$receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor']*$row['ordPrice'];
+
+                                $boxPriceOther = ($boxPrice*$curDetData['amt']);
+
+                                if ($row['currencyId'] > 0) {
+
+                                    $curPrice = (($boxPrice/$row['ordFactor'])*$curDetData['amt']);
+                                    $curAmt = ($curPrice*$row['ordFactor']*$ordQty);
+                                }
+
+                                $upQry = " UPDATE ".$tbl_order_main_or_temp." SET 
+                                `qtyReceived` = '".$qtyVal."', 
+                                `price` = '".($boxPrice/$row['ordFactor'])."', 
+                                `curPrice` = '".$curPrice."', 
+                                `totalAmt` = '".($boxPrice*$ordQty)."',
+                                `curAmt` = '".$curAmt."' 
+                                WHERE ordId = '".$row['ordId']."' AND pId = '".$row['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+                                mysqli_query($con, $upQry);
+
+                            }
+
+                        }  //update excel data
         
     }
 }
@@ -165,8 +225,11 @@ elseif( isset($_POST['updateReceiving']) )
 
 } // end of foreach loop
 
+
 if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
 {
+
+
     $i=0;
     foreach($_POST['barCode'] as $barCode)//update existing products
     {
@@ -273,8 +336,21 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
     $res = mysqli_query($con, $sql);
     $ordRow = mysqli_fetch_array($res);
 
-    $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
-    $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    $sql = " SELECT * FROM tbl_order_journey WHERE orderId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' order by id desc limit 1 ";
+    $res = mysqli_query($con, $sql);
+    $ordJournDet = mysqli_fetch_array($res);
+
+    if( round($ordJournDet['amount']) != round($ordRow['ordAmt']) )
+    {
+        $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
+        $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    }
+    else
+    {
+        $notes = '';
+    }
+
+    
     
     $qry = " INSERT INTO `tbl_order_journey` SET 
     `account_id` = '".$_SESSION['accountId']."',
@@ -295,45 +371,20 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
 } // end of elseif condition
 
 
-$sql = "SELECT cif.itemName, cif.unit, tod.* FROM tbl_order_details tod 
+$sql = "SELECT cif.itemName, cif.unit, tod.* FROM ".$tbl_order_main_or_temp." tod 
 INNER JOIN tbl_custom_items_fee cif ON(tod.customChargeId = cif.id) AND tod.account_id = cif.account_id
 WHERE tod.ordId = '".$_GET['orderId']."' AND tod.account_id = '".$_SESSION['accountId']."'   and tod.customChargeType=1 ORDER BY cif.itemName ";
 $otherChrgQry=mysqli_query($con, $sql); 
 
 
-    $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
+    $sql = "SELECT tp.*, cm.amt curAmtMaster, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
     INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
     LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+    LEFT JOIN tbl_currency cm ON(cm.id = od.currencyId) AND cm.account_id = od.account_id
+    
     WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
     $orderQry = mysqli_query($con, $sql);
     
-       
-if(!empty($fileDataRows))
-{
-    $notFoundProducts = [];
-    foreach($fileDataRows as $barCode=>$recRow)
-    {
-        
-        $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '".$barCode."'  AND account_id = '".$_SESSION['accountId']."'   ";
-        $resultSet = mysqli_query($con, $sqlSet);
-        $productRes = mysqli_fetch_array($resultSet);
-        if(!$productRes)
-        {
-            $notFoundProducts[] = $barCode;
-        }
-    }
-
-    if( !empty($notFoundProducts) )
-    {
-        $error_file_upload = ''.showOtherLangText('There is no product in product list for these Bar Codes').' : '.implode(', ', $notFoundProducts).'';
-    }
-    else
-    {
-             $success_file_upload = ''.showOtherLangText('Data imported successfully.').'';
-
-    }
-}
-
 
 ?>
 <!DOCTYPE html>
@@ -351,7 +402,7 @@ if(!empty($fileDataRows))
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style_new.css">
 </head>
 
 <body>
@@ -500,7 +551,7 @@ if(!empty($fileDataRows))
 
                                     <div class="col-md-2 text-end smBtn nwNxt-Btn">
                                         <div class="btnBg">
-                                            <a href="javascript:void(0)" class="btn sub-btn std-btn receive-btn"><?php echo showOtherLangText('Receive And Issue In');?></a>
+                                            <a href="javascript:void(0)" class="btn sub-btn std-btn receive-btn"><?php echo showOtherLangText('Receive');?></a>
                                         </div>
                                         <div class="btnBg mt-3">
                                             <a href="runningOrders.php" class="btn sub-btn std-btn"><?php echo showOtherLangText('Back');?></a>
@@ -758,14 +809,15 @@ if(!empty($fileDataRows))
                         </form>
                         </div>
                  
-                        <div class="container recPrice position-relative">
+                        
+                            <div class="container recPrice position-relative">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
                                 <div class="prdtImg tb-head">
                                     <p><?php echo showOtherLangText('Image'); ?></p>
                                 </div>
                                 <div class="recItm-Name tb-head">
-                                    <p><?php echo showOtherLangText('Item Ordered'); ?></p>
+                                    <p><?php echo showOtherLangText('Item'); ?></p>
                                 </div>
                                 <div class="recQty-Code d-flex align-items-center">
                                     <div class="recItm-brCode tb-head">
@@ -782,7 +834,7 @@ if(!empty($fileDataRows))
                                     <div class="qty-Rcvd tb-head">
                                         <p><?php echo showOtherLangText('Qty Received'); ?></p>
                                     </div>
-                                         <?php 
+                                    <?php 
             if($ordRow['ordCurId'] > 0)
             {
                 $res = mysqli_query($con, " select * from tbl_currency WHERE id='".$ordRow['ordCurId']."' ");
@@ -806,27 +858,40 @@ if(!empty($fileDataRows))
                                         <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)</p>
                                     </div>
                                 </div>
-                            <?php } else { ?>
-                                <div class="recCr-Type d-flex align-items-center">
+                                 <?php } else { ?>
+                                    
+                               <div class="recCr-Type d-flex align-items-center">
                                         <div class="dflt-RecPrc tb-head">
                                             <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                        </div>
+                                        <div class="othr-RecPrc tb-head">
+                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="recTtlPrc-Type d-flex align-items-center">
                                     <div class="ttlDft-RecPrc tb-head">
-                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'];?></p>
+                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                    </div>
+                                    <div class="ttlOtr-RecPrc tb-head">
+                                        <p></p>
                                     </div>
                                 </div>
-                            <?php } ?>
+
+
+                                
+                                 <?php } ?>
                             </div>
                             <!-- Item Table Head End -->
                         </div>
+                            <!-- Item Table Head End -->
+                       
 
 
                         <div id="boxscroll">
                             <div class="container cntTable">
                                 <!-- Item Table Body Start -->
+
                                 <?php   
 
         $y = 0;
@@ -834,10 +899,11 @@ if(!empty($fileDataRows))
             {  
                 $y++;
                 ?>
-                                <div class="newOrdTask recOrdTask">
+                                
+                     <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
                                         <div class="prdtImg tb-bdy">
-                                            <!-- <img src="Assets/images/Apple.png" alt="Item" class="ordItm-Img"> -->
+                                            
                                         </div>
                                         <div class="recItm-Name tb-bdy">
                                             <p class="recive-Item"><?php echo $showCif['itemName'];?></p>
@@ -847,7 +913,7 @@ if(!empty($fileDataRows))
                                                 <p></p>
                                             </div>
                                             <div class="qty-Ordred tb-bdy">
-                                                <p><strong>1</strong><span class="tabOn-Qty">On stock</span></p>
+                                                <p>1 <span class="tabOn-Qty">On stock</span></p>
                                             </div>
                                         </div>
                                         <div class="recPrc-Unit d-flex">
@@ -856,41 +922,39 @@ if(!empty($fileDataRows))
                                                 <p>1</p>
                                             </div>
                                             <div class="qty-Rcvd tb-bdy">
-                                               &nbsp;
+                                               
                                             </div>
+                                            <?php if($showCif['currencyId'] > 0){ ?>
                                             <div class="recCr-Type d-flex align-items-center">
-                                                <!-- <div class="dflt-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
+                                                <div class="dflt-RecPrc tb-bdy">
+                                                 <?php echo showPrice($showCif['price'],$getDefCurDet['curCode']);?>
                                                 </div>
                                                 <div class="othr-RecPrc tb-bdy">
-                                                    <input type="text" class="form-control qty-itm" placeholder="1">
-                                                </div> -->
-                                                <?php if($showCif['currencyId'] > 0){ ?>
-
-                                        <div class="qty-Rcvd tb-bdy">
-                                               &nbsp;
+                                                  <?php echo showOtherCur($showCif['curAmt'], $showCif['currencyId']);?>
+                                                </div>
                                             </div>
-                                        <div class="qty-Rcvd tb-bdy">
-                                               &nbsp;
+                                          <?php } else { ?>
+                                            <div class="recCr-Type d-flex align-items-center">
+                                                <div class="dflt-RecPrc tb-bdy">
+                                                <?php echo showPrice($showCif['price'],$getDefCurDet['curCode']);?>
+                                                </div>
+                                               
                                             </div>
-
-                                        <?php }else{ ?>
-
-                                        <td><strong><?php echo showPrice($showCif['price'],$getDefCurDet['curCode']);?></strong>
-                                        </td>
-
-                                        <?php } ?>
-                                            </div>
+                                          <?php } ?>
                                         </div>
+                                          <?php if($showCif['currencyId'] > 0){ ?>
                                         <div class="recTtlPrc-Type d-flex align-items-center">
                                             <div class="tabTtl-Price"></div>
                                             <div class="ttlDft-RecPrc tb-bdy">
-                                                <p>2.6144 $</p>
+                                                <p><?php echo showPrice($showCif['price'],$getDefCurDet['curCode']);?></p>
                                             </div>
                                             <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
+                                                <p><?php echo showOtherCur($showCif['curAmt'], $showCif['currencyId']);?></p>
                                             </div>
                                         </div>
+                                        <?php }else{ ?>
+                                        
+                                        <?php } ?>
                                         <div class="recBr-Hide">
                                         </div>
                                     </div>
@@ -900,6 +964,7 @@ if(!empty($fileDataRows))
                                         </a>
                                     </div>
                                 </div>
+                                
                                 <?php   }
 
 
@@ -958,14 +1023,14 @@ if(!empty($fileDataRows))
                                     <input type="hidden" name="factor[<?php echo $row['id'];?>]"
                                         id="factor<?php echo $x;?>" value="<?php echo $row['factor'];?>" />
 
-                                     <div class="newOrdTask recOrdTask">
+                                    
+                                <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
                                         <div class="prdtImg tb-bdy">
                                             <?php $img = '';
             if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
             {   
-                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
-                                    //echo  '<img src="'.$siteUrl.'uploads/'.$row['imgName'].'" width="60" height="60">';
+                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" alt="Item" class="ordItm-Img">';
             }?>
                                         </div>
                                         <div class="recItm-Name tb-bdy">
@@ -976,7 +1041,7 @@ if(!empty($fileDataRows))
                                                 <p><?php echo $row['barCode'];?></p>
                                             </div>
                                             <div class="qty-Ordred tb-bdy">
-                                                <p><?php echo $row['ordQty'];?> <span class="tabOn-Qty">On stock</span></p>
+                                                <p><?php echo $row['ordQty'];?></strong> <span class="tabOn-Qty">On stock</span></p>
                                             </div>
                                         </div>
                                         <div class="recPrc-Unit d-flex">
@@ -985,30 +1050,31 @@ if(!empty($fileDataRows))
                                                 <p><?php echo $row['purchaseUnit'];?></p>
                                             </div>
                                             <div class="qty-Rcvd tb-bdy">
-                                                <input type="text"  class="form-control qty-itm recQty-Receive" id="qty<?php echo $x;?>"
+                                                <input type="text" id="qty<?php echo $x;?>"
                                                     name="qty[<?php echo $row['id'];?>]" autocomplete="off"
                                                     onChange="showTotal('<?php echo $x;?>')"
-                                                    value="<?php echo  $ordQty;?>" size="5">
+                                                    value="<?php echo  $ordQty;?>" class="form-control qty-itm recQty-Receive"
+                                                    placeholder="1">
                                             </div>
                                             <div class="recCr-Type d-flex align-items-center">
                                                 <div class="dflt-RecPrc tb-bdy">
-                                                    <input class="form-control qty-itm" type="text" id="priceId<?php echo $x;?>"
+                                                    <input type="text" id="priceId<?php echo $x;?>"
                                                     name="price[<?php echo $row['id'];?>]" autocomplete="off"
                                                     value="<?php echo getPrice($boxPrice);?>" size="5"
-                                                    onChange="showTotal('<?php echo $x;?>')">
-                                                <?php echo $getDefCurDet['curCode'] ?>
+                                                    onChange="showTotal('<?php echo $x;?>')" class="form-control qty-itm" placeholder="1"><?php echo $getDefCurDet['curCode'] ?>
                                                 </div>
-                                                     <?php 
+                                                 <?php 
                 if( isset($curDet) )
                 {
                     $showOtherCurrency = showOtherCur($boxPriceOther, $curDet['id']);
                     $showOtherCurrency = trim($showOtherCurrency, $curDet['curCode']);
 
-                ?><div class="dflt-RecPrc tb-bdy">
-                                                    <input class="form-control qty-itm" type="text" id="priceIdOther<?php echo $x;?>" name="priceOther[<?php echo $row['id'];?>]" autocomplete="off"
-                                                    value="<?php echo $showOtherCurrency; ?>" size="5"
-                                                    onChange="showTotalOther('<?php echo $x;?>')">
+                ?><div class="ttlDft-RecPrc tb-bdy">
+                                                    <p><input type="text" id="priceIdOther<?php echo $x;?>" name="priceOther[<?php echo $row['id'];?>]"
+                                                    autocomplete="off" value="<?php echo $showOtherCurrency; ?>"
+                                                    size="5" class="form-control qty-itm recQty-Receive" onChange="showTotalOther('<?php echo $x;?>')">
                                                 <?php echo $curDet['curCode'];?>
+                                            </p>
                                                 </div>
                                         <?php
             }
@@ -1020,15 +1086,15 @@ if(!empty($fileDataRows))
                                             <div class="ttlDft-RecPrc tb-bdy">
                                                 <p id="totalPrice<?php echo $x;?>"><?php echo showPrice($boxPrice*$qtyVal,$getDefCurDet['curCode']);?></p>
                                             </div>
-                                            <?php 
+                                            <div class="ttlOtr-RecPrc tb-bdy">
+                                                <p id="totalPrice<?php echo $x;?>"><?php 
                 if( isset($curDet) )
                 {
-                    $newCurAmt = ($boxPriceOther*$qtyVal); ?>
-                                            <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p id="totalPriceOther<?php echo $x; ?>"><?php echo showOtherCur($newCurAmt, $curDet['id']); ?></p>
+                    $newCurAmt = ($boxPriceOther*$qtyVal);
+                    echo '<span id="totalPriceOther'.$x.'" style="font-weight: bold;">'.showOtherCur($newCurAmt, $curDet['id']).'</span>';
+                }
+                ?></p>
                                             </div>
-                                      <?php      }
-                ?>
                                         </div>
                                         <div class="recBr-Hide">
                                         </div>
@@ -1119,9 +1185,7 @@ if(!empty($fileDataRows))
                                                 <p><span
                                                 id="totalPrice<?php echo $x;?>"><?php echo showPrice($boxPrice*$qty, $getDefCurDet['curCode']);?></span></p>
                                             </div>
-                                            <!-- <div class="ttlOtr-RecPrc tb-bdy">
-                                                <p>2.6144 €</p>
-                                            </div> -->
+                                           
                                         </div>
                                         <div class="recBr-Hide">
                                         </div>

@@ -73,7 +73,10 @@ $content .= '<head>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @page { margin: 10px 0px; }
+        @page { margin: 10px 10px; }
+        th {
+            text-align:left;
+        }
     </style>
 </head>';
 
@@ -82,13 +85,15 @@ $content .= '<body style="font-family: \'Inter\', Sans- serif;color: #232859; fo
     // $content .= '<div style="background-color: #fff;max-width: 1140px;margin: 0 auto;padding: 20px; box-sizing: border-box;">';
 
 
-	if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['reqDetailsTitle'] == 1 || $_GET['currentDate'] == 1 )
+	if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['reqDetailsTitle'] == 1 || $_GET['currentDate'] == 1 || $_GET['orderDetails'] == 1 )
 	{
                    
         $content .= '<table style="width: 100%; border-spacing: 0;">
     <tr valign="top">
-        <td width="33%">
-            <table style="width: 100%; border-spacing: 0;">
+        <td width="33%">';
+              if($_GET['address'] == 1)
+                   {
+            $content .=  '<table style="width: 100%; border-spacing: 0;">
                 <tr>
                     <td style="font-size: 14px; line-height: 16px; font-weight: 600;">'.$clientDetRow['accountName'].'</td>
                 </tr>
@@ -106,6 +111,7 @@ $content .= '<body style="font-family: \'Inter\', Sans- serif;color: #232859; fo
                     </td>
                 </tr>
             </table>';
+             }
 
            
          $content .= '</td>';
@@ -451,53 +457,61 @@ if(
             if( $_GET['photo'] == 1)
             {
                 $photo = 'Photo';
-            }
+            
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$photo.'</th>';
+            }
         $itemName = '';
             if( $_GET['itemName'] == 1)
             {
                 $itemName = 'Item';
-            }
+            
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$itemName.'</th>';
+            }
         $barcodeText = '';
             if( $_GET['barcode'] == 1)
             {
                 $barcodeText =  'BarCode';
-            }
-        $content .= '<th style="font-weight:700;padding:8px 5px;">'.$barcodeText.'</th>';
+          $content .= '<th style="font-weight:700;padding:8px 5px;">'.$barcodeText.'</th>';
+             }
         if( $_GET['price'] == 1)
             {
                 $Price = 'Price('.$getDefCurDet['curCode'].')';
-            }
+           
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$Price.'</th>';
+             }
             if( $_GET['unit'] == 1)
             {
                 $unit = 'C.Unit';
-            }                               
+                                         
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$unit.'</th>';
+            }  
         if( $_GET['reqQty'] == 1)
             {
                 $reqQty = 'Req Qty';
-            }
+           
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$reqQty.'</th>';
+             }
         if( $_GET['qty'] == 1)
             {
                 $qty = 'Qty';
           
-            }
+           
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$qty.'</th>';
+             }
          if( $_GET['total'] == 1)
             {
                 $total = 'Total('.$getDefCurDet['curCode'].')';
-            }
+            
         $content .= '<th style="font-weight:700;padding:8px 5px;">'.$total.'</th>';
+            }
          if( $_GET['note'] == 1)
             {
                 $note = 'Note';
            
-            }
-        $content .= '<th style="font-weight:700;padding:8px 5px;">'.$note.'</th>
-        </tr>';
+           
+        $content .= '<th style="font-weight:700;padding:8px 5px;">'.$note.'</th>';
+             }
+         $content .= '</tr>';
         
 
           
@@ -512,57 +526,63 @@ $i=0;
      $content .= '<td style="padding: 5px;">'.$i.'</td>';
       if( $_GET['photo'] == 1)
         {
-            $img = '';
+        $img = '';
+        $content .= '<td style="padding: 5px;">'.$img.'</td>';
         }
-     $content .= '<td style="padding: 5px;">'.$img.'</td>';
-      $itemName ='';
+      
         if( $_GET['itemName'] == 1)
         {
-            $itemName = $row['itemName'];
+        $itemName = $row['itemName'];
+        $itemName ='';
+        $content .= '<td style="padding: 5px;">'.$itemName.'</td>';
         }
-     $content .= '<td style="padding: 5px;">'.$itemName.'</td>';
-     $content .= '<td style="padding: 5px;"></td>';
-      $price = '';
+     
+        $content .= '<td style="padding: 5px;"></td>';
+        $price = '';
         if( $_GET['price'] == 1 && $getColumnPermission['item_price'] == 1)
         {
             $price = getPriceWithCur($row['price'], $getDefCurDet['curCode']);
+             $content .= '<td style="padding: 5px;">'.$price.'</td>';
         }
-     $content .= '<td style="padding: 5px;">'.$price.'</td>';
+    
      $unit = '';
         if( $_GET['unit'] == 1)
         {
             $unit = $row['unit'];
+            $content .= '<td style="padding: 5px;">'.$unit.'</td>';
         }
-     $content .= '<td style="padding: 5px;">'.$unit.'</td>';
+     
      $reqQty = '';
         if( $_GET['reqQty'] == 1)
         {
             $reqQty = '1';
+             $content .= '<td style="padding: 5px;">'.$reqQty.'</td>';
         }
-     $content .= '<td style="padding: 5px;">'.$reqQty.'</td>';
+    
      $qty = '';
         if( $_GET['qty'] == 1)
         {
             $qty = '1';
+            $content .= '<td style="padding: 5px;">'.$qty.'</td>';
            
         }
-     $content .= '<td style="padding: 5px;">
-        '.$qty.'</td>';
+    
 
         $total = '';
         if( $_GET['total'] == 1 && $getColumnPermission['item_price'] == 1)
         {
-            $total = getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']);
-       
+         $total = getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']);
+         $content .= '<td style="padding: 5px;">'.$total.'</td>';
         }
-     $content .= '<td style="padding: 5px;">'.$total.'</td>';
+     
       $note = '';
         if( $_GET['note'] == 1)
         {
             $note = $row['note'];
+            $content .= '<td style="padding: 5px;">'.$note.'</td>';
         
         }
-     $content .= '<td style="padding: 5px;">'.$note.'</td>';
+     
       $content .= '</tr>';
     }
 
@@ -584,70 +604,47 @@ $i=0;
                     $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" style="width:30px; height:auto;">';
                 }
         $content .= '<td style="padding: 5px;">'.$img.'</td>';
-            } else {
-         $content .= '<td style="padding: 5px;"></td>';       
-            }
+            } 
         if( $_GET['itemName'] == 1)
             {
         $content .= '<td style="padding: 5px;">'.$row['itemName'].'</td>';
-         } else {
-         $content .= '<td style="padding: 5px;"></td>';   
-         }
+         } 
           if( $_GET['barcode'] == 1)
             {
         $content .= '<td style="padding: 5px;">'.$row['barCode'].'</td>';
-           } else {
-         $content .= '<td style="padding: 5px;"></td>';   
-           }
+           } 
          if( $_GET['price'] == 1 && $getColumnPermission['item_price'] == 1)
             {
         $content .= '<td style="padding: 5px;">
                 '.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</td>';
-           } else {
-         $content .= '<td style="padding: 5px;"></td>';   
-           }
+           } 
          if( $_GET['unit'] == 1)
             {
         $content .= '<td style="padding: 5px;">'.$row['countingUnit'].'</td>';
-            } else {
-         $content .= '<td style="padding: 5px;"></td>';       
-            }
+            } 
          if( $_GET['reqQty'] == 1)
             {
         $content .= '<td style="padding: 5px;">'.$row['requestedQty'].'</td>';
-         } else {
-           $content .= '<td style="padding: 5px;"></td>';  
-         }
+         } 
          if( $_GET['qty'] == 1)
             {
             
                  $content .= '<td style="padding: 5px;">'.$row['qty'].'</td>';
             }
-            else
-            {
-                 $content .= '<td style="padding: 5px;"></td>';
-               
-            }
+            
        if( $_GET['total'] == 1 && $getColumnPermission['item_price'] == 1)
             {
             
                  $content .= '<td style="padding: 5px;">
                 '.getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']).'</td>';
             }
-            else
-            {
-                 $content .= '<td style="padding: 5px;"></td>';
-               
-            }
+            
          if( $_GET['note'] == 1)
             {
            
                  $content .= '<td style="padding: 5px;">'.$row['note'].'</td>';
             }
-            else
-            {
-                $content .= '<td style="padding: 5px;"></td>';
-            }
+            
        
         $content .= '</tr>';
 }
