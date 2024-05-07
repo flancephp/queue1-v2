@@ -516,11 +516,11 @@ else
                                                                 </p>
                                                             </a>
 
-                                                            <ul class="dropdown-menu">
+                                                            <ul class="item dropdown-menu">
                                                                 <li><a class="dropdown-item"
                                                                         href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
 
-                                                            <ul class="">
+                                                            <ul class="subitem dropdown-item">
                                                             <?php
                                                             //add item fee & custom fee modal box 
                                                             $sql = " SELECT * 
@@ -539,11 +539,8 @@ else
                                                                     
                                                                 <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
-                                                                <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a></li>
-                                                                <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
-                                                                        <ul class="">
+                                                                <li><a class="item dropdown-item"
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a><ul class="subitem dropdown-item">
                                                                         <?php
             //add item fee & custom fee modal box 
             $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -555,7 +552,11 @@ else
                 echo "<li class='innerLi'><a tabindex='-1' href='addOrder.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
             } 
             ?>
-                                                                         </ul>
+                                                                         </ul></li>
+                                                                <li><a class="dropdown-item"
+                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a>
+                                                                    </li>
+                                                                        
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -1536,3 +1537,15 @@ $(".currency_dropdown").on("click", "a", function(e){
             });
         });
     </script>
+    <style>
+        .subitem {
+  display: none;
+}
+    </style>
+    <script>
+$('.item').on('mouseover', 'li', function() {
+  $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+}).on('mouseleave', function() {
+  $('.subitem', this).hide();
+});
+</script>

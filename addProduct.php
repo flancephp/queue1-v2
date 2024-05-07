@@ -284,13 +284,13 @@ if( isset($_POST['itemName']) )
                             </div>
                             <?php } ?>
                         <div class="row">
-                            <div class="col-md-8 oltCol-8">
+                            <div class="col-md-12 oltCol-8">
                                 <div class="">
                                     <div class="addUser-Form acntSetup-Form row">
                                         <div class="col-md-6 nmOutlet">
                                             <div class="row align-items-center acntStp-Row1">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Item'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Item'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="itemName" id="itemName"
@@ -301,7 +301,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Bar Code'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Bar Code'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="barCode" id="barCode"
@@ -313,7 +313,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
-                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Status') ?></label>
+                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Status') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <div class="rdoBtn-New d-flex gap-2">
@@ -336,7 +336,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
-                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?></label>
+                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <div class="rdoBtn-New d-flex gap-2">
@@ -368,7 +368,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div style="display:none;" id="chooseProducts" class="row align-items-start acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label pt-2"><?php echo showOtherLangText('Select product'); ?></label>
+                                                    <label for="Name" class="form-label pt-2"><?php echo showOtherLangText('Select product'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8 after-add-more">
                                                     <div class=" d-flex gap-3">
@@ -379,7 +379,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Images'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Images'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="file" class="form-control" name="imgName" id="logo"
@@ -392,7 +392,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Storage'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Storage'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <select name="storageDeptId" id="storageDeptId" class="form-control"
@@ -420,7 +420,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Parent category'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Parent category'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <?php
@@ -448,7 +448,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Subcategory'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Subcategory'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <select name="catId" id="catId" class="form-control"
@@ -478,7 +478,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Purchase unit'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Purchase unit'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <?php
@@ -506,7 +506,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Factor'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Factor'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="factor" id="factor"
@@ -517,7 +517,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Counting unit'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Counting unit'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <?php
                                                 $sqlSet = " SELECT * FROM tbl_units WHERE account_id = '".$_SESSION['accountId']."' ";
@@ -543,7 +543,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('C.Price').'('.$getDefCurDet['curCode'].')'; ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('C.Price').'('.$getDefCurDet['curCode'].')'; ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="price" id="price"
@@ -554,7 +554,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Min Level') ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Min Level') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="minLevel" id="minLevel"
@@ -565,7 +565,7 @@ if( isset($_POST['itemName']) )
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Max Level') ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Max Level') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="maxLevel" id="maxLevel"
@@ -577,7 +577,7 @@ if( isset($_POST['itemName']) )
                                             <div class="outletChk" style="display:none;">
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect  fs-14">
@@ -608,7 +608,7 @@ if( isset($_POST['itemName']) )
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?></label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect  fs-14">
@@ -628,7 +628,7 @@ if( isset($_POST['itemName']) )
                                         <div class="col-md-6 setOutlet ps-lg-4">
                                             <div class="row align-items-start acntStp-Row chkOlt-Row">
                                                 <!-- <div class="col-md-4">
-                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label>
+                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
@@ -636,11 +636,11 @@ if( isset($_POST['itemName']) )
                                                 </div> -->
                                             </div>
                                             <div>
-                                                <div class="row align-items-start acntStp-Row">
-                                                    <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?></label>
+                                                <div class="row  acntStp-Row">
+                                                    <div class="col-md-3">
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?><span class="requiredsign">*</span></label>
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-9">
                                                         <div class="cstmSelect  fs-14">
                                                         <span class="semibold d-flex align-items-center gap-1 mb-2">
                                                     <input type="checkbox" class="CheckAllOptions form-check-input mt-0" id="CheckAllOptions">
@@ -667,11 +667,11 @@ if( isset($_POST['itemName']) )
                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row align-items-start acntStp-Row">
-                                                    <div class="col-md-4">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Department'); ?></label>
+                                                <div class="row acntStp-Row">
+                                                    <div class="col-md-3">
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Department'); ?><span class="requiredsign">*</span></label>
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-9">
 
                                                     <span class="semibold d-flex align-items-center gap-1 mb-2 fs-14">
                                                     <input type="checkbox" class="CheckAllDeptOptions form-check-input mt-0"

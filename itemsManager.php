@@ -512,7 +512,7 @@ $deprtOptions .= '</ul>';
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                        <div class="row itm-Manage">
+                        <div class="row itm-Manage justify-content-between">
                             <div class="col-md-6 bkItm-MngBtn">
                                 <div class="btnBg">
                                     <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i

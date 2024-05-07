@@ -4,8 +4,6 @@ include('inc/dbConfig.php'); //connection details
 //for excel file upload with Other language
 use Shuchkin\SimpleXLSX;
 require_once 'SimpleXLSX.php';
-$tbl_order_main_or_temp = 'tbl_order_details';
-
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
@@ -22,7 +20,7 @@ if ($permissionRow)
     echo "<script>window.location='index.php'</script>";
 }
 
-//update invoice number when user change it
+
 if(isset($_POST['invoiceNumber']) && isset($_POST['orderId'])) 
 {
     $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
@@ -48,6 +46,8 @@ $ordRow = mysqli_fetch_array($resultSet);
 $curDetData = getCurrencyDet($ordRow['ordCurId']);
 
 $fileDataRows = [];
+
+
 if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
 {
     $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
@@ -71,23 +71,8 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
     }
 
 //----------------------------------
-
-
     if( is_array($rows) && !empty($rows) )
     {
-        $tbl_order_main_or_temp = 'tbl_order_details_temp_receive';
-
-        $sqlSet = " DELETE FROM tbl_order_details_temp_receive WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
-        mysqli_query($con, $sqlSet);
-
-         $sqlSet = " INSERT INTO tbl_order_details_temp_receive( `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`, `note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`, `requestedQty`)
-        SELECT  `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`, `note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`, `requestedQty` FROM tbl_order_details
-         WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
-        mysqli_query($con, $sqlSet);
-
-
-        
-
         foreach($rows as $row)
         {
             
@@ -95,51 +80,6 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
             $fileDataRows[$row['barCode']]['price'] = isset($row['price']) ? trim($row['price']) : 0;
             $fileDataRows[$row['barCode']]['supplierId'] = trim($row['supplierId']);
         }
-
-
-
-        //update excel data
-                        $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
-                         FROM ".$tbl_order_main_or_temp." od 
-
-                        INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
-
-                        LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
-
-                        WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
-
-                        $ordQry = mysqli_query($con, $sql);
-                                                                                            
-                        while($row = mysqli_fetch_array($ordQry))
-                        { 
-                            if( isset($fileDataRows[$row['barCode']]) )
-                            { 
-
-                                $receivedRow = $fileDataRows[$row['barCode']];
-                                $qtyVal = $receivedRow['qty'];
-                                $ordQty = $receivedRow['qty'];
-                                $boxPrice =$receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor']*$row['ordPrice'];
-
-                                $boxPriceOther = ($boxPrice*$curDetData['amt']);
-
-                                if ($row['currencyId'] > 0) {
-
-                                    $curPrice = (($boxPrice/$row['ordFactor'])*$curDetData['amt']);
-                                    $curAmt = ($curPrice*$row['ordFactor']*$ordQty);
-                                }
-
-                                $upQry = " UPDATE ".$tbl_order_main_or_temp." SET 
-                                `qtyReceived` = '".$qtyVal."', 
-                                `price` = '".($boxPrice/$row['ordFactor'])."', 
-                                `curPrice` = '".$curPrice."', 
-                                `totalAmt` = '".($boxPrice*$ordQty)."',
-                                `curAmt` = '".$curAmt."' 
-                                WHERE ordId = '".$row['ordId']."' AND pId = '".$row['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
-                                mysqli_query($con, $upQry);
-
-                            }
-
-                        }  //update excel data
         
     }
 }
@@ -225,11 +165,8 @@ elseif( isset($_POST['updateReceiving']) )
 
 } // end of foreach loop
 
-
 if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
 {
-
-
     $i=0;
     foreach($_POST['barCode'] as $barCode)//update existing products
     {
@@ -336,21 +273,8 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
     $res = mysqli_query($con, $sql);
     $ordRow = mysqli_fetch_array($res);
 
-    $sql = " SELECT * FROM tbl_order_journey WHERE orderId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' order by id desc limit 1 ";
-    $res = mysqli_query($con, $sql);
-    $ordJournDet = mysqli_fetch_array($res);
-
-    if( round($ordJournDet['amount']) != round($ordRow['ordAmt']) )
-    {
-        $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
-        $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
-    }
-    else
-    {
-        $notes = '';
-    }
-
-    
+    $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
+    $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
     
     $qry = " INSERT INTO `tbl_order_journey` SET 
     `account_id` = '".$_SESSION['accountId']."',
@@ -371,20 +295,45 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
 } // end of elseif condition
 
 
-$sql = "SELECT cif.itemName, cif.unit, tod.* FROM ".$tbl_order_main_or_temp." tod 
+$sql = "SELECT cif.itemName, cif.unit, tod.* FROM tbl_order_details tod 
 INNER JOIN tbl_custom_items_fee cif ON(tod.customChargeId = cif.id) AND tod.account_id = cif.account_id
 WHERE tod.ordId = '".$_GET['orderId']."' AND tod.account_id = '".$_SESSION['accountId']."'   and tod.customChargeType=1 ORDER BY cif.itemName ";
 $otherChrgQry=mysqli_query($con, $sql); 
 
 
-    $sql = "SELECT tp.*, cm.amt curAmtMaster, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
+    $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
     INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
     LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
-    LEFT JOIN tbl_currency cm ON(cm.id = od.currencyId) AND cm.account_id = od.account_id
-    
     WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
     $orderQry = mysqli_query($con, $sql);
     
+       
+if(!empty($fileDataRows))
+{
+    $notFoundProducts = [];
+    foreach($fileDataRows as $barCode=>$recRow)
+    {
+        
+        $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '".$barCode."'  AND account_id = '".$_SESSION['accountId']."'   ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $productRes = mysqli_fetch_array($resultSet);
+        if(!$productRes)
+        {
+            $notFoundProducts[] = $barCode;
+        }
+    }
+
+    if( !empty($notFoundProducts) )
+    {
+        $error_file_upload = ''.showOtherLangText('There is no product in product list for these Bar Codes').' : '.implode(', ', $notFoundProducts).'';
+    }
+    else
+    {
+             $success_file_upload = ''.showOtherLangText('Data imported successfully.').'';
+
+    }
+}
+
 
 ?>
 <!DOCTYPE html>

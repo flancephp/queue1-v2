@@ -541,7 +541,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                             <div class="<?php if($orderRow['ordType'] == 1) { echo 'ordType';  } else {echo 'reqType'; } ?> ">&nbsp;</div>
                                             <div class="d-flex align-items-center ordeReq">
                                                 <div class="p-1 reqDtl <?php if($orderRow['ordType'] == 1) { echo 'supMem-Name'; } else { echo 'member-Name'; } ?> ">
-                                                    <p><?php if($orderRow['ordType'] == 1) { echo 'Supplier';  } else { echo 'Member'; } ?></p>
+                                                    <p><?php if($orderRow['ordType'] == 1) { echo $orderRow['supplierName'];  } else { echo $orderRow['deptMem']; } ?></p>
                                                 </div>
                                                
                                                 <div class="p-1 dt-run">

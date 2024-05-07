@@ -237,7 +237,7 @@ $easyDataArr = $easyData['data'];
                                 <div class="col-md-6">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name'];?>" placeholder="Casa">
@@ -252,7 +252,7 @@ $easyDataArr = $easyData['data'];
                                             <?php
                                             if ($_SESSION['accountId'] == 1) { ?>
                                             <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example"
-                                            style="width:250px;">
+                                            >
                                             <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
                                             </option>
                                             <option value="21866"
@@ -265,10 +265,10 @@ $easyDataArr = $easyData['data'];
                                             </option>
                                             </select>
                                             <?php
-                                            }elseif($_SESSION['accountId'] == 3){ ?>
+                                            }elseif($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 4){ ?>
 
                                             <select name="hotelId" id="hotelId" class="form-select"
-                                            style="width:250px;">
+                                            >
                                             <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
                                             </option>
                                             <option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>

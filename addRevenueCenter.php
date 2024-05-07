@@ -181,7 +181,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                             <div class="col-md-6">
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?></label>
+                                        <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text"  required class="form-control" name="name" id="name"  placeholder="Casa">

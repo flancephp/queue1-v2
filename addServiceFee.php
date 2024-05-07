@@ -208,7 +208,7 @@ if( isset($_POST['itemName']) )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeName" class="form-label">Fee Name</label>
+                                        <label for="feeName" class="form-label">Fee Name<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
 
@@ -225,7 +225,7 @@ if( isset($_POST['itemName']) )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount');?> $</label>
+                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount');?> $<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                     <input placeholder="20" type="text" class="form-control" name="amt" id="amt"
@@ -238,7 +238,7 @@ if( isset($_POST['itemName']) )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit');?></label>
+                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit');?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                     <input placeholder="<?php echo showOtherLangText('Trip');?>" type="text" class="form-control" name="unit" id="unit"

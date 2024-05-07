@@ -3,7 +3,7 @@
 
 if (!isset($_SESSION['adminidusername']))
 {
-	echo "<script>window.location='login.php'</script>";
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
@@ -21,63 +21,64 @@ $accountId = $_SESSION['accountId'];
 
 if (isset($_POST['userType']) && $_POST['userType'] !='') {
 
-	$sqlQry = " SELECT * FROM tbl_designation WHERE account_id = '".$accountId."' AND is_mobile = '".$_POST['userType']."' ";
-	$designationRes = mysqli_query($con, $sqlQry);
+    $sqlQry = " SELECT * FROM tbl_designation WHERE account_id = '".$accountId."' AND is_mobile = '".$_POST['userType']."' ";
+    $designationRes = mysqli_query($con, $sqlQry);
 
-	$selTitle = '<select name="designation_title" class="form-control" id="designationTitle" required>';
+    $selTitle = '<select class="form-select" id="designationTitle" name="designation_title" aria-label="Default select example" required="">';
 
-		$selTitle .= '<option value="">'. showOtherLangText('Select Designation Title').'</option>';
+        $selTitle .= '<option value="">'. showOtherLangText('Designation Title').'</option>';
 
-		while($desRow = mysqli_fetch_array($designationRes))
-		{
-				$selTitle .= '<option value='.$desRow['id'].'>'.$desRow['designation_name'].'</option>';
-		}
-														
-	$selTitle .= '</select>';
+        while($desRow = mysqli_fetch_array($designationRes))
+        {
+                $selTitle .= '<option value='.$desRow['id'].'>'.$desRow['designation_name'].'</option>';
+        }
+                                                        
+    $selTitle .= '</select>';
 
-	echo $selTitle;
-	
-	die;
+    echo $selTitle;
+    
+    die;
 }
 
 if( isset($_POST['user_name']) )
 {
 
-	if ($_POST['mobile_user'] == 1) {
-		$userType = '1';
-	}
-	else
-	{
-		$userType = '0';
-	}
+    if ($_POST['mobile_user'] == 1) {
+        $userType = '1';
+    }
+    else
+    {
+        $userType = '0';
+    }
 
-	if($_FILES["imgName"]["name"] != '')
-	{
+    if($_FILES["imgName"]["name"] != '')
+    {
 
-		$target_dir = dirname(__FILE__)."/uploads/".$accountImgPath.'/users/';
-		$fileName = time(). basename($_FILES["imgName"]["name"]);
-		$target_file = $target_dir . $fileName;
-		
-		move_uploaded_file($_FILES["imgName"]["tmp_name"], $target_file);
-		
-		resize_image($target_file, $target_file, 100,100);
+        $target_dir = dirname(__FILE__)."/uploads/".$accountImgPath.'/users/';
+        $fileName = time(). basename($_FILES["imgName"]["name"]);
+        $target_file = $target_dir . $fileName;
+        
+        move_uploaded_file($_FILES["imgName"]["tmp_name"], $target_file);
+        
+        resize_image($target_file, $target_file, 100,100);
       
-	}
+    }
 
-	$sql = "INSERT INTO `tbl_user` SET
-	`designation_id` = '".$_POST['designation_title']."',
-	`name` = '".$_POST['user_name']."',
-	`username` = '".$_POST['user_name']."',
-	`userType` = '".$userType."',
-	`email` = '".$_POST['email']."',
-	`phone` = '".$_POST['phone']."',
-	`status` = '1',
-	`password` = '".$_POST['password']."',
-	`logo` = '".$fileName."',
-	`account_id` = '".$accountId."' ";
-	mysqli_query($con, $sql);
-	
-	echo "<script>window.location='users.php?added=1'</script>";
+     $sql = "INSERT INTO `tbl_user` SET
+    `designation_id` = '".$_POST['designation_title']."',
+    `name` = '".$_POST['user_name']."',
+    `username` = '".$_POST['user_name']."',
+    `userType` = '".$userType."',
+    `email` = '".$_POST['email']."',
+    `phone` = '".$_POST['phone']."',
+    `status` = '1',
+    `password` = '".$_POST['password']."',
+    `logo` = '".$fileName."',
+    `account_id` = '".$accountId."' ";
+     
+    mysqli_query($con, $sql);
+    
+    echo "<script>window.location='users.php?added=1'</script>";
 }
 
 
@@ -106,7 +107,7 @@ if( isset($_POST['user_name']) )
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -129,7 +130,7 @@ if( isset($_POST['user_name']) )
                             </div>
                             <div class="user d-flex align-items-center">
                                 <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
+                                <p class="body3 m-0 d-inline-block"><?php echo showOtherLangText('User') ?></p>
                             </div>
                             <div class="acc-info">
                                 <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
@@ -156,146 +157,161 @@ if( isset($_POST['user_name']) )
                 </section>
 
                 <section class="ordDetail userDetail">
-                    <form name="frm" id="frm" class="addUser-Form row" method="post" enctype="multipart/form-data" action="">
-                               
+ <form name="frm" id="frm" method="post" enctype="multipart/form-data" action="">
                     <div class="container">
-                    <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
-                     echo isset($_GET['added']) ? ' '.showOtherLangText('User Added Successfully').' ' : '';
-                     echo isset($_GET['edit']) ? ' '.showOtherLangText('User Edited Successfully').' ' : '';
-                     echo isset($_GET['delete']) ? ' '.showOtherLangText('User Deleted Successfully').' ' : ''; ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['error'])) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo showOtherLangText('User can not be deleted as it is being used in order'); ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
+
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="users.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Save') ?></span></button>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="adUsr-Div">
-                            <form class="addUser-Form row">
-                                <input type="text" class="form-control" name="user_name" id="user_name" placeholder="<?php //echo showOtherLangText('User Name') ?>">
 
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select title</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                        <div class="adUsr-Div adUsr-Div-full">
+                            <div class="addUser-Form row">
+                                <div class="col-md-6 col-lg-5 adUsr-Div-Left">
+                                    <div class="form-field row align-items-center">
+                                        <div class="col-lg-3">
+                                            <label class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span class="requiredsign">*</span></label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                        <input type="text" class="form-control" id="user_name" required name="user_name" placeholder="User name">
+                                        </div>
+                                    </div>
+                                    <div class="form-field row align-items-center">
+                                        <div class="col-lg-3">
+                                            <label for="receiveInvoice" class="form-label semibold fs-13"><?php echo showOtherLangText('User Type') ?>:<span class="requiredsign">*</span></label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="radio" name="mobile_user" class="userTypeWeb" value="0" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
+                                            <label class="me-3"><?php echo showOtherLangText('Web') ?></label>
+                                            <input type="radio" name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
+                                            <label><?php echo showOtherLangText('Mobile') ?></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-field row align-items-center">
+                                        <div class="col-lg-3">
+                                            <label class="semibold fs-13"><?php echo showOtherLangText('Designation Title'); ?>:<span class="requiredsign">*</span></label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="setTitle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="form-field row align-items-center">
+                                        <div class="col-lg-3">
+                                            <label class="semibold fs-13">Password:<span class="requiredsign">*</span></label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="password" required="" class="form-control" id="password" name="password" placeholder="Password">
+                                            <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-field row align-items-center">
+                                        <div class="col-lg-3">
+                                        <label class="semibold fs-13">Email:</label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="email" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-field row align-items-center">
+                                        <div class="col-lg-3">
+                                            <label class="semibold fs-13"><?php echo showOtherLangText('Phone') ?>:</label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="text-center">
+                                        <div class="preview_img">
+                                            <div class="main_img">
+                                                <picture>
+                                                    <img src="Assets/images/logo-bkp.png" id="preview" class="previewImg preview" alt="LOGO">
+                                                </picture>
+                                            </div>
+                                        </div>
+                                        <div class="labelDiv">
+                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> Upload Photo
+                                                <img onclick="document.getElementById('imgUpload').click();" src="Assets/icons/Import.svg" alt="Import" class="importBtn"></label>
 
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                            </form>
-                        </div> -->
-                        <div class="adUsr-Div">
-                        <input type="text" class="form-control" id="user_name" required name="user_name" placeholder="<?php echo showOtherLangText('User Name') ?>">
-                                
-                                <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('User Type') ?></label><input type="radio" name="mobile_user" class="userTypeWeb" value="0" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-								<label><?php echo showOtherLangText('Web') ?></label>
-                                <input type="radio" name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-								<label><?php echo showOtherLangText('Mobile') ?></label>
-								
-                                <div class="setTitle"></div>
-                                <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
-                                <input type="email" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Email') ?>">
-                                <input type="text" class="form-control" id="phone" name="phone" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Phone') ?>">
-                                <div>
-													<div><?php echo showOtherLangText('Photo') ?>:</div>
-													<div>
-														<input type="file" name="imgName" class="form-control" id="logo" onchange="previewFile()" autocomplete="new-password" style="display:none;">
-														<button type="button" id="upload-img-btn" onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
-													</div>
-													<div>
-														<img src="<?php echo $_POST['imgName']; ?>" class="previewImg" width="100px">
-													</div>
-												</div>
-                           
+                                            <input onchange="previewFile()" name="imgName"  class="imgHidden" id="imgUpload" type="file">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
                     </div>
-                    </form>
+                     </form>
                 </section>
 
             </div>
         </div>
     </div>
-    <?php require_once('footer.php');?>
+
+    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="Assets/js/custom.js"></script>
     <script>
-  $(document).ready(function() {
-    $("#show_hide_password i").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password input').attr("type") == "text"){
-            $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass( "fa-eye-slash" );
-            $('#show_hide_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password input').attr("type") == "password"){
-            $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password i').addClass( "fa-eye" );
+        $(document).ready(function(){
+        $('.userTypeWeb').prop('checked', true);
+
+        if ($('.userTypeWeb').is(':checked')) {
+
+                var userType = $('.userTypeWeb').val();
+                $.ajax({
+                    method:"POST",
+                    url: "addUser.php",
+                    data: {userType:userType}
+                })
+                .done(function(val){
+                    $('.setTitle').html(val);
+                })
         }
-    });
-	});
-</script>
 
-<script>
-	$(document).ready(function(){
-		
-		$('.userTypeWeb').prop('checked', true);
+        $(".toggle-password").click(function() {
 
-		if ($('.userTypeWeb').is(':checked')) {
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
 
-				var userType = $('.userTypeWeb').val();
-				$.ajax({
-					method:"POST",
-					url: "addUser.php",
-					data: {userType:userType}
-				})
-				.done(function(val){
-					$('.setTitle').html(val);
-				})
-		}
+        });
+    function get_mobile_User(mobileUserVal){
+    $.ajax({
+        method:"POST",
+        url: "addUser.php",
+        data: {userType:mobileUserVal}
+    })
+    .done(function(val){
+        $('.setTitle').html(val);
+    })
 
-	});
-
-
-
-	function get_mobile_User(mobileUserVal){
-		$.ajax({
-			method:"POST",
-			url: "addUser.php",
-			data: {userType:mobileUserVal}
-		})
-		.done(function(val){
-			$('.setTitle').html(val);
-		})
-
-	}
-</script>	
-
-<script>
+    }
+    </script>
+    <script>
 function previewFile() {
-  var preview = document.querySelector('.previewImg');
+  var preview = document.querySelector('#preview');
   var file    = document.querySelector('input[type=file]').files[0];
   var reader  = new FileReader();
 
@@ -310,7 +326,19 @@ function previewFile() {
   }
 
 }
+
 </script>
+<style type="text/css">
+    .field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+  margin-right:6px;
+}
+
+</style>
 </body>
 
 </html>
