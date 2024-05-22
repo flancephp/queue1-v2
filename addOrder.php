@@ -825,7 +825,11 @@ $totalTaxChargesOther= ( ($totalChargePriceOther+$totalFixedChargesOther+$totalP
 $netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
 $netTotalValueOther= ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther+$totalTaxChargesOther);   
 ?>
-                                            <div class="price justify-content-between grdTtl-Row">
+                                            <div <?php
+                                            if(!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0)
+                                            { 
+    echo 'style="border-top: 0px;"';  
+} ?> class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
                                                     <p><?php echo showOtherLangText('Grand Total'); ?></p>
@@ -904,12 +908,11 @@ if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id']
                             <div class="prdtCnt-Scnd d-flex align-items-center">
                                 <div class="itm-Quantity tb-head">
                                         <div class="d-flex align-items-center">
-                                                <p><a href="addOrder.php?sort=qty" title="Sort"
-                                            class="qtySort"><?php echo showOtherLangText('Qty'); ?></p>
+                                                <p><?php echo showOtherLangText('Qty'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span></a>
+                                                    <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
                                         </div>
                                 </div>
                                 <div class="ttlCr-Type d-flex align-items-center">
@@ -968,16 +971,13 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                                 <div class="dflt-Currency tb-bdy">
                                                     <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
                                                 </div>
-                           
-                                                <div class="othr-Currency tb-bdy">
-                                                    <p>            <?php 
+                                                 <?php 
     if( !empty($curDet) )
     {
     $newCurAmt = ($row['amt']*$curDet['amt']);
     $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
-    echo '<div class="dflt-Currency tb-bdy"><p>'.$newCurAmt.'</p></div>';
-    } ?></p>
-                                                </div>
+    echo '<div class="othr-Currency tb-bdy"><p>'.$newCurAmt.'</p></div>';
+    } ?>
                                             </div>
                                             <div class="itm-Unit tb-bdy">
                                                 <p><?php echo $row['unit'];?></p>
@@ -991,11 +991,11 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                     </div>
                                     <div  class="prdtCnt-Scnd d-flex align-items-center">
                                         <div class="itm-Quantity tb-bdy">
-                                            <strong>1</strong>
+                                            1
                                         </div>
                                         <div class="ttlCr-Type d-flex align-items-center">
                                             <div class="ttlDft-Crcy tb-bdy">
-                                                <p><strong><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></strong></p>
+                                                <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
                                             </div>
                                             <?php 
 
@@ -1005,7 +1005,7 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                    $newCurAmt = ($row['amt']*$curDet['amt']);
     $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
     echo '<div class="ttlDft-Crcy tb-bdy">
-                                                <p><strong>'.$newCurAmt.'</strong></p>
+                                                <p>'.$newCurAmt.'</p>
                                             </div>';
                                     }
 
@@ -1087,7 +1087,7 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                     <?php 
                                     if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
                                     {   
-                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
                                     }
                                     ?>
                                     </div>
@@ -1120,7 +1120,14 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                         </div>
                                     </div>
                                     <div class="prdtStk-Qty tb-bdy">
-                                        <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                                        <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    width: 43px;
+    text-align: center;
+    height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                     </div>
                                     <div  class="prdtCnt-Scnd d-flex align-items-center">
                                         <div class="itm-Quantity tb-bdy">
@@ -1340,7 +1347,45 @@ list'); ?></span><br>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal" tabindex="-1" id="clear-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
@@ -1408,58 +1453,78 @@ $(".currency_dropdown").on("click", "a", function(e){
 
 </script>
 <script>
-    function getDelNumb(delId, feeType, currencyId) {
+     function getDelNumb(delId, feeType,currencyId){
+var newOnClick = "window.location.href='addOrder.php?delId=" + delId + "&feeType=" + feeType + "&currencyId=" + currencyId + "'";
 
-        $("#dialog1").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'addOrder.php?delId=' + delId + '&feeType=' + feeType +
-                        '&currencyId=' + currencyId;
-                },
+    //console.log('click',newOnClick);
+    //return false;
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 
-        $("#dialog1").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-    }
+     }
+    // function getDelNumb(delId, feeType, currencyId) {
 
-    function getClearNumb(supplierIdVal) {
+    //     $("#dialog1").dialog({
+    //         autoOpen: false,
+    //         modal: true,
+    //         //title     : "Title",
+    //         buttons: {
+    //             '<?php echo showOtherLangText('Yes') ?>': function() {
+    //                 //Do whatever you want to do when Yes clicked
+    //                 $(this).dialog('close');
+    //                 window.location.href = 'addOrder.php?delId=' + delId + '&feeType=' + feeType +
+    //                     '&currencyId=' + currencyId;
+    //             },
 
-         $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'addOrder.php?supplierIdVal=' + supplierIdVal + '&clear=' + 1;
-                },
+    //             '<?php echo showOtherLangText('No') ?>': function() {
+    //                 //Do whatever you want to do when No clicked
+    //                 $(this).dialog('close');
+    //             }
+    //         }
+    //     });
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
+    //     $("#dialog1").dialog("open");
+    //     $('.custom-header-text').remove();
+    //     $('.ui-dialog-content').prepend(
+    //         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    // }
+      function getClearNumb(supplierIdVal){
+    var newOnClick = "window.location.href = 'addOrder.php?supplierIdVal=" + supplierIdVal + "&clear=1'";
 
-        $("#dialog").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-    }
+
+    //console.log('click',newOnClick);
+    //return false;
+
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#clear-popup').modal('show');
+
+     }
+    // function getClearNumb(supplierIdVal) {
+
+    //      $("#dialog").dialog({
+    //         autoOpen: false,
+    //         modal: true,
+    //         //title     : "Title",
+    //         buttons: {
+    //             '<?php echo showOtherLangText('Yes') ?>': function() {
+    //                 //Do whatever you want to do when Yes clicked
+    //                 $(this).dialog('close');
+    //                 window.location.href = 'addOrder.php?supplierIdVal=' + supplierIdVal + '&clear=' + 1;
+    //             },
+
+    //             '<?php echo showOtherLangText('No') ?>': function() {
+    //                 //Do whatever you want to do when No clicked
+    //                 $(this).dialog('close');
+    //             }
+    //         }
+    //     });
+
+    //     $("#dialog").dialog("open");
+    //     $('.custom-header-text').remove();
+    //     $('.ui-dialog-content').prepend(
+    //         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    // }
 
     function showTotal(qty, priceId, pId) {
         //console.log('hello');
@@ -1514,26 +1579,6 @@ $(".currency_dropdown").on("click", "a", function(e){
             $("#feesave_add").submit(function(e) {
                 // Validate required fields
                 e.preventDefault(); 
-                // var isValid = true;
-
-                // if ($("#name").val() === "") {
-                //     $("#nameError").text("Name is required");
-                //     isValid = false;
-                // } else {
-                //     $("#nameError").text("");
-                // }
-
-                // if ($("#email").val() === "") {
-                //     $("#emailError").text("Email is required");
-                //     isValid = false;
-                // } else {
-                //     $("#emailError").text("");
-                // }
-
-                // // If all required fields are valid, submit the form
-                // if (!isValid) {
-                //     e.preventDefault(); // Prevent form submission
-                // }
             });
         });
     </script>

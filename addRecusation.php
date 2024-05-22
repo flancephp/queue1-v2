@@ -464,16 +464,16 @@ else
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="fee"></span>
-                                                                <p class="btn2"><?php echo showOtherLangText('Add Fee'); ?> <i
+                                                                <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
                                                                         class="fa-solid fa-angle-down"></i>
                                                                 </p>
                                                             </a>
 
-                                                            <ul class="dropdown-menu">
+                                                            <ul class="item dropdown-menu">
                                                                 <li><a class="dropdown-item"
                                                                         href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
 
-                                                            <ul class="">
+                                                            <ul class="subitem dropdown-item">
                                                             <?php
                                                             //add item fee & custom fee modal box 
                                                             $sql = " SELECT * 
@@ -491,11 +491,8 @@ else
                                                             </ul>
                                                             <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
-                                         <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a></li>
-                                                                        <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
-                                                                        <ul class="">
+                                         <li><a class="item dropdown-item"
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a><ul class="subitem dropdown-item">
                                                                         <?php
             //add item fee & custom fee modal box 
             $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -507,7 +504,10 @@ else
                 echo "<li class='innerLi'><a tabindex='-1' href='addRecusation.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
             } 
             ?>
-                                                                         </ul>
+                                                                         </ul></li>
+                                                                        <li><a class="dropdown-item"
+                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                        
                                                                          </li>
                                                             </ul>
                                                         </div>
@@ -737,7 +737,10 @@ else
                                 $totalTaxCharges= ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges)*$taxCharges/100);//calculating total tax value 
                                 $netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
                                 ?>
-                                            <div class="price justify-content-between grdTtl-Row">
+                                            <div <?php if(!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0)
+                                            { 
+    echo 'style="border-top: 0px;"';  
+}  ?> class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
                                                     <p><?php echo showOtherLangText('Grand Total'); ?></p>
@@ -793,7 +796,13 @@ else
                             </div>
                             <div class="reqCnt-Scnd d-flex align-items-center">
                                 <div class="reqClm-Qty tb-head">
-                                    <p><?php echo showOtherLangText('Quantity'); ?></p>
+                                <div class="d-flex align-items-center">
+                                                <p><?php echo showOtherLangText('Quantity'); ?></p>
+                                                <span class="dblArrow">
+                                                    <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
+                                </div>
                                 </div>
                                 <div class="reqClm-Ttl tb-head">
                                     <p><?php echo showOtherLangText('Total'); ?></p>
@@ -971,7 +980,7 @@ else
                                         <?php $img = '';
                     if($row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName']))
                     {   
-                        echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                        echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
                     } ?>
 
                                     
@@ -1003,7 +1012,8 @@ else
                                     <div class="requi-Hide">
                                         <div class="reqClm-Note tb-bdy">
                                             <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note">
+                                            <input type="text" name="notes[<?php echo $row['id'];?>]"
+                                            id="notes<?php echo $row['id'];?>" class="form-control note-itm" placeholder="Note">
                                         </div>
                                     </div>
                                 </div>
@@ -1173,32 +1183,41 @@ list'); ?></span><br>
         $('#search').val('');
         myFunction();
    }
+      function getDelNumb(delId, feeType){
+var newOnClick = "window.location.href='addRecusation.php?delId=" + delId + "&feeType=" + feeType +"'";
 
-   function getDelNumb(delId, feeType) {
+    //console.log('click',newOnClick);
+    //return false;
 
-        $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'addRecusation.php?delId=' + delId + '&feeType=' + feeType;
-                },
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
+     }
+   // function getDelNumb(delId, feeType) {
 
-        $("#dialog").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-    }
+   //      $("#dialog").dialog({
+   //          autoOpen: false,
+   //          modal: true,
+   //          //title     : "Title",
+   //          buttons: {
+   //              '<?php echo showOtherLangText('Yes') ?>': function() {
+   //                  //Do whatever you want to do when Yes clicked
+   //                  $(this).dialog('close');
+   //                  window.location.href = 'addRecusation.php?delId=' + delId + '&feeType=' + feeType;
+   //              },
+
+   //              '<?php echo showOtherLangText('No') ?>': function() {
+   //                  //Do whatever you want to do when No clicked
+   //                  $(this).dialog('close');
+   //              }
+   //          }
+   //      });
+
+   //      $("#dialog").dialog("open");
+   //      $('.custom-header-text').remove();
+   //      $('.ui-dialog-content').prepend(
+   //          '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+   //  }
     function showTotal(qty, indexVal, availableQty, pId, proType) {
 
         var availableQty = parseFloat(availableQty);
@@ -1232,37 +1251,93 @@ list'); ?></span><br>
     // $('.sub-btn').click(function(){
     // $('#frm').submit();
     // });
-    function clearTempItem() {
+    // function clearTempItem() {
 
-        $("#dialog4").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'addRecusation.php?clearTempPro';
-                },
+    //     $("#dialog4").dialog({
+    //         autoOpen: false,
+    //         modal: true,
+    //         //title     : "Title",
+    //         buttons: {
+    //             '<?php echo showOtherLangText('Yes') ?>': function() {
+    //                 //Do whatever you want to do when Yes clicked
+    //                 $(this).dialog('close');
+    //                 window.location.href = 'addRecusation.php?clearTempPro';
+    //             },
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
+    //             '<?php echo showOtherLangText('No') ?>': function() {
+    //                 //Do whatever you want to do when No clicked
+    //                 $(this).dialog('close');
+    //             }
+    //         }
+    //     });
 
-        $("#dialog4").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-    }
+    //     $("#dialog4").dialog("open");
+    //     $('.custom-header-text').remove();
+    //     $('.ui-dialog-content').prepend(
+    //         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    // }
+
+     function clearTempItem(){
+     var newOnClick = "window.location.href = 'addRecusation.php?clearTempPro'";
+     $('.deletelink').attr('onclick', newOnClick);
+     $('#clear-popup').modal('show');
+
+     }
 
 $('.form-submit-btn').click(function(){
 $('#frm').submit();
 });
 </script>
-
+ <style>
+        .subitem {
+  display: none;
+}
+    </style>
+    <script>
+$('.item').on('mouseover', 'li', function() {
+  $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+}).on('mouseleave', function() {
+  $('.subitem', this).hide();
+});
+</script>
+<div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" id="clear-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

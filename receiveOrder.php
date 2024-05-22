@@ -71,8 +71,23 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
     }
 
 //----------------------------------
+
+
     if( is_array($rows) && !empty($rows) )
     {
+        $tbl_order_main_or_temp = 'tbl_order_details_temp_receive';
+
+        $sqlSet = " DELETE FROM tbl_order_details_temp_receive WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+        mysqli_query($con, $sqlSet);
+
+         $sqlSet = " INSERT INTO tbl_order_details_temp_receive( `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`, `note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`, `requestedQty`)
+        SELECT  `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`, `note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`, `requestedQty` FROM tbl_order_details
+         WHERE ordId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+        mysqli_query($con, $sqlSet);
+
+
+        
+
         foreach($rows as $row)
         {
             
@@ -80,6 +95,51 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
             $fileDataRows[$row['barCode']]['price'] = isset($row['price']) ? trim($row['price']) : 0;
             $fileDataRows[$row['barCode']]['supplierId'] = trim($row['supplierId']);
         }
+
+
+
+        //update excel data
+                        $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
+                         FROM ".$tbl_order_main_or_temp." od 
+
+                        INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
+
+                        LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+
+                        WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
+
+                        $ordQry = mysqli_query($con, $sql);
+                                                                                            
+                        while($row = mysqli_fetch_array($ordQry))
+                        { 
+                            if( isset($fileDataRows[$row['barCode']]) )
+                            { 
+
+                                $receivedRow = $fileDataRows[$row['barCode']];
+                                $qtyVal = $receivedRow['qty'];
+                                $ordQty = $receivedRow['qty'];
+                                $boxPrice =$receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor']*$row['ordPrice'];
+
+                                $boxPriceOther = ($boxPrice*$curDetData['amt']);
+
+                                if ($row['currencyId'] > 0) {
+
+                                    $curPrice = (($boxPrice/$row['ordFactor'])*$curDetData['amt']);
+                                    $curAmt = ($curPrice*$row['ordFactor']*$ordQty);
+                                }
+
+                                $upQry = " UPDATE ".$tbl_order_main_or_temp." SET 
+                                `qtyReceived` = '".$qtyVal."', 
+                                `price` = '".($boxPrice/$row['ordFactor'])."', 
+                                `curPrice` = '".$curPrice."', 
+                                `totalAmt` = '".($boxPrice*$ordQty)."',
+                                `curAmt` = '".$curAmt."' 
+                                WHERE ordId = '".$row['ordId']."' AND pId = '".$row['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+                                mysqli_query($con, $upQry);
+
+                            }
+
+                        }  //update excel data
         
     }
 }
@@ -733,7 +793,10 @@ if(!empty($fileDataRows))
                                      
 
 
-                                                <div class="price justify-content-between grdTtl-Row">
+                                                <div <?php if ($ordCountRow == 0)
+                                { 
+                                echo 'style="border-top: 0px;"';  
+}  ?> class="price justify-content-between grdTtl-Row">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
                                                         <p><?php echo showOtherLangText('Grand Total');?></p>

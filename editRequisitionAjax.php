@@ -206,7 +206,13 @@ if(isset($_POST['pId']) && $_POST['orderId'] && isset($_POST['qty']))
 
 
 		$brdBtm =  ($ordCountRow > 0) ? '2px solid #939393' : '';
-		$resHtml .='<div class="price justify-content-between grdTtl-Row">
+
+		$stylegrand = '';
+             if($ordCountRow == 0)
+                                            {
+           $stylegrand = 'style="border-top: 0px;"';  
+      } 
+		$resHtml .='<div '.$stylegrand.' class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
                                                     <p>'.showOtherLangText('Grand Total').'</p>

@@ -191,6 +191,9 @@ if(isset($_REQUEST['currencyId']))
 //add to cart
 if( isset($_POST['updateOrder']) )
 {
+    echo '<pre>';
+    print_r($_POST);
+    exit;
 
     $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
     $res = mysqli_query($con, $sql);
@@ -515,10 +518,10 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                                                     </p>
                                                                 </a>
 
-                                                                <ul class="dropdown-menu">
+                                                                <ul class="item dropdown-menu">
                                                                     <li><a class="dropdown-item"
                                                                             href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-                                                                          <ul class="">
+                                                                          <ul class="subitem dropdown-item">
                                                             <?php 
                                 //add item fee & custom fee modal box 
                                 $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -535,10 +538,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                                                         <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
                                                                     <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a></li>
-                                                                    <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
-                                                                        <ul class="">
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a><ul class="subitem dropdown-item">
                                                                         <?php
             //add item fee & custom fee modal box 
             $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -550,7 +550,10 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                 echo "<li class='innerLi'><a tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
             } 
             ?>
-                                                                         </ul>
+                                                                         </ul></li>
+                                                                    <li><a class="dropdown-item"
+                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                        
                                                                 </li>
                                                                 </ul>
                                                             </div>
@@ -778,7 +781,11 @@ $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//to
 
                  
                     ?>
-                                                <div class="price justify-content-between grdTtl-Row">
+                                                <div <?php
+                                             if ($ordCountRow == 0)
+                                            { 
+    echo 'style="border-top: 0px;"';  
+} ?> class="price justify-content-between grdTtl-Row">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
                                                         <p><?php echo showOtherLangText('Grand Total'); ?></p>
@@ -1044,7 +1051,7 @@ $ordQry = mysqli_query($con, $sql);
                                             <?php 
                                       if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
                                        {   
-                                      echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                      echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
                                         
                                         }
                                          ?>
@@ -1079,7 +1086,14 @@ $ordQry = mysqli_query($con, $sql);
                                             </div>
                                         </div>
                                         <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    width: 43px;
+    text-align: center;
+    height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
                                         <div class="prdtCnt-Scnd d-flex align-items-center">
                                             <div class="itm-Quantity tb-bdy">
@@ -1252,7 +1266,7 @@ $ordQry = mysqli_query($con, $sql);
                                                 <?php 
                                                 if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
                                                 {   
-                                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
                                                 }
                                                  ?>
                                             </div>
@@ -1282,7 +1296,14 @@ $ordQry = mysqli_query($con, $sql);
                                                 </div>
                                             </div>
                                             <div class="prdtStk-Qty tb-bdy">
-                                                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="background-color:pink;height: 30px;"' : '';?>>
+                                                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    width: 43px;
+    text-align: center;
+    height: 30px;"' : '';?>>
                                         <?php echo round(($stockQty/$row['factor']), 1);?> <span class="tabOn-Stk">On stock</span></p>
                                             </div>
                                             <div class="prdtCnt-Scnd d-flex align-items-center">
@@ -1377,13 +1398,12 @@ $ordQry = mysqli_query($con, $sql);
                   <div>
                     <div class="feeSave">
                         <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="addFee" name="addFee" class=""><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="addFee" name="addFee" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1401,7 +1421,7 @@ list'); ?></label><br>
                 <div class="modal-body">
                     <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
                     <input type="text" class="form-control" name="feeName" id="feeName" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
@@ -1413,23 +1433,24 @@ list'); ?></label><br>
                                             </option>
                                         </select>
                     <input type="text" class="form-control" id="amt" name="amt" value=""
-                                            style="width:250px;" autocomplete="off"
+                                             autocomplete="off"
                                             placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                             onChange="this.setCustomValidity('')" required />
-                                            <input type="checkbox" name="feeType" id="feeType" value="1">
-                        <label for="feeType"><?php echo showOtherLangText('Tax fee'); ?></label>
+                                         
                 </div>
                   <div>
+                       <input type="checkbox" name="feeType" id="feeType" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
                     <div class="feeSave">
                         <input type="checkbox" id="visibility" name="visibility" value="1">
-                        <label for="visibility"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></label><br>
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></span>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" id="feesave_add" name="feesave_add" class=""><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" id="feesave_add" name="feesave_add" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1476,32 +1497,42 @@ list'); ?></label><br>
     } //end  
      </script>
      <script>
-    function getDelNumb(delId, orderId, supplierId) {
+    function getDelNumb(delId, orderId, supplierId){
+    var newOnClick = "window.location.href='editOrder.php?delId=" + delId + "&orderId=" + orderId + "&supplierId=" + supplierId + "'";
 
-        $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'editOrder.php?delId=' + delId + '&orderId=' + orderId +
-                        '&supplierId=' + supplierId;
-                },
+    //console.log('click',newOnClick);
+    //return false;
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 
-        $("#dialog").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-    }
+     }
+    // function getDelNumb(delId, orderId, supplierId) {
+
+    //     $("#dialog").dialog({
+    //         autoOpen: false,
+    //         modal: true,
+    //         //title     : "Title",
+    //         buttons: {
+    //             '<?php echo showOtherLangText('Yes') ?>': function() {
+    //                 //Do whatever you want to do when Yes clicked
+    //                 $(this).dialog('close');
+    //                 window.location.href = 'editOrder.php?delId=' + delId + '&orderId=' + orderId +
+    //                     '&supplierId=' + supplierId;
+    //             },
+
+    //             '<?php echo showOtherLangText('No') ?>': function() {
+    //                 //Do whatever you want to do when No clicked
+    //                 $(this).dialog('close');
+    //             }
+    //         }
+    //     });
+
+    //     $("#dialog").dialog("open");
+    //     $('.custom-header-text').remove();
+    //     $('.ui-dialog-content').prepend(
+    //         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    // }
 
     $(".currency_dropdown").on("click", "a", function(e){
         var $this = $(this).parent();
@@ -1583,6 +1614,30 @@ list'); ?></label><br>
         $('#add-new-items').submit();
         });
     });
+   
+   function getItemNotesVal(indexVal, itemNotesId) {
+
+        var itemNotes = $('#itemNotes' + indexVal).val();
+
+        $.ajax({
+                method: "POST",
+                url: "editOrderAjax.php",
+
+                data: {
+                    itemNotes: itemNotes,
+                    itemNotesId: itemNotesId,
+                    orderId: '<?php echo $_GET['orderId'] ?>'
+                }
+            })
+            .done(function(responseObj) {
+
+
+            });
+
+
+    }
+
+   
 
    function getnotesVal(pId) {
 
@@ -1606,6 +1661,37 @@ list'); ?></label><br>
 
     } //end 
     </script>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
+  <style>
+        .subitem {
+  display: none;
+}
+    </style>
+    <script>
+$('.item').on('mouseover', 'li', function() {
+  $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+}).on('mouseleave', function() {
+  $('.subitem', this).hide();
+});
+</script>

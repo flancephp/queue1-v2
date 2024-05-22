@@ -191,10 +191,14 @@ if( isset($_POST['pId']) && !isset($_POST['notes']))
 	$totalTaxCharges= ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges)*$taxCharges/100);//calculating total tax value 
 	$netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
 
+   		$stylegrand = '';
+             if(!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0)
+                                            {
+           $stylegrand = 'style="border-top: 0px;"';  
+      } 
 
 
-
-	$resHtml .='<div class="price justify-content-between grdTtl-Row">
+	$resHtml .='<div '.$stylegrand.' class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
                                                     <p>'.showOtherLangText('Grand Total').'</p>

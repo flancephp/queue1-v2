@@ -283,8 +283,12 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_POST['orderId'] && isset($_P
 
 							$netTotalValue= ($chargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
 							$netTotalValueOther= ($chargePriceOther+$totalFixedChargesOther+$totalPerChargesOther+$totalTaxChargesOther);
-
-							$resHtml .='<div class="price justify-content-between grdTtl-Row">
+							$grandtotalcss = '';
+                              if ($ordCountRow == 0)
+                                            { 
+    $grandtotalcss =  'style="border-top: 0px;"';  
+} 
+							$resHtml .='<div '.$grandtotalcss.' class="price justify-content-between grdTtl-Row">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
                                                         <p>'.showOtherLangText('Grand Total').'</p>

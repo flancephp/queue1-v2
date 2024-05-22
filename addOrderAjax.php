@@ -268,8 +268,12 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 					$totalTaxChargesOther= ( ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther)*$taxCharges/100);
 					$netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
 					$netTotalValueOther= ($totalChargePriceOther+$totalFixedChargesOther+$totalPerChargesOther+$totalTaxChargesOther);
-
-             $resHtml .= '<div class="price justify-content-between grdTtl-Row">
+					$stylegrand = '';
+             if(!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0)
+                                            {
+           $stylegrand = 'style="border-top: 0px;"';  
+} 
+             $resHtml .= '<div '.$stylegrand.' class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
                                                     <p>'.showOtherLangText('Grand Total').'</p>

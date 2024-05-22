@@ -422,48 +422,52 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="fee"></span>
-                                                                <p class="btn2"><?php echo showOtherLangText('Add Fee'); ?> <i
+                                                                <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
                                                                         class="fa-solid fa-angle-down"></i>
                                                                 </p>
                                                             </a>
 
-                                                            <ul class="dropdown-menu outerUl">
-                                                        <li class="dropdown-submenu-item outerLi1">
-                                                            <a class="test" tabindex="-1"
-                                                                href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?>
-                                                                <span class="caret"></span></a>
-                                                            
-                                                            <ul class="innerUl1">
-                                                                <?php
+                                                            <ul class="item dropdown-menu">
+                                                                <li><a class="dropdown-item"
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
 
-                                                    while ($resultRow = mysqli_fetch_array($result)) 
-                                                    {
-                                                        echo "<li class='innerLi'><a tabindex='-1' href='editRequisition.php?orderId=".$_GET['orderId']."&feeType=1&itemCharges=".$resultRow['id']." ' >".$resultRow['itemName']."</a></li>";
-                                                    }
-                                                    ?>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="outerLi2"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-service-item"
-                                                                id="openFee"><?php echo showOtherLangText('New Service Item'); ?></a>
-                                                        </li>
-                                                        <li class="dropdown-submenu-item outerLi3">
-                                                            <a class="test" tabindex="-1"
-                                                                href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?>
-                                                                <span class="caret"></span></a>
-                                                            <ul class="innerUl2">
-                                                                <?php
-                                                    while ($resultRow = mysqli_fetch_array($ordFeeFetch))
-                                                    {
-                                                        echo "<li class='innerLi'><a tabindex='-1' href='editRequisition.php?orderId=".$_GET['orderId']."&feeType=3&itemCharges=".$resultRow['id']." '>".$resultRow['feeName']."</a></li>";
-                                                    }
-                                                    ?>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="outerLi4"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"
-                                                                id="openFixedFee"><?php echo showOtherLangText('New Fee') ?></a>
-                                                        </li>
+                                                            <ul class="subitem dropdown-item">
+                                                            <?php
+                                                            //add item fee & custom fee modal box 
+                                                            $sql = " SELECT * 
+                                                            FROM tbl_custom_items_fee 
+                                                            WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                            $customItemsResult = mysqli_query($con, $sql);
 
-                                                    </ul>
+                                                            //$liCount = 0;
+                                                            while ($resultRow = mysqli_fetch_array($customItemsResult)) 
+                                                            {
+                                                                //$liCount++;
+                                                                echo "<li class='innerLi'><a tabindex='-1' href='editRequisition.php?orderId=".$_GET['orderId']."&feeType=1&itemCharges=".$resultRow['id']." ' >".$resultRow['itemName']."</a></li>";
+                                                            } 
+                                                            ?>
+                                                            </ul>
+                                                            <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
+                                        data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
+                                         <li><a class="item dropdown-item"
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a><ul class="subitem dropdown-item">
+                                                                        <?php
+            //add item fee & custom fee modal box 
+            $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+            $ordFeeFetch = mysqli_query($con, $sqlQry);
+            //$innerLiCount = 0;
+            while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+            {
+                // $innerLiCount++;
+                echo "<li class='innerLi'><a tabindex='-1' href='editRequisition.php?orderId=".$_GET['orderId']."&feeType=3&itemCharges=".$resultRow['id']."'>".$resultRow['feeName']."</a> ";
+            } 
+            ?>
+                                                                         </ul></li>
+                                                                        <li><a class="dropdown-item"
+                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                        
+                                                                         </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -672,7 +676,10 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
 
                                 ?>
-                                            <div class="price justify-content-between grdTtl-Row">
+                                            <div <?php if ($ordCountRow == 0)
+                                { 
+                                echo 'style="border-top: 0px;"';  
+}  ?>class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
                                                     <p><?php echo showOtherLangText('Grand Total'); ?></p>
@@ -722,58 +729,59 @@ $ordRow = mysqli_fetch_array($resultSet);
         
         ?>
                     <div class="container nordPrice position-relative">
-                        <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable">
-                            <div class="reqImg tb-head">
-                                <p><?php echo showOtherLangText('Image'); ?></p>
-                            </div>
-                            <div class="reqCnt-Fst d-flex align-items-center">
-                                <div class="reqClm-Itm tb-head">
-                                    <p><?php echo showOtherLangText('Item'); ?></p>
-                                </div>
-                                <div class="reqClm-Br tb-head">
-                                    <p><?php echo showOtherLangText('Bar Code'); ?></p>
-                                </div>
-                                <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Prc tb-head">
-                                    <p>'.showOtherLangText('Price').'</p>
-                                </div>' : ''; ?>
-                                <div class="reqClm-Unit tb-head">
-                                    <p><?php echo showOtherLangText('C.Unit'); ?></p>
-                                </div>
-                            </div>
-                            <?php
+                                <!-- Item Table Head Start -->
+                                <div class="d-flex align-items-center itmTable">
+                                    <div class="prdtImg tb-head">
+                                        <p><?php echo showOtherLangText('Image'); ?></p>
+                                    </div>
+                                    <div class="prdtCnt-Fst d-flex align-items-center">
+                                        <div class="Itm-Name tb-head">
+                                            <p><?php echo showOtherLangText('Item'); ?></p>
+                                        </div>
+                                        <div class="Itm-brCode tb-head">
+                                            <p><?php echo showOtherLangText('Bar Code'); ?></p>
+                                        </div>
+                                        <div class="prdtCr-Unit d-flex align-items-center">
+                                            <div class="crncy-Type w-50 ">
+                                              <?php echo '<div class="tb-head"><p>'.showOtherLangText('Price').'</p>
+                                                </div>'; ?>
+                                             </div>
+                                            <div class="itm-Unit tb-head">
+                                                <p><?php echo showOtherLangText('C Unit'); ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <?php
                     if ($getColumnPermission['available_quantity'] == 1) 
                     {
                         ?>
-                            <div class="reqSt-Qty tb-head">
-                                <p><?php echo showOtherLangText('S.Qty'); ?></p>
-                            </div>
-                            <div class="reqSt-Qty tb-head">
-                                <p><?php echo showOtherLangText('A.Qty'); ?></p>
-                            </div>
-                        <?php
+                                    <div class="prdtStk-Qty tb-head">
+                                        <p><?php echo showOtherLangText('S.Qty'); ?></p>
+                                    </div>
+                                    <div class="prdtStk-Qty tb-head">
+                                        <p><?php echo showOtherLangText('A.Qty'); ?></p>
+                                    </div>
+                                    <?php
                     }
                     ?>
-                            <div class="reqCnt-Scnd d-flex align-items-center">
-                                <div class="reqClm-Qty tb-head">
-                                    <p><?php echo showOtherLangText('Req Qty'); ?></p>
+                                    <div class="prdtCnt-Scnd d-flex align-items-center">
+                                        <div class="itm-Quantity tb-head">
+                                            <p><?php echo showOtherLangText('Qty'); ?></p>
+                                        </div>
+                                        <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="ttlCr-Type w-50">
+                                            <div class="ps-xl-5 tb-head">
+                                                <p>'.showOtherLangText('Total').'</p>
+                                            </div></div>' : ''; ?>
+                                    </div>
+                                    <div class="prdt-Hide">
+                                        <div class="prdt-Note tb-head">
+                                            <div class="mb-brCode" style="display: none;"></div>
+                                            <p><?php echo showOtherLangText('Note'); ?></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="reqClm-Qty tb-head">
-                                    <p><?php echo showOtherLangText('Qty'); ?></p>
-                                </div>
-                                <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Ttl tb-head">
-                                    <p>'.showOtherLangText('Total').'</p>
-                                </div>' : ''; ?>
+                                <!-- Item Table Head End -->
                             </div>
-                            <div class="requi-Hide">
-                                <div class="reqClm-Note tb-head">
-                                    <div class="mb-ReqCode"></div>
-                                    <p><?php echo showOtherLangText('Note'); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item Table Head End -->
-                    </div>
 
                     <div id="boxscroll">
                         <div class="container cntTable">
@@ -790,65 +798,73 @@ $ordRow = mysqli_fetch_array($resultSet);
                     $y++;
                     ?>
                             <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                        <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
+                                        <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                            <div class="prdtImg tb-bdy">
+                                               <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
                                             onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>');"
-                                            style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p><?php echo $row['itemName'];?></p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode"></p>
-                                        </div>
-                                        <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Prc tb-bdy">
-                                            <p>'.getPriceWithCur($row['price'],$getDefCurDet['curCode']).'</p>
-                                        </div>' : ''; ?>
-                                        <div class="reqClm-Unit tb-bdy">
-                                            <p><?php echo $row['unit'];?></p>
-                                        </div>
-                                    </div>
-                                     <?php
-                                   if ($getColumnPermission['available_quantity'] == 1) 
-                                     {
-                                     ?>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty"> <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty"> <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <?php } ?>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty">1 <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                           1
-                                        </div>
-                                        <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Ttl tb-bdy">
-                                            <p>'.getPriceWithCur($row['price'],$getDefCurDet['curCode']).'</p>
-                                        </div>' : ''; ?>
-                                     </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                           <input type="text" class="note-itm form-control" autocomplete="off"
-                                            name="itemNotes[<?php echo $row['id'];?>]" id="itemNotes<?php echo $x;?>"
+                                            style="color:#808080" class="glyphicon glyphicon-trash"> <i class="fa-solid fa-trash-can"></i></a>
+                                            </div>
+                                            <div class="prdtCnt-Fst d-flex align-items-center">
+                                                <div class="Itm-Name tb-bdy">
+                                                   <p><?php echo $row['itemName'];?></p>
+                                                </div>
+                                                <div class="Itm-brCode tb-bdy">
+                                                    <p class="ord-brCode"></p>
+                                                </div>
+                                                <div class="prdtCr-Unit d-flex">
+                                                    <div class="crncy-Type w-50">
+                                                        <div class="tb-head"><p><?php echo getPriceWithCur($row['price'],$getDefCurDet['curCode']); ?></p></div>
+
+                                    <input type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
+                                        value="<?php echo getPriceWithCur($row['stockPrice'],$getDefCurDet['curCode']);?>" />
+                                                        
+                                                    </div>
+                                                    <div class="itm-Unit tb-bdy">
+                                                        <p><?php echo $row['unit'];?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <?php
+                    if ($getColumnPermission['available_quantity'] == 1) 
+                    {
+                        ?>
+                                            <div class="prdtStk-Qty tb-bdy">
+                                                <p class="ord-StockQty"> <span class="tabOn-Stk">On stock</span></p>
+                                            </div>
+                                            <div class="prdtStk-Qty tb-bdy">
+                                                <p class="ord-StockQty">1 <span class="tabOn-Stk">On stock</span></p>
+                                            </div>
+                                               <?php
+                    }
+                    ?>
+                                            <div class="prdtCnt-Scnd d-flex align-items-center">
+
+                                                <div class="itm-Quantity tb-bdy">
+                                                    1<span class="mbl-ReqStk">On stock</span>
+                                                </div>
+                                                <div class="ttlCr-Type w-50 ps-xl-5">
+                                                    <?php echo getPriceWithCur($row['price'],$getDefCurDet['curCode']); ?>
+                                                   
+                                                </div>
+
+                                            </div>
+                                            <div class="prdt-Hide">
+                                                <div class="prdt-Note tb-bdy">
+                                                    <div class="mb-brCode" style="display: none;"></div>
+                                                    <input type="text" class="note-itm form-control" autocomplete="off"
+                                            name="itemNotes[<?php echo $row['id'];?>]" id="itemNotes<?php echo $x;?>" placeholder="Note"
                                             onChange="getItemNotesVal('<?php echo $x;?>', '<?php echo $row['id'];?>');"
                                             value="<?php echo $row['note'];?>"> 
+                                                </div>
+                                            </div>
                                         </div>
+                                        <div class="mbLnk-Order">
+                                            <a href="javascript:void(0)" class="orderLink">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        </div>
+    
                                     </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
-
-                            </div>
                             <?php 
                 } // end of extra charge loop / section
                 ?><?php 
@@ -873,76 +889,79 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
                                     value="<?php echo $row['factor'];?>" />
                             <div class="newReqTask">
-                                <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
-                                    <div class="reqImg tb-bdy">
-                                         <?php $img = '';
-                if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
-                {   
-                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
-                }?>
-                                    </div>
-                                    <div class="reqCnt-Fst d-flex align-items-center">
-                                        <div class="reqClm-Itm tb-bdy">
-                                            <p><?php echo $row['itemName'];?></p>
-                                        </div>
-                                        <div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode"><?php echo $row['barCode'];?></p>
-                                        </div>
-                                         <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Prc tb-bdy">
-                                            <p>'.getPriceWithCur($row['stockPrice'],$getDefCurDet['curCode']).'</p>
-                                        </div>' : ''; ?>
-                                        <input type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
+                                        <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                            <div class="prdtImg tb-bdy">
+                                                <?php $img = '';
+                        if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
+                        {   
+                            echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img" >';
+                        }
+                        ?>
+                                            </div>
+                                            <div class="prdtCnt-Fst d-flex align-items-center">
+                                                <div class="Itm-Name tb-bdy">
+                                                    <p><?php echo $row['itemName'];?></p>
+                                                </div>
+                                                <div class="Itm-brCode tb-bdy">
+                                                    <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                                </div>
+                                                <div class="prdtCr-Unit d-flex">
+                                                    <div class="crncy-Type w-50">
+                                                        <?php echo $getColumnPermission['item_price'] == 1 ? ' <div class=" tb-bdy">
+                                                            <p>'.getPriceWithCur($row['stockPrice'],$getDefCurDet['curCode']).'</p>
+                                                        </div>' : ''; ?>
+
+                                    <input type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
                                         value="<?php echo getPriceWithCur($row['stockPrice'],$getDefCurDet['curCode']);?>" />
-
-                                        
-                                    </div>
-                                    <div class="reqClm-Unit tb-bdy">
-                                            <p><?php echo $row['countingUnit'];?></p>
-                                        </div>
-                                    <?php
-            if ($getColumnPermission['available_quantity'] == 1) 
-            {
-                ?>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty"><?php echo $row['stockQty'];?> <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-                                    <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty"><?php echo $availableQty;?> <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-
-
-                                     <?php
-            }
-            ?>                      <div class="reqSt-Qty tb-bdy">
-                                        <p class="reqStockQty"><?php echo $row['requestedQty'];?> <span class="mbl-ReqStk">On stock</span></p>
-                                    </div>
-
-                                    <div class="reqCnt-Scnd d-flex align-items-center">
-                                        <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" id="qty<?php echo $x;?>"
+                                                        
+                                                    </div>
+                                                    <div class="itm-Unit tb-bdy">
+                                                        <p><?php echo $row['countingUnit'];?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <?php
+                    if ($getColumnPermission['available_quantity'] == 1) 
+                    {
+                        ?>
+                                            <div class="prdtStk-Qty tb-bdy">
+                                                <p class="ord-StockQty"><?php echo $row['stockQty'] ;?> <span class="tabOn-Stk">On stock</span></p>
+                                            </div>
+                                            <div class="prdtStk-Qty tb-bdy">
+                                                <p class="ord-StockQty"><?php echo $availableQty ;?> <span class="tabOn-Stk">On stock</span></p>
+                                            </div>
+                                               <?php
+                    }
+                    ?>
+                                            <div class="prdtCnt-Scnd d-flex align-items-center">
+                                                <div class="itm-Quantity tb-bdy">
+                                                   <input type="text" class="form-control qty-itm" id="qty<?php echo $x;?>"
                                                 name="qty[<?php echo $row['id'];?>]" autocomplete="off"
                                                 onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $availableQty > 0 ? $availableQty : 0 ;?>', '<?php echo $row['id'];?>')"
-                                                value="<?php echo $row['ordQty'];?>" size="5" >
-                                        </div>
-                                        <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Ttl tb-bdy">
-                                            <p><strong id="totalPrice'.$x.'">'.getPriceWithCur($row['ordPrice'],$getDefCurDet['curCode']).'</strong></p>
-                                        </div>' : ''; ?>
-                                       
-                                    </div>
-                                    <div class="requi-Hide">
-                                        <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
-                                            <input id="notes<?php echo $row['id'];?>" onChange="getnotesVal('<?php echo $row['id'] ?>');" name="notes[<?php echo $row['id'];?>]" value="<?php echo $row['note'];?>" type="text" class="form-control note-itm" placeholder="Note">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mbLnk-Reqtn">
-                                    <a href="javascript:void(0)" class="orderLink">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                </div>
+                                                value="<?php echo $row['ordQty'];?>" >
+                                                </div>
+                                                <div class="ttlCr-Type w-50 ps-xl-5">
+                                                    <?php echo $getColumnPermission['item_price'] == 1 ? '<span id="totalPrice'.$x.'">'.getPriceWithCur($row['ordPrice'],$getDefCurDet['curCode']).'</span>' : ''; ?>
+                                                   
+                                                </div>
 
-                            </div>
+                                            </div>
+                                            <div class="prdt-Hide">
+                                                <div class="prdt-Note tb-bdy">
+                                                    <div class="mb-brCode" style="display: none;"></div>
+                                                    <input type="text" class="form-control note-itm" autocomplete="off" placeholder="Note"
+                                            name="notes[<?php echo $row['id'];?>]" id="notes<?php echo $row['id'];?>"
+                                            onchange="getnotesVal('<?php echo $row['id'] ?>');" placeholder="Note" value="<?php echo $row['note'];?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mbLnk-Order">
+                                            <a href="javascript:void(0)" class="orderLink">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        </div>
+    
+                                    </div>
                             <?php 
     }
     ?>
@@ -956,9 +975,9 @@ $ordRow = mysqli_fetch_array($resultSet);
 
                             <div class="container pt-5 topOrder ">
                             <div class="row ">
-                                <div class="col-xl-4 col-md-5 col-sm-7 px-0">
+                                <div class="sltSupp">
                                     <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
-                                <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
+                                <div class="input-group srchBx">
                                     
                                     <input type="search" class="form-control" placeholder="Search Item" name="search2" class="form-control" id="search2" onKeyUp="myFunction('search2', 'newOrdTask1', 2)"
                                                 placeholder="<?php echo showOtherLangText('Search Item'); ?>" aria-label="Search">
@@ -1010,8 +1029,8 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         </div>
                                         <div class="prdtCr-Unit d-flex align-items-center">
                                             <div class="crncy-Type w-50 ">
-                                              <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="tb-head"><p>'.showOtherLangText('Price').'</p>
-                                                </div>' : ''; ?>
+                                              <?php echo '<div class="tb-head"><p>'.showOtherLangText('Price').'</p>
+                                                </div>'; ?>
                                              </div>
                                             <div class="itm-Unit tb-head">
                                                 <p><?php echo showOtherLangText('C Unit'); ?></p>
@@ -1081,7 +1100,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                 <?php $img = '';
                         if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
                         {   
-                            echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+                            echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img" >';
                         }
                         ?>
                                             </div>
@@ -1125,7 +1144,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                     <input type="text" class="form-control qty-itm editQty-Rec" name="qty[<?php echo $row['id'];?>]"
                                             id="qty<?php echo $x;?>" autocomplete="off"
                                             onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $availableQty > 0 ? $availableQty : 0 ;?>', '<?php echo $row['id'];?>')"
-                                            value="" size="5">
+                                            value="" >
                                                 </div>
                                                 <div class="ttlCr-Type w-50 ps-xl-5">
                                                     <?php echo $getColumnPermission['item_price'] == 1 ? '<div class=" tb-bdy"><p id="totalPrice'.$x.'">0</p></div>' : ''; ?>
@@ -1138,7 +1157,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                     <div class="mb-brCode" style="display: none;"></div>
                                                     <input type="text" class="form-control note-itm" autocomplete="off"
                                             name="notes[<?php echo $row['id'];?>]" id="notes<?php echo $row['id'];?>"
-                                            onchange="getnotesVal('<?php echo $row['id'] ?>');" value="">
+                                            onchange="getnotesVal('<?php echo $row['id'] ?>');" placeholder="Note" value="<?php echo $row['note'];?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -1265,7 +1284,25 @@ list'); ?></span><br>
 
 
 
-
+<div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -1353,31 +1390,41 @@ list'); ?></span><br>
 $('#frm').submit();
 });
 
-function getDelNumb(delId, orderId) {
+        function getDelNumb(delId, orderId){
+var newOnClick = "window.location.href='editRequisition.php?delId=" + delId + "&orderId=" + orderId +"'";
 
-        $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'editRequisition.php?delId=' + delId + '&orderId=' + orderId;
-                },
+   
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
 
-        $("#dialog").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-    }
+     }
+
+// function getDelNumb(delId, orderId) {
+
+//         $("#dialog").dialog({
+//             autoOpen: false,
+//             modal: true,
+//             //title     : "Title",
+//             buttons: {
+//                 '<?php echo showOtherLangText('Yes') ?>': function() {
+//                     //Do whatever you want to do when Yes clicked
+//                     $(this).dialog('close');
+//                     window.location.href = 'editRequisition.php?delId=' + delId + '&orderId=' + orderId;
+//                 },
+
+//                 '<?php echo showOtherLangText('No') ?>': function() {
+//                     //Do whatever you want to do when No clicked
+//                     $(this).dialog('close');
+//                 }
+//             }
+//         });
+
+//         $("#dialog").dialog("open");
+//         $('.custom-header-text').remove();
+//         $('.ui-dialog-content').prepend(
+//             '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+//     }
 
     //for each charges notes
     function getItemNotesVal(indexVal, itemNotesId) {
@@ -1430,4 +1477,16 @@ function getDelNumb(delId, orderId) {
         $('#frm_add_new_items').submit();
 
     });
+</script>
+  <style>
+        .subitem {
+  display: none;
+}
+    </style>
+    <script>
+$('.item').on('mouseover', 'li', function() {
+  $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+}).on('mouseleave', function() {
+  $('.subitem', this).hide();
+});
 </script>
