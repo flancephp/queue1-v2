@@ -783,6 +783,96 @@ function sortTableByColumn(table,field,order) {
             $('.cntTable').append(element);
         });
     }
+
+    function showHideByClass(targetId) {
+
+    if ($('.' + targetId).is(":visible")) {
+        $('.' + targetId).css('display', 'none');
+    } else {
+        $('.itemSectionPartMain').css('display', 'block');
+        $('.' + targetId).css('display', 'block');
+    }
+    
+    if(targetId == 'item3' || targetId == 'item4' )
+    {
+        
+        if (  !$('.item3').is(":visible") || !$('.item4').is(":visible") ) {
+        
+            $('.slashItem').css('display', 'none');
+
+        } else if ( $('.item3').is(":visible") && $('.item4').is(":visible") ) {
+            $('.slashItem').css('display', 'block');
+        }
+    }
+   }
+
+   $('body').on('click', '.headChk-All', function() {
+
+
+    if( $(".headChk-All:checked").length == 1  ) 
+    {
+        $("#header").prop('checked', true);
+        $(".header-address").prop('checked', true);
+        $(".header-logo").prop('checked', true);
+
+        $('.address-section').css('display', 'block');
+        $('.logo-section').css('display', 'block');
+        
+    }
+    else
+    {
+        $("#header").prop('checked', false);
+        $(".header-address").prop('checked', false);
+        $(".header-logo").prop('checked', false);
+
+
+        $('.address-section').css('display', 'none');
+        $('.logo-section').css('display', 'none');
+        
+    }
+
+     });
+
+   $('body').on('click', '.smryChk-All', function() {
+
+
+    if( $(".smryChk-All:checked").length == 1  ) 
+    {
+        $("#summary").prop('checked', true);
+        
+        $('.summaryPart').css('display', 'block');
+        $(".smryCheckbox").prop('checked', true);
+        
+    }
+    else
+    {
+        $(".smryCheckbox").prop('checked', false);
+        $('.summaryPart').css('display', 'none');
+        $("#summary").prop('checked', false);
+        
+    }
+
+});
+
+   $('body').on('click', '.itemChk-All', function() {
+
+
+    if( $(".itemChk-All:checked").length == 1  ) 
+    {
+        $("#itemTable").prop('checked', true);
+        $('.itemSectionPart').css('display', 'block');
+        $(".itmTblCheckbox").prop('checked', true);
+        
+    }
+    else
+    {
+        $("#itemTable").prop('checked', false);
+        $('.itemSectionPart').css('display', 'none');
+        $(".itmTblCheckbox").prop('checked', false);
+        
+    }
+
+});
   </script>
 </body>
 

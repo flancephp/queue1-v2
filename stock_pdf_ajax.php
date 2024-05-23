@@ -121,14 +121,15 @@ $stockUserFilterFields = $userDetails['stockUserFilterFields'] ?    explode(',',
 
 $stockTakeCnt = getMobileStockTakeCount($_SESSION['filterByStorage'], 1);
 
-$content = '<div class="modal-header pb-3">
+$content = '<form method="get" action="stock_pdf_download.php" target="_blank"><div class="modal-header pb-3">
                     <div class="d-md-flex align-items-center justify-content-between w-100 ">
+                       
                         <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
-                        
+                             
                                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
                                     <i class="fa fa-filter"></i>
                                 </button>
-                            
+                                 
                                 <div class="collapse" id="modalfiltertop">
                                     <div class="d-flex gap-3 modal-head-row">
                                     
@@ -139,15 +140,16 @@ $content = '<div class="modal-header pb-3">
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="checkAll" class="headChk-All form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
+                                                <input type="checkbox" checked="checked" id="headChk-Bx" name="address" class="headCheckbox header-address form-check-input" checked="checked" onclick="showHideByClass(\'address-section\')"
+                                                    value="1">
                                                 <span class="fs-13">'. showOtherLangText('Address') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="logo" class="form-check-input" value="4">
+                                                <input type="checkbox" checked="checked" id="headChk-Bx" name="logo" class="headCheckbox header-logo form-check-input" value="1" onclick="showHideByClass(\'logo-section\')">
                                                 <span class="fs-13">'. showOtherLangText('Logo') .'</span>
                                             </li>
                                         </ul>
@@ -159,19 +161,21 @@ $content = '<div class="modal-header pb-3">
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="issuedIn" class="form-check-input" value="2">
+                                                <input type="checkbox" checked="checked" name="issuedIn" id="smryChk-Bx" class="form-check-input smryCheckbox summary-store" value="1" onclick="showHideByClass(\'store-name\')">
                                                 <span class="fs-13">'. showOtherLangText('Stores') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="defaultCurrency" class="form-check-input" value="3">
+                                                <input type="checkbox" checked="checked" d="smryChk-Bx" id="smryChk-Bx"name="defaultCurrency" class="smryCheckbox summary-totalPrice form-check-input" onclick="showHideByClass(\'store-totalPrice\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Total Price') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="otherCurrency" class="form-check-input" value="4">
+                                                <input type="checkbox" checked="checked" 
+                                                   id="smryChk-Bx" name="otherCurrency" class="smryCheckbox summary-stockTake form-check-input" 
+                                                   onclick="showHideByClass(\'store-stockTakeCount\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Stock Take') .'</span>
                                             </li>
                                         </ul>
@@ -183,51 +187,52 @@ $content = '<div class="modal-header pb-3">
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="checkAll" class="itemChk-All form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="taskNo" class="form-check-input" value="2">
+                                                <input type="checkbox" '.( isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? '' : 'checked="checked"' ).' name="photo" class="itmTblCheckbox item-photo form-check-input" onclick="showHideByClass(\'item2\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Photo') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="date" class="form-check-input" value="3">
+                                                <input type="checkbox" checked="checked" name="date" class="itmTblCheckbox item-item form-check-input" 
+                                                 onclick="showHideByClass(\'item3\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Item') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="user" class="form-check-input" value="4">
+                                                <input type="checkbox" checked="checked" name="user" '.( isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-barCode form-check-input" onclick="showHideByClass(\'item4\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('BarCode') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="supInvoiceNo" class="form-check-input" value="5">
+                                                <input type="checkbox" checked="checked" name="qty" '.( isset($stockUserFilterFields) && !in_array(12, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-quantity form-check-input" onclick="showHideByClass(\'item5\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Quantity') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="type" class="form-check-input" value="6">
+                                                <input type="checkbox"  name="reqQty" '.( isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item6\')" class="itmTblCheckbox item-requestsQty form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Requests Qty') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="referTo" class="form-check-input" value="7">
+                                                <input type="checkbox" name="avlQty" '.( isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item7\')" class="itmTblCheckbox item-availableQty form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Available Qty') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="value" class="form-check-input" value="8">
+                                                <input type="checkbox" name="lastPrice" '.( isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckbox item-lastPrice form-check-input" onclick="showHideByClass(\'item8\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Last Price') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="defaultCurrencyTotal" class="form-check-input" value="9">
+                                                <input type="checkbox" name="stockPrice" '.( isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item9\')" class="itmTblCheckbox item-stockPrice form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Stock Price') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="secondCurrencyTotal" class="form-check-input" value="10">
+                                                <input type="checkbox" checked="checked" name="stockValue" '.( isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item10\')" class="itmTblCheckbox item-stockValue form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Stock Value') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="status" class="form-check-input" value="12">
+                                                <input type="checkbox" name="stockValue" '.( isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item11\')" class="itmTblCheckbox item-subCategory form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Sub Category') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="paymentNo" class="form-check-input" value="12">
+                                                <input type="checkbox" name="suplr" '.( isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="form-check-input itmTblCheckbox item-supplier" onclick="showHideByClass(\'item12\')"  value="1">
                                                 <span class="fs-13">'. showOtherLangText('Supplier') .'</span>
                                             </li>
                                         </ul>
@@ -238,15 +243,16 @@ $content = '<div class="modal-header pb-3">
                                 </div>
 
                         
-
+                        
                         </div>
-                        <a href="stockviewpdf.html" target=" " class="btn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <button type="submit"
+                    class="btn btn-primary dwnBtn"><span class="align-middle">'. showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
                     </div>
-                </div> 
+                </div>
                 <div class="modal-body px-2 py-3">
                     <div class="row pb-3">
                         <div class="col-6">
-                            <div class="modal-address ">
+                            <div class="address-section modal-address ">
                                 <h6 class="semibold fs-14">'. $clientDetRow['accountName'] .'</h6>
                                 <div class="fs-13 ">
                                     <p>'. $clientDetRow['address_one'] .'</p>
@@ -258,7 +264,7 @@ $content = '<div class="modal-header pb-3">
                             </div>
                         </div>
                         <div class="col-6 text-end">
-                            <div class="modal-logo">';
+                            <div class="modal-logo logo-section">';
                                 if($clientDetRow['logo'] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$clientDetRow['logo'] ))
                         {  
                             $content .=  '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" width="100" height="100">';
@@ -287,23 +293,26 @@ $content = '<div class="modal-header pb-3">
                             <div class="storesection pe-6 w-100">
                                 <div class="modal-table fs-12 w-100">
                                   
-                                    <div class="table-row thead">
-                                        <div class="table-cell">'. showOtherLangText('Stores') .'</div>
-                                        <div class="table-cell">'. showOtherLangText('Total Price') .'</div>';
+                                    <div class="table-row thead summaryPart">
+                                        <div class="table-cell "><span class="store-name summaryPart">'. showOtherLangText('Stores') .'</span></div>
+                                        <div class="table-cell"><span class="store-totalPrice summaryPart">'. showOtherLangText('Total Price') .'</span></div>';
                                       if($stockTakeCnt > 0)
                                      {
-                                     $content .= '<div class="table-cell">'. showOtherLangText('Stock Take') .'</div>';
+                                     $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. showOtherLangText('Stock Take') .'</span></div>';
                                      }
                                     $content .= '</div>';
                                     while($storageDeptRow = mysqli_fetch_array($storeQry))
                                     {
                                     $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
                                     $content .= '<div class="table-row">
-                                           <div class="table-cell">'. $storageDeptRow['name'] .' </div>
-                                          <div class="table-cell">'. getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</div>';
-                                    $content .= '<div class="table-cell">'. getMobileStockTakeCount($storageDeptRow['id']).'</div>
+                                           <div class="table-cell"><span class="store-name summaryPart">'. $storageDeptRow['name'] .'</span> </div>
+                                          <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</div></div>';
+                                     if($stockTakeCnt > 0)
+                                    {
+                                    $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. getMobileStockTakeCount($storageDeptRow['id']).'</span></div>
                                          </div>';
                                     }
+                                }
                         
                                 $content .= '</div>
                             </div>
@@ -311,10 +320,10 @@ $content = '<div class="modal-header pb-3">
                     </div>
                     
 
-                    <div class="overflowTable"> 
+                    <div class="overflowTable itemSectionPart"> 
                         <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
-                                <div class="table-cell">#</div>
+                                <div class="table-cell"><span class="item1 itemSectionPart">#</span></div>
                                 <div class="table-cell"><span class="item2 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Photo</span></div>';
                          $content .=  '<div class="table-cell"><span class="item3 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'.showOtherLangText('Item') .'</span><span class="slashItem itemSectionPart">/</span><span class="itemSectionPart item4" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('BarCode').'</span></div>';
 
@@ -355,7 +364,7 @@ $content = '<div class="modal-header pb-3">
                              $img = '';
                             if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
                              {  
-                                $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="40" height="40">';
+                                $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" alt="Outlet_Photo">';
                              }
                              $content .= '<div class="table-row">
                                 <div class="table-cell">'. $i .'</div>
@@ -375,5 +384,5 @@ $content = '<div class="modal-header pb-3">
                             
                       $content .=   '</div>
                     </div>
-                </div>';
+                </div></form>';
 echo $content;
