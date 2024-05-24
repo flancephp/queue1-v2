@@ -267,7 +267,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Stock View</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Stock View'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -300,21 +300,6 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
 
                 <section class="ordDetail stockView">
 
-                    <!-- <div class="alrtMessage">
-                        <div class="container">
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><strong>Hello User!</strong> Your item overwrite successfully.</p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><strong>Hello User!</strong> error while overwrite item.</p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        </div>
-                    </div> -->
                     <form name="frm" id="frm" method="get" action="">
                         <input type="hidden" name="subCatId" id="subCatId" value="" />
                         <input type="hidden" name="suppId" id="suppId" value="" />
@@ -353,7 +338,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                         <a href="stockView.php?filterByStorage=<?php echo $storageDeptRow['id'];?>" class="otrStock <?php echo $_GET['filterByStorage'] == $storageDeptRow['id'] ? 'stockActive-br' : '';?>">
                                             <div class="othStr">
                                                 <div class="storeCont">
-                                                    <h2 class="h2"><?php echo $storageDeptRow['name'];?></h2>
+                                                    <h2 class="h2"><?php echo getMobileStockTakeCount($storageDeptRow['id']); ?><br><?php echo $storageDeptRow['name'];?></h2>
                                                     <hr>
                                                     <p class="body2"><?php showPrice($totalstockValue,$getDefCurDet['curCode']);?></p>
                                                 </div>
@@ -370,14 +355,20 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                 <!-- <div class="strRemcol"></div> -->
                                 <div class="strfetCol text-center">
                                     <div class="row stkRow">
-                                        <div class="col-md-6 stockFeat brdLft">
+                                        <div class="col-md-3 stockFeat brdLft">
                                             <a href="javascript:void(0)" class="tabFet">
                                                 <span class="prdItm"></span>
-                                                <p class="btn2">Produce Item</p>
+                                                <p class="btn2">Convert stock take</p>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 stockFeat brdLft">
+                                            <a href="viewMobileStockTake.php" class="tabFet">
+                                                <span class="prdItm"></span>
+                                                <p class="btn2">View stock take</p>
                                             </a>
                                         </div>
 
-                                        <div class="col-md-6 stockFeat dropStk">
+                                        <div class="col-md-3 stockFeat dropStk">
                                             <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span class="edIt"></span>
@@ -387,11 +378,9 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                             </a>
 
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="stockTake.php">Stock take1</a>
+                                                <li><a class="dropdown-item" href="stockTake.php">Import Stock Take</a>
                                                 </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Stock take2</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Other</a></li>
+                                                
                                             </ul>
                                         </div>
                                     </div>
@@ -788,8 +777,16 @@ function sortTableByColumn(table,field,order) {
 
     if ($('.' + targetId).is(":visible")) {
         $('.' + targetId).css('display', 'none');
+        
     } else {
+        if(targetId=='item2' || targetId=='item3' || targetId=='item4' || targetId=='item5'|| targetId=='item6'|| targetId=='item7'|| targetId=='item8'|| targetId=='item9'|| targetId=='item10'|| targetId=='item11'|| targetId=='item12')
+        {
         $('.itemSectionPartMain').css('display', 'block');
+        }
+        if(targetId=='store-name' || targetId=='store-totalPrice' || targetId=='store-stockTakeCount')
+        {    
+        $('.summarySectionPartMain').css('display', 'block');
+        }
         $('.' + targetId).css('display', 'block');
     }
     
@@ -804,6 +801,9 @@ function sortTableByColumn(table,field,order) {
             $('.slashItem').css('display', 'block');
         }
     }
+
+
+
    }
 
    $('body').on('click', '.headChk-All', function() {
@@ -838,17 +838,17 @@ function sortTableByColumn(table,field,order) {
 
     if( $(".smryChk-All:checked").length == 1  ) 
     {
-        $("#summary").prop('checked', true);
+        //$("#summary").prop('checked', true);
         
-        $('.summaryPart').css('display', 'block');
+        $('.summaryPart').show();
         $(".smryCheckbox").prop('checked', true);
         
     }
     else
     {
         $(".smryCheckbox").prop('checked', false);
-        $('.summaryPart').css('display', 'none');
-        $("#summary").prop('checked', false);
+        $('.summaryPart').hide();
+        //$("#summary").prop('checked', false);
         
     }
 
@@ -873,7 +873,12 @@ function sortTableByColumn(table,field,order) {
     }
 
 });
+
   </script>
+  <style>
+.strfetCol { width:23%; }
+  </style>
+}
 </body>
 
 </html>

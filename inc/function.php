@@ -2099,7 +2099,7 @@ function getMobileStockTakeTotalCount()
 	
 }
 
-function getMobileStockTakeCount($storageId)
+function getMobileStockTakeCount($storageId, $isPdf=0)
 {
 	global $con;
 	
@@ -2114,7 +2114,12 @@ function getMobileStockTakeCount($storageId)
 	$result = mysqli_query($con, $sql);
 	$row = mysqli_num_rows($result);
 	
-	return  ( ($row > 0) ? ('<span class="mblCnt">'.$row).'</span>' : '');
+	if($isPdf == 0)
+	{
+		return  ( ($row > 0) ? ('<span class="mblCnt">'.$row).'</span>' : '');
+	}
+
+	return $row;	
 	
 }
 

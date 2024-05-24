@@ -122,21 +122,25 @@ $content .= '<html lang="en">';
 $content .=   '<head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>PDF Design</title>
+      <title>'.showOtherLangText('Stock PDF').'</title>
       <link rel="preconnect" href="https://fonts.googleapis.com/">
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
       <link href="./PDF Design_files/css2" rel="stylesheet">
       <style>
-         @page { margin: 10px 0px; }
+         @page { margin: 10px 10px; }
       </style>
    </head>';
  $content .=   '<body style="font-family: \"Inter\", sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
   $content .=   '<table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
          <tbody>
             <tr valign="top">';
-   $content .= '<td width="50%">
-                  <table style="width: 100%; border-spacing: 0;">
+        $content .= '<td width="50%">';
+        if ($_GET['address'] == 1 || $_GET['logo'] == 1) 
+        {
+         if ($_GET['address'] == 1) 
+                    {
+        $content .= '<table style="width: 100%; border-spacing: 0;">
                      <tbody>
                         <tr>
                            <td style="font-size: 14px; line-height: 16px; font-weight: 600;">'.$clientDetRow['accountName'].'</td>
@@ -154,11 +158,13 @@ $content .=   '<head>
                            </td>
                         </tr>
                      </tbody>
-                  </table>
-               </td>';
+                  </table>';
+            } }
+        $content .= '</td>';
+          $content .= '<td width="50%" align="right">';
                 if ($_GET['logo'] == 1) 
                     {
-            $content .= '<td width="50%" align="right">';
+          
                  if($clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
                             {  
                                 $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 60px; width: auto;">';
@@ -167,8 +173,9 @@ $content .=   '<head>
                             {
                                 $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 60px; width: auto;">';
                             }
-             $content .= '</td>';
+           
                         }
+            $content .= '</td>';
             $content .= '</tr>
          </tbody>
       </table>
@@ -183,13 +190,16 @@ $content .=   '<head>
                 </div>
             </td>
         </tr>
-    </table>
-    <table style="font-size:12px;" width="100%">
+    </table>';
+    $totalStockTakeCnt = getMobileStockTakeCount($_SESSION['filterByStorage'], 1);
+            
+    $_GET['stockTake'] = $totalStockTakeCnt > 0 ? 1 : 0;
+   $content .= '<table style="font-size:12px;" width="100%">
         <tr style="vertical-align: baseline;">
             <td style="width: 55%;">
                 <table style="width:100%; margin-right:1px; font-size:12px; border-collapse: collapse;">';
                     
-       $content .= '<tr style="background-color: rgb(122 137 255 / 20%); font-weight:bold;">';
+       $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">';
          if ($_GET['store'] == 1) 
             {
         $content .= '<td style="padding: 8px 5px;">'.showOtherLangText('stores').'</td>';
@@ -198,6 +208,7 @@ $content .=   '<head>
             {
         $content .= '<td style="padding: 8px 5px;">'.showOtherLangText('Total Price').'</td>';
             }
+         
         if ($_GET['stockTake'] == 1) 
             {
         $content .= '<td style="padding: 8px 5px;">'.showOtherLangText('Stock Take').'</td>';
@@ -205,24 +216,37 @@ $content .=   '<head>
         if( !isset($_SESSION['filterByStorage']) || ($_SESSION['filterByStorage']) == '' )//hide if particular storage is selected
             { 
          $content .= '</tr>';
+       if($_GET['store'] == 1 || $_GET['totalPrice'] == 1 || $_GET['stockTake'] == 1)
+         {
          $content .= '<tr>';
+           if ($_GET['store'] == 1) 
+                {
          $content .=  '<td style="padding: 8px 5px;">'.showOtherLangText('All stores').'</td>';
+                }
+                 if ($_GET['totalPrice'] == 1) 
+                {
          $content .=  '<td style="padding: 8px 5px;">'.getPriceWithCur($storeResRow['totalstockValue'],$getDefCurDet['curCode']).'</td>';
+               }
+                if ($_GET['stockTake'] == 1) 
+                {
          $content .=  '<td style="padding: 8px 5px;">'.getMobileStockTakeTotalCount().'</td>';
+                }
          $content .= '</tr>';
-           }
+           }}
+        if($_GET['store']==1 || $_GET['totalPrice'] == 1 || $_GET['stockTake']==1)
+        {   
         while($storageDeptRow = mysqli_fetch_array($storeQry))
                 {
                     $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);  
 
-         $content .= '<tr><td></td>';
+         $content .= '<tr>';
           if ($_GET['store'] == 1) 
                     {
          $content .=  '<td style="padding: 8px 5px;">'.$storageDeptRow['name'].'</td>';
                     }
                  if ($_GET['totalPrice'] == 1) 
                     {
-         $content .=  '<td style="padding: 8px 5px;">'.getPriceWithCur($storeResRow['totalstockValue'],$getDefCurDet['curCode']).'</td>';
+         $content .=  '<td style="padding: 8px 5px;">'.getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</td>';
                    }
                  if ($_GET['stockTake'] == 1) 
                     {
@@ -231,6 +255,7 @@ $content .=   '<head>
          $content .= '</tr>';                                  
 
                  }
+             }
           $content .= '</table>
             </td>
             
@@ -239,7 +264,7 @@ $content .=   '<head>
     if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_GET['qty'] == 1 || $_GET['reqQty'] == 1 || $_GET['avlQty'] == 1 || $_GET['lastPrice'] == 1 || $_GET['stockPrice'] == 1 || $_GET['stockValue'] == 1 || $_GET['subCat'] == 1 || $_GET['suplr'] == 1) 
         {
     $content .= '<table style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">';
-    $content .= '<tr style="font-weight:bold; background-color: rgb(122 137 255 / 20%);">';
+    $content .= '<tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">';
            $headerArr =
                         [
                             1 => ''.showOtherLangText('#').'',

@@ -140,7 +140,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="headChk-All form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" class="headChk-All form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
@@ -161,33 +161,36 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" id="summary"class="smryChk-All form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="issuedIn" id="smryChk-Bx" class="form-check-input smryCheckbox summary-store" value="1" onclick="showHideByClass(\'store-name\')">
+                                                <input type="checkbox" checked="checked" name="store" id="smryChk-Bx" class="form-check-input smryCheckbox summary-store" value="1" onclick="showHideByClass(\'store-name\')">
                                                 <span class="fs-13">'. showOtherLangText('Stores') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" d="smryChk-Bx" id="smryChk-Bx"name="defaultCurrency" class="smryCheckbox summary-totalPrice form-check-input" onclick="showHideByClass(\'store-totalPrice\')" value="1">
+                                                <input type="checkbox" checked="checked" d="smryChk-Bx" id="smryChk-Bx"name="totalPrice" class="smryCheckbox summary-totalPrice form-check-input" onclick="showHideByClass(\'store-totalPrice\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Total Price') .'</span>
-                                            </li>
-                                            <li>
+                                            </li>';
+                                        if($stockTakeCnt > 0)
+                                {    
+                                         $content .=  '<li>
                                                 <input type="checkbox" checked="checked" 
-                                                   id="smryChk-Bx" name="otherCurrency" class="smryCheckbox summary-stockTake form-check-input" 
+                                                   id="smryChk-Bx" name="stockTake" class="smryCheckbox summary-stockTake form-check-input" 
                                                    onclick="showHideByClass(\'store-stockTakeCount\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Stock Take') .'</span>
-                                            </li>
-                                        </ul>
+                                            </li>';
+                                }
+                                        $content .=  '</ul>
                                     </div>
 
-                                    <div class=" dropdown">
+                                    <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Item Table<i class="fa-solid fa-angle-down ps-1"></i>
+                                        '. showOtherLangText('Item Table') .'<i class="fa-solid fa-angle-down ps-1"></i>
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="itemChk-All form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" class="itemChk-All form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
@@ -195,12 +198,12 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                                 <span class="fs-13">'. showOtherLangText('Photo') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="date" class="itmTblCheckbox item-item form-check-input" 
+                                                <input type="checkbox" checked="checked" name="itemName" class="itmTblCheckbox item-item form-check-input" 
                                                  onclick="showHideByClass(\'item3\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Item') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="user" '.( isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-barCode form-check-input" onclick="showHideByClass(\'item4\')" value="1">
+                                                <input type="checkbox" checked="checked" name="barCode" '.( isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-barCode form-check-input" onclick="showHideByClass(\'item4\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('BarCode') .'</span>
                                             </li>
                                             <li>
@@ -228,7 +231,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                                 <span class="fs-13">'. showOtherLangText('Stock Value') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="stockValue" '.( isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item11\')" class="itmTblCheckbox item-subCategory form-check-input" value="1">
+                                                <input type="checkbox" name="subCat" '.( isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item11\')" class="itmTblCheckbox item-subCategory form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Sub Category') .'</span>
                                             </li>
                                             <li>
@@ -288,12 +291,12 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                         </div>
                     </div>
 
-                    <div class="summery-row">
+                    <div class="summery-row summaryPart summarySectionPartMain">
                         <div class="row">
                             <div class="storesection pe-6 w-100">
                                 <div class="modal-table fs-12 w-100">
                                   
-                                    <div class="table-row thead summaryPart">
+                                    <div class="table-row thead">
                                         <div class="table-cell "><span class="store-name summaryPart">'. showOtherLangText('Stores') .'</span></div>
                                         <div class="table-cell"><span class="store-totalPrice summaryPart">'. showOtherLangText('Total Price') .'</span></div>';
                                       if($stockTakeCnt > 0)
@@ -301,12 +304,27 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                      $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. showOtherLangText('Stock Take') .'</span></div>';
                                      }
                                     $content .= '</div>';
+                                    if( !isset($_SESSION['filterByStorage']) || ($_SESSION['filterByStorage']) == '' )
+                    { 
+
+                       $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
+                                    $content .= '<div class="table-row">
+                                           <div class="table-cell"><span class="store-name summaryPart"> '. showOtherLangText('All Stores') .'</span> </div>
+                                          <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($storeResRow['totalstockValue'],$getDefCurDet['curCode']).'</div>';
+                                     if($stockTakeCnt > 0)
+                                    {
+                                    $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart"> '. getMobileStockTakeTotalCount().'</span></div>
+                                         </div>';
+                                    }
+                    }
+
                                     while($storageDeptRow = mysqli_fetch_array($storeQry))
                                     {
+
                                     $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
                                     $content .= '<div class="table-row">
                                            <div class="table-cell"><span class="store-name summaryPart">'. $storageDeptRow['name'] .'</span> </div>
-                                          <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</div></div>';
+                                          <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</div>';
                                      if($stockTakeCnt > 0)
                                     {
                                     $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. getMobileStockTakeCount($storageDeptRow['id']).'</span></div>
@@ -320,7 +338,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                     </div>
                     
 
-                    <div class="overflowTable itemSectionPart"> 
+                    <div class="overflowTable itemSectionPartMain itemSectionPart"> 
                         <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
                                 <div class="table-cell"><span class="item1 itemSectionPart">#</span></div>
