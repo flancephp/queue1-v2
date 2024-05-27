@@ -362,13 +362,9 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                             </a>
                                         </div>
                                         <div class="col-md-3 stockFeat brdLft">
-                                            <a href="viewMobileStockTake.php" class="tabFet">
-                                                <span class="prdItm"></span>
-                                                <p class="btn2">View stock take</p>
-                                            </a>
+                                            <?php  access_view_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage']);  ?>
                                         </div>
-
-                                        <div class="col-md-3 stockFeat dropStk">
+                                         <div class="col-md-3 stockFeat dropStk">
                                             <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span class="edIt"></span>

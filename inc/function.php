@@ -3904,8 +3904,12 @@ function access_view_stockTake($designation_id,$accountId,$filterByStorage){
 	    if(isset($filterByStorage) && $filterByStorage > 0)
         {
             ?>
-<a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="btn btn-primary stay-btn"
-    style="width: 160px;margin-top:2px; "><?php echo showOtherLangText('View Stock Take') ?></a>
+<!-- <a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="btn btn-primary stay-btn"
+    style="width: 160px;margin-top:2px; "><?php //echo showOtherLangText('View Stock Take') ?></a> -->
+<a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="tabFet">
+                                                <span class="prdItm"></span>
+                                                <p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
+                                            </a>
 
 <?php 
 
@@ -3913,8 +3917,8 @@ function access_view_stockTake($designation_id,$accountId,$filterByStorage){
         else
         {
 			?>
-<input type="button" id="btnFileUpload" disabled="disabled" class="btn" style="width: 160px;margin-top:2px;"
-    value="<?php echo showOtherLangText('View Stock Take') ?>" /><br>
+<!-- <input type="button" id="btnFileUpload" disabled="disabled" class="btn" style="width: 160px;margin-top:2px;"
+    value="<?php //echo showOtherLangText('View Stock Take') ?>" /><br> -->
 
 <?php
 		}
