@@ -66,7 +66,7 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
     }
 }
 
-$backLink = 'stock.php';
+$backLink = 'stockTake.php';
 if( isset($_SESSION['processId']) && isset($_SESSION['storeId']) )
 {   
     $backLink = 'viewMobileStockTake.php?stockTakeId='.$_SESSION['storeId'];
@@ -198,7 +198,7 @@ mysqli_query($con, $sql);
 unset($_SESSION['processId']);          
 }
 
-echo "<script>window.location = 'stock.php?stockTake=1'</script>";
+echo "<script>window.location = 'stockView.php?stockTake=1'</script>";
 
 }
 
@@ -207,6 +207,85 @@ $sqlSet = " SELECT * FROM tbl_stores WHERE id = '".$_SESSION['storeId']."'  AND 
 $storeQry = mysqli_query($con, $sqlSet);
 $storeRow = mysqli_fetch_array($storeQry);
 
+$error = '';
+if( isset($_POST['btnSbt']) )
+{   
+// echo '<pre>';
+// print_r($_SESSION);
+// print_r($_POST);
+// exit;
+    if( !isset($_SESSION['stockTakeLoggedIn']) )
+    { 
+        //-------------------------------------------------------------------
+            $query ="SELECT * FROM tbl_user WHERE password = '" . $_POST['pass'] . "' AND status = 1 AND account_id = '".$_SESSION['accountId']."'  ";
+            $result = mysqli_query($con, $query);
+            $res = mysqli_fetch_array($result);
+            
+            if ( !empty($res) ) {
+
+                $_SESSION['stockTakeLoggedIn'] = 1;
+            
+            }
+            else
+            {
+                  $url = "stockTake.php?passworderr=1";
+                 header("Location:$url");
+            }
+    }
+    
+    
+    if( isset($_SESSION['stockTake']) &&  isset($_SESSION['stockTakeLoggedIn']) )
+    {
+        if( is_array($_SESSION['stockTake']) && !empty($_SESSION['stockTake']) )
+        {
+            foreach($_SESSION['stockTake'] as $key=>$row)
+            {
+                if( trim($row['BarCode']) == $_POST['barCode'] )
+                {   
+                    $_SESSION['stockTake'][$key] = ['BarCode'=>$row['BarCode'], 'StockTake'=>$_POST['itemCount']];
+                }
+            }
+        }
+        
+        $url = "stockTake.php?stockedit=1";
+    
+         header("Location:$url");
+        
+        exit;
+    }
+    
+    if( isset($_SESSION['processId']) && isset($_SESSION['storeId']) &&  isset($_SESSION['stockTakeLoggedIn']) )
+    {   
+        
+        $sql=" SELECT t.*, p.barCode BarCode  FROM  tbl_mobile_items_temp t 
+                                INNER JOIN tbl_products p ON(p.id = t.pId) AND p.account_id = t.account_id 
+                        WHERE t.processId = '".$_SESSION['processId']."' AND t.account_id = '".$_SESSION['accountId']."'   AND t.`stockTakeType` = 1 AND t.status=1 ";
+        $result = mysqli_query($con, $sql);
+        
+        $pIdArr = [];
+        while($stockTakeRes = mysqli_fetch_array($result) )
+        {
+            
+            if( trim($stockTakeRes['BarCode']) == $_POST['barCode'] )
+            {   
+                 $sql=" UPDATE  tbl_mobile_items_temp  SET qty = '".$_POST['itemCount']."'
+                        WHERE processId = '".$_SESSION['processId']."'  AND account_id = '".$_SESSION['accountId']."'  AND `stockTakeType` = 1 AND status=1 AND pId='".$stockTakeRes['pId']."' ";
+                mysqli_query($con, $sql);
+                
+                
+                $url = "stockTake.php?stockedit=1";
+    
+                header("Location:$url");
+                
+                exit;
+            }
+        }
+        
+        
+    }
+        
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -282,42 +361,44 @@ $storeRow = mysqli_fetch_array($storeQry);
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
+                    <?php if(isset($_GET['stockedit']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 
-echo isset($_GET['update']) ? ' '.showOtherLangText('Supplier Edited Successfully').' ' : '';
-
-echo isset($_GET['added']) ? ' '.showOtherLangText('Supplier Added Successfully').' ' : '';
-
-echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successfully').' ' : '';s ?>
+echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited successfully').' ' : '';
+ ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <?php if(isset($_GET['err'])) { ?>
+                            <?php if(isset($_GET['passworderr'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Supplier cannot be Deleted as it has been assigned in order').' ' : '';
+                                <p><?php echo isset($_GET['passworderr']) ? ' '.showOtherLangText('Password Error').' ' : '';
  ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
+                             <form method="post" action="">
+
+
+
+                    <input type="hidden" name="storeId" value="<?php echo $_SESSION['storeId'];?>" />
+
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="viewMobileStockTake.php?stockTakeId=<?php echo $_GET['stockTakeId']; ?>" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn">Back</span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <button type="submit" class="btn btn-primary" style="width: 165px;">
-                                    <span                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
-                                            <span class="nstdSpan">Supplier</span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Overwrite and Save') ?></button></span>
-                                    </button>
+                                    <button type="submit" class="sub-btn std-btn mb-usrBkbtn" style="width: 165px;"><span
+                                            class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
+                                            <span class="nstdSpan">Supplier</span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Overwrite and Save') ?></span></button>
                                 </div>
                             </div>
 
@@ -333,12 +414,12 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                                 <div class="btnBg">
                                     <div class="d-flex align-items-center itmMng-xlIcn">
                                         <div class="chkStore">
-                                            <a href="stockTake_excel.php" target="_blank">
+                                            <a href="stocktake_excel.php" target="_blank">
                                                 <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
                                             </a>
                                         </div>
                                         <div class="chkStore">
-                                            <a href="stockTake_pdf.php" target="_blank">
+                                            <a href="stocktake_pdf_download.php" target="_blank">
                                                 <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
                                             </a>
                                         </div>
@@ -448,12 +529,12 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                                                 <p><?php echo $fileDataRows[$row['barCode']];?></p>
                                             </div>
                                             <div class="tb-head supPhn-Clm">
-                                                <p><?php echo $row['stockQty'];?></p>
+                                                <p><?php echo $fileDataRows[$row['barCode']]-$row['stockQty'];?></p>
                                             </div>
                                         </div>
                                         <div class="supTbl-IcnCol">
                                             <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a href="addEditSupplier.php?id=<?php echo $row['id'];?>" class="userLink">
+                                                <a onclick="editStockTake('<?php echo $row['barCode'];?>');" class="userLink">
                                                     <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                                 </a>
                                                 
@@ -474,7 +555,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                                </div>
                             </div>
                         </div>
-
+                        </form>
                     </div>
                 </section>
 
@@ -484,40 +565,98 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>
-    <?php require_once('footer.php');?>
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
+    <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
                 </div>
-                
+                <div class="modal-body">
+                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?> *" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?> *" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                </div>
+                  <div>
+                    <div class="feeSave">
+                        <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
-                    </div>
-                    <div class="btnBg">
-                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </form>
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
+   <div class="modal" tabindex="-1" id="order_details" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div id="order_details_supplier" class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Stock take edit'); ?></h1>
+                </div>
+               
+                <form method="post" id="stocksubmit" action="editStockTakeItemCount.php?barCode=<?php echo $_GET['barCode']; ?>" autocomplete="off">
+            
+                 <input type="hidden" name="barCode" id="barCode" value="<?php echo $_GET['barCode'];?>"/>
+                 <input type="hidden" name="returnUrl" value="<?php echo $_GET['returnUrl'];?>"/>
+                <div class="modal-body">
+                    <?php 
+                    if( !isset($_SESSION['stockTakeLoggedIn']) )
+                    {
+                    ?><input type="password" required class="form-control" id="pass" name="pass" placeholder="<?php echo showOtherLangText('Password'); ?> *" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                    <?php } ?>
+                    <input type="text" required class="form-control" id="itemCount" name="itemCount" placeholder="<?php echo showOtherLangText('Stock take');?> *" autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required>
+                   
+                </div>
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="submit" name="btnSbt" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                      <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('Cancel'); ?></button>
+                    </div>
+                </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    </form>
+   
 </body>
 
 </html>
 <script>  
- function getDelNumb(delId){
-var newOnClick = "window.location.href='manageSuppliers.php?delId=" + delId + "'";
+//  function getDelNumb(delId){
+// var newOnClick = "window.location.href='manageSuppliers.php?delId=" + delId + "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+//       $('.deletelink').attr('onclick', newOnClick);
+//      $('#delete-popup').modal('show');
 
- }  
+//  }  
 
  jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
@@ -539,4 +678,22 @@ var newOnClick = "window.location.href='manageSuppliers.php?delId=" + delId + "'
 
 
     }
+     function getDelNumb(canId, ordType){
+var newOnClick = "window.location.href='runningOrders.php?canId=" + canId + "&type=" + ordType+ "'";
+
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
+
+ }
+    function editStockTake(barCode) {
+     
+        $('#barCode').val(barCode);
+        let url = 'stockTake.php?barCode='+barCode;
+        $('#addServiceFeeFrm').attr('action',url);
+        $('#order_details').modal('show');
+
+       
+
+}
+
 </script>

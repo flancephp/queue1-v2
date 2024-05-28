@@ -623,7 +623,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 			//issue in
 				?>
                                                  <li><a class="dropdown-item"
-                                                                    href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-share-square"></i> <?php echo showOtherLangText('Details(Supplier)') ?></a>
+                                                        href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-share-square"></i> <?php echo showOtherLangText('Details(Supplier)') ?></a>
                                                             </li>
                                                 <?php 
 			} 

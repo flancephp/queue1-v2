@@ -307,6 +307,17 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                      </form>
                     <div class="stkView">
                         <div class="container">
+                            <?php if(isset($_GET['stockTake'])) {?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p><?php 
+
+echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfully').' ' : '';
+                              ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
                             <div class="row">
                                 <div class="storeCol">
                                     <div class="store text-center d-flex">
