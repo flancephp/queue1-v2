@@ -217,8 +217,22 @@ $suppOptions .= '<li data-id="'.$departRow['id'].'" data-value="'.$departRow['na
                                                 </li>';
 }
 $suppOptions .= '</ul>';
-
-
+ $convertrawitems = false;
+if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
+{
+    $convertrawitems = true;
+    $_SESSION['convertItemsPost'] = $_POST;
+    
+    $sql = "SELECT p.*, s.qty stockQty  FROM tbl_stocks s 
+                                INNER JOIN tbl_products p ON(s.pId = p.id) AND s.account_id = p.account_id WHERE p.id = '".$_POST['rawItem']."'  AND p.account_id = '".$_SESSION['accountId']."'   ";
+    $qryRawItem = mysqli_query($con, $sql);
+    $rawItemRow = mysqli_fetch_array($qryRawItem);
+    
+    $sql = "SELECT p.*, s.qty stockQty  FROM tbl_stocks s 
+                                RIGHT JOIN tbl_products p ON(s.pId = p.id) AND s.account_id = p.account_id WHERE p.id = '".$_POST['convertItem']."'  AND p.account_id = '".$_SESSION['accountId']."' ";
+    $qryConvertItem = mysqli_query($con, $sql);
+    $convertItemRow = mysqli_fetch_array($qryConvertItem);  
+}
 
 ?>
 <!DOCTYPE html>
@@ -307,11 +321,12 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                      </form>
                     <div class="stkView">
                         <div class="container">
-                            <?php if(isset($_GET['stockTake'])) {?>
+                            <?php if(isset($_GET['stockTake']) || isset($_GET['convertRawItem'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 
 
 echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfully').' ' : '';
+echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted successfully').' ' : '';
                               ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -365,32 +380,26 @@ echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfu
                                 </div>
                                 <!-- <div class="strRemcol"></div> -->
                                 <div class="strfetCol text-center">
-                                    <div class="row stkRow">
+                                     <form action="stockTake.php" id="upload_form" name="upload_form" method="post"
+                                    enctype="multipart/form-data"> <div class="row stkRow">
+                                       
+
+                                    <input type="hidden" name="storeId"
+                                        value="<?php echo $_GET['filterByStorage'];?>" />
                                         <div class="col-md-3 stockFeat brdLft">
-                                            <a href="javascript:void(0)" class="tabFet">
-                                                <span class="prdItm"></span>
-                                                <p class="btn2">Convert stock take</p>
-                                            </a>
+                                            
+                                            <?php  access_raw_item_convert($_SESSION['designation_id'],$_SESSION['accountId']); ?>
                                         </div>
                                         <div class="col-md-3 stockFeat brdLft">
                                             <?php  access_view_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage']);  ?>
                                         </div>
                                          <div class="col-md-3 stockFeat dropStk">
-                                            <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="edIt"></span>
-                                                <p class="btn2 d-flex justify-content-center align-items-center">
-                                                    <span>Stock take</span> <i class="fa-solid fa-angle-down"></i>
-                                                </p>
-                                            </a>
-
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="stockTake.php">Import Stock Take</a>
-                                                </li>
-                                                
-                                            </ul>
+                                            
+                                            
+    <?php access_import_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage'], $rightSideLanguage);  ?>
+                                           
                                         </div>
-                                    </div>
+                                    </div></form>
                                 </div>
                             </div>
                         </div>
@@ -602,7 +611,6 @@ echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfu
                             $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="imgItm">';
                          }
                      
-                         //$catNames =  $row['parentCatName'].'<br/>/'. ($row['childCatName'] == 'z' ? '' :  $row['childCatName']);
                          $catNames = ($row['childCatName'] == 'z' ? '' :  $row['childCatName']); ?>
                              <div class="newStockTask"><div class="d-flex align-items-center border-bottom itmBody">
                                 <div class="mbShw d-flex align-items-center">
@@ -658,6 +666,95 @@ echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfu
             </div>
         </div>
     </div>
+
+   
+   <div  class="modal addUser-Form row container glbFrm-Cont" tabindex="-1" id="qty_in_stock" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div id="qty_in_stock_ajax_content" class="modal-content">
+
+                
+            </div>
+        </div>
+    </div>
+    
+
+    
+  
+    <div class="modal addUser-Form row container glbFrm-Cont" id="convert_raw_items" tabindex="-1" aria-labelledby="issueout2label" aria-hidden="true"> <form method="post" id="frmconvert" name="frmconvert" action="convertRawItemsConfirmSubmit.php">
+                <div class="modal-dialog modal-dialog-centered modal-550">
+                    <div class="modal-content">
+
+                    <div class="modal-body  fs-15">
+                        <div class="pb-3">
+                            <h2>Convert raw item</h2>
+                          
+                        </div>
+
+                       <table class="issueout2-table w-100 fs-13">
+                            <tr class="semibold">
+                                <th>Photo</th>
+                                <th>Item</th>
+                                <th>Converted Qyt</th>
+                                <th>Unit</th>
+                                <th>Qyt Before</th>
+                                <th>Qyt After</th>
+                                <th>Price</th>
+                                <th>Converted Qyt Value</th>
+                            </tr>
+                            <tr class="semibold">
+                                <td><?php 
+                             if( $rawItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/".$rawItemRow['imgName'] ) )
+                             {  
+                                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/'.$rawItemRow['imgName'].'" >';
+                                
+                             }
+                            ?></td>
+                                <td><?php echo $rawItemRow['itemName']!==''?$rawItemRow['itemName']:'';?></td>
+                            <td><?php echo $_POST['qtyToConvert'];?></td>
+                            <td><?php echo $rawItemRow['unitC'];?></td>
+                            
+                            <td><?php echo $rawItemRow['stockQty'];?></td>
+                            
+                            <td><?php  $rawItemRow['stockQty']-$_POST['qtyToConvert'];?></td>
+                            
+                            <td><?php echo $rawItemRow['price'];
+                            if($rawItemRow['price']!=='') { echo showPrice($rawItemRow['price'],$getDefCurDet['curCode']); } ?></td>
+                            <td><?php if($rawItemRow['price']!=='' && $_POST['qtyToConvert']!='') { echo  showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode']); }?></td>
+                            </tr>
+                            <tr class="semibold">
+                                <td><?php 
+                             if( $convertItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/".$convertItemRow['imgName'] ) )
+                             {  
+                                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/'.$row['imgName'].'" width="60" height="60">';
+                                
+                             }
+                            ?></td>
+                                <td><?php echo $convertItemRow['itemName'];?></td>
+                            <td><?php echo $_POST['convertedQty'];?></td>
+                            <td><?php echo $convertItemRow['unitC'];?></td>
+                            
+                            <td><?php echo $convertItemRow['stockQty'] > 0 ? $convertItemRow['stockQty'] : 0;?></td>
+                            
+                            <td><?php echo $convertItemRow['stockQty']+$_POST['convertedQty'];?></td>
+                            
+                            <td><?php echo showPrice($_POST['unitPrice'],$getDefCurDet['curCode']);?></td>
+                            <td><?php echo showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode']);?></td>
+                            </tr>
+                             
+                            
+                       </table>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" onClick="approveConvert();" >Approve</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    </div>
+                </div>
+                </form>
+                </div>
+    
+    
     <!-- ===== Stock pdf popup new in div format======= -->
 
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
@@ -665,8 +762,9 @@ echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfu
     <script type="text/javascript" src="Assets/js/custom.js"></script>
     <script>
     $(function() {
-    
-
+       <?php if($convertrawitems==true){ ?>
+        $('#convert_raw_items').modal('show');
+    <?php } ?>
       $(".subcat_opt").on("click", "a", function(e){
         var $this = $(this).parent();
          $("#subcatText").text($this.data("value"));
@@ -881,7 +979,39 @@ function sortTableByColumn(table,field,order) {
 
 });
 
+    function editStockTake(barCode) {
+     
+        $.ajax({
+            method: "POST",
+            url: "convertRawItems.php"
+        })
+        .done(function(htmlRes) {
+            $('#qty_in_stock_ajax_content').html(htmlRes);
+           $('#qty_in_stock').modal('show');
+        });
+    }
+       function approveConvert()
+{
+   /// $('#sbtId').html('Please wait...');
+    
+    document.getElementById('frmconvert').action = "convertRawItemsConfirmSubmit.php"; //Will set it
+
+    document.getElementById("frmconvert").submit();
+    
+}
   </script>
+  <script type="text/javascript">
+    window.onload = function() {
+        var fileupload = document.getElementById("uploadFile");
+        var button = document.getElementById("btnFileUpload");
+        button.onclick = function() {
+            fileupload.click();
+        };
+        fileupload.onchange = function() {
+            document.getElementById('upload_form').submit();
+        };
+    };
+    </script>
   <style>
 .strfetCol { width:23%; }
   </style>

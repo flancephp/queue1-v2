@@ -210,10 +210,7 @@ $storeRow = mysqli_fetch_array($storeQry);
 $error = '';
 if( isset($_POST['btnSbt']) )
 {   
-// echo '<pre>';
-// print_r($_SESSION);
-// print_r($_POST);
-// exit;
+
     if( !isset($_SESSION['stockTakeLoggedIn']) )
     { 
         //-------------------------------------------------------------------
@@ -695,5 +692,6 @@ var newOnClick = "window.location.href='runningOrders.php?canId=" + canId + "&ty
        
 
 }
-
+  
+  
 </script>

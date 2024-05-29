@@ -13,7 +13,7 @@ $clientDetRow = mysqli_fetch_array($result);
 
 if(isset($_SESSION['newStockTakeVal']))
 {
-    echo "cameHere1===";
+    
     if( is_array($_SESSION['newStockTakeVal']) && !empty($_SESSION['newStockTakeVal']) )
     {
         foreach($_SESSION['newStockTakeVal'] as $row)
@@ -81,7 +81,7 @@ $content = '<!DOCTYPE html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>PDF Design</title>
+      <title>'.showOtherLangText('Order Details PDF').'</title>
       <link rel="preconnect" href="https://fonts.googleapis.com/">
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -184,7 +184,7 @@ $content = '<!DOCTYPE html>
                         <td style="padding: 8px 5px;">-Variance</td>
                     </tr>
                     <tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;" align="center">
-                        <td style="padding: 8px 5px; color:#dc3545;">'.$minusvariance.'</td>
+                        <td style="padding: 8px 5px; color:#dc3545;">'.($minusvariance!=''?$minusvariance:0).'</td>
                     </tr>
                 </table>
             </td>

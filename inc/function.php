@@ -3878,8 +3878,11 @@ function access_raw_item_convert($designation_id,$accountId){
 	{
 
 		?>
-<a href="javascript:void(0);" onClick="openPopup();" class="btn btn-primary stay-btn"
-    style="margin-top: 2px; width: 160px;"><?php echo showOtherLangText('Convert Raw Items') ?></a><br>
+
+    <a href="javascript:void(0)" onclick="editStockTake('<?php echo $row['barCode'];?>');" class="tabFet">
+                                                <span class="prdItm"></span>
+                                                <p class="btn2"><?php echo showOtherLangText('Convert Raw Items') ?></p>
+                                            </a>
 
 <!-- <a href="javascript:void(0);" onClick="convertRawPopup();" class="btn btn-primary stay-btn cnvtRawItm" style="margin-top: 2px; width: 160px;"><?php echo showOtherLangText('Convert Raw Items') ?></a><br> -->
 
@@ -3917,8 +3920,10 @@ function access_view_stockTake($designation_id,$accountId,$filterByStorage){
         else
         {
 			?>
-<!-- <input type="button" id="btnFileUpload" disabled="disabled" class="btn" style="width: 160px;margin-top:2px;"
-    value="<?php //echo showOtherLangText('View Stock Take') ?>" /><br> -->
+<a href="#" style="opacity: 0.5;" class="tabFet">
+                                                <span class="prdItm"></span>
+                                                <p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
+                                            </a>
 
 <?php
 		}
@@ -3942,29 +3947,41 @@ function access_import_stockTake($designation_id,$accountId,$filterByStorage, $r
 	    if(isset($filterByStorage) && $filterByStorage > 0)
 	    {
 	    	?>
-
-
-<span style="font-size:30px;color:blue">
-
-    <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/importStockTakeList-hebrew-lang.xlsx' : 'excelSampleFile/english/importStockTakeList-english-lang.xlsx' ?>"
-        target="_blank" title="<?php echo showOtherLangText('Download sample file') ?>">&#8595;</a>
-
-</span>&nbsp;
-
-<input type="button" id="btnFileUpload" class="btn btn-primary stay-btn" style="width: 160px;"
-    value="<?php echo showOtherLangText('Import Stock Take') ?>" />
-
-<input type="file" id="uploadFile" name="uploadFile" style="display:none"><br>
+<a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="edIt"></span>
+                                                <p class="btn2 d-flex justify-content-center align-items-center">
+                                                    <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
+                                                </p>
+                                            </a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="javascript:void();" id="btnFileUpload"><?php echo showOtherLangText('Import File') ?></a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/importStockTakeList-hebrew-lang.xlsx' : 'excelSampleFile/english/importStockTakeList-english-lang.xlsx' ?>" target="_blank" title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>
+                                                </li>
+                                                <input type="file" id="uploadFile" name="uploadFile" style="display:none">
+                                            </ul>
 
 <?php  
         }
         else
         {
         	?>
-<span style="font-size:22px;color:#AAB2BD; margin-left: 8px;">&#8595;</span>&nbsp;
-<input type="button" id="btnFileUpload" disabled="disabled" class="btn" style="width: 160px;color:black;"
-    value="<?php echo showOtherLangText('Import Stock Take') ?>" /><br>
 
+<a style="opacity: 0.5;" href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="edIt"></span>
+                                                <p class="btn2 d-flex justify-content-center align-items-center">
+                                                    <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
+                                                </p>
+                                            </a>
+<ul style="opacity: 0.5;" class="dropdown-menu">
+<li><a class="dropdown-item" href="javascript:void();"><?php echo showOtherLangText('Import File') ?></a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="javascript:void(0);"  title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>
+                                                </li>
+                                                <input type="file" id="uploadFile" name="uploadFile" style="display:none">
+                                            </ul>
 <?php
 		}
 
