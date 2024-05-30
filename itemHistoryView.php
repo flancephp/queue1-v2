@@ -23,6 +23,7 @@ $res = mysqli_fetch_array($result);
 
 
 $resItemHistory = getItemHistory($_GET['id'], $_GET);
+
 $sqlQry = " SELECT s.*, od.pId AS pId FROM  tbl_suppliers s 
                                                     INNER JOIN tbl_orders o ON (s.id=o.supplierId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
@@ -318,11 +319,11 @@ $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
                             <div class="row">
                                 <div class="col-md-5 is-Incol">
                                     <p class="rd-In"><?php echo showOtherLangText('Issued In'); ?></p>
-                                    <p class="ttlAmount"><?php //showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
+                                    <p class="ttlAmount"><?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-5 is-Outcol">
                                     <p class="gr-Out">Issue Out</p>
-                                    <p class="ttlAmount-rec">3,998.06 $</p>
+                                    <p class="ttlAmount-rec"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-2 maxBtn">
                                     <a href="javascript:void(0)" class="maxLink">
@@ -467,8 +468,9 @@ Quantity'); ?></p>
                                                <p><?php echo showItemTypeData(2, $row)!=''?showItemTypeData(2, $row).' '.$getDefCurDet['curCode']:''; ?></p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(2, $row, 1);?></p>
                                             </div>
-                                            <div class="itmVw-varbdClm">
-                                            </div>
+                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(3, $row)!=''?showItemTypeData(3, $row).' '.$getDefCurDet['curCode']:''; ?></p>
+                                                <p class="ctUnit-var"><?php echo showItemTypeData(3, $row, 1);?></p>
+                                        </div>
                                         </div>
                                         <div class="tb-bdy align-items-center tbdy-lstStk">
                                             <div class="d-flex align-items-center tabDiv-prc">

@@ -195,11 +195,12 @@ $resultSet = mysqli_query($con, $sqlSet);
                             
 
 $subCatOptions = '<ul class="dropdown-menu subcat_opt">';
+$subCatOptions .= '<li data-id="" data-value=""><a class="dropdown-item" href="javascript:void(0)">'.showOtherLangText('Sub Catagory').'</a></li>';
 while($catRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['subCatId']) && $_GET['subCatId'] == $catRow['id']  ? 'selected' : '';
 
-  $subCatOptions .= '<li data-id="'.$catRow['id'].'" data-value="'.$catRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$catRow['name'].'</a></li>';
+$subCatOptions .= '<li data-id="'.$catRow['id'].'" data-value="'.$catRow['name'].'"><a class="dropdown-item '.$sel.'" href="javascript:void(0)">'.$catRow['name'].'</a></li>';
 }
 $subCatOptions .= '</ul>';
 
@@ -209,7 +210,7 @@ WHERE account_id = '".$_SESSION['accountId']."' ORDER BY name ";
 $resultSet = mysqli_query($con, $sqlSet);
                             
 $suppOptions = '<ul class="dropdown-menu supplier_opt">';
-//$suppOptions .= '<option value="">'.showOtherLangText('Supplier').'</option>';
+$suppOptions .= '<li data-id="" data-value=""><a class="dropdown-item" href="javascript:void(0)">'.showOtherLangText('Supplier').'</a></li>';
 while($departRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['suppId']) && $_GET['suppId'] == $departRow['id']  ? 'selected' : '';
@@ -315,8 +316,9 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                 <section class="ordDetail stockView">
 
                     <form name="frm" id="frm" method="get" action="">
-                        <input type="hidden" name="subCatId" id="subCatId" value="" />
-                        <input type="hidden" name="suppId" id="suppId" value="" />
+                        <input type="hidden" name="subCatId" id="subCatId" value="<?php echo $_GET['subCatId']; ?>" />
+                        <input type="hidden" name="suppId" id="suppId" value="<?php echo $_GET['suppId']; ?>" />
+                        <input type="hidden" name="filterByStorage" id="filterByStorage" value="<?php echo $_GET['filterByStorage']; ?>" />
                          
                      </form>
                     <div class="stkView">
@@ -704,10 +706,11 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                             </tr>
                             <tr class="semibold">
                                 <td><?php 
-                             if( $rawItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/".$rawItemRow['imgName'] ) )
+                             
+                             if( $rawItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$rawItemRow['imgName'] ) )
                              {  
-                                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/'.$rawItemRow['imgName'].'" >';
-                                
+                                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$rawItemRow['imgName'].'" width="60" height="60">';
+                                //echo '<img src="'.$siteUrl.'uploads/'.$rawItemRow['imgName'].'" width="60" height="60">';
                              }
                             ?></td>
                                 <td><?php echo $rawItemRow['itemName']!==''?$rawItemRow['itemName']:'';?></td>
@@ -716,17 +719,17 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                             
                             <td><?php echo $rawItemRow['stockQty'];?></td>
                             
-                            <td><?php  $rawItemRow['stockQty']-$_POST['qtyToConvert'];?></td>
+                            <td><?php echo ($rawItemRow['stockQty']-$_POST['qtyToConvert']);?></td>
                             
-                            <td><?php echo $rawItemRow['price'];
+                            <td><?php 
                             if($rawItemRow['price']!=='') { echo showPrice($rawItemRow['price'],$getDefCurDet['curCode']); } ?></td>
-                            <td><?php if($rawItemRow['price']!=='' && $_POST['qtyToConvert']!='') { echo  showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode']); }?></td>
+                            <td><?php showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode'])?></td>
                             </tr>
                             <tr class="semibold">
                                 <td><?php 
-                             if( $convertItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/".$convertItemRow['imgName'] ) )
+                             if( $convertItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$convertItemRow['imgName'] ) )
                              {  
-                                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/'.$row['imgName'].'" width="60" height="60">';
+                                echo '<img width="60" height="60" src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$convertItemRow['imgName'].'" >';
                                 
                              }
                             ?></td>

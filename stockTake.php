@@ -391,6 +391,17 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                                             class="dsktp-Btn">Back</span></a>
                                 </div>
                             </div>
+                            <div class="usrBk-Btn">
+                                <div class="btnBg">
+                                  <h3 style="
+    text-align: center;
+"> <?php echo showOtherLangText('Stock Take'); ?></h3>
+                                </div>
+                                <div class="btnBg">
+                                  <strong><?php echo date('m/d/Y');?>
+                        <?php echo $storeRow['name'];?></strong></a>
+                                </div>
+                            </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" class="sub-btn std-btn mb-usrBkbtn" style="width: 165px;"><span
