@@ -224,13 +224,23 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
     $convertrawitems = true;
     $_SESSION['convertItemsPost'] = $_POST;
     
-    $sql = "SELECT p.*, s.qty stockQty  FROM tbl_stocks s 
-                                INNER JOIN tbl_products p ON(s.pId = p.id) AND s.account_id = p.account_id WHERE p.id = '".$_POST['rawItem']."'  AND p.account_id = '".$_SESSION['accountId']."'   ";
+    $sql = "SELECT p.*, s.qty stockQty, s.stockPrice, IF(u.name!='',u.name,p.unitC) unitC FROM tbl_stocks s 
+    INNER JOIN tbl_products p 
+        ON(s.pId = p.id) AND s.account_id = p.account_id 
+    LEFT JOIN tbl_units u 
+        ON(p.unitC = u.id) AND p.account_id = u.account_id
+
+    WHERE p.id = '".$_POST['rawItem']."'  AND p.account_id = '".$_SESSION['accountId']."'   ";
     $qryRawItem = mysqli_query($con, $sql);
     $rawItemRow = mysqli_fetch_array($qryRawItem);
     
-    $sql = "SELECT p.*, s.qty stockQty  FROM tbl_stocks s 
-                                RIGHT JOIN tbl_products p ON(s.pId = p.id) AND s.account_id = p.account_id WHERE p.id = '".$_POST['convertItem']."'  AND p.account_id = '".$_SESSION['accountId']."' ";
+    $sql = "SELECT p.*, s.qty stockQty, s.stockPrice,  IF(u.name!='',u.name,p.unitC) unitC 
+    FROM tbl_stocks s 
+    RIGHT JOIN tbl_products p 
+        ON(s.pId = p.id) AND s.account_id = p.account_id 
+    LEFT JOIN tbl_units u 
+        ON(p.unitC = u.id) AND p.account_id = u.account_id
+    WHERE p.id = '".$_POST['convertItem']."'  AND p.account_id = '".$_SESSION['accountId']."' ";
     $qryConvertItem = mysqli_query($con, $sql);
     $convertItemRow = mysqli_fetch_array($qryConvertItem);  
 }
@@ -339,7 +349,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                 <div class="storeCol">
                                     <div class="store text-center d-flex">
 
-                                        <a href="javascript:void(0)" class="dskAll-str">
+                                        <a href="javascript:void(0)"  class="dskAll-str">
                                             <div class="allStr">
                                                 <h2 class="h2"><?php echo showOtherLangText('All Stores') ?></h2>
                                             </div>
@@ -710,7 +720,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                              if( $rawItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$rawItemRow['imgName'] ) )
                              {  
                                 echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$rawItemRow['imgName'].'" width="60" height="60">';
-                                //echo '<img src="'.$siteUrl.'uploads/'.$rawItemRow['imgName'].'" width="60" height="60">';
+                               
                              }
                             ?></td>
                                 <td><?php echo $rawItemRow['itemName']!==''?$rawItemRow['itemName']:'';?></td>
@@ -765,6 +775,17 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
     <script type="text/javascript" src="Assets/js/custom.js"></script>
     <script>
     $(function() {
+
+       <?php if(isset($_GET['allstore'])) { ?> 
+        $(".allStore").css("display", "flex");
+        $(".storeCol").css("background", "#7A89FE");
+        $(".dskAll-str").hide();
+
+       <?php } ?>
+       <?php if(isset($_GET['convertRawItem'])) { ?> 
+       history.pushState(null, "", location.href.split("?")[0]);
+
+       <?php } ?>
        <?php if($convertrawitems==true){ ?>
         $('#convert_raw_items').modal('show');
     <?php } ?>

@@ -274,7 +274,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                         }
                         else
                         {
-                            $content .=  '<img src="uploads/pdf-logo-sample.png" alt="Logo">';
+                            $content .=  '<img width="100" height="100" src="uploads/pdf-logo-sample.png" alt="Logo">';
                         }
                        $content .=   '</div>
                         </div>

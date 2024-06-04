@@ -279,6 +279,8 @@ $(document).ready(function () {
     $(".allStore").css("display", "flex");
     $(".storeCol").css("background", "#7A89FE");
     $(".dskAll-str").hide();
+   window.location.replace(window.location.href.split("?")[0] + '?allstore');
+
   });
 
   $(".allStore").click(function () {

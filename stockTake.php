@@ -413,9 +413,16 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                         </div>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
+                                <?php if( isset($_GET['showVar']) ) 
+                            { ?>
                                 <div class="btnBg">
-                                  <a style="color:#000000; text-decoration:underline" href="stockTake.php?showVar"><?php echo showOtherLangText('Show (0) Variances') ?></a>
+                                  <a style="color:#000000; text-decoration:underline" href="stockTake.php"><?php echo showOtherLangText('Show All Variances') ?></a>
                                 </div>
+                            <?php } else {?>
+                                <div class="btnBg">
+                                  <a style="color:#000000; text-decoration:underline" href="stockTake.php?showVar"><?php echo showOtherLangText('Hide (0) Variances') ?></a>
+                                </div>
+                            <?php } ?>
                             </div>
                             
                             <div class="itmMng-Src usrAd-Btn">
