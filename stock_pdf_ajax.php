@@ -270,7 +270,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                             <div class="modal-logo logo-section">';
                                 if($clientDetRow['logo'] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$clientDetRow['logo'] ))
                         {  
-                            $content .=  '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" width="100" height="100">';
+                            $content .=  '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 50px; width: auto;">';
                         }
                         else
                         {

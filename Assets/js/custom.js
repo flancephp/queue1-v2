@@ -276,11 +276,17 @@ $(document).ready(function () {
   $(".allStore").hide();
 
   $(".dskAll-str").click(function () {
+     var field = 'filterByStorage';
+   var url = window.location.href;
+   if(url.indexOf('?' + field + '=') != -1)
+    {
+    window.location.replace(window.location.href.split("?")[0] + '?allstore');
+    } else {
     $(".allStore").css("display", "flex");
     $(".storeCol").css("background", "#7A89FE");
     $(".dskAll-str").hide();
-   window.location.replace(window.location.href.split("?")[0] + '?allstore');
-
+    }
+  
   });
 
   $(".allStore").click(function () {

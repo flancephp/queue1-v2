@@ -386,9 +386,9 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="viewMobileStockTake.php?stockTakeId=<?php echo $_GET['stockTakeId']; ?>" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="<?php echo $backLink; ?>" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
                                 </div>
                             </div>
                             <div class="usrBk-Btn">

@@ -72,6 +72,35 @@ $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
 
                                                 $suppMemStoreOptions .= '</ul>';
 
+$plusvariance = $minusvariance = '';
+$plusqtytot =  $minusqtytot = '';
+
+foreach($resItemHistory['resRows'] as $item){
+    $variancesQtyTot = '';
+           if($showType == 0)
+            {
+                 $variancesQtyTot = $item['qtyReceived']-$item['qty'];
+
+                 $amt = $variancesQtyTot*$item['stockPrice'];
+                if($variancesQtyTot>0)
+                {
+                $plusqtytot = $variancesQtyTot;
+                } else {
+                $minusqtytot = $variancesQtyTot;
+                }
+
+                if($amt>0)
+                {
+                    $plusvariance += $amt;
+                } else {
+                    $minusvariance += $amt;
+                }
+            }
+           
+           
+}
+
+
 ?><!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
@@ -177,8 +206,7 @@ $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
 
                         <div class="view-tblHead d-flex align-items-center">
                             <div class="vw-clm-8">
-                                <p class="productName"><?php $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
-                                echo $storageDeptRow['name']; ?></p>
+                                <p class="productName"><?php echo $res['itemName'];?></p>
                             </div>
                             <div class="vw-clm-4">
                                 <p class="productQty"><?php echo $res['stockQty'];?><?php echo ' '.$res['countingUnit'];?></p>
@@ -352,14 +380,21 @@ $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
                                             <p class="isuOut-countUnt"><?php echo $resItemHistory['issuedOutQtyTot'];?> <?php echo $res['countingUnit'];?></p>
                                         </div>
                                         <div class="itmVw-varPtive">
-                                            <p class="Vw-varHead"><?php echo showOtherLangText('Variances'); ?>(+)</p>
-                                            <p class="viewItm-varPlus"><?php showPrice($resItemHistory['variancesTot'],$getDefCurDet['curCode']);?></p>
-                                            <p class="varPlus-countUnt"><?php echo $resItemHistory['variancesQtyTot'];?> <?php echo $res['countingUnit'];?></p>
+                                            <p class="Vw-varHead"><?php echo showOtherLangText('Variances'); ?></p>
+                                            <div style="display: flex; gap:5px; justify-content: space-evenly">
+                                                <p class="viewItm-varPlus varDif"><?php echo $plusvariance;?></p>
+                                                <p class="varPlus-countUnt"><?php echo $plusqtytot;?> <?php echo $res['countingUnit'];?></p>
+                                            </div>
+                                            <div style="display: flex; gap:5px; justify-content: space-evenly">
+                                                <p class="viewItm-varPlus varDif"><?php echo $minusvariance;?></p>
+                                                <p class="varPlus-countUnt"><?php echo $minusqtytot?> <?php echo $res['countingUnit'];?></p>
+                                            </div>
                                         </div>
                                         <div class="itmVw-varNtive">
-                                            <p class="Vw-varHead"><?php echo showOtherLangText('Variances'); ?> (-)</p>
-                                            <p class="viewItm-varMinus varDif"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
-                                            <p class="varMinus-countUnt varDif"><?php echo $resItemHistory['issuedOutQtyTot'];?><?php echo $res['countingUnit'];?></p>
+                                            <p class="Vw-varHead"><?php echo showOtherLangText('Converted'); ?></p>
+                                            <p class="viewItm-varMinus "><?php echo $resItemHistory['convertedQtyTot'];?><?php echo $res['countingUnit'];?></p>
+                                            <p class="varMinus-countUnt ">
+                                <?php showPrice($resItemHistory['convertedTot'],$getDefCurDet['curCode']);?></p>
                                         </div>
                                     </div>
                                 </div>

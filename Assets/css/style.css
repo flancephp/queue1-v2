@@ -20119,3 +20119,66 @@ img.previewImg {
 .row.acntStp-Row > .col-md-3 {
   margin-block-start: -5px;
 }
+
+/* 20-05-2024 */
+
+.std-btn {
+  padding: 6px 12px ;
+}
+.stockDetail .usrBtns {
+  padding: 30px 0 0 28px;
+}
+
+.stocktakeTask .stkTbl-body {
+  display: ruby-text;
+}
+
+.stktakeTable .itmTable {
+  display: ruby-text;
+  width: 100%;
+  border-bottom: 2px solid #dfe0e8
+} 
+.sub-btn { 
+  border-radius: 5px;
+  padding: 3px 4px;
+} 
+.tb-head { 
+  font-weight: 600;
+}
+
+
+
+/* stock-take page */
+.stock-table {
+  padding: 20px 0;
+}
+.stock-take h3, .stock-take h6{ text-align:center;}
+.stock-take h3{
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.1;
+
+}
+.show-variances {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.show-pdf {
+  width: 40px;
+  height: auto;
+}
+.show-link a{
+  color: #000000;
+  text-decoration: underline;
+}
+.stock-table th {
+  border-bottom: 2px solid #dfe0e8;
+  background: none;
+}
+.stock-table .sub-btn {
+  margin: 0 15px 0 0;
+}
+/* Krishna test file  */

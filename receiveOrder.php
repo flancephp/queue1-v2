@@ -11,7 +11,8 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 $rightSideLanguage = ($getLangType == 1) ? 1 : 0; 
 
-
+ // print_r($_POST);
+// exit;
 $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'receive_order' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
@@ -148,11 +149,14 @@ elseif( isset($_POST['updateReceiving']) )
     $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
     $ordQry = mysqli_query($con, $sqlSet);
     $ordResult = mysqli_fetch_array($ordQry);
+    // echo 'hi';
+    // print_r($ordResult);
+    // exit;
     if($ordResult['status'] == 2)
     {
         echo "<script>window.location='receiveOrder.php?orderId=".$_POST['orderId']."&error=alreadyreceived'</script>";die();
     }
-
+   
     foreach($_POST['productIds'] as $productId)//update existing products
     {
         $price = $_POST['price'][$productId]/$_POST['factor'][$productId];
@@ -174,6 +178,7 @@ elseif( isset($_POST['updateReceiving']) )
         $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'  ";
         $stkQry = mysqli_query($con, $sql);
         $stkRow = mysqli_fetch_array($stkQry);
+        
         if($stkRow)
         {
             $upQry = " UPDATE  `tbl_stocks` SET
@@ -473,6 +478,8 @@ if(!empty($fileDataRows))
                     <section class="ordDetail">
                         <div class="tpBar-grn"></div>
                         <div class="stcPart">
+                             <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
+                            name="upload_form" id="upload_form" enctype="multipart/form-data">
                             <div class="container nwOrder-Div rcvOrder">
                                  <?php if(isset($_GET['tempDataCleared']) || isset($success_file_upload) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -526,8 +533,7 @@ if(!empty($fileDataRows))
                                     </div>
 
                                     <div class="ordInfo rcvInfo newFeatures">
-                                         <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
-                            name="upload_form" id="upload_form" enctype="multipart/form-data">
+                                        
                                         <div class="container">
                                             <div class="mbFeature">
                                                 <div class="row gx-3 justify-content-end">
@@ -818,7 +824,7 @@ if(!empty($fileDataRows))
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        
                         </div>
                  
                         
@@ -1214,10 +1220,10 @@ if(!empty($fileDataRows))
 
                                 <!-- Item Table Body End -->
                             </div>
-
+                        </form>
                         </div>
                     </section>
-
+                   
 
                 </div>
             </div>

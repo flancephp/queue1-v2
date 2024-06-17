@@ -29,7 +29,8 @@ if (isset($_SESSION['processId'])) {
 
 if( isset($_REQUEST['showFieldsStock']) )
 {
-    $updateQry = " UPDATE tbl_user SET stockUserFilterFields = '".implode(',', $_REQUEST['showFieldsStock'])."' WHERE id = '".$_SESSION['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+      $updateQry = " UPDATE tbl_user SET stockUserFilterFields = '".implode(',', $_REQUEST['showFieldsStock'])."' WHERE id = '".$_SESSION['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+
     mysqli_query($con, $updateQry);
 }
 elseif( isset($_REQUEST['clearshowFieldsStock'])  )
@@ -38,10 +39,11 @@ elseif( isset($_REQUEST['clearshowFieldsStock'])  )
     mysqli_query($con, $updateQry);
 }
 
-$sql = "SELECT * FROM tbl_user  WHERE id = '".$_SESSION['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+ $sql = "SELECT * FROM tbl_user  WHERE id = '".$_SESSION['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
 $result = mysqli_query($con, $sql);
 $userDetails = mysqli_fetch_array($result);
 $stockUserFilterFields = $userDetails['stockUserFilterFields'] ?    explode(',',$userDetails['stockUserFilterFields']) : null;
+
 
 
 $cond = '';
@@ -145,6 +147,7 @@ ON(st.id=dssp.type_id) AND st.account_id=dssp.account_Id
 WHERE tp.account_id ='".$_SESSION['accountId']."' ". $cond . " GROUP BY tp.id ORDER by s.id DESC ";
 
 $stockMainQry = mysqli_query($con, $sql);
+$stockMainQry_hide = mysqli_query($con, $sql);
 //End stock lists
 
 
@@ -262,7 +265,15 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
-
+     <style>
+.strfetCol { width:23%; }
+.stkItmclm {width: 100%;}
+.stkTblhead .stkItmclm, .stkTblhead .stkItmclm { width: 100%;}
+.stkTblhead .stkNamcol, .cntTable .stkNamcol { width: 60%;}
+.stockView .lstPrcol{width: 33%;}
+.stkTblhead .stkPrcol, .cntTable .stkPrcol {width: 30%;}
+.w-55 {width: 45%;}
+  </style>
 </head>
 
 <body>
@@ -444,8 +455,14 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                 <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div class="chkStore">
+                                    <a href="javascript:void(0)"  style="height: 20px;" id="toggle-page-btn" class="cstBtn-Sale toggle-page-btn hideBtn-Info ">
+                                            <img src="Assets/icons/info.svg" style="height: 100%;" alt="Information" class="cstBtn-Img">
+                                        </a>
+
+                                    </div>
+                                        <div class="chkStore">
                                             <a href="javascript:void(0)">
-                                                <img src="Assets/icons/chkColumn.svg" alt="Check Column">
+                                                 <img src="Assets/icons/chkColumn.svg"    class="flDwn-Icn" id="filterBtn" title="Filter column list" alt="Check Column">
                                             </a>
                                         </div>
                                         <div class="chkStore">
@@ -492,26 +509,55 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                         <!-- Filter Part Mobile End -->
                     </div>
 
-                    <div class="container stkTblhead position-relative">
+                    <div class="container stkTblhead  position-relative tbl-head-page-1" id="page1head">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
                             <div class="mbShw d-flex align-items-center">
-                                <div class="tb-bdy stkImgcol"></div>
+                                <?php if(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ) { ?>
+                                <?php } else { ?>
+                                <div class="tb-bdy stkImgcol"><?php echo showOtherLangText('Photo'); ?></div>
+                                <?php } ?>
                                 <div class="stkNamcol d-flex align-items-center">
-                                    <div class="tb-head stkItmclm">
-                                        <div class="d-flex align-items-center">
-                                            <p><?php echo showOtherLangText('Item'); ?></p>
+                                     <div class="tb-head stkItmclm">
+                                        <div class="d-flex align-items-center w-20">
+                                   <?php if(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ) { ?>
+                                   <?php } else { ?>
+                                    <p><?php echo showOtherLangText('Item'); ?></p>
                                             <span class="dblArrow">
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-up"></i></a>
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-down"></i></a>
                                             </span>
+                                   <?php } ?>
+                                    </div>
+                                    </div>
+                                    <div class="tb-head w-55  stkQtyclm">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <p><?php echo showOtherLangText('Quantity');?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="tb-head stkQtyclm">
-                                        <div class="d-flex align-items-center">
-                                            <p><?php echo showOtherLangText('Quantity');?></p>
+                                    <div class="tb-head w-55  stkQtyclm">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <p><?php echo showOtherLangText('Available <br> Qty');?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="tb-head w-55 stkQtyclm">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <p><?php echo showOtherLangText('Requested <br> Qty');?></p>
                                             <span class="dblArrow">
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-up"></i></a>
@@ -545,18 +591,18 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="tb-head lstPrcol">
-                                        <div class="d-flex align-items-center">
-                                            <p><?php echo showOtherLangText('Stock <br>
-                                                Value'); ?></p>
-                                            <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Value','asc');" href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-up"></i></a>
-                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Value','desc');" href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-down"></i></a>
-                                            </span>
-                                        </div>
-                                    </div>
+                                       <!--  <div class="tb-head lstPrcol">
+                                            <div class="d-flex align-items-center">
+                                                <p><?php //echo showOtherLangText('Stock <br>
+                                                   // Value'); ?></p>
+                                                <span class="dblArrow">
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Value','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                            class="fa-solid fa-angle-up"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Value','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                            class="fa-solid fa-angle-down"></i></a>
+                                                </span>
+                                            </div>
+                                        </div> -->
                                 </div>
                             </div>
                             <div class="mbHde align-items-center supData-Head">
@@ -587,13 +633,113 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                         </div>
                         <!-- Item Table Head End -->
                     </div>
-                    <!-- Item Table Body Start -->
-                    <div id="boxscroll">
+                     <div class="container  stkTblhead position-relative tbl-head-page-1" id="page2head" style="display: none;">
+                        <!-- Item Table Head Start -->
+                         <div class="d-flex align-items-center itmTable">
+                            <div class="mbShw d-flex align-items-center">
+                                <div class="tb-bdy stkImgcol"></div>
+                                <div class="stkNamcol d-flex align-items-center">
+                                    <div class="tb-head stkItmclm">
+                                        <div class="d-flex align-items-center w-20">
+                                            <p><?php echo showOtherLangText('Barcode'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tb-head w-55  stkQtyclm">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <p><?php echo showOtherLangText('Unit.p');?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tb-head w-55  stkQtyclm">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <p><?php echo showOtherLangText('Factor');?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="tb-head w-55 stkQtyclm">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <p><?php echo showOtherLangText('Unit.c');?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stkPrcol d-flex align-items-center">
+                                    <div class="tb-head lstPrcol">
+                                        <div class="d-flex align-items-center">
+                                            <p><?php echo showOtherLangText('Tmp qty'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tb-head lstPrcol">
+                                        <div class="d-flex align-items-center">
+                                            <p><?php echo showOtherLangText('Department'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tb-head lstPrcol">
+                                        <div class="d-flex align-items-center">
+                                            <p><?php echo showOtherLangText('Min Qty'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Value','asc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Value','desc');" href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mbHde align-items-center supData-Head">
+                                <div class="tb-head supStkclm">
+                                    <div class="d-flex align-items-center">
+                                        <p><?php echo showOtherLangText('Max Qty'); ?></p>
+                                    </div>
+                                </div>
+                                <div class="tb-head supStkclm">
+                                    <div class="d-flex align-items-center">
+                                         <p><?php echo showOtherLangText('Stock Value'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Table Head End -->
+                    </div>
+                    <!-- Item Table Body Start 1 -->
+                     <div id="boxscroll " class="page1bdy" style="display: block;">
                         <div class="container cntTable">
-
                             <?php
-
-
 
                     //get confirmed requsitions total qty of each productd
                     $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
@@ -624,14 +770,24 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                          }
                      
                          $catNames = ($row['childCatName'] == 'z' ? '' :  $row['childCatName']); ?>
-                             <div class="newStockTask"><div class="d-flex align-items-center border-bottom itmBody">
+                              <div class="newStockTask"><div class="d-flex align-items-center border-bottom itmBody">
                                 <div class="mbShw d-flex align-items-center">
+                                    <?php if(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ) { ?>
+                                <?php } else { ?>
                                     <div class="tb-bdy stkImgcol">
                                         <?php echo $img; ?>
                                     </div>
-                                    <div class="stkNamcol d-flex align-items-center">
-                                        <div class="tb-bdy stkItmclm">
-                                            <a href="itemHistoryView.php?id=<?php echo $row['id']; ?>" class="itm-Profile"><?php echo $row['itemName']; ?></a>
+                                <?php } ?>
+                                    <div class="stkNamcol d-flex align-items-center"> <div class="tb-bdy stkItmclm">
+                                          <?php if(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ) { ?>
+                                   <?php } else { ?>
+                                       <a href="itemHistoryView.php?id=<?php echo $row['id']; ?>" class="itm-Profile"><?php echo $row['itemName']; ?></a>
+                                       <?php } ?> </div>
+                                        <div class="tb-bdy stkQtyclm stkQtybdy">
+                                            <p><?php echo $row['stockQty']; ?></p>
+                                        </div>
+                                        <div class="tb-bdy stkQtyclm stkQtybdy">
+                                            <p><?php echo $row['stockQty']; ?></p>
                                         </div>
                                         <div class="tb-bdy stkQtyclm stkQtybdy">
                                             <p><?php echo $row['stockQty']; ?></p>
@@ -660,6 +816,85 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                             </div></div>
                             <?php } ?>
                       </div>
+                      </div>
+                    <!-- Item Table Body End -->
+                    <!-- Item Table Body Start -->
+                     <div id="boxscroll" class="page2bdy" style="display: none;" >
+                        <div class="container cntTable" >
+
+                        <?php
+
+                    //get confirmed requsitions total qty of each productd
+                    $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
+                    //end   get confirmed requsitions total qty of each productd
+                  
+                    $x= 0; 
+                    while($row = mysqli_fetch_array($stockMainQry_hide))
+                    {
+                        $x++;
+
+                        $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
+                        
+                        if ($totalProQty > 0) {
+
+                            $totalTempProQty = $totalProQty;
+
+                        }else{
+
+                            $totalTempProQty = 0;
+                        }  $deptNames = $row['departs'];
+                        $supNames = $row['suppls'];
+                        
+                        
+                        $img = '';
+                        if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
+                         {  
+                            $img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="imgItm">';
+                         }
+                     
+                         $catNames = ($row['childCatName'] == 'z' ? '' :  $row['childCatName']); ?>
+                             <div class="newStockTask"><div class="d-flex align-items-center border-bottom itmBody">
+                                <div class="mbShw d-flex align-items-center">
+                                    <div class="tb-bdy stkImgcol">
+                                        <?php //echo $row['barCode']; ?>
+                                    </div>
+                                    <div class="stkNamcol d-flex align-items-center">
+                                        <div class="tb-bdy stkItmclm">
+                                         <?php echo $row['barCode']; ?>
+                                        </div>
+                                        <div class="tb-bdy stkQtyclm stkQtybdy">
+                                          <p><?php echo $row['purchaseUnit']; ?></p>
+                                        </div>
+                                        <div class="tb-bdy stkQtyclm stkQtybdy">
+                                          <p>3<?php echo $row['factor']; ?></p>
+                                        </div>
+                                        <div class="tb-bdy stkQtyclm stkQtybdy">
+                                          <p>4<?php echo $row['countingUnit']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="stkPrcol d-flex align-items-center">
+                                        <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
+                                            <p><span class="mbLst-value">Last</span><?php echo getPrice($row['stockLastPrice']) .' '.$getDefCurDet['curCode']; ?></p>
+                                        </div>
+                                        <div class="tb-bdy lstPrcol stkPrcbdy mb-Stock">
+                                            <p><span class="mbLst-value">Stock</span><?php echo $deptNames; ?></p>
+                                        </div>
+                                        <div class="tb-bdy lstPrcol stkPrcbdy mb-Value">
+                                            <p><span class="mbLst-value">Value</span><?php echo $row['minLevel']; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mbHde align-items-center suppData-stk">
+                                    <div class="tb-bdy supStkclm">
+                                        <p>7<?php echo $row['maxLevel']; ?></p>
+                                    </div>
+                                    <div class="tb-bdy supStkclm">
+                                        <p>8<?php echo getPrice($row['stockValue']) .' '.$getDefCurDet['curCode']; ?></p>
+                                    </div>
+                                </div>
+                            </div></div>
+                            <?php } ?>
+                      </div></div>
                     <!-- Item Table Body End -->
                 </section>
                 
@@ -678,7 +913,30 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
             </div>
         </div>
     </div>
-
+<?php 
+                  $colsArr = 
+                  [
+                    1 => ['lable' => ''.showOtherLangText('Photo').'' ],
+                    2 => ['lable' => ''.showOtherLangText('Item').''],
+                    3 => ['lable' => ''.showOtherLangText('Quantity').''],
+                    4 => ['lable' => ''.showOtherLangText('Available Quantity').''],
+                    5 => ['lable' => ''.showOtherLangText('Request Quantity').''],
+                    6 => ['lable' => ''.showOtherLangText('Last Price').''],
+                    7 => ['lable' => ''.showOtherLangText('Stock Price').''],
+                    8 => ['lable' => ''.showOtherLangText('Sub-Category').''],
+                    9 => ['lable' => ''.showOtherLangText('Supplier').''],
+                    
+                    10 => ['lable' => ''.showOtherLangText('Barcode').''],
+                    11 => ['lable' => ''.showOtherLangText('Unit.p').''],
+                    12 => ['lable' => ''.showOtherLangText('Factor').''],
+                    13 => ['lable' => ''.showOtherLangText('Unit.c').''],
+                    14 => ['lable' => ''.showOtherLangText('Tmp qty').''],
+                    15 => ['lable' => ''.showOtherLangText('Department').''],
+                    16 => ['lable' => ''.showOtherLangText('Min Qty').''],
+                    17 => ['lable' => ''.showOtherLangText('Max Qty').''],
+                    18 => ['lable' => ''.showOtherLangText('Stock Value').''],
+                  ];
+?>
    
    <div  class="modal addUser-Form row container glbFrm-Cont" tabindex="-1" id="qty_in_stock" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -691,7 +949,72 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
     </div>
     
 
-    
+    <div id="myModal" class="modal" style=" align-items:center">
+        <div style="width:750px; padding:0;" class="container mnPdf_Dv">             
+            <!-- Modal content -->
+            <div class="modal-content">
+
+                <div>
+
+                    <div class="mdlHead-Popup" style="display: flex; align-items:center; justify-content:space-between; ">
+                        <span><strong><?php echo showOtherLangText('Check columns to show in list') ?>:</strong></span>
+                        <span class="close" style="font-size: 2rem; cursor:pointer ">×</span>
+                    </div>
+
+                    <form method="post" action="" class="shortList-ChkAll">
+
+                        <strong class="checkAllSectionBox" style="max-width: 750px;">
+                            <input type="checkbox" class="CheckAllOptions" id="CheckAllOptions">
+                            <label>
+                               <?php echo showOtherLangText('Check All') ?>
+                            </label>
+                        </strong>
+
+                        <br>
+
+                                                <!-- <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="1">&nbsp;Photo<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="2">&nbsp;Item<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="3">&nbsp;Quantity<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="4">&nbsp;Available Quantity<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="5">&nbsp;Request Quantity<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="6">&nbsp;Last Price<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="7">&nbsp;Stock Price<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="8">&nbsp;Sub-Category<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="8">&nbsp;Supplier<br>
+                                                <hr style="margin: .5rem -2rem .5rem -2rem;">
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="9">&nbsp;Barcode<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="10">&nbsp;Unit.p<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="11">&nbsp;Factor<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="12">&nbsp;Unit.c<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="13">&nbsp;Tmp qty<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="14">&nbsp;Department<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="15">&nbsp;Min Qty<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="16">&nbsp;Max Qty<br>
+                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="17">&nbsp;Stock Value<br> -->
+                                                <?php foreach($colsArr as $key=>$colArr){
+                        
+                            if( isset($stockUserFilterFields) )
+                            {
+                                $sel =  in_array($key, $stockUserFilterFields) ? ' checked="checked" ' : '';
+                            }
+                            
+                        ?>
+                        <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]"
+                            <?php echo $sel;?> value="<?php echo $key;?>">&nbsp;<?php echo $colArr['lable'];?><br>
+                          <?php   if($key==9) { ?>
+                             <hr style="margin: .5rem -2rem .5rem -2rem;">
+                          <?php } ?>
+                        <?php } ?>
+                                                <p style="display: flex; gap:.5rem;" class="mt-3">
+                                                 <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn">Show</button>&nbsp;
+                                                 <button type="button" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn" onclick="window.location.href='stockView.php?clearshowFieldsStock=1'"><?php echo showOtherLangText('Clear Filter'); ?></button>
+                                                </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
   
     <div class="modal addUser-Form row container glbFrm-Cont" id="convert_raw_items" tabindex="-1" aria-labelledby="issueout2label" aria-hidden="true"> <form method="post" id="frmconvert" name="frmconvert" action="convertRawItemsConfirmSubmit.php">
                 <div class="modal-dialog modal-dialog-centered modal-550">
@@ -1036,9 +1359,109 @@ function sortTableByColumn(table,field,order) {
         };
     };
     </script>
-  <style>
-.strfetCol { width:23%; }
-  </style>
+    <script>   
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("filterBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+    function download(frm, type) {
+        if (type == 'pdf') {
+            var page = 'stock_pdf.php';
+        } else {
+            var page = 'stock_excel.php';
+        }
+        document.getElementById('downloadType').value = type;
+        document.frm.target = "_blank";
+        document.frm.action = page;
+
+        document.frm.submit();
+
+
+        document.getElementById('downloadType').value = '';
+    }
+    
+    </script>
+    <script>
+
+document.getElementById('toggle-page-btn').addEventListener('click', function() {
+    var page1head = document.getElementById('page1head');
+    var page2head = document.getElementById('page2head');
+    var page1bdy = document.querySelector('.page1bdy');
+    var page2bdy = document.querySelector('.page2bdy');
+    
+    if (page1head.style.display === 'none') {
+        page1head.style.display = 'block';
+        page2head.style.display = 'none';
+        page1bdy.style.display = 'block';
+        page2bdy.style.display = 'none';
+    } else {
+        page1head.style.display = 'none';
+        page2head.style.display = 'block';
+        page1bdy.style.display = 'none';
+        page2bdy.style.display = 'block';
+    }
+});
+
+    </script>
+    <script>
+    //check/uncheck filter button
+    $(document).ready(function() {
+
+        var totalCount = $('.optionCheck').length;
+
+        var totalCheckedCount = $('.optionCheck:checked').length;
+
+        if (totalCount == totalCheckedCount) {
+
+            $('#CheckAllOptions').prop('checked', true);
+        } else {
+            $('#CheckAllOptions').prop('checked', false);
+        }
+    });
+
+    $("#CheckAllOptions").on('click', function() {
+
+        $('.optionCheck:checkbox').not(this).prop('checked', this.checked);
+    });
+
+    $(".optionCheck").on('click', function() {
+
+        var totalCount = $('.optionCheck').length;
+
+        var totalCheckedCount = $('.optionCheck:checked').length;
+
+        if (totalCount == totalCheckedCount) {
+
+            $('#CheckAllOptions').prop('checked', true);
+        } else {
+            $('#CheckAllOptions').prop('checked', false);
+        }
+    });
+    </script>
+ 
 }
 </body>
 
