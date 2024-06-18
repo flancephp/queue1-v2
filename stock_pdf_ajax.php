@@ -198,44 +198,44 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                                 <span class="fs-13">'. showOtherLangText('Photo') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemName" class="itmTblCheckbox item-item form-check-input" 
+                                                <input type="checkbox"  name="itemName" '.( isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckbox item-item form-check-input" 
                                                  onclick="showHideByClass(\'item3\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Item') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="barCode" '.( isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-barCode form-check-input" onclick="showHideByClass(\'item4\')" value="1">
+                                                <input type="checkbox"  name="barCode" '.( isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-barCode form-check-input" onclick="showHideByClass(\'item4\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('BarCode') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="qty" '.( isset($stockUserFilterFields) && !in_array(12, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-quantity form-check-input" onclick="showHideByClass(\'item5\')" value="1">
+                                                <input type="checkbox"  name="qty" '.( isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-quantity form-check-input" onclick="showHideByClass(\'item5\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Quantity') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox"  name="reqQty" '.( isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item6\')" class="itmTblCheckbox item-requestsQty form-check-input" value="1">
+                                                <input type="checkbox"  name="reqQty" '.( isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item6\')" class="itmTblCheckbox item-requestsQty form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Requests Qty') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="avlQty" '.( isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item7\')" class="itmTblCheckbox item-availableQty form-check-input" value="1">
+                                                <input type="checkbox" name="avlQty" '.( isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item7\')" class="itmTblCheckbox item-availableQty form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Available Qty') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="lastPrice" '.( isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckbox item-lastPrice form-check-input" onclick="showHideByClass(\'item8\')" value="1">
+                                                <input type="checkbox" name="lastPrice" '.( isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckbox item-lastPrice form-check-input" onclick="showHideByClass(\'item8\')" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Last Price') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="stockPrice" '.( isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item9\')" class="itmTblCheckbox item-stockPrice form-check-input" value="1">
+                                                <input type="checkbox" name="stockPrice" '.( isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item9\')" class="itmTblCheckbox item-stockPrice form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Stock Price') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="stockValue" '.( isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item10\')" class="itmTblCheckbox item-stockValue form-check-input" value="1">
+                                                <input type="checkbox" name="stockValue" '.( isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item10\')" class="itmTblCheckbox item-stockValue form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Stock Value') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="subCat" '.( isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item11\')" class="itmTblCheckbox item-subCategory form-check-input" value="1">
+                                                <input type="checkbox" name="subCat" '.( isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item11\')" class="itmTblCheckbox item-subCategory form-check-input" value="1">
                                                 <span class="fs-13">'. showOtherLangText('Sub Category') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="suplr" '.( isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="form-check-input itmTblCheckbox item-supplier" onclick="showHideByClass(\'item12\')"  value="1">
+                                                <input type="checkbox" name="suplr" '.( isset($stockUserFilterFields) && !in_array(9, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="form-check-input itmTblCheckbox item-supplier" onclick="showHideByClass(\'item12\')"  value="1">
                                                 <span class="fs-13">'. showOtherLangText('Supplier') .'</span>
                                             </li>
                                         </ul>
@@ -343,16 +343,16 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                             <div class="table-row thead">
                                 <div class="table-cell"><span class="item1 itemSectionPart">#</span></div>
                                 <div class="table-cell"><span class="item2 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Photo</span></div>';
-                         $content .=  '<div class="table-cell"><span class="item3 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'.showOtherLangText('Item') .'</span><span class="slashItem itemSectionPart">/</span><span class="itemSectionPart item4" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('BarCode').'</span></div>';
+                         $content .=  '<div class="table-cell"><span class="item3 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'.showOtherLangText('Item') .'</span><span class="slashItem itemSectionPart">/</span><span class="itemSectionPart item4" '.(isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('BarCode').'</span></div>';
 
-                        $content .=  '<div class="table-cell"><span class="item5 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(12, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Quantity</span></div>';
-                          $content .=  '<div class="table-cell"><span class="item6 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Req Qty</span></div>';
-                           $content .= '<div class="table-cell"><span class="item7 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Avail Qty</span></div>';
-                            $content .= '<div class="table-cell"><span class="item8 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Last Price</span></div>';
-                            $content .= '<div class="table-cell"><span class="item9 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Stock Price</span></div>';
-                            $content .= '<div class="table-cell"><span class="item10 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Stock Value</span></div>';
-                             $content .= '<div class="table-cell"><span class="item11 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Sub Category</span></div>';
-                             $content .= '<div class="table-cell"><span class="item12 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Supplier</span></div>';
+                        $content .=  '<div class="table-cell"><span class="item5 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Quantity</span></div>';
+                          $content .=  '<div class="table-cell"><span class="item6 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Req Qty</span></div>';
+                           $content .= '<div class="table-cell"><span class="item7 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Avail Qty</span></div>';
+                            $content .= '<div class="table-cell"><span class="item8 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Last Price</span></div>';
+                            $content .= '<div class="table-cell"><span class="item9 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Stock Price</span></div>';
+                            $content .= '<div class="table-cell"><span class="item10 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Stock Value</span></div>';
+                             $content .= '<div class="table-cell"><span class="item11 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Sub Category</span></div>';
+                             $content .= '<div class="table-cell"><span class="item12 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(9, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Supplier</span></div>';
                              $content .= '</div>';
                               //get confirmed requsitions total qty of each productd
                             $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
@@ -388,15 +388,15 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                 <div class="table-cell">'. $i .'</div>
                                 <div class="table-cell table-cell-photo"><span class="item2 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $img.'</span></div>
                                 <div class="table-cell"><span class="item3 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $row['itemName'] .'</span> <br> 
-                                <span class="item4 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $row['barCode'] .'</span></div>
-                                <div class="table-cell font-bold"><span class="item5 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(12, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $row['stockQty']." ". $row['countingUnit'] .'</span></div>
-                                <div class="table-cell"><span class="item6 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $totalTempProQty ." ". $row['countingUnit'] .'</span></div>
-                                <div class="table-cell font-bold"><span class="item7 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. ($row['stockQty']-$totalTempProQty) ." ". $row['countingUnit'] .'</span></div>
-                                <div class="table-cell"><span class="item8 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. getPrice($row['stockLastPrice']) ." ".$getDefCurDet['curCode'] .'</span></div>
-                                <div class="table-cell"><span class="item9 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. getPrice($row['sPrice']) ." ".$getDefCurDet['curCode'] .'</span></div>
-                                <div class="table-cell"><span class="item10 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. getPrice($row['stockValue']) ." ".$getDefCurDet['curCode'] .'</span></div>
-                                <div class="table-cell"><span class="item11 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $catNames.'</span></div>
-                                <div class="table-cell"><span class="item12 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $supNames.'</span></div>
+                                <span class="item4 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $row['barCode'] .'</span></div>
+                                <div class="table-cell font-bold"><span class="item5 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $row['stockQty']." ". $row['countingUnit'] .'</span></div>
+                                <div class="table-cell"><span class="item6 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $totalTempProQty ." ". $row['countingUnit'] .'</span></div>
+                                <div class="table-cell font-bold"><span class="item7 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. ($row['stockQty']-$totalTempProQty) ." ". $row['countingUnit'] .'</span></div>
+                                <div class="table-cell"><span class="item8 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. getPrice($row['stockLastPrice']) ." ".$getDefCurDet['curCode'] .'</span></div>
+                                <div class="table-cell"><span class="item9 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. getPrice($row['sPrice']) ." ".$getDefCurDet['curCode'] .'</span></div>
+                                <div class="table-cell"><span class="item10 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. getPrice($row['stockValue']) ." ".$getDefCurDet['curCode'] .'</span></div>
+                                <div class="table-cell"><span class="item11 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $catNames.'</span></div>
+                                <div class="table-cell"><span class="item12 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(9, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. $supNames.'</span></div>
                             </div>';
                         }
                             
