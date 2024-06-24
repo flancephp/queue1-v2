@@ -276,17 +276,9 @@ $(document).ready(function () {
   $(".allStore").hide();
 
   $(".dskAll-str").click(function () {
-     var field = 'filterByStorage';
-   var url = window.location.href;
-   if(url.indexOf('?' + field + '=') != -1)
-    {
-    window.location.replace(window.location.href.split("?")[0] + '?allstore');
-    } else {
     $(".allStore").css("display", "flex");
     $(".storeCol").css("background", "#7A89FE");
     $(".dskAll-str").hide();
-    }
-  
   });
 
   $(".allStore").click(function () {
@@ -734,6 +726,26 @@ $(document).ready(function () {
     $(".outletChk").toggle(this.checked);
   });
 });
+
+function removeQueryParameter(url, parameterName) {
+    var urlParts = url.split('?');
+    if (urlParts.length >= 2) {
+        var prefix = encodeURIComponent(parameterName) + '=';
+        var queryParams = urlParts[1].split(/[&;]/g);
+        
+        // Iterate through query parameters
+        for (var i = queryParams.length; i-- > 0;) {
+            if (queryParams[i].lastIndexOf(prefix, 0) === 0) {
+                queryParams.splice(i, 1); // Remove parameter
+            }
+        }
+        
+        // Construct new URL with updated query parameters
+        url = urlParts[0] + (queryParams.length > 0 ? '?' + queryParams.join('&') : '');
+    }
+    
+    return url;
+}
 // Add/Edit Outlet Page Checkbox End
 // Login page password field toggle visibility
 

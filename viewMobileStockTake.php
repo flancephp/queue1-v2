@@ -333,8 +333,10 @@ var newOnClick = "window.location.href='viewMobileStockTake.php?delId=" + delId 
 
 
     }
-    <?php if(isset($_GET['delete']) || isset($_GET['stockTake'])) { ?> 
-       history.pushState(null, "", location.href.split("?")[0]);
-
-       <?php } ?>
+    <?php if(isset($_GET['delete'])) { ?> 
+        let url = location.href;
+        let qryparameter = 'delete';
+       let newurl = removeQueryParameter(url,qryparameter);
+       history.pushState(null, "", newurl);
+      <?php } ?>
 </script>

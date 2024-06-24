@@ -66,7 +66,7 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
     }
 }
 
-$backLink = 'stockTake.php';
+$backLink = 'stockView.php';
 if( isset($_SESSION['processId']) && isset($_SESSION['storeId']) )
 {   
     $backLink = 'viewMobileStockTake.php?stockTakeId='.$_SESSION['storeId'];
@@ -710,6 +710,17 @@ var newOnClick = "window.location.href='runningOrders.php?canId=" + canId + "&ty
        
 
 }
-  
+ <?php if(isset($_GET['passworderr'])) { ?> 
+        let url = location.href;
+        let qryparameter = 'passworderr';
+       let newurl = removeQueryParameter(url,qryparameter);
+       history.pushState(null, "", newurl);
+      <?php } ?> 
+      <?php if(isset($_GET['stockedit'])) { ?> 
+        let url = location.href;
+        let qryparameter = 'stockedit';
+       let newurl = removeQueryParameter(url,qryparameter);
+       history.pushState(null, "", newurl);
+      <?php } ?> 
   
 </script>

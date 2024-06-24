@@ -135,11 +135,11 @@ $content .= '<div class="modal-header pb-3">
                                                         </li>
                                                         <li>
                                                             <input type="checkbox" 
-                                    value="1" name="supplierInvoice" class="form-check-input" disabled value="1">
+                                    value="1" onclick="showHideByClassSummary(\'smrySuplr\')"  name="supplierInvoice" class="form-check-input" value="1" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'>
                                                             <span class="fs-13">Supplier Invoice #</span>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox"  name="payment" class="form-check-input" disabled value="1">
+                                                            <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' value="1">
                                                             <span class="fs-13">Payment #</span>
                                                         </li>
                                                     </ul>
@@ -305,7 +305,16 @@ $content .= '<div class="modal-header pb-3">
                                 $showGrandTotal = true;
                                     $content .= '<div  class="SummaryItems table-row">
                                         <div class="table-cell" style="width: 30%;">
-                                            
+                                            <div class="sub-table w-100" style="display: table;">
+                                                <div class="table-row">
+                                                    <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"> # Supplier Invoice</span></div><div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div></div>';
+                                    if( $ordDet['paymentId'] > 0)
+                {
+                                     $content .= '<div class="table-row">
+                                                    <div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"># Payment</span></div><div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.($ordDet['paymentId'] ? setPaymentId($ordDet['paymentId']) : '').'
+                                </span></div></div>';
+                  }
+                                     $content .= '</div>
                                         </div>
 
                                         <div class="table-cell" style="width: 35%;"></div>

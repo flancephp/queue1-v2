@@ -1185,13 +1185,13 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
     $(function() {
 
        <?php if(isset($_GET['allstore'])) { ?> 
-        $(".allStore").css("display", "flex");
-        $(".storeCol").css("background", "#7A89FE");
-        $(".dskAll-str").hide();
+        // $(".allStore").css("display", "flex");
+        // $(".storeCol").css("background", "#7A89FE");
+        // $(".dskAll-str").hide();
 
        <?php } ?>
        <?php if(isset($_GET['convertRawItem'])) { ?> 
-       history.pushState(null, "", location.href.split("?")[0]);
+      // history.pushState(null, "", location.href.split("?")[0]);
 
        <?php } ?>
        <?php if($convertrawitems==true){ ?>
@@ -1555,6 +1555,13 @@ document.getElementById('toggle-page-btn').addEventListener('click', function() 
             $('#CheckAllOptions').prop('checked', false);
         }
     });
+
+    if (location.href.includes('?convertRawItem')) { 
+    history.pushState({}, null, location.href.split('?')[0]); 
+    }
+    if (location.href.includes('?stockTake')) { 
+    history.pushState({}, null, location.href.split('?')[0]); 
+    }
     </script>
  
 }

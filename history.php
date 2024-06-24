@@ -1019,7 +1019,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                             </a>
                                         </div>
                                         <div class="chkStore">
-                                            <a href="history_pdf.php" target="_blank">
+                                           <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" data-bs-target="#history_pdf">
                                                 <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
                                             </a>
                                         </div>
@@ -1693,7 +1693,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                             <p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
                .'<br>'.
                ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
-                                            <!-- <p class="othrValcurr">357,900 Tzs</p> -->
+                                          
                                         </div>
                                         <div class="stsHiscol d-flex align-items-center">
                                             <div class="tb-bdy hisStatusclm">
@@ -1732,11 +1732,21 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
 
                                                         <ul class="dropdown-menu">
                                                           
-                                                          <li><a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="far fa-square pe-2"></i>View Details</a>
+                                                          <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')" ><i class="far fa-square pe-2"></i>View Details</a>
                                                           </li>
                                                          
-                                                      </ul>
-                                                    </div>
+                                                     
+                                                                            <?php 
+            if($orderRow['ordType'] == 1)
+            {
+            //issue in
+                ?>
+                                                 <li>
+                                                    <a class="dropdown-item" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
+                                                          </li>
+                                                <?php 
+            } ?>
+                                                   </ul>  </div>
                                                     <?php
                             access_delete_history_file($_SESSION['designation_id'],$_SESSION['accountId'],$orderRow['id']);
                             ?>
@@ -2579,10 +2589,624 @@ function getDelNumb(delOrderId){
 
  
 }
+function openPopup(ordType, ordId) {
+    if (ordType == 1) {
+        
+       showOrderJourney(ordId, ordType);
+        return false;
+        
+    } else if (ordType == 2) {
+
+        showRequisitionJourney(ordId);
+        return false;
+        
+    } 
+
+    
+}
+function showOrderJourney(ordId, ordType, isSupOrder = 0) {
+     $.ajax({
+            method: "POST",
+            url: "ordershare_ajax_pdf.php",
+
+            data: {
+                orderId: ordId,
+                orderType: ordType,
+                isSupDet: isSupOrder
+            }
+        })
+        .done(function(htmlRes) {
+             $('#order_details_supplier').html(htmlRes);
+            $('#order_details').modal('show');
+
+            
+            //orderAndReqJsCode();
+        });
+
+       
+
+}
+
+function showRequisitionJourney(ordId) {
+
+$.ajax({
+        method: "POST",
+        url: "requisitionshare_ajax_pdf.php",
+
+        data: {
+            orderId: ordId
+        }
+    })
+    .done(function(htmlRes) {
+        $('#order_details_supplier').html(htmlRes);
+            $('#order_details').modal('show');
+
+        //orderAndReqJsCode();
+    });
+}
+function hideCheckbox(targetId) {
+
+    if ($('#' + targetId).is(":visible")) {
+        $('#' + targetId).css('display', 'none');
+    } else {
+        $('#' + targetId).css('display', 'block');
+    }
+}
+$('body').on('change', '.headCheckbox', function() {
+ if ($(".headCheckbox").length == $(".headCheckbox:checked").length)
+     $(".headChk-All").prop('checked', true);
+ else
+     $(".headChk-All").prop('checked', false);
+});
+$('body').on('change', '.itmTblCheckbox', function() {
+        
+        console.log('sssss',$(".itmTblCheckbox").length,$(".itmTblCheckbox:checked").length);
+        if ($(".itmTblCheckbox").length == $(".itmTblCheckbox:checked").length)
+            $(".itemChk-All").prop('checked', true);
+        else
+            $(".itemChk-All").prop('checked', false);
+    });
+
+$('body').on('change', '.smryCheckbox', function() {
+       
+        if ($(".smryCheckbox").length == $(".smryCheckbox:checked").length)
+            $(".smryChk-All").prop('checked', true);
+        else
+            $(".smryChk-All").prop('checked', false);
+    });
+
+$('body').on('click', '.headChk-All', function() {
+
+        //$('#show-header').show();
+        $('#show-header').css('display', 'block');
+
+        if ($(".headChk-All:checked").length == 1) {
+            $("#header").prop('checked', true);
+            $(".headCheckbox").prop('checked', true);
+            $('.headerTxt').css('display', 'block');
+        } else {
+            $("#header").prop('checked', false);
+            $(".headCheckbox").prop('checked', false);
+            $('.headerTxt').css('display', 'none');
+        }
+
+    });
+
+    function showHideByClassItems(targetId) {
+
+    if ($('.' + targetId).is(":visible")) {
+        $('.' + targetId).css('display', 'none');
+
+
+    } else {
+        $('.' + targetId).css('display', 'block');
+
+        if ( !$('#itemDiv').is(":visible")) {
+
+            $('#itemDiv').css('display', 'block');
+        }
+        
+    }
+
+}
+
+function showHideByClassSummary(targetId) {
+
+     if ($('.' + targetId).is(":visible")) {
+        $('.' + targetId).css('display', 'none');
+      
+
+    } else {
+        $('.' + targetId).css('display', 'block');
+
+        if ( !$('.show-smry-cls').is(":visible")) {
+
+            $('.show-smry-cls').css('display', 'block');
+        }
+
+        if (targetId == 'smryDef_Val' || targetId == 'smryOtr_Val') 
+        {
+            $('.sumBreakupAmtText').css('display', 'block');
+        }
+
+        
+    }
+
+}
+
+$('body').on('click', '.smryChk-All', function() {
+
+        $('#show-smry').css('display', 'block');
+        $('#show-header').css('display', 'none');
+        $('#show-itm').css('display', 'none');
+
+
+        if ($(".smryChk-All:checked").length == 1) {
+
+            $('.show-smry-cls').css('display', 'block');
+            $('#smrySuplr').css('display', 'block');
+            $('#smryPayment').css('display', 'block');
+            $('.smryHead').css('display', 'block');
+            $('.smryDef_Val').css('display', 'block');
+            $('.smryOtr_Val').css('display', 'block');
+
+            $("#summary").prop('checked', true);
+            $(".smryCheckbox").prop('checked', true);
+
+        } else {
+            $("#summary").prop('checked', false);
+            $(".smryCheckbox").prop('checked', false);
+            $('.show-smry-cls').css('display', 'none');
+            $('#smrySuplr').css('display', 'none');
+            $('#smryPayment').css('display', 'none');
+            $('.smryHead').css('display', 'none');
+            $('.smryDef_Val').css('display', 'none');
+            $('.smryOtr_Val').css('display', 'none');
+
+        }
+
+
+    });
+
+     $('body').on('change', '.summary-default-currency, .summary-second-currency', function() {
+
+        updateVisibility();
+    });
+
+    function updateVisibility() {
+
+    var otherCurId = $('#ordCurId').val();
+
+    if (!$(".summary-default-currency").is(":checked") && ( !$(".summary-second-currency").is(
+            ":checked") || otherCurId == 0)) {
+
+        $('.amountSections').css('display', 'none');
+       $('.SummaryItems').css('display', 'none');
+
+       // $('.smryTtl').css('display', 'none');
+
+    }
+    else
+    {
+        $('.sumBreakupAmtText').css('display', 'block');
+         $('.SummaryItems').css('display', 'table-row');
+    } 
+    }
+
+    $('body').on('click', '.itemChk-All', function() {
+
+        $('#show-itm').css('display', 'block');
+
+
+        if ($(".itemChk-All:checked").length == 1) {
+            $("#itemTable").prop('checked', true);
+            $(".itmTblCheckbox").prop('checked', true);
+
+            $('.photo').css('display', 'block');
+            $('.itmProd').css('display', 'block');
+            $('.itmCode').css('display', 'block');
+
+            $('.itmTotal').css('display', 'block');
+            $('.itmPrc').css('display', 'block');
+            $('.otherCurPrice').css('display', 'block');
+            $('.itmPrcunit').css('display', 'block');
+            $('.itmPurqty').css('display', 'block');
+            $('.itmRecqty').css('display', 'block');
+            $('.otherCurTotal').css('display', 'block');
+            $('.itmNote').css('display', 'block');
+
+
+        } else {
+            $("#itemTable").prop('checked', false);
+            $(".itmTblCheckbox").prop('checked', false);
+
+            $('.photo').css('display', 'none');
+            $('.itmProd').css('display', 'none');
+            $('.itmCode').css('display', 'none');
+            $('.itmTotal').css('display', 'none');
+            $('.itmPrc').css('display', 'none');
+            $('.otherCurPrice').css('display', 'none');
+            $('.itmPrcunit').css('display', 'none');
+            $('.itmPurqty').css('display', 'none');
+            $('.itmRecqty').css('display', 'none');
+            $('.otherCurTotal').css('display', 'none');
+            $('.itmNote').css('display', 'none');
+        }
+
+    });
 </script>
  <div id="dialog" style="display: none;">
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
 </div>
+<div class="modal" tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+                <div id="order_details_supplier" class="modal-content p-2">
+        
+</div>
+</div>
+</div>
+<!-- ===== History pdf popup new in div format======= -->
+    <div class="modal" tabindex="-1" id="history_pdf" aria-labelledby="history_pdfModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+            <div class="modal-content p-2">
+                <div class="modal-header pb-3">
+                    <div class="d-md-flex align-items-center justify-content-between w-100 ">
+                        <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
+                        
+                                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
+                                    <i class="fa fa-filter"></i>
+                                </button>
+                            
+                                <div class="collapse" id="modalfiltertop">
+                                    <div class="d-flex gap-3 modal-head-row">
+                                    
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Headers<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
+                                                <span class="fs-13">Address</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="logo" class="form-check-input" value="4">
+                                                <span class="fs-13">Logo</span>
+                                            </li>
+                                        </ul>
+                                    </div>                                  
+
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Summary<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="issuedIn" class="form-check-input" value="2">
+                                                <span class="fs-13">Issued in</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="defaultCurrency" class="form-check-input" value="3">
+                                                <span class="fs-13">Default currency</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="otherCurrency" class="form-check-input" value="4">
+                                                <span class="fs-13">Other currency</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="paid" class="form-check-input" value="5">
+                                                <span class="fs-13">Paid</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="pending" class="form-check-input" value="5">
+                                                <span class="fs-13">Pending</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="issuedOut" class="form-check-input" value="5">
+                                                <span class="fs-13">Issued out</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="received" class="form-check-input" value="5">
+                                                <span class="fs-13">Received</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="issuedOutPending" class="form-check-input" value="5">
+                                                <span class="fs-13">Issued out pending</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="variances" class="form-check-input" value="5">
+                                                <span class="fs-13">Variances</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="accounts" class="form-check-input" value="5">
+                                                <span class="fs-13">Accounts</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Item Table<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="taskNo" class="form-check-input" value="2">
+                                                <span class="fs-13">Task no.</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="date" class="form-check-input" value="3">
+                                                <span class="fs-13">Date</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="user" class="form-check-input" value="4">
+                                                <span class="fs-13">User</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="supInvoiceNo" class="form-check-input" value="5">
+                                                <span class="fs-13">Sup invoice no.</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="type" class="form-check-input" value="6">
+                                                <span class="fs-13">Type</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="referTo" class="form-check-input" value="7">
+                                                <span class="fs-13">Refer to</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="value" class="form-check-input" value="8">
+                                                <span class="fs-13">Value</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="defaultCurrencyTotal" class="form-check-input" value="9">
+                                                <span class="fs-13">Default currency total</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="secondCurrencyTotal" class="form-check-input" value="10">
+                                                <span class="fs-13">Second currency total</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="status" class="form-check-input" value="12">
+                                                <span class="fs-13">Status</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="paymentNo" class="form-check-input" value="12">
+                                                <span class="fs-13">Payment no.</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="invoiceNo" class="form-check-input" value="12">
+                                                <span class="fs-13">Invoice no.</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="accounts" class="form-check-input" value="12">
+                                                <span class="fs-13">Accounts</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    </div>
+                                
+                                </div>
+
+                        
+
+                        </div>
+                        <a href="historypdf.html" class="btn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                    </div>
+                </div> 
+                <div class="modal-body px-2 py-3">
+                    <div class="row pb-3">
+                        <div class="col-6">
+                            <div class="modal-address ">
+                                <h6 class="semibold fs-14">Our Zazibar</h6>
+                                <div class="fs-13 ">
+                                    <p>P.o Box 4146</p>
+                                    <p>Jambiani</p>
+                                    <p>Zanzibar, TANZANIA</p>
+                                    <p>inventory@our-zanzibar.com</p>
+                                    <p>+255743419217</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end">
+                            <div class="modal-logo">
+                                <img src="Assets/icons/logo_Q.svg" alt="Logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="model-title-with-date">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h6 class="semibold">History report</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-end fs-15"><small>From</small> 16-04-2024 <small>To</small> 19-04-2024</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summery-row">
+                        <div class="row">
+                            <div class="col-7 issueInSection pe-1">
+                                <div class="modal-table fs-12 w-100">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell">&nbsp;</div>
+                                        <div class="table-cell medium">Issued in</div>
+                                        <div class="table-cell medium">( $ )</div>
+                                        <div class="table-cell medium">( € )</div>
+                                        <div class="table-cell medium">( Tzs )</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell">Total</div>
+                                        <div class="table-cell">5,602.56 $</div>
+                                        <div class="table-cell">3,200 $</div>
+                                        <div class="table-cell">2973.23 €</div>
+                                        <div class="table-cell">5,520,000 Tzs</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Paid </div>
+                                        <div class="table-cell font-bold">2,000 $ </div>
+                                        <div class="table-cell">1,200 $ </div>
+                                        <div class="table-cell">1114.96 € </div>
+                                        <div class="table-cell">1,840,000 Tzs </div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Pending</div>
+                                        <div class="table-cell font-bold">3,602.56 $</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 issueOutSection pe-1 ps-0">
+                                <div class="modal-table fs-12 w-100">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell">&nbsp;</div>
+                                        <div class="table-cell medium">Issued out</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell">Total</div>
+                                        <div class="table-cell">4,882.23 $</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Received</div>
+                                        <div class="table-cell font-bold">3,602.56 $</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Pending</div>
+                                        <div class="table-cell font-bold">1,279.69 $</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 varianceRow ps-0">
+                                <div class="modal-table fs-12 w-100">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell medium">Variance</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>50 $</div>
+                                        <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>-20 $</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflowTable"> 
+                        <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
+                            <div class="table-row header-row">
+                                <div class="table-cell medium">Accounts</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                            </div>
+                            <div class="table-row thead">
+                                <div class="table-cell">1000 $<small>HDFC bank</small></div>
+                                <div class="table-cell">2000 $ <small>UPI bank</small></div>
+                                <div class="table-cell">-25 $<small>Yes bank</small></div>
+                                <div class="table-cell">1000 $ <small>Paypal</small></div>
+                                <div class="table-cell">1000 $<small>ICICI bank</small></div>
+                                <div class="table-cell">1000 $ <small>ICICI bank</small></div>
+                            </div>
+                            <div class="table-row thead">
+                                <div class="table-cell">1000 $<small>HDFC bank</small></div>
+                                <div class="table-cell">2000 $ <small>UPI bank</small></div>
+                                <div class="table-cell">-25 $<small>Yes bank</small></div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overflowTable"> 
+                        <div class="modal-table fs-12 w-100 mt-4">
+                            <div class="table-row thead">
+                                <div class="table-cell">#</div>
+                                <div class="table-cell">Task no.</div>
+                                <div class="table-cell">Date</div>
+                                <div class="table-cell">User</div>
+                                <div class="table-cell">Supplier <br>Invoice No.</div>
+                                <div class="table-cell">Type</div>
+                                <div class="table-cell">Refer to</div>
+                                <div class="table-cell">Value</div>
+                                <div class="table-cell">Status</div>
+                                <div class="table-cell">Payment # <br>/Invoice #</div>
+                                <div class="table-cell">Account</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">1</div>
+                                <div class="table-cell">110001</div>
+                                <div class="table-cell">02/10/23</div>
+                                <div class="table-cell">Saleh</div>
+                                <div class="table-cell">55221123</div>
+                                <div class="table-cell medium">Issued in</div>
+                                <div class="table-cell">Green Grocery</div>
+                                <div class="table-cell medium">100 $</div>
+                                <div class="table-cell textStatusPaid medium">Paid</div>
+                                <div class="table-cell">000202</div>
+                                <div class="table-cell">Yes bank</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">2</div>
+                                <div class="table-cell">110001</div>
+                                <div class="table-cell">02/10/23</div>
+                                <div class="table-cell">Saleh</div>
+                                <div class="table-cell">5234455</div>
+                                <div class="table-cell medium">Issued in</div>
+                                <div class="table-cell">Active Store</div>
+                                <div class="table-cell medium">20 $ <br>50,100 Tzs</div>
+                                <div class="table-cell textStatusPending medium">Pending</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">3</div>
+                                <div class="table-cell">110001</div>
+                                <div class="table-cell">02/10/23</div>
+                                <div class="table-cell">Saleh</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell medium">Issued Out</div>
+                                <div class="table-cell">Casa bar</div>
+                                <div class="table-cell medium">40 $</div>
+                                <div class="table-cell textStatusPending medium">Pending</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell">&nbsp;</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">4</div>
+                                <div class="table-cell">110001</div>
+                                <div class="table-cell">02/10/23</div>
+                                <div class="table-cell">Saleh</div>
+                                <div class="table-cell">&nbsp;</div>
+                                <div class="table-cell medium">Issued Out</div>
+                                <div class="table-cell">Fun Kitchen</div>
+                                <div class="table-cell medium">30 $</div>
+                                <div class="table-cell textStatusReceived medium">Received</div>
+                                <div class="table-cell">112233</div>
+                                <div class="table-cell">HDFC bank</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- ===== History pdf popup new in div format======= -->
 </body>
 
 </html>
