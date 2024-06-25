@@ -1019,7 +1019,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                             </a>
                                         </div>
                                         <div class="chkStore">
-                                           <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" data-bs-target="#history_pdf">
+                                           <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" onclick="showOrdersHistory();">
                                                 <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
                                             </a>
                                         </div>
@@ -2604,6 +2604,7 @@ function openPopup(ordType, ordId) {
 
     
 }
+
 function showOrderJourney(ordId, ordType, isSupOrder = 0) {
      $.ajax({
             method: "POST",
@@ -2834,6 +2835,23 @@ $('body').on('click', '.smryChk-All', function() {
         }
 
     });
+    function showOrdersHistory() {
+
+        $.ajax({
+            method: "POST",
+            url: "history_pdf_ajax.php",
+         })
+        .done(function(htmlRes) {
+             $('#order_history_popup').html(htmlRes);
+            $('#history_pdf').modal('show');
+
+            
+            //orderAndReqJsCode();
+        });
+
+       
+
+}
 </script>
  <div id="dialog" style="display: none;">
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
@@ -2848,364 +2866,15 @@ $('body').on('click', '.smryChk-All', function() {
 <!-- ===== History pdf popup new in div format======= -->
     <div class="modal" tabindex="-1" id="history_pdf" aria-labelledby="history_pdfModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-            <div class="modal-content p-2">
-                <div class="modal-header pb-3">
-                    <div class="d-md-flex align-items-center justify-content-between w-100 ">
-                        <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
-                        
-                                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
-                                    <i class="fa fa-filter"></i>
-                                </button>
-                            
-                                <div class="collapse" id="modalfiltertop">
-                                    <div class="d-flex gap-3 modal-head-row">
-                                    
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Headers<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
-                                                <span class="fs-13">Check All</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="logo" class="form-check-input" value="4">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                        </ul>
-                                    </div>                                  
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Summary<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
-                                                <span class="fs-13">Check All</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="issuedIn" class="form-check-input" value="2">
-                                                <span class="fs-13">Issued in</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="defaultCurrency" class="form-check-input" value="3">
-                                                <span class="fs-13">Default currency</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="otherCurrency" class="form-check-input" value="4">
-                                                <span class="fs-13">Other currency</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="paid" class="form-check-input" value="5">
-                                                <span class="fs-13">Paid</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="pending" class="form-check-input" value="5">
-                                                <span class="fs-13">Pending</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="issuedOut" class="form-check-input" value="5">
-                                                <span class="fs-13">Issued out</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="received" class="form-check-input" value="5">
-                                                <span class="fs-13">Received</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="issuedOutPending" class="form-check-input" value="5">
-                                                <span class="fs-13">Issued out pending</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="variances" class="form-check-input" value="5">
-                                                <span class="fs-13">Variances</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="accounts" class="form-check-input" value="5">
-                                                <span class="fs-13">Accounts</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Item Table<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
-                                                <span class="fs-13">Check All</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="taskNo" class="form-check-input" value="2">
-                                                <span class="fs-13">Task no.</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="date" class="form-check-input" value="3">
-                                                <span class="fs-13">Date</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="user" class="form-check-input" value="4">
-                                                <span class="fs-13">User</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="supInvoiceNo" class="form-check-input" value="5">
-                                                <span class="fs-13">Sup invoice no.</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="type" class="form-check-input" value="6">
-                                                <span class="fs-13">Type</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="referTo" class="form-check-input" value="7">
-                                                <span class="fs-13">Refer to</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="value" class="form-check-input" value="8">
-                                                <span class="fs-13">Value</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="defaultCurrencyTotal" class="form-check-input" value="9">
-                                                <span class="fs-13">Default currency total</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="secondCurrencyTotal" class="form-check-input" value="10">
-                                                <span class="fs-13">Second currency total</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="status" class="form-check-input" value="12">
-                                                <span class="fs-13">Status</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="paymentNo" class="form-check-input" value="12">
-                                                <span class="fs-13">Payment no.</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="invoiceNo" class="form-check-input" value="12">
-                                                <span class="fs-13">Invoice no.</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="accounts" class="form-check-input" value="12">
-                                                <span class="fs-13">Accounts</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    </div>
-                                
-                                </div>
-
-                        
-
-                        </div>
-                        <a href="historypdf.html" class="btn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
-                    </div>
-                </div> 
-                <div class="modal-body px-2 py-3">
-                    <div class="row pb-3">
-                        <div class="col-6">
-                            <div class="modal-address ">
-                                <h6 class="semibold fs-14">Our Zazibar</h6>
-                                <div class="fs-13 ">
-                                    <p>P.o Box 4146</p>
-                                    <p>Jambiani</p>
-                                    <p>Zanzibar, TANZANIA</p>
-                                    <p>inventory@our-zanzibar.com</p>
-                                    <p>+255743419217</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 text-end">
-                            <div class="modal-logo">
-                                <img src="Assets/icons/logo_Q.svg" alt="Logo">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="model-title-with-date">
-                        <div class="row align-items-center">
-                            <div class="col-sm-6">
-                                <h6 class="semibold">History report</h6>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-end fs-15"><small>From</small> 16-04-2024 <small>To</small> 19-04-2024</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="summery-row">
-                        <div class="row">
-                            <div class="col-7 issueInSection pe-1">
-                                <div class="modal-table fs-12 w-100">
-                                    <div class="table-row header-row">
-                                        <div class="table-cell">&nbsp;</div>
-                                        <div class="table-cell medium">Issued in</div>
-                                        <div class="table-cell medium">( $ )</div>
-                                        <div class="table-cell medium">( € )</div>
-                                        <div class="table-cell medium">( Tzs )</div>
-                                    </div>
-                                    <div class="table-row thead">
-                                        <div class="table-cell">Total</div>
-                                        <div class="table-cell">5,602.56 $</div>
-                                        <div class="table-cell">3,200 $</div>
-                                        <div class="table-cell">2973.23 €</div>
-                                        <div class="table-cell">5,520,000 Tzs</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Paid </div>
-                                        <div class="table-cell font-bold">2,000 $ </div>
-                                        <div class="table-cell">1,200 $ </div>
-                                        <div class="table-cell">1114.96 € </div>
-                                        <div class="table-cell">1,840,000 Tzs </div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Pending</div>
-                                        <div class="table-cell font-bold">3,602.56 $</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 issueOutSection pe-1 ps-0">
-                                <div class="modal-table fs-12 w-100">
-                                    <div class="table-row header-row">
-                                        <div class="table-cell">&nbsp;</div>
-                                        <div class="table-cell medium">Issued out</div>
-                                    </div>
-                                    <div class="table-row thead">
-                                        <div class="table-cell">Total</div>
-                                        <div class="table-cell">4,882.23 $</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Received</div>
-                                        <div class="table-cell font-bold">3,602.56 $</div>
-                                    </div>
-                                    <div class="table-row">
-                                        <div class="table-cell">Pending</div>
-                                        <div class="table-cell font-bold">1,279.69 $</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2 varianceRow ps-0">
-                                <div class="modal-table fs-12 w-100">
-                                    <div class="table-row header-row">
-                                        <div class="table-cell medium">Variance</div>
-                                    </div>
-                                    <div class="table-row thead">
-                                        <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>50 $</div>
-                                        <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>-20 $</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="overflowTable"> 
-                        <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
-                            <div class="table-row header-row">
-                                <div class="table-cell medium">Accounts</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                            <div class="table-row thead">
-                                <div class="table-cell">1000 $<small>HDFC bank</small></div>
-                                <div class="table-cell">2000 $ <small>UPI bank</small></div>
-                                <div class="table-cell">-25 $<small>Yes bank</small></div>
-                                <div class="table-cell">1000 $ <small>Paypal</small></div>
-                                <div class="table-cell">1000 $<small>ICICI bank</small></div>
-                                <div class="table-cell">1000 $ <small>ICICI bank</small></div>
-                            </div>
-                            <div class="table-row thead">
-                                <div class="table-cell">1000 $<small>HDFC bank</small></div>
-                                <div class="table-cell">2000 $ <small>UPI bank</small></div>
-                                <div class="table-cell">-25 $<small>Yes bank</small></div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="overflowTable"> 
-                        <div class="modal-table fs-12 w-100 mt-4">
-                            <div class="table-row thead">
-                                <div class="table-cell">#</div>
-                                <div class="table-cell">Task no.</div>
-                                <div class="table-cell">Date</div>
-                                <div class="table-cell">User</div>
-                                <div class="table-cell">Supplier <br>Invoice No.</div>
-                                <div class="table-cell">Type</div>
-                                <div class="table-cell">Refer to</div>
-                                <div class="table-cell">Value</div>
-                                <div class="table-cell">Status</div>
-                                <div class="table-cell">Payment # <br>/Invoice #</div>
-                                <div class="table-cell">Account</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">1</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">55221123</div>
-                                <div class="table-cell medium">Issued in</div>
-                                <div class="table-cell">Green Grocery</div>
-                                <div class="table-cell medium">100 $</div>
-                                <div class="table-cell textStatusPaid medium">Paid</div>
-                                <div class="table-cell">000202</div>
-                                <div class="table-cell">Yes bank</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">2</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">5234455</div>
-                                <div class="table-cell medium">Issued in</div>
-                                <div class="table-cell">Active Store</div>
-                                <div class="table-cell medium">20 $ <br>50,100 Tzs</div>
-                                <div class="table-cell textStatusPending medium">Pending</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">3</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell medium">Issued Out</div>
-                                <div class="table-cell">Casa bar</div>
-                                <div class="table-cell medium">40 $</div>
-                                <div class="table-cell textStatusPending medium">Pending</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">4</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell medium">Issued Out</div>
-                                <div class="table-cell">Fun Kitchen</div>
-                                <div class="table-cell medium">30 $</div>
-                                <div class="table-cell textStatusReceived medium">Received</div>
-                                <div class="table-cell">112233</div>
-                                <div class="table-cell">HDFC bank</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="order_history_popup" class="modal-content p-2">
+                
                 
             </div>
         </div>
     </div>
+    <?php 
+include_once('historyPdfJsCode.php');
+?>
     <!-- ===== History pdf popup new in div format======= -->
 </body>
 
