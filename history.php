@@ -908,7 +908,8 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                         <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
                     </div>
                 </section>
-
+                <form method="get" action="history_pdf_download.php" target="_blank">
+                <input type="hidden" name="history_pdf_page" value="1" id="history_pdf_page"> 
                 <section class="hisParent-sec">
 
                     <section class="ordDetail hisTory">
@@ -940,7 +941,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                 </div> -->
                             </div>
                         </div>
-                        <form name="frm" id="frm" method="get" action="">
+                        <!-- <form name="frm" id="frm" method="get" action=""> -->
                         <input type="hidden" name="downloadType" id="downloadType" value="" />
                           <input type="hidden" name="ordType" id="ordType" value="<?php if(isset($_GET['ordType'])) { echo $_GET['ordType']; } ?>">
                            <input type="hidden" name="dateType" id="dateType" value="<?php if(isset($_GET['dateType'])) { echo $_GET['dateType']; } ?>">
@@ -1027,7 +1028,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                 </div>
                             </div>
                         </div>
-                        </form>
+                       
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">
                             <div class="date-flx"></div>
@@ -1384,7 +1385,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                             <!-- Item Table Head End -->
                         </div>
                     </section>
-
+                     
                     <section class="hisTblbody">
                         <div id="boxscroll">
                             <div class="container position-relative hstTbl-bd">
@@ -2110,7 +2111,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                             </div>
                         </div>
                     </section>
-
+                  </form>
                 </section>
 
             </div>
@@ -2237,7 +2238,8 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                           
 
                         </div>
-                        <a href="#" class="btn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <button type="submit" class="btn btn-primary dwnBtn downloadBtnHistory">
+                        <a href="#" class="btn"><span class="align-middle"><?php echo showOtherLangText('Press'); ?></span> <i class="fa-solid fa-download ps-1"></i></a></button>
                     </div>
                 </div> 
                 <div class="modal-body px-2 py-3">

@@ -257,7 +257,7 @@ $content = '<div class="modal-header pb-3">
                                                 <span class="fs-13">'.showOtherLangText('Check All').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="issuedIn" 
+                                                <input type="checkbox" checked="checked" name="issueInSummary" 
                                                 onclick="showHideByClassHistory(\'issueInSection\')" class="smryCheckboxHistory summary-issue-in form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Issued In').'</span>
                                             </li>
@@ -270,13 +270,13 @@ $content = '<div class="modal-header pb-3">
                                                 <span class="fs-13">'.showOtherLangText('Other Currency').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="paid" class="smryCheckboxHistory summary-paid form-check-input"
+                                                <input type="checkbox" checked="checked" name="paidSection" class="smryCheckboxHistory summary-paid form-check-input"
                                                 onclick="showHideByClassHistory(\'paidSection\')" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Paid') .'</span>
                                             </li>
                                             <li>
                                                 <input type="checkbox" checked="checked"
-                                                  onclick="showHideByClassHistory(\'pendingSection\')" name="pending" class="form-check-input smryCheckboxHistory summary-issue-out-pending" value="1">
+                                                  onclick="showHideByClassHistory(\'pendingSection\')" name="pendingSection" class="form-check-input smryCheckboxHistory summary-pending" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Pending') .'</span>
                                             </li>
                                             <li>
@@ -285,21 +285,21 @@ $content = '<div class="modal-header pb-3">
                                                 <span class="fs-13">'.showOtherLangText('Issued Out').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="received"
+                                                <input type="checkbox" checked="checked" name="receiveSection"
                                                     onclick="showHideByClassHistory(\'receiveSection\')" class="smryCheckboxHistory summary-issue-out-receive form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Received').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="issuedOutPending" class="smryCheckboxHistory summary-issue-out-pending form-check-input"
+                                                <input type="checkbox" checked="checked" name="issueOutPendingSection" class="smryCheckboxHistory summary-issue-out-pending form-check-input"
                                                     onclick="showHideByClassHistory(\'issueOutPendingSection\')" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Issued Out Pending').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="variances" onclick="showHideByClassHistory(\'varianceRow\')" class="smryCheckboxHistory summary-variance form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="variance" onclick="showHideByClassHistory(\'varianceRow\')" class="smryCheckboxHistory summary-variance form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Variances').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="accounts" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
                                             </li>
                                         </ul>
@@ -311,59 +311,94 @@ $content = '<div class="modal-header pb-3">
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <input type="checkbox" class="itemChk-AllHistory form-check-input" checked="checked">
                                                 <span class="fs-13">'.showOtherLangText('Check All') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="taskNo" class="form-check-input" value="1">
+                                               <input type="checkbox" name="itemTaskNo" onclick="showHideByClassHistoryItem(\'head2\')"
+
+                                        '.( isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
+                                         
+
+                                       
+                                            class="form-check-input itmTblCheckboxHistory item-taskNo" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Task No.') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="date" class="form-check-input" value="1">
+                                               <input type="checkbox" name="itemDate" onclick="showHideByClassHistoryItem(\'head3\')" 
+                                        
+                                        '.( isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
+
+                                            class="form-check-input itmTblCheckboxHistory item-date" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Date') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="user" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-user form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('User') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="supInvoiceNo" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-sup-invNo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Sup Invoice No.') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="type" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ? '' : 'checked="checked"' ).' value="1">
                                                 <span class="fs-13">'.showOtherLangText('Type') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="referTo" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" onclick="showHideByClassHistoryItem(\'head7\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ? '' : 'checked="checked"' ).'name="itemReferTo" class="itmTblCheckboxHistory item-referTo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Refer to') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="value" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Value') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="defaultCurrencyTotal" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckboxHistory item-def-curr-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Default Currency Total') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="secondCurrencyTotal" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckboxHistory item-sec-curr-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Second Currency Total') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="status" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-status form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Status') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="paymentNo" class="form-check-input" value="1">
+                                                <input type="checkbox" checked="checked" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-paymentNo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Payment no.') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="invoiceNo" class="form-check-input" value="12">
+                                               <input type="checkbox" name="itemInvNo" onclick="showHideByClassHistoryItem(\'head11\')" 
+
+                                        '.( isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
+
+                                            class="form-check-input itmTblCheckboxHistory item-invNo" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Invoice no.') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="accounts" class="form-check-input" value="12">
+                                               <input type="checkbox" name="itemAccount" onclick="showHideByClassHistoryItem(\'head12\')" 
+                                        '.( isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
+
+                                            class="form-check-input itmTblCheckboxHistory item-account" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
                                             </li>
                                         </ul>
@@ -559,18 +594,18 @@ $content = '<div class="modal-header pb-3">
                         if($('.varianceRow').css('display') == 'none')
                         {
                             
-                            <?php  $issueoutClass='col-md-12'; ?>
+                            <?php  $issueoutClass='1=>col-md-12'; ?>
                         }
                         else{
-                            <?php  $issueoutClass='col-md-6'; ?>
+                            <?php  $issueoutClass='2=>col-md-6'; ?>
                         }
 
                         if($('.issueOutSection ').css('display') == 'none')
                         {
-                            <?php  $varianceClass='col-md-12'; ?>
+                            <?php  $varianceClass='3=>col-md-12'; ?>
                         }
                         else{
-                            <?php  $varianceClass ='col-md-6'; ?>
+                            <?php  $varianceClass ='4=>col-md-6'; ?>
                         }
                     </script>
 
@@ -584,42 +619,42 @@ $content = '<div class="modal-header pb-3">
                      if($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0)
                         {
                             if($count >= 1){
-                                $issueinClass='col-md-12';
-                                $issueoutClass='col-md-6';
-                                $varianceClass='col-md-6';
+                                $issueinClass='5=>col-md-12';
+                                $issueoutClass='6=>col-md-6';
+                                $varianceClass='7=>col-md-6';
                             }
                             else
                             {
-                                $issueinClass='col-md-3';
-                                $issueoutClass='col-md-3';
-                                $varianceClass='col-md-6';
+                                $issueinClass='8=>col-md-3';
+                                $issueoutClass='9=>col-md-3';
+                                $varianceClass='10=>col-md-6';
                             }
                         }
                         elseif($checkIfPermissionToNewOrderSec > 0 )
                         {
                             if($count >= 1){
-                                $issueinClass='col-md-12';
-                                $issueoutClass='col-md-3';
-                                $varianceClass='col-md-12';
+                                $issueinClass='11=>col-md-12';
+                                $issueoutClass='12=>col-md-3';
+                                $varianceClass='13=>col-md-12';
                             }
                             else
                             {
-                                $issueinClass='col-md-3';
-                                $issueoutClass='col-md-3';
-                                $varianceClass='col-md-6';
+                                $issueinClass='14=>col-md-3';
+                                $issueoutClass='15=>col-md-3';
+                                $varianceClass='16=>col-md-6';
                             }
                         }
                         elseif($checkIfPermissionToNewReqSec > 0 )
                         {
-                            $issueinClass='col-md-3';
-                            $issueoutClass='col-md-6';
-                            $varianceClass='col-md-6';
+                            $issueinClass='17=>col-md-3';
+                            $issueoutClass='18=>col-md-6';
+                            $varianceClass='19=>col-md-6';
                         }
                         else
                         {
-                            $issueinClass='col-md-3';
-                            $issueoutClass='col-md-3';
-                            $varianceClass='col-md-12';
+                            $issueinClass='20=>col-md-3';
+                            $issueoutClass='21=>col-md-3';
+                            $varianceClass='22=>col-md-12';
                         }
 
                    
@@ -643,39 +678,48 @@ $content = '<div class="modal-header pb-3">
                 {
                 $content .= '<div class="summery-row">
                         <div class="row"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
-                            <div class="col-7 issueInSection pe-1">
+                            <div class="col-7 issueInSection summaryPart  pe-1">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell">&nbsp;</div>
                                         <div class="table-cell medium">'.showOtherLangText('Issued In').'</div>';
                                         
-                                    foreach ($otherCurrRowArr as $otherCurrRow)
+                                foreach ($otherCurrRowArr as $otherCurrRow)
                                     {     
-                                        $content .= '<div class="table-cell medium">( $ )</div>';
+                                        $content .= '<div class="table-cell medium">('.$otherCurrRow['curCode'].')</div>';
                                     }
                                     $content .=  '</div>
                                     <div class="table-row thead">
-                                        <div class="table-cell">Total</div>
-                                        <div class="table-cell">5,602.56 $</div>
-                                        <div class="table-cell">3,200 $</div>
-                                        <div class="table-cell">2973.23 €</div>
-                                        <div class="table-cell">5,520,000 Tzs</div>
-                                    </div>
+                                        <div class="table-cell">'.showOtherLangText('Total').'</div>
+                                        <div class="table-cell issue-in-def-curr"><span class="defaultCurSection summaryPart">'.getPriceWithCur($issueInTotal, $getDefCurDet['curCode']).'</span></div>';
+                                     foreach ($otherCurrTotalValueArr as $currencyId => $countOtherCurrRow)
+                                    {
+                                        // $content .=  ($otherCurrTotalValueArr[$currencyId] > 0) ? '<td class="issue-in-oth-curr "><span class="otherCurSection summaryPart">'.showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId).'</span></td>' : '<td>&nbsp;</td>';
+                                        $content .=  ($otherCurrTotalValueArr[$currencyId] > 0) ? '<div class="table-cell issue-in-oth-curr "><span class="otherCurSection summaryPart">'.showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId).'</span></div>' : '<div class="table-cell">&nbsp;</div>';
+                                    }
+                                    $totalCols = count($otherCurrRowArr)+2;   
+                                    $content .=  '</div>
                                     <div class="table-row">
-                                        <div class="table-cell">Paid </div>
-                                        <div class="table-cell font-bold">2,000 $ </div>
-                                        <div class="table-cell">1,200 $ </div>
-                                        <div class="table-cell">1114.96 € </div>
-                                        <div class="table-cell">1,840,000 Tzs </div>
-                                    </div>
+                                        <div class="table-cell paidSection summaryPartCell">'. showOtherLangText('Paid').' </div>
+                                        <div class="issue-in-def-curr paidSection summaryPartCell table-cell font-bold"><span class="defaultCurSection summaryPartCell"> '. ( ($issuedInOutPaidArr[1][1] > 0) ? getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '' ).'</span></div>';
+                                        foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                                    {
+                                       $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-oth-curr pendingSection summaryPartCell table-cell"><span class="pendingSection otherCurSection summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>':'<div class="pendingSection summaryPartCell"></div>'; 
+                                    }
+                                        // <div class="table-cell">1,200 $ </div>
+                                        // <div class="table-cell">1114.96 € </div>
+                                        // <div class="table-cell">1,840,000 Tzs </div>
+                                   $content .= '</div>
                                     <div class="table-row">
-                                        <div class="table-cell">Pending</div>
-                                        <div class="table-cell font-bold">3,602.56 $</div>
+                                        <div class="table-cell pendingSection summaryPartCell">'. showOtherLangText('Pending').'</div>
+                                        <span class="pendingSection defaultCurSection summaryPartCell">'. ( ($issuedInOutPendingArr[1][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '' ).'</span>
                                     </div>
                                 </div>
                             </div>';
                         }
-                            $content .= '<div class="col-3 issueOutSection pe-1 ps-0">
+                        if( $checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 2))
+                        {
+                            $content .= '<div class="col-3 summaryPart  issueOutSection pe-1 ps-0">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell">&nbsp;</div>
@@ -687,123 +731,508 @@ $content = '<div class="modal-header pb-3">
                                     </div>
                                     <div class="table-row">
                                         <div class="table-cell">'. showOtherLangText('Received').'</div>
-                                        <div class="table-cell font-bold">'. ( ($issuedInOutPaidArr[2][1]) ? getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '' ).'</div>
+                                        <div class="receiveSection summaryPartCell table-cell font-bold">'. ( ($issuedInOutPaidArr[2][1]) ? getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '' ).'</div>
                                     </div>
                                     <div class="table-row">
                                         <div class="table-cell">'. showOtherLangText('Pending').'</div>
                                         <div class="table-cell font-bold">'. ( ($issuedInOutPendingArr[2][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '' ).'</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-2 varianceRow ps-0">
+                            </div>';
+                        }
+                    $variancesPosTot = 0;
+                    $variancesPosQtyTot = 0;
+                    $variancesNevQtyTot = 0;
+                    $variancesNevTot = 0;
+                    $varaincesVal = 0;
+
+                    //variance starts here
+                    if($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3)
+                    {
+
+                        $sqlSet = " SELECT od.* FROM tbl_order_details od
+                        INNER JOIN tbl_orders o
+                            ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                        WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$cond1." ";
+                        $resultSet = mysqli_query($con, $sqlSet);
+                        while( $resRow = mysqli_fetch_array($resultSet) )
+                        {
+                            if ($resRow['qtyReceived'] < $resRow['qty'])
+                            {
+                                $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
+                                $variancesPosQtyTot += $varaincesVal;
+                                $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
+                            }
+                            elseif($resRow['qtyReceived'] > $resRow['qty'])
+                            {
+                                $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
+                                
+                                $variancesNevQtyTot += $varaincesVal;
+                                $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
+                            }
+                                
+                        }
+                            $content .= '<div class="col-2 summaryPart  varianceRow ps-0">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
-                                        <div class="table-cell medium">Variance</div>
+                                        <div class="table-cell medium">'. showOtherLangText('Variance') .'</div>
                                     </div>
                                     <div class="table-row thead">
-                                        <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>50 $</div>
-                                        <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>-20 $</div>
+                                        <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>'. getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</div>
+                                        <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>'. getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) .'</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="overflowTable"> 
+                    </div>';
+                    }
+                    $content .= '<div class="overflowTable accountSection summaryPart"> 
                         <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
                             <div class="table-row header-row">
-                                <div class="table-cell medium">Accounts</div>
+                                <div class="table-cell medium">'.showOtherLangText('Accounts') .'</div>
                                 <div class="table-cell">&nbsp;</div>
                                 <div class="table-cell">&nbsp;</div>
                                 <div class="table-cell">&nbsp;</div>
                                 <div class="table-cell">&nbsp;</div>
                                 <div class="table-cell">&nbsp;</div>
-                            </div>
-                            <div class="table-row thead">
-                                <div class="table-cell">1000 $<small>HDFC bank</small></div>
-                                <div class="table-cell">2000 $ <small>UPI bank</small></div>
-                                <div class="table-cell">-25 $<small>Yes bank</small></div>
-                                <div class="table-cell">1000 $ <small>Paypal</small></div>
-                                <div class="table-cell">1000 $<small>ICICI bank</small></div>
-                                <div class="table-cell">1000 $ <small>ICICI bank</small></div>
-                            </div>
-                            <div class="table-row thead">
-                                <div class="table-cell">1000 $<small>HDFC bank</small></div>
-                                <div class="table-cell">2000 $ <small>UPI bank</small></div>
-                                <div class="table-cell">-25 $<small>Yes bank</small></div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                        </div>
-                    </div>
+                            </div>';
+                            $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+            INNER JOIN tbl_currency c 
+                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
+            WHERE a.account_id = '".$_SESSION['accountId']."' ";
+            $result = mysqli_query($con, $sqlSet);
+            $content .='<div class="table-row thead">';
+            $i = 0;
+            while($resultRow = mysqli_fetch_array($result))
+            {
+                if($i%6==0 && $i!=0)
+                {
+                 $content .='</div><div class="table-row thead">';    
+                }
+                $curCode = $resultRow['curCode'];
+                $balanceAmt = round($resultRow['balanceAmt'], 4);
+                          
+                $content .= '<div class="table-cell"> '. number_format($balanceAmt).'
+                        '. $curCode .'<small>'. $resultRow['accountName'].'</small></div>';
+            $i++;}
+            $content .='</div>';
 
-                    <div class="overflowTable"> 
+                            
+                        $content .= '</div>
+                    </div>';
+                    $content .= '<div class="overflowTable"> 
                         <div class="modal-table fs-12 w-100 mt-4">
-                            <div class="table-row thead">
-                                <div class="table-cell">#</div>
-                                <div class="table-cell">Task no.</div>
-                                <div class="table-cell">Date</div>
-                                <div class="table-cell">User</div>
-                                <div class="table-cell">Supplier <br>Invoice No.</div>
-                                <div class="table-cell">Type</div>
-                                <div class="table-cell">Refer to</div>
-                                <div class="table-cell">Value</div>
-                                <div class="table-cell">Status</div>
-                                <div class="table-cell">Payment # <br>/Invoice #</div>
-                                <div class="table-cell">Account</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">1</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">55221123</div>
-                                <div class="table-cell medium">Issued in</div>
-                                <div class="table-cell">Green Grocery</div>
-                                <div class="table-cell medium">100 $</div>
-                                <div class="table-cell textStatusPaid medium">Paid</div>
-                                <div class="table-cell">000202</div>
-                                <div class="table-cell">Yes bank</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">2</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">5234455</div>
-                                <div class="table-cell medium">Issued in</div>
-                                <div class="table-cell">Active Store</div>
-                                <div class="table-cell medium">20 $ <br>50,100 Tzs</div>
-                                <div class="table-cell textStatusPending medium">Pending</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">3</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell medium">Issued Out</div>
-                                <div class="table-cell">Casa bar</div>
-                                <div class="table-cell medium">40 $</div>
-                                <div class="table-cell textStatusPending medium">Pending</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell">&nbsp;</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">4</div>
-                                <div class="table-cell">110001</div>
-                                <div class="table-cell">02/10/23</div>
-                                <div class="table-cell">Saleh</div>
-                                <div class="table-cell">&nbsp;</div>
-                                <div class="table-cell medium">Issued Out</div>
-                                <div class="table-cell">Fun Kitchen</div>
-                                <div class="table-cell medium">30 $</div>
-                                <div class="table-cell textStatusReceived medium">Received</div>
-                                <div class="table-cell">112233</div>
-                                <div class="table-cell">HDFC bank</div>
-                            </div>
+                            <div class="table-row thead">';
+                     $payInvText = '<span class="head10 itemSectionPart">'.showOtherLangText('Pay').'</span> <span class="head11">'.showOtherLangText('Inv No.').'</span>';
+
+                        if( isset($historyUserFilterFields) && !in_array($headerArrOptions[10], $historyUserFilterFields) )
+                        {
+                            $payInvText = '<span class="head10 itemSectionPart" style="display:none;">'.showOtherLangText('Pay').'</span> <span class="head11">'.showOtherLangText('Inv No.').'</span>';
+
+                        }
+
+                        if( isset($historyUserFilterFields)  && !in_array($headerArrOptions[11], $historyUserFilterFields))
+                        {
+                            $payInvText = '<span class="head10 itemSectionPart">'.showOtherLangText('Pay').'</span> <span class="head11" style="display:none;">'.showOtherLangText('Inv No.').'</span>';
+
+                        }
+
+                        if( isset($historyUserFilterFields) && !in_array($headerArrOptions[10], $historyUserFilterFields) && !in_array($headerArrOptions[11], $historyUserFilterFields))
+                        {
+                            $payInvText = '<span class="head10 itemSectionPart" style="display:none;">'.showOtherLangText('Pay').'</span> <span class="head11" style="display:none;">'.showOtherLangText('Inv No.').'</span>';
+
+                        }
+                            
+                        
+                        $headerArr  = [
+                                1 => ''.showOtherLangText('#').'',
+
+                                2 => ''.showOtherLangText('Task No.').'',
+
+                                3 => ''.showOtherLangText('Date').'',
+
+                                4 => ''.showOtherLangText('User').'',
+
+                                5 => ''.showOtherLangText('Sup inv').'',
+
+                                6 => ''.showOtherLangText('Type').'',
+
+                                7 => ''.showOtherLangText('Refer To').'',
+                                
+                                8 => ''.showOtherLangText('Value').'',
+
+                                9 => ''.showOtherLangText('Status').'',
+                                
+                                11 => $payInvText,
+
+                                12 => ''.showOtherLangText('Account').'',
+                            ];
+                            if( isset($_SESSION['getVals']['ordType']) )
+                            {
+                                switch($_SESSION['getVals']['ordType'])
+                                {    
+                                    case 1: //IssueIn
+                                    unset( $headerArr[10] );
+                                    break;
+
+                                    case 2: //IssueOut
+                                    unset( $headerArr[5] );
+                                    //unset( $headerArr[9] );
+                                    break;
+
+                                    case 3: //stockTake
+                                    unset( $headerArr[5] );
+                                    unset( $headerArr[7] );
+                                    unset( $headerArr[9] );
+                                    unset( $headerArr[10] );
+                                    unset( $headerArr[11] );
+                                    unset( $headerArr[12] );
+                                    break;
+
+                                    case 4: //raw convert item
+                                   // unset( $headerArr[6] );
+                                   unset( $headerArr[5] );
+                                    unset( $headerArr[7] );
+                                    unset( $headerArr[9] );
+                                    unset( $headerArr[10] );
+                                    unset( $headerArr[11] );
+                                    unset( $headerArr[12] );
+                                    break;
+                                }
+                            }
+
+                            if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'storeId' )
+                            {
+                               unset( $headerArr[7] );
+                               unset( $headerArr[9] );
+                               unset( $headerArr[10] );
+                               unset( $headerArr[11] );
+                               unset( $headerArr[12] );
+                            }
+
+                            if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'deptUserId')
+                            {   
+                               unset( $headerArr[7] );
+                               unset( $headerArr[9] );
+                            }
+
+                            if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'suppId' )
+                            {
+                               unset( $headerArr[7] );
+                               unset( $headerArr[9] );
+                               unset( $headerArr[10] );
+                               unset( $headerArr[11] );
+                               unset( $headerArr[12] );
+                            }
+                   // $content .= '<div class="table-cell">#</div>
+                   //              <div class="table-cell">'.showOtherLangText('#').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Date').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('User').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Sup inv').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Type').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Refer To').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Value').'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Status').'</div>
+                   //              <div class="table-cell">'.$payInvText.'</div>
+                   //              <div class="table-cell">'.showOtherLangText('Account').'</div>';
+                        foreach($headerArr as $key=>$header)
+                            {
+
+                                $columnClass = '';
+                                $style="";
+                                if($key == 11)
+                                {
+                                    $key = '';
+                                    
+                                }
+                                else
+                                {
+
+                                   
+                                    if($key != 1 && $key != 11 && isset($historyUserFilterFields) && !in_array($headerArrOptions[$key], $historyUserFilterFields) )
+                                    {
+                                        $style='style="display:none;"';
+                                    }
+                                }
+
+                                if($key == 8)
+                                {
+                                    $columnClass = 'valueItem';
+                                }
+                                
+                                $content .= '<div class="table-cell"><span class="head'.$key.' itemSectionPart '.$columnClass.'" '.$style.'>'.$header.'</span></div>';
+                                // $content .=  '<th><span class="head'.$key.' itemSectionPart '.$columnClass.'" '.$style.'>'.$header.'</div></th>';
+                            }
+                        $content .= '</div>';
+                         $i=0;
+                        while($orderRow = mysqli_fetch_array($historyQry) )
+                        {   
+
+
+                              //this is temporary fix need to do with function or main query above
+                              if( $orderRow['ordType'] == 1 || $orderRow['ordType'] == 2 )
+                              {
+                              
+                                  if($orderRow['ordType'] == 1)
+                                  {
+                                      $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '".$_SESSION['designation_id']."' AND type = 'order_supplier' AND account_id = '".$_SESSION['accountId']."' and type_id = '".$orderRow['supplierId']."' and designation_section_permission_id=1 ";
+                                      
+                                  }
+                                  else
+                                  {
+                                      $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '".$_SESSION['designation_id']."' AND type = 'member' AND account_id = '".$_SESSION['accountId']."' and type_id = '".$orderRow['recMemberId']."' and designation_section_permission_id=2 ";
+                                  }
+                                  
+                                  $checkSubPerQry = mysqli_query($con, $sql);
+                                  
+                                  if( mysqli_num_rows($checkSubPerQry) < 1)
+                                  {
+                                      continue;//exclude this order as user don't have its permission
+                                  }
+                              }//end temp query
+
+                            $i++;
+                            // supplier Store Member name
+                            if ($orderRow['suppName'] =='' && $orderRow['storeName'] =='')
+                            {
+                                $suppMemStoreId = $orderRow['deptUserName'];
+                            }
+                            elseif ($orderRow['deptUserName'] =='' && $orderRow['storeName'] =='') {
+                                $suppMemStoreId = $orderRow['suppName'];
+                            }
+                            else
+                            {
+                                $suppMemStoreId = $orderRow['storeName'];
+                            }
+
+                            $paymentId = ($orderRow['paymentId']) ? $orderRow['paymentId'] : '';
+                            $InvoiceNumber = $orderRow['invNo'];
+
+                           //Payment status
+                            if ($orderRow['paymentStatus']==1 && $orderRow['ordType']==1)
+                            {
+                                $paymentStatus = '<span style="color:#16C0FF;font-weight: bold;">'.showOtherLangText('Paid').'</span>';
+                            }
+                            elseif($orderRow['paymentStatus']==1 && $orderRow['ordType']==2) 
+                            {
+                                $paymentStatus = '<span style="color:#038F00;font-weight: bold;" class="issue-out-section summaryPart">'.showOtherLangText('Received').'</span>';  
+                            }
+                            elseif($orderRow['ordType']==3 || $orderRow['ordType']==4)
+                            {
+                                $paymentStatus = ' ';  
+                            }
+                            elseif(($orderRow['ordType'] == 2 && $orderRow['receive_inv'] == 0) || $orderRow['ordType'] == 2 && $accessInvoicePermission['type_id'] == 0)
+                            {
+                                $paymentStatus = ' ';  
+                            }
+                            elseif($orderRow['ordType'] == 1 && $accessPaymentPermission['type_id']==0)
+                            {
+                                $paymentStatus = ' ';  
+                            }
+                            else
+                            {
+                                $paymentStatus = '<span style="color:#FF9244;font-weight: bold;" class="issue-out-section summaryPart">'.showOtherLangText('Pending').'</span>';
+                            }
+
+
+                            // for date time filter
+                            if ($_SESSION['getVals']['dateType'] == 1)
+                            {
+                               $dateType = ($orderRow['ordDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['ordDateTime']) ) : '');
+                            }
+                            elseif($_SESSION['getVals']['dateType'] == 2)
+                            {
+                               $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime']) ) : '');
+                            }
+                            elseif($_SESSION['getVals']['dateType'] == 3)
+                            {
+                               $dateType = ( $orderRow['paymentDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['paymentDateTime']) ) : date('d/m/y h:i', strtotime($orderRow['setDateTime'])) );
+                            }
+                            else
+                            {
+                               $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime']) ) : '');
+                            }
+                            
+
+
+                            $sqlSet = " SELECT * FROM tbl_user WHERE id = '".$orderRow['orderBy']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+
+                            $resultSet = mysqli_query($con, $sqlSet);
+
+                            $userArr = mysqli_fetch_array($resultSet);
+
+                            $user = $userArr['name']; 
+
+                            $curDet =  getCurrencyDet($orderRow['ordCurId']);
+
+                            if($orderRow['ordType'] == 1)
+                            {
+                                $ordType = '<span style="font-weight: bold;">'.showOtherLangText('Issued In').'</span>';
+                            }
+                            elseif($orderRow['ordType'] == 2)
+                            {
+                                $ordType = '<span style="font-weight: bold;">'.showOtherLangText('Issued Out').'</span>';
+                            }
+                            elseif($orderRow['ordType'] == 3)
+                            {
+                                $variances = getOrdItemVariancesAmtNew($orderRow['id']);
+
+                                $variancesPosTotAmt = $variances['variancesPosTot'];
+                                $variancesNevTotAmt = $variances['variancesNevTot'];
+
+                                $ordType = '<span style="font-weight: bold;">'.showOtherLangText('Stock Take').'</span>';
+                            }
+                            else
+                            {
+                                $variances = getOrdItemVariancesAmt($orderRow['id']);
+
+                                $variancesTotAmt = $variances['variancesTot'];
+
+                                $ordType = '<span style="font-weight: bold;">'.showOtherLangText('Raw Item Convert').'</span>';
+                            }
+
+                            $columnVal = $ordType;
+                            
+                            $paymntOrInv = '';
+                            if($orderRow['ordType']==2)
+                            {
+                                $paymntOrInv = $InvoiceNumber;
+                            }
+                            elseif($orderRow['paymentStatus'] > 0)
+                            {
+                                $paymntOrInv = setPaymentId($paymentId);
+                            }
+
+                            $colsValArr = [
+                                1 => $i,
+
+                                2 => $orderRow['ordNumber'],
+
+                                3 => $dateType,
+
+                                4 => $user,
+
+                                5 => ($orderRow['ordType']==1 ) ? $InvoiceNumber : '',
+
+                                6 => $ordType,
+
+                                7 => $suppMemStoreId,
+
+                                8 => ( ($orderRow['ordAmt'] > 0) ? '<span style="font-weight: bold;" class="itemSectionPart itemTable-def-curr">'.getPrice($orderRow['ordAmt']) .' '.$getDefCurDet['curCode'].'</span>' : '<span style="color:#000;font-weight: bold;" class="itemTable-def-curr">'.getPrice($variancesPosTotAmt).' '.$getDefCurDet['curCode'].'</span>'.'<br>'.'<span style="font-weight: bold; color:#f00" class="itemTable-def-curr">-'.getPrice($variancesNevTotAmt).' '.$getDefCurDet['curCode'].'</span>' )
+                                    
+                                    ."<br>".
+                                    
+                                    ( ($orderRow['ordCurAmt'] > 0) ? '<span style="font-weight: bold;" class="itemSectionPart itemTable-other-curr">'.showOtherCur($orderRow['ordCurAmt'], $curDet['id']).'</span>' : '' ),
+
+                                9 => $paymentStatus,
+
+                                11 => $paymntOrInv,
+                                
+                                12 => ($orderRow['paymentStatus']==1 ? $orderRow['accountName'] : ''),
+                            ];
+
+
+                            if( isset($_SESSION['getVals']['ordType']) )
+                            {
+                                switch($_SESSION['getVals']['ordType'])
+                                {   
+                                    case 1: //IssueIn
+                                    unset( $colsValArr[10] );
+                                    break;
+
+                                    case 2: //IssueOut
+                                    unset( $colsValArr[5] );
+                                    //unset( $colsValArr[9] );
+                                    break;
+
+                                    case 3: //stockTake
+                                    unset( $colsValArr[5] );
+                                    unset( $colsValArr[7] );
+                                    unset( $colsValArr[9] );
+                                    unset( $colsValArr[10] );
+                                    unset( $colsValArr[11] );
+                                    unset( $colsValArr[12] );
+                                    break;
+
+                                    case 4: //raw convert item
+                                   // unset( $colsValArr[6] );
+                                    unset( $colsValArr[5] );
+                                    unset( $colsValArr[7] );
+                                    unset( $colsValArr[9] );
+                                    unset( $colsValArr[10] );
+                                    unset( $colsValArr[11] );
+                                    unset( $colsValArr[12] );
+                                    break;
+                                }
+                            }
+
+                            if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'storeId')
+                            {   
+                               unset( $colsValArr[7] );
+                               unset( $colsValArr[9] );
+                               unset( $colsValArr[10] );
+                               unset( $colsValArr[11] );
+                               unset( $colsValArr[12] );
+                            }
+
+                            if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'deptUserId')
+                            {   
+                               unset( $colsValArr[7] );
+                               unset( $colsValArr[9] );
+                            }
+
+                            if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'suppId')
+                            {   
+                               unset( $colsValArr[7] );
+                               unset( $colsValArr[9] );
+                               unset( $colsValArr[10] );
+                               unset( $colsValArr[11] );
+                               unset( $colsValArr[12] );
+                            }
+                         $content .=  '<div class="table-row">';
+                        
+                    foreach($colsValArr as $key=>$columnVal)
+                            {
+
+                                $columnClass = '';
+                                if($key == 8)
+                                {
+                                    $columnClass = 'valueItem';
+                                }
+
+                                $style="";
+                                if( $key != 1 && $key != 11 && isset($historyUserFilterFields) && !in_array($headerArrOptions[$key], $historyUserFilterFields) )
+                                {
+                                    $style='style="display:none;"';
+                                }
+                               
+                                
+                                if($orderRow['ordType']==2 && $key == 11)
+                                {
+                                    if(  isset($historyUserFilterFields) && !in_array($headerArrOptions[11], $historyUserFilterFields) )
+                                    {
+                                        $style='style="display:none;"';
+                                    }
+                                    $content .= '<div> <span class="itemSectionPart head11" '.$style.' >'.$columnVal.'</span></div>'; // to handle show hide of issue out which is invoice
+                                }
+                                elseif($orderRow['paymentStatus'] > 0 && $key == 11)
+                                {
+                                    if(  isset($historyUserFilterFields) && !in_array($headerArrOptions[10], $historyUserFilterFields) )
+                                    {
+                                        $style='style="display:none;"';
+                                    }
+                                    // $content .= '<td> <span class="itemSectionPart head10" '.$style.' >'.$columnVal.'</span></td>';
+                                    $content .= '<div class="table-cell"><span class="itemSectionPart head10" '.$style.' >'.$columnVal.'</span></div>';
+                                     // to handle show hide of issue in which is payment
+                                }
+                                else
+                                {
+                                    // $content .= '<td  ><span class="itemSectionPart head'.$key.' '.$columnClass.'" '.$style.' '.$columnClass.'>'.$columnVal.'</span></td>'; // print all data row wise in td
+                                     $content .= '<div class="table-cell"><span class="itemSectionPart head'.$key.' '.$columnClass.'" '.$style.' '.$columnClass.'>'.$columnVal.'</span></div>';
+                                }
+                                                                
+                            }}        
+                    $content .= '</div>
                         </div>
                     </div>
                 </div>';

@@ -172,11 +172,11 @@ $('body').on('click', '.smryChk-AllHistory', function() {
         else
         {
 
-            $(".issueOutSection").addClass("col-md-3");
+            $(".issueOutSection").addClass("11 col-md-3");
            
-            $(".issueInSection").addClass("col-md-6");
+            $(".issueInSection").addClass("22 col-md-6");
 
-            $("#varianceId").addClass("col-md-3");
+            $("#varianceId").addClass("33 col-md-3");
         }
 
 
