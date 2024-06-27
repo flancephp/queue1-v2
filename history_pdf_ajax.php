@@ -209,7 +209,7 @@ $clientDetRow = mysqli_fetch_array($result);
 
 
 
-$content = '<div class="modal-header pb-3">
+$content = '<form action="history_pdf_download.php" target="_blank" method="get"><div class="modal-header pb-3">
                     <div class="d-md-flex align-items-center justify-content-between w-100 ">
                         <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
                         
@@ -411,9 +411,9 @@ $content = '<div class="modal-header pb-3">
                         
 
                         </div>
-                        <a href="historypdf.html" class="btn"><span class="align-middle">'.showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
                     </div>
-                </div> 
+                </div></form> 
                 <div class="modal-body px-2 py-3">
                     <div class="row pb-3">
                         <div class="col-6">
