@@ -227,18 +227,18 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                         </button>
                                         <ul id="show-headerHistory" class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="headChk-AllHistory form-check-input" value="1">
+                                                <input type="checkbox" name="checkAll" class="headChk-AllHistory form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Check All').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="address"
+                                                <input type="checkbox" name="address"
                                                     id="headChk-BxHistory" 
                                                     class="headCheckboxHistory header-addressHistory form-check-input"
                                                     onclick="showHideByClassHistory(\'address-sectionHistory\')" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Address').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="logo" 
+                                                <input type="checkbox" name="logo" 
                                                 id="headChk-BxHistory"
                                                 class="headCheckboxHistory header-logoHistory form-check-input"
                                                 onclick="showHideByClassHistory(\'logo-sectionHistory\')" value="1">
@@ -417,7 +417,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                 <div class="modal-body px-2 py-3">
                     <div class="row pb-3">
                         <div class="col-6">
-                            <div class="address-sectionHistory modal-address ">
+                            <div class="address-sectionHistory modal-address"  style="display:none;">
                                 <h6 class="semibold fs-14">'.$clientDetRow['accountName'].'</h6>
                                 <div class="fs-13 ">
                                     <p>'.$clientDetRow['address_one'].'</p>
@@ -429,7 +429,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                             </div>
                         </div>
                         <div class="col-6 text-end">
-                            <div class="logo-sectionHistory modal-logo">';
+                            <div class="logo-sectionHistory modal-logo"  style="display:none;">';
                         if($clientDetRow['logo'] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$clientDetRow['logo'] ))
                         {  
                         $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 50px; width: auto;">';
@@ -594,18 +594,18 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                         if($('.varianceRow').css('display') == 'none')
                         {
                             
-                            <?php  $issueoutClass='1=>col-md-12'; ?>
+                            <?php  $issueoutClass='col-md-12'; ?>
                         }
                         else{
-                            <?php  $issueoutClass='2=>col-md-6'; ?>
+                            <?php  $issueoutClass='col-md-6'; ?>
                         }
 
                         if($('.issueOutSection ').css('display') == 'none')
                         {
-                            <?php  $varianceClass='3=>col-md-12'; ?>
+                            <?php  $varianceClass='col-md-12'; ?>
                         }
                         else{
-                            <?php  $varianceClass ='4=>col-md-6'; ?>
+                            <?php  $varianceClass ='col-md-6'; ?>
                         }
                     </script>
 
@@ -619,42 +619,42 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                      if($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0)
                         {
                             if($count >= 1){
-                                $issueinClass='5=>col-md-12';
-                                $issueoutClass='6=>col-md-6';
-                                $varianceClass='7=>col-md-6';
+                                $issueinClass='col-md-12';
+                                $issueoutClass='col-md-6';
+                                $varianceClass='col-md-6';
                             }
                             else
                             {
-                                $issueinClass='8=>col-md-3';
-                                $issueoutClass='9=>col-md-3';
-                                $varianceClass='10=>col-md-6';
+                                $issueinClass='col-md-3';
+                                $issueoutClass='col-md-3';
+                                $varianceClass='col-md-6';
                             }
                         }
                         elseif($checkIfPermissionToNewOrderSec > 0 )
                         {
                             if($count >= 1){
-                                $issueinClass='11=>col-md-12';
-                                $issueoutClass='12=>col-md-3';
-                                $varianceClass='13=>col-md-12';
+                                $issueinClass='col-md-12';
+                                $issueoutClass='col-md-3';
+                                $varianceClass='col-md-12';
                             }
                             else
                             {
-                                $issueinClass='14=>col-md-3';
-                                $issueoutClass='15=>col-md-3';
-                                $varianceClass='16=>col-md-6';
+                                $issueinClass='col-md-3';
+                                $issueoutClass='col-md-3';
+                                $varianceClass='col-md-6';
                             }
                         }
                         elseif($checkIfPermissionToNewReqSec > 0 )
                         {
-                            $issueinClass='17=>col-md-3';
-                            $issueoutClass='18=>col-md-6';
-                            $varianceClass='19=>col-md-6';
+                            $issueinClass='col-md-3';
+                            $issueoutClass='col-md-6';
+                            $varianceClass='col-md-6';
                         }
                         else
                         {
-                            $issueinClass='20=>col-md-3';
-                            $issueoutClass='21=>col-md-3';
-                            $varianceClass='22=>col-md-12';
+                            $issueinClass='col-md-3';
+                            $issueoutClass='col-md-3';
+                            $varianceClass='col-md-12';
                         }
 
                    
@@ -706,9 +706,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     {
                                        $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-oth-curr pendingSection summaryPartCell table-cell"><span class="pendingSection otherCurSection summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>':'<div class="pendingSection summaryPartCell"></div>'; 
                                     }
-                                        // <div class="table-cell">1,200 $ </div>
-                                        // <div class="table-cell">1114.96 € </div>
-                                        // <div class="table-cell">1,840,000 Tzs </div>
+                                        
                                    $content .= '</div>
                                     <div class="table-row">
                                         <div class="table-cell pendingSection summaryPartCell">'. showOtherLangText('Pending').'</div>
@@ -924,17 +922,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                unset( $headerArr[11] );
                                unset( $headerArr[12] );
                             }
-                   // $content .= '<div class="table-cell">#</div>
-                   //              <div class="table-cell">'.showOtherLangText('#').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Date').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('User').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Sup inv').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Type').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Refer To').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Value').'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Status').'</div>
-                   //              <div class="table-cell">'.$payInvText.'</div>
-                   //              <div class="table-cell">'.showOtherLangText('Account').'</div>';
+                   
                         foreach($headerArr as $key=>$header)
                             {
 
@@ -964,7 +952,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                 // $content .=  '<th><span class="head'.$key.' itemSectionPart '.$columnClass.'" '.$style.'>'.$header.'</div></th>';
                             }
                         $content .= '</div>';
-                         $i=0;
+                        $i=0;
                         while($orderRow = mysqli_fetch_array($historyQry) )
                         {   
 
@@ -1189,9 +1177,11 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                unset( $colsValArr[11] );
                                unset( $colsValArr[12] );
                             }
-                         $content .=  '<div class="table-row">';
-                        
-                    foreach($colsValArr as $key=>$columnVal)
+
+                            // Open tr tag
+                            $content .=  '<div class="table-row">';
+
+                            foreach($colsValArr as $key=>$columnVal)
                             {
 
                                 $columnClass = '';
@@ -1213,7 +1203,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     {
                                         $style='style="display:none;"';
                                     }
-                                    $content .= '<div> <span class="itemSectionPart head11" '.$style.' >'.$columnVal.'</span></div>'; // to handle show hide of issue out which is invoice
+                                    $content .= '<div class="table-cell"> <span class="itemSectionPart head11" '.$style.' >'.$columnVal.'</span></div>'; // to handle show hide of issue out which is invoice
                                 }
                                 elseif($orderRow['paymentStatus'] > 0 && $key == 11)
                                 {
@@ -1221,18 +1211,22 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     {
                                         $style='style="display:none;"';
                                     }
-                                    // $content .= '<td> <span class="itemSectionPart head10" '.$style.' >'.$columnVal.'</span></td>';
-                                    $content .= '<div class="table-cell"><span class="itemSectionPart head10" '.$style.' >'.$columnVal.'</span></div>';
-                                     // to handle show hide of issue in which is payment
+                                    $content .= '<div class="table-cell"> <span class="itemSectionPart head10" '.$style.' >'.$columnVal.'</span></div>'; // to handle show hide of issue in which is payment
                                 }
                                 else
                                 {
-                                    // $content .= '<td  ><span class="itemSectionPart head'.$key.' '.$columnClass.'" '.$style.' '.$columnClass.'>'.$columnVal.'</span></td>'; // print all data row wise in td
-                                     $content .= '<div class="table-cell"><span class="itemSectionPart head'.$key.' '.$columnClass.'" '.$style.' '.$columnClass.'>'.$columnVal.'</span></div>';
+                                    $content .= '<div class="table-cell"><span class="itemSectionPart head'.$key.' '.$columnClass.'" '.$style.' '.$columnClass.'>'.$columnVal.'</span></div>'; // print all data row wise in td
                                 }
                                                                 
-                            }}        
-                    $content .= '</div>
+                            }
+
+                            $content .= '</div>'; // Close tr tag
+                         }
+
+
+
+                            
+                    $content .= '</div></div>
                         </div>
                     </div>
                 </div>';

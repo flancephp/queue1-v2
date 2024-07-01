@@ -146,7 +146,9 @@ elseif (isset($_GET['orderId']) && $_GET['reqPaymentStatus']==1)
 
 }
 
-
+// echo '';
+// print_r($_POST);
+// exit;
 if( isset($_POST['delOrderId']) )
 {
     $sql="SELECT * FROM  tbl_user WHERE id='".$_SESSION['id']."' AND password = '".$_POST['password']."' AND status = 1 AND account_id = '".$_SESSION['accountId']."'  ";
@@ -908,7 +910,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                         <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
                     </div>
                 </section>
-                <form method="get" action="history_pdf_download.php" target="_blank">
+                <!-- <form method="get" action="history_pdf_download.php" target="_blank"> -->
                 <input type="hidden" name="history_pdf_page" value="1" id="history_pdf_page"> 
                 <section class="hisParent-sec">
 
@@ -941,7 +943,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                 </div> -->
                             </div>
                         </div>
-                        <!-- <form name="frm" id="frm" method="get" action=""> -->
+                        <form name="frm" id="frm" method="get" action="">
                         <input type="hidden" name="downloadType" id="downloadType" value="" />
                           <input type="hidden" name="ordType" id="ordType" value="<?php if(isset($_GET['ordType'])) { echo $_GET['ordType']; } ?>">
                            <input type="hidden" name="dateType" id="dateType" value="<?php if(isset($_GET['dateType'])) { echo $_GET['dateType']; } ?>">
@@ -1028,7 +1030,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                 </div>
                             </div>
                         </div>
-                       
+                        </form>
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">
                             <div class="date-flx"></div>
@@ -1767,8 +1769,8 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
         {
             ?><br>
 
-                                <div class="hbrw-DelHstry">
-                                    <form method="post" action="" autocomplete="off">
+                                <form method="post" action="" autocomplete="off"><div class="hbrw-DelHstry">
+                                    
                                         <input type="hidden" name="delOrderId"
                                             value="<?php echo $_GET['delOrderId'];?>" />
 
@@ -1781,15 +1783,13 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                             <a href="history.php" class="class="
                                                 btn-primary><?php echo showOtherLangText('Cancel') ?></a>
 
-                                        </div>
-                                    </form>
-                                </div>
+                                        </div></div></form>
                                 <?php } ?>
                                 
                             </div>
                         </div>
                     </section>
-                  </form>
+                  <!-- </form> -->
                 </section>
 
             </div>
@@ -2247,33 +2247,8 @@ $(function() {
         }
 
 });
-// function getDelNumb(delOrderId){
-
-//     $( "#dialog" ).dialog({  
-//         autoOpen  : false,
-//         modal     : true,
-//         //title     : "Title",
-//         buttons   : {
-//           '<?php echo showOtherLangText('Yes') ?>' : function() {
-//             //Do whatever you want to do when Yes clicked
-//             $(this).dialog('close');
-//             window.location.href = 'history.php?delOrderId=' + delOrderId;
-//           },
-
-//           '<?php echo showOtherLangText('No') ?>' : function() {
-//             //Do whatever you want to do when No clicked
-//             $(this).dialog('close');
-//           }
-//        }    
-//     });
-
-//     $( "#dialog" ).dialog( "open" );
-//     $('.custom-header-text').remove();
-//     $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-// }  
 
  function getDelNumb(delOrderId){
-//var newOnClick = "window.location.href = 'history.php?delOrderId=' + delOrderId
 var newOnClick = "window.location.href='history.php?delOrderId=" + delOrderId + "'";
       $('.deletelink').attr('onclick', newOnClick);
      $('#delete-popup').modal('show');
@@ -2582,7 +2557,7 @@ $('body').on('click', '.smryChk-All', function() {
     <?php 
 include_once('historyPdfJsCode.php');
 ?>
-    <!-- ===== History pdf popup new in div format======= -->
+  
 </body>
 
 </html>
