@@ -19793,7 +19793,7 @@ border-radius:3px;
   padding: 0;
   align-items: center;
 }
-.revenue_center_table  .flex-container.row-seprate:not(:last-child)) {
+.revenue_center_table  .flex-container.row-seprate:not(:last-child) {
   border-bottom: 1px solid #d2d2d2;
 }
 .revenue_center_table .table-row.row-seprate {
@@ -19866,3 +19866,34 @@ border-radius:3px;
     text-align: left !important;
   }
 }
+
+
+/*=========================================================== Styles: Shuvro. ===============================================*/
+:root { 
+    --color-primary: #7a89fe;--color-white: #fff;--radius: .625rem;
+    } 
+    .cnfrm:hover, .doc-bx:hover, .dlt-bx:hover { background-color:var(--color-primary);border-color: var(--color-primary); }
+    .cnfrm:hover .cn-btn, .doc-bx:hover .cn-btn, .dlt-bx:hover .cn-btn { color: var(--color-white); }
+    .cnfrm:hover a, .doc-bx:hover a { color: var(--color-white); }
+    .cnfrm:hover .edIt, .doc-bx:hover .edIt { filter: contrast(0) brightness(10); }
+    .itmFeat-Div.update:hover{ background-color:var(--color-primary) ;} 
+    .btn-white {font-size: 0.875rem; color:#666C85;box-shadow: 0px 8px 30px 0px #6973BE21;padding:1rem 1rem;line-height: 1.14;background-color: var(--color-white);display: inline-flex;gap: .5rem;border-radius: var(--radius); }
+    .btn-white:hover, .btn-white:focus, .btn-white:active {color:var(--color-white);background-color: var(--color-primary);}
+    .btn-white:hover svg path, .btn-white:focus svg path, .btn-white:active svg path {stroke: var(--color-white);}
+    .doc__btn svg { width: 1.5rem;height: 1.5rem; }
+    .doc__btn:hover svg path, .doc__btn:focus svg path, .doc__btn:active svg path, .doc__btn:hover svg rect, .doc__btn:focus svg rect, .doc__btn:active svg rect {stroke: var(--color-white);}
+    .assign__btn svg { width: .75rem;height: 1.067rem; }
+    .assign__btn:hover svg path, .assign__btn:focus svg path, .assign__btn:active svg path, .assign__btn:hover svg circle, .assign__btn:focus svg circle, .assign__btn:active svg circle {stroke: var(--color-white);}
+    .assign__btn:hover svg path, .assign__btn:focus svg path, .assign__btn:active svg path { fill: var(--color-white); }
+    .stkRow .stockFeat:hover { background-color: var(--color-primary);color: var(--color-white); }
+    .stkRow .stockFeat:hover a { color: var(--color-white); }
+    .stkRow .stockFeat { border-radius: var(--radius); }
+    
+    .innerDrop .submenu { position: absolute;top: 0;background: #fff;width: min-content;border-radius: var(--radius);padding: .25rem;right: -5.8rem; }
+    .innerDrop .submenu.large { right: -19rem; }
+    
+    @media (max-width:1599px) {
+      .innerDrop .submenu { right: -4.8rem; }
+      .innerDrop .submenu.large { right: -11rem;width: 11rem; }
+      .innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
+    }

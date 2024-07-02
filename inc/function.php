@@ -3627,13 +3627,12 @@ function get_receiveOrder_permission($designation_id, $accountId, $orderId){
 
 	if ($editOrderPermissionRow['type_id'] == 1) 
 	{
-		echo '<div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="receiveOrder.php?orderId='.$orderId.'" class="runLink">
-                                                            <span class="isuOut"></span>
-                                                            <p class="btn2 cn-btn">'.showOtherLangText('Receive').'</p>
-                                                        </a>
-                                                    </div>';
+		echo '<a href="receiveOrder.php?orderId='.$orderId.'" class="cnfrm text-center d-flex justify-content-center align-items-center">
+					<span>
+						<span class="isuOut"></span>
+						<p class="btn2 cn-btn">'.showOtherLangText('Receive').'</p>
+					</span>
+				</a>';
 	}
 	else
 	{
@@ -3657,28 +3656,22 @@ function get_assignOrder_permission($designation_id, $accountId, $orderId, $orde
 		
 		if ($orderType == 1) 
 		{
-			echo '<div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a class="editicon edt_CatLnk runLink"
-                                                    data-bs-toggle="modal" onClick="AssignOrder('.$orderType.', '.$orderId.')"
-                                                     data-bs-target="#assign-order" href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
-                                                            <p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p>
-                                                        </a>
-                                                    </div>';
+			echo '<a class="cnfrm text-center d-flex justify-content-center align-items-center p-0 editicon edt_CatLnk runLink assign__btn" data-bs-toggle="modal" onClick="AssignOrder('.$orderType.', '.$orderId.')" data-bs-target="#assign-order" href="javascript:void(0)">
+					<span>
+							<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="12" height="19" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
+							<p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p>
+						</span>
+					</a>';
 		}
 		
 		if ($orderType == 2) {
 			
-			echo '<div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a class="editicon runLink edt_CatLnk runLink"
-                                                    data-bs-toggle="modal"  onClick="AssignOrder('.$orderType.', '.$orderId.')"
-                                                     data-bs-target="#assign-order" >
-                                                            <span class="assIgn"></span>
-                                                            <p class="btn2 cn-btn">'.showOtherLangText('Assign').'</p>
-                                                        </a>
-                                                    </div>';
+			echo '<a class="cnfrm text-center d-flex justify-content-center align-items-center p-0 editicon edt_CatLnk runLink assign__btn" data-bs-toggle="modal" onClick="AssignOrder('.$orderType.', '.$orderId.')" data-bs-target="#assign-order" href="javascript:void(0)">
+					<span class="" >
+						<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="12" height="19" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
+						<span class="btn2 cn-btn d-block">'.showOtherLangText('Assign').'</span>
+					</span>
+				</a>'; 
 		}	
 	}
 	else
@@ -3708,15 +3701,13 @@ function get_issueOut_permission($designation_id, $accountId, $orderId){
 	if ($issueOutPermissionRow['type_id'] == 1) 
 	{
 		?>
-<div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a onclick="cnfIssueOut(<?php echo $orderId ?>)" class="editicon runLink edt_CatLnk"
-                                                    data-bs-toggle="modal"  
-                                                     data-bs-target="#issue-out">
-                                                            <span class="isuOut"></span>
-                                                            <p class="btn2 cn-btn">Issue out</p>
-                                                        </a>
-                                                    </div>
+<div class="cnfrm text-center d-flex justify-content-center align-items-center">
+    <a onclick="cnfIssueOut(<?php echo $orderId ?>)" class="editicon runLink edt_CatLnk" data-bs-toggle="modal"
+        data-bs-target="#issue-out">
+        <span class="isuOut"></span>
+        <p class="btn2 cn-btn">Issue out</p>
+    </a>
+</div>
 <?php
 	}
 	else
@@ -3739,12 +3730,11 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 			?>
 <!-- | <a title="<?php //echo showOtherLangText('Delete') ?>" href="runningOrders.php?canId=<?php echo $orderId;?>&type=1" style="color:#808080;width: 8%;display: inline-block;text-align: center;" class="glyphicon glyphicon-trash" onClick="return confirm('<?php echo showOtherLangText('Are you sure to cancel this Order?') ?>')"></a> -->
 
-<div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '1');" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
+<div class="dlt-bx text-center d-flex justify-content-center align-items-center">
+    <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '1');" class="runLink">
+        <span class="dlTe"></span>
+    </a>
+</div>
 
 <?php
 		}
@@ -3757,12 +3747,11 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 				inline-block;text-align: center;"
 				onClick="return confirm('<?php echo showOtherLangText('Are you sure to cancel this Requisition?') ?>')"></a> -->
 
-<div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '2');" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
+<div class="dlt-bx text-center d-flex justify-content-center align-items-center">
+    <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '2');" class="runLink">
+        <span class="dlTe"></span>
+    </a>
+</div>
 
 <?php
 		}		
@@ -3775,12 +3764,12 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 				inline-block;text-align: center;"
 				onClick="return confirm('<?php echo showOtherLangText('Are you sure to cancel this Requisition?') ?>')"></a> -->
 
-<div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
+<div class="dlt-bx text-center d-flex justify-content-center align-items-center">
+    <a href="javascript:void(0)"
+        onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="runLink">
+        <span class="dlTe"></span>
+    </a>
+</div>
 
 <?php
 		}	
@@ -3838,12 +3827,13 @@ function access_delete_history_file($designation_id,$accountId,$orderId){
      <a href="history.php?delOrderId=<?php //echo $orderId;?>#del"
 	        onClick="return confirm('<?php //echo showOtherLangText('Are you sure to Delete this Record?') ?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') ?>"></a> -->
 
-  <!--   <a href="javascript:void(0)" onClick="getDelNumb('<?php //echo $orderId;?>');" style="color:#000 !important;"
+<!--   <a href="javascript:void(0)" onClick="getDelNumb('<?php //echo $orderId;?>');" style="color:#000 !important;"
         class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') ?>"></a>
 
 </div> -->
-<div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>');" style="color:#000 !important;"
-        class="glyphicon glyphicon-trash" title="<?php echo showOtherLangText('Delete') ?>"><span class="dlTe"></span></a></div>
+<div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="javascript:void(0)"
+        onClick="getDelNumb('<?php echo $orderId;?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash"
+        title="<?php echo showOtherLangText('Delete') ?>"><span class="dlTe"></span></a></div>
 
 <?php
 	}
@@ -3879,10 +3869,10 @@ function access_raw_item_convert($designation_id,$accountId){
 
 		?>
 
-    <a href="javascript:void(0)" onclick="editStockTake('<?php echo $row['barCode'];?>');" class="tabFet">
-                                                <span class="prdItm"></span>
-                                                <p class="btn2"><?php echo showOtherLangText('Convert Raw Items') ?></p>
-                                            </a>
+<a href="javascript:void(0)" onclick="editStockTake('<?php echo $row['barCode'];?>');" class="tabFet">
+    <span class="prdItm"></span>
+    <p class="btn2"><?php echo showOtherLangText('Convert Raw Items') ?></p>
+</a>
 
 <!-- <a href="javascript:void(0);" onClick="convertRawPopup();" class="btn btn-primary stay-btn cnvtRawItm" style="margin-top: 2px; width: 160px;"><?php echo showOtherLangText('Convert Raw Items') ?></a><br> -->
 
@@ -3910,9 +3900,9 @@ function access_view_stockTake($designation_id,$accountId,$filterByStorage){
 <!-- <a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="btn btn-primary stay-btn"
     style="width: 160px;margin-top:2px; "><?php //echo showOtherLangText('View Stock Take') ?></a> -->
 <a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="tabFet">
-                                                <span class="prdItm"></span>
-                                                <p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
-                                            </a>
+    <span class="prdItm"></span>
+    <p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
+</a>
 
 <?php 
 
@@ -3921,9 +3911,9 @@ function access_view_stockTake($designation_id,$accountId,$filterByStorage){
         {
 			?>
 <a href="#" style="opacity: 0.5;" class="tabFet">
-                                                <span class="prdItm"></span>
-                                                <p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
-                                            </a>
+    <span class="prdItm"></span>
+    <p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
+</a>
 
 <?php
 		}
@@ -3947,20 +3937,24 @@ function access_import_stockTake($designation_id,$accountId,$filterByStorage, $r
 	    if(isset($filterByStorage) && $filterByStorage > 0)
 	    {
 	    	?>
-<a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="edIt"></span>
-                                                <p class="btn2 d-flex justify-content-center align-items-center">
-                                                    <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
-                                                </p>
-                                            </a>
+<a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <span class="edIt"></span>
+    <p class="btn2 d-flex justify-content-center align-items-center">
+        <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
+    </p>
+</a>
 <ul class="dropdown-menu">
-<li><a class="dropdown-item" href="javascript:void();" id="btnFileUpload"><?php echo showOtherLangText('Import File') ?></a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/importStockTakeList-hebrew-lang.xlsx' : 'excelSampleFile/english/importStockTakeList-english-lang.xlsx' ?>" target="_blank" title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>
-                                                </li>
-                                                <input type="file" id="uploadFile" name="uploadFile" style="display:none">
-                                            </ul>
+    <li><a class="dropdown-item" href="javascript:void();"
+            id="btnFileUpload"><?php echo showOtherLangText('Import File') ?></a>
+    </li>
+    <li><a class="dropdown-item"
+            href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/importStockTakeList-hebrew-lang.xlsx' : 'excelSampleFile/english/importStockTakeList-english-lang.xlsx' ?>"
+            target="_blank"
+            title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>
+    </li>
+    <input type="file" id="uploadFile" name="uploadFile" style="display:none">
+</ul>
 
 <?php  
         }
@@ -3969,19 +3963,20 @@ function access_import_stockTake($designation_id,$accountId,$filterByStorage, $r
         	?>
 
 <a style="opacity: 0.5;" href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="edIt"></span>
-                                                <p class="btn2 d-flex justify-content-center align-items-center">
-                                                    <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
-                                                </p>
-                                            </a>
+    data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="edIt"></span>
+    <p class="btn2 d-flex justify-content-center align-items-center">
+        <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
+    </p>
+</a>
 <ul style="opacity: 0.5;" class="dropdown-menu">
-<li><a class="dropdown-item" href="javascript:void();"><?php echo showOtherLangText('Import File') ?></a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="javascript:void(0);"  title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>
-                                                </li>
-                                                <input type="file" id="uploadFile" name="uploadFile" style="display:none">
-                                            </ul>
+    <li><a class="dropdown-item" href="javascript:void();"><?php echo showOtherLangText('Import File') ?></a>
+    </li>
+    <li><a class="dropdown-item" href="javascript:void(0);"
+            title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>
+    </li>
+    <input type="file" id="uploadFile" name="uploadFile" style="display:none">
+</ul>
 <?php
 		}
 
@@ -4261,10 +4256,10 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 			?>
 
 
-        <a href="javascript:void(0)"  class="assignedBtn"
-            onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
-            title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
-   
+<a href="javascript:void(0)" class="assignedBtn"
+    onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
+    title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
+
 
 <?php
 
@@ -4274,8 +4269,8 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 			?>
 
 
-        <?php echo showOtherLangText('Assigned') ?>
-    
+<?php echo showOtherLangText('Assigned') ?>
+
 
 <?php
 
@@ -4322,7 +4317,7 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 			?>
 
 <?php echo showOtherLangText('Assigned') ?>
-    
+
 <?php
 
 		}
@@ -4330,10 +4325,10 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<a href="javascript:void(0)"  class="assignedBtn"
-            onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
-            title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
-   
+<a href="javascript:void(0)" class="assignedBtn"
+    onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
+    title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
+
 <?php
 
 		}
@@ -4421,13 +4416,12 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 		{
 			?>
 
-                   <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
-                                                        <a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=1" class="runLink">
-                                                            <span class="isuOut"></span>
-                                                            <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p>
-                                                        </a>
-                                                    </div>
+<div class="cnfrm text-center d-flex justify-content-center align-items-center">
+    <a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=1" class="runLink">
+        <span class="isuOut"></span>
+        <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p>
+    </a>
+</div>
 
 <?php
 			
@@ -4483,7 +4477,7 @@ function get_edit_doctype_order_action_of_order_type($orderType,$orderStatus,$ch
 		{
 			?>
 
-                 
+
 
 <?php
 			
@@ -4551,10 +4545,11 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 
 <!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
 <div class="cnfrm text-center d-flex justify-content-center align-items-center">
-<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="runLink">
-	   <span class="conFirm"></span>
-	   <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p></a>
-		</div>
+    <a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="runLink">
+        <span class="conFirm"></span>
+        <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p>
+    </a>
+</div>
 <?php
 
 			//get_editRequisition_permission($designation_id,$accountId,$orderId);
