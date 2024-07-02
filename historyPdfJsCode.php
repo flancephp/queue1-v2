@@ -123,7 +123,7 @@ $('body').on('click', '.smryChk-AllHistory', function() {
 
     if( $(".smryChk-AllHistory:checked").length == 1  ) 
     {
-        $("#summaryHistory").prop('checked', true);
+        //$("#summaryHistory").prop('checked', true);
         
         $('.summaryPart').css('display', 'block');
         $('.summaryPartCell').css('display', 'table-cell');
@@ -135,110 +135,48 @@ $('body').on('click', '.smryChk-AllHistory', function() {
     {
         $(".smryCheckboxHistory").prop('checked', false);
         $('.summaryPart').css('display', 'none');
-        $("#summaryHistory").prop('checked', false);
+       // $("#summaryHistory").prop('checked', false);
         
     }
 
 
-            $(".issueInSection").removeClass("col-md-2");
-            $(".issueInSection").removeClass("col-md-3");
-            $(".issueInSection").removeClass("col-md-6");
-            $(".issueInSection").removeClass("col-md-7");
-            $(".issueInSection").removeClass("col-md-12");
+            $(".issueInSection").removeClass("col-2");
+            $(".issueInSection").removeClass("col-3");
+            $(".issueInSection").removeClass("col-6");
+            $(".issueInSection").removeClass("col-7");
+            $(".issueInSection").removeClass("col-12");
 
-            $(".issueOutSection").removeClass("col-md-2");
-            $(".issueOutSection").removeClass("col-md-6");
-            $(".issueOutSection").removeClass("col-md-7");
-            $(".issueOutSection").removeClass("col-md-3");
-            $(".issueOutSection").removeClass("col-md-12");
+            $(".issueOutSection").removeClass("col-2");
+            $(".issueOutSection").removeClass("col-6");
+            $(".issueOutSection").removeClass("col-7");
+            $(".issueOutSection").removeClass("col-3");
+            $(".issueOutSection").removeClass("col-12");
 
-            $("#varianceId").removeClass("col-md-2");
-            $("#varianceId").removeClass("col-md-3");
-            $("#varianceId").removeClass("col-md-7");
-            $("#varianceId").removeClass("col-md-6");
-            $("#varianceId").removeClass("col-md-12");
+            $("#varianceId").removeClass("col-2");
+            $("#varianceId").removeClass("col-3");
+            $("#varianceId").removeClass("col-7");
+            $("#varianceId").removeClass("col-6");
+            $("#varianceId").removeClass("col-12");
 
         if ( $('.otherCurSection').is(":visible") && $('#totalOtherCur').val() > 2 )
         {
 
-                $(".issueOutSection").addClass("col-md-6");
+                $(".issueOutSection").addClass("col-3");
            
-                $("#varianceId").addClass("col-md-6");
+                $("#varianceId").addClass("col-2");
 
-                 $(".issueInSection").addClass("col-md-12");
+                 $(".issueInSection").addClass("col-7");
            
             
         }
         else
         {
 
-            $(".issueOutSection").addClass("11 col-md-3");
+            $(".issueOutSection").addClass("11 col-3");
            
-            $(".issueInSection").addClass("22 col-md-6");
+            $(".issueInSection").addClass("22 col-7");
 
-            $("#varianceId").addClass("33 col-md-3");
-        }
-
-
-});
-
-$('body').on('click', '#summaryHistory', function() {
-
-
-    if( $("#summaryHistory:checked").length == 1  ) 
-    {
-        $(".smryChk-AllHistory").prop('checked', true);
-        
-        $('.summaryPart').css('display', 'block');
-        $('.summaryPartCell').css('display', 'table-cell');
-        $(".smryCheckboxHistory").prop('checked', true);
-        
-    }
-    else
-    {
-        $(".smryChk-AllHistory").prop('checked', false);
-        
-        $('.summaryPart').css('display', 'none');
-        $(".smryCheckboxHistory").prop('checked', false);
-        
-    }
-
-    $(".issueInSection").removeClass("col-md-2");
-            $(".issueInSection").removeClass("col-md-3");
-            $(".issueInSection").removeClass("col-md-6");
-            $(".issueInSection").removeClass("col-md-7");
-            $(".issueInSection").removeClass("col-md-12");
-
-            $(".issueOutSection").removeClass("col-md-2");
-            $(".issueOutSection").removeClass("col-md-6");
-            $(".issueOutSection").removeClass("col-md-7");
-            $(".issueOutSection").removeClass("col-md-3");
-            $(".issueOutSection").removeClass("col-md-12");
-
-            $("#varianceId").removeClass("col-md-2");
-            $("#varianceId").removeClass("col-md-3");
-            $("#varianceId").removeClass("col-md-7");
-            $("#varianceId").removeClass("col-md-6");
-            $("#varianceId").removeClass("col-md-12");
-
-        if ( $('.otherCurSection').is(":visible") && $('#totalOtherCur').val() > 2 )
-        {
-
-            $(".issueInSection").addClass("col-md-12");
-           
-            $(".issueOutSection").addClass("col-md-6");
-           
-            $("#varianceId").addClass("col-md-6");
-            
-        }
-        else
-        {
-
-            $(".issueOutSection").addClass("col-md-3");
-           
-            $(".issueInSection").addClass("col-md-6");
-
-            $("#varianceId").addClass("col-md-3");
+            $("#varianceId").addClass("33 col-2");
         }
 
 
@@ -365,7 +303,6 @@ function showHideByClassHistoryItem(targetId)
 }
 
 function showHideByClassHistory(targetId) {
-    console.log('targetId',targetId);
     if ($('.' + targetId).is(":visible")) {
         $('.' + targetId).css('display', 'none');
 
@@ -471,53 +408,53 @@ function showHideByClassHistory(targetId) {
     
     if (  $('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible") && !$('.issueOutSection').is(":visible") )
     {
-        $("#varianceId").removeClass("col-md-2");
-        $("#varianceId").removeClass("col-md-6");
-        $("#varianceId").addClass("col-md-12");
+        $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-6");
+        $("#varianceId").addClass("col-12");
         
     }
 
     if (  $('.issueInSection').is(":visible") && !$('.varianceRow').is(":visible") && !$('.issueOutSection').is(":visible") )
     {
-        $(".issueInSection").removeClass("col-md-2");
-        $(".issueInSection").removeClass("col-md-6");
-        $(".issueInSection").addClass("col-md-12");
+        $(".issueInSection").removeClass("col-7");
+        $(".issueInSection").removeClass("col-12");
+        $(".issueInSection").addClass("col-12");
         
     }
 
     if (  $('.issueOutSection').is(":visible") && !$('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible") )
     {
-        $(".issueOutSection").removeClass("col-md-2");
-        $(".issueOutSection").removeClass("col-md-6");
-        $(".issueOutSection").addClass("col-md-12");
+        $(".issueOutSection").removeClass("col-3");
+        $(".issueOutSection").removeClass("col-6");
+        $(".issueOutSection").addClass("col-12");
         
     }
      
     if (  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible") )
     {
-        $(".issueOutSection").removeClass("col-md-2");
-        $(".issueOutSection").removeClass("col-md-12");
-        $(".issueOutSection").addClass("col-md-6");
+        $(".issueOutSection").removeClass("col-3");
+        $(".issueOutSection").removeClass("col-12");
+        $(".issueOutSection").addClass("col-7");
 
-        $("#varianceId").removeClass("col-md-2");
-        $("#varianceId").removeClass("col-md-12");
-        $("#varianceId").addClass("col-md-6");
+        $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-12");
+        $("#varianceId").addClass("col-5");
         
     }
     
     if (  $('.issueInSection').is(":visible") && $('.issueOutSection').is(":visible") && !$('.varianceRow').is(":visible") )
     {
-        $(".issueOutSection").removeClass("col-md-3");
-        $(".issueOutSection").removeClass("col-md-6");
-        $(".issueOutSection").removeClass("col-md-7");
-        $(".issueOutSection").removeClass("col-md-12");
-        $(".issueOutSection").addClass("col-md-6");
+        $(".issueOutSection").removeClass("col-3");
+        $(".issueOutSection").removeClass("col-6");
+        $(".issueOutSection").removeClass("col-7");
+        $(".issueOutSection").removeClass("col-12");
+        $(".issueOutSection").addClass("col-5");
 
-        $(".issueInSection").removeClass("col-md-2");
-        $(".issueInSection").removeClass("col-md-6");
-        $(".issueInSection").removeClass("col-md-7");
-        $(".issueInSection").removeClass("col-md-12");
-        $(".issueInSection").addClass("col-md-6");
+        $(".issueInSection").removeClass("col-7");
+        //$(".issueInSection").removeClass("col-md-6");
+        //$(".issueInSection").removeClass("col-md-7");
+        $(".issueInSection").removeClass("col-12");
+        $(".issueInSection").addClass("col-7");
 
         
     }
@@ -525,45 +462,45 @@ function showHideByClassHistory(targetId) {
     if (  $('.issueInSection').is(":visible") && !$('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") )
     {
        
-        $(".issueInSection").removeClass("col-md-2");
-        $(".issueInSection").removeClass("col-md-6");
-        $(".issueInSection").removeClass("col-md-7");
-        $(".issueInSection").removeClass("col-md-12");
-        $(".issueInSection").addClass("col-md-6");
+        //$(".issueInSection").removeClass("col-2");
+        $(".issueInSection").removeClass("col-6");
+        $(".issueInSection").removeClass("col-7");
+        $(".issueInSection").removeClass("col-12");
+        $(".issueInSection").addClass("col-7");
 
-        $("#varianceId").removeClass("col-md-2");
-        $("#varianceId").removeClass("col-md-6");
-        $("#varianceId").removeClass("col-md-7");
-        $("#varianceId").removeClass("col-md-12");
-        $("#varianceId").addClass("col-md-6");
+        $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-6");
+        $("#varianceId").removeClass("col-7");
+        $("#varianceId").removeClass("col-12");
+        $("#varianceId").addClass("col-5");
 
         
     }
     
-    // if (  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible") )
-    // {
-    //     $(".issueOutSection").removeClass("col-md-2");
-    //     $(".issueOutSection").removeClass("col-md-6");
-    //     $(".issueOutSection").removeClass("col-md-7");
-    //     $(".issueOutSection").removeClass("col-md-3");
-    //     $(".issueOutSection").removeClass("col-md-12");
-    //     $(".issueOutSection").addClass("col-md-3");
+    if (  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible") )
+    {
+        $(".issueOutSection").removeClass("col-5");
+        $(".issueOutSection").removeClass("col-7");
+        // $(".issueOutSection").removeClass("col-md-7");
+        // $(".issueOutSection").removeClass("col-md-3");
+        $(".issueOutSection").removeClass("col-12");
+        $(".issueOutSection").addClass("col-3");
 
-    //     $(".issueInSection").removeClass("col-md-2");
-    //     $(".issueInSection").removeClass("col-md-3");
-    //     $(".issueInSection").removeClass("col-md-6");
-    //     $(".issueInSection").removeClass("col-md-7");
-    //     $(".issueInSection").removeClass("col-md-12");
-    //     $(".issueInSection").addClass("col-md-6");
+        $(".issueInSection").removeClass("col-6");
+       // $(".issueInSection").removeClass("col-md-3");
+       // $(".issueInSection").removeClass("col-md-6");
+        $(".issueInSection").removeClass("col-7");
+        $(".issueInSection").removeClass("col-12");
+        $(".issueInSection").addClass("col-7");
 
-    //     $("#varianceId").removeClass("col-md-2");
-    //     $("#varianceId").removeClass("col-md-3");
-    //     $("#varianceId").removeClass("col-md-7");
-    //     $("#varianceId").removeClass("col-md-6");
-    //     $("#varianceId").removeClass("col-md-12");
-    //     $("#varianceId").addClass("col-md-3");
+        $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-5");
+      //  $("#varianceId").removeClass("col-md-7");
+        $("#varianceId").removeClass("col-6");
+        $("#varianceId").removeClass("col-12");
+        $("#varianceId").addClass("col-2");
         
-    // }
+    }
 
     // if ( !$('.otherCurSection').is(":visible") &&  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible") )
     // {
