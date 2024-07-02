@@ -34,6 +34,7 @@ $accessHistoryAccountsPermission = access_history_accounts_detail($_SESSION['des
 
 if( isset($_REQUEST['showFields']) )
 {
+    
     $updateQry = " UPDATE tbl_user SET historyUserFilterFields = '".implode(',', $_REQUEST['showFields'])."' WHERE id = '".$_SESSION['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
     mysqli_query($con, $updateQry);
 }
@@ -783,54 +784,64 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
 
 
     <style>
-        .modal-md{
-            max-width:800px;
+        .modal-md {
+            max-width: 800px;
         }
-        .modal-address p{
+
+        .modal-address p {
             padding-bottom: 2px;
         }
 
-        .site-modal .modal-content{
+        .site-modal .modal-content {
             background: #f0f0f0;
         }
-        .site-modal .modal-body{
+
+        .site-modal .modal-body {
             background: #ffffff;
         }
 
-     
+
         .site-modal thead tr th {
             font-weight: 500;
             padding: 8px 5px;
         }
+
         .site-modal tr.thead td {
             font-weight: 500;
             padding: 8px 5px;
         }
+
         .site-modal .thead {
             border-top: 0;
         }
-        .site-modal .thead + tr{
+
+        .site-modal .thead+tr {
             border-top: 0;
         }
 
 
 
 
-        .site-modal thead,  .site-modal .thead {
+        .site-modal thead,
+        .site-modal .thead {
             background-color: rgb(122 137 255 / 20%);
         }
-        .site-modal tbody tr + tr {
+
+        .site-modal tbody tr+tr {
             border-top: 1px solid #ddd;
         }
-        .site-modal tbody tr td{
-            padding:5px 5px;
+
+        .site-modal tbody tr td {
+            padding: 5px 5px;
         }
-        .modal-header .btn{
+
+        .modal-header .btn {
             background-color: #7a89ff;
             color: #fff;
             border-radius: 6px;
             font-size: 14px;
         }
+
         .modal-header .btn {
             background-color: #7a89ff;
             color: #fff;
@@ -839,7 +850,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
             border-color: #7a89ff;
         }
 
-        .modal-head-row .btn{
+        .modal-head-row .btn {
             font-size: 13px;
             height: 34px;
         }
@@ -852,8 +863,49 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
             font-size: 10px;
         }
 
+        
+        @media (min-width:1137px) {
+        /* 29 date tabel css */
 
+        .hisTypclm,
+        .hisRefrclm {
+            width: fit-content !important;
+        }
+
+        .hisTypclm .dropdown-toggle,
+        .hisRefrclm .dropdown-toggle {
+            width: fit-content !important;
+        }
+
+        .hisStatusclm .dropdown-toggle,
+        .hisAcntclm .dropdown-toggle {
+            width: fit-content !important;
+        }
+
+        .hisStatusclm,
+        .hisAcntclm {
+            width: 25% !important;
+        }
+
+
+        .hisValclm {
+            width: 7% !important;
+        }
+
+        .numItmclm {
+            width: 15% !important;
+        }
+
+        .srHisclm {
+            min-width: fit-content;
+        }
+
+            .numRef:first-child {
+                width: 45% !important;
+            }
+        }
     </style>
+   
 
 </head>
 
@@ -918,118 +970,114 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
 
                         <div class="alrtMessage">
                             <div class="container">
-                                
-                                    <?php if(isset($_GET['delete']) || isset($_GET['status'])) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
 
-echo isset($_GET['status']) ? ' '.showOtherLangText('New record added successfully').' ' : '';
+                                <?php if (isset($_GET['delete']) || isset($_GET['status'])) { ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <p><?php
 
-echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully.').' ' : '';
+                                            echo isset($_GET['status']) ? ' ' . showOtherLangText('New record added successfully') . ' ' : '';
+
+                                            echo isset($_GET['delete']) ? ' ' . showOtherLangText('Record deleted successfully.') . ' ' : '';
 
 
-?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                                    
+                                            ?>
+                                        </p>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                <?php } ?>
 
-                                <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Hello User!</strong> You should check your order carefully.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div> -->
+
                             </div>
                         </div>
-                        <form name="frm" id="frm" method="get" action="">
-                        <input type="hidden" name="downloadType" id="downloadType" value="" />
-                          <input type="hidden" name="ordType" id="ordType" value="<?php if(isset($_GET['ordType'])) { echo $_GET['ordType']; } ?>">
-                           <input type="hidden" name="dateType" id="dateType" value="<?php if(isset($_GET['dateType'])) { echo $_GET['dateType']; } ?>">
-                            <input type="hidden" name="statusType" id="statusType" value="<?php if(isset($_GET['statusType'])) { echo $_GET['statusType']; } ?>">
-                            <input type="hidden" name="accountNo" id="accountNo" value="<?php if(isset($_GET['accountNo'])) { echo $_GET['accountNo']; } ?>">
-                         <input type="hidden" name="suppMemStoreId" id="suppMemStoreId" value="<?php if(isset($_GET['suppMemStoreId'])) { echo $_GET['suppMemStoreId']; } ?>">
-                        <?php 
-                        if( isset($historyUserFilterFields) )
-                        {   
-                        foreach($historyUserFilterFields as $key=>$val)
-                        { 
-                        ?>
-                        <input type="hidden" name="showFields[<?php echo $key;?>]" <?php echo $sel;?>
-                                        value="<?php echo $val;?>">
-
-                                    <?php 
-                        }
-                        }
-                        ?>
-                        <div class="container hisData">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="hstCal">
-                                        <div class="his-featBtn">
-                                            <div class="cal-Ender">
-                                                <a href="javascript:void(0)">
-                                                    <i class="fa-regular fa-calendar"></i>
-                                                </a>
-                                            </div>
-                                            <!-- Filter Btn Start -->
-                                            <div class="his-filtBtn">
-                                                <a href="javascript:void(0)" class="head-Filter">
-                                                    <img src="Assets/icons/filter.svg" alt="Filter">
-                                                </a>
-                                            </div>
-                                            <!-- Filter Btn End -->
-                                        </div>
-                                        <!-- Date Box Start -->
-                                        <div class="prtDate">
-                                            <div class="hstDate">
-                                                <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('From date') ?>"
-                                                    name="fromDate" autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDate'];?>">
-                                                <span>-</span>
-                                                <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('To date') ?>"
-                                                    name="toDate" autocomplete="off" value="<?php echo isset($_SESSION['toDate']) ? $_SESSION['toDate'] : $_GET['toDate'];?>">
-                                            </div>
-                                            <div class="reloadBtn date-box-search">
-                                                <a href="javascript:void(0)"><i
-                                                        class="fa-solid fa-arrows-rotate"></i></a>
-                                            </div>
-                                              <?php 
-                        if($cond != '')
-                        { 
+<form name="frm" id="frm" method="get" action="">
+<input type="hidden" name="downloadType" id="downloadType" value="" />
+<input type="hidden" name="ordType" id="ordType" value="<?php if (isset($_GET['ordType'])) { echo $_GET['ordType']; } ?>" >
+                                            
+<input type="hidden" name="dateType" id="dateType" value="<?php if (isset($_GET['dateType'])) {
+                                                                                            echo $_GET['dateType'];
+                                                                                        } ?>">
+                            <input type="hidden" name="statusType" id="statusType" value="<?php if (isset($_GET['statusType'])) {
+                                                                                                echo $_GET['statusType'];
+                                                                                            } ?>">
+                            <input type="hidden" name="accountNo" id="accountNo" value="<?php if (isset($_GET['accountNo'])) {
+                                                                                            echo $_GET['accountNo'];
+                                                                                        } ?>">
+                            <input type="hidden" name="suppMemStoreId" id="suppMemStoreId" value="<?php if (isset($_GET['suppMemStoreId'])) {
+                                                                                                        echo $_GET['suppMemStoreId'];
+                                                                                                    } ?>">
+                            <?php
+                            if (isset($historyUserFilterFields)) {
+                                foreach ($historyUserFilterFields as $key => $val) {
                             ?>
-                                            <div class="reloadBtn">
-                                                <a onClick="window.location.href='history.php?clearSearch=1';" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                            </div>
-                                             <?php 
-                        }
-                        ?>
-                                        </div>
-                                        <!-- Date Box End -->
-                                    </div>
+                                    <input type="hidden" name="showFields[<?php echo $key; ?>]" <?php echo $sel; ?> value="<?php echo $val; ?>">
 
-                                </div>
-                                <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
-                                    <div class="d-flex justify-content-end align-items-center">
-                                        <!-- <div class="chkStore">
+                            <?php
+                                }
+                            }
+                            ?>
+                            <div class="container hisData">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="hstCal">
+                                            <div class="his-featBtn">
+                                                <div class="cal-Ender">
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa-regular fa-calendar"></i>
+                                                    </a>
+                                                </div>
+                                                <!-- Filter Btn Start -->
+                                                <div class="his-filtBtn">
+                                                    <a href="javascript:void(0)" class="head-Filter">
+                                                        <img src="Assets/icons/filter.svg" alt="Filter">
+                                                    </a>
+                                                </div>
+                                                <!-- Filter Btn End -->
+                                            </div>
+                                            <!-- Date Box Start -->
+                                            <div class="prtDate">
+                                                <div class="hstDate">
+                                                    <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('From date') ?>" name="fromDate" autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDate']; ?>">
+                                                    <span>-</span>
+                                                    <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('To date') ?>" name="toDate" autocomplete="off" value="<?php echo isset($_SESSION['toDate']) ? $_SESSION['toDate'] : $_GET['toDate']; ?>">
+                                                </div>
+                                                <div class="reloadBtn date-box-search">
+                                                    <a href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                                </div>
+                                                <?php
+                                                if ($cond != '') {
+                                                ?>
+                                                    <div class="reloadBtn">
+                                                        <a onClick="window.location.href='history.php?clearSearch=1';" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
+                                            </div>
+                                            <!-- Date Box End -->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <!-- <div class="chkStore">
                                             <a href="javascript:void(0)">
                                                 <img src="Assets/icons/history-stock.svg" alt="history stock">
                                             </a>
                                         </div> -->
-                                        <div class="chkStore">
-                                            <a href="history_excel.php" target="_blank">
-                                                <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
-                                            </a>
-                                        </div>
-                                        <div class="chkStore">
-                                           <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" onclick="showOrdersHistory();">
+                                            <div class="chkStore">
+                                                <a href="history_excel.php" target="_blank">
+                                                    <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
+                                                </a>
+                                            </div>
+                                            <div class="chkStore">
+                                                <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" onclick="showOrdersHistory();">
                                                 <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
-                                            </a>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">
@@ -1042,52 +1090,44 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                 <div class="col-md-5 is-Incol">
                                     <p class="rd-In">Issue in</p>
                                     <p class="ttlAmount"><?php
-                        
-                        if(isset( $issuedInOutArr[1]))
-                        {
-                            $checkIfPermissionToNewOrderSec = checkIfPermissionToNewOrderSec($_SESSION['designation_id'],$_SESSION['accountId']);
+
+                                                            if (isset($issuedInOutArr[1])) {
+                                                                $checkIfPermissionToNewOrderSec = checkIfPermissionToNewOrderSec($_SESSION['designation_id'], $_SESSION['accountId']);
 
 
-                            if( mysqli_num_rows($checkIfPermissionToNewOrderSec) > 0)
-                            {
-                                //$issuedOut = showPrice($issuedInOutArr[1], $getDefCurDet['curCode']);
-                                echo isset( $issuedInOutArr[1] ) ? showPrice($issuedInOutArr[1], $getDefCurDet['curCode']) : 0;
-                            }
-                            else
-                            {
-                                echo '0'.' '.$getDefCurDet['curCode'];
-                            }
-                           //isset( $issuedInOutArr[4] ) ? showPrice($issuedInOutArr[1]+($issuedInOutArr[4]/2), $getDefCurDet['curCode']) : $issuedOut;
-                        }
-                        // elseif( isset( $issuedInOutArr[4] ) )
-                        // {
-                        //    showPrice($issuedInOutArr[4]/2, $getDefCurDet['curCode']);
-                        // }
-                        else
-                        {
-                           echo '0'.' '.$getDefCurDet['curCode'];
-                        }
+                                                                if (mysqli_num_rows($checkIfPermissionToNewOrderSec) > 0) {
+                                                                    //$issuedOut = showPrice($issuedInOutArr[1], $getDefCurDet['curCode']);
+                                                                    echo isset($issuedInOutArr[1]) ? showPrice($issuedInOutArr[1], $getDefCurDet['curCode']) : 0;
+                                                                } else {
+                                                                    echo '0' . ' ' . $getDefCurDet['curCode'];
+                                                                }
+                                                                //isset( $issuedInOutArr[4] ) ? showPrice($issuedInOutArr[1]+($issuedInOutArr[4]/2), $getDefCurDet['curCode']) : $issuedOut;
+                                                            }
+                                                            // elseif( isset( $issuedInOutArr[4] ) )
+                                                            // {
+                                                            //    showPrice($issuedInOutArr[4]/2, $getDefCurDet['curCode']);
+                                                            // }
+                                                            else {
+                                                                echo '0' . ' ' . $getDefCurDet['curCode'];
+                                                            }
 
-                        ?></p>
+                                                            ?></p>
                                 </div>
                                 <div class="col-md-5 is-Outcol">
                                     <p class="gr-Out">Issue Out</p>
-                                    <p class="ttlAmount-rec"><?php 
+                                    <p class="ttlAmount-rec"><?php
 
-                        $checkIfPermissionToNewReqSec = checkIfPermissionToNewReqSec($_SESSION['designation_id'],$_SESSION['accountId']);
-        
-                        if( mysqli_num_rows($checkIfPermissionToNewReqSec) > 0)
-                        {
-                            echo isset( $issuedInOutArr[2] ) ? showPrice($issuedInOutArr[2], $getDefCurDet['curCode']) : 0;
-                        }
-                        else 
-                        {
-                            echo '0'.' '.$getDefCurDet['curCode'];
-                        }
+                                                                $checkIfPermissionToNewReqSec = checkIfPermissionToNewReqSec($_SESSION['designation_id'], $_SESSION['accountId']);
 
-                        
+                                                                if (mysqli_num_rows($checkIfPermissionToNewReqSec) > 0) {
+                                                                    echo isset($issuedInOutArr[2]) ? showPrice($issuedInOutArr[2], $getDefCurDet['curCode']) : 0;
+                                                                } else {
+                                                                    echo '0' . ' ' . $getDefCurDet['curCode'];
+                                                                }
 
-                        ?></p>
+
+
+                                                                ?></p>
                                 </div>
                                 <div class="col-md-2 maxBtn">
                                     <a href="javascript:void(0)" class="maxLink">
@@ -1100,8 +1140,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                         <div class="container detailPrice">
                             <div class="row align-items-start">
                                 <div class="tab-mbDtl">
-                                    <a href="javascript:void(0)" class="tab-revLnk"><i
-                                            class="fa-solid fa-arrow-left"></i></a>
+                                    <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
                                 </div>
                                 <div class="issueDtl">
                                     <div class="issueIn">
@@ -1113,7 +1152,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                                 </div>
                                                 <div class="col-md-9 text-center">
                                                     <p class="rd-In"><?php echo showOtherLangText('Issued In'); ?></p>
-                                                    <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']);?></p>
+                                                    <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
                                                     <p class="pdAmount"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
                                                     <p class="pendAmount"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                                 </div>
@@ -1121,68 +1160,64 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                         </div>
                                         <?php
 
-                                   $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                                        $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
                                     INNER JOIN tbl_orders o 
                                         ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                     INNER JOIN tbl_currency c
                                         ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                                    WHERE o.status = '2' ".$cond1." AND o.account_id = '".$_SESSION['accountId']."' GROUP BY o.id ORDER BY o.id desc ";
-                                    $result = mysqli_query($con, $sql);
-                                    $otherCurrRowArr = [];
-                                    $otherCurrTotalValueArr = [];
-                                    $otherCurrPendingTotalValueArr = [];
-                                    while($otherCurrRows = mysqli_fetch_array($result))
-                                    {
-                                        if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2) ) {
+                                    WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "' GROUP BY o.id ORDER BY o.id desc ";
+                                        $result = mysqli_query($con, $sql);
+                                        $otherCurrRowArr = [];
+                                        $otherCurrTotalValueArr = [];
+                                        $otherCurrPendingTotalValueArr = [];
+                                        while ($otherCurrRows = mysqli_fetch_array($result)) {
+                                            if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2)) {
 
-                                            // Total rows of other currency pending amount
-                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+                                                // Total rows of other currency pending amount
+                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
 
-                                            // Sum of total values of pending amount 
-                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                            $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                                // Sum of total values of pending amount 
+                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                            } elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
 
+                                                // Total rows of other currency paid amount
+                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                                // Sum of total values of paid amount 
+                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                            }
+
+                                            if ($otherCurrRows['currencyId'] > 0) {
+
+                                                // Total rows of other currency paid amount
+                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                                // Sum of total values of paid amount 
+                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                            }
                                         }
-                                        elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
 
-                                            // Total rows of other currency paid amount
-                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
 
-                                            // Sum of total values of paid amount 
-                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                            $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                        }
-                                        
-                                        if ($otherCurrRows['currencyId'] > 0 ) {
 
-                                            // Total rows of other currency paid amount
-                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                            // Sum of total values of paid amount 
-                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                            $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                        }
-                                    }
-                                    
-                                    
-
-                                    foreach ($otherCurrRowArr as $otherCurrRow)
-                                    {  ?>
-                                        <div class="usdCurr text-center">
-                                            <div class="paidIsue d-flex">
-                                                <div class="col-md-3">
-                                                    <p class="pdStatus">Paid</p>
-                                                    <p class="pendStatus">Pending</p>
-                                                </div>
-                                                <div class="col-md-9 text-center">
-                                                    <p class="usd-In"><?php echo ($otherCurrRow['curCode']);?></p>
-                                                    <p class="ttlAmount">xxxx $</p>
-                                                    <p class="pdAmount">xxxx $</p>
-                                                    <p class="pendAmount">xxxx $</p>
+                                        foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
+                                            <div class="usdCurr text-center">
+                                                <div class="paidIsue d-flex">
+                                                    <div class="col-md-3">
+                                                        <p class="pdStatus">Paid</p>
+                                                        <p class="pendStatus">Pending</p>
+                                                    </div>
+                                                    <div class="col-md-9 text-center">
+                                                        <p class="usd-In"><?php echo ($otherCurrRow['curCode']); ?></p>
+                                                        <p class="ttlAmount">xxxx $</p>
+                                                        <p class="pdAmount">xxxx $</p>
+                                                        <p class="pendAmount">xxxx $</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php } ?>
+                                        <?php } ?>
                                         <!-- <div class="otrCurr text-center">
                                             <div class="paidIsue d-flex">
                                                 <div class="col-md-3">
@@ -1206,504 +1241,930 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                             </div>
                                             <div class="col-md-7 text-center">
                                                 <p class="gr-Out"><?php echo showOtherLangText('Issued Out'); ?></p>
-                                                <p class="ttlAmount-rec"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']);?></p>
+                                                <p class="ttlAmount-rec"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
                                                 <p class="pdAmount-rec"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
                                                 <p class="pendAmount-rec"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <?php
-                                                    $sqlSet = " SELECT od.* FROM tbl_order_details od
+                                    $sqlSet = " SELECT od.* FROM tbl_order_details od
                                                     INNER JOIN tbl_orders o
                                                         ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                                                    WHERE o.ordType = '3' AND o.status = '2' ".$cond1." ";
-                                                    $resultSet = mysqli_query($con, $sqlSet);
-                                                    
-                                                    $variancesPosTot = 0;
-                                                    $variancesPosQtyTot = 0;
-                                                    $variancesNevQtyTot = 0;
-                                                    $variancesNevTot = 0;
-                                                    $varaincesVal = 0;
-                                                    while( $resRow = mysqli_fetch_array($resultSet) )
-                                                    {
-                                                        if ($resRow['qtyReceived'] < $resRow['qty'])
-                                                        {
-                                                            $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
-                                                            $variancesPosQtyTot += $varaincesVal;
-                                                            $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
-                                                        }
-                                                        elseif($resRow['qtyReceived'] > $resRow['qty'])
-                                                        {
-                                                            $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
-                                                            
-                                                            $variancesNevQtyTot += $varaincesVal;
-                                                            $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
-                                                        }
-                                                            
-                                                    }
-                                                    ?>
+                                                    WHERE o.ordType = '3' AND o.status = '2' " . $cond1 . " ";
+                                    $resultSet = mysqli_query($con, $sqlSet);
+
+                                    $variancesPosTot = 0;
+                                    $variancesPosQtyTot = 0;
+                                    $variancesNevQtyTot = 0;
+                                    $variancesNevTot = 0;
+                                    $varaincesVal = 0;
+                                    while ($resRow = mysqli_fetch_array($resultSet)) {
+                                        if ($resRow['qtyReceived'] < $resRow['qty']) {
+                                            $varaincesVal = $resRow['qty'] - $resRow['qtyReceived'];
+                                            $variancesPosQtyTot += $varaincesVal;
+                                            $variancesPosTot += ($varaincesVal * $resRow['lastPrice']);
+                                        } elseif ($resRow['qtyReceived'] > $resRow['qty']) {
+                                            $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+
+                                            $variancesNevQtyTot += $varaincesVal;
+                                            $variancesNevTot += ($varaincesVal * $resRow['lastPrice']);
+                                        }
+                                    }
+                                    ?>
                                     <div class="Variance text-center">
                                         <p class="varDtl">Variances</p>
                                         <p class="varValue"><?php echo showPrice($variancesNevTot, $getDefCurDet['curCode']) ?></p>
                                         <p class="varDif"><?php echo showPrice($variancesPosTot, $getDefCurDet['curCode']) ?></p>
                                     </div>
                                 </div>
-                                 <?php
-        if ($accessHistoryAccountsPermission['type_id']==1) 
-        {
-            ?>
-                                <div class="accntDtl">
-                                    <p class="accHead text-center">Accounts</p>
-                                      <?php   
-            $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+                                <?php
+                                if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                ?>
+                                    <div class="accntDtl">
+                                        <p class="accHead text-center">Accounts</p>
+                                        <?php
+                                        $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
             INNER JOIN tbl_currency c 
                 ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-            WHERE a.account_id = '".$_SESSION['accountId']."' ";
-            $result = mysqli_query($con, $sqlSet);
+            WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
+                                        $result = mysqli_query($con, $sqlSet);
 
-            while($resultRow = mysqli_fetch_array($result))
-            {
+                                        while ($resultRow = mysqli_fetch_array($result)) {
 
-                $curCode = $resultRow['curCode'];
-                $balanceAmt = round($resultRow['balanceAmt'], 4);
-                ?>
-                                  
-                                        <div class="d-flex gap-2 py-2 w-100">
-                                            <p class="w-50"><?php echo $resultRow['accountName']?></p>
-                                        
-                                            <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
+                                            $curCode = $resultRow['curCode'];
+                                            $balanceAmt = round($resultRow['balanceAmt'], 4);
+                                        ?>
+
+                                            <div class="d-flex gap-2 py-2 w-100">
+                                                <p class="w-50"><?php echo $resultRow['accountName'] ?></p>
+
+                                                <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
                                                     <?php echo $curCode; ?></p>
-                                        </div>
-                                    
- <?php
-            } 
-            ?>
-                                </div>
-         <?php } ?>
+                                            </div>
+
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 
-                        <div class="container position-relative hstTbl-head">
+                       
+
+
+                        <div class="container position-relative hstTbl-head px-0">
+                             <!-- check box model icon -->
+                        <div class="d-flex justify-content-end container">
+                            <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
+                                <img src="Assets/icons/chkColumn.svg" style="width: 30px;" alt="Check Column">
+                            </a>
+                        </div>
                             <!-- Item Table Head Start -->
-                            <div class="d-flex align-items-center itmTable">
-                                <div class="numRef align-items-center">
-                                    <div class="tb-head srHisclm">&nbsp;</div>
-                                    <div class="tb-head numItmclm">
-                                        <div class="d-flex align-items-center">
-                                            <p><?php echo showOtherLangText('Number'); ?></p>
-                                            <span class="dblArrow">
-                                                <a href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-up"></i></a>
-                                                <a href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-down"></i></a>
-                                            </span>
+                            <div class=" mt-2 px-0 itmTable " style="background:transparent;  border: none ; box-shadow: none;  border-radius: 10px;  padding: 3px 12px;">
+                                <div class="mb-hstryBareq">&nbsp;</div>
+                                <div class="align-items-center d-flex w-100">
+                                    <div class="numRef align-items-center">
+                                        <div class="tb-bdy srHisclm">
+                                            <p></p>
                                         </div>
-                                    </div>
-                                    <div class="tb-head hisTypclm">
-                                        <div class="d-flex align-items-center">
-                                            <div class="dropdown d-flex position-relative">
-                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                </a>
-                                                <?php echo $dateTypeOptions; ?>
-                                                
+                                        <div class="tb-bdy numItmclm">
+                                             <?php if(isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields) ) { ?>
+                                         <?php } else { ?>
+                                    <div class="d-flex align-items-center" style="min-width: 40px;">
+                                        <p><?php echo showOtherLangText('Number'); ?></p>
+                                                <span class="dblArrow">
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
+                                            </div>
+                                      <?php } ?>
+                                        </div>
+
+
+                                        <div class="tb-bdy hisTypclm">
+                                            <div class="d-flex align-items-center" style=" background:inherit">
+                                            <?php if(isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields) ) { ?>
+                                            <?php } else { ?>
+                                                    <div class="dropdown d-flex position-relative">
+                                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    </a>
+
+                                                    <?php echo $dateTypeOptions; ?>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="tb-bdy hisTypclm">
+                                            <div class="d-flex align-items-center" style="width: 104px; background:inherit">
+                                                <?php if(isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ) { ?>
+                                               <?php } else { ?>
+                                                <div class="dropdown d-flex position-relative">
+                                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span id="userText">User</span> <i class="fa-solid fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu user_type">
+                                                        <li data-id="1" data-value="Submit date"><a class="dropdown-item " href="javascript:void(0)">Submit date</a></li>
+                                                        <li data-id="2" data-value="Settle date"><a class="dropdown-item " href="javascript:void(0)">Settle date</a></li>
+                                                        <li data-id="3" data-value="Payment date"><a class="dropdown-item " href="javascript:void(0)">Payment date</a></li>
+                                                    </ul>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="tb-bdy hisTypclm">
+                                            <div class="d-flex align-items-center" style=" background:inherit">
+                                                <?php if(isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                                <div class="dropdown d-flex position-relative">
+                                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    </a>
+                                                     <?php echo $typeOptions; ?>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tb-bdy hisRefrclm">
+                                            <div class="d-flex align-items-center">
+                                                 <?php if(isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                                <div class="dropdown d-flex position-relative">
+                                                    <a class="dropdown-toggle body3 w-auto" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    </a>
+                                                    <?php echo $suppMemStoreOptions; ?>
+                                                </div>
+                                             <?php } ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tb-head hisTypclm">
-                                        <div class="d-flex align-items-center">
-                                            <div class="dropdown d-flex position-relative">
-                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                </a>
-                                                <?php echo $typeOptions; ?>
+
+
+
+                                    <div class="tb-bdy hisValclm">
+                                        <div class="tb-head hisValclm" style="width: fit-content !important; padding-left:0;">
+                                            <?php if(isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                            <div class="d-flex align-items-center">
+                                                <p>Supplier <br> inv no</p>
+                                                <span class="dblArrow">
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
                                             </div>
+                                             <?php } ?>
                                         </div>
                                     </div>
-                                    <div class="tb-head hisRefrclm">
-                                        <div class="d-flex align-items-center">
-                                            <div class="dropdown d-flex position-relative">
-                                                <a class="dropdown-toggle body3 w-auto" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                </a>
-                                                <?php echo $suppMemStoreOptions; ?>
+
+                                    <div class="tb-bdy hisValclm">
+                                        <div class="tb-head hisValclm" style="width: fit-content !important; padding-left:0;">
+                                            <?php if(isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                            <div class="d-flex align-items-center">
+                                                <p>Value</p>
+                                                <span class="dblArrow">
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
                                             </div>
+                                           <?php } ?>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tb-head hisValclm">
-                                    <div class="d-flex align-items-center">
-                                        <p><?php echo showOtherLangText('Value'); ?></p>
-                                        <span class="dblArrow">
-                                            <a href="javascript:void(0)" class="d-block aglStock"><i
-                                                    class="fa-solid fa-angle-up"></i></a>
-                                            <a href="javascript:void(0)" class="d-block aglStock"><i
-                                                    class="fa-solid fa-angle-down"></i></a>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stsHiscol d-flex align-items-center">
-                                    <div class="tb-head hisStatusclm">
-                                        <div class="d-flex align-items-center">
-                                            <div class="dropdown d-flex position-relative">
-                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <span id="statusText"><?php echo showOtherLangText('Status'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                </a>
-                                                <?php echo $statusTypeOptions; ?>
-                                                
+
+
+                                    <div class="stsHiscol d-flex align-items-center" style="min-width: fit-content;">
+                                        <div class="tb-bdy hisStatusclm" style="width: 70px !important; padding-left:0px;" >
+                                            <div class="d-flex align-items-center" style="margin-left:-1rem;" >
+                                                <?php if(isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                                <div class="dropdown d-flex position-relative">
+                                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span id="statusText"><?php echo showOtherLangText('Status'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    </a>
+                                                     <?php echo $statusTypeOptions; ?>
+                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="tb-head hisAcntclm">
+
+
+                                        <div class="tb-bdy hisStatusclm">
+                                            <?php if(isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                        <div class="d-flex align-items-center justify-content-between" style=" width: fit-content !important;">
+                                            <p style="color: #666c85; font-weight:600;">pay <br> no.</p>
+                                        </div>
+                                        <?php } ?>
+                                        </div>
+
+                                        <div class="tb-bdy hisStatusclm" style=" width: 18% !important;">
+                                        <?php if(isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                        <div class="d-flex align-items-center justify-content-between" style=" width: fit-content !important;">
+                                            <p style="color: #666c85; font-weight:600; ">Inv  <br> no.</p>
+                                            <!-- <span class="dblArrow hisValclm">
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span> -->
+                                        </div>
+                                        <?php } ?>
+                                        </div>
+
+                                        <div class="tb-bdy hisAcntclm ">
+
                                         <div class="d-flex align-items-center">
+                                            <?php if(isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
                                             <div class="dropdown d-flex position-relative">
-                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
+                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span id="accountTxt"><?php echo showOtherLangText('Account'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
-                                                <?php echo $accountOptions; ?>
-                                                
+                                                 <?php echo $accountOptions; ?>
                                             </div>
+                                        <?php } ?>
                                         </div>
+
+                                        </div>
+
                                     </div>
+                                    <div class="flex-grow-1" style="margin-left: 1rem;">
+                                    <div class="d-flex align-items-center">
+                                        <p>Action</p>
+                                    </div>
+                                   </div>
                                 </div>
-                                <div class="tb-head shrtHisclm">
-                                    <div class="tab-mbFltr">
-                                        <a href="javascript:void(0)" class="tab-lnkFltr"><i
-                                                class="fa-solid fa-arrow-left"></i></a>
-                                    </div>
-                                    <div class="tab-Filttxt">
-                                        <p>Filter</p>
-                                    </div>
-                                    <a href="javascript:void(0)">
-                                        <img src="Assets/icons/chkColumn.svg" alt="Check Column">
-                                    </a>
+                                <div class="align-items-center mbTask">
+                                    <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
                                 </div>
                             </div>
-                            <!-- Item Table Head End -->
+                             <!-- Item Table Head End -->
                         </div>
                     </section>
-                     
+
+
                     <section class="hisTblbody">
                         <div id="boxscroll">
                             <div class="container position-relative hstTbl-bd">
                                 <!-- Item Table Body Start -->
-                                                       <?php
-        $variances = [];
-        $x = 0;
-        while($orderRow = mysqli_fetch_array($historyQry))
-        {
-        
-                //this is temporary fix need to do with function or main query above
-                if( $orderRow['ordType'] == 1 || $orderRow['ordType'] == 2 )
-                {
-                
-                    if($orderRow['ordType'] == 1)
-                    {
-                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '".$_SESSION['designation_id']."' AND type = 'order_supplier' AND account_id = '".$_SESSION['accountId']."' and type_id = '".$orderRow['supplierId']."' and designation_section_permission_id=1 ";
-                        
-                    }
-                    else
-                    {
-                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '".$_SESSION['designation_id']."' AND type = 'member' AND account_id = '".$_SESSION['accountId']."' and type_id = '".$orderRow['recMemberId']."' and designation_section_permission_id=2 ";
-                    }
-                    
-                    $checkSubPerQry = mysqli_query($con, $sql);
-                    
-                    if( mysqli_num_rows($checkSubPerQry) < 1)
-                    {
-                        continue;//exclude this order as user don't have its permission
-                    }
-                }//end temp query
-                
-            $x++;
-            $variancesTotAmt = 0;
-            if ($orderRow['suppName'] =='' && $orderRow['storeName'] =='')
-            {
-                $suppMemStoreId = $orderRow['deptUserName'];
-            }
-            elseif ($orderRow['deptUserName'] =='' && $orderRow['storeName'] =='') {
-                $suppMemStoreId = $orderRow['suppName'];
-            }
-            else
-            {
-                $suppMemStoreId = $orderRow['storeName'];
-            }
+                                <?php
+                                $variances = [];
+                                $x = 0;
+                                while ($orderRow = mysqli_fetch_array($historyQry)) {
 
-            if ($getTxtById == 'suppId') {
-                $suppMemStoreId = $orderRow['suppName'];
-            }
-            elseif ($getTxtById == 'deptUserId') {
-                $suppMemStoreId = $orderRow['deptUserName'];
-            }
-            elseif ($getTxtById == 'storeId') {
-                $suppMemStoreId = $orderRow['storeName'];
-            }
+                                    //this is temporary fix need to do with function or main query above
+                                    if ($orderRow['ordType'] == 1 || $orderRow['ordType'] == 2) {
 
-            // for date time filter
-            if ($_GET['dateType'] == 1)
-            {
-                $dateType = ($orderRow['ordDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['ordDateTime']) ) : '');
-            }
-            elseif($_GET['dateType'] == 2)
-            {
-                $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime']) ) : '');
-            }
-            elseif($_GET['dateType'] == 3)
-            {
-                $dateType = ( $orderRow['paymentDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['paymentDateTime']) ) : date('d/m/y h:i', strtotime($orderRow['setDateTime'])) );
-            }
-            else
-            {
-                $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime']) ) : '');
-            }
+                                        if ($orderRow['ordType'] == 1) {
+                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'order_supplier' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['supplierId'] . "' and designation_section_permission_id=1 ";
+                                        } else {
+                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'member' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['recMemberId'] . "' and designation_section_permission_id=2 ";
+                                        }
+
+                                        $checkSubPerQry = mysqli_query($con, $sql);
+
+                                        if (mysqli_num_rows($checkSubPerQry) < 1) {
+                                            continue; //exclude this order as user don't have its permission
+                                        }
+                                    } //end temp query
+
+                                    $x++;
+                                    $variancesTotAmt = 0;
+                                    if ($orderRow['suppName'] == '' && $orderRow['storeName'] == '') {
+                                        $suppMemStoreId = $orderRow['deptUserName'];
+                                    } elseif ($orderRow['deptUserName'] == '' && $orderRow['storeName'] == '') {
+                                        $suppMemStoreId = $orderRow['suppName'];
+                                    } else {
+                                        $suppMemStoreId = $orderRow['storeName'];
+                                    }
+
+                                    if ($getTxtById == 'suppId') {
+                                        $suppMemStoreId = $orderRow['suppName'];
+                                    } elseif ($getTxtById == 'deptUserId') {
+                                        $suppMemStoreId = $orderRow['deptUserName'];
+                                    } elseif ($getTxtById == 'storeId') {
+                                        $suppMemStoreId = $orderRow['storeName'];
+                                    }
+
+                                    // for date time filter
+                                    if ($_GET['dateType'] == 1) {
+                                        $dateType = ($orderRow['ordDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['ordDateTime'])) : '');
+                                    } elseif ($_GET['dateType'] == 2) {
+                                        $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime'])) : '');
+                                    } elseif ($_GET['dateType'] == 3) {
+                                        $dateType = ($orderRow['paymentDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['paymentDateTime'])) : date('d/m/y h:i', strtotime($orderRow['setDateTime'])));
+                                    } else {
+                                        $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime'])) : '');
+                                    }
 
 
-            $userName = $orderRow['userName']; 
+                                    $userName = $orderRow['userName'];
 
-            if($orderRow['ordType'] == 1)
-            {
-               $ordType = showOtherLangText('Issued In');
-            }
-            elseif($orderRow['ordType'] == 2)
-            {
-               $ordType = showOtherLangText('Issued Out');
-            }
-            elseif($orderRow['ordType'] == 3)
-            {
+                                    if ($orderRow['ordType'] == 1) {
+                                        $ordType = showOtherLangText('Issued In');
+                                    } elseif ($orderRow['ordType'] == 2) {
+                                        $ordType = showOtherLangText('Issued Out');
+                                    } elseif ($orderRow['ordType'] == 3) {
 
-                if( !isset( $variances[$orderRow['id']] ) )
-                {
-                  $variances[$orderRow['id']] = getOrdItemVariancesAmt($orderRow['id']);
-                }
+                                        if (!isset($variances[$orderRow['id']])) {
+                                            $variances[$orderRow['id']] = getOrdItemVariancesAmt($orderRow['id']);
+                                        }
 
-                $variancesTotAmt = $variances[$orderRow['id']]['variancesTot'];
-                $ordType = showOtherLangText('Stock Take');
-            }
-            else
-            {
-                $ordType = showOtherLangText('Raw Item Convert');
-            }
+                                        $variancesTotAmt = $variances[$orderRow['id']]['variancesTot'];
+                                        $ordType = showOtherLangText('Stock Take');
+                                    } else {
+                                        $ordType = showOtherLangText('Raw Item Convert');
+                                    }
 
 
-            $curDet =  getCurrencyDet($orderRow['ordCurId']);
+                                    $curDet =  getCurrencyDet($orderRow['ordCurId']);
 
-            $paymentId = ($orderRow['paymentId']) ? $orderRow['paymentId'] : '';
+                                    $paymentId = ($orderRow['paymentId']) ? $orderRow['paymentId'] : '';
 
-            if ($orderRow['paymentStatus']==1 && $orderRow['ordType']==1)
-            {
-                $paymentStatus = '<strong style="color:#1C9FFF;">'.showOtherLangText('Paid').'</strong>';
-            }
-            elseif($orderRow['paymentStatus']==1 && $orderRow['ordType']==2) 
-            {
-                $paymentStatus = '<strong style="color:#038F00;">'.showOtherLangText('Received').'</strong>';  
-            }
-            elseif($orderRow['ordType']==3 || $orderRow['ordType']==4)
-            {
-                $paymentStatus = '<strong>&nbsp;</strong>';  
-            }
-            elseif(($orderRow['ordType'] == 2 && $orderRow['receive_inv'] == 0) || $orderRow['ordType'] == 2 && $accessInvoicePermission['type_id'] == 0)
-            {
-                $paymentStatus = '<strong>&nbsp;</strong>';  
-            }
-            elseif($orderRow['ordType'] == 1 && $accessPaymentPermission['type_id']==0)
-            {
-                $paymentStatus = '<strong>&nbsp;</strong>';  
-            }
-            else
-            {
-                $paymentStatus = '<strong style="color:#FC9C2C;">'.showOtherLangText('Pending').'</strong>';
-            }
+                                    if ($orderRow['paymentStatus'] == 1 && $orderRow['ordType'] == 1) {
+                                        $paymentStatus = '<strong style="color:#1C9FFF;">' . showOtherLangText('Paid') . '</strong>';
+                                    } elseif ($orderRow['paymentStatus'] == 1 && $orderRow['ordType'] == 2) {
+                                        $paymentStatus = '<strong style="color:#038F00;">' . showOtherLangText('Received') . '</strong>';
+                                    } elseif ($orderRow['ordType'] == 3 || $orderRow['ordType'] == 4) {
+                                        $paymentStatus = '<strong>&nbsp;</strong>';
+                                    } elseif (($orderRow['ordType'] == 2 && $orderRow['receive_inv'] == 0) || $orderRow['ordType'] == 2 && $accessInvoicePermission['type_id'] == 0) {
+                                        $paymentStatus = '<strong>&nbsp;</strong>';
+                                    } elseif ($orderRow['ordType'] == 1 && $accessPaymentPermission['type_id'] == 0) {
+                                        $paymentStatus = '<strong>&nbsp;</strong>';
+                                    } else {
+                                        $paymentStatus = '<strong style="color:#FC9C2C;">' . showOtherLangText('Pending') . '</strong>';
+                                    }
 
 
-            $InvoiceNumber = $orderRow['invNo'];
+                                    $InvoiceNumber = $orderRow['invNo'];
 
-            $colsValArr = 
-            [
-               1 => $orderRow['ordNumber'],
-               2 => $dateType,
-               3 => $userName,
-               4 => $ordType,
-               7 => $suppMemStoreId,
-               8 => ($orderRow['ordType']==1 ) ? $InvoiceNumber : ' ' ,
-               10 =>($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+                                    $colsValArr =
+                                        [
+                                            1 => $orderRow['ordNumber'],
+                                            2 => $dateType,
+                                            3 => $userName,
+                                            4 => $ordType,
+                                            7 => $suppMemStoreId,
+                                            8 => ($orderRow['ordType'] == 1) ? $InvoiceNumber : ' ',
+                                            10 => ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+                                                . '<br>' .
+                                                ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''),
+                                            14 => $paymentStatus,
+                                            15 => ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''),
+                                            16 => ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' ',
+                                            17 => ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''),
+
+                                        ];
+
+
+
+                                    if (isset($_GET['ordType'])) {
+                                        switch ($_GET['ordType']) {
+
+                                            case 1:
+
+                                                unset($colsValArr[5]);
+                                                unset($colsValArr[6]);
+                                                unset($colsValArr[9]);
+                                                unset($colsValArr[11]);
+                                                unset($colsValArr[16]);
+                                                break;
+
+                                            case 2:
+
+                                                unset($colsValArr[8]);
+                                                unset($colsValArr[9]);
+                                                unset($colsValArr[11]);
+                                                unset($colsValArr[15]);
+                                                break;
+
+                                            case 3:
+
+                                                unset($colsValArr[5]);
+                                                unset($colsValArr[6]);
+                                                unset($colsValArr[8]);
+                                                unset($colsValArr[11]);
+                                                unset($colsValArr[14]);
+                                                unset($colsValArr[15]);
+                                                unset($colsValArr[16]);
+                                                unset($colsValArr[17]);
+                                                unset($colsValArr[18]);
+                                                break;
+
+
+                                            case 4:
+
+                                                unset($colsValArr[5]);
+                                                unset($colsValArr[6]);
+                                                unset($colsValArr[7]);
+                                                unset($colsValArr[8]);
+                                                unset($colsValArr[9]);
+                                                unset($colsValArr[11]);
+                                                unset($colsValArr[14]);
+                                                unset($colsValArr[15]);
+                                                unset($colsValArr[16]);
+                                                unset($colsValArr[17]);
+                                                unset($colsValArr[18]);
+                                                break;
+                                        }
+                                    }
+
+                                    if ($accessHistoryAccountsPermission['type_id'] == 0) {
+                                        unset($colsValArr[14]);
+                                        unset($colsValArr[15]);
+                                        unset($colsValArr[16]);
+                                        unset($colsValArr[17]);
+                                    }
+
+                                    if ($_GET['statusType'] == 1) {
+                                        unset($colsValArr[5]);
+                                        unset($colsValArr[6]);
+                                        unset($colsValArr[9]);
+                                        unset($colsValArr[11]);
+                                        unset($colsValArr[16]);
+                                    }
+
+                                    if ($_GET['statusType'] == 2) {
+                                        unset($colsValArr[8]);
+                                        unset($colsValArr[9]);
+                                        unset($colsValArr[11]);
+                                        unset($colsValArr[15]);
+                                    }
+
+                                    // for panding payment
+                                    if ($_GET['statusType'] == 3) {
+                                        unset($colsValArr[11]);
+                                        unset($colsValArr[15]);
+                                        unset($colsValArr[16]);
+                                        unset($colsValArr[17]);
+                                    }
+
+                                    if ($getTxtById == 'suppId') {
+                                        unset($colsValArr[6]);
+                                        unset($colsValArr[9]);
+                                        unset($colsValArr[11]);
+                                        unset($colsValArr[16]);
+                                    }
+
+                                    if ($getTxtById == 'deptUserId') {
+                                        unset($colsValArr[8]);
+                                        unset($colsValArr[9]);
+                                        unset($colsValArr[11]);
+                                        unset($colsValArr[15]);
+                                    }
+                                    // for store
+                                    if ($getTxtById == 'storeId') {
+                                        unset($colsValArr[5]);
+                                        unset($colsValArr[6]);
+                                        unset($colsValArr[8]);
+                                        unset($colsValArr[11]);
+                                        unset($colsValArr[14]);
+                                        unset($colsValArr[15]);
+                                        unset($colsValArr[16]);
+                                        unset($colsValArr[17]);
+                                        unset($colsValArr[18]);
+                                    }
+
+                                ?>
+
+
+                                    <div class="hisTask <?php if ($x > 1) {
+                                                            echo 'mt-2';
+                                                        } ?>">
+                                        <div class="mb-hstryBareq">&nbsp;</div>
+                                        <div class="align-items-center itmBody">
+                                            <div class="numRef align-items-center">
+                                                <div class="tb-bdy srHisclm">
+                                                    <p><?php echo $x; ?></p>
+                                                </div>
+                                                 <div class="tb-bdy numItmclm">
+                                                <?php if(isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                                 <p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p>
+                                                <?php } ?>
+                                                </div>
+                                                <div class="tb-bdy hisDateclm"><?php if(isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                                    <p class="fstDt"><?php echo $dateType; ?></p>
+                                                     <?php } ?>
+                                                </div>
+
+                                                <div class="tb-bdy hisDateclm">
+                                                    <?php if(isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?>
+                                                  <?php echo $userName; ?>
+                                                   <?php } ?>
+                                                </div>
+
+                                                <div class="tb-bdy hisTypclm">
+                                                    <?php if(isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?> <div class="d-flex align-items-center hisOrd-typ">
+                                                        <?php if ($ordType == 'Issued in') { ?>
+                                                            <div class="ordBar-rd">&nbsp;</div>
+                                                        <?php } else { ?>
+                                                            <div class="reqBar-gr">&nbsp;</div>
+                                                        <?php } ?>
+                                                        <p><?php echo $ordType; ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+                                                </div>
+                                                <div class="tb-bdy hisRefrclm"><?php if(isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?>
+                                                    <p class="refTomember"><?php echo $suppMemStoreId; ?></p>
+                                                  <?php } ?>
+                                                </div>
+                                            </div>
+                                            <div class="tb-bdy hisValclm">
+                                                <?php if(isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?><p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+                                        . '<br>' .
+                                        ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
+                                               <?php } ?>
+                                            </div>
+
+                                            <div class="tb-bdy hisValclm">
+                                               <?php if(isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?> <p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
                .'<br>'.
-               ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''),
-               14 => $paymentStatus,
-               15 => ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''),
-               16 => ($orderRow['ordType']==2 ) ? $InvoiceNumber : ' ' ,
-               17 => ($orderRow['paymentStatus']==1 ? $orderRow['accountName'] : ''),
+               ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
+                                               <?php } ?>
+                                            </div>
+                                            <div class="stsHiscol d-flex align-items-center flex-grow-1">
+                                                <div class="tb-bdy hisStatusclm" style="width: 70px !important; padding-left:0px;">
+                                                    <?php if(isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?><p class="his-pendStatus"><?php echo $paymentStatus; ?></p>
+                                                 <?php } ?>
+                                                </div>
+                                                <div class="tb-bdy hisStatusclm" slot="padding-left:0px;">
+                                                <?php if(isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?><p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p>
+                                                <?php } ?>
+                                                </div>
 
-            ];
-            
-            
+                                                <div class="tb-bdy hisStatusclm" slot="padding-left:0px;">
+                                                    <?php if(isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?>
+                                                    <p class="his-pendStatus"><?php echo ($orderRow['ordType']==2 ) ? $InvoiceNumber : ' '; ?></p> <?php } ?>
+                                                </div>
 
-            if( isset($_GET['ordType']) )
-            {
-                switch($_GET['ordType'])
-                {   
+                                                <div class="tb-bdy hisAcntclm flex-grow-1">
+                                                     <?php if(isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ) { ?>
+                                                  <?php } else { ?>
+                                                    <p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p><?php } ?>
+                                                </div>
 
-                  case 1:
+                                            </div>
 
-                  unset( $colsValArr[5] );
-                  unset( $colsValArr[6] );  
-                  unset( $colsValArr[9] );
-                  unset( $colsValArr[11] );
-                  unset( $colsValArr[16] );
-                  break;
+                                            <div class="tb-bdy shrtHisclm" style="width: fit-content !important;">
+                                                <div class="mb-Acntdetail">
+                                                    <div class="tb-bdy">
+                                                        <p>Account</p>
+                                                        <p class="mb-Acntnum"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end his-Paybtn">
+                                                    <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                        <a href="javascript:void(0)">
+                                                            <p class="h3">Inv</p>
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                            <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span class="docMent"></span>
+                                                                <p class="btn2">Documents <i class="fa-solid fa-angle-down"></i>
+                                                                </p>
+                                                            </a>
 
-                  case 2:
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="far fa-square pe-2"></i>View Details</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details_1"><i class="far fa-square pe-2"></i>View Details 1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details_2"><i class="far fa-square pe-2"></i>View Details 2</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_payment"><i class="far fa-square pe-2"></i>view payment</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_invoice"><i class="far fa-square pe-2"></i>view invoice</a>
+                                                                </li>
 
-                  unset( $colsValArr[8] );
-                  unset( $colsValArr[9] );
-                  unset( $colsValArr[11] );
-                  unset( $colsValArr[15] );
-                  break;
+                                                            </ul>
+                                                        </div>
+                                                        <?php
+                                                        access_delete_history_file($_SESSION['designation_id'], $_SESSION['accountId'], $orderRow['id']);
+                                                        ?>
 
-                  case 3:
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="align-items-center mbTask">
+                                            <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
+                                        </div>
+                                    </div>
+                                <?php  } ?>
+                                <?php
+                                if (isset($_GET['delOrderId'])) {
+                                ?><br>
 
-                  unset( $colsValArr[5] );
-                  unset( $colsValArr[6] );
-                  unset( $colsValArr[8] );
-                  unset( $colsValArr[11] );
-                  unset( $colsValArr[14] );
-                  unset( $colsValArr[15] );
-                  unset( $colsValArr[16] );
-                  unset( $colsValArr[17] );
-                  unset( $colsValArr[18] );
-                  break;
+                                    <div class="hbrw-DelHstry">
+                                        <form method="post" action="" autocomplete="off">
+                                            <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
 
+                                            <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
+                                                <input type="password" value="" placeholder="" name="password">&nbsp;&nbsp;
+                                                <button type="submit" class=" btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
+                                                &nbsp;&nbsp;
 
-                  case 4:
+                                                <a href="history.php" class="class=" btn-primary><?php echo showOtherLangText('Cancel') ?></a>
 
-                  unset( $colsValArr[5] );
-                  unset( $colsValArr[6] );
-                  unset( $colsValArr[7] );
-                  unset( $colsValArr[8] );
-                  unset( $colsValArr[9] );
-                  unset( $colsValArr[11] );
-                  unset( $colsValArr[14] );
-                  unset( $colsValArr[15] );
-                  unset( $colsValArr[16] );
-                  unset( $colsValArr[17] );
-                  unset( $colsValArr[18] );
-                  break;
+                                            </div>
+                                        </form>
+                                    </div>
+                                <?php } ?>
+                                <!-- <div class="hisTask mt-2">
+                                    <div class="mb-hstryBarord">&nbsp;</div>
+                                    <div class="align-items-center itmBody">
+                                        <div class="numRef align-items-center">
+                                            <div class="tb-bdy srHisclm">
+                                                <p>2</p>
+                                            </div>
+                                            <div class="tb-bdy numItmclm">
+                                                <p class="hisNo  hide-hisNo">No. V0002349</p>
+                                                <p class="hisOrd">#10221855</p>
+                                            </div>
+                                            <div class="tb-bdy hisDateclm">
+                                                <p class="fstDt">23.05.22</p>
+                                                <p class="lstDt">23.05.22</p>
+                                            </div>
+                                            <div class="tb-bdy hisTypclm">
+                                                <div class="d-flex align-items-center hisReq-typ">
+                                                    <div class="reqBar-gr">&nbsp;</div>
+                                                    <p>Order</p>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="tb-bdy hisRefrclm">
+                                                <p class="refTomember">Supplier</p>
+                                            </div>
+                                        </div>
+                                        <div class="tb-bdy hisValclm">
+                                            <p class="dolValcurr">174.30 $</p>
+                                            <p class="othrValcurr">357,900 Tzs</p>
+                                        </div>
+                                        <div class="stsHiscol d-flex align-items-center">
+                                            <div class="tb-bdy hisStatusclm">
+                                                <p class="his-pendStatus">Pending</p>
+                                            </div>
+                                            <div class="tb-bdy hisAcntclm">
+                                                <p class="hisAccount">Safe 02 $</p>
+                                            </div>
+                                        </div>
 
+                                        <div class="tb-bdy shrtHisclm">
+                                            <div class="mb-Acntdetail">
+                                                <div class="tb-bdy">
+                                                    <p>Account</p>
+                                                    <p class="mb-Acntnum"></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
+                                                <div
+                                                    class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                    <a href="javascript:void(0)">
+                                                        <p class="h3">Pay</p>
+                                                    </a>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        <a href="javascript:void(0)" class="dropdown-toggle runLink"
+                                                            role="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <span class="docMent"></span>
+                                                            <p class="btn2">Documents <i
+                                                                    class="fa-solid fa-angle-down"></i>
+                                                            </p>
+                                                        </a>
 
-                }
-            }
+                                                        <ul class="dropdown-menu">
+                                                          
+                                                          <li><a class="dropdown-item"
+                                                                  href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
+                                                          </li>
+                                                          <li><a class="dropdown-item"
+                                                                    href="javascript:void(0)"><i class="fas  fa-share-square pe-2"></i>View Supplier Details</a>
+                                                            </li>
+                                                          
+                                                      </ul>
+                                                    </div>
+                                                    <div
+                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
+                                                        <a href="javascript:void(0)" class="runLink">
+                                                            <span class="dlTe"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center mbTask">
+                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
+                                                class="fa-solid fa-angle-down"></i></a>
+                                    </div>
+                                </div>
 
-            if ($accessHistoryAccountsPermission['type_id'] == 0) {
-                unset( $colsValArr[14] );
-                unset( $colsValArr[15] );
-                unset( $colsValArr[16] );
-                unset( $colsValArr[17] );
-            }
+                                <div class="hisTask mt-2">
+                                    <div class="mb-hstryBarord">&nbsp;</div>
+                                    <div class="align-items-center itmBody">
+                                        <div class="numRef align-items-center">
+                                            <div class="tb-bdy srHisclm">
+                                                <p>3</p>
+                                            </div>
+                                            <div class="tb-bdy numItmclm">
+                                                <p class="hisNo hide-hisNo">No. V0002349</p>
+                                                <p class="hisOrd">#10221855</p>
+                                            </div>
+                                            <div class="tb-bdy hisDateclm">
+                                                <p class="fstDt">23.05.22</p>
+                                                <p class="lstDt">23.05.22</p>
+                                            </div>
+                                            <div class="tb-bdy hisTypclm">
+                                                <div class="d-flex align-items-center hisReq-typ">
+                                                    <div class="reqBar-gr">&nbsp;</div>
+                                                    <p>Order</p>
+                                                </div>
+                                            </div>
+                                            <div class="tb-bdy hisRefrclm">
+                                                <p class="refTomember">Supplier</p>
+                                            </div>
+                                        </div>
+                                        <div class="tb-bdy hisValclm">
+                                            <p class="dolValcurr">174.30 $</p>
+                                            <!-- <p class="othrValcurr">357,900 Tzs</p> 
+                                        </div>
+                                        <div class="stsHiscol d-flex align-items-center">
+                                            <div class="tb-bdy hisStatusclm">
+                                                <p class="his-paidStatus">Paid</p>
+                                            </div>
+                                            <div class="tb-bdy hisAcntclm">
+                                                <p class="hisAccount">Safe 02 $</p>
+                                            </div>
+                                        </div>
 
-            if ($_GET['statusType'] == 1) {
-              unset( $colsValArr[5] );
-              unset( $colsValArr[6] );    
-              unset( $colsValArr[9] );
-              unset( $colsValArr[11] );
-              unset( $colsValArr[16] );
-            }
+                                        <div class="tb-bdy shrtHisclm">
+                                            <div class="mb-Acntdetail">
+                                                <div class="tb-bdy">
+                                                    <p>Account</p>
+                                                    <p class="mb-Acntnum"></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
+                                                <div
+                                                    class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                    <a href="javascript:void(0)">
+                                                        <p class="h3">Pay</p>
+                                                    </a>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        <a href="javascript:void(0)" class="dropdown-toggle runLink"
+                                                            role="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <span class="docMent"></span>
+                                                            <p class="btn2">Documents <i
+                                                                    class="fa-solid fa-angle-down"></i>
+                                                            </p>
+                                                        </a>
 
-            if ($_GET['statusType'] == 2) 
-            {
-               unset( $colsValArr[8] );
-               unset( $colsValArr[9] );
-               unset( $colsValArr[11] );
-               unset( $colsValArr[15] );
-            }
+                                                        <ul class="dropdown-menu">
+                                                          
+                                                          <li><a class="dropdown-item"
+                                                                  href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
+                                                          </li>
+                                                          <li><a class="dropdown-item"
+                                                                    href="javascript:void(0)"><i class="fas  fa-share-square pe-2"></i>View Supplier Details</a>
+                                                            </li>
+                                                          
+                                                      </ul>
+                                                    </div>
+                                                    <div
+                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
+                                                        <a href="javascript:void(0)" class="runLink">
+                                                            <span class="dlTe"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center mbTask">
+                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
+                                                class="fa-solid fa-angle-down"></i></a>
+                                    </div>
+                                </div>
 
-            // for panding payment
-            if ($_GET['statusType'] == 3) 
-            {
-                unset( $colsValArr[11] );
-                unset( $colsValArr[15] );
-                unset( $colsValArr[16] );
-                unset( $colsValArr[17] );
-            }
+                                <div class="hisTask mt-2">
+                                    <div class="mb-hstryBarstk">&nbsp;</div>
+                                    <div class="align-items-center itmBody">
+                                        <div class="numRef align-items-center">
+                                            <div class="tb-bdy srHisclm">
+                                                <p>4</p>
+                                            </div>
+                                            <div class="tb-bdy numItmclm">
+                                                <p class="hisNo  hide-hisNo">No. V0002349</p>
+                                                <p class="hisOrd">#10221855</p>
+                                            </div>
+                                            <div class="tb-bdy hisDateclm">
+                                                <p class="fstDt">23.05.22</p>
+                                                <p class="lstDt">23.05.22</p>
+                                            </div>
+                                            <div class="tb-bdy hisTypclm">
+                                                <div class="d-flex align-items-center hisStk-typ">
+                                                    <div class="stckBar-bl">&nbsp;</div>
+                                                    <p>Stock Take</p>
+                                                </div>
+                                            </div>
+                                            <div class="tb-bdy hisRefrclm">
+                                                <p class="refTomember">Storage</p>
+                                            </div>
+                                        </div>
+                                        <div class="tb-bdy hisValclm">
+                                            <p class="dolValcurr">174.30 $</p>
+                                            <p class="othrValcurr-ngive">-144.30 $</p>
+                                        </div>
+                                        <div class="tb-bdy shrtHisclm stkCol-blnk">
+                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
+                                                <div
+                                                    class="dlt-bx text-center d-flex justify-content-center align-items-center">
+                                                    <a href="javascript:void(0)" class="runLink">
+                                                        <span class="vwDtl"></span>
+                                                    </a>
+                                                </div>
+                                                <div
+                                                    class="dlt-bx text-center d-flex justify-content-center align-items-center">
+                                                    <a href="javascript:void(0)" class="runLink">
+                                                        <span class="dlTe"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center mbTask">
+                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
+                                                class="fa-solid fa-angle-down"></i></a>
+                                    </div>
+                                </div>
 
-            if ($getTxtById == 'suppId') 
-            {
-               unset( $colsValArr[6] );
-               unset( $colsValArr[9] );
-               unset( $colsValArr[11] ); 
-               unset( $colsValArr[16] );
-            }
-
-            if ($getTxtById == 'deptUserId') 
-            {
-                unset( $colsValArr[8] );
-                unset( $colsValArr[9] );
-                unset( $colsValArr[11] );
-                unset( $colsValArr[15] );
-            }
-            // for store
-            if ($getTxtById == 'storeId') 
-            {
-              unset( $colsValArr[5] );
-              unset( $colsValArr[6] );
-              unset( $colsValArr[8] );
-              unset( $colsValArr[11] );
-              unset( $colsValArr[14] );
-              unset( $colsValArr[15] );
-              unset( $colsValArr[16] );
-              unset( $colsValArr[17] );
-              unset( $colsValArr[18] );
-            }
-
-        ?>
-                              
-                
-                                <div class="hisTask <?php if($x>1) { echo 'mt-2'; } ?>">
+                                <div class="hisTask mt-2">
                                     <div class="mb-hstryBareq">&nbsp;</div>
                                     <div class="align-items-center itmBody">
                                         <div class="numRef align-items-center">
                                             <div class="tb-bdy srHisclm">
-                                                <p><?php echo $x; ?></p>
+                                                <p>5</p>
                                             </div>
                                             <div class="tb-bdy numItmclm">
-                                                <!-- <p class="hisNo">No. V0002349</p> -->
-                                                <p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p>
+                                                <p class="hisNo hide-hisNo">No. V0002349</p>
+                                                <p class="hisOrd">#10221855</p>
                                             </div>
                                             <div class="tb-bdy hisDateclm">
-                                                <p class="fstDt"><?php echo $dateType; ?></p>
-                                                <!-- <p class="lstDt">23.05.22</p> -->
+                                                <p class="fstDt">23.05.22</p>
+                                                <p class="lstDt">23.05.22</p>
                                             </div>
-                                            
                                             <div class="tb-bdy hisTypclm">
                                                 <div class="d-flex align-items-center hisOrd-typ">
-                                                    <?php if($ordType=='Issued in') { ?>
                                                     <div class="ordBar-rd">&nbsp;</div>
-                                                    <?php } else { ?>
-                                                    <div class="reqBar-gr">&nbsp;</div>
-                                                    <?php } ?>
-                                                    <p><?php echo $ordType; ?></p>
+                                                    <p>Requisition</p>
                                                 </div>
-                                                
                                             </div>
                                             <div class="tb-bdy hisRefrclm">
-                                                <p class="refTomember"><?php echo $suppMemStoreId; ?></p>
+                                                <p class="refTomember">Member</p>
                                             </div>
                                         </div>
                                         <div class="tb-bdy hisValclm">
-                                            <p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
-               .'<br>'.
-               ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
-                                          
+                                            <p class="dolValcurr">174.30 $</p>
+                                            <p class="othrValcurr">357,900 Tzs</p> 
                                         </div>
                                         <div class="stsHiscol d-flex align-items-center">
                                             <div class="tb-bdy hisStatusclm">
-                                                <p class="his-pendStatus"><?php echo $paymentStatus; ?></p>
+                                                <p class="his-recStatus">Received</p>
                                             </div>
                                             <div class="tb-bdy hisAcntclm">
-                                                <p class="hisAccount"><?php echo ($orderRow['paymentStatus']==1 ? $orderRow['accountName'] : ''); ?></p>
+                                                <p class="hisAccount">Safe 02 $</p>
                                             </div>
                                         </div>
 
@@ -1735,25 +2196,18 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
 
                                                         <ul class="dropdown-menu">
                                                           
-                                                          <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')" ><i class="far fa-square pe-2"></i>View Details</a>
+                                                          <li><a class="dropdown-item"
+                                                                  href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
                                                           </li>
-                                                         
-                                                     
-                                                                            <?php 
-            if($orderRow['ordType'] == 1)
-            {
-            //issue in
-                ?>
-                                                 <li>
-                                                    <a class="dropdown-item" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
-                                                          </li>
-                                                <?php 
-            } ?>
-                                                   </ul>  </div>
-                                                    <?php
-                            access_delete_history_file($_SESSION['designation_id'],$_SESSION['accountId'],$orderRow['id']);
-                            ?>
-                                                    
+                                                          
+                                                      </ul>
+                                                    </div>
+                                                    <div
+                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
+                                                        <a href="javascript:void(0)" class="runLink">
+                                                            <span class="dlTe"></span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1762,381 +2216,14 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Record deleted successfully
                                         <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
                                                 class="fa-solid fa-angle-down"></i></a>
                                     </div>
-                                </div>
-                                 <?php  } ?>
-                                 <?php 
-        if( isset($_GET['delOrderId']) )
-        {
-            ?><br>
-
-                                <form method="post" action="" autocomplete="off"><div class="hbrw-DelHstry">
-                                    
-                                        <input type="hidden" name="delOrderId"
-                                            value="<?php echo $_GET['delOrderId'];?>" />
-
-                                        <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
-                                            <input type="password" value="" placeholder="" name="password">&nbsp;&nbsp;
-                                            <button type="submit"
-                                                class=" btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
-                                            &nbsp;&nbsp;
-
-                                            <a href="history.php" class="class="
-                                                btn-primary><?php echo showOtherLangText('Cancel') ?></a>
-
-                                        </div></div></form>
-                                <?php } ?>
-                                
+                                </div> -->
+                                <!-- Item Table Body End -->
                             </div>
                         </div>
                     </section>
-                  <!-- </form> -->
+
                 </section>
 
-            </div>
-        </div>
-    </div>
-
-
-    <!-- View Details Popup Start -->
-    <div class="modal" tabindex="-1" id="view_details" aria-labelledby="view-details" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-            <div class="modal-content p-2">
-                <div class="modal-header pb-3">
-                    <div class="d-md-flex align-items-center justify-content-between w-100 ">
-                        <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2">
-                           
-                                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
-                                    <i class="fa fa-filter"></i>
-                                </button>
-                            
-                                <div class="collapse" id="modalfiltertop">
-                                    <div class="d-flex gap-3 modal-head-row">
-                                    
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Headers<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span  class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>                                  
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Summary<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span  class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Item Table<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span  class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Task Record<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span  class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    </div>
-                                
-                                </div>
-
-                          
-
-                        </div>
-                        <button type="submit" class="btn btn-primary dwnBtn downloadBtnHistory">
-                        <a href="#" class="btn"><span class="align-middle"><?php echo showOtherLangText('Press'); ?></span> <i class="fa-solid fa-download ps-1"></i></a></button>
-                    </div>
-                </div> 
-                <div class="modal-body px-2 py-3">
-                    <div class="row pb-3">
-                        <div class="col-md-4">
-                            <div class="modal-address ">
-                                <h6 class="semibold fs-14">Our Zazibar</h6>
-                                <div class="fs-13 ">
-                                    <p>P.o Box 4146</p>
-                                    <p>Jambiani</p>
-                                    <p>Zanzibar, TANZANIA</p>
-                                    <p>inventory@our-zanzibar.com</p>
-                                    <p>+255743419217</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="text-center semibold">Order details</h4>
-                        </div>
-                        <div class="col-md-4 text-md-end">
-                            <div class="modal-logo">
-                                <img src="Assets/icons/logo_Q.svg" alt="Logo">
-                            </div>
-                            <div class="modal-date pt-1">
-                                <p>08/03/2024</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <table class="modal-table fs-12 w-100">
-                        <tbody>
-                            <tr>
-                                <td class="medium">Task No.</td>
-                                <td class="medium">Supplier</td>
-                                <td class="p-0">
-                                    <table class="w-100">
-                                        <tr>
-                                            <td width="40%">&nbsp;</td>
-                                            <td width="40%" class="medium">Total</td>
-                                            <td width="20%">&nbsp;</td>
-                                        </tr>
-                                    </table>
-                                </td> 
-                            </tr>
-                            <tr class="thead">
-                                <td>123095</td>
-                                <td>Active Store</td>
-                                <td class="p-0">
-                                    <table  class="w-100">
-                                        <tr>
-                                            <td width="40%">&nbsp;</td>
-                                            <td width="40%">29.28$</td>
-                                            <td width="20%">&nbsp;</td>
-                                        </tr>
-                                    </table></td>
-                            </tr>
-                            <tr>
-                                <td width="33%" valign="top">
-                                    <table class="w-100">
-                                        <tr>
-                                            <td># Supplier Invoice</td>
-                                            <td>3425234</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td width="33%"></td>
-                                <td width="34%">
-                                    <table  class="w-100">
-                                        <tr>
-                                            <td>Sub Total</td>
-                                            <td>157 $</td>
-                                            <td>138.888 €</td>
-                                        </tr>
-                                        <tr>
-                                            <td>discount</td>
-                                            <td>157 $</td>
-                                            <td>138.888 €</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Grand Total</td>
-                                            <td>157 $</td>
-                                            <td>138.888 €</td>
-                                        </tr>
-
-                                    </table>
-                                </td>
-                            </tr>
-                       
-                        </tbody>
-                    </table>
-
-                    <table class="modal-table fs-12 w-100 mt-4">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Photo</th>
-                                <th>Item</th>
-                                <th>Barcode</th>
-                                <th>Price</th>
-                                <th>Unit</th>
-                                <th>Qty.</th>
-                                <th>Rec Qty.</th>
-                                <th>Total($)</th>
-                                <th>Note</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><img src="Assets/images/Tomato.png" alt="Item" class="imgItm"></td>
-                            <td>Bitter Lemon 300 Ml</td>
-                            <td>569856285</td>
-                            <td>5.32 $</td>
-                            <td>box</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>13.32 $</td>
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><img src="Assets/images/Tomato.png" alt="Item" class="imgItm"></td>
-                            <td>Bitter Lemon 300 Ml</td>
-                            <td>569856285</td>
-                            <td>5.32 $</td>
-                            <td>box</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>13.32 $</td>
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><img src="Assets/images/Tomato.png" alt="Item" class="imgItm"></td>
-                            <td>Bitter Lemon 300 Ml</td>
-                            <td>569856285</td>
-                            <td>5.32 $</td>
-                            <td>box</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>13.32 $</td>
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><img src="Assets/images/Tomato.png" alt="Item" class="imgItm"></td>
-                            <td>Bitter Lemon 300 Ml</td>
-                            <td>569856285</td>
-                            <td>5.32 $</td>
-                            <td>box</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>13.32 $</td>
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <table class="modal-table fs-12 w-100 mt-4">
-                        <thead>
-                            <tr>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>User</th>
-                                <th>Price($)</th>
-                                <th>Price(€)</th>                               
-                                <th>Note</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Submit</td>                          
-                            <td>27/02/2024 01:30AM</td>
-                            <td>Our Zazibar(Admin)</td>
-                            <td>29.28 $</td>
-                            <td>33.54 €</td>                           
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-
-                        <tr>
-                            <td>Submit</td>                          
-                            <td>27/02/2024 01:30AM</td>
-                            <td>Our Zazibar(Admin)</td>
-                            <td>29.28 $</td>
-                            <td>33.54 €</td>                           
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-
-                        <tr>
-                            <td>Submit</td>                          
-                            <td>27/02/2024 01:30AM</td>
-                            <td>Our Zazibar(Admin)</td>
-                            <td>29.28 $</td>
-                            <td>33.54 €</td>                           
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-
-                        <tr>
-                            <td>Submit</td>                          
-                            <td>27/02/2024 01:30AM</td>
-                            <td>Our Zazibar(Admin)</td>
-                            <td>29.28 $</td>
-                            <td>33.54 €</td>                           
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-
-                        <tr>
-                            <td>Submit</td>                          
-                            <td>27/02/2024 01:30AM</td>
-                            <td>Our Zazibar(Admin)</td>
-                            <td>29.28 $</td>
-                            <td>33.54 €</td>                           
-                            <td>Lorem Ipsum dolor sit amet</td>
-                        </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-                
             </div>
         </div>
     </div>
@@ -2534,6 +2621,28 @@ $('body').on('click', '.smryChk-All', function() {
        
 
 }
+
+    $(document).ready(function() {
+
+var totalCount = $('.optionCheck').length;
+
+var totalCheckedCount = $('.optionCheck:checked').length;
+
+if (totalCount == totalCheckedCount) {
+
+    $('#CheckAllOptions').prop('checked', true);
+} else {
+    $('#CheckAllOptions').prop('checked', false);
+}
+
+$("#CheckAllOptions").on('click', function() {
+
+$('.optionCheck:checkbox').not(this).prop('checked', this.checked);
+});
+
+});
+
+
 </script>
  <div id="dialog" style="display: none;">
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
@@ -2545,6 +2654,72 @@ $('body').on('click', '.smryChk-All', function() {
 </div>
 </div>
 </div>
+<!-- View ckecknox Popup Start -->
+    <div class="modal" tabindex="-1" id="checkbox_module" aria-labelledby="checkbox_module" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+            <div class="modal-content ">
+                <div>
+                    <div class="mdlHead-Popup d-flex justify-content-between align-items-center">
+                        <span>
+                            <strong><?php echo showOtherLangText('Check columns to show in list') ?>:</strong>
+                        </span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <br>
+
+                    <strong class="checkAllSectionBox">
+                        <input type="checkbox" class="CheckAllOptions" id="CheckAllOptions">
+                        <label>
+                           <?php echo showOtherLangText('Check All') ?>
+                        </label>
+                    </strong>
+                    <?php
+
+                    $newOrderColumns = [
+                    1 =>''.showOtherLangText('Number').'',
+                    2 =>''.showOtherLangText('Submit Date').'',
+                    3 => ''.showOtherLangText('User').'',
+                    4 => ''.showOtherLangText('Type').'',
+                    7 =>''.showOtherLangText('Refer To').'',
+                    8 => ''.showOtherLangText('Supplier Invoice No.').'',
+                    10 => ''.showOtherLangText('Value').'',
+                    14 => ''.showOtherLangText('Payment Status').'',
+                    15 => ''.showOtherLangText('Payment No.').'',
+                    16 => ''.showOtherLangText('Invoice No.').'',
+                    17 => ''.showOtherLangText('Account').'',
+                    ];
+
+                    ?>
+                    <form method="post" action="" class="shortList-ChkAll">
+                        <?php foreach($newOrderColumns as $key=>$col){
+
+               if( isset($historyUserFilterFields) )
+               {
+                  $sel =  in_array($key, $historyUserFilterFields) ? ' checked="checked" ' : '';
+              }
+
+              ?>
+                    <input type="checkbox" id="optionCheck" class="optionCheck" name="showFields[]" <?php echo $sel;?>
+                        value="<?php echo $key;?>">&nbsp;<?php echo $col;?><br>
+
+                    <?php } ?>
+
+                        <br>
+                        <p>
+                            <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Show</button>
+                            <?php if( isset($historyUserFilterFields) ) {?>
+                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Clear filter</a>
+
+                            <?php } ?>
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- View checkbox Popup End -->
 <!-- ===== History pdf popup new in div format======= -->
     <div class="modal" tabindex="-1" id="history_pdf" aria-labelledby="history_pdfModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md site-modal">
