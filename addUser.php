@@ -157,108 +157,135 @@ if( isset($_POST['user_name']) )
                 </section>
 
                 <section class="ordDetail userDetail">
- <form name="frm" id="frm" method="post" enctype="multipart/form-data" action="">
-                    <div class="container">
+                    <form name="frm" id="frm" method="post" enctype="multipart/form-data" action="">
+                        <div class="container">
 
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="users.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="users.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+                                        <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save') ?></span></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save') ?></span></button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="adUsr-Div adUsr-Div-full">
-                            <div class="addUser-Form row">
-                                <div class="col-md-6 col-lg-5 adUsr-Div-Left">
-                                    <div class="form-field row align-items-center">
-                                        <div class="col-lg-3">
-                                            <label class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span class="requiredsign">*</span></label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                        <input type="text" class="form-control" id="user_name" required name="user_name" placeholder="User name">
-                                        </div>
-                                    </div>
-                                    <div class="form-field row align-items-center">
-                                        <div class="col-lg-3">
-                                            <label for="receiveInvoice" class="form-label semibold fs-13"><?php echo showOtherLangText('User Type') ?>:<span class="requiredsign">*</span></label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <input type="radio" name="mobile_user" class="userTypeWeb" value="0" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-                                            <label class="me-3"><?php echo showOtherLangText('Web') ?></label>
-                                            <input type="radio" name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-                                            <label><?php echo showOtherLangText('Mobile') ?></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-field row align-items-center">
-                                        <div class="col-lg-3">
-                                            <label class="semibold fs-13"><?php echo showOtherLangText('Designation Title'); ?>:<span class="requiredsign">*</span></label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="setTitle"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-5">
-                                    <div class="form-field row align-items-center">
-                                        <div class="col-lg-3">
-                                            <label class="semibold fs-13">Password:<span class="requiredsign">*</span></label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <input type="password" required="" class="form-control" id="password" name="password" placeholder="Password">
-                                            <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-field row align-items-center">
-                                        <div class="col-lg-3">
-                                        <label class="semibold fs-13">Email:</label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <input type="email" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="form-field row align-items-center">
-                                        <div class="col-lg-3">
-                                            <label class="semibold fs-13"><?php echo showOtherLangText('Phone') ?>:</label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="text-center">
-                                        <div class="preview_img">
-                                            <div class="main_img">
-                                                <picture>
-                                                    <img src="Assets/images/logo-bkp.png" id="preview" class="previewImg preview" alt="LOGO">
-                                                </picture>
+                            <div class="adUsr-Div adUsr-Div-full">
+                                <div class="addUser-Form row">
+                                    <div class="col-md-6 col-lg-5 adUsr-Div-Left">
+                                        <div class="form-field row align-items-center">
+                                            <div class="col-lg-3">
+                                                <label
+                                                    class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span
+                                                        class="requiredsign">*</span></label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" id="user_name" required
+                                                    name="user_name" placeholder="User name">
                                             </div>
                                         </div>
-                                        <div class="labelDiv">
-                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> Upload Photo
-                                                <img onclick="document.getElementById('imgUpload').click();" src="Assets/icons/Import.svg" alt="Import" class="importBtn"></label>
+                                        <div class="form-field row align-items-center">
+                                            <div class="col-lg-3">
+                                                <label for="receiveInvoice"
+                                                    class="form-label semibold fs-13"><?php echo showOtherLangText('User Type') ?>:<span
+                                                        class="requiredsign">*</span></label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="d-flex flex-wrap align-items-center" style="min-height: 2.65rem;"> 
+                                                    <div class="form-check"> 
+                                                        <input type="radio" name="mobile_user" class="userTypeWeb form-check-input" value="0"
+                                                            onclick="get_mobile_User(this.value)" autocomplete="new-password"
+                                                            required id="webUser">
+                                                        <label class="me-3 form-check-label" for="webUser"><?php echo showOtherLangText('Web') ?></label>
+                                                    </div>
+                                                    <div class="form-check"> 
+                                                        <input type="radio" name="mobile_user" class="userTypeMob form-check-input" value="1"
+                                                            onclick="get_mobile_User(this.value)" autocomplete="new-password"
+                                                            required id="mobUser">
+                                                        <label class="form-check-label" for="mobUser"><?php echo showOtherLangText('Mobile') ?></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-field row align-items-center">
+                                            <div class="col-lg-3">
+                                                <label
+                                                    class="semibold fs-13"><?php echo showOtherLangText('Designation Title'); ?>:<span
+                                                        class="requiredsign">*</span></label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="setTitle"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-5">
+                                        <div class="form-field row align-items-center">
+                                            <div class="col-lg-3">
+                                                <label class="semibold fs-13">Password:<span
+                                                        class="requiredsign">*</span></label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <input type="password" required="" class="form-control" id="password"
+                                                    name="password" placeholder="Password">
+                                                <span toggle="#password"
+                                                    class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-field row align-items-center">
+                                            <div class="col-lg-3">
+                                                <label class="semibold fs-13">Email:</label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    autocomplete="new-password" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-field row align-items-center">
+                                            <div class="col-lg-3">
+                                                <label
+                                                    class="semibold fs-13"><?php echo showOtherLangText('Phone') ?>:</label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" name="phone" id="phone"
+                                                    placeholder="Phone">
+                                            </div>
+                                        </div>
 
-                                            <input onchange="previewFile()" name="imgName"  class="imgHidden" id="imgUpload" type="file">
+                                    </div>
+                                    <div class="col-lg-2 col-md-4">
+                                        <div class="text-center">
+                                            <div class="preview_img">
+                                                <div class="main_img">
+                                                    <picture>
+                                                        <img src="Assets/images/logo-bkp.png" id="preview"
+                                                            class="previewImg preview" alt="LOGO">
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div class="labelDiv">
+                                                <label class="imgUploadCss" id="imgLabel" for="imgUpload"> Upload Photo
+                                                    <img onclick="document.getElementById('imgUpload').click();"
+                                                        src="Assets/icons/Import.svg" alt="Import"
+                                                        class="importBtn"></label>
+
+                                                <input onchange="previewFile()" name="imgName" class="imgHidden"
+                                                    id="imgUpload" type="file">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
-
-
-                    </div>
-                     </form>
+                    </form>
                 </section>
 
             </div>
@@ -269,76 +296,79 @@ if( isset($_POST['user_name']) )
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
     <script>
-        $(document).ready(function(){
+    $(document).ready(function() {
         $('.userTypeWeb').prop('checked', true);
 
         if ($('.userTypeWeb').is(':checked')) {
 
-                var userType = $('.userTypeWeb').val();
-                $.ajax({
-                    method:"POST",
+            var userType = $('.userTypeWeb').val();
+            $.ajax({
+                    method: "POST",
                     url: "addUser.php",
-                    data: {userType:userType}
+                    data: {
+                        userType: userType
+                    }
                 })
-                .done(function(val){
+                .done(function(val) {
                     $('.setTitle').html(val);
                 })
         }
 
         $(".toggle-password").click(function() {
 
-  $(this).toggleClass("fa-eye fa-eye-slash");
-  var input = $($(this).attr("toggle"));
-  if (input.attr("type") == "password") {
-    input.attr("type", "text");
-  } else {
-    input.attr("type", "password");
-  }
-});
-
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
         });
-    function get_mobile_User(mobileUserVal){
-    $.ajax({
-        method:"POST",
-        url: "addUser.php",
-        data: {userType:mobileUserVal}
-    })
-    .done(function(val){
-        $('.setTitle').html(val);
-    })
+
+    });
+
+    function get_mobile_User(mobileUserVal) {
+        $.ajax({
+                method: "POST",
+                url: "addUser.php",
+                data: {
+                    userType: mobileUserVal
+                }
+            })
+            .done(function(val) {
+                $('.setTitle').html(val);
+            })
 
     }
     </script>
     <script>
-function previewFile() {
-  var preview = document.querySelector('#preview');
-  var file    = document.querySelector('input[type=file]').files[0];
-  var reader  = new FileReader();
+    function previewFile() {
+        var preview = document.querySelector('#preview');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
 
-  reader.onloadend = function () {
-    preview.src = reader.result;
-  }
+        reader.onloadend = function() {
+            preview.src = reader.result;
+        }
 
-  if (file) {
-    reader.readAsDataURL(file);
-  }else {
-    preview.src = "";
-  }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
 
-}
-
-</script>
-<style type="text/css">
+    }
+    </script>
+    <style type="text/css">
     .field-icon {
-  float: right;
-  margin-left: -25px;
-  margin-top: -25px;
-  position: relative;
-  z-index: 2;
-  margin-right:6px;
-}
-
-</style>
+        float: right;
+        margin-left: -25px;
+        margin-top: -25px;
+        position: relative;
+        z-index: 2;
+        margin-right: 6px;
+    }
+    </style>
 </body>
 
 </html>

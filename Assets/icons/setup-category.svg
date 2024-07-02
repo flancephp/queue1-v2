@@ -1,6 +1,11 @@
-<svg width="69" height="68" viewBox="0 0 69 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M39.9982 27H52.9982V45.3333C52.9982 48.0046 52.9982 49.3403 52.1683 50.1701C51.3384 51 50.0028 51 47.3315 51H39.9982V27Z" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
-<path d="M13.9982 27H26.9982V51H19.6648C16.9935 51 15.6579 51 14.828 50.1701C13.9982 49.3403 13.9982 48.0046 13.9982 45.3333V27Z" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
-<rect x="26.9982" y="27" width="13" height="24" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
-<path d="M13.9982 21.6667C13.9982 18.9954 13.9982 17.6597 14.828 16.8299C15.6579 16 16.9935 16 19.6648 16H47.3315C50.0028 16 51.3384 16 52.1683 16.8299C52.9982 17.6597 52.9982 18.9954 52.9982 21.6667V27H13.9982V21.6667Z" fill="#8C8FA7" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 37" width="41" height="37">
+	<title>setup-category-svg</title>
+	<style>
+		.s0 { fill: none;stroke: #8c8fa7;stroke-linecap: round;stroke-width: 2 } 
+		.s1 { fill: #8c8fa7;stroke: #8c8fa7;stroke-linecap: round;stroke-width: 2 } 
+	</style>
+	<path id="Layer" fill-rule="evenodd" class="s0" d="m27 12h13v18.3c0 2.7 0 4-0.8 4.9-0.9 0.8-2.2 0.8-4.9 0.8h-7.3z"/>
+	<path id="Layer" fill-rule="evenodd" class="s0" d="m1 12h13v24h-7.3c-2.7 0-4 0-4.9-0.8-0.8-0.9-0.8-2.2-0.8-4.9z"/>
+	<path id="Layer" class="s0" d="m14 12h13v24h-13z"/>
+	<path id="Layer" class="s1" d="m1 6.7c0-2.7 0-4 0.8-4.9 0.9-0.8 2.2-0.8 4.9-0.8h27.6c2.7 0 4 0 4.9 0.8 0.8 0.9 0.8 2.2 0.8 4.9v5.3h-39z"/>
 </svg>
