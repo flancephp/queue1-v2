@@ -404,7 +404,7 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <button type="submit" class="sub-btn std-btn mb-usrBkbtn" style="width: 165px;"><span
+                                    <button type="submit" class="sub-btn std-btn mb-usrBkbtn" style="width: 151px;"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan">Supplier</span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Overwrite and Save') ?></span></button>
                                 </div>
@@ -427,7 +427,7 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                             
                             <div class="itmMng-Src usrAd-Btn">
                                 <div class="btnBg">
-                                    <div class="d-flex align-items-center itmMng-xlIcn">
+                                    <div class="d-flex align-items-center itmMng-xlIcn gap-3">
                                         <div class="chkStore">
                                             <a href="stocktake_excel.php" target="_blank">
                                                 <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
