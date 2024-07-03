@@ -191,9 +191,6 @@ if(isset($_REQUEST['currencyId']))
 //add to cart
 if( isset($_POST['updateOrder']) )
 {
-    echo '<pre>';
-    print_r($_POST);
-    exit;
 
     $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
     $res = mysqli_query($con, $sql);
@@ -436,12 +433,12 @@ if( isset($_GET['delId']) && $_GET['orderId'])
 
                     <section class="ordDetail">
                         <div class="tpBar-grn"></div>
-                        <div class="stcPart">
+                        <div class="stcPart position-relative">
                             <div class="container erdOrder nwOrder-Div">
                                 <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
-                                <div class="row">
-                                    <div class="sltSupp nwOrd-Num">
-                                        <div class="ord-Box w-100">
+                                <div class="row py-md-4">
+                                    <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem;">
+                                        <div class="ord-Box w-100 ms-0">
                                             <div class="ordNum">
                                                 <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
                                             </div>
@@ -449,7 +446,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                                 <h4 class="subTittle1">23/05/2022</h4>
                                             </div> -->
                                         </div>
-                                        <div class="ord-Box w-100">
+                                        <div class="ord-Box w-100 ms-0">
                                             <div class="ordNum">
                                                 <h4 class="subTittle1"><span><?php echo showOtherLangText('Supplier'); ?>:</span> <span><?php
                         $ordDetQry = " SELECT * FROM tbl_suppliers WHERE id='".$_SESSION['supplierIdOrd']."' AND account_Id='".$_SESSION['accountId']."' ";
@@ -519,9 +516,9 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                                                 </a>
 
                                                                 <ul class="item dropdown-menu">
-                                                                    <li><a class="dropdown-item"
-                                                                            href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-                                                                          <ul class="subitem dropdown-item">
+                                                                    <li class="innerDrop dropdown">
+                                                                        <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
+                                                                          <ul class="subitem  submenu list-unstyled">
                                                             <?php 
                                 //add item fee & custom fee modal box 
                                 $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -529,27 +526,29 @@ if( isset($_GET['delId']) && $_GET['orderId'])
 
                                 while ($resultRow = mysqli_fetch_array($customItemsResult)) 
                                 {
-                                   echo "<li class='innerLi'><a tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']." '>".$resultRow['itemName']."</a></li>";
+                                   echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']." '>".$resultRow['itemName']."</a></li>";
                                 }
                                 ?>
                                                         </ul>
 
                                                                         </li>
-                                                                        <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
-                                        data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
-                                                                    <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a><ul class="subitem dropdown-item">
+                                                                        <li>
+                                                                            <a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
+                                                                        </li>
+                                                                        <li class="innerDrop dropdown">
+                                                                            <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                            <ul class="subitem  submenu large list-unstyled">
                                                                         <?php
-            //add item fee & custom fee modal box 
-            $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-            $ordFeeFetch = mysqli_query($con, $sqlQry);
-            //$innerLiCount = 0;
-            while ($resultRow = mysqli_fetch_array($ordFeeFetch))
-            {
-                // $innerLiCount++;
-                echo "<li class='innerLi'><a tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
-            } 
-            ?>
+                                                    //add item fee & custom fee modal box 
+                                                    $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                    $ordFeeFetch = mysqli_query($con, $sqlQry);
+                                                    //$innerLiCount = 0;
+                                                    while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+                                                    {
+                                                        // $innerLiCount++;
+                                                        echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
+                                                    } 
+                                                    ?>
                                                                          </ul></li>
                                                                     <li><a class="dropdown-item"
                                                                         href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
@@ -583,7 +582,7 @@ $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//to
                                         </div>
                                         <input type="hidden" name="updateOrder"  value="<?php echo showOtherLangText('Update Order'); ?>" />
                                         <div class="btnBg mt-3">
-                                            <a href="runningOrders.php" class="sub-btn std-btn"><?php echo showOtherLangText('Back'); ?></a>
+                                            <a href="runningOrders.php" class="sub-btn std-btn update"><?php echo showOtherLangText('Back'); ?></a>
                                         </div>
                                         <div class="fetBtn">
                                             <a href="javascript:void(0)">
@@ -1636,9 +1635,7 @@ list'); ?></span>
 
 
     }
-
-   
-
+    
    function getnotesVal(pId) {
 
         var notes = $('#notes' + pId).val();
