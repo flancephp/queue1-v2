@@ -521,10 +521,10 @@ $deprtOptions .= '</ul>';
                         <div class="row itm-Manage justify-content-between">
                             <div class="col-md-6 bkItm-MngBtn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-arrow-left"></i></span> <span class="dsktp-Btn">
-                                            <?php echo showOtherLangText('Back'); ?>
-                                        </span></a>
+                                    <a href="setup.php" class="btn btn-primary">
+                                        <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span>
+                                    </a>
                                 </div>
                                 <div class="mbItm-MngIcns"> </div>
                             </div>
@@ -534,7 +534,7 @@ $deprtOptions .= '</ul>';
 
                             <div class="col-md-6 fetItm-Mng">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="addProduct.php" class="btn btn-white flex-column" style="max-width: 90px;">
+                                    <a href="addProduct.php" class="btn btn-white flex-column items__manager__btn">
                                         <span class="">
                                             <svg width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 31 30">
@@ -546,7 +546,7 @@ $deprtOptions .= '</ul>';
                                                     stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
                                         </span>
-                                        <span>
+                                        <span class="text">
                                             <?php echo showOtherLangText('Add Item'); ?>
                                         </span>
                                     </a>
@@ -560,7 +560,7 @@ $deprtOptions .= '</ul>';
                                             <div class="dropdown"> 
                                                 <a 
                                                     href="javascript:void(0)" 
-                                                    class="dropdown-toggle btn btn-white flex-column position-relative" 
+                                                    class="dropdown-toggle btn btn-white flex-column position-relative items__manager__btn" 
                                                     style="max-width: 110px;"
                                                     id="triggerImportDrop" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                                 >

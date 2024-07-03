@@ -384,31 +384,30 @@ if($_SESSION['deptId'] != '')
                     <div class="stcPart">
                         <div class="container topOrder newReq nwOrder-Div">
                             <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p>
-                                    <?php 
-                                
-                                  echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
-                                echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
-                                echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
-                                echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
-                                echo isset($_GET['mes']) ? $_GET['mes'] : '';
-                              
-                                if( isset($_GET['delete']) && $_GET['delete'] == 1 )
-                                {
-                                    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
-                                }
-                                elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
-                                {
-                                    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
-                                }
-
-                                
-                                ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
+                                <div class="alert alert-success alert-dismissible fade show lg__left__margin" role="alert">
+                                    <p>
+                                        <?php 
+                                    
+                                      echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
+                                    echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
+                                    echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                                    echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                                    echo isset($_GET['mes']) ? $_GET['mes'] : '';
+                                  
+                                    if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                                    {
+                                        echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                                    }
+                                    elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                                    {
+                                        echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                                    }
+    
+                                    
+                                    ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             <?php } ?>
 
                             <div class="row">

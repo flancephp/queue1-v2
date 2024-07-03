@@ -18796,6 +18796,15 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     font-weight: bold;
   }
 }
+@media screen and (min-width: 1800px) {
+  .nav-bar a {
+    padding: 14px;
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 21.78px;
+  }
+  .navbar .nav-bar > ul > li > .nav-link { min-height: 90px; }
+}
 @media screen and (min-width: 1600px) {
   .body1 {
     font-size: 16px;
@@ -18876,12 +18885,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .acc-info {
     gap: 16px;
   }
-  .nav-bar a {
-    padding: 14px;
-    border-radius: 15px;
-    font-size: 18px;
-    line-height: 21.78px;
-  }
+  
   a.nav_sub {
     padding: 10px 12px;
     border-radius: 0;
@@ -19933,8 +19937,24 @@ border-radius:3px;
   .new__layout .dleOptnreq { width: 50%; }
   .new__layout { display: flex !important;flex-wrap: wrap; }
 }
+@media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; }.lg__left__margin{margin-left: 8rem; } }
 .featRow.divider::after { content: '';width: 1px;height: 60%;background-color: #A9B0C0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); }
 .featRow.divider .doc__btn:hover { background-color: var(--color-primary);color: var(--color-white); }
 .featRow.divider .doc__btn:hover a, .featRow.divider .doc__btn a:hover .btn2 { color: var(--color-white); }
 .featRow.divider .doc__btn { border-radius: var(--radius);transition: all .3s ease-in-out; }
 .ordInfo.erdInfo.newFeatures { width: 85%; }
+.text-danger { color: #FD3737 !important; }
+.btn-primary {
+  background-color: var(--color-primary);padding: .625rem 2rem;box-shadow: 0px 4px 20px 0px #7F7FA514;font-size: 1.25rem;font-weight: 700;letter-spacing: 5%;border-radius: .937rem;border-color: var(--color-primary);
+}
+.btn-primary:hover,.btn-primary:focus.btn-primary:active {
+  background-color: var(--color-primary);border-color: var(--color-primary);filter: brightness(125%);
+}
+.items__manager__btn { width: 110px; }
+.items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
+@media (max-width: 767px) {
+  .btn-primary { padding: .625rem 1rem; }
+  .items__manager__btn { width: 78px;font-size: 10px; }
+  .items__manager__btn svg { width: 18px;height: 18px; } 
+}
+.modal-footer .btn { padding-left: 1rem;padding-right: 1rem; }

@@ -3735,11 +3735,16 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 			?>
 <!-- | <a title="<?php //echo showOtherLangText('Delete') ?>" href="runningOrders.php?canId=<?php echo $orderId;?>&type=1" style="color:#808080;width: 8%;display: inline-block;text-align: center;" class="glyphicon glyphicon-trash" onClick="return confirm('<?php echo showOtherLangText('Are you sure to cancel this Order?') ?>')"></a> -->
 
-<div class="dlt-bx text-center d-flex justify-content-center align-items-center">
+<!-- <div class="dlt-bx text-center d-flex justify-content-center align-items-center">
     <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '1');" class="runLink">
         <span class="dlTe"></span>
     </a>
-</div>
+</div> -->
+<a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>', '1');" class="dlt-bx text-center d-flex justify-content-center align-items-center doc__btn delete">
+    <span class="runLink">
+		<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><path d="M10.5 15v-3m4 3v-3m-11-5h18v0q-1.3 0-1.8.2a2 2 0 0 0-1 1q-.2.5-.2 1.8v6q.1 2.7-.6 3.4-.7.8-3.4.6h-4q-2.7.1-3.4-.6T6.5 16v-6q0-1.4-.2-1.8a2 2 0 0 0-1-1Q4.8 7 3.5 7zm7.1-3.6.7-.3a7 7 0 0 1 2.4 0q.6 0 .7.3" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
+    </span>
+</a>
 
 <?php
 		}
@@ -3769,11 +3774,16 @@ function get_deleteOrder_permission($designation_id, $accountId, $orderId, $orde
 				inline-block;text-align: center;"
 				onClick="return confirm('<?php echo showOtherLangText('Are you sure to cancel this Requisition?') ?>')"></a> -->
 
-<div class="dlt-bx text-center d-flex justify-content-center align-items-center">
+<!-- <div class="dlt-bx text-center d-flex justify-content-center align-items-center">
     <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="runLink">
         <span class="dlTe"></span>
     </a>
-</div>
+</div> -->
+<a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>');" class="dlt-bx text-center d-flex justify-content-center align-items-center doc__btn delete">
+    <span class="runLink">
+		<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><path d="M10.5 15v-3m4 3v-3m-11-5h18v0q-1.3 0-1.8.2a2 2 0 0 0-1 1q-.2.5-.2 1.8v6q.1 2.7-.6 3.4-.7.8-3.4.6h-4q-2.7.1-3.4-.6T6.5 16v-6q0-1.4-.2-1.8a2 2 0 0 0-1-1Q4.8 7 3.5 7zm7.1-3.6.7-.3a7 7 0 0 1 2.4 0q.6 0 .7.3" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
+    </span>
+</a>
 
 <?php
 		}	
@@ -3835,10 +3845,14 @@ function access_delete_history_file($designation_id,$accountId,$orderId){
         class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') ?>"></a>
 
 </div> -->
-<div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="javascript:void(0)"
-        onClick="getDelNumb('<?php echo $orderId;?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash"
-        title="<?php echo showOtherLangText('Delete') ?>"><span class="dlTe"></span></a></div>
-
+<!-- <div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="javascript:void(0)"
+        onClick="getDelNumb('<?php // echo $orderId;?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash"
+        title="<?php // echo showOtherLangText('Delete') ?>"><span class="dlTe"></span></a></div> -->
+<a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId;?>');" class="dlt-bx text-center d-flex justify-content-center align-items-center doc__btn delete">
+    <span class="runLink">
+		<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><path d="M10.5 15v-3m4 3v-3m-11-5h18v0q-1.3 0-1.8.2a2 2 0 0 0-1 1q-.2.5-.2 1.8v6q.1 2.7-.6 3.4-.7.8-3.4.6h-4q-2.7.1-3.4-.6T6.5 16v-6q0-1.4-.2-1.8a2 2 0 0 0-1-1Q4.8 7 3.5 7zm7.1-3.6.7-.3a7 7 0 0 1 2.4 0q.6 0 .7.3" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
+    </span>
+</a>
 <?php
 	}
 	else

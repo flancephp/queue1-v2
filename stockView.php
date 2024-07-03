@@ -317,7 +317,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
     <input type="hidden" name="storeName" id="storeName" value="<?php echo $storeId;?>" />
 
     <div class="container-fluid newOrder">
-        <div class="row">
+        <div class="row g-0 flex-nowrap">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <?php require_once('nav.php');?>
             </div>
@@ -450,14 +450,14 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                         <div class="row stkRow g-0"> 
                                             <input type="hidden" name="storeId"
                                                 value="<?php echo $_GET['filterByStorage'];?>" />
-                                            <div class="col-md-4 stockFeat brdLft">
+                                            <div class="col-md-4 stockFeat p-lg-3 brdLft">
 
                                                 <?php  access_raw_item_convert($_SESSION['designation_id'],$_SESSION['accountId']); ?>
                                             </div>
-                                            <div class="col-md-4 stockFeat brdLft">
+                                            <div class="col-md-4 stockFeat p-lg-3 brdLft">
                                                 <?php  access_view_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage']);  ?>
                                             </div>
-                                            <div class="col-md-4 stockFeat dropStk">
+                                            <div class="col-md-4 stockFeat p-lg-3 dropStk">
 
 
                                                 <?php access_import_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage'], $rightSideLanguage);  ?>
@@ -1088,7 +1088,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
 
     <!-- ===== Stock view pdf popup new in div format======= -->
     <div class="modal" tabindex="-1" id="stock_pdf" aria-labelledby="stock_pdfModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+        <div class="modal-dialog modal-dialog-centered modal-m site-modal" style="max-width:1200px;">
             <div id="stock_details" class="modal-content p-2">
 
 
@@ -1120,7 +1120,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                   ];
 ?>
 
-    <div class="modal addUser-Form row container glbFrm-Cont" tabindex="-1" id="qty_in_stock"
+    <div class="modal addUser-Form glbFrm-Cont" tabindex="-1" id="qty_in_stock"
         aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
 

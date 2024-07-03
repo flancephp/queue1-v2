@@ -525,8 +525,8 @@ if(!empty($fileDataRows))
                             <?php } ?>
                                 <div class="row mt-4">
                                     <div class="sltSupp nwOrd-Num">
-                                        <div class="ord-Box update position-absolute start-0 ms-0" style="top:2rem;">
-                                            <div class="ordNum">
+                                        <div class="ord-Box update position start-0 ms-0" style="top:2rem;">
+                                            <div class="ordNum m-0">
                                                 <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
                                             </div>
                                         </div>
