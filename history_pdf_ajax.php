@@ -710,8 +710,12 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     <div class="table-row">
                                         <div class="pendingSection summaryPartCell table-cell">'.showOtherLangText('Pending').'</div>
                                         <div class="issue-in-def-curr pendingSection summaryPartCell table-cell font-bold"><span class="pendingSection defaultCurSection summaryPartCell">'. ( ($issuedInOutPendingArr[1][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '' ).'</span></div>
-                                    </div>
-                                </div>
+                                    ';
+                                     foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                                    {
+                                        $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-def-curr pendingSection summaryPartCell table-cell"><span class="pendingSection defaultCurSection summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>': '<div></div>';
+                                    }
+                                $content .= '</div></div>
                             </div>';
                     // Issue OUT 
                     $content .= '<div class=" '.$issueoutClass.' issueOutSection pe-1 ps-0 summaryPart">
