@@ -1139,50 +1139,47 @@ $ordQry = mysqli_query($con, $sql);
                         <div>
 
                             <div class="container pt-5 topOrder ">
-                            <div class="row ">
-                                <div class="col-xl-4 col-md-5 col-sm-7 px-0">
-                                    <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
-                                <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
-                                    
-                                    <input onKeyUp="myFunction('search3', 'newOrdTask1', 2)" type="search" class="form-control" placeholder="Search Item" id="search3" name="search3" aria-label="Search">
-                                    <div class="input-group-append">
-                                        <button class="btn" type="button" style="background-color: rgb(122, 137, 255);">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+                                <div class="row g-4 align-items-end">
+                                    <div class="col-md-5">
+                                        <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
+                                        <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);"> 
+                                            <input onKeyUp="myFunction('search3', 'newOrdTask1', 2)" type="search" class="form-control" placeholder="Search Item" id="search3" name="search3" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn" type="button" style="background-color: rgb(122, 137, 255);">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                </div>
-                            </div>
-                            </form>
-                            <form  id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
-
-
-                        <?php 
-
-                $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
-
-                if($cond != '')
-                {
-                    if( !empty( $pidArr ) )
-                    {
-                        $cond .= " AND p.id NOT IN(".implode(',', $pidArr).") ";
-                    }
-
-                    $sqlSet = " SELECT p.*, 
-                    IF(u.name!='',u.name,p.unitP) as purchaseUnit ,
-                    s.qty AS stockQty
-                    FROM tbl_products p
-                    LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
-                    LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
-                    WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
-                    $proresultSet = mysqli_query($con, $sqlSet);
-                 ?>
-                       
-
-                            <div class="btnBg mt-3">
-                                <a href="#" class="sub-btn std-btn add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
-                            </div>
-                            </div>
+                                    <div class="col-md-7">
+                                        <form id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"> 
+                                            <?php  
+                                                $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
+            
+                                                if($cond != '')
+                                                {
+                                                    if( !empty( $pidArr ) )
+                                                    {
+                                                        $cond .= " AND p.id NOT IN(".implode(',', $pidArr).") ";
+                                                    }
+            
+                                                    $sqlSet = " SELECT p.*, 
+                                                    IF(u.name!='',u.name,p.unitP) as purchaseUnit ,
+                                                    s.qty AS stockQty
+                                                    FROM tbl_products p
+                                                    LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
+                                                    LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
+                                                    WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
+                                                    $proresultSet = mysqli_query($con, $sqlSet);
+                                            ?> 
+                                            <div class="btnBg text-center text-md-end">
+                                                <!-- <a href="#" class="sub-btn std-btn add-new-items"><?php //echo showOtherLangText('Add New Items In Order'); ?></a> -->
+                                                <a href="#" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+                                            </div>
+                                        </form> 
+                                    </div>
+                                </div> 
+                            </div><!--.//container -->
 
                             <div class="container nordPrice position-relative">
                                 <!-- Item Table Head Start -->
