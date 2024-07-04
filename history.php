@@ -34,8 +34,9 @@ $accessHistoryAccountsPermission = access_history_accounts_detail($_SESSION['des
 
 if( isset($_REQUEST['showFields']) )
 {
-    
-    $updateQry = " UPDATE tbl_user SET historyUserFilterFields = '".implode(',', $_REQUEST['showFields'])."' WHERE id = '".$_SESSION['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+
+     $updateQry = " UPDATE tbl_user SET historyUserFilterFields = '".implode(',', $_REQUEST['showFields'])."' WHERE id = '".$_SESSION['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+
     mysqli_query($con, $updateQry);
 }
 elseif( isset($_REQUEST['clearshowFields'])  )
@@ -46,7 +47,7 @@ elseif( isset($_REQUEST['clearshowFields'])  )
 
 
 
-$sql = "SELECT * FROM tbl_user  WHERE id = '".$_SESSION['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+ $sql = "SELECT * FROM tbl_user  WHERE id = '".$_SESSION['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
 $result = mysqli_query($con, $sql);
 $userDetails = mysqli_fetch_array($result);
 $historyUserFilterFields = $userDetails['historyUserFilterFields'] ?    explode(',',$userDetails['historyUserFilterFields']) : null;
@@ -1274,20 +1275,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                        <!-- <div class="otrCurr text-center">
-                                            <div class="paidIsue d-flex">
-                                                <div class="col-md-3">
-                                                    <p class="pdStatus">Paid</p>
-                                                    <p class="pendStatus">Pending</p>
-                                                </div>
-                                                <div class="col-md-9 text-center">
-                                                    <p class="otr-In">Tzs</p>
-                                                    <p class="ttlAmount">xxxx Tzs</p>
-                                                    <p class="pdAmount">xxxx Tzs</p>
-                                                    <p class="pendAmount">xxxx Tzs</p>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                        
                                     </div>
                                     <div class="issueOut">
                                         <div class="recIsue d-flex">
@@ -1820,15 +1808,25 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                   <?php echo $userName; ?>
                                                    <?php } ?>
                                                 </div>
-
+                    <?php 
+                    if ($orderRow['ordType'] == 1) {
+                                        $class = 'reqBar-gr';
+                                       $class1 = 'hisReq-typ';
+                                    } elseif ($orderRow['ordType'] == 2) {
+                                       $class = 'ordBar-rd';
+                                       $class1 = 'hisOrd-typ';
+                                    } elseif ($orderRow['ordType'] == 3) {
+                                       $class = 'stckBar-bl';
+                                       $class1 = 'hisStk-typ';
+                                    } else {
+                                       $class = 'stckBar-bl';
+                                       $class1 = 'hisStk-typ';
+                                    }
+                    ?>
                                                 <div class="tb-bdy hisTypclm">
                                                     <?php if(isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ) { ?>
-                                                  <?php } else { ?> <div class="d-flex align-items-center hisOrd-typ">
-                                                        <?php if ($ordType == 'Issued in') { ?>
-                                                            <div class="ordBar-rd">&nbsp;</div>
-                                                        <?php } else { ?>
-                                                            <div class="reqBar-gr">&nbsp;</div>
-                                                        <?php } ?>
+                                                  <?php } else { ?> <div class="d-flex align-items-center <?php echo $class1; ?>">
+                                                        <div class="<?php echo $class;?>">&nbsp;</div>
                                                         <p><?php echo $ordType; ?></p>
                                                     </div>
                                                 <?php } ?>
@@ -1868,13 +1866,13 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                 </div>
 
                                                 <div class="tb-bdy hisStatusclm" slot="padding-left:0px;">
-                                                    <?php if(isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ) { ?>
+                                                    <?php if(isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ) { ?>
                                                   <?php } else { ?>
                                                     <p class="his-pendStatus"><?php echo ($orderRow['ordType']==2 ) ? $InvoiceNumber : ' '; ?></p> <?php } ?>
                                                 </div>
 
                                                 <div class="tb-bdy hisAcntclm flex-grow-1">
-                                                     <?php if(isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ) { ?>
+                                                     <?php if(isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) ) { ?>
                                                   <?php } else { ?>
                                                     <p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p><?php } ?>
                                                 </div>
@@ -1889,11 +1887,51 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end his-Paybtn">
-                                                    <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
-                                                        <a href="javascript:void(0)">
-                                                            <p class="h3">Inv</p>
-                                                        </a>
-                                                    </div>
+                                                    <?php 
+                        if( $orderRow['ordType'] == 1)//order
+                        {
+
+                    if($accessHistoryAccountsPermission['type_id'] == 1)
+                    {
+                       if ($accessPaymentPermission['type_id']==1) 
+                        {
+
+                            getOrderPaymentLink($orderRow['id']);
+                        }
+                        else
+                        {
+                            ?><span style="width: 53%;">&nbsp;</span><?php
+                        } 
+                    }
+                    else
+                    {
+                        ?><span style="width: 53%;">&nbsp;</span><?php
+                    }
+                    
+                    }
+
+                        if($orderRow['ordType'] == 2)//recusation
+                        { 
+                            if($accessHistoryAccountsPermission['type_id'] == 1)
+                            {
+                                if ($accessInvoicePermission['type_id']==1) 
+                                {
+
+                                    getrequisitionPaymentLink($orderRow['id']);  
+                                }
+                                else
+                                {
+                                    ?><span style="width: 66%;">&nbsp;</span><?php
+                                }
+                            }
+                            else
+                            {
+                                ?><span style="width: 66%;">&nbsp;</span><?php
+                            }
+                            
+                        }
+
+                        ?>
                                                     <div class="d-flex align-items-center">
                                                         <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                             <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -1954,329 +1992,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                         </form>
                                     </div>
                                 <?php } ?>
-                                <!-- <div class="hisTask mt-2">
-                                    <div class="mb-hstryBarord">&nbsp;</div>
-                                    <div class="align-items-center itmBody">
-                                        <div class="numRef align-items-center">
-                                            <div class="tb-bdy srHisclm">
-                                                <p>2</p>
-                                            </div>
-                                            <div class="tb-bdy numItmclm">
-                                                <p class="hisNo  hide-hisNo">No. V0002349</p>
-                                                <p class="hisOrd">#10221855</p>
-                                            </div>
-                                            <div class="tb-bdy hisDateclm">
-                                                <p class="fstDt">23.05.22</p>
-                                                <p class="lstDt">23.05.22</p>
-                                            </div>
-                                            <div class="tb-bdy hisTypclm">
-                                                <div class="d-flex align-items-center hisReq-typ">
-                                                    <div class="reqBar-gr">&nbsp;</div>
-                                                    <p>Order</p>
-                                                </div>
-                                               
-                                            </div>
-                                            <div class="tb-bdy hisRefrclm">
-                                                <p class="refTomember">Supplier</p>
-                                            </div>
-                                        </div>
-                                        <div class="tb-bdy hisValclm">
-                                            <p class="dolValcurr">174.30 $</p>
-                                            <p class="othrValcurr">357,900 Tzs</p>
-                                        </div>
-                                        <div class="stsHiscol d-flex align-items-center">
-                                            <div class="tb-bdy hisStatusclm">
-                                                <p class="his-pendStatus">Pending</p>
-                                            </div>
-                                            <div class="tb-bdy hisAcntclm">
-                                                <p class="hisAccount">Safe 02 $</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="tb-bdy shrtHisclm">
-                                            <div class="mb-Acntdetail">
-                                                <div class="tb-bdy">
-                                                    <p>Account</p>
-                                                    <p class="mb-Acntnum"></p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
-                                                <div
-                                                    class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
-                                                    <a href="javascript:void(0)">
-                                                        <p class="h3">Pay</p>
-                                                    </a>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
-                                                        <a href="javascript:void(0)" class="dropdown-toggle runLink"
-                                                            role="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <span class="docMent"></span>
-                                                            <p class="btn2">Documents <i
-                                                                    class="fa-solid fa-angle-down"></i>
-                                                            </p>
-                                                        </a>
-
-                                                        <ul class="dropdown-menu">
-                                                          
-                                                          <li><a class="dropdown-item"
-                                                                  href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
-                                                          </li>
-                                                          <li><a class="dropdown-item"
-                                                                    href="javascript:void(0)"><i class="fas  fa-share-square pe-2"></i>View Supplier Details</a>
-                                                            </li>
-                                                          
-                                                      </ul>
-                                                    </div>
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-
-                                <div class="hisTask mt-2">
-                                    <div class="mb-hstryBarord">&nbsp;</div>
-                                    <div class="align-items-center itmBody">
-                                        <div class="numRef align-items-center">
-                                            <div class="tb-bdy srHisclm">
-                                                <p>3</p>
-                                            </div>
-                                            <div class="tb-bdy numItmclm">
-                                                <p class="hisNo hide-hisNo">No. V0002349</p>
-                                                <p class="hisOrd">#10221855</p>
-                                            </div>
-                                            <div class="tb-bdy hisDateclm">
-                                                <p class="fstDt">23.05.22</p>
-                                                <p class="lstDt">23.05.22</p>
-                                            </div>
-                                            <div class="tb-bdy hisTypclm">
-                                                <div class="d-flex align-items-center hisReq-typ">
-                                                    <div class="reqBar-gr">&nbsp;</div>
-                                                    <p>Order</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-bdy hisRefrclm">
-                                                <p class="refTomember">Supplier</p>
-                                            </div>
-                                        </div>
-                                        <div class="tb-bdy hisValclm">
-                                            <p class="dolValcurr">174.30 $</p>
-                                            <!-- <p class="othrValcurr">357,900 Tzs</p> 
-                                        </div>
-                                        <div class="stsHiscol d-flex align-items-center">
-                                            <div class="tb-bdy hisStatusclm">
-                                                <p class="his-paidStatus">Paid</p>
-                                            </div>
-                                            <div class="tb-bdy hisAcntclm">
-                                                <p class="hisAccount">Safe 02 $</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="tb-bdy shrtHisclm">
-                                            <div class="mb-Acntdetail">
-                                                <div class="tb-bdy">
-                                                    <p>Account</p>
-                                                    <p class="mb-Acntnum"></p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
-                                                <div
-                                                    class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
-                                                    <a href="javascript:void(0)">
-                                                        <p class="h3">Pay</p>
-                                                    </a>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
-                                                        <a href="javascript:void(0)" class="dropdown-toggle runLink"
-                                                            role="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <span class="docMent"></span>
-                                                            <p class="btn2">Documents <i
-                                                                    class="fa-solid fa-angle-down"></i>
-                                                            </p>
-                                                        </a>
-
-                                                        <ul class="dropdown-menu">
-                                                          
-                                                          <li><a class="dropdown-item"
-                                                                  href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
-                                                          </li>
-                                                          <li><a class="dropdown-item"
-                                                                    href="javascript:void(0)"><i class="fas  fa-share-square pe-2"></i>View Supplier Details</a>
-                                                            </li>
-                                                          
-                                                      </ul>
-                                                    </div>
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-
-                                <div class="hisTask mt-2">
-                                    <div class="mb-hstryBarstk">&nbsp;</div>
-                                    <div class="align-items-center itmBody">
-                                        <div class="numRef align-items-center">
-                                            <div class="tb-bdy srHisclm">
-                                                <p>4</p>
-                                            </div>
-                                            <div class="tb-bdy numItmclm">
-                                                <p class="hisNo  hide-hisNo">No. V0002349</p>
-                                                <p class="hisOrd">#10221855</p>
-                                            </div>
-                                            <div class="tb-bdy hisDateclm">
-                                                <p class="fstDt">23.05.22</p>
-                                                <p class="lstDt">23.05.22</p>
-                                            </div>
-                                            <div class="tb-bdy hisTypclm">
-                                                <div class="d-flex align-items-center hisStk-typ">
-                                                    <div class="stckBar-bl">&nbsp;</div>
-                                                    <p>Stock Take</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-bdy hisRefrclm">
-                                                <p class="refTomember">Storage</p>
-                                            </div>
-                                        </div>
-                                        <div class="tb-bdy hisValclm">
-                                            <p class="dolValcurr">174.30 $</p>
-                                            <p class="othrValcurr-ngive">-144.30 $</p>
-                                        </div>
-                                        <div class="tb-bdy shrtHisclm stkCol-blnk">
-                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
-                                                <div
-                                                    class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                    <a href="javascript:void(0)" class="runLink">
-                                                        <span class="vwDtl"></span>
-                                                    </a>
-                                                </div>
-                                                <div
-                                                    class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                    <a href="javascript:void(0)" class="runLink">
-                                                        <span class="dlTe"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-
-                                <div class="hisTask mt-2">
-                                    <div class="mb-hstryBareq">&nbsp;</div>
-                                    <div class="align-items-center itmBody">
-                                        <div class="numRef align-items-center">
-                                            <div class="tb-bdy srHisclm">
-                                                <p>5</p>
-                                            </div>
-                                            <div class="tb-bdy numItmclm">
-                                                <p class="hisNo hide-hisNo">No. V0002349</p>
-                                                <p class="hisOrd">#10221855</p>
-                                            </div>
-                                            <div class="tb-bdy hisDateclm">
-                                                <p class="fstDt">23.05.22</p>
-                                                <p class="lstDt">23.05.22</p>
-                                            </div>
-                                            <div class="tb-bdy hisTypclm">
-                                                <div class="d-flex align-items-center hisOrd-typ">
-                                                    <div class="ordBar-rd">&nbsp;</div>
-                                                    <p>Requisition</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-bdy hisRefrclm">
-                                                <p class="refTomember">Member</p>
-                                            </div>
-                                        </div>
-                                        <div class="tb-bdy hisValclm">
-                                            <p class="dolValcurr">174.30 $</p>
-                                            <p class="othrValcurr">357,900 Tzs</p> 
-                                        </div>
-                                        <div class="stsHiscol d-flex align-items-center">
-                                            <div class="tb-bdy hisStatusclm">
-                                                <p class="his-recStatus">Received</p>
-                                            </div>
-                                            <div class="tb-bdy hisAcntclm">
-                                                <p class="hisAccount">Safe 02 $</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="tb-bdy shrtHisclm">
-                                            <div class="mb-Acntdetail">
-                                                <div class="tb-bdy">
-                                                    <p>Account</p>
-                                                    <p class="mb-Acntnum"></p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
-                                                <div
-                                                    class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
-                                                    <a href="javascript:void(0)">
-                                                        <p class="h3">Inv</p>
-                                                    </a>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
-                                                        <a href="javascript:void(0)" class="dropdown-toggle runLink"
-                                                            role="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <span class="docMent"></span>
-                                                            <p class="btn2">Documents <i
-                                                                    class="fa-solid fa-angle-down"></i>
-                                                            </p>
-                                                        </a>
-
-                                                        <ul class="dropdown-menu">
-                                                          
-                                                          <li><a class="dropdown-item"
-                                                                  href="javascript:void(0)"><i class="far fa-square pe-2"></i>View Details</a>
-                                                          </li>
-                                                          
-                                                      </ul>
-                                                    </div>
-                                                    <div
-                                                        class="dlt-bx text-center d-flex justify-content-center align-items-center">
-                                                        <a href="javascript:void(0)" class="runLink">
-                                                            <span class="dlTe"></span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div> -->
-                                <!-- Item Table Body End -->
+                                
                             </div>
                         </div>
                     </section>

@@ -381,7 +381,8 @@ $content = '<!DOCTYPE html>
             $content .= '</td>';
                 }
             
-           
+            if ($_GET['logo'] == 1) 
+                    {
             $content .= '<td width="50%" align="right">';
             if($clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
                             {  
@@ -392,6 +393,7 @@ $content = '<!DOCTYPE html>
                                 $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 60px; width: auto;">';
                             }
             $content .= '</td>';
+                          }
             $content .= '</tr>';
             }
           $content .= '</tbody>

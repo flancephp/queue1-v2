@@ -34,9 +34,3 @@ $date = date('d-m-y-h-i-s');
 $dompdf->stream("stock_pdf('".$date."').pdf", array("Attachment" => 0));
 
 ?>
-
-<!-- <script>
-jQuery('#preloader').fadeOut(500, function() {
-    return true;
-});
-</script> -->

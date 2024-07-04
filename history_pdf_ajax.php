@@ -333,55 +333,55 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                                 <span class="fs-13">'.showOtherLangText('Date') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
+                                                <input type="checkbox" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-user form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('User') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
+                                                <input type="checkbox"  name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-sup-invNo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Sup Invoice No.') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
+                                                <input type="checkbox" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ? '' : 'checked="checked"' ).' value="1">
                                                 <span class="fs-13">'.showOtherLangText('Type') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" onclick="showHideByClassHistoryItem(\'head7\')" 
+                                                <input type="checkbox"  onclick="showHideByClassHistoryItem(\'head7\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ? '' : 'checked="checked"' ).'name="itemReferTo" class="itmTblCheckboxHistory item-referTo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Refer to') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
+                                                <input type="checkbox"  name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Value') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
+                                                <input type="checkbox"  name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckboxHistory item-def-curr-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Default Currency Total') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
+                                                <input type="checkbox" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckboxHistory item-sec-curr-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Second Currency Total') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
+                                                <input type="checkbox" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-status form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Status') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
+                                                <input type="checkbox" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-paymentNo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Payment no.') .'</span>

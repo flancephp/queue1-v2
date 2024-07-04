@@ -3175,7 +3175,7 @@ function resize_image($image_name, $out_image, $w, $h) {
 
 
 
-function getOrderPaymentLink($orderId) {
+function getOrderPaymentLink_deleted($orderId) {
        global $con;
 		
 	 	$sql= " SELECT * FROM tbl_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1   ";
@@ -3220,6 +3220,46 @@ function getOrderPaymentLink($orderId) {
 
 }
 
+function getOrderPaymentLink($orderId) {
+       global $con;
+		
+	 	$sql= " SELECT * FROM tbl_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1   ";
+	    $resultSet= mysqli_query($con, $sql);
+		$pmntRows= mysqli_fetch_array($resultSet);
+		$countRow = mysqli_num_rows($resultSet);
+		
+		if ( $countRow==0 || empty($pmntRows['paymentStatus']) )
+		 { ?>
+
+<!-- <div style="width: 24%;">
+    <a class="supPayDtl nrmPayDtl"
+        href="supplierPaymentDetail.php?page=history&action=pay&orderId=<?php //echo $orderId;?>"><?php //echo showOtherLangText('Pay') ?></a>
+</div>
+<div style="border: none; background: transparent; width: 19%;">
+    <span class="supPdtl">&nbsp;</span>
+</div> -->
+<div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                        <a href="supplierPaymentDetail.php?page=history&action=pay&orderId=<?php echo $orderId;?>">
+                                                            <p class="h3"><?php echo showOtherLangText('Pay'); ?></p>
+                                                        </a>
+                                                    </div>
+
+<?php }
+
+
+		if ($pmntRows['paymentStatus']==1)
+		 { 
+			?>
+        <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+            <a class="supPayDtl" href="supplierSuccessPayment.php?page=history&action=p&orderId=<?php echo $orderId;?>">
+                                                            <p class="h3"><?php echo showOtherLangText('Pay1') ?></p>
+                                                        </a>
+        </div>
+
+<?php }
+
+}
+
 
 function checkActions($getArr) 
 {
@@ -3251,6 +3291,87 @@ window.location = 'supplierSuccessPayment.php?orderId=<?php echo $pmntRow['order
 
 
 function getrequisitionPaymentLink($orderId) {
+        global $con;
+
+        $selQry = " SELECT * FROM tbl_orders WHERE id = '".$orderId."' AND account_id = '".$_SESSION['accountId']."' ";
+        $selRes = mysqli_query($con, $selQry);
+        $selResRow = mysqli_fetch_array($selRes);
+        $recMemberId = $selResRow['recMemberId'];
+
+        $selQry = " SELECT * FROM tbl_deptusers WHERE id = '".$recMemberId."' AND account_id = '".$_SESSION['accountId']."' ";
+        $selRes = mysqli_query($con, $selQry);
+        $selResRow = mysqli_fetch_array($selRes);
+
+        if ($selResRow['receive_inv'] > 0)
+        {
+	
+		 	$sql= " SELECT * FROM tbl_req_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1 ";
+		    $resultSet= mysqli_query($con, $sql);
+			$pmntRows= mysqli_fetch_array($resultSet);
+			$countRow = mysqli_num_rows($resultSet);
+
+			if ( $countRow==0 || (empty($pmntRows['paymentStatus']) && $pmntRows['issueInvoice']==0) )
+			 { ?>
+
+<!-- <div style="width:24%;">
+    <a class="supPayDtl reqInv"
+        href="requisitionPaymentDetail.php?page=history&action=pay&orderId=<?php echo $orderId;?>"><?php echo showOtherLangText('Inv') ?></a>
+</div>
+<div style="border: none; width: 40%;">
+    <span class="supPdtl reqInv">&nbsp;</span>
+</div> -->
+<div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                        <a href="requisitionPaymentDetail.php?page=history&action=pay&orderId=<?php echo $orderId;?>">
+                                                            <p class="h3">Inv</p>
+                                                        </a>
+                                                    </div>
+
+<?php 
+			}
+
+			//$invImg =  ($_SESSION['languageType'] == 1) ? "inv-heb.svg" : "inv-new.svg";
+
+
+			if ($pmntRows['issueInvoice']==1 && $pmntRows['paymentStatus']!=1)
+			{
+				
+				echo '<div style="width:24%;">
+				<a class="supPayDtl reqInv" href="requisitionPaymentDetail.php?page=history&action=pay&orderId='.$orderId.'">'.showOtherLangText('Inv').'</a>
+				</div>';
+				echo '<div style="width:2%;">
+						<strong>|</strong>
+					  </div>
+					  <div style="width:10%; text-align: center;"><a class="supPdtl" href="javascript:void(0)" onclick="openReqPaymentPopup('.$orderId.')"><img src="./uploads/inv-new.svg" alt="inv" style="height: 14px;width: auto;"></a>
+					   </div>';
+				echo '<div style="border: none; background: transparent; width: 20%;"><span>&nbsp;</span></div>';
+			}
+
+
+			if ($pmntRows['paymentStatus']==1)
+			{ ?>
+
+<div style="width: 24%;"><a class="supPayDtl reqInv" style="background:#8DB5DA"
+        href="requisitionPaymentDetail.php?page=history&action=I&orderId=<?php echo $orderId;?>"><?php echo showOtherLangText('Inv') ?></a>
+</div>
+<div style="width: 1%;"><strong>|</strong></div>
+<div style="width: 10%; text-align: center;">
+    <a class="supPdtl" href="javascript:void(0)" onclick="openReqPaymentPopup('<?php echo $orderId ?>')"><img
+            src="./uploads/inv-new.svg" alt="inv" style="height: 14px;width: auto;"></a>
+</div>
+<div style="border: none; background: transparent; width: 20%;"><span>&nbsp;</span></div>
+
+<?php 
+			}
+
+		}
+		else
+		{
+			echo '<div style="width: 70%;"><span>&nbsp;</span></div>';
+		}
+
+	}
+
+	function getrequisitionPaymentLink_deleted($orderId) {
         global $con;
 
         $selQry = " SELECT * FROM tbl_orders WHERE id = '".$orderId."' AND account_id = '".$_SESSION['accountId']."' ";
