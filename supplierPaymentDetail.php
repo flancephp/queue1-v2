@@ -661,34 +661,41 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
 
                                         <tr>
                                             <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
-                                            <td>126515</td>
+                                            <td><?php echo $orderRow['ordNumber'] ?></td>
                                         </tr>
 
                                         <tr>
-                                            <td class="font-wt">Date #
+                                            <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                             </td>
-                                            <td>2024-06-23 07:23:50</td>
+                                            <td><?php echo $orderRow['ordDateTime']?></td>
                                         </tr>
 
                                     </tbody>
                                 </table>
+                            <?php
 
+
+                            $sql = " SELECT * FROM tbl_country WHERE id = '".$clientResultRow['country']."' ";
+                            $resSet = mysqli_query($con, $sql);
+                            $resultRow = mysqli_fetch_array($resSet);
+
+                             ?>
                                 <table>
                                     <tbody class="table1 table01 fl-right cmp-dtl text-end">
                                         <tr>
-                                            <td>Our Zazibar</td>
+                                            <td><?php echo $clientResultRow['accountName']; ?></td>
                                         </tr>
                                         <tr>
-                                            <td>P.o Box 4146,Jambiani </td>
+                                            <td><?php echo $clientResultRow['address_one'].','.$clientResultRow['address_two'] ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Zanzibar,TANZANIA </td>
+                                            <td><?php echo $clientResultRow['city'].','.$resultRow['name'] ?> </td>
                                         </tr>
                                         <tr>
-                                            <td>inventory@our-zanzibar.com</td>
+                                            <td><?php echo $clientResultRow['email']; ?></td>
                                         </tr>
                                         <tr>
-                                            <td>+255742998277</td>
+                                            <td><?php echo $clientResultRow['phone']; ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -697,8 +704,11 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
 
                             <br>
                             <div class="">
-                                <p class="f-02 mb-0">Payment To: </p>
-                                <p class="f-03 mb-0">Green Grocery</p>
+                                <p class="f-02 mb-0"><?php echo showOtherLangText('PAYMENT To') ?></p>
+                                <p class="f-03 mb-0"><?php echo $supName; ?></p>
+                                <p class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></p>
+                                <p class="f-03 mb-0"><?php echo isset($payInfoRow['supplierEmail']) ? $payInfoRow['supplierEmail'] : $email;?></p>
+                                <p class="f-03 mb-0"><?php echo isset($payInfoRow['supplierPhone']) ? $payInfoRow['supplierPhone'] : $phone;?></p>
                             </div>
                             <br>
 
@@ -706,51 +716,66 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                                 <thead style="background: #A9B0C0 !important;">
                                     <tr class="tr-bg-1">
                                         <th>#</th>
-                                        <th style="width: 30%;">Item</th>
-                                        <th>Unit</th>
-                                        <th>Ordered <br> Quantity</th>
-                                        <th>Receive <br> Quantity</th>
-                                        <th class="th-bg-1">Price ($)</th>
-                                        <th class="th-bg-1">Total ($)</th>
+                                        <th style="width: 30%;"><?php echo showOtherLangText('Item'); ?></th>
+                                        <th><?php echo showOtherLangText('Unit'); ?></th>
+                                        <th><?php echo showOtherLangText('Ordered'); ?><br><?php echo showOtherLangText('Quantity'); ?></th>
+                                        <th><?php echo showOtherLangText('Received'); ?><br><?php echo showOtherLangText('Quantity'); ?></th>
+                                         <?php 
+                            if ($orderRow['ordCurId'] > 0) 
+                                { ?>
+
+                                    <th class="th-bg-1">
+                                        <?php echo showOtherLangText('Price'); ?>(<?php echo $curDetail['curCode'];?>)
+                                    </th>
+
+                                    <?php }else{ ?>
+
+                                    <th class="th-bg-1"><?php echo showOtherLangText('Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</th>
+
+                                    <?php } 
+                                        if ($orderRow['ordCurId'] > 0) 
+                                { ?>
+
+                                    <th class="th-bg-1">
+                                        <?php echo showOtherLangText('Total'); ?>(<?php echo $curDetail['curCode'];?>)
+                                    </th>
+
+                                    <?php }else{?>
+
+                                    <th class="th-bg-1"><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</th>
+
+                                    <?php } ?> 
                                     </tr>
                                 </thead>
                                 <tbody class="tabel-body-p">
+                             <?php
+                        //item level fee listing start here 
+                        $sql = "SELECT cif.itemName, cif.unit, cif.amt, tod.* FROM tbl_order_details tod 
+                        INNER JOIN tbl_custom_items_fee cif ON(tod.customChargeId = cif.id) AND tod.account_id = cif.account_id
+                        WHERE tod.ordId = '".$_GET['orderId']."' AND tod.account_id = '".$_SESSION['accountId']."' AND tod.customChargeType=1 ORDER BY cif.itemName ";
+                        $custFeeResult=mysqli_query($con, $sql);   
+                        $x=0;
+                        while ($custFeeRow= mysqli_fetch_array($custFeeResult))
+                        {
+                            $x++;
+                            ?>
                                     <tr>
                                         <td>1</td>
-                                        <td style="width: 30%;">Item</td>
-                                        <td>Kg</td>
-                                        <td>20</td>
-                                        <td>20</td>
-                                        <td>3.0000 $</td>
-                                        <td>2.0000 $</td>
-                                    </tr>
-                                    <tr>
+                                        <td style="width: 30%;"><?php echo $custFeeRow['itemName'];?></td>
+                                        <td><?php echo $custFeeRow['unit'];?></td>
                                         <td>1</td>
-                                        <td style="width: 30%;">Item</td>
-                                        <td>Kg</td>
-                                        <td>20</td>
-                                        <td>20</td>
-                                        <td>3.0000 $</td>
-                                        <td>2.0000 $</td>
-                                    </tr>
-                                    <tr>
                                         <td>1</td>
-                                        <td style="width: 30%;">Item</td>
-                                        <td>Kg</td>
-                                        <td>20</td>
-                                        <td>20</td>
-                                        <td>3.0000 $</td>
-                                        <td>2.0000 $</td>
+                                        <?php 
+                                //price column
+                                if ($orderRow['ordCurId'] > 0) 
+                                { ?>
+                                    <td><?php echo showOtherCur(($custFeeRow['amt']*$curDetail['amt']), $orderRow['ordCurId']);?></td>
+                                    <?php }else{ ?>
+                                    <td class="pay-dt"><?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?>
+                                        <td><?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?></td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td style="width: 30%;">Item</td>
-                                        <td>Kg</td>
-                                        <td>20</td>
-                                        <td>20</td>
-                                        <td>3.0000 $</td>
-                                        <td>2.0000 $</td>
-                                    </tr>
+                        <?php } }?>  
+                                    
                                 </tbody>
                             </table>
                             <div class="divider-blue"></div>

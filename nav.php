@@ -13,7 +13,7 @@
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
                             <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                            <p class="mt-1">New Task</p>
+                            <p class="mt-1"><?php echo showOtherLangText('New Task'); ?></p>
                         </span>
                     </a>
                     <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
@@ -44,24 +44,44 @@
                         <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
                                 <img src="Assets/icons/new_stock.svg" alt="Stock" class="navIcon align-middle">
                                 <img src="Assets/icons/new_stock_hv.svg" alt="Stock" class="mb_nvSubIcn align-middle">
-                                <span class="align-middle">New Stocktake</span></a>
+                                <span class="align-middle"><?php
+                        if ($newStocktakeText = showOtherLangText('New Stocktake')) 
+                        {
+                            echo $newStocktakeText;
+                        }
+                        ?></span></a>
                         </li>
                         <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
                                 <img src="Assets/icons/new_prod.svg" alt="Product" class="navIcon align-middle">
                                 <img src="Assets/icons/new_prod_hv.svg" alt="Product" class="mb_nvSubIcn align-middle">
-                                <span class="align-middle">New Production</span></a>
+                                <span class="align-middle"><?php
+                        if ($newProductionText = showOtherLangText('New Production')) 
+                        {
+                            echo $newProductionText;
+                        }
+                        ?></span></a>
                         </li>
                         <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
                                 <img src="Assets/icons/new_payment.svg" alt="Payment" class="navIcon align-middle">
                                 <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
                                     class="mb_nvSubIcn align-middle">
-                                <span class="align-middle">New Payment</span></a>
+                                <span class="align-middle"><?php
+                        if ($newPaymentText = showOtherLangText('New Payment')) 
+                        {
+                            echo $newPaymentText;
+                        }
+                        ?></span></a>
                         </li>
                         <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
                                 <img src="Assets/icons/new_invoice.svg" alt="Invoice" class="navIcon align-middle">
                                 <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
                                     class="mb_nvSubIcn align-middle">
-                                <span class="align-middle">New Invoice</span></a>
+                                <span class="align-middle"><?php
+                        if ($newInvoiceText = showOtherLangText('New Invoice')) 
+                        {
+                            echo $newInvoiceText;
+                        }
+                        ?></span></a>
                         </li>
                     </ul>
                 </li>
@@ -70,7 +90,12 @@
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
                             <img src="Assets/icons/run_task_hv.svg" alt="Run Task" class="navIcon mb_navIcn">
-                            <p class="mt-1">Running Tasks</p>
+                            <p class="mt-1"><?php
+                        if ($showOtherLangText = showOtherLangText('Running_Task')) 
+                        {
+                            echo $showOtherLangText;
+                        }
+                        ?></p>
                         </span>
                     </a>
                 </li>
@@ -79,7 +104,12 @@
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/office.svg" alt="office" class="navIcon">
                             <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                            <p class="mt-1">Office</p>
+                            <p class="mt-1"><?php
+                        if ($showOfficeText = showOtherLangText('Office')) 
+                        {
+                            echo $showOfficeText;
+                        }
+                        ?></p>
                         </span>
                     </a>
                 </li>
@@ -88,7 +118,12 @@
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
                             <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                            <p class="mt-1">Storage</p>
+                            <p class="mt-1"><?php
+                        if ($showStorageText = showOtherLangText('Storage')) 
+                        {
+                            echo $showStorageText;
+                        }
+                        ?></p>
                         </span>
                     </a>
                 </li>
@@ -97,7 +132,12 @@
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
                             <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                            <p class="mt-1">Revenue Centers</p>
+                            <p class="mt-1"><?php
+                        if ($RevenueCentersText = showOtherLangText('Revenue Centers')) 
+                        {
+                            echo $RevenueCentersText;
+                        }
+                        ?></p>
                         </span>
                     </a>
                 </li>
@@ -111,7 +151,12 @@
                     <span class="d-block w-100"> 
                         <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
                         <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                        <p>Setup</p>
+                        <p><?php
+                        if ($showOtherLangText = showOtherLangText('Setup')) 
+                        {
+                            echo $showOtherLangText;
+                        }
+                        ?></p>
                     </span>
                 </a>
             </li>

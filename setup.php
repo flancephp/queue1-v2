@@ -1,27 +1,56 @@
-<?php 
+<?php
 include('inc/dbConfig.php'); //connection details
-
-
-if(!isset($_SESSION['adminidusername']))
-{
-echo "<script>window.location='login.php'</script>";
-}
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
+
+if (!isset($_SESSION['adminidusername'])) 
+{
+    echo "<script>window.location='login.php'</script>";    
+}
 
 
 //check page permission
 $checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
 
-
-if (!in_array('3',$checkPermission))
+if (!in_array('8',$checkPermission))
 {
-echo "<script>window.location='index.php'</script>";
+    echo "<script>window.location='index.php'</script>";
 }
+
+$accessAccountSetup = access_account_setup($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessDesignation = access_designation($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessUser = access_user($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessOutlet = access_outlet($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessSupplier = access_supplier($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessRevenueCenter = access_revenue_center($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessPhysicalStorage = access_physical_storage($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessDepartmentType = access_department_type($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessCategory = access_category($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessUnit = access_unit($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessItemManager = access_item_manager($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessCurrency = access_currency($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessAccount = access_account($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessServiceItem = access_service_item($_SESSION['designation_id'],$_SESSION['accountId']);
+
+$accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSION['accountId']);
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -44,13 +73,13 @@ echo "<script>window.location='index.php'</script>";
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <?php require_once('nav.php');?>
+                  <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Setup</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Setup'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -62,24 +91,24 @@ echo "<script>window.location='index.php'</script>";
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Setup</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Setup'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
                                 <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
+                                <p class="body3 m-0 d-inline-block"><?php echo showOtherLangText('User'); ?></p>
                             </div>
                             <div class="acc-info">
                                 <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
                                 <div class="dropdown d-flex">
                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
+                                        <span><?php echo showOtherLangText('Account'); ?> </span> <i class="fa-solid fa-angle-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
+                                        <li><a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Account 1'); ?></a></li>
+                                        <li><a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Account 2'); ?></a></li>
+                                        <li><a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Account 3'); ?></a></li>
+                                        <li><a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Account 4'); ?></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -100,7 +129,7 @@ echo "<script>window.location='index.php'</script>";
                                 <div class="stup-UsrAcnt">
                                     <a href="javascript:void(0)" class="usrAcnt-Dtl">
                                         <img src="Assets/icons/setup-user.svg" alt="Setup User" class="stupImg">
-                                        <p class="stUsr-para">Users & Account</p>
+                                        <p class="stUsr-para"><?php echo showOtherLangText('Users & Account'); ?></p>
                                     </a>
 
                                     <a href="javascript:void(0)" class="stupLink"><i
@@ -111,21 +140,21 @@ echo "<script>window.location='index.php'</script>";
                                     <div class="subMenu-Dtl">
                                         <a href="accountSetup.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
-                                                <img src="Assets/icons/Account-setup.svg" alt="Account Setup">
+                                                <img src="Assets/icons/Account-setup.svg" alt="<?php echo showOtherLangText('Account Setup'); ?>">
                                             </div>
-                                            <p class="sub-Text">Account Setup</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Account Setup'); ?></p>
                                         </a>
                                         <a href="users.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-user.svg" alt="Setup User">
                                             </div>
-                                            <p class="sub-Text">User</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Users') ?></p>
                                         </a>
                                         <a href="listDesignation.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-service.svg" alt="Service item">
                                             </div>
-                                            <p class="sub-Text">Title</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Title') ?></p>
                                         </a>
                                     </div>
                                 </div>
@@ -134,7 +163,7 @@ echo "<script>window.location='index.php'</script>";
                                 <div class="stup-UsrAcnt">
                                     <a href="javascript:void(0)" class="usrAcnt-Dtl">
                                         <img src="Assets/icons/setup-member.svg" alt="Setup Member" class="stupImg">
-                                        <p class="stMem-para">Members</p>
+                                        <p class="stMem-para"><?php echo showOtherLangText('Members'); ?></p>
                                     </a>
 
                                     <a href="javascript:void(0)" class="stupLink"><i
@@ -147,31 +176,31 @@ echo "<script>window.location='index.php'</script>";
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-supplier.svg" alt="Suppliers">
                                             </div>
-                                            <p class="sub-Text">Suppliers</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Suppliers') ?></p>
                                         </a>
                                         <a href="manageOutlets.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-outlet.svg" alt="Outlets">
                                             </div>
-                                            <p class="sub-Text">Outlets</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Outlets') ?></p>
                                         </a>
                                         <a href="revenueCenterSetup.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-revnue.svg" alt="Revenue Centers">
                                             </div>
-                                            <p class="sub-Text">Revenue Centers</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Revenue Centers'); ?></p>
                                         </a>
                                         <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/contactstup.svg" alt="Contact List">
                                             </div>
-                                            <p class="sub-Text">Contact List</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Contact List'); ?></p>
                                         </a>
                                         <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-member.svg" alt="Employees">
                                             </div>
-                                            <p class="sub-Text">Employees </p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Employees'); ?> </p>
                                         </a>
                                     </div>
                                 </div>
@@ -181,7 +210,7 @@ echo "<script>window.location='index.php'</script>";
                                     <a href="itemsManager.php" class="usrAcnt-Dtl usrItm-Manager">
                                         <img src="Assets/icons/setup-itmmanager.svg" alt="Setup Manager"
                                             class="stupImg">
-                                        <p class="stItm-para">Items Manager</p>
+                                        <p class="stItm-para"><?php echo showOtherLangText('Items Manager'); ?></p>
                                     </a>
 
                                     <!-- <a href="javascript:void(0)" class="stupLink"><i
@@ -192,7 +221,7 @@ echo "<script>window.location='index.php'</script>";
                                 <div class="stup-UsrAcnt">
                                     <a href="javascript:void(0)" class="usrAcnt-Dtl">
                                         <img src="Assets/icons/setup-storage.svg" alt="Setup Storage" class="stupImg">
-                                        <p class="stStrge-para">Storage Setup</p>
+                                        <p class="stStrge-para"><?php echo showOtherLangText('Storage Setup'); ?></p>
                                     </a>
 
                                     <a href="javascript:void(0)" class="stupLink"><i
@@ -205,25 +234,25 @@ echo "<script>window.location='index.php'</script>";
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-storage.svg" alt="Physical Storages">
                                             </div>
-                                            <p class="sub-Text">Physical Storages</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Physical Storages'); ?></p>
                                         </a>
                                         <a href="manageDepartments.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-department.svg" alt="Departments Type">
                                             </div>
-                                            <p class="sub-Text">Departments Type</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Departments Type'); ?></p>
                                         </a>
                                         <a href="categories.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-category.svg" alt="Categories">
                                             </div>
-                                            <p class="sub-Text">Categories</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Categories'); ?></p>
                                         </a>
                                         <a href="manageUnits.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-unit.svg" alt="Units">
                                             </div>
-                                            <p class="sub-Text">Units</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Units'); ?></p>
                                         </a>
                                     </div>
                                 </div>
@@ -232,7 +261,7 @@ echo "<script>window.location='index.php'</script>";
                                 <div class="stup-UsrAcnt">
                                     <a href="javascript:void(0)" class="usrAcnt-Dtl">
                                         <img src="Assets/icons/setup-finance.svg" alt="Setup Finance" class="stupImg">
-                                        <p class="stFin-para">Finances</p>
+                                        <p class="stFin-para"><?php echo showOtherLangText('Finances'); ?></p>
                                     </a>
 
                                     <a href="javascript:void(0)" class="stupLink"><i
@@ -245,31 +274,31 @@ echo "<script>window.location='index.php'</script>";
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-currency.svg" alt="Currency">
                                             </div>
-                                            <p class="sub-Text">Currency</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Currency'); ?></p>
                                         </a>
                                         <a href="manageAccounts.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-account.svg" alt="Accounts">
                                             </div>
-                                            <p class="sub-Text">Accounts</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Accounts'); ?></p>
                                         </a>
                                         <a href="manageServiceFee.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-service.svg" alt="Service item">
                                             </div>
-                                            <p class="sub-Text">Service item</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Service item'); ?></p>
                                         </a>
                                         <a href="manageAdditionalFee.php" class="sbMnu-acntStup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-additional.svg" alt="Additional Fees">
                                             </div>
-                                            <p class="sub-Text">Additional Fees</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Additional Fees'); ?></p>
                                         </a>
                                         <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/setup-department.svg" alt="Payments Type">
                                             </div>
-                                            <p class="sub-Text">Payments Type</p>
+                                            <p class="sub-Text"><?php echo showOtherLangText('Payments Type'); ?></p>
                                         </a>
                                     </div>
                                 </div>
