@@ -280,6 +280,7 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
         #stock_pdf .table-row > .table-cell:nth-child(7),
         #stock_pdf .table-row > .table-cell:nth-child(8),
         #stock_pdf .table-row > .table-cell:nth-child(9) { white-space: nowrap; }
+        .modal .form-control { width: 100% !important;margin: 0% !important; }
 
         .stkItmclm {
             width: 100%;

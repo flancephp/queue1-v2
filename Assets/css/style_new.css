@@ -19961,3 +19961,4 @@ border-radius:3px;
 .modal-footer .btn { padding-left: 1rem;padding-right: 1rem; }
 .prdtImg.tb-bdy .ordItm-Img { height: 50px;object-fit: contain; }
 .tb-bdy.stkImgcol .imgItm { height: 40px;object-fit: contain; }
+.modal .addUser-Form .form-control { width: 100% !important;margin: 0% !important; }
