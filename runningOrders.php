@@ -309,8 +309,8 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
 
 <body>
 
-    <div class="container-fluid newOrder">
-        <div class="row">
+    <div class="container-fluid newOrde pt-0">
+        <div class="row g-0">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <?php require_once('nav.php');?>
             </div>

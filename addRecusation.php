@@ -423,8 +423,8 @@ if($_SESSION['deptId'] != '')
                                     <div class="container">
 
                                         <div class="mbFeature">
-                                            <div class="row gx-3 justify-content-end">
-                                                <div class="col-md-9 col-xl-6 text-center">
+                                            <div class="d-flex justify-content-end">
+                                                <div class="w-100 text-center" style="max-width: 347px;">
                                                     <div class="row g-3"> 
                                                         <div class="col-md-4">
                                                             <div class="featRow">
@@ -545,7 +545,7 @@ if($_SESSION['deptId'] != '')
                         <div class="container topOrder newReq">
 
                             <div class="row">
-                                <div class="sltSupp">
+                                <div class="sltSupp ps-0">
                                     <!-- Select Supplier  -->
                                     <!-- <div class="btn-group glb-btn">
                                         <button type="button"
@@ -561,8 +561,7 @@ if($_SESSION['deptId'] != '')
                                             </li>
                                         </ul>
                                     </div> -->
-                                    <form action="" id="frm" name="frm" method="post" autocomplete="off"
-                                        class="container">
+                                    <form action="" id="frm" name="frm" method="post" autocomplete="off">
                                         <input type="hidden" name="placeOrder" class="btn btn-primary"
                                             value="<?php echo showOtherLangText('Submit'); ?>" />
                                         <div class="btn-group glb-btn">

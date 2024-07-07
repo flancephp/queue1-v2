@@ -377,8 +377,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
 
 <body>
     <main>
-        <div class="container-fluid newOrder">
-            <div class="row">
+        <div class="container-fluid newOrde">
+            <div class="row g-0">
                 <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                     <?php require_once('nav.php');?>
                 </div>

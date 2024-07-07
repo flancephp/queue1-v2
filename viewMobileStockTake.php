@@ -115,13 +115,14 @@ $result = mysqli_query($con, $sql);
                     <div class="container">
                     <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
+                                <p>
+                                    <?php  
+                                        echo isset($_GET['update']) ? ' '.showOtherLangText('Supplier Edited Successfully').' ' : '';
 
-echo isset($_GET['update']) ? ' '.showOtherLangText('Supplier Edited Successfully').' ' : '';
+                                        echo isset($_GET['added']) ? ' '.showOtherLangText('Supplier Added Successfully').' ' : '';
 
-echo isset($_GET['added']) ? ' '.showOtherLangText('Supplier Added Successfully').' ' : '';
-
-echo isset($_GET['delete']) ? ' '.showOtherLangText('Mobile stock take Deleted Successfully').' ' : ''; ?>
+                                        echo isset($_GET['delete']) ? ' '.showOtherLangText('Mobile stock take Deleted Successfully').' ' : ''; 
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
@@ -129,16 +130,15 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Mobile stock take Deleted S
                             <?php } ?>
                             <?php if(isset($_GET['err'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Supplier cannot be Deleted as it has been assigned in order').' ' : '';
- ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Supplier cannot be Deleted as it has been assigned in order').' ' : ''; ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="stockView.php?filterByStorage=<?php echo $_GET['stockTakeId'];?>" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <!-- sub-btn std-btn -->
+                                    <a href="stockView.php?filterByStorage=<?php echo $_GET['stockTakeId'];?>" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>

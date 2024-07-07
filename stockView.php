@@ -265,48 +265,58 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
-    .strfetCol {
-        width: 23%;
-    }
+        .strfetCol { width: 310px; }
+        .storeCol { width: calc(100% - 350px); }
+        @media(max-width:991px) {.storeCol { width: 100% !important; } }
+        @media (max-width: 767px) { .storeCol .col-4.stockFeat { width: 33.333% !important; } }
+        @media screen and (min-width: 1600px) { .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1320px; } }
+        @media screen and (min-width: 1800px) { .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1550px; } }
 
-    .stkItmclm {
-        width: 100%;
-    }
+        #stock_pdf .table-row > .table-cell:nth-child(4),
+        #stock_pdf .table-row > .table-cell:nth-child(5),
+        #stock_pdf .table-row > .table-cell:nth-child(6),
+        #stock_pdf .table-row > .table-cell:nth-child(7),
+        #stock_pdf .table-row > .table-cell:nth-child(8),
+        #stock_pdf .table-row > .table-cell:nth-child(9) { white-space: nowrap; }
 
-    .stkTblhead .stkItmclm,
-    .stkTblhead .stkItmclm,
-    .stkTblhead .stkbarclm {
-        width: 61%;
-    }
+        .stkItmclm {
+            width: 100%;
+        }
 
-    .stkTblhead .stkNamcol,
-    .cntTable .stkNamcol {
-        width: 60%;
-    }
+        .stkTblhead .stkItmclm,
+        .stkTblhead .stkItmclm,
+        .stkTblhead .stkbarclm {
+            width: 61%;
+        }
 
-    ,
-    .cntTable1 .stkNamcol {
-        width: 60%;
-    }
+        .stkTblhead .stkNamcol,
+        .cntTable .stkNamcol {
+            width: 60%;
+        }
 
-    .stockView .lstPrcol {
-        width: 33%;
-    }
+        
+        .cntTable1 .stkNamcol {
+            width: 60%;
+        }
 
-    .stkTblhead .stkPrcol,
-    .cntTable .stkPrcol {
-        width: 30%;
-    }
+        .stockView .lstPrcol {
+            width: 33%;
+        }
 
-    ,
-    .cntTable1 .stkPrcol {
-        width: 30%;
-    }
+        .stkTblhead .stkPrcol,
+        .cntTable .stkPrcol {
+            width: 30%;
+        }
+    
+        .cntTable1 .stkPrcol {
+            width: 30%;
+        }
 
-    .w-55 {
-        width: 45%;
-    }
+        .w-55 {
+            width: 45%;
+        }
     </style>
 </head>
 
@@ -321,7 +331,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <?php require_once('nav.php');?>
             </div>
-            <div class="cntArea">
+            <div class="cntArea cntAreartl">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
@@ -373,25 +383,22 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                     <form name="frm" id="frm" method="get" action="">
                         <input type="hidden" name="subCatId" id="subCatId" value="<?php echo $_GET['subCatId']; ?>" />
                         <input type="hidden" name="suppId" id="suppId" value="<?php echo $_GET['suppId']; ?>" />
-                        <input type="hidden" name="filterByStorage" id="filterByStorage"
-                            value="<?php echo $_GET['filterByStorage']; ?>" />
-
+                        <input type="hidden" name="filterByStorage" id="filterByStorage" value="<?php echo $_GET['filterByStorage']; ?>" /> 
                     </form>
                     <div class="stkView">
                         <div class="container">
                             <?php if(isset($_GET['stockTake']) || isset($_GET['convertRawItem'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
-
-echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfully').' ' : '';
-echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted successfully').' ' : '';
-                              ?>
+                                <p>
+                                    <?php  
+                                        echo isset($_GET['stockTake']) ? ' '.showOtherLangText('Item overwrite successfully').' ' : '';
+                                        echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted successfully').' ' : '';
+                                    ?>
                                 </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                            <div class="row">
+                            <div class="row g-0">
                                 <div class="storeCol">
                                     <div class="store text-center d-flex">
 
@@ -400,9 +407,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                                 <h2 class="h2"><?php echo showOtherLangText('All Stores') ?></h2>
                                             </div>
                                         </a>
-                                        <?php if (mysqli_num_rows($storeQry) > 1) 
-                            { 
-                                ?>
+                                        <?php if (mysqli_num_rows($storeQry) > 1)  {  ?>
                                         <a href="javascript:void(0)" class="allStore">
                                             <div class="othStr">
                                                 <div class="storeCont">
@@ -415,12 +420,12 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                             </div>
                                         </a>
                                         <?php
-                            }  
+                                            }  
 
-                            while($storageDeptRow = mysqli_fetch_array($storeQry))
-                            {
-                                $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $stockCond);               
-                            ?>
+                                            while($storageDeptRow = mysqli_fetch_array($storeQry))
+                                            {
+                                                $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $stockCond);               
+                                        ?>
                                         <a href="stockView.php?filterByStorage=<?php echo $storageDeptRow['id'];?>"
                                             class="otrStock <?php echo $_GET['filterByStorage'] == $storageDeptRow['id'] ? 'stockActive-br' : '';?>">
                                             <div class="othStr">
@@ -436,8 +441,8 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                             </div>
                                         </a>
                                         <?php 
-                            }
-                             ?>
+                                            }
+                                        ?>
 
 
 
@@ -450,14 +455,14 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                         <div class="row stkRow g-0"> 
                                             <input type="hidden" name="storeId"
                                                 value="<?php echo $_GET['filterByStorage'];?>" />
-                                            <div class="col-md-4 stockFeat p-lg-3 brdLft">
+                                            <div class="col-4 stockFeat p-0 p-lg-3 brdLft">
 
                                                 <?php  access_raw_item_convert($_SESSION['designation_id'],$_SESSION['accountId']); ?>
                                             </div>
-                                            <div class="col-md-4 stockFeat p-lg-3 brdLft">
+                                            <div class="col-4 stockFeat p-0 p-lg-3 brdLft">
                                                 <?php  access_view_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage']);  ?>
                                             </div>
-                                            <div class="col-md-4 stockFeat p-lg-3 dropStk">
+                                            <div class="col-4 stockFeat p-0 p-lg-3 dropStk d-flex">
 
 
                                                 <?php access_import_stockTake($_SESSION['designation_id'],$_SESSION['accountId'],$_GET['filterByStorage'], $rightSideLanguage);  ?>
@@ -476,8 +481,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                                 <div class="col-md-6 mbCol-stk">
                                     <!-- Search Box Start -->
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" onKeyUp="myFunction()"
-                                            placeholder="Search" name="search" id="search" aria-label="Search">
+                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search" aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
                                                 <i class="fa fa-search"></i>
@@ -1088,7 +1092,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
 
     <!-- ===== Stock view pdf popup new in div format======= -->
     <div class="modal" tabindex="-1" id="stock_pdf" aria-labelledby="stock_pdfModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-m site-modal" style="max-width:1200px;">
+        <div class="modal-dialog modal-dialog-centered modal-m site-modal" style="max-width:1000px;">
             <div id="stock_details" class="modal-content p-2">
 
 
@@ -1096,8 +1100,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
         </div>
     </div>
     <?php 
-                  $colsArr = 
-                  [
+        $colsArr = [
                     1 => ['lable' => ''.showOtherLangText('Photo').'' ],
                     2 => ['lable' => ''.showOtherLangText('Item').''],
                     3 => ['lable' => ''.showOtherLangText('Quantity').''],
@@ -1118,7 +1121,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
                     17 => ['lable' => ''.showOtherLangText('Max Qty').''],
                     18 => ['lable' => ''.showOtherLangText('Stock Value').''],
                   ];
-?>
+    ?>
 
     <div class="modal addUser-Form glbFrm-Cont" tabindex="-1" id="qty_in_stock"
         aria-labelledby="add-DepartmentLabel" aria-hidden="true">
@@ -1135,7 +1138,7 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
     <div id="myModal" class="modal" style=" align-items:center">
         <div style="width:750px; padding:0;" class="container mnPdf_Dv">
             <!-- Modal content -->
-            <div class="modal-content">
+            <div class="modal-content" style="overflow-x:hidden;">
 
                 <div>
 
@@ -1205,83 +1208,83 @@ echo isset($_GET['convertRawItem']) ? ' '.showOtherLangText('Raw Item converted 
         </div>
     </div>
 
-    <div class="modal addUser-Form row container glbFrm-Cont" id="convert_raw_items" tabindex="-1"
+    <div class="modal addUser-Form row glbFrm-Cont" id="convert_raw_items" tabindex="-1"
         aria-labelledby="issueout2label" aria-hidden="true">
-        <form method="post" id="frmconvert" name="frmconvert" action="convertRawItemsConfirmSubmit.php">
-            <div class="modal-dialog modal-dialog-centered modal-550">
-                <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:800px;">
+            <div class="modal-content">
+                    <form method="post" id="frmconvert" name="frmconvert" action="convertRawItemsConfirmSubmit.php">
 
-                    <div class="modal-body  fs-15">
-                        <div class="pb-3">
-                            <h2>Convert raw item</h2>
+                        <div class="modal-body  fs-15">
+                            <div class="pb-3">
+                                <h2>Convert raw item</h2>
 
-                        </div>
+                            </div>
 
-                        <table class="issueout2-table w-100 fs-13">
-                            <tr class="semibold">
-                                <th>Photo</th>
-                                <th>Item</th>
-                                <th>Converted Qyt</th>
-                                <th>Unit</th>
-                                <th>Qyt Before</th>
-                                <th>Qyt After</th>
-                                <th>Price</th>
-                                <th>Converted Qyt Value</th>
-                            </tr>
-                            <tr class="semibold">
-                                <td><?php 
-                             
-                             if( $rawItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$rawItemRow['imgName'] ) )
-                             {  
-                                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$rawItemRow['imgName'].'" width="60" height="60">';
-                               
-                             }
-                            ?></td>
-                                <td><?php echo $rawItemRow['itemName']!==''?$rawItemRow['itemName']:'';?></td>
-                                <td><?php echo $_POST['qtyToConvert'];?></td>
-                                <td><?php echo $rawItemRow['unitC'];?></td>
-
-                                <td><?php echo $rawItemRow['stockQty'];?></td>
-
-                                <td><?php echo ($rawItemRow['stockQty']-$_POST['qtyToConvert']);?></td>
-
-                                <td><?php 
-                            if($rawItemRow['price']!=='') { echo showPrice($rawItemRow['price'],$getDefCurDet['curCode']); } ?>
-                                </td>
-                                <td><?php showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode'])?>
-                                </td>
-                            </tr>
-                            <tr class="semibold">
-                                <td><?php 
-                             if( $convertItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$convertItemRow['imgName'] ) )
-                             {  
-                                echo '<img width="60" height="60" src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$convertItemRow['imgName'].'" >';
+                            <table class="issueout2-table w-100 fs-13">
+                                <tr class="semibold">
+                                    <th>Photo</th>
+                                    <th>Item</th>
+                                    <th>Converted Qyt</th>
+                                    <th>Unit</th>
+                                    <th>Qyt Before</th>
+                                    <th>Qyt After</th>
+                                    <th>Price</th>
+                                    <th>Converted Qyt Value</th>
+                                </tr>
+                                <tr class="semibold">
+                                    <td><?php 
                                 
-                             }
-                            ?></td>
-                                <td><?php echo $convertItemRow['itemName'];?></td>
-                                <td><?php echo $_POST['convertedQty'];?></td>
-                                <td><?php echo $convertItemRow['unitC'];?></td>
+                                if( $rawItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$rawItemRow['imgName'] ) )
+                                {  
+                                    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$rawItemRow['imgName'].'" width="60" height="60">';
+                                
+                                }
+                                ?></td>
+                                    <td><?php echo $rawItemRow['itemName']!==''?$rawItemRow['itemName']:'';?></td>
+                                    <td><?php echo $_POST['qtyToConvert'];?></td>
+                                    <td><?php echo $rawItemRow['unitC'];?></td>
 
-                                <td><?php echo $convertItemRow['stockQty'] > 0 ? $convertItemRow['stockQty'] : 0;?></td>
+                                    <td><?php echo $rawItemRow['stockQty'];?></td>
 
-                                <td><?php echo $convertItemRow['stockQty']+$_POST['convertedQty'];?></td>
+                                    <td><?php echo ($rawItemRow['stockQty']-$_POST['qtyToConvert']);?></td>
 
-                                <td><?php echo showPrice($_POST['unitPrice'],$getDefCurDet['curCode']);?></td>
-                                <td><?php echo showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode']);?>
-                                </td>
-                            </tr>
+                                    <td><?php 
+                                if($rawItemRow['price']!=='') { echo showPrice($rawItemRow['price'],$getDefCurDet['curCode']); } ?>
+                                    </td>
+                                    <td><?php showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode'])?>
+                                    </td>
+                                </tr>
+                                <tr class="semibold">
+                                    <td><?php 
+                                if( $convertItemRow['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$convertItemRow['imgName'] ) )
+                                {  
+                                    echo '<img width="60" height="60" src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$convertItemRow['imgName'].'" >';
+                                    
+                                }
+                                ?></td>
+                                    <td><?php echo $convertItemRow['itemName'];?></td>
+                                    <td><?php echo $_POST['convertedQty'];?></td>
+                                    <td><?php echo $convertItemRow['unitC'];?></td>
+
+                                    <td><?php echo $convertItemRow['stockQty'] > 0 ? $convertItemRow['stockQty'] : 0;?></td>
+
+                                    <td><?php echo $convertItemRow['stockQty']+$_POST['convertedQty'];?></td>
+
+                                    <td><?php echo showPrice($_POST['unitPrice'],$getDefCurDet['curCode']);?></td>
+                                    <td><?php echo showPrice($_POST['qtyToConvert']*$rawItemRow['price'],$getDefCurDet['curCode']);?>
+                                    </td>
+                                </tr>
 
 
-                        </table>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" onClick="approveConvert();">Approve</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
+                            </table>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" onClick="approveConvert();">Approve</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
     </div>
 
 
