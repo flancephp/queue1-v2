@@ -341,7 +341,7 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
                                 <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
                                 <div class="dropdown d-flex">
                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
+                                        <span> Account</span> <i class="fa-solid fa-angle-down rtl-down-arrow"></i>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
@@ -614,7 +614,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
                                                             role="button" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
-                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                            <svg style="width: 1.5rem; height:1.5rem;" fill="none" xmlns="http://www.w3.org/2000/svg"
                                                                 viewBox="0 0 25 24">
                                                                 <rect x="5" y="4" width="14" height="17" rx="2"
                                                                     stroke="#8C8FA7" stroke-width="2" />

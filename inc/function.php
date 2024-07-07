@@ -3250,11 +3250,10 @@ function getOrderPaymentLink($orderId) {
 		if ($pmntRows['paymentStatus']==1)
 		 { 
 			?>
-        <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
-            <a class="supPayDtl" href="supplierSuccessPayment.php?page=history&action=p&orderId=<?php echo $orderId;?>">
-                                                            <p class="h3"><?php echo showOtherLangText('Pay1') ?></p>
-                                                        </a>
-        </div>
+        
+        <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn" style="background: #7a89fe21;">
+<a href="supplierSuccessPayment.php?page=history&action=p&orderId=<?php echo $orderId;?>"><p class="h3"><?php echo showOtherLangText('Pay') ?></p></a>
+       </div>
 
 <?php }
 
