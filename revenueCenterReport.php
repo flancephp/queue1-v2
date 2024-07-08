@@ -29,120 +29,7 @@ include_once('script/revenueCenterReport_script.php');
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -160,7 +47,7 @@ include_once('script/revenueCenterReport_script.php');
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Revenue Centers</h1>
+                                    <h1 class="h1"><?php showOtherLangText('Revenue Centers');?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -521,6 +408,43 @@ include_once('script/revenueCenterReport_script.php');
                         <div id="boxscroll">
                             <div class="container position-relative hstTbl-bd">
                                 <!-- Item Table Body Start -->
+
+                        <?php
+$x= 0;
+$tr = '';
+$datesArr = [];
+$guestsTotal = 0;
+$useVarianceCount = 0;
+$allVarianceAmt = 0;
+$usageVarianceValueArr = [];
+$usageTotalAmount = 0;
+$outLetVariance = 0;
+$costPerTot = 0;
+while($row = mysqli_fetch_array($getRevenueReport))
+{
+
+    $color = ($x%2 == 0)? 'white': '#FFFFCC';
+    $x++;
+    
+    $ourLetsTotsArr = getRevenueTotals($row['outLetId'], $_GET['fromDate'], $_GET['toDate']);
+
+    $sales = $ourLetsTotsArr['salesTotal'];
+    $guests = $ourLetsTotsArr['guestsTotal'];
+    $varience = $ourLetsTotsArr['varience'];
+    $usage = $ourLetsTotsArr['usageTotal'];
+    $usagePer = $ourLetsTotsArr['usagePer'];
+    $usageLevel = $ourLetsTotsArr['usageLevel'];				
+    
+    
+    $usageTotalAmount += $usage;
+    $guestsTotal += $guests;
+    $allVarianceAmt += $varience;
+    $salesTotal += $sales;
+    
+    $usagePerGuests = ($usage && $guests) ? ($usage/$guests) : '';
+    
+    $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
+                        ?>
                                 <div class="revCntr-Task align-items-center">
                                     <div class="mbshw-Revcnt">
                                         <div class="revCenter-Name d-flex align-items-center itmBody">
@@ -684,287 +608,8 @@ include_once('script/revenueCenterReport_script.php');
                                                 class="fa-solid fa-angle-down"></i></a>
                                     </div>
                                 </div>
-                                <div class="revCntr-Task align-items-center mt-1">
-                                    <div class="mbshw-Revcnt">
-                                        <div class="revCenter-Name d-flex align-items-center itmBody">
-                                            <div class="center-List">
-                                                <p>Fun Beach</p>
-                                            </div>
-                                            <div class="num-List">
-                                                <p><span class="mbguest-Head">Guests</span> 43</p>
-                                            </div>
-                                        </div>
-                                        <div class="revCenter-Dtl">
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Fun Beach Bar</a>
-                                                        <div class="chkbx-revCntr">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
-                                                        <p class="bl-Sale">742.0000 $</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">250.9259 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>33.82%</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>230.25 $</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>230.25 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>7 $</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>-76 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="grey-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
-
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Fun Beach Kitchen</a>
-                                                        <div class="chkbx-revCntr">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
-                                                        <p class="bl-Sale">632.0000 $</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">120.9259 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>23.82%</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>130.25 $</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>130.25 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>4 $</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>-89 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <div class="revCntr-Task align-items-center mt-1">
-                                    <div class="mbshw-Revcnt">
-                                        <div class="revCenter-Name d-flex align-items-center itmBody">
-                                            <div class="center-List">
-                                                <p>Casa</p>
-                                            </div>
-                                            <div class="num-List">
-                                                <p><span class="mbguest-Head">Guests</span> 20</p>
-                                            </div>
-                                        </div>
-                                        <div class="revCenter-Dtl">
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Casa Bar</a>
-                                                        <div class="chkbx-revCntr">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
-                                                        <p class="bl-Sale">742.0000 $</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">250.9259 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>33.82%</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>230.25 $</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>230.25 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>7 $</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>-76 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="grey-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
-
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Casa Kitchen</a>
-                                                        <div class="chkbx-revCntr">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
-                                                        <p class="bl-Sale">632.0000 $</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">120.9259 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>23.82%</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>130.25 $</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>130.25 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>4 $</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>-89 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
-
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Casa Laundry</a>
-                                                        <div class="chkbx-revCntr">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p>&nbsp;</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">45 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>&nbsp;</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>&nbsp;</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>45 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-
+                                
+                    <?php } ?>
                                 <!-- Item Table Body End -->
                             </div>
                     </section>

@@ -39,6 +39,9 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
 	$result = mysqli_query($con, $query);
  	$res = mysqli_fetch_array($result);
 
+
+    echo '<br>';
+    print_r($res);die;
 	// Check username and password match
 	if (!empty($res)) 
 	{

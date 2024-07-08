@@ -10,7 +10,7 @@ if ($con->connect_errno) {
 }
 
 //$siteUrl = "http://localhost/queue1/development/";
-$siteUrl = "http://localhost/queue1-v2/";
+$siteUrl = "http://localhost/newDesign/queue1-v2/";
 //$domainUrl = "https://queue1.com/devsite/";
 //error_reporting(1);
 date_default_timezone_set('Africa/Dar_es_Salaam');

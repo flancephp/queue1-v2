@@ -4,6 +4,7 @@
 if (!isset($_SESSION['adminidusername']))
 {
 	echo "<script>window.location='login.php'</script>";
+    exit;
 }
 
 //Get language Type 

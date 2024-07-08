@@ -4,7 +4,8 @@ $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
 if ($permissionRow)
 {
-    echo "<script>window.location='index.php'</script>";
+   // echo "<script>window.location='index.php'</script>";
+	//exit;
 }
 
 
