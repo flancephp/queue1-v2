@@ -213,14 +213,14 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Department Deleted Successf
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"
+                                    <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#add-Department"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>

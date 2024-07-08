@@ -437,7 +437,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                             <div class="container erdOrder nwOrder-Div">
                                 <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
                                 <div class="row py-md-4">
-                                    <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem;">
+                                    <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:2rem;">
                                         <div class="ord-Box w-100 ms-0">
                                             <div class="ordNum">
                                                 <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
@@ -463,101 +463,98 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                     <div class="ordInfo erdInfo newFeatures">
                                         <div class="container">
                                             <div class="mbFeature">
-                                                <div class="row gx-3 justify-content-end">
-                                                    <div class="col-md-4 text-center">
-                                                        <div class="row featRow">
-                                                            <div
-                                                                class="col-md-6 ordFeature dropdown drpCurr position-relative">
-                                                                <a href="javascript:void(0)"
-                                                                    class="dropdown-toggle tabFet" role="button"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span class="currency"></span>
-                                                                    <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('currency') ?> <i
-                                                                            class="fa-solid fa-angle-down"></i></span></p>
-                                                                </a>
+                                                <div class="ms-auto text-center w-100" style="max-width:236px;">
+                                                    <div class="row featRow">
+                                                        <div
+                                                            class="col-md-6 ordFeature dropdown drpCurr position-relative">
+                                                            <a href="javascript:void(0)"
+                                                                class="dropdown-toggle tabFet" role="button"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span class="currency"></span>
+                                                                <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('currency') ?> <i
+                                                                        class="fa-solid fa-angle-down"></i></span></p>
+                                                            </a>
 
-                                                        <ul class="currency_dropdown dropdown-menu">
-                                                                    <?php
-                                                        $sqlSet = " SELECT * FROM tbl_currency WHERE is_default = 0 AND account_id = '".$_SESSION['accountId']."' order by currency ";
-                        $resultSet = mysqli_query($con, $sqlSet); 
-                        while($curRow=mysqli_fetch_array($resultSet))
-                                                        {
-                                                $sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id ='".$_SESSION['accountId']."' ";
-                            $result=mysqli_query($con, $sql);
-                            $resultRow= mysqli_fetch_array($result);
+                                                                <ul class="currency_dropdown dropdown-menu">
+                                                                            <?php
+                                                                $sqlSet = " SELECT * FROM tbl_currency WHERE is_default = 0 AND account_id = '".$_SESSION['accountId']."' order by currency ";
+                                                                $resultSet = mysqli_query($con, $sqlSet); 
+                                                                while($curRow=mysqli_fetch_array($resultSet))
+                                                                                                {
+                                                                                        $sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id ='".$_SESSION['accountId']."' ";
+                                                                    $result=mysqli_query($con, $sql);
+                                                                    $resultRow= mysqli_fetch_array($result);
 
-                             if (!empty($resultRow['currencyId']))
-                             {
-                                
-                                $sel = $resultRow['currencyId'] == $curRow['id'] ? 'selected' : '';
-
-                            }
-                            else
-                            {
-                                
-                                $sel = $_REQUEST['currencyId'] == $curRow['id'] ? 'selected' : '';
-                            }
-                        echo '<li data-id="'.$curRow['id'].'" data-value="'.$curRow['currency'].'"><a class="dropdown-item '.$sel.' " 
-                                                                            href="javascript:void(0)">'.$curRow['currency'].'</a></li>';
-                                                        }
-                                                        ?>
-                                                                    
-                                                                </ul>
-
-                                                            </div>
-                                                            <div class="col-md-6 ordFeature drpFee position-relative">
-                                                                <a href="javascript:void(0)"
-                                                                    class="dropdown-toggle tabFet" role="button"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span class="fee"></span>
-                                                                    <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
-                                                                            class="fa-solid fa-angle-down"></i>
-                                                                    </p>
-                                                                </a>
-
-                                                                <ul class="item dropdown-menu">
-                                                                    <li class="innerDrop dropdown">
-                                                                        <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-                                                                          <ul class="subitem  submenu list-unstyled">
-                                                            <?php 
-                                //add item fee & custom fee modal box 
-                                $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-                                $customItemsResult = mysqli_query($con, $sql);
-
-                                while ($resultRow = mysqli_fetch_array($customItemsResult)) 
-                                {
-                                   echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']." '>".$resultRow['itemName']."</a></li>";
-                                }
-                                ?>
-                                                        </ul>
-
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
-                                                                        </li>
-                                                                        <li class="innerDrop dropdown">
-                                                                            <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
-                                                                            <ul class="subitem  submenu large list-unstyled">
-                                                                        <?php
-                                                    //add item fee & custom fee modal box 
-                                                    $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-                                                    $ordFeeFetch = mysqli_query($con, $sqlQry);
-                                                    //$innerLiCount = 0;
-                                                    while ($resultRow = mysqli_fetch_array($ordFeeFetch))
-                                                    {
-                                                        // $innerLiCount++;
-                                                        echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
-                                                    } 
-                                                    ?>
-                                                                         </ul></li>
-                                                                    <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                    if (!empty($resultRow['currencyId']))
+                                                                    {
                                                                         
-                                                                </li>
-                                                                </ul>
-                                                            </div>
+                                                                        $sel = $resultRow['currencyId'] == $curRow['id'] ? 'selected' : '';
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        
+                                                                        $sel = $_REQUEST['currencyId'] == $curRow['id'] ? 'selected' : '';
+                                                                    }
+                                                                echo '<li data-id="'.$curRow['id'].'" data-value="'.$curRow['currency'].'"><a class="dropdown-item '.$sel.' " 
+                                                                                    href="javascript:void(0)">'.$curRow['currency'].'</a></li>';
+                                                                }
+                                                                ?>
+                                                                            
+                                                            </ul>
+
                                                         </div>
-                                                    </div>
+                                                        <div class="col-md-6 ordFeature drpFee position-relative">
+                                                            <a href="javascript:void(0)"
+                                                                class="dropdown-toggle tabFet" role="button"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span class="fee"></span>
+                                                                <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
+                                                                        class="fa-solid fa-angle-down"></i>
+                                                                </p>
+                                                            </a>
+
+                                                            <ul class="item dropdown-menu">
+                                                                <li class="innerDrop dropdown">
+                                                                    <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
+                                                                      <ul class="subitem  submenu list-unstyled">
+                                                                            <?php 
+                                                                                //add item fee & custom fee modal box 
+                                                                                $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                                                $customItemsResult = mysqli_query($con, $sql);
+
+                                                                                while ($resultRow = mysqli_fetch_array($customItemsResult)) 
+                                                                                {
+                                                                                echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']." '>".$resultRow['itemName']."</a></li>";
+                                                                                }
+                                                                            ?>
+                                                                        </ul> 
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
+                                                                    </li>
+                                                                    <li class="innerDrop dropdown">
+                                                                        <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                        <ul class="subitem  submenu large list-unstyled">
+                                                                        <?php
+                                                                            //add item fee & custom fee modal box 
+                                                                            $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                                            $ordFeeFetch = mysqli_query($con, $sqlQry);
+                                                                            //$innerLiCount = 0;
+                                                                            while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+                                                                            {
+                                                                                // $innerLiCount++;
+                                                                                echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
+                                                                            } 
+                                                                        ?>
+                                                                     </ul></li>
+                                                                <li><a class="dropdown-item"
+                                                                    href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                    
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>

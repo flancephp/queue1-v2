@@ -34,7 +34,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 					?>
 				</select> 
 			</div>
-			<div style="width:6rem;" class="ps-3"> 
+			<div style="width:6rem;" class="ps-4"> 
 				<div id="rawProId"></div>
 			</div>
 		</div>
@@ -48,7 +48,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 					</select>
 				</div> 
 			</div>
-			<div style="width:6rem;" class="ps-3"> 
+			<div style="width:6rem;" class="ps-4"> 
 				<div id="convrtProId"></div>
 			</div>
 		</div> 
@@ -68,7 +68,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 					placeholder="<?php echo showOtherLangText('Converted Quantity');?>" onChange="showUnitPrice()" 
 				/>
 			</div>
-			<div style="width:6rem;" class="ps-3"></div>
+			<div style="width:6rem;" class="ps-4"></div>
 		</div>
 		<div class="d-flex align-items-center"> 
 			<div class="col"> 

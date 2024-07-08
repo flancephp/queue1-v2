@@ -394,40 +394,39 @@ $currResultSet = mysqli_query($con, $curQry);
 
                 <section class="ordDetail">
                     <div class="tpBar-grn"></div>
+                    <div class="container nwOrder-Div py-0"> 
+                        <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
+                        <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
+                            <p>
+                            <?php  
+                            echo isset($_GET['edit']) ? ' '.showOtherLangText('Item Edited Successfully').' ' : '';
+                            echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                            echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                            echo isset($_GET['mes']) ? $_GET['mes'] : '';
+                            
+                            if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                            {
+                                echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                            }
+                            elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                            {
+                                echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                            }
+                            
+                            ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php } ?>
+                        <?php if(isset($_GET['errorProduct'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show lg__left__margin mb-0  mt-3" role="alert">
+                            <p><?php echo showOtherLangText('Select atleast one product to make order successfully.') ?></p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php } ?>
+                    </div>
                     <div class="stcPart position-relative">
                         <div class="container nwOrder-Div">
-                            <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p>
-                                <?php 
-                                
-                                echo isset($_GET['edit']) ? ' '.showOtherLangText('Item Edited Successfully').' ' : '';
-                                echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
-                                echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
-                                echo isset($_GET['mes']) ? $_GET['mes'] : '';
-                                
-                                if( isset($_GET['delete']) && $_GET['delete'] == 1 )
-                                {
-                                    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
-                                }
-                                elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
-                                {
-                                    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
-                                }
-                                
-                                ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['errorProduct'])) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show lg__left__margin" role="alert">
-                                <p><?php echo showOtherLangText('Select atleast one product to make order successfully.') ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
                             <form action="" id="frm" class="frm" name="frm" method="post" autocomplete="off">
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
@@ -448,9 +447,9 @@ $currResultSet = mysqli_query($con, $curQry);
                                                     <div class="row featRow">
                                                         <div class="col-md-3 ordFeature">
                                                             <?php
-if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0)
-{
-    ?>
+                                                                if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0)
+                                                                {
+                                                                    ?>
                                             
                                               <a href="addOrder.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>" class="tabFet">
                                                                 <span class="autoFill"></span>
@@ -583,7 +582,7 @@ else
                         
                         <div class="container topOrder">
                             <div class="row">
-                                <div class="sltSupp">
+                                <div class="sltSupp ps-0">
                                     <!-- Select Supplier -->
                                     
                                     

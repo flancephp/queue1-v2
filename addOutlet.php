@@ -133,7 +133,7 @@ if (isset($_POST['revenueCenterId']) && $_POST['revenueCenterId'] > 0)
 	while($catRes = mysqli_fetch_array($mainMapRes))
 	{ 
 
-		$strcat .= "<input type='checkbox' class='form-check-input' name='catIds[]' value='".$catRes['id']."' >&nbsp;<label class='form-label'>".$catRes['catName']."</label>&nbsp;&nbsp;";
+		$strcat .= "<input type='checkbox' name='catIds[]' value='".$catRes['id']."' > ".$catRes['catName']." ";
 
 	}
 	echo $strcat;
@@ -242,11 +242,11 @@ $deptResult = mysqli_query($con, $deptQry);
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
-                    <form role="form" action="" method="post">
+                    <form role="form" action="" method="post" class="container">
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
-                                    <a href="manageOutlets.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="manageOutlets.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
@@ -254,13 +254,13 @@ $deptResult = mysqli_query($con, $deptQry);
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
                                     <!-- <div class="btnBg">
-                                        <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"><span
+                                        <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                                 <span class="nstdSpan">Item</span></span> <span class="dsktp-Btn">Add
                                                 Item</span></a>
                                     </div> -->
                                     <div class="btnBg">
-                                        <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                                 class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                     </div>
@@ -271,13 +271,13 @@ $deptResult = mysqli_query($con, $deptQry);
 
                     <div class="container itmMng-Src outletFrm">
                         <div class="row">
-                            <div class="col-md-8 oltCol-8">
+                            <div class="col-md-12 oltCol-8">
                                 <div class="acntStp">
                                     <div class="addUser-Form acntSetup-Form row">
-                                        <div class="acnt-Div nmOutlet">
+                                        <div class="acnt-Div">
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="name" id="name" required
@@ -286,7 +286,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?></label>
+                                                    <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="cstmSelect">
@@ -323,7 +323,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                             <div class="outletChk" style="display:none;">
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
@@ -354,7 +354,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?></label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
@@ -368,14 +368,6 @@ $deptResult = mysqli_query($con, $deptQry);
                                                         </select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row chkOlt-Row">
-                                                <div class="col-md-4">
-                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                   <span id="showCatIds"></span>
-                                                </div>
                                                 </div>
                                             </div>
                                         </div>

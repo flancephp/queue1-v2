@@ -150,14 +150,14 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <button type="submit" name="submitBtn" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                    <button type="submit" name="submitBtn" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
 
@@ -170,7 +170,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
                                 <div class="acnt-Div">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name');?></label>
+                                            <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name');?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="accountName" id="accountName" value="<?php echo $resRow['accountName']; ?>"
@@ -181,7 +181,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="ownerName" class="form-label"><?php echo showOtherLangText('Owner Name');?></label>
+                                            <label for="ownerName" class="form-label"><?php echo showOtherLangText('Owner Name');?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" value="<?php echo $resRow['name']; ?>" name="ownerName" 
@@ -191,7 +191,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="streetAdd-1" class="form-label"><?php echo showOtherLangText('Street address 1');?></label>
+                                            <label for="streetAdd-1" class="form-label"><?php echo showOtherLangText('Street address 1');?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <textarea class="form-control" id="address1" name="address1"
@@ -221,7 +221,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="inputCity" class="form-label"><?php echo showOtherLangText('City');?></label>
+                                            <label for="inputCity" class="form-label"><?php echo showOtherLangText('City');?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" value="<?php echo $resRow['city']; ?>"  name="city" id="city"
@@ -231,7 +231,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="selectCountry" class="form-label"><?php echo showOtherLangText('Country');?></label>
+                                            <label for="selectCountry" class="form-label"><?php echo showOtherLangText('Country');?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                         <select name="country" id="country" class="form-control"
@@ -260,7 +260,7 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
 
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email');?></label>
+                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email');?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="email" class="form-control" name="email" id="email" value="<?php echo $resRow['email']; ?>"

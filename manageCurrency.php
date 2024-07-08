@@ -150,7 +150,7 @@ $curResult = mysqli_query($con, $sql);
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
@@ -158,13 +158,13 @@ $curResult = mysqli_query($con, $sql);
                             <div class="usrAd-Btn">
                                 <div class="curExt-Btn">
                                     <div class="btnBg">
-                                        <a href="editMainCurrency.php?currencyType=1" class="sub-btn std-btn mb-usrBkbtn"><span
+                                        <a href="editMainCurrency.php?currencyType=1" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-ellipsis"></i>
                                                 <span class="nstdSpan"><?php echo showOtherLangText('Main Currency'); ?></span></span> <span
                                                 class="dsktp-Btn"><?php echo showOtherLangText('Edit Main Currency');?></span></a>
                                     </div>
                                     <div class="btnBg">
-                                        <a href="addCurrency.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                        <a href="addCurrency.php" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span>
                                             <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
                                     </div>

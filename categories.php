@@ -247,14 +247,14 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"
+                                    <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#add-Category"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan"><?php echo showOtherLangText('Category');?></span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Add Category');?></span></a>
@@ -355,11 +355,11 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Add Category');?></h1>
                 </div>
                 <div class="modal-body">
-                    <input type="text" required class="form-control" id="category" name="category" placeholder="<?php echo showOtherLangText('Category');?>">
+                    <input type="text" required class="form-control" id="category" name="category" placeholder="<?php echo showOtherLangText('Category*');?>">
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -380,12 +380,12 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                 <div class="modal-body">
                     
                     <input type="hidden" name="id" id="edit-id" value="" /> 
-                    <input type="text" class="form-control" name="editCategory" id="editCategory" required placeholder="<?php echo showOtherLangText('Category'); ?>">
+                    <input type="text" class="form-control" name="editCategory" id="editCategory" required placeholder="<?php echo showOtherLangText('Category*'); ?>">
                    
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Save'); ?></button>
                     </div>
                 </div>
             </div>
