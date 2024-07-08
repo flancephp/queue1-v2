@@ -1,0 +1,31 @@
+html[dir=rtl] .cntAreartl {
+  max-width: 90% !important;
+}
+
+html[dir=rtl] .acc-info .fa-angle-down {
+  margin-right: 25px;
+  margin-left: 0;
+}
+
+
+
+html[dir=rtl] .brdLft::after {
+  content: '';
+  width: 1px;
+  height: 65%;
+  top: 50%;
+  left: 0%;
+  right: unset;
+  background-color: #a9b0c0;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+html[dir=rtl] .brdLft {
+  border-left: none !important;
+  border-right: none;
+}
+
+html[dir=rtl] .newOrder {
+  padding: 0 25px !important;
+}

@@ -742,10 +742,10 @@ a.sbActive .mb_nvSubIcn {
   font-weight: 500;
 }
 
-.imgItm {
+/*.imgItm {
   width: 30px;
   height: auto;
-}
+}*/
 
 .cntTable {
   color: #1c2047;
@@ -4597,7 +4597,8 @@ html[dir="rtl"] .alert-dismissible .btn-close {
 
 // New Order Page Start
 html[dir="rtl"] .newOrder {
-  padding: 0 5px 0 25px;
+  /* 6-7-24 */
+  padding: 0 25px 0 5px !important; 
 }
 html[dir="rtl"] .prcTable {
   padding: 7px 5px 7px 20px;
@@ -4621,7 +4622,7 @@ html[dir="rtl"] .input-group .btn {
   border-radius: 8px;
 }
 html[dir="rtl"] .acc-info .fa-angle-down {
-  margin-right: 40px;
+  margin-right: 25px;
   margin-left: 0;
 }
 html[dir="rtl"] .acc-info .dropdown-menu.show {
@@ -9416,9 +9417,9 @@ html[dir="rtl"] .curExt-Btn .btnBg:first-child {
     padding: 10px 16px;
   }
 
-  .imgItm {
+  /*.imgItm {
     width: 40px;
-  }
+  }*/
 
   .cnfrm img,
   .doc-bx img,
