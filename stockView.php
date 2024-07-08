@@ -318,6 +318,10 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
         .w-55 {
             width: 45%;
         }
+        .storeCont .h2 {
+            overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 2;display: -webkit-box; -webkit-box-orient: vertical;white-space: normal;
+        }
+        .itemSectionPart .modal-table .table-row .table-cell:first-child { min-width: 40px; }
     </style>
 </head>
 
@@ -432,7 +436,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                             <div class="othStr">
                                                 <div class="storeCont">
                                                     <h2 class="h2">
-                                                        <?php echo getMobileStockTakeCount($storageDeptRow['id']); ?><br><?php echo $storageDeptRow['name'];?>
+                                                        <?php echo getMobileStockTakeCount($storageDeptRow['id']); ?> <?php echo $storageDeptRow['name'];?>
                                                     </h2>
                                                     <hr>
                                                     <p class="body2">

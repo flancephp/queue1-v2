@@ -19071,7 +19071,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   /* Custom Btn CSS Start */
   .sub-btn {
     border-radius: 15px;
-    padding: 9px 13px 9px 35px;
+    padding: 9px 20px 9px 20px !important;
     font-size: 16px;
     line-height: 20px;
     font-weight: 600;

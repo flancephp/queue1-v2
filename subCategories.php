@@ -219,14 +219,14 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="categories.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="categories.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"
+                                    <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#add-Sub_category"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan">Sub. Category</span></span> <span
@@ -330,7 +330,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                 <div class="modal-body">
                 <input type="hidden" name="parentId" class="form-control"
                             value="<?php echo $_REQUEST['parentId'];?>">
-                <input type="text" class="form-control" id="addSub-Category" name="addSub-Category" required placeholder="Sub Category">
+                <input type="text" class="form-control" id="addSub-Category" name="addSub-Category" required placeholder="Sub Category*">
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
@@ -356,7 +356,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                    
                     <input type="hidden" name="id" id="edit-id" value="" /> 
                     <input type="hidden" name="parentId" id="parent-id" value="" />   
-                    <input type="text"required class="form-control" id="editSub-Category" value="" name="editSub-Category" placeholder="Sub Category">
+                    <input type="text"required class="form-control" id="editSub-Category" value="" name="editSub-Category" placeholder="Sub Category*">
                     
                 </div>
                 <div class="modal-footer">

@@ -198,14 +198,14 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"
+                                    <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"
                                         data-bs-toggle="modal" data-bs-target="#add-Unit"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-plus"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
@@ -270,7 +270,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                                                     data-bs-target="#edit-Unit">
                                                     <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
                                                 </a>
-                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');">
+                                                <a href="javascript:void(0)" class="userLink editicon" onClick="getDelNumb('<?php echo $row['id'];?>');">
                                                     <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                                 </a>
                                             </div>
@@ -307,7 +307,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                 <form class="addUser-Form row" id="unitfrm" name="unitfrm" action="" method="post">
                 <div class="modal-body">
                     
-                        <input required type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name') ?>">
+                        <input required type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name*') ?>">
                    
                 </div>
                 <div class="modal-footer">
@@ -332,7 +332,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                 </div>
                 <div class="modal-body">
                     
-                        <input type="text" required class="form-control" id="editUnit" name="editUnit" placeholder="Name">
+                        <input type="text" required class="form-control" id="editUnit" name="editUnit" placeholder="Name*">
                     
                     <input type="hidden" name="id" id="edit-id" value="" /> 
                 </div>
