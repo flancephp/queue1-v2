@@ -329,7 +329,7 @@ if($_SESSION['deptId'] != '')
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -384,33 +384,32 @@ if($_SESSION['deptId'] != '')
                     <div class="stcPart">
                         <div class="container topOrder newReq nwOrder-Div">
                             <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p>
-                                <?php 
-                                
-                                  echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
-                                echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
-                                echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
-                                echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
-                                echo isset($_GET['mes']) ? $_GET['mes'] : '';
-                              
-                                if( isset($_GET['delete']) && $_GET['delete'] == 1 )
-                                {
-                                    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
-                                }
-                                elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
-                                {
-                                    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
-                                }
-
-                                
-                                ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
+                                <div class="alert alert-success alert-dismissible fade show lg__left__margin" role="alert">
+                                    <p>
+                                        <?php 
+                                    
+                                      echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
+                                    echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
+                                    echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                                    echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                                    echo isset($_GET['mes']) ? $_GET['mes'] : '';
+                                  
+                                    if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                                    {
+                                        echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                                    }
+                                    elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                                    {
+                                        echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                                    }
+    
+                                    
+                                    ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             <?php } ?>
-                            
+
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
                                     <div class="ord-Box">
@@ -424,107 +423,115 @@ if($_SESSION['deptId'] != '')
                                     <div class="container">
 
                                         <div class="mbFeature">
-                                            <div class="row gx-3 justify-content-end">
-                                                <div class="col-md-5 text-center">
-                                                    <div class="row featRow">
-                                                        <div class="col-md-3 ordFeature">
-                                                            <?php
-if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0)
-{
-    ?>
-                                            
-                                              <a href="addRecusation.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>" class="tabFet">
-                                                                <span class="autoFill"></span>
-                                                                <p class="btn2">
-                                                                <?php echo showOtherLangText('Auto Fill'); ?></p>
-                                                            </a>
-                                            <?php
-}
-else
-{
-    ?>
-
-                                            <a href="javascript:void(0)" class="tabFet">
-                                                                <span class="autoFill"></span>
-                                                                <p class="btn2">
-                                                                <?php echo showOtherLangText('Auto Fill'); ?></p>
-                                                            </a>
-
-                                            <?php
-}
- ?>
+                                            <div class="d-flex justify-content-end">
+                                                <div class="w-100 text-center" style="max-width: 347px;">
+                                                    <div class="row g-3"> 
+                                                        <div class="col-md-4">
+                                                            <div class="featRow">
+                                                                <div class="ordFeature"> 
+                                                                    <?php if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) { ?>
+        
+                                                                    <a href="addRecusation.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>"
+                                                                        class="tabFet">
+                                                                        <span class="autoFill"></span>
+                                                                        <p class="btn2">
+                                                                            <?php echo showOtherLangText('Auto Fill'); ?></p>
+                                                                    </a>
+                                                                    <?php } else { ?>
+        
+                                                                    <a href="javascript:void(0)" class="tabFet">
+                                                                        <span class="autoFill"></span>
+                                                                        <p class="btn2">
+                                                                            <?php echo showOtherLangText('Auto Fill'); ?></p>
+                                                                    </a> 
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-3 ordFeature "><a href="javascript:void(0)" onClick="clearTempItem()"
-                                                                class="tabFet">
-                                                                <span class="clear"></span>
-                                                                <p class="btn2"><?php echo showOtherLangText('Clear'); ?></p>
-                                                        </a></div>
-                                                        <div class="col-md-4 ordFeature drpFee position-relative">
-                                                            <a href="javascript:void(0)" class="dropdown-toggle tabFet"
-                                                                role="button" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                <span class="fee"></span>
-                                                                <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
-                                                                        class="fa-solid fa-angle-down"></i>
-                                                                </p>
-                                                            </a>
-
-                                                            <ul class="item dropdown-menu">
-                                                                <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-
-                                                            <ul class="subitem dropdown-item">
-                                                            <?php
-                                                            //add item fee & custom fee modal box 
-                                                            $sql = " SELECT * 
-                                                            FROM tbl_custom_items_fee 
-                                                            WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-                                                            $customItemsResult = mysqli_query($con, $sql);
-
-                                                            //$liCount = 0;
-                                                            while ($resultRow = mysqli_fetch_array($customItemsResult)) 
-                                                            {
-                                                                //$liCount++;
-                                                                echo "<li class='innerLi'><a tabindex='-1' href='addRecusation.php?feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." ' >".$resultRow['itemName']."</a></li>";
-                                                            } 
-                                                            ?>
-                                                            </ul>
-                                                            <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn"
-                                        data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
-                                         <li><a class="item dropdown-item"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a><ul class="subitem dropdown-item">
-                                                                        <?php
-            //add item fee & custom fee modal box 
-            $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-            $ordFeeFetch = mysqli_query($con, $sqlQry);
-            //$innerLiCount = 0;
-            while ($resultRow = mysqli_fetch_array($ordFeeFetch))
-            {
-                // $innerLiCount++;
-                echo "<li class='innerLi'><a tabindex='-1' href='addRecusation.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
-            } 
-            ?>
-                                                                         </ul></li>
-                                                                        <li><a class="dropdown-item"
-                                                                        href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
-                                                                        
-                                                                         </li>
-                                                            </ul>
+                                                        <div class="col-md-8">
+                                                            <div class="featRow row"> 
+                                                                <div class="col-md-6 ordFeature ">
+                                                                    <a href="javascript:void(0)" onClick="clearTempItem()" class="tabFet">
+                                                                        <span class="clear"></span>
+                                                                        <p class="btn2">
+                                                                            <?php echo showOtherLangText('Clear'); ?></p>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-6 ordFeature drpFee position-relative">
+                                                                    <a href="javascript:void(0)" class="dropdown-toggle tabFet"
+                                                                        role="button" data-bs-toggle="dropdown"
+                                                                        aria-expanded="false">
+                                                                        <span class="fee"></span>
+                                                                        <p class="btn2"><?php echo showOtherLangText('Fee'); ?>
+                                                                            <i class="fa-solid fa-angle-down"></i>
+                                                                        </p>
+                                                                    </a>
+        
+                                                                    <ul class="item dropdown-menu">
+                                                                        <li class="dropdown innerDrop">
+                                                                            <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a> 
+                                                                            <ul class="subitem submenu">
+                                                                                <?php
+                                                                                //add item fee & custom fee modal box 
+                                                                                $sql = " SELECT * 
+                                                                                FROM tbl_custom_items_fee 
+                                                                                WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                                                $customItemsResult = mysqli_query($con, $sql);
+                    
+                                                                                //$liCount = 0;
+                                                                                while ($resultRow = mysqli_fetch_array($customItemsResult)) 
+                                                                                {
+                                                                                    //$liCount++;
+                                                                                    echo "<li class='innerLi dropdown-item px-2'><a tabindex='-1' href='addRecusation.php?feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." ' >".$resultRow['itemName']."</a></li>";
+                                                                                } 
+                                                                                ?>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item"
+                                                                                class="sub-btn std-btn mb-usrBkbtn"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#new-service-item"
+                                                                                href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
+                                                                        </li>
+                                                                        <li class="dropdown innerDrop">
+                                                                            <a class="item dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                            <ul class="subitem submenu large">
+                                                                                <?php
+                                                                                    //add item fee & custom fee modal box 
+                                                                                    $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                                                    $ordFeeFetch = mysqli_query($con, $sqlQry);
+                                                                                    //$innerLiCount = 0;
+                                                                                    while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+                                                                                    {
+                                                                                        // $innerLiCount++;
+                                                                                        echo "<li class='innerLi dropdown-item px-2'><a tabindex='-1' href='addRecusation.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
+                                                                                    } 
+                                                                                ?>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a>
+                                                                        </li>
+        
+                                                                       
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
-                                                
-                                                
+
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn sub-btn form-submit-btn"><span
-                                                class="align-middle">Submit</span> <i
-                                                class="fa-solid fa-angle-right"></i></a>
+                                        <a class="btn sub-btn form-submit-btn"><span class="align-middle">Submit</span>
+                                            <i class="fa-solid fa-angle-right"></i></a>
                                     </div>
                                     <div class="fetBtn">
                                         <a href="javascript:void(0)">
@@ -534,11 +541,11 @@ else
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        </form>
                         <div class="container topOrder newReq">
 
                             <div class="row">
-                                <div class="sltSupp">
+                                <div class="sltSupp ps-0">
                                     <!-- Select Supplier  -->
                                     <!-- <div class="btn-group glb-btn">
                                         <button type="button"
@@ -554,56 +561,60 @@ else
                                             </li>
                                         </ul>
                                     </div> -->
-                                    <form action="" id="frm" name="frm" method="post" autocomplete="off" class="container">
+                                    <form action="" id="frm" name="frm" method="post" autocomplete="off">
                                         <input type="hidden" name="placeOrder" class="btn btn-primary"
                                             value="<?php echo showOtherLangText('Submit'); ?>" />
-                                    <div class="btn-group glb-btn">
-                                        <button type="button"
-                                            class="btn body3 drp-btn dropdown-toggle dropdown-toggle-split d-flex align-items-center justify-content-between"
-                                            data-bs-toggle="dropdown" aria-expanded="false"><span id="requisitionText"><?php echo showOtherLangText('Requisition By'); ?>:</span>
-                                            <i class="fa-solid fa-angle-down"></i></button>
-                                                <?php
+                                        <div class="btn-group glb-btn">
+                                            <button type="button"
+                                                class="btn body3 drp-btn dropdown-toggle dropdown-toggle-split d-flex align-items-center justify-content-between"
+                                                data-bs-toggle="dropdown" aria-expanded="false"><span
+                                                    id="requisitionText"><?php echo showOtherLangText('Requisition By'); ?>:</span>
+                                                <i class="fa-solid fa-angle-down"></i></button>
+                                            <?php
 
-    $sqlSet = " SELECT DISTINCT(du.id),du.* FROM tbl_deptusers du
-    INNER JOIN tbl_designation_sub_section_permission dssp ON(dssp.type_id=du.id) AND dssp.account_Id=du.account_Id 
+                                                $sqlSet = " SELECT DISTINCT(du.id),du.* FROM tbl_deptusers du
+                                                INNER JOIN tbl_designation_sub_section_permission dssp ON(dssp.type_id=du.id) AND dssp.account_Id=du.account_Id 
 
-    WHERE du.account_id = '".$_SESSION['accountId']."' AND dssp.designation_id = '".$_SESSION['designation_id']."' AND dssp.designation_section_permission_id = '2' AND type = 'member'  order by name  ";
+                                                WHERE du.account_id = '".$_SESSION['accountId']."' AND dssp.designation_id = '".$_SESSION['designation_id']."' AND dssp.designation_section_permission_id = '2' AND type = 'member'  order by name  ";
 
-    $resultSet = mysqli_query($con, $sqlSet);
+                                                $resultSet = mysqli_query($con, $sqlSet);
 
-    ?>
-                                        <ul class="dropdown-menu requisition_dropdown">
-                                <?php 
-            while($deptUserRow = mysqli_fetch_array($resultSet))
-            {
-                $sel = $_SESSION['recMemberId'] == $deptUserRow['id'] ? 'selected' : '';
-                ?>
-                                            <li data-id=<?php echo $deptUserRow['id'];?> data-value="<?php echo $deptUserRow['name'];?>"><a class="dropdown-item <?php echo $sel; ?>" href="javascript:void(0)"><?php echo $deptUserRow['name'] ?></a>
-                                            </li>
-                <?php 
-            } 
-
-            ?>
-                                           <!--  <li><a class="dropdown-item" href="javascript:void(0)">Requisition 2</a>
+                                            ?>
+                                            <ul class="dropdown-menu requisition_dropdown">
+                                                <?php 
+                                                    while($deptUserRow = mysqli_fetch_array($resultSet))
+                                                    {
+                                                    $sel = $_SESSION['recMemberId'] == $deptUserRow['id'] ? 'selected' : '';
+                                                ?>
+                                                <li data-id=<?php echo $deptUserRow['id'];?>
+                                                    data-value="<?php echo $deptUserRow['name'];?>"><a
+                                                        class="dropdown-item <?php echo $sel; ?>"
+                                                        href="javascript:void(0)"><?php echo $deptUserRow['name'] ?></a>
+                                                </li>
+                                                <?php 
+                                                    }  
+                                                ?>
+                                                <!--  <li><a class="dropdown-item" href="javascript:void(0)">Requisition 2</a>
                                             </li>
                                             <li><a class="dropdown-item" href="javascript:void(0)">Requisition 3</a>
                                             </li> -->
-                                        </ul>
-                                    </div>
-
-                                    <div class="input-group srchBx">
-                                        <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" onKeyUp="myFunction()" name="search" id="search"
-                                            aria-label="Search">
-                                        <div class="input-group-append">
-                                            <button class="btn" type="button">
-                                                <i class="fa fa-search"></i>
-                                            </button>
+                                            </ul>
                                         </div>
-                                    </div>
+
+                                        <div class="input-group srchBx">
+                                            <input type="search" class="form-control"
+                                                placeholder="<?php echo showOtherLangText('Search Item'); ?>"
+                                                onKeyUp="myFunction()" name="search" id="search" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn" type="button">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
 
                                 </div>
                                 <div id="totalOrdArea" class="ordInfo reqInfo">
-                                          <?php
+                                    <?php
                         $sql=" SELECT * FROM  tbl_recusition_items_temp WHERE deptId = '".$_SESSION['deptId']."' AND account_id = '".$_SESSION['accountId']."'  AND `userId` = '".$_SESSION['id']."'  ";
                         $result = mysqli_query($con, $sql);
                         while( $row = mysqli_fetch_array($result) )
@@ -630,7 +641,7 @@ else
                         ?>
                                     <div class="container">
                                         <div class="prcTable">
-                                             <?php
+                                            <?php
                                 if(isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0)
                                 { ?>
                                             <div class="price justify-content-between">
@@ -640,11 +651,12 @@ else
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p><?php echo getPriceWithCur($totalChargePrice,$getDefCurDet['curCode']) ?></p>
+                                                        <p><?php echo getPriceWithCur($totalChargePrice,$getDefCurDet['curCode']) ?>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                             <?php
+                                            <?php
                                 } //show here order level fixed/ percent/ tax charges       
                                 $taxCharges=0;
                                 $fixedCharges=0;
@@ -664,7 +676,8 @@ else
 
                                             <div class="price justify-content-between taxRow">
                                                 <div class="p-2 delIcn text-center">
-                                                    <a onClick="getDelNumb('<?php echo $fixRow['id'] ?>', 3)" href="javascript:void(0)">
+                                                    <a onClick="getDelNumb('<?php echo $fixRow['id'] ?>', 3)"
+                                                        href="javascript:void(0)">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
@@ -673,7 +686,8 @@ else
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p><?php echo getPriceWithCur($fixRow['amt'],$getDefCurDet['curCode']); ?></p>
+                                                        <p><?php echo getPriceWithCur($fixRow['amt'],$getDefCurDet['curCode']); ?>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -687,9 +701,10 @@ else
                                         $perCharges += $perRow['amt'];
                                         $perChargeTotal = ($totalChargePrice*$perRow['amt']/100);
                                         ?>
-                                         <div class="price justify-content-between taxRow">
+                                            <div class="price justify-content-between taxRow">
                                                 <div class="p-2 delIcn text-center">
-                                                    <a onClick="getDelNumb('<?php echo $perRow['id'] ?>', 3)" href="javascript:void(0)">
+                                                    <a onClick="getDelNumb('<?php echo $perRow['id'] ?>', 3)"
+                                                        href="javascript:void(0)">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
@@ -698,12 +713,13 @@ else
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p><?php echo getPriceWithCur($perChargeTotal,$getDefCurDet['curCode']) ?></p>
+                                                        <p><?php echo getPriceWithCur($perChargeTotal,$getDefCurDet['curCode']) ?>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                         <?php 
+                                            <?php 
                                     } //start order level item tax charges
                                     $sqlSetQry = " SELECT * FROM tbl_order_fee WHERE id IN(".$itemIds.")  AND account_id = '".$_SESSION['accountId']."'  AND feeType =1 ";
                                     $resultRows = mysqli_query($con, $sqlSetQry);
@@ -716,9 +732,10 @@ else
                                         $taxCharges += $taxRow['amt'];
                                         $taxPerChargesTotal = ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges )*$taxRow['amt']/100 );
                                         ?>
-                                        <div class="price justify-content-between taxRow">
+                                            <div class="price justify-content-between taxRow">
                                                 <div class="p-2 delIcn text-center">
-                                                    <a onClick="getDelNumb('<?php echo $taxRow['id'] ?>', 3)" href="javascript:void(0)">
+                                                    <a onClick="getDelNumb('<?php echo $taxRow['id'] ?>', 3)"
+                                                        href="javascript:void(0)">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
@@ -727,12 +744,13 @@ else
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p><?php echo getPriceWithCur($taxPerChargesTotal,$getDefCurDet['curCode']) ?></p>
+                                                        <p><?php echo getPriceWithCur($taxPerChargesTotal,$getDefCurDet['curCode']) ?>
+                                                        </p>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
-                                         <?php 
+                                            <?php 
                                     } } //calculating net value here
                                 $totalTaxCharges= ( ($totalChargePrice+$totalFixedCharges+$totalPerCharges)*$taxCharges/100);//calculating total tax value 
                                 $netTotalValue= ($totalChargePrice+$totalFixedCharges+$totalPerCharges+$totalTaxCharges);
@@ -747,7 +765,8 @@ else
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
-                                                        <p><?php echo getPriceWithCur($netTotalValue,$getDefCurDet['curCode']) ?></p>
+                                                        <p><?php echo getPriceWithCur($netTotalValue,$getDefCurDet['curCode']) ?>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -788,7 +807,9 @@ else
                                     <p><?php echo showOtherLangText('Price'); ?></p>
                                 </div>
                                 <div class="reqClm-Unit tb-head">
-                                    <p><p><?php echo showOtherLangText('C.Unit'); ?></p></p>
+                                    <p>
+                                    <p><?php echo showOtherLangText('C.Unit'); ?></p>
+                                    </p>
                                 </div>
                             </div>
                             <div class="reqSt-Qty tb-head">
@@ -796,13 +817,15 @@ else
                             </div>
                             <div class="reqCnt-Scnd d-flex align-items-center">
                                 <div class="reqClm-Qty tb-head">
-                                <div class="d-flex align-items-center">
-                                                <p><?php echo showOtherLangText('Quantity'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                </div>
+                                    <div class="d-flex align-items-center">
+                                        <p><?php echo showOtherLangText('Quantity'); ?></p>
+                                        <span class="dblArrow">
+                                            <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
+                                                    class="fa-solid fa-angle-up"></i></a>
+                                            <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
+                                                    class="fa-solid fa-angle-down"></i></a>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="reqClm-Ttl tb-head">
                                     <p><?php echo showOtherLangText('Total'); ?></p>
@@ -821,7 +844,7 @@ else
                     <div id="boxscroll">
                         <div class="container cntTable">
                             <!-- Item Table Body Start -->
-                        <?php 
+                            <?php 
 
                         while( $row = mysqli_fetch_array($resRows) ) //start custom item charge loop
                         {	
@@ -832,8 +855,8 @@ else
                                 <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
                                     <div class="reqImg tb-bdy">
                                         <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
-                                            onClick="getDelNumb('<?php echo $row['id'] ?>', 1)" style="color:#808080"
-                                            ><i class="fa-solid fa-trash-can"></i></a>
+                                            onClick="getDelNumb('<?php echo $row['id'] ?>', 1)" style="color:#808080"><i
+                                                class="fa-solid fa-trash-can"></i></a>
                                     </div>
                                     <div class="reqCnt-Fst d-flex align-items-center">
                                         <div class="reqClm-Itm tb-bdy">
@@ -864,9 +887,9 @@ else
                                     <div class="requi-Hide">
                                         <div class="reqClm-Note tb-bdy">
                                             <div class="mb-ReqCode"></div>
-                                             <input type="text" class="form-control note-itm" placeholder="Note" autocomplete="off"
-                                            name="itemNotes[<?php echo $row['id'];?>]">
-                                       </div>
+                                            <input type="text" class="form-control note-itm" placeholder="Note"
+                                                autocomplete="off" name="itemNotes[<?php echo $row['id'];?>]">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mbLnk-Reqtn">
@@ -956,34 +979,34 @@ else
                     }
                 }
             ?>
-            <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
-                                <input type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
-                                    value="<?php echo getPriceWithCur($row['stockPrice'],$getDefCurDet['curCode']);?>" />
-                                <?php 
+                            <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
+                            <input type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
+                                value="<?php echo getPriceWithCur($row['stockPrice'],$getDefCurDet['curCode']);?>" />
+                            <?php 
             if($showAutoFillQty > 0)
             {
                 ?>
-                                <input type="hidden" name="autoFillQty[<?php echo $row['id'];?>]" id="autoFill"
-                                    value="<?php echo $showAutoFillQty;?>" />
-                                <?php 
+                            <input type="hidden" name="autoFillQty[<?php echo $row['id'];?>]" id="autoFill"
+                                value="<?php echo $showAutoFillQty;?>" />
+                            <?php 
             } 
             ?>
-                                <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
-                                    value="<?php echo $totalPriceShowTop;?>" />
-                                <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
-                                    value="<?php echo $row['factor'];?>" />
+                            <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
+                                value="<?php echo $totalPriceShowTop;?>" />
+                            <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
+                                value="<?php echo $row['factor'];?>" />
 
-                                <div class="newReqTask">
+                            <div class="newReqTask">
                                 <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
                                     <div class="reqImg tb-bdy">
-                                        
+
                                         <?php $img = '';
                     if($row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName']))
                     {   
                         echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
                     } ?>
 
-                                    
+
                                     </div>
                                     <div class="reqCnt-Fst d-flex align-items-center">
                                         <div class="reqClm-Itm tb-bdy">
@@ -1003,17 +1026,19 @@ else
                                     </div>' : ''; ?>
                                     <div class="reqCnt-Scnd d-flex align-items-center">
                                         <div class="reqClm-Qty tb-bdy">
-                                            <input type="text" class="form-control qty-itm" name="qty[<?php echo $row['id'];?>]"
+                                            <input type="text" class="form-control qty-itm"
+                                                name="qty[<?php echo $row['id'];?>]"
                                                 onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $availableQty > 0 ? $availableQty: 0 ;?>', '<?php echo $row['id'];?>', '<?php echo $row['proType'];?>')"
                                                 value="<?php echo $proQty;?>" autocomplete="off" size="1">
                                         </div>
                                         <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Ttl tb-bdy"><p id="totalPrice'.$x.'">'.getPriceWithCur($totalQtyPrice,$getDefCurDet['curCode']).'</p></div>' : ''; ?>
-                                        </div>
+                                    </div>
                                     <div class="requi-Hide">
                                         <div class="reqClm-Note tb-bdy">
                                             <div class="mb-ReqCode"></div>
                                             <input type="text" name="notes[<?php echo $row['id'];?>]"
-                                            id="notes<?php echo $row['id'];?>" class="form-control note-itm" placeholder="Note">
+                                                id="notes<?php echo $row['id'];?>" class="form-control note-itm"
+                                                placeholder="Note">
                                         </div>
                                     </div>
                                 </div>
@@ -1026,7 +1051,7 @@ else
                             </div>
                             <?php 
     }}//End of loop ?>
-                   
+
 
 
 
@@ -1036,188 +1061,196 @@ else
 
                 </section>
 
- </form>
+                </form>
             </div>
         </div>
     </div>
 
 
-<?php require_once('footer.php');?>
+    <?php require_once('footer.php');?>
 
-    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
+    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post"
+        autocomplete="off">
         <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
-                </div>
-                <div class="addUser-Form modal-body">
-                    <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
-                    <input type="text" class="form-control" name="feeName" id="feeName" value=""
-                                             autocomplete="off"
-                                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required />
-                    <select class="form-control" name="feeType" id="typeOfFee"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
-                                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
-                                            </option>
-                                        </select>
-                    <input type="text" class="form-control" id="amt" name="amt" value=""
-                                             autocomplete="off"
-                                            placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required />
-                                            
-                     
-                </div>
-                 <div class="feeSave">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
+                    </div>
+                    <div class="addUser-Form modal-body">
+                        <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
+                        <input type="text" class="form-control" name="feeName" id="feeName" value="" autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required />
+                        <select class="form-control" name="feeType" id="typeOfFee"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
+                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
+                            </option>
+                        </select>
+                        <input type="text" class="form-control" id="amt" name="amt" value="" autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required />
+
+
+                    </div>
+                    <div class="feeSave">
                         <input type="checkbox" class="optionCheck" name="feeType" id="feeType" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('Tax fee'); ?></span><br>
-                   
-                </div>
+                        <span class="subTittle1" style="vertical-align:text-top;">
+                            <?php echo showOtherLangText('Tax fee'); ?></span><br>
+
+                    </div>
                     <div class="feeSave">
                         <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
                         <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
 list'); ?></span><br>
-                   
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" id="feesave_add" name="feesave_add"
+                                class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div></form>
-    
-<form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
-    <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
-                </div>
-                <div class="modal-body">
-                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                </div>
-                  <div>
-                    <div class="feeSave">
-                        <input type="checkbox" class="optionCheck"  id="visibility" name="visibility" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     </form>
-<div id="dialog" style="display: none;">
+
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm"
+        method="post" autocomplete="off">
+        <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" required class="form-control" id="itemName" name="itemName"
+                            placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                        <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt"
+                            placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>"
+                            autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                        <input type="text" required class="form-control" id="unit" name="unit"
+                            placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                    </div>
+                    <div>
+                        <div class="feeSave">
+                            <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                            <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+list'); ?></span><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" id="addFee" name="addFee"
+                                class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this charges?') ?>
     </div>
     <div id="dialog4" style="display: none;">
         <?php echo showOtherLangText('Are you sure to clear Temp data?') ?>
     </div>
-<form id="requisition_frm_id" name="requisition_frm_id" method="post" action="">
-     <input type="text" name="recMemberId" id="recMemberId" value="">
+    <form id="requisition_frm_id" name="requisition_frm_id" method="post" action="">
+        <input type="text" name="recMemberId" id="recMemberId" value="">
     </form>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script>
-    $(".requisition_dropdown").on("click", "a", function(e){
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+    $(".requisition_dropdown").on("click", "a", function(e) {
         var $this = $(this).parent();
-       
+
         $("#requisitionText").text($this.data("value"));
         $("#requisition_frm_id #recMemberId").val($this.data("id"));
         $('#requisition_frm_id').submit();
-      });
+    });
 
-    if($(".requisition_dropdown .selected").length>0)
-    {
+    if ($(".requisition_dropdown .selected").length > 0) {
         $("#requisitionText").text($(".requisition_dropdown .selected").text());
     }
 
-     function myFunction() {
+    function myFunction() {
         // Declare variables
         var input = document.getElementById("search");
-       var filter = input.value.toLowerCase();
-      var nodes = document.querySelectorAll('.newReqTask');
-      
-  for (i = 0; i < nodes.length; i++) {
-    if (nodes[i].innerText.toLowerCase().includes(filter)) {
-      nodes[i].style.setProperty("display", "block", "important");
-    } else {
-      nodes[i].style.setProperty("display", "none", "important");
-    }
-  }
+        var filter = input.value.toLowerCase();
+        var nodes = document.querySelectorAll('.newReqTask');
 
-  
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].innerText.toLowerCase().includes(filter)) {
+                nodes[i].style.setProperty("display", "block", "important");
+            } else {
+                nodes[i].style.setProperty("display", "none", "important");
+            }
+        }
+
+
     }
 
-     $("#search").on("search", function(evt){
-    if($(this).val().length == 0){
-        resetData();
-    }
+    $("#search").on("search", function(evt) {
+        if ($(this).val().length == 0) {
+            resetData();
+        }
     });
 
     function resetData() {
 
         $('#search').val('');
         myFunction();
-   }
-      function getDelNumb(delId, feeType){
-var newOnClick = "window.location.href='addRecusation.php?delId=" + delId + "&feeType=" + feeType +"'";
+    }
 
-    //console.log('click',newOnClick);
-    //return false;
+    function getDelNumb(delId, feeType) {
+        var newOnClick = "window.location.href='addRecusation.php?delId=" + delId + "&feeType=" + feeType + "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+        //console.log('click',newOnClick);
+        //return false;
 
-     }
-   // function getDelNumb(delId, feeType) {
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
 
-   //      $("#dialog").dialog({
-   //          autoOpen: false,
-   //          modal: true,
-   //          //title     : "Title",
-   //          buttons: {
-   //              '<?php echo showOtherLangText('Yes') ?>': function() {
-   //                  //Do whatever you want to do when Yes clicked
-   //                  $(this).dialog('close');
-   //                  window.location.href = 'addRecusation.php?delId=' + delId + '&feeType=' + feeType;
-   //              },
+    }
+    // function getDelNumb(delId, feeType) {
 
-   //              '<?php echo showOtherLangText('No') ?>': function() {
-   //                  //Do whatever you want to do when No clicked
-   //                  $(this).dialog('close');
-   //              }
-   //          }
-   //      });
+    //      $("#dialog").dialog({
+    //          autoOpen: false,
+    //          modal: true,
+    //          //title     : "Title",
+    //          buttons: {
+    //              '<?php echo showOtherLangText('Yes') ?>': function() {
+    //                  //Do whatever you want to do when Yes clicked
+    //                  $(this).dialog('close');
+    //                  window.location.href = 'addRecusation.php?delId=' + delId + '&feeType=' + feeType;
+    //              },
 
-   //      $("#dialog").dialog("open");
-   //      $('.custom-header-text').remove();
-   //      $('.ui-dialog-content').prepend(
-   //          '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-   //  }
+    //              '<?php echo showOtherLangText('No') ?>': function() {
+    //                  //Do whatever you want to do when No clicked
+    //                  $(this).dialog('close');
+    //              }
+    //          }
+    //      });
+
+    //      $("#dialog").dialog("open");
+    //      $('.custom-header-text').remove();
+    //      $('.ui-dialog-content').prepend(
+    //          '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    //  }
     function showTotal(qty, indexVal, availableQty, pId, proType) {
 
         var availableQty = parseFloat(availableQty);
@@ -1277,43 +1310,46 @@ var newOnClick = "window.location.href='addRecusation.php?delId=" + delId + "&fe
     //         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
     // }
 
-     function clearTempItem(){
-     var newOnClick = "window.location.href = 'addRecusation.php?clearTempPro'";
-     $('.deletelink').attr('onclick', newOnClick);
-     $('#clear-popup').modal('show');
+    function clearTempItem() {
+        var newOnClick = "window.location.href = 'addRecusation.php?clearTempPro'";
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#clear-popup').modal('show');
 
-     }
+    }
 
-$('.form-submit-btn').click(function(){
-$('#frm').submit();
-});
-</script>
- <style>
-        .subitem {
-  display: none;
-}
+    $('.form-submit-btn').click(function() {
+        $('#frm').submit();
+    });
+    </script>
+    <style>
+    .subitem {
+        display: none;
+    }
     </style>
     <script>
-$('.item').on('mouseover', 'li', function() {
-  $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
-}).on('mouseleave', function() {
-  $('.subitem', this).hide();
-});
-</script>
-<div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+    $('.item').on('mouseover', 'li', function() {
+        $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+    }).on('mouseleave', function() {
+        $('.subitem', this).hide();
+    });
+    </script>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?>
+                    </h1>
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
                     </div>
                     <div class="btnBg">
-                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                        <button type="button" onclick=""
+                            class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1326,13 +1362,15 @@ $('.item').on('mouseover', 'li', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data?') ?> </h1>
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
                     </div>
                     <div class="btnBg">
-                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                        <button type="button" onclick=""
+                            class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                     </div>
                 </div>
             </div>

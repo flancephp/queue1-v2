@@ -299,7 +299,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                                 <span class="fs-13">'.showOtherLangText('Variances').'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
+                                                <input type="checkbox" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
                                             </li>
                                         </ul>
@@ -333,55 +333,55 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                                 <span class="fs-13">'.showOtherLangText('Date') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
+                                                <input type="checkbox" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-user form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('User') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
+                                                <input type="checkbox"  name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-sup-invNo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Sup Invoice No.') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
+                                                <input type="checkbox" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ? '' : 'checked="checked"' ).' value="1">
                                                 <span class="fs-13">'.showOtherLangText('Type') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" onclick="showHideByClassHistoryItem(\'head7\')" 
+                                                <input type="checkbox"  onclick="showHideByClassHistoryItem(\'head7\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ? '' : 'checked="checked"' ).'name="itemReferTo" class="itmTblCheckboxHistory item-referTo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Refer to') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
+                                                <input type="checkbox"  name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Value') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
+                                                <input type="checkbox"  name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckboxHistory item-def-curr-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Default Currency Total') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
+                                                <input type="checkbox" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckboxHistory item-sec-curr-value form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Second Currency Total') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
+                                                <input type="checkbox" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-status form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Status') .'</span>
                                             </li>
                                             <li>
-                                                <input type="checkbox" checked="checked" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
+                                                <input type="checkbox" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
 
                                         '.( isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-paymentNo form-check-input" value="1">
                                                 <span class="fs-13">'.showOtherLangText('Payment no.') .'</span>
@@ -448,7 +448,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                 <h6 class="semibold">'.showOtherLangText('History Report').'</h6>
                             </div>
                             <div class="col-sm-6">
-                                <p class="text-end fs-15"><small>'.showOtherLangText('From') .'</small> '.$fromDate .' <small>'.showOtherLangText('To') .'</small>'.$toDate .'</p>
+                                <p class="text-end fs-15"><small>'.showOtherLangText('From') .'</small> '.$fromDate .' <small>'.showOtherLangText('To') .' </small>'.$toDate .'</p>
                             </div>
                         </div>
                     </div>';
@@ -587,25 +587,25 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                      $varianceClass='';
                     
                     if($count >= 1){
-                        $issueinClass='col-md-12';
+                        $issueinClass=' col-7';
                     ?>
 
                     <script>
                         if($('.varianceRow').css('display') == 'none')
                         {
                             
-                            <?php  $issueoutClass='col-md-12'; ?>
+                            <?php  $issueoutClass=' col-12'; ?>
                         }
                         else{
-                            <?php  $issueoutClass='col-md-6'; ?>
+                            <?php  $issueoutClass='col-6'; ?>
                         }
 
                         if($('.issueOutSection ').css('display') == 'none')
                         {
-                            <?php  $varianceClass='col-md-12'; ?>
+                            <?php  $varianceClass=' col-12'; ?>
                         }
                         else{
-                            <?php  $varianceClass ='col-md-6'; ?>
+                            <?php  $varianceClass =' col-6'; ?>
                         }
                     </script>
 
@@ -619,125 +619,127 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                      if($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0)
                         {
                             if($count >= 1){
-                                $issueinClass='col-md-12';
-                                $issueoutClass='col-md-6';
-                                $varianceClass='col-md-6';
+                                $issueinClass=' col-7';
+                                $issueoutClass=' col-3';
+                                $varianceClass=' col-2';
                             }
                             else
                             {
-                                $issueinClass='col-md-3';
-                                $issueoutClass='col-md-3';
-                                $varianceClass='col-md-6';
+                                $issueinClass=' col-3';
+                                $issueoutClass=' col-3';
+                                $varianceClass=' col-6';
                             }
                         }
                         elseif($checkIfPermissionToNewOrderSec > 0 )
                         {
                             if($count >= 1){
-                                $issueinClass='col-md-12';
-                                $issueoutClass='col-md-3';
-                                $varianceClass='col-md-12';
+                               $issueinClass=' col-7';
+                                $issueoutClass=' col-3';
+                                $varianceClass=' col-2';
                             }
                             else
                             {
-                                $issueinClass='col-md-3';
-                                $issueoutClass='col-md-3';
-                                $varianceClass='col-md-6';
+                                $issueinClass=' col-3';
+                                $issueoutClass=' col-3';
+                                $varianceClass=' col-6';
                             }
                         }
                         elseif($checkIfPermissionToNewReqSec > 0 )
                         {
-                            $issueinClass='col-md-3';
-                            $issueoutClass='col-md-6';
-                            $varianceClass='col-md-6';
+                            $issueinClass=' col-3';
+                            $issueoutClass=' col-6';
+                            $varianceClass=' col-6';
                         }
                         else
                         {
-                            $issueinClass='col-md-3';
-                            $issueoutClass='col-md-3';
-                            $varianceClass='col-md-12';
+                            $issueinClass='20 col-3';
+                            $issueoutClass='21 col-3';
+                            $varianceClass='22 col-12';
                         }
-
-                   
+                        
+                //echo 'ooo=>'.$issueinClass.'--'.$issueoutClass.'--'.$varianceClass;
+               // exit;   
                         if($_SESSION['getVals']['ordType'] != '')
                         {
                             if($_SESSION['getVals']['ordType'] == 1)
                             {
-                                $issueinClass='col-md-12';
+                                $issueinClass='col-12';
                             }
                             elseif($_SESSION['getVals']['ordType'] == 2)
                             {
-                                $issueoutClass='col-md-12';
+                                $issueoutClass='col-12';
                             }
                             elseif($_SESSION['getVals']['ordType'] == 3)
                             {
-                                $varianceClass='col-md-12';
+                                $varianceClass='col-12';
                             }
                         }
-                //issue in starts here
-                if( $checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1) )
-                {
+               
                 $content .= '<div class="summery-row">
                         <div class="row"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
-                            <div class="col-7 issueInSection summaryPart  pe-1">
+                            <div class=" '.$issueinClass.' issueInSection pe-1 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell">&nbsp;</div>
                                         <div class="table-cell medium">'.showOtherLangText('Issued In').'</div>';
+                                        foreach ($otherCurrRowArr as $otherCurrRow)
+                                    {
                                         
-                                foreach ($otherCurrRowArr as $otherCurrRow)
-                                    {     
-                                        $content .= '<div class="table-cell medium">('.$otherCurrRow['curCode'].')</div>';
+                                        $content .= '<div class="table-cell medium"><span class="otherCurSection summaryPart">('.$otherCurrRow['curCode'].')</span></div>';
                                     }
-                                    $content .=  '</div>
+                                       
+                 $content .= '</div>
                                     <div class="table-row thead">
                                         <div class="table-cell">'.showOtherLangText('Total').'</div>
-                                        <div class="table-cell issue-in-def-curr"><span class="defaultCurSection summaryPart">'.getPriceWithCur($issueInTotal, $getDefCurDet['curCode']).'</span></div>';
-                                     foreach ($otherCurrTotalValueArr as $currencyId => $countOtherCurrRow)
+                                        <div class="table-cell"><span class="defaultCurSection summaryPart">'.getPriceWithCur($issueInTotal, $getDefCurDet['curCode']).'</span></div>';
+                    foreach ($otherCurrTotalValueArr as $currencyId => $countOtherCurrRow)
                                     {
-                                        // $content .=  ($otherCurrTotalValueArr[$currencyId] > 0) ? '<td class="issue-in-oth-curr "><span class="otherCurSection summaryPart">'.showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId).'</span></td>' : '<td>&nbsp;</td>';
-                                        $content .=  ($otherCurrTotalValueArr[$currencyId] > 0) ? '<div class="table-cell issue-in-oth-curr "><span class="otherCurSection summaryPart">'.showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId).'</span></div>' : '<div class="table-cell">&nbsp;</div>';
-                                    }
-                                    $totalCols = count($otherCurrRowArr)+2;   
-                                    $content .=  '</div>
+                                        $content .=  ($otherCurrTotalValueArr[$currencyId] > 0) ? '<div class="table-cell"><span class="otherCurSection summaryPart">'.showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId).'</span></div>' : '<div class="table-cell">&nbsp;</div>';
+                                    }                    
+                   
+                    $content .= '</div>';
+                    $content .= '<div class="table-row">
+                                        <div class="table-cell paidSection summaryPartCell">'. showOtherLangText('Paid').'</div>
+                                        <div class="table-cell font-bold issue-in-def-curr paidSection summaryPartCell"><span class="defaultCurSection summaryPartCell"> '. ( ($issuedInOutPaidArr[1][1] > 0) ? getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '' ).'</span></div>';
+                    foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                                        {
+                                            $content .=  ($otherCurrPaidTotalValueArr[$currencyId] > 0) ? '<div class="table-cell issue-in-oth-curr paidSection summaryPartCell"><span class="otherCurSection summaryPartCell">'.showOtherCur($otherCurrPaidTotalValueArr[$currencyId], $currencyId).'</span></div>' : '<div class="table-cell paidSection summaryPartCell">&nbsp;</div>';
+                                        }
+
+                                $content .= '</div>
                                     <div class="table-row">
-                                        <div class="table-cell paidSection summaryPartCell">'. showOtherLangText('Paid').' </div>
-                                        <div class="issue-in-def-curr paidSection summaryPartCell table-cell font-bold"><span class="defaultCurSection summaryPartCell"> '. ( ($issuedInOutPaidArr[1][1] > 0) ? getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '' ).'</span></div>';
-                                        foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                                        <div class="pendingSection summaryPartCell table-cell">'.showOtherLangText('Pending').'</div>
+                                        <div class="issue-in-def-curr pendingSection summaryPartCell table-cell font-bold"><span class="pendingSection defaultCurSection summaryPartCell">'. ( ($issuedInOutPendingArr[1][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '' ).'</span></div>
+                                    ';
+                                     foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
                                     {
-                                       $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-oth-curr pendingSection summaryPartCell table-cell"><span class="pendingSection otherCurSection summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>':'<div class="pendingSection summaryPartCell"></div>'; 
+                                        $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-def-curr pendingSection summaryPartCell table-cell"><span class="pendingSection defaultCurSection summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>': '<div></div>';
                                     }
-                                        
-                                   $content .= '</div>
-                                    <div class="table-row">
-                                        <div class="table-cell pendingSection summaryPartCell">'. showOtherLangText('Pending').'</div>
-                                        <span class="pendingSection defaultCurSection summaryPartCell">'. ( ($issuedInOutPendingArr[1][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '' ).'</span>
-                                    </div>
-                                </div>
+                                $content .= '</div></div>
                             </div>';
-                        }
-                        if( $checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 2))
-                        {
-                            $content .= '<div class="col-3 summaryPart  issueOutSection pe-1 ps-0">
+                    // Issue OUT 
+                    $content .= '<div class=" '.$issueoutClass.' issueOutSection pe-1 ps-0 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell">&nbsp;</div>
                                         <div class="table-cell medium">'. showOtherLangText('Issued Out') .'</div>
                                     </div>
                                     <div class="table-row thead">
-                                        <div class="table-cell">'. showOtherLangText('Total') .'</div>
-                                        <div class="table-cell">'. getPriceWithCur($issueOutTotal, $getDefCurDet['curCode']).'</div>
+                                        <div class="table-cell">
+                                                        '. showOtherLangText('Total') .'</div>
+                                        <div class="issue-out-section table-cell">
+                                                        '. getPriceWithCur($issueOutTotal, $getDefCurDet['curCode']).'</div>
                                     </div>
                                     <div class="table-row">
-                                        <div class="table-cell">'. showOtherLangText('Received').'</div>
+                                        <div class="table-cell receiveSection summaryPartCell">'. showOtherLangText('Received').'</div>
                                         <div class="receiveSection summaryPartCell table-cell font-bold">'. ( ($issuedInOutPaidArr[2][1]) ? getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '' ).'</div>
                                     </div>
                                     <div class="table-row">
-                                        <div class="table-cell">'. showOtherLangText('Pending').'</div>
-                                        <div class="table-cell font-bold">'. ( ($issuedInOutPendingArr[2][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '' ).'</div>
+                                        <div class="issueOutPendingSection summaryPartCell table-cell">'. showOtherLangText('Pending').'</div>
+                                        <div class="issueOutPendingSection summaryPartCell table-cell font-bold">'. ( ($issuedInOutPendingArr[2][0] > 0) ? getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '' ).'</div>
                                     </div>
                                 </div>
                             </div>';
-                        }
                     $variancesPosTot = 0;
                     $variancesPosQtyTot = 0;
                     $variancesNevQtyTot = 0;
@@ -770,21 +772,22 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                             }
                                 
                         }
-                            $content .= '<div class="col-2 summaryPart  varianceRow ps-0">
-                                <div class="modal-table fs-12 w-100">
-                                    <div class="table-row header-row">
-                                        <div class="table-cell medium">'. showOtherLangText('Variance') .'</div>
+                    $content .= '<div class=" '.$varianceClass.' varianceRow ps-0 summaryPart" id="varianceId">
+                                <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
+                    <div class="table-cell medium">'. showOtherLangText('Variance') .'</div>
                                     </div>
+                                <div class="modal-table fs-12 w-100">
                                     <div class="table-row thead">
                                         <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>'. getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</div>
                                         <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>'. getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) .'</div>
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
                     </div>';
                     }
-                    $content .= '<div class="overflowTable accountSection summaryPart"> 
+                    $content .= '<div style="display:none;" class="overflowTable accountSection summaryPart"> 
                         <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
                             <div class="table-row header-row">
                                 <div class="table-cell medium">'.showOtherLangText('Accounts') .'</div>

@@ -477,7 +477,7 @@ if(!empty($fileDataRows))
 
                     <section class="ordDetail">
                         <div class="tpBar-grn"></div>
-                        <div class="stcPart">
+                        <div class="stcPart position-relative">
                              <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
                             name="upload_form" id="upload_form" enctype="multipart/form-data">
                             <div class="container nwOrder-Div rcvOrder">
@@ -523,10 +523,10 @@ if(!empty($fileDataRows))
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                                <div class="row">
+                                <div class="row mt-4">
                                     <div class="sltSupp nwOrd-Num">
-                                        <div class="ord-Box">
-                                            <div class="ordNum">
+                                        <div class="ord-Box update position start-0 ms-0" style="top:2rem;">
+                                            <div class="ordNum m-0">
                                                 <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
                                             </div>
                                         </div>
@@ -536,24 +536,21 @@ if(!empty($fileDataRows))
                                         
                                         <div class="container">
                                             <div class="mbFeature">
-                                                <div class="row gx-3 justify-content-end">
+                                                <div class="row gx-0 justify-content-end">
 
-                                                    <div class="col-md-4 text-center">
-                                                        <div class="row featRow">
-
-                                                            <div
-                                                                class="col-md-6 ordFeature dropdown drpCurr brdLft position-relative">
+                                                    <div class="text-center w-100" style="max-width:236px;">
+                                                        <div class="row featRow divider p-0 position-relative"> 
+                                                            <div class="col-md-6 ordFeature dropdown drpCurr position-relative doc__btn py-3">
                                                                 <a id="btnFileUpload" href="javascript:void(0)" class="tabFet">
-                                                                    <span class="importFile"></span>
-                                                                    <p class="btn2"><?php echo showOtherLangText('Import Receiving File'); ?><input type="file" id="uploadFile" name="uploadFile"
-                                                style="display:none"></p>
+                                                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 22"><path d="M14 6.5a1 1 0 1 0 2 0zm-10 15a1 1 0 1 0 0-2zm-2.4-1.6.7-.7zm13-15.5-.8.5zm-.5-.6-.5.9zm-12.8.6.9.5zm.6-.6.5.9zM2 16.5V7H0v9.5zm2 3H2.6l-.3-.3-1.4 1.4q.3.5 1.2.8h.8l1.1.1zm-4-3v2.3q.2 1 .9 1.8l1.4-1.4-.2-.6-.1-2.1zm16-10V5l-.5-1.2L13.8 5l.2.4v1.2zm-4.5-2H13q.5 0 .6.2l1-1.7-1.4-.5h-1.7zm4-.7-.8-.8-1.1 1.7.2.2zM2 7V5.5q0-.5.2-.6L.5 4 0 5.2V7zm2.5-4.5H2.8a3 3 0 0 0-1.5.5l1.1 1.7.6-.2h1.5zM2.2 4.9l.2-.2-1-1.7-.9.8z" fill="#8C8FA7"/><path d="M5 3.5q.2-1.8 2-2h2a2 2 0 1 1 0 4H7a2 2 0 0 1-2-2Z" stroke="#8C8FA7" stroke-width="2"/><path d="M5 10.5h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/><path d="m12.9 19 4.9-5.5.4-.5.3-.5a2 2 0 0 0-.3-2l-.4-.4-.5-.5-.6-.5a2 2 0 0 0-1.5 0l-.7.5-.4.5-4.8 5.3-.5.6-.2.7-.4 1.8v.5q-.2.4.3 1 .7.5 1 .4l.5-.2 1.5-.3.8-.4z" stroke="#8C8FA7" stroke-width="2"/></svg>
+                                                                    <p class="btn2"><?php echo showOtherLangText('Import Receiving File'); ?><input type="file" id="uploadFile" name="uploadFile" style="display:none"></p>
                                                                 </a>
 
                                                             </div>
-                                                            <div class="col-md-6 ordFeature drpFee position-relative">
-                                                                <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>"
-                                                target="_blank" class="tabFet">
-                                                                    <span class="sampleFile"></span>
+                                                            <div class="col-md-6 ordFeature drpFee position-relative py-3 doc__btn">
+                                                                <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>" target="_blank" class="tabFet">
+                                                                    <!-- <span class="sampleFile"></span> -->
+                                                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 31"><path d="M24.8 7.7q2.4-.1 3.1.4l.7.7q.5.8.4 3.2v11.5q.2 3.3-.7 4.2t-4.2.7H17q-3.3.2-4.2-.7t-.7-4.2V12q-.1-2.4.4-3.2l.7-.7c.6-.4 1.4-.4 3.2-.4" stroke="#8C8FA7" stroke-width="2"/><path d="M16.9 7.7c0-1.3 1-2.4 2.4-2.4h2.4a2.4 2.4 0 0 1 0 4.9h-2.4Q17 10 16.9 7.7Z" stroke="#8C8FA7" stroke-width="2"/><path d="m5 19-.7.7.7.7.7-.7zM6 7a1 1 0 0 0-2 0zM.3 15.6l4 4 1.4-1.5-4-4zm5.4 4 4-4-1.4-1.5-4 4zm.3-.8V7H4v12zm8.9 4.2v-6.6h4.4v1.1h-3v1.6H19v1.1h-2.9v1.6h3.1v1.1zm9.9-4.5-.2-.4-.3-.3-.4-.2-.5-.1q-.5 0-.9.3t-.6.7l-.2 1.1q0 .7.2 1.2t.6.8l.9.2q.5 0 .8-.2.3 0 .5-.4l.2-.8h.3-1.7v-1h2.7v.8q0 .9-.3 1.5-.4.7-1 1l-1.5.3q-1 0-1.6-.4-.8-.3-1.1-1.1-.4-.7-.4-1.8 0-.8.2-1.5l.7-1q.4-.5 1-.7.4-.2 1.2-.2l1 .1.9.5a3 3 0 0 1 .9 1.6z" fill="#8C8FA7"/></svg>
                                                                     <p class="btn2"><?php echo showOtherLangText('Download Sample File'); ?></p>
                                                                 </a>
                                                             </div>

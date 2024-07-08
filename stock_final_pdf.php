@@ -129,9 +129,10 @@ $content .=   '<head>
       <link href="./PDF Design_files/css2" rel="stylesheet">
       <style>
          @page { margin: 10px 10px; }
+         th, td { border:0; } 
       </style>
    </head>';
- $content .=   '<body style="font-family: \"Inter\", sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
+ $content .=   '<body style="font-family: Arial, sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
   $content .=   '<table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
          <tbody>
             <tr valign="top">';
@@ -181,10 +182,10 @@ $content .=   '<head>
       </table>
       <table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
         <tr>
-            <td style="width: 50%; border-block: 1px solid #d2d2d2; padding-block: 20px;">
+            <td style="width: 50%;padding-block: 20px;">
                 <div style="display: flex; align-items: center;">
                     <div style="flex: 1;">
-                        <h6 style="font-weight: 600; font-size: 16px; margin: 0;">'.showOtherLangText('Stock Report').'</h6>
+                        <h6 style="font-weight: 600; font-size: 16px; margin: 0;font-family:Arial, sans-serif;">'.showOtherLangText('Stock Report').'</h6>
                     </div>
                     <div style="flex: 1; text-align: right; font-size: 15px;">'.date('d-m-Y').'</div>
                 </div>
@@ -197,16 +198,16 @@ $content .=   '<head>
    $content .= '<table style="font-size:12px;" width="100%">
         <tr style="vertical-align: baseline;">
             <td style="width: 55%;">
-                <table style="width:100%; margin-right:1px; font-size:12px; border-collapse: collapse;">';
+                <table style="width:100%; margin-right:1px; font-size:12px; border-collapse: collapse;border:0;">';
                     
        $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">';
          if ($_GET['store'] == 1) 
             {
-        $content .= '<td style="padding: 8px 5px;">'.showOtherLangText('stores').'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.showOtherLangText('stores').'</td>';
             }
         if ($_GET['totalPrice'] == 1) 
             {
-        $content .= '<td style="padding: 8px 5px;">'.showOtherLangText('Total Price').'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.showOtherLangText('Total Price').'</td>';
             }
          
         if ($_GET['stockTake'] == 1) 
@@ -327,21 +328,21 @@ $content .=   '<head>
                         foreach($headerArr as $key=>$header)
                         {
                             if($key == '1'){
-                        $content .= '<td style="padding: 8px 5px;" class="head'.$key.'">'.$header.'</td>';
+                        $content .= '<td style="padding: 8px 5px;border:0;" class="head'.$key.'">'.$header.'</td>';
                             }
                             elseif($key == '2'){
-                                $content .= '<td style="padding: 5px 8px;" class="head'.$key.'">'.$header.'</td>';
+                                $content .= '<td style="padding: 5px 8px;border:0;" class="head'.$key.'">'.$header.'</td>';
                             }
                             elseif ($key == '3' && $_GET['itemName'] == 0 && $_GET['barCode'] == 1) {
                                 
-                                $content .= '<td style="padding: 5px 8px;text-align: left;width:50px;" class="head'.$key.'">'.showOtherLangText('BarCode').'</td>';
+                                $content .= '<td style="padding: 5px 8px;text-align: left;width:50px;border:0;" class="head'.$key.'">'.showOtherLangText('BarCode').'</td>';
                             }
                             elseif ($key == '3' && $_GET['itemName'] == 1 && $_GET['barCode'] == 0) {
                                 
-                                $content .= '<td style="padding: 5px 8px;text-align: left;width:50px;" class="head'.$key.'">'.showOtherLangText('Item').'</td>';
+                                $content .= '<td style="padding: 5px 8px;text-align: left;width:50px;border:0;" class="head'.$key.'">'.showOtherLangText('Item').'</td>';
                             }
                             else{
-                                $content .= '<td style="padding: 5px 8px;text-align: left;" class="head'.$key.'">'.$header.'</td>';
+                                $content .= '<td style="padding: 5px 8px;text-align: left;border:0;" class="head'.$key.'">'.$header.'</td>';
                             }
                             
                         }
@@ -378,39 +379,39 @@ $content .=   '<head>
                             $img = '<img src="'.$siteUrl.'uploads/sample-prod-img.jpg" width="40" height="40">';
                         }
         $content .= '<tr>';
-        $content .= '<td style="padding: 8px 5px;">'.$i.'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.$i.'</td>';
          if ($_GET['photo'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.$img.'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.$img.'</td>';
          }
         if ($_GET['itemName'] == 1 && $_GET['barCode'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.$row['itemName'].' <br>'.$row['barCode'].'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.$row['itemName'].' <br>'.$row['barCode'].'</td>';
         } elseif ($_GET['itemName'] == 1 || $_GET['barCode'] == 1) {
           $data = $_GET['itemName'] == 1 ? $row['itemName'] : $row['barCode']; 
-          $content .= '<td style="padding: 8px 5px;">'.$data .'</td>'; 
+          $content .= '<td style="padding: 8px 5px;border:0;">'.$data .'</td>'; 
         }
          if ($_GET['qty'] == 1) {
-        $content .= '<td style="padding: 8px 5px; font-weight: 600;">'.$row['stockQty'].' '. $row['countingUnit'].'</td>';
+        $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">'.$row['stockQty'].' '. $row['countingUnit'].'</td>';
          }
          if ($_GET['reqQty'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.$totalTempProQty .' '. $row['countingUnit'].'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.$totalTempProQty .' '. $row['countingUnit'].'</td>';
          }
           if ($_GET['avlQty'] == 1) {
-        $content .= '<td style="padding: 8px 5px; font-weight: 600;">'.($row['stockQty']-$totalTempProQty) .' '. $row['countingUnit'].'</td>';
+        $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">'.($row['stockQty']-$totalTempProQty) .' '. $row['countingUnit'].'</td>';
          }
          if ($_GET['lastPrice'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.getPrice($row['stockLastPrice']) .' '.$getDefCurDet['curCode'].'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.getPrice($row['stockLastPrice']) .' '.$getDefCurDet['curCode'].'</td>';
          }
         if ($_GET['stockPrice'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.getPrice($row['sPrice']) .' '.$getDefCurDet['curCode'].'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.getPrice($row['sPrice']) .' '.$getDefCurDet['curCode'].'</td>';
          }
           if ($_GET['stockValue'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.getPrice($row['stockValue']) .' '.$getDefCurDet['curCode'].'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.getPrice($row['stockValue']) .' '.$getDefCurDet['curCode'].'</td>';
          }
           if ($_GET['subCat'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.$catNames.'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.$catNames.'</td>';
           }
         if ($_GET['suplr'] == 1) {
-        $content .= '<td style="padding: 8px 5px;">'.$supNames.'</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;">'.$supNames.'</td>';
         }
         $content .= '</tr>';
           } 
@@ -419,4 +420,3 @@ $content .=   '<head>
           }
      $content .= '</body>
      </html>';
-

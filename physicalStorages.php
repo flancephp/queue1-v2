@@ -189,50 +189,47 @@ if( isset($_POST['name']) )
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['edit']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
+                        <?php if(isset($_GET['edit']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <p>
+                                <?php  
+                                    if(isset( $_GET['update']))
+                                    { 
+                                        echo $_GET['update'] > 0 ? ' '.showOtherLangText('Store Edited Successfully').' ' : ' '.showOtherLangText('Store Added Successfully').' ';
+                                    }
 
-                            if(isset( $_GET['update']))
-							{ 
-								echo $_GET['update'] > 0 ? ' '.showOtherLangText('Store Edited Successfully').' ' : ' '.showOtherLangText('Store Added Successfully').' ';
-							}
+                                    echo isset($_GET['delete']) ? ' '.showOtherLangText('Store Deleted Successfully').' ' : '';
 
-							echo isset($_GET['delete']) ? ' '.showOtherLangText('Store Deleted Successfully').' ' : '';
+                                    echo isset($_GET['err']) ? ' '.showOtherLangText('Storage cannot be deleted as it is being used in some product').' ' : '';
 
-							echo isset($_GET['err']) ? ' '.showOtherLangText('Storage cannot be deleted as it is being used in some product').' ' : '';
-
-						
-
-?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['err'])) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p>
-                            <?php echo isset($_GET['err']) ? ' '.showOtherLangText('Storage cannot be deleted as it is being used in some product').' ' : '';
- ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <?php } ?>
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php } ?>
+                        <?php if(isset($_GET['err'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p>
+                                <?php echo isset($_GET['err']) ? ' '.showOtherLangText('Storage cannot be deleted as it is being used in some product').' ' : ''; ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn">
+                                        <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
+                                    </a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addCategory.php" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal"
-                                        data-bs-target="#add-PhyStorage"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Store'); ?></span></span>
-                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add Store'); ?></span></a>
+                                    <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#add-PhyStorage">
+                                        <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Store'); ?></span></span>
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add Store'); ?></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

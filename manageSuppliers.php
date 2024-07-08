@@ -147,21 +147,17 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                             </div>
                             <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
-                                </div>
-                            </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <a href="addEditSupplier.php" class="sub-btn std-btn mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
-                                            <span class="nstdSpan">Supplier</span></span> <span class="dsktp-Btn">Add
-                                            Supplier</span></a>
-                                </div>
-                            </div>
+                            <a href="setup.php" class="btn btn-primary">
+                                <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                <span class="dsktp-Btn">Back</span>
+                            </a>
+                            <a href="addEditSupplier.php" class="btn btn-primary">
+                                <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
+                                    <span class="nstdSpan">Supplier</span>
+                                </span> 
+                                <span class="dsktp-Btn">Add Supplier</span>
+                            </a>
+                            
                         </div>
 
                         <div class="suplrTable">

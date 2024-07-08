@@ -244,7 +244,7 @@ if( isset($_POST['itemName']) )
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
-                                    <a href="itemsManager.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="itemsManager.php" class="btn btn-primary"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
@@ -252,13 +252,13 @@ if( isset($_POST['itemName']) )
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
                                     <!-- <div class="btnBg">
-                                        <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"><span
+                                        <a href="javascript:void(0)" class="btn btn-primary"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                                 <span class="nstdSpan">Item</span></span> <span class="dsktp-Btn">Add
                                                 Item</span></a>
                                     </div> -->
                                     <div class="btnBg">
-                                        <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                        <button type="submit" class="btn btn-primary"><span
                                                 class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                                 class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                     </div>

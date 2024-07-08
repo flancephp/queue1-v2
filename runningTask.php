@@ -285,9 +285,9 @@
                                                         </a>
                                                     </div>
                                                     <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center assign__btn">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Assign</p>
                                                         </a>
                                                     </div>
@@ -300,11 +300,11 @@
                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
                                                     <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative doc__btn">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
                                                             role="button" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
-                                                            <span class="docMent"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><rect x="6" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2"/><path d="M10 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Documents <i
                                                                     class="fa-solid fa-angle-down"></i>
                                                             </p>
@@ -391,9 +391,9 @@
                                                         </a>
                                                     </div>
                                                     <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center assign__btn">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Assign</p>
                                                         </a>
                                                     </div>
@@ -406,14 +406,12 @@
                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
                                                     <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative doc__btn">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
                                                             role="button" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
-                                                            <span class="docMent"></span>
-                                                            <p class="btn2">Documents <i
-                                                                    class="fa-solid fa-angle-down"></i>
-                                                            </p>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><rect x="6" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2"/><path d="M10 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
+                                                            <p class="btn2">Documents <i class="fa-solid fa-angle-down"></i></p>
                                                         </a>
 
                                                         <ul class="dropdown-menu">
@@ -491,20 +489,20 @@
                                                 </div>
                                                 <div class="d-flex align-items-center payOptnreq">
                                                     <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center doc__btn">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="conFirm"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><path d="m9.5 10 3.3 2.4q.7.6 1.3-.1L20.5 5" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/><path d="M21.5 12a9 9 0 1 1-6.7-8.7" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
                                                             <p class="btn2 cn-btn">Confirm</p>
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
                                                     <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative doc__btn">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
                                                             role="button" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
-                                                            <span class="docMent"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><rect x="6" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2"/><path d="M10 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Documents <i
                                                                     class="fa-solid fa-angle-down"></i>
                                                             </p>
@@ -596,9 +594,9 @@
                                                         </a>
                                                     </div>
                                                     <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center assign__btn">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="assIgn"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Assign</p>
                                                         </a>
                                                     </div>
@@ -611,11 +609,11 @@
                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
                                                     <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative doc__btn">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
                                                             role="button" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
-                                                            <span class="docMent"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><rect x="6" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2"/><path d="M10 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Documents <i
                                                                     class="fa-solid fa-angle-down"></i>
                                                             </p>
@@ -696,20 +694,20 @@
                                                 </div>
                                                 <div class="d-flex align-items-center payOptnreq">
                                                     <div
-                                                        class="cnfrm text-center d-flex justify-content-center align-items-center">
+                                                        class="cnfrm text-center d-flex justify-content-center align-items-center doc__btn">
                                                         <a href="javascript:void(0)" class="runLink">
-                                                            <span class="conFirm"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><path d="m9.5 10 3.3 2.4q.7.6 1.3-.1L20.5 5" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/><path d="M21.5 12a9 9 0 1 1-6.7-8.7" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
                                                             <p class="btn2 cn-btn">Confirm</p>
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center dleOptnreq">
                                                     <div
-                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                        class="doc-bx text-center d-flex justify-content-center align-items-center position-relative doc__btn">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink"
                                                             role="button" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
-                                                            <span class="docMent"></span>
+                                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24"><rect x="6" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2"/><path d="M10 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/></svg>
                                                             <p class="btn2">Documents <i
                                                                     class="fa-solid fa-angle-down"></i>
                                                             </p>

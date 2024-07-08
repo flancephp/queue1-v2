@@ -143,14 +143,15 @@ $res = mysqli_fetch_array($result);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add').' ';?>
-                            <?php echo showOtherLangText('Supplier');?>
+                            <h1 class="h1">
+                                <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add').' ';?>
+                                <?php echo showOtherLangText('Supplier');?>
                             </h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
@@ -163,7 +164,9 @@ $res = mysqli_fetch_array($result);
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add Supplier').' ';?> Supplier</h1>
+                                    <h1 class="h1">
+                                        <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add Supplier').' ';?>
+                                        Supplier</h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -195,78 +198,76 @@ $res = mysqli_fetch_array($result);
                 </section>
 
                 <section class="ordDetail userDetail">
-                <form class="addUser-Form acntSetup-Form" role="form" action="" method="post" class="container">
-                <input type="hidden" name="id" value="<?php echo $res['id'];?>" />
-                    <div class="container">
-                    <?php if(isset($_GET['error'])) { ?>
+                    <form class="addUser-Form acntSetup-Form" role="form" action="" method="post" class="container">
+                        <input type="hidden" name="id" value="<?php echo $res['id'];?>" />
+                        <div class="container">
+                            <?php if(isset($_GET['error'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('Supplier already exist').' ' : '';
- ?></p>
+                                <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('Supplier already exist').' ' : ''; ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="manageSuppliers.php" class="sub-btn std-btn mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
-                                </div>
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <a href="manageSuppliers.php" class="btn btn-primary">
+                                    <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                    <span class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span>
+                                </a>
+                                
+                                <button type="submit" class="btn btn btn-primary">
+                                    <span class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> 
+                                    <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span>
+                                </button>
+                                
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="edtSup-Div">
-                           <div class="row align-items-center acntStp-Row">
+                            <div class="edtSup-Div">
+                                <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?><span> *</span></label>
+                                        <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="<?php echo $res['name'];?>" id="name" name="name" required
-                                            placeholder="Logitech">
+                                        <input type="text" class="form-control" value="<?php echo $res['name'];?>"
+                                            id="name" name="name" required placeholder="Logitech">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierAddress" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
+                                        <label for="supplierAddress"
+                                            class="form-label"><?php echo showOtherLangText('Address'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <textarea class="form-control" id="address" name="address" 
+                                        <textarea class="form-control" id="address" name="address"
                                             placeholder="DC Janakpuri"><?php echo $res['address'];?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierEmail" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
+                                        <label for="supplierEmail"
+                                            class="form-label"><?php echo showOtherLangText('Email'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="email" value="<?php echo $res['email'];?>"     class="form-control" id="email" name="email"
-                                            placeholder="Logitech@gmail.com">
+                                        <input type="email" value="<?php echo $res['email'];?>" class="form-control"
+                                            id="email" name="email" placeholder="Logitech@gmail.com">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierPhone" class="form-label"><?php echo showOtherLangText('Phone'); ?></label>
+                                        <label for="supplierPhone"
+                                            class="form-label"><?php echo showOtherLangText('Phone'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="tel" value="<?php echo $res['phone'];?>"  class="form-control" id="phone" name="phone"
-                                            placeholder="+99994341000">
+                                        <input type="tel" value="<?php echo $res['phone'];?>" class="form-control"
+                                            id="phone" name="phone" placeholder="+99994341000">
                                     </div>
                                 </div>
 
-                           
+
+                            </div>
                         </div>
-                    </div>
                     </form>
                 </section>
 
