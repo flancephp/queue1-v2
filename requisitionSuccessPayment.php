@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('inc/dbConfig.php'); //connection details
 
 //Get language Type 
@@ -6,29 +6,28 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
 if ( !isset($_SESSION['adminidusername']))
-{           
-echo '<script>window.location = "login.php"</script>';
-}  
-
-
-if (isset($_GET['orderId']))
 {
-$sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.qty ordQty, od.totalAmt, od.factor ordFactor, od.qtyReceived, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
+echo '<script>window.location="login.php"</script>';
+}   
+
+if (isset($_GET['orderId'])) {
+
+
+$sql = "SELECT tp.*, od.price ordPrice, IF(u.name!='',u.name,tp.unitC) countingUnit, od.qty ordQty, od.totalAmt, od.factor ordFactor FROM tbl_order_details od 
 INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
-LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
-WHERE od.ordId = '".$_GET['orderId']."'  AND tp.account_id = '".$_SESSION['accountId']."'  ";
+LEFT JOIN tbl_units u ON(u.id = tp.unitC) AND u.account_id = tp.account_id
+WHERE od.ordId = '".$_GET['orderId']."'   AND tp.account_id = '".$_SESSION['accountId']."' ";
 $ordQry = mysqli_query($con, $sql);
+
 }
+//show details
+$cmd="SELECT * FROM tbl_orders WHERE id='".$_GET['orderId']."'   AND account_id = '".$_SESSION['accountId']."' ";
+$ordersQry = mysqli_query($con, $cmd);
+$ordersRow = mysqli_fetch_array($ordersQry);
 
-$orderQry="SELECT * FROM tbl_orders WHERE id='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' ";
-$orderQry = mysqli_query($con, $orderQry);
-$orderRow = mysqli_fetch_array($orderQry);
-
-$curDetail = getCurrencyDet($orderRow['ordCurId']);
-
-$payQry = "SELECT * FROM tbl_payment WHERE orderId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' order by id limit 1 "; 
-$paymentResult = mysqli_query($con, $payQry);
-$paymentRow = mysqli_fetch_array($paymentResult);
+$qry = "SELECT * FROM tbl_req_payment WHERE orderId='".$_GET['orderId']."'   AND account_id = '".$_SESSION['accountId']."' order by id desc limit 1  "; 
+$result = mysqli_query($con, $qry);
+$paymentRow = mysqli_fetch_array($result);
 
 $curQry = " SELECT * FROM tbl_currency WHERE id='".$paymentRow['currencyId']."' AND account_id = '".$_SESSION['accountId']."' ";
 $curResult = mysqli_query($con, $curQry);
@@ -37,52 +36,61 @@ $curRow = mysqli_fetch_array($curResult);
 $currencyCode = $curRow['curCode'];
 
 
-$payModeQry = " SELECT * FROM tbl_payment_mode WHERE id='".$paymentRow['paymentType']."'  AND account_id = '".$_SESSION['accountId']."' ";
-$payModeResult = mysqli_query($con, $payModeQry);
-$payModeRow = mysqli_fetch_array($payModeResult);
+$sqlSet = " SELECT * FROM tbl_payment_mode WHERE id='".$paymentRow['paymentType']."'   AND account_id = '".$_SESSION['accountId']."' ";
+$resultSet = mysqli_query($con, $sqlSet);
+$payModeRow = mysqli_fetch_array($resultSet);
 
 
-$payInfoQry = "SELECT * FROM tbl_supplier_payment_info WHERE  orderId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
-$payInfoResult = mysqli_query($con, $payInfoQry);
-$payInfoRow = mysqli_fetch_array($payInfoResult);
+$qry = "SELECT * FROM tbl_requisition_payment_info WHERE  orderId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+$resultSet = mysqli_query($con, $qry);
+$paymentInfoRow = mysqli_fetch_array($resultSet);
+
 
 //refund related code goes here 
 if ( isset($_POST['approveBtn']) && ($_POST['refund']=="refundAmt" || $_POST['refund']=="refundAll") )
 {
 
-            if ($_POST['refund']=="refundAll")
-            {
 
-            $cmd="SELECT * FROM tbl_order_details WHERE ordId='".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' AND pId > 0 ";
-            $ordersQry = mysqli_query($con, $cmd);
-
-            while($orderRow = mysqli_fetch_array($ordersQry))
-            {
-            if ($orderRow['qtyReceived'] > 0) {
-            $qty = $orderRow['qtyReceived'];
-            }else{
-            $qty = $orderRow['qty'];
-            }
-
-            $factor = $orderRow['factor'];
-
-            $upQry = " UPDATE `tbl_stocks` SET
-            `qty` = (qty - ($qty * $factor)),
-            `stockValue` = ( stockValue - ".$orderRow['totalAmt']." )
-            WHERE pId = '".$orderRow['pId']."' AND account_id = '".$_SESSION['accountId']."'   ";
-            mysqli_query($con, $upQry);
-            }
-
-            }
-
-
-
-
-
-if ( empty($updatePaymentRow['paymentStatus']) ) 
+if ($_POST['refund']=="refundAll")
 {
 
-$sqlSet = " SELECT tp.amount, tp.bankAccountId,tp.currencyId, c.curCode AS curCode, ac.* FROM tbl_payment tp 
+        $cmd="SELECT * FROM tbl_order_details WHERE ordId='".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' AND pId > 0 ";
+        $ordersQry = mysqli_query($con, $cmd);
+
+        while($ordersRow = mysqli_fetch_array($ordersQry))
+        {
+        $qty = $ordersRow['qty'];
+        $factor = $ordersRow['factor'];
+        $upQry = " UPDATE `tbl_stocks` SET
+        `qty` = (qty + $qty),
+        `stockValue` = ( stockValue + ".$ordersRow['totalAmt']." )
+        WHERE pId = '".$ordersRow['pId']."' AND account_id = '".$_SESSION['accountId']."'   ";
+        mysqli_query($con, $upQry);
+        }
+
+        
+
+}
+
+$refund = $_POST['refund']=="refundAll" ? 'Amount and Qty refund' : 'Amount refund only';
+
+$sql = " SELECT * FROM tbl_orders WHERE id = '".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+        $res = mysqli_query($con, $sql);
+        $orderDetRow = mysqli_fetch_array($res);
+    
+        $qry = " INSERT INTO `tbl_order_journey` SET 
+            `account_id` = '".$_SESSION['accountId']."',
+            `orderId` = '".$orderDetRow['id']."',
+            `userBy`  = '".$_SESSION['id']."',
+            `amount` = '".$orderDetRow['ordAmt']."',
+            `orderType` = '".$orderDetRow['ordType']."',
+            `ordDateTime` = '".date('Y-m-d h:i:s')."',
+            `notes` = '".$refund."',
+            `action` = 'Invoice Refunded' ";
+            mysqli_query($con, $qry);
+            
+
+$sqlSet = " SELECT tp.amount, tp.bankAccountId,tp.currencyId, c.curCode AS curCode, ac.* FROM tbl_req_payment tp 
 INNER JOIN tbl_accounts ac ON(tp.bankAccountId = ac.id) AND tp.account_id = ac.account_id
 LEFT JOIN tbl_currency c ON(tp.currencyId = c.id) AND tp.account_id = c.account_id
 WHERE tp.orderId = '".$_POST['orderId']."' order by tp.id limit 1 "; 
@@ -98,26 +106,27 @@ if ($resultRow['currencyId'] > 0)
 $trimedAmount = trim($amount,$currCode);
 
 }else{
-$trimedAmount = trim($amount,'$');
+
+$trimedAmount = trim($amount,$getDefCurDet['curCode']);
 }
 
 $replacedAmount = str_replace(',', '', $trimedAmount);
 
-$updateQry= " UPDATE tbl_accounts SET balanceAmt=(balanceAmt+$replacedAmount ) WHERE id='".$bankAccountId."'  AND account_id = '".$_SESSION['accountId']."'  ";
+$updateQry= " UPDATE tbl_accounts SET balanceAmt=(balanceAmt-$replacedAmount ) WHERE id='".$bankAccountId."'  AND account_id = '".$_SESSION['accountId']."'  ";
 $resultQry= mysqli_query($con, $updateQry);
 
-$updtQry = " UPDATE tbl_orders SET paymentStatus='2', bankAccountId = '0', paymentDateTime = '' WHERE id='".$_POST['orderId']."' ";
+$updtQry = " UPDATE tbl_orders SET paymentStatus='0', bankAccountId = '0', paymentDateTime = '' WHERE id='".$_POST['orderId']."' ";
 $resultQry= mysqli_query($con, $updtQry);
-}
 
-$qry = "SELECT * FROM tbl_payment WHERE orderId='".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' AND paymentStatus = 1 order by id limit 1 "; 
+
+$qry = "SELECT * FROM tbl_req_payment WHERE orderId='".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' AND paymentStatus = 1 order by id limit 1 "; 
 $result = mysqli_query($con, $qry);
 $paymentRow = mysqli_fetch_array($result);
 
 if (count($paymentRow) > 0) 
 {
 
-$insertQry = "INSERT INTO `tbl_payment_history` SET
+$insertQry = "INSERT INTO `tbl_req_payment_history` SET
 parentPaymentId = '".$paymentRow['id']."',
 account_id = '".$paymentRow['account_id']."',
 orderId = '".$paymentRow['orderId']."',
@@ -131,7 +140,10 @@ paymentDateTime = '".$paymentRow['paymentDateTime']."' ";
 
 mysqli_query($con, $insertQry);
 
-$updateQry = " UPDATE tbl_payment SET 
+
+
+
+$updateQry = " UPDATE tbl_req_payment SET 
 currencyId = '',
 ordTotAmt = '',
 paymentType = '',
@@ -142,37 +154,20 @@ $updatePaymentResult = mysqli_query($con, $updateQry);
 $updatePaymentRow = mysqli_fetch_array($updatePaymentResult);
 
 }
-$refund = $_POST['refund']=="refundAll" ? 'Amount and Qty refund' : 'Amount refund only';
-
-$sql = " SELECT * FROM tbl_orders WHERE id = '".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
-        $res = mysqli_query($con, $sql);
-        $orderDetRow = mysqli_fetch_array($res);
-    
-        $qry = " INSERT INTO `tbl_order_journey` SET 
-            `account_id` = '".$_SESSION['accountId']."',
-            `orderId` = '".$orderDetRow['id']."',
-            `userBy`  = '".$_SESSION['id']."',
-            `amount` = '".$orderDetRow['ordAmt']."',
-            `otherCur` = '".$orderDetRow['ordCurAmt']."',
-            `otherCurId` = '".$orderDetRow['ordCurId']."',
-            `orderType` = '".$orderDetRow['ordType']."',
-            `ordDateTime` = '".date('Y-m-d h:i:s')."',
-            `notes` = '".$refund."',
-            `action` = 'Payment Refunded' ";
-            mysqli_query($con, $qry);
 
 echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&paymentStatus=2"</script>';
 
 }
+
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title>History - Queue1</title>
+    <title>Queue1.com</title>
     <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -369,26 +364,58 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
 
                 <div class="payment-status-main">
                     <!--payment pending Details Popup Start -->
-                    <div class="payment-status-left payment-paid position-relative">
+                    <div class="payment-status-left recived-invoice position-relative">
                         <div class="border-line"></div>
                         <div class="modal-body p-5">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="f-01 mb-0 payment-status-text"><?php echo showOtherLangText('PAID'); ?></p>
-                                    <p class="f-01"><?php echo showOtherLangText('PENDING'); ?></p>
+                                    <!-- <p class="f-01 mb-0 payment-status-text">RECEIVED</p> -->
+                                          <?php 
+                if (isset($_GET['orderId']) && $paymentRow['paymentStatus']==1 ) 
+                    { ?>
+
+                                <p class="f-01 mb-0 payment-status-text">
+                                        <?php echo showOtherLangText('RECEIVED'); ?></h3>
+                                </p>
+
+                                <?php 
+                    }
+                    elseif($_GET['paymentStatus']==2) 
+                    { 
+                        ?>
+
+                                 <p class="f-01 mb-0 payment-status-text">
+                                        <?php echo showOtherLangText('REFUND'); ?></h3>
+                                </p>
+
+                                <?php 
+                    }
+                    else
+                    { 
+                        ?>
+
+                                <p class="f-01 mb-0 payment-status-text">
+                                        <?php echo showOtherLangText('PENDING'); ?></h3>
+                                </p>
+
+                                <?php 
+                    } 
+
+                    ?>
+                                    <p class="f-01"><?php echo showOtherLangText('INVOICE'); ?></p>
                                 </div>
                                 <div>
-                       <?php
+                                   <?php
 
-                        $clientQry = " SELECT * FROM tbl_client WHERE id = '".$_SESSION['accountId']."' ";
-                        $clientResult = mysqli_query($con, $clientQry);
-                        $clientResultRow = mysqli_fetch_array($clientResult);
+$clientQry = " SELECT * FROM tbl_client WHERE id = '".$_SESSION['accountId']."' ";
+$clientResult = mysqli_query($con, $clientQry);
+$clientResultRow = mysqli_fetch_array($clientResult);
 
-                        if($clientResultRow['logo'] !='' && file_exists(dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientResultRow['logo']))
-                        {   
-                            echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientResultRow['logo'].'" width="100" height="100" style="margin-top: 25px;">';
-                        }
-                        ?>
+if($clientResultRow['logo'] !='' && file_exists(dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientResultRow['logo']))
+{   
+    echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientResultRow['logo'].'" width="100" height="100" style="margin-top: 25px;">';
+}
+            ?>
                                 </div>
                             </div>
 
@@ -397,48 +424,39 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                     <tbody>
                                         <tr>
                                             <td class="font-wt">
-                                                <?php echo showOtherLangText('Supplier Invoice'); ?> #
+                                                <?php echo showOtherLangText('Invoice'); ?> #
                                             </td>
-                                            <td><?php echo $payInfoRow['supplierInvoice'] ?></td>
+                                            <td><?php echo getinvoiceNumber($paymentInfoRow['invoiceNumber']); ?></td>
                                         </tr>
 
                                         <tr>
-                                            <td class="font-wt">
-                                                <?php echo showOtherLangText('Payment'); ?> #
-                                            </td>
-                                            <td><?php echo setPaymentId($paymentRow['id']); ?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="font-wt"><?php echo showOtherLangText('Task') ?> #</td>
-                                            <td><?php echo $orderRow['ordNumber'] ?></td>
+                                            <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
+                                            <td><?php echo $ordersRow['ordNumber'] ?></td>
                                         </tr>
 
                                         <tr>
                                             <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                             </td>
-                                    <td>
-                                    <?php 
-                                    if ($paymentRow['paymentStatus'] ==1 ) {
+                                            <td><?php
+                            if ($paymentRow['paymentStatus'] ==1 ) {
+                    
+                                echo $paymentRow['paymentDateTime'];
 
-                                    echo $paymentRow['paymentDateTime'];
+                            }else{
 
-                                    }else{
-
-                                    echo $orderRow['ordDateTime'];
-                                    } ?>
-     
-                                     </td>
+                                echo $ordersRow['ordDateTime'];
+                            }
+                            ?></td>
                                         </tr>
 
                                     </tbody>
                                 </table>
-                                         <?php
-                            $sql = " SELECT * FROM tbl_country WHERE id = '".$clientResultRow['country']."' ";
-                            $resSet = mysqli_query($con, $sql);
-                            $resultRow = mysqli_fetch_array($resSet);
+                        <?php
 
-                            ?>
+                        $sql = " SELECT * FROM tbl_country WHERE id = '".$clientResultRow['country']."' ";
+                        $resSet = mysqli_query($con, $sql);
+                        $resultRow = mysqli_fetch_array($resSet);
+                         ?>
                                 <table>
                                     <tbody class="table1 table01 fl-right cmp-dtl text-end">
                                         <tr>
@@ -463,10 +481,11 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
 
                             <br>
                             <div class="">
-                                <p class="f-02 mb-0"><?php echo showOtherLangText('Payment To'); ?>: </p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierName']; ?></p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierEmail']; ?></p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierPhone']; ?></p>
+                                <p class="f-02 mb-0"><?php echo showOtherLangText('Invoice To'); ?>: </p>
+                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceName'] ?></p>
+                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceAddress']; ?></p>
+                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceEmail']; ?></p>
+                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoicePhone']; ?></p>
                             </div>
                             <br>
 
@@ -476,32 +495,14 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                         <th>#</th>
                                         <th style="width: 30%;"><?php echo showOtherLangText('Item'); ?></th>
                                         <th><?php echo showOtherLangText('Unit'); ?></th>
-                                        <th><?php echo showOtherLangText('Ordered'); ?><br><?php echo showOtherLangText('Quantity'); ?></th>
-                                        <th><?php echo showOtherLangText('Receive'); ?><br><?php echo showOtherLangText('Quantity'); ?></th>
+                                        <th><?php echo showOtherLangText('Quantity'); ?></th>
                                        
-                                                <?php 
-                if ($orderRow['ordCurId'] > 0)
-                {   ?>
-
-                        <th class="th-bg-1">
-                            <?php echo showOtherLangText('Price'); ?>(<?php echo $curDetail['curCode'] ?>)
-                        </th>
-
-                        <?php }else{ ?>
-
-                        <th class="th-bg-1"><?php echo showOtherLangText('Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</th>
-
-                        <?php 
-                } if ($orderRow['ordCurId'] > 0)
-                { ?>
-                        <th class="th-bg-1"><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</th>
-                         <?php }else{ ?>
-                            <th class="th-bg-1"><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</th>        
-                             <?php } ?>
-                             </tr>
+                                        <th class="th-bg-1"><?php echo showOtherLangText('Price').' '.$getDefCurDet['curCode']; ?></th>
+                                        <th class="th-bg-1"><?php echo showOtherLangText('Total').' '.$getDefCurDet['curCode']; ?></th>
+                                    </tr>
                                 </thead>
                                 <tbody class="tabel-body-p">
-                                    <?php 
+                                       <?php 
                         $sql = "SELECT cif.itemName, cif.unit,cif.amt, tod.* FROM tbl_order_details tod 
                         INNER JOIN tbl_custom_items_fee cif ON(tod.customChargeId = cif.id) AND tod.account_id = cif.account_id
                         WHERE tod.ordId = '".$_GET['orderId']."'  AND tod.account_id = '".$_SESSION['accountId']."'  and tod.customChargeType=1 ORDER BY cif.itemName ";
@@ -516,299 +517,168 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                         <td style="width: 30%;"><?php echo $showCif['itemName'];?></td>
                                         <td><?php echo $showCif['unit'];?></td>
                                         <td>1</td>
-                                        <td>1</td>
-                                    <?php 
-                    if ($orderRow['ordCurId'] > 0)
-                    { ?>
-
-                        <td>
-                            <?php echo showOtherCur($showCif['amt']*$curDetail['amt'], ($orderRow['ordCurId']));?>
-                        </td>
-
-                        <?php }else{ ?>
-
-                        <td><?php showPrice($showCif['amt'],$getDefCurDet['curCode']);?></td>
-
-                        <?php } 
-                        if ($orderRow['ordCurId'] > 0)
-                    { ?>
-
-                        <td>
-                            <?php echo showOtherCur($showCif['amt']*$curDetail['amt'],($orderRow['ordCurId']));?>
-                        </td>
-
-                        <?php 
-                    } else { ?>
-
-                        <td><?php showPrice($showCif['amt'],$getDefCurDet['curCode']
-                            ); ?></td>
-
-                        <?php 
-                    }            ?>    
-                                      
+                                        <td><?php showprice($showCif['amt'],$getDefCurDet['curCode']);?></td>
+                                        <td><?php showprice($showCif['amt'],$getDefCurDet['curCode']);?></td>
                                     </tr>
-                        <?php } 
+                         <?php  
+                        } 
 
-                  while($row = mysqli_fetch_array($ordQry))
-            {
+                        while($row = mysqli_fetch_array($ordQry))
+                        {
 
-                $x++;
-                ?>
-                <tr>
-                    <td><?php echo $x; ?></td>
-                    <td><?php echo $row['itemName'] ?></td>
-                    <td><?php echo $row['purchaseUnit'] ?></td>
-                    <td><?php echo $row['ordQty'] ?></td>
-                    <td><?php echo $row['qtyReceived']; ?></td>
-                   <?php 
-                    //price column start here
-                    if ($orderRow['ordCurId'] > 0)
-                    { ?>
+                            $x++;
 
-                        <td class="pay-dt">
-                            <?php echo showOtherCur($row['ordCurPrice']*$row['factor'], ($orderRow['ordCurId'])); ?>
-                        </td>
 
-                        <?php 
-                    }else{ ?>
+                            ?>
+                             <tr>
+                                        <td><?php echo $x; ?></td>
+                                        <td style="width: 30%;"><?php echo $row['itemName'] ?></td>
+                                        <td><?php echo $row['countingUnit'] ?></td>
+                                        <td><?php echo $row['ordQty'] ?></td>
+                                        <td><?php showPrice($row['ordPrice'],$getDefCurDet['curCode']);?></td>
+                                        <td><?php showPrice($row['ordQty']*$row['ordPrice'],$getDefCurDet['curCode']); ?></td>
+                                    </tr>
 
-                        <td class="pay-dt">
-                            <?php showPrice($row['ordPrice']*$row['factor'],$getDefCurDet['curCode']); ?>
-                        </td>
-
-                        <?php 
-                    } ?>
-                 <?php
-                if ($orderRow['ordCurId'] > 0)
-                { ?>
-                        
-                        <td class="pay-dt" style="font-weight: bold;">
-                            <?php echo $row['qtyReceived'] > 0 ? showOtherCur($row['ordCurPrice']*$row['factor']*$row['qtyReceived'],($orderRow['ordCurId'])) : showOtherCur($row['ordQty']*$row['factor']*$row['ordCurPrice'], ($orderRow['ordCurId'])); ?>
-                        </td>
-
-                        <?php }else{ ?>
-
-                        <td class="pay-dt" style="font-weight: bold;">
-                            <?php echo $row['qtyReceived'] > 0 ? showPrice($row['ordPrice']*$row['factor']*$row['qtyReceived'],$getDefCurDet['curCode']) : showPrice($row['ordPrice']*$row['factor']*$row['ordQty'],$getDefCurDet['curCode']); ?>
-                        </td>
-                        </tr>
-                        <?php } ?>
-            <?php } ?>
-
+                             <?php } ?>           
                                 </tbody>
                             </table>
                             <div class="divider-blue"></div>
                             <br>
                             <div class="tabel-body-p-footer">
                                 <div class="table1 ">
-                                    <p class="f-02 mb-0"><?php echo showOtherLangText('Payment Method'); ?></p>
+                                    <p class="f-02 mb-0"><?php echo showOtherLangText('Payment Method'); ?>:</p>
                                      <?php 
-                    $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
-                    $resultSet = mysqli_query($con, $sqlSet);
-                    $accDet = mysqli_fetch_array($resultSet);
-                    ?>
+                $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+                $resultSet = mysqli_query($con, $sqlSet);
+                $accDet = mysqli_fetch_array($resultSet); 
+                ?>
                                     <p class="f-03 mb-0"><?php echo $payModeRow['modeName'];?></p>
                                     <p class="f-03 mb-0"><?php echo $accDet['accountName'];?></p>
                                 </div>
 
                                 <!-- grand totale  here -->
                                 <table class="grand-total-tabel">
-                                   <?php 
-                $sqlSet="SELECT SUM(totalAmt) as sum1, SUM(curAmt) AS sum2 from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
-                $resultSet = mysqli_query($con, $sqlSet);
-                $chargeRow = mysqli_fetch_array($resultSet);    
-                $chargePrice=$chargeRow['sum1'];
-                $totalPriceOther=($chargeRow['sum2']);                  
+                                         <?php 
 
+  //get the sum of all product and item level charges  
+                            $sqlSet="SELECT SUM(totalAmt) as sum1 from tbl_order_details where ordId='".$_GET['orderId']."'   AND account_id = '".$_SESSION['accountId']."' AND (customChargeType='1' OR customChargeType='0')";
+                            $resultSet = mysqli_query($con, $sqlSet);
+                            $chargeRow = mysqli_fetch_array($resultSet);    
+                            $chargePrice=$chargeRow['sum1'];                    
 
-                $ordCount="SELECT * from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
-                $ordCountResult = mysqli_query($con, $ordCount);
-                $ordCountRow = mysqli_num_rows($ordCountResult);
+                            $ordCount="SELECT * from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                            $ordCountResult = mysqli_query($con, $ordCount);
+                            $ordCountRow = mysqli_num_rows($ordCountResult);
 
-                if ($ordCountRow > 0)
-                {
-                    if ($orderRow['ordCurId'] > 0)
-                    { ?>
-                     <tr>
-                                <td><?php echo showOtherLangText('Sub Total'); ?></td>
-                                        <td><?php  echo showOtherCur($totalPriceOther, $orderRow['ordCurId']);?></td>
+                            if ($ordCountRow > 0)
+                                { ?>
+                                    <tr>
+                                        <td><?php echo showOtherLangText('Sub Total'); ?></td>
+                                        <td><?php showPrice($chargePrice,$getDefCurDet['curCode']);?></td>
                                     </tr>
-                                     <?php }else{ ?>
-                                <tr>
-                <td><?php echo showOtherLangText('Sub Total'); ?></td>
-                                        <td><?php  showPrice($chargePrice,$getDefCurDet['curCode']);?></td>
-                                </tr>
-                                     <?php } }
-                                   
-$sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
-INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
+                                     <?php
+                                }
 
-$ordQry = mysqli_query($con, $sql);
+                        //Starts order level fixed discount charges
+                                $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                                INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                                WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
 
-$fixedCharges = 0;
-$fixedChargesOther = 0;
+                                $ordQry = mysqli_query($con, $sql);
 
-$sql = " SELECT SUM(od.totalAmt) AS totalFixedCharges, tp.feeName FROM tbl_order_details od 
-INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName   ";
-$sumQry = mysqli_query($con, $sql);
-$totalSum= mysqli_fetch_array($sumQry);
+                                $fixedCharges = 0;
 
-$totalFixedCharges=$totalSum['totalFixedCharges'];
+                                $sql = " SELECT SUM(od.totalAmt) AS totalFixedCharges, tp.feeName FROM tbl_order_details od 
+                                INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                                WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName   ";
+                                $sumQry = mysqli_query($con, $sql);
+                                $totalSum= mysqli_fetch_array($sumQry);
+
+                                $totalFixedCharges=$totalSum['totalFixedCharges'];
 
 
-while($row = mysqli_fetch_array($ordQry))//show here order level charges
-{
-$fixedCharges =$row['price'];
-$fixedChargesOther = $row['curAmt'];
-$totalFixedChargesOther = $fixedChargesOther;
+    while($row = mysqli_fetch_array($ordQry))//show here order level charges
+    {
+        $fixedCharges =$row['price'];
 
-if ($orderRow['ordCurId'] > 0)
-    { ?>
-                    <tr>
-                        <td><?php echo $row['feeName'];?></td>
-                        <td style="font-weight: bold;">
-                            <?php  echo showOtherCur($fixedChargesOther, $orderRow['ordCurId']) ?>
-                        </td>
-                    </tr>
-
-                    <?php }else{ ?>
-
-                    <tr>
-                        <td><?php echo $row['feeName'];?></td>
-                        <td style="font-weight: bold;">
-                            <?php  showPrice($fixedCharges,$getDefCurDet['curCode']) ?>
-                        </td>
-                    </tr>
-
-                    <?php
-    }
-} //Ends order lelvel fixed discount charges
-
-
-
+        ?>
+                                    <tr>
+                                        <td><?php echo $row['feeName'];?></td>
+                                        <td><?php showprice($fixedCharges,$getDefCurDet['curCode']);?></td>
+                                    </tr>
+     <?php
+      } //Ends order lelvel fixed discount charges
+      ?>
+       <?php
 //Start order level discoutns
 
-$sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
-INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-WHERE od.ordId = '".$_GET['orderId']."' AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
-$ordQry = mysqli_query($con, $sql);
+      $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+      INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+      WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
+      $ordQry = mysqli_query($con, $sql);
 
-$perCharges = 0;
-$itemIds = [];
-$totalCharges = 0;
-while($row = mysqli_fetch_array($ordQry))//show here order level charges
-{
-    $itemIds[] = $row['customChargeId'];              
-    $totalCharges = $row['totalAmt'];
-    $perCharges += $row['totalAmt'];
+      $perCharges = 0;
+      $itemIds = [];
+      $totalCharges = 0;
+            while($row = mysqli_fetch_array($ordQry))//show here order level charges
+            {
+                $itemIds[] = $row['customChargeId'];              
+                $totalCharges = $row['totalAmt'];
+                $perCharges += $row['totalAmt'];
 
-    $discountPercent=$chargePrice*$totalCharges/100;
-    $discountPercentOther=$totalPriceOther*$totalCharges/100;
-    $totalDiscountPercent=$chargePrice*$perCharges/100;
-    $totalDiscountPercentOther=$totalPriceOther*$perCharges/100;
-    if($row)
-    {
-        if ($orderRow['ordCurId'] > 0)
-        { ?>
-
-                    <tr>
-                        <td><?php echo $row['feeName'];?></td>
-                        <td style="font-weight: bold;">
-                            <?php echo showOtherCur($discountPercentOther, $orderRow['ordCurId']); ?>
-                        </td>
-                    </tr>
-
-
-                    <?php }else{ ?>
-
-                    <tr>
-                        <td><?php echo $row['feeName'];?></td>
-                        <td style="font-weight: bold;">
-                            <?php showPrice($discountPercent,$getDefCurDet['curCode']); ?>
-                        </td>
-                    </tr>
-
-                    <?php
-        }
-    }
-}//End of order level discount
+                $discountPercent=$chargePrice*$totalCharges/100;
+                $totalDiscountPercent=$chargePrice*$perCharges/100;
+                if($row)
+                {
+                    ?>
+                                      <tr>
+                                        <td><?php echo $row['feeName'];?>
+                                                <?php echo $row['price'] ?> %</td>
+                                        <td><?php showprice($discountPercent,$getDefCurDet['curCode']); ?></td>
+                                    </tr>
+                <?php
+                    }
+            }//End of order level discount
 
 //Starts order level tax discount charges
-$sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
-INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
-$ordQry = mysqli_query($con, $sql);
+            $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+            INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+            WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
+            $ordQry = mysqli_query($con, $sql);
 
-$taxCharges = 0;
-while($row = mysqli_fetch_array($ordQry))//show here order level charges
-{
-$tax = $row['price'];
+            $taxCharges = 0;
+    while($row = mysqli_fetch_array($ordQry))//show here order level charges
+    {
+        $tax = $row['price'];
 
-$taxCharges=(($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
-$taxChargesOther=(($totalPriceOther+$totalFixedChargesOther+$totalDiscountPercentOther)*$tax/100);
-$totalTaxCharges += (($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
-$totalTaxChargesOther += (($totalPriceOther+$totalFixedChargesOther+$totalDiscountPercentOther)*$tax/100);
-
-if ($orderRow['ordCurId'] > 0)
-{ ?>
-
-                    <tr>
-                        <td><?php echo $row['feeName'];?></td>
-                        <td style="font-weight: bold;">
-                            <?php echo showOtherCur($taxChargesOther, $orderRow['ordCurId']) ?>
-                        </td>
-                    </tr>
-
-                    <?php }else{ ?>
-
-                    <tr>
-                        <td><?php echo $row['feeName'];?></td>
-                        <td style="font-weight: bold;"><?php showPrice($taxCharges,$getDefCurDet['curCode']) ?>
-                        </td>
-                    </tr>
-
-                    <?php
-}
-} //end order level tax discount charges
+        $taxCharges=(($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
+        $totalTaxCharges += (($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
 
 
-
-$sqlSet = "SELECT SuM(totalAmt) AS totalFixedDiscount, SUM(curAmt) AS totalFixedDiscountOther FROM tbl_order_details od 
-INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
-$resultSet = mysqli_query($con, $sqlSet);
-$fixedDiscountRow = mysqli_fetch_array($resultSet); 
-$totalFixedDiscount= $fixedDiscountRow['totalFixedDiscount'];
-$totalFixedDiscountOther= $fixedDiscountRow['totalFixedDiscountOther'];
-
-$netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedDiscount);
-$netTotalAmtOther= ($totalPriceOther+ $totalTaxChargesOther+$totalDiscountPercentOther+$totalFixedDiscountOther);
-
-
-if ($orderRow['ordCurId'] > 0)
-{ ?>
-
-
-
-                                    <tr class="grand-total" style=" max-height: 38px;">
-                                        <th><?php echo showOtherLangText('Grand Total'); ?>(<?php echo $curDetail['curCode'];?>)</th>
-                                        <th><?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']) ?></th>
+        ?>
+         <tr>
+                                        <td><?php echo $row['feeName'];?>
+                                                <?php echo $row['price'] ?> %</td>
+                                        <td id="netOrderLevelTaxCharges"><?php showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
                                     </tr>
-                                    <tr><th><?php echo showOtherLangText('Grand Total'); ?>(<?php echo $getDefCurDet['curCode'];?>)</th>
-                                        <th><?php showPrice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
-                                    </tr>
-                                     <?php } else { ?>
-                                    <tr class="netTotal">
-                        <td><?php echo showOtherLangText('Grand Total'); ?> (<?php echo $getDefCurDet['curCode'] ?>)
-                        </td>
-                        <td style="font-weight: bold;">
-                            <?php showPrice($netTotalAmt,$getDefCurDet['curCode']); ?>
-                        </td>
-                    </tr>
+        <?php
+        } //Ends order lelvel tax discount charges
+        
+        $sqlSet = "SELECT SuM(totalAmt) AS totalFixedDiscount FROM tbl_order_details od 
+        INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+        WHERE od.ordId = '".$_GET['orderId']."'   AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $fixedDiscountRow = mysqli_fetch_array($resultSet); 
+        $totalFixedDiscount= $fixedDiscountRow['totalFixedDiscount'];
 
-                    <?php } ?>
+        $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedDiscount);
+
+
+        ?>  <tr class="grand-total" style=" max-height: 38px;">
+                                        <th><?php echo showOtherLangText('Grand Total'); ?></th>
+                                        <th><?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
+                                    </tr>
+                                    <tr></tr>
                                 </table>
 
                             </div>
@@ -827,7 +697,7 @@ if ($orderRow['ordCurId'] > 0)
                                     <div class="row table-responsive">
                                         <h6 class="bill-head">
                                             <img src="https://queue1.net/qa1/uploads/hand.png" alt="Payment-hand">
-                                            <?php echo showOtherLangText('Payment'); ?>
+                                            Payment
                                         </h6>
                                     </div>
 
@@ -835,32 +705,33 @@ if ($orderRow['ordCurId'] > 0)
                                         <table class="mr-btm">
                                             <tbody class="payDetail">
                                                 <tr>
-                                                    <td><?php echo showOtherLangText('Payment'); ?> #</td>
+                                                    <td><?php echo showOtherLangText('Invoice'); ?> #</td>
                                                     <td>
-                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-1" onchange="getVal();" name="paymentId" id="paymentId" autocomplete="off" value="<?php echo setPaymentId($paymentRow['id']); ?>" readonly="">
+                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-1" onchange="getVal();" name="paymentId" id="paymentId" autocomplete="off" value="<?php echo getinvoiceNumber($paymentInfoRow['invoiceNumber']); ?>" readonly="">
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Task'); ?> #</td>
-                                    <td>
-                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-1" name="ordNumber" value="<?php echo $orderRow['ordNumber'] ?>" autocomplete="off" readonly="">
-                                    </td>
+                                                    <td>
+                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-1" name="ordNumber" value="<?php echo $ordersRow['ordNumber'] ?>" autocomplete="off" readonly="">
+                                                    </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Date'); ?> #</td>
-                                                    <td class="payDate"><?php 
-    if ($paymentRow['paymentStatus'] ==1 ) {
-        
-        echo $paymentRow['paymentDateTime'];
+                                                    <td class="payDate">
+                                                    <?php 
+            if ($paymentRow['paymentStatus'] ==1 ) {
 
-    }else{
+                echo $paymentRow['paymentDateTime'];
 
-        echo $orderRow['ordDateTime'];
-    }
+            }else{
 
-     ?></td>
+                echo $ordersRow['ordDateTime'];
+            }
+            
+             ?></td>
                                                 </tr>
 
                                             </tbody>
@@ -871,36 +742,26 @@ if ($orderRow['ordCurId'] > 0)
                                         <table cellpadding="0" cellspacing="0" width="100%">
                                             <tbody class="frm-info">
                                                 <tr class="mb-adrs">
-                                                    <td><?php echo showOtherLangText('Supplier Invoice'); ?> # </td>
-                                                    <td><?php echo $payInfoRow['supplierInvoice'] ?></td>
+                                                    <td><?php echo showOtherLangText('Invoice To'); ?> :</td>
+                                                    <td><?php echo $paymentInfoRow['invoiceName'] ?></td>
                                                 </tr>
-
                                                 <tr>
-                                                    <td><?php echo showOtherLangText('Payment To'); ?></td>
+                                                    <td><?php echo showOtherLangText('Address'); ?> :</td>
                                                     <td>
-                                                    <?php echo $payInfoRow['supplierName'] ?>
+                                                   <?php echo $paymentInfoRow['invoiceAddress'] ?>
                                                     </td>
                                                 </tr>
-
-
-                                                <tr class="mb-adrs" style="vertical-align: top;">
-                                                    <td><?php echo showOtherLangText('Supplier Address'); ?></td>
-                                                    <td>
-                                                       <?php echo $payInfoRow['supplierAddress'] ?>
-                                                    </td>
-                                                </tr>
-
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Email'); ?></td>
                                                     <td>
-                                                   <?php echo $payInfoRow['supplierEmail'] ?>
+                                                   <?php echo $paymentInfoRow['invoiceEmail'] ?>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Phone'); ?></td>
                                                     <td>
-                                                    <?php echo $payInfoRow['supplierPhone'] ?>
+                                                    <?php echo $paymentInfoRow['invoicePhone'] ?>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -913,127 +774,127 @@ if ($orderRow['ordCurId'] > 0)
                                     <div class="invTotal">
                                         <table>
                                             <tbody>
-                                                <?php 
-            if ($orderRow['ordCurId'] > 0)
-                { ?>
-            <tr class="payDetail">
-            <td><?php echo showOtherLangText('Total Amount'); ?>
-            (<?php echo $curDetail['curCode'] ?>)</td>
-            <td class="text-center">
-                <?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>
-            </td>
-            </tr>
-            <tr class="payDetail">
-            <td><?php echo showOtherLangText('Total Amount'); ?> (<?php echo $getDefCurDet['curCode'] ?>)</td>
-            <td><?php showPrice($netTotalAmt,$getDefCurDet['curCode']); ?></td>
-            </tr>
-            <?php  } else { ?>
-                <tr class="payDetail">
-             <td><?php echo showOtherLangText('Total Amount'); ?> (<?php echo $getDefCurDet['curCode'] ?>)</td>
-             <td><?php showPrice($netTotalAmt,$getDefCurDet['curCode']); ?></td>
-              </tr>
-
-            <?php } ?>
+                                                <tr class="payDetail">
+                                                    <td><?php echo showOtherLangText('Total Amount'); ?></td>
+                                                    <td class="text-center">
+                                                    <?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
 
                                     <input type="hidden" class="form-control" name="TotalAmt" id="TotalAmt" value="90.9088" autocomplete="off">
                                     <input type="hidden" class="form-control" name="currencyId" id="currencyId" value="" autocomplete="off">
+                                    <?php 
+$orderId=$paymentRow['orderId'];
 
+$sql= " SELECT * FROM tbl_req_payment  WHERE orderId='".$orderId."'  AND account_id = '".$_SESSION['accountId']."'   order by id limit 1  ";
+$resultSetQry = mysqli_query($con, $sql); 
+$payRow = mysqli_fetch_array($resultSetQry);
+
+
+$sqlSet = " SELECT * FROM tbl_payment_mode WHERE id='".$payRow['paymentType']."'  AND account_id = '".$_SESSION['accountId']."' ";
+$resultSet = mysqli_query($con, $sqlSet);
+$payModeRow = mysqli_fetch_array($resultSet);
+
+?>
                                     <div class="paySelect">
                                         <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                                             <tbody class="form-info">
                                                 <tr class="" style="height: 48px;">
-                                                    <td>Payment type</td>
+                                                    <td><?php echo showOtherLangText('Payment Type'); ?></td>
                                                     <td><?php echo $payModeRow['modeName'] ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><?php echo showOtherLangText('Account'); ?>
-                                                        
-                            </td>
-                            <?php
-                            $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."' AND account_id = '".$_SESSION['accountId']."' ";
-                            $resultSet = mysqli_query($con, $sqlSet);
-                            $accRow = mysqli_fetch_array($resultSet);
+                                                    <td><?php echo showOtherLangText('Account'); ?></td>
+                                                    <td><?php
+            $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$payRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."' ";
+            $resultSet = mysqli_query($con, $sqlSet);
+            $accRow = mysqli_fetch_array($resultSet);
 
-                            $balanceAmt = $accRow['balanceAmt'];
+            $balanceAmt = $accRow['balanceAmt'];
 
-                            if ($currencyCode =='')
-                            {
-                            $totalPaidAmt = trim($paymentRow['amount'],'$');
+            if ($currencyCode =='')
+            {
+                $totalPaidAmt = trim($payRow['amount'],$getDefCurDet['curCode']);
 
-                            }else{
+            }else{
 
-                            $totalPaidAmt = trim($paymentRow['amount'],$currencyCode);
-                            }
+               $totalPaidAmt = trim($payRow['amount'],$currencyCode);
+           }
 
-                            $totalPaidAmt = str_replace(',', '', $totalPaidAmt);
+           $totalPaidAmt = str_replace(',', '', $totalPaidAmt);
 
-                            if ($paymentRow['paymentStatus']==0)
-                            {
-                            $totalBalanceAmt = ($balanceAmt-$totalPaidAmt);
+           if ($payRow['paymentStatus']==0)
+           {
+             $totalBalanceAmt = ($balanceAmt+$totalPaidAmt);
 
-                            }else{
+         }else{
 
-                            $totalBalanceAmt = ($balanceAmt);
+            $totalBalanceAmt = ($balanceAmt);
 
-                            }
+        }
 
-                            ?>
-                        <td><?php echo $accRow['accountName'] ?></td>
+        ?></td>
                                                 </tr>
 
 
+                                                <tr>
+                                                    <td><?php echo showOtherLangText('Account No.'); ?></td>
+                                                    <td><?php echo $accRow['accountNumber'] ?></td>
+                                                </tr>
+                                                   <?php
+    if ($paymentRow['currencyId'] ==0) 
+        { ?>
+                                                <tr>
+                                                    <td><?php echo showOtherLangText('Balance'); ?></td>
+                                                    <td><?php showPrice($totalBalanceAmt,$getDefCurDet['curCode']) ?></td>
+                                                </tr>
+                 <?php }else{ ?>
                                 <tr>
-                                <td><?php echo showOtherLangText('Account No.'); ?></td>
-                                <td><?php echo $accRow['accountNumber'] ?></td>
+                                                    <td><?php echo showOtherLangText('Balance'); ?></td>
+                                                    <td><?php echo showOtherCur($totalBalanceAmt, $payRow['currencyId']) ?></td>
                                                 </tr>
-                                <?php
-                                if ($paymentRow['currencyId'] ==0) 
-                                { ?>
-                                    <tr>
-                                        <td><?php echo showOtherLangText('Balance'); ?></td>
-                                        <td><?php showPrice($totalBalanceAmt,$getDefCurDet['curCode']) ?></td>
-                                    </tr>
-                                            <?php }else{ ?>
-                                    <tr>
-                                    <td><?php echo showOtherLangText('Balance'); ?></td>
-                                    <td><?php echo showOtherCur($totalBalanceAmt, $paymentRow['currencyId']) ?></td>
-                                    </tr>
-
-                                    <?php } ?>
+                    <?php } ?>
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Currency'); ?> </td>
-                    <?php  
-                    $sqlSet = " SELECT * FROM tbl_currency WHERE id='".$paymentRow['currencyId']."'  AND account_id = '".$_SESSION['accountId']."' ";
-                        $resultSet = mysqli_query($con, $sqlSet);
-                        $currRow = mysqli_fetch_array($resultSet);
+                                                  <?php  
+            $sqlSet = " SELECT * FROM tbl_currency WHERE id='".$payRow['currencyId']."'  AND account_id = '".$_SESSION['accountId']."' ";
+            $resultSet = mysqli_query($con, $sqlSet);
+            $currRow = mysqli_fetch_array($resultSet);
 
-                    if ($currRow['id']==0) 
-                    { ?>
-                    <td><?php echo $getDefCurDet['currency'] ?></td>
-                          <?php } else { ?>
-                         <td><?php echo $currRow['currency'] ?></td>
-                        <?php } ?>
-                                                </tr>
+            if ($currRow['id']==0)
+            {
+                $curCode = $getDefCurDet['curCode']; 
+                ?>
+                            <td><?php echo $getDefCurDet['currency'] ?></td>
 
-                                        <tr>
-                                        <td><?php echo showOtherLangText('Amount'); ?></td>
-                        <td><?php echo $paymentRow['amount'];?></td>
-                                                </tr>
+                            <?php }else{
+                $curCode = $currRow['curCode'];
+                ?>
+                            <td><?php echo $currRow['currency'] ?></td>
+
+                            <?php } ?>
+
+                        </tr>
+
+                                              <tr>
+                            <td><?php echo showOtherLangText('Amount'); ?></td>
+                            <td><?php echo $payRow['amount'];?></td>
+                        </tr>
 
                                             </tbody>
                                         </table>
 
                                     </div>
 
-                                <?php
-if ($paymentRow['paymentStatus']==1) 
-{ ?>
+                                    <?php
+
+                                    if ($payRow['paymentStatus']==1 ) { ?>
                                     <div class="allBtn my-3 d-flex justify-content-between align-items-center w-100">
                                         <div>
-                                            <button class="btn wht-btn" type="button" onClick="window.location.href='history.php'"><?php echo showOtherLangText('Back'); ?></button>
+                                            <button onClick="window.location.href='history.php'" class="btn wht-btn" type="button"><?php echo showOtherLangText('Back'); ?></button>
                                         </div>
                                         
                                         <div>
@@ -1041,18 +902,18 @@ if ($paymentRow['paymentStatus']==1)
     href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refund_model" class="btn final-btn" type="submit" name="submitBtn"><?php echo showOtherLangText('Refund'); ?></a>
                                         </div>
                                     </div>
-                               <?php }else{ ?>
-                                    <div class="allBtn my-3 d-flex justify-content-between align-items-center w-100">
+                                <?php }else{ ?>
+                                      <div class="allBtn my-3 d-flex justify-content-between align-items-center w-100">
                                         <div>
-                                            <button class="btn wht-btn" type="button" 
-    onClick="redirectToParentPage()"><?php echo showOtherLangText('Cancel'); ?></button>
+                                            <button onClick="redirectToParentPage()" class="btn wht-btn" type="button"><?php echo showOtherLangText('Cancel'); ?></button>
                                         </div>
                                         
                                         <div>
-                                            <button class="btn final-btn" onClick="redirectToHistory()" type="submit" name="submitBtn"><?php echo showOtherLangText('Done'); ?></button>
+                                            <button class="btn final-btn" type="button" onClick="redirectToHistory()" name="submitBtn"><?php echo showOtherLangText('Done'); ?></button>
                                         </div>
                                     </div>
-                                <?php  }    ?>
+                                  <?php  }  ?>
+
                                 </form>
 
                                 <!-- start of add fee (item/order level) form -->
@@ -1147,39 +1008,39 @@ if ($paymentRow['paymentStatus']==1)
                                                     <tr>
                                                         <td>
 
-            <table cellpadding="0" cellspacing="0">
+                                                            <table cellpadding="0" cellspacing="0">
 
 
-                <tbody>
-                    <tr>
-                        <td class="feePopup">Fee name </td>
-                        <td><input type="text" class="form-control" name="feeName" id="feeName" value="" style="width:250px;" autocomplete="off">
-                        </td>
-                    </tr>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="feePopup">Fee name </td>
+                                                                        <td><input type="text" class="form-control" name="feeName" id="feeName" value="" style="width:250px;" autocomplete="off">
+                                                                        </td>
+                                                                    </tr>
 
-                    <tr>
-                        <td class="feePopup">Fee type </td>
-                        <td>
-                            <select class="form-control" name="feeType" id="typeOfFee">
-                                <option value="2">
-                                    Fixed fee </option>
-                                <option value="3">
-                                    Percentage fee </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="feePopup feeFixed" id="feeFixed">
-                            <span>Fee amount</span>
-                        </td>
-                        <td class="feePopup feePercent" id="feePercent" style="display: none;">
-                            <span>Fee percentage %</span>
-                        </td>
-                        <td>
-                            <div class="stepper "><input type="number" class="form-control stepper-input" name="amt" id="amt" value="" style="width:250px;" autocomplete="off"><span class="stepper-arrow up">Up</span><span class="stepper-arrow down">Down</span></div>
+                                                                    <tr>
+                                                                        <td class="feePopup">Fee type </td>
+                                                                        <td>
+                                                                            <select class="form-control" name="feeType" id="typeOfFee">
+                                                                                <option value="2">
+                                                                                    Fixed fee </option>
+                                                                                <option value="3">
+                                                                                    Percentage fee </option>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="feePopup feeFixed" id="feeFixed">
+                                                                            <span>Fee amount</span>
+                                                                        </td>
+                                                                        <td class="feePopup feePercent" id="feePercent" style="display: none;">
+                                                                            <span>Fee percentage %</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="stepper "><input type="number" class="form-control stepper-input" name="amt" id="amt" value="" style="width:250px;" autocomplete="off"><span class="stepper-arrow up">Up</span><span class="stepper-arrow down">Down</span></div>
 
-                        </td>
-                    </tr>
+                                                                        </td>
+                                                                    </tr>
 
                                                                 </tbody>
                                                             </table>
@@ -1241,7 +1102,7 @@ if ($paymentRow['paymentStatus']==1)
                     <div class="form-group  d-flex payModal-Flex">
 <input type="radio" name="refund" value="refundAmt" id="refundAmt">
 <div style="color: #000; width: 94%;">
-    <p><?php echo showOtherLangText('Refund the amount of "'.$paymentRow['amount'].'" to account only.'); ?>
+    <p><?php echo showOtherLangText('Refund the amount to account only.'); ?>
     </p>
 </div>
 </div>
@@ -1260,7 +1121,6 @@ if ($paymentRow['paymentStatus']==1)
         </div>
     </div>
     </form>
-    <!-- View checkbox Popup End -->
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
@@ -1375,15 +1235,17 @@ if ($paymentRow['paymentStatus']==1)
         });
     </script>
     <script>
-    function redirectToHistory() {
-    var pageName = "history.php?orderId=<?php echo $_GET['orderId'];?>&paymentStatus=1";
-    window.location.href = pageName
-    }
-    var cancelBtn = document.getElementById("cancelBtn");
-    cancelBtn.onclick = function() {
-    refund_model.style.display = "none";
-    }
-    </script>
+function redirectToHistory() {
+    var pageName = "history.php?orderId=<?php echo $_GET['orderId'];?>&reqPaymentStatus=1";
+    window.location.href = pageName;
+}
+</script>
+    <script>
+function redirectToParentPage() {
+var pageName = "requisitionPaymentDetail.php?orderId=<?php echo $_GET['orderId'];?>&cancelPayment=1";
+window.location.href = pageName
+}
+</script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>

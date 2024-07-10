@@ -834,7 +834,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
-
+    <link rel="stylesheet" href="Assets/css/module-A.css">
 
     <style>
         .modal-md {
@@ -1024,20 +1024,23 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                         <div class="alrtMessage">
                             <div class="container">
 
-                                <?php if (isset($_GET['delete']) || isset($_GET['status'])) { ?>
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <p><?php
+                <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus']) ) { ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <p><?php
 
-                                            echo isset($_GET['status']) ? ' ' . showOtherLangText('New record added successfully') . ' ' : '';
+                            echo isset($_GET['status']) ? ' ' . showOtherLangText('New record added successfully') . ' ' : '';
 
-                                            echo isset($_GET['delete']) ? ' ' . showOtherLangText('Record deleted successfully.') . ' ' : '';
+                            echo isset($_GET['delete']) ? ' ' . showOtherLangText('Record deleted successfully.') . ' ' : '';
+                             if (isset($_GET['paymentStatus']) && $_GET['paymentStatus']==2)
+                                    {
+                                        echo ' '.showOtherLangText('We have initiated a refund in your account').' ';
+                                    } 
 
-
-                                            ?>
-                                        </p>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                <?php } ?>
+                            ?>
+                        </p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php } ?>
 
 
                             </div>
@@ -1516,10 +1519,6 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                 <?php } else { ?>
                                         <div class="d-flex align-items-center justify-content-between" style=" width: fit-content !important;">
                                             <p style="color: #666c85; font-weight:600; ">Inv  <br> no.</p>
-                                            <!-- <span class="dblArrow hisValclm">
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span> -->
                                         </div>
                                         <?php } ?>
                                         </div>
@@ -1952,11 +1951,9 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                     <a class="dropdown-item" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
                                                           </li>
                                                 <?php 
-            } ?>
-    
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_invoice"><i class="far fa-square pe-2"></i>view invoice</a>
-                                                                </li>
+            } getPayPopup($orderRow['id'],$orderRow['ordType']); ?>
+       
+                                    
 
                                                             </ul>
                                                         </div>
@@ -2257,6 +2254,29 @@ $.ajax({
         //orderAndReqJsCode();
     });
 }
+
+function openSupPaymentPopup(ordId) {
+     $.ajax({
+        method: "POST",
+        url: "showPaymentDetailPopupAjax.php",
+
+        data: {
+            orderId: ordId
+        }
+    })
+    .done(function(htmlRes) {
+             $('#view_payment_paid_content').html(htmlRes);
+            $('#view_payment_paid').modal('show');
+
+            
+            //orderAndReqJsCode();
+        });
+
+       
+
+}
+
+
 function hideCheckbox(targetId) {
 
     if ($('#' + targetId).is(":visible")) {
@@ -2623,6 +2643,22 @@ function sortTableByColumn(table, field, order) {
         </div>
     </div>
     <!-- stock take details Popup End -->
+    <div class="modal" tabindex="-1" id="view_payment_paid" aria-labelledby="view-payment-paid" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+            <div class="modal-content p-2" id="view_payment_paid_content">
+                
+                    </div>
+                    <!-- payment Detail Popup End -->
+
+
+
+                </div>
+            </div>
+            <!-- payment Detail Popup End -->
+        </div>
+
+    </div>
+
     <?php 
 include_once('historyPdfJsCode.php');
 ?>
