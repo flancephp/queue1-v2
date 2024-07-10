@@ -298,27 +298,19 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
         }
          
         .cntTable .stkNamcol > div:nth-child(1),.stkTblhead .stkNamcol > div:nth-child(1) { width: 35%; }
-        .cntTable .stkNamcol > div:nth-child(2),.stkTblhead .stkNamcol > div:nth-child(2) { width: 20%; }
-        .cntTable .stkNamcol > div:nth-child(3),.stkTblhead .stkNamcol > div:nth-child(3) { width: 20%; }
-        .cntTable .stkNamcol > div:nth-child(4),.stkTblhead .stkNamcol > div:nth-child(4) { width: 25%; } 
-        
-        .cntTable1 .stkNamcol {
-            width: 65%;
-        }
-
-        .stockView .lstPrcol {
-            width: 50% !important;
-        }
-
-        .stkTblhead .stkPrcol {
-            width: 25%;
-        }
-         
-        .cntTable .stkPrcol {
-            width: 33%;
-        }
+        .cntTable .stkNamcol > div:nth-child(2),.stkTblhead .stkNamcol > div:nth-child(2) { width: 25%; }
+        .cntTable .stkNamcol > div:nth-child(3),.stkTblhead .stkNamcol > div:nth-child(3) { width: 15%; }
+        .cntTable .stkNamcol > div:nth-child(4),.stkTblhead .stkNamcol > div:nth-child(4) { width: 12.5%; } 
+        .cntTable .stkNamcol > div:nth-child(5),.stkTblhead .stkNamcol > div:nth-child(5) { width: 12.5%; } 
+        .cntTable1 .stkNamcol { width: 65%; } 
+        .stockView .lstPrcol { width: 50% !important; } 
+        .stkTblhead .stkPrcol { width: 25%; } 
+        .cntTable .stkPrcol { width: 33%; }
         .mbShw .stkPrcol { width: 25% !important; }
         .mbShw .stkPrcol .lstPrcol { width: 33% !important; }
+
+        #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw { width: 80%; }
+        #page2head.stkTblhead .mbHde, .page2bdy .cntTable .mbHde { width: 20%; }  
 
         
         .cntTable1 .stkPrcol {
@@ -728,7 +720,15 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy stkImgcol"><p><?php echo showOtherLangText('Photo'); ?></p></div>
                                 <div class="stkNamcol d-flex align-items-center">
-                                    <div class="tb-bdy"><p><?php echo showOtherLangText('Item'); ?></p></div>
+                                    <div class="tb-bdy">
+                                        <div class="d-inline-flex align-items-center"> 
+                                            <p><?php echo showOtherLangText('Item'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="tb-head stkbarclm">
                                         <div class="d-flex align-items-center w-20">
                                             <?php if(isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields) ) { ?>
