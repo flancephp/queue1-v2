@@ -3220,8 +3220,26 @@ function getOrderPaymentLink_deleted($orderId) {
 
 }
 
+function getPayPopup($orderId,$orderType) {
+    if($orderType==1) { global $con;
+		
+	 	$sql= " SELECT * FROM tbl_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1   ";
+	    $resultSet= mysqli_query($con, $sql);
+		$pmntRows= mysqli_fetch_array($resultSet);
+		$countRow = mysqli_num_rows($resultSet); 
+        if ($pmntRows['paymentStatus']==1)
+		 { 
+		 ?>
+	     <li>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Payment') ?></a>
+         </li>
+  <?php   }
+
+    
+} }
+
 function getOrderPaymentLink($orderId) {
-       global $con;
+        global $con;
 		
 	 	$sql= " SELECT * FROM tbl_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1   ";
 	    $resultSet= mysqli_query($con, $sql);
@@ -3333,31 +3351,30 @@ function getrequisitionPaymentLink($orderId) {
 
 			if ($pmntRows['issueInvoice']==1 && $pmntRows['paymentStatus']!=1)
 			{
+				?>
+                <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
+                                                <a href="requisitionPaymentDetail.php?page=history&action=p&orderId=<?php echo $orderId;?>">
+                                                    <p class="h3">Inv</p>
+                                                </a>
+                                                    </div>
+
+				<?php
 				
-				echo '<div style="width:24%;">
-				<a class="supPayDtl reqInv" href="requisitionPaymentDetail.php?page=history&action=pay&orderId='.$orderId.'">'.showOtherLangText('Inv').'</a>
-				</div>';
-				echo '<div style="width:2%;">
-						<strong>|</strong>
-					  </div>
-					  <div style="width:10%; text-align: center;"><a class="supPdtl" href="javascript:void(0)" onclick="openReqPaymentPopup('.$orderId.')"><img src="./uploads/inv-new.svg" alt="inv" style="height: 14px;width: auto;"></a>
-					   </div>';
-				echo '<div style="border: none; background: transparent; width: 20%;"><span>&nbsp;</span></div>';
+				
 			}
 
 
 			if ($pmntRows['paymentStatus']==1)
 			{ ?>
 
-<div style="width: 24%;"><a class="supPayDtl reqInv" style="background:#8DB5DA"
-        href="requisitionPaymentDetail.php?page=history&action=I&orderId=<?php echo $orderId;?>"><?php echo showOtherLangText('Inv') ?></a>
-</div>
-<div style="width: 1%;"><strong>|</strong></div>
-<div style="width: 10%; text-align: center;">
-    <a class="supPdtl" href="javascript:void(0)" onclick="openReqPaymentPopup('<?php echo $orderId ?>')"><img
-            src="./uploads/inv-new.svg" alt="inv" style="height: 14px;width: auto;"></a>
-</div>
-<div style="border: none; background: transparent; width: 20%;"><span>&nbsp;</span></div>
+<div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn" style="background: #7a89fe21;">
+                                                <a href="requisitionPaymentDetail.php?page=history&action=I&orderId=<?php echo $orderId;?>">
+                                                    <p class="h3">Inv</p>
+                                                </a>
+                                                    </div>
+
+
+
 
 <?php 
 			}
