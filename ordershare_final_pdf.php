@@ -94,12 +94,12 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
                    {
  $content .=   '<table style="width: 100%; border-spacing: 0;">
                 <tr>
-                    <td style="font-size: 14px; line-height: 16px; font-weight: 600;">'.$clientDetRow['accountName'].'</td>
+                    <td style="font-size: 14px; line-height: 16px; font-weight: 600;border:0;">'.$clientDetRow['accountName'].'</td>
                 </tr>
                 </table>
                 <table style="width: 100%; border-spacing: 0; margin-top: 5px;">
                 <tr>
-                    <td style="font-size: 13px; line-height: 15px; font-weight: 400;">
+                    <td style="font-size: 13px; line-height: 15px; font-weight: 400;border:0;">
                         '.$clientDetRow['address_one'].'<br>
                         '.$clientDetRow['address_two'].'<br>
                         '.$clientDetRow['city'].', '.$clientDetRow['countryName'].'<br>
@@ -113,7 +113,7 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
  $content .=  '</td>';
   if($_GET['orderDetails'] == 1)
                {
- $content .=  '<td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center;">
+ $content .=  '<td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center;border:0;">
             '.showOtherLangText('Order Details').'
               </td>';
                  }
@@ -134,7 +134,7 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
                     {
   $content .=  '<table style="width: 100%; border-spacing: 0;">
                 <tr>
-                    <td style="font-size: 14px; line-height: 16px; text-align: right;">'.date('d/m/Y').'</td>
+                    <td style="font-size: 14px; line-height: 16px; text-align: right;border:0;">'.date('d/m/Y').'</td>
                 </tr>
                 </table>';
                     }
@@ -148,15 +148,15 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;">
    
         <tr>
-            <td style="font-weight:700;padding: 5px;">'.showOtherLangText('Task No.').'</td>
-            <td style="font-weight:700; text-align: center;padding: 5px;">'.showOtherLangText('Supplier').'</td>
+            <td style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Task No.').'</td>
+            <td style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
             <td >
                 <table style="width: 100%;">';
          if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1 )    { 
         $content .=   '<tr>
-                        <td width="40%" style="padding: 5px;">&nbsp;</td>
-                        <td width="40%" style="font-weight:700;padding: 5px;">'.showOtherLangText('Total').'</td>
-                        <td width="20%" style="padding: 5px;">&nbsp;</td>
+                        <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
+                        <td width="40%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Total').'</td>
+                        <td width="20%" style="padding: 5px;border:0;">&nbsp;</td>
                     </tr>';
          }
                 
@@ -164,13 +164,13 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
             </td> 
         </tr>
         <tr style="background-color: rgba(122, 137, 255, 0.2);">
-            <td style="padding:8px 5px;font-weight: 700;;">'.$ordDet['ordNumber'].'</td>
-            <td style="text-align: center;padding:8px 5px; font-weight: 700;">'.$suppliers.'</td>
+            <td style="padding:8px 5px;font-weight: 700;border:0;">'.$ordDet['ordNumber'].'</td>
+            <td style="text-align: center;padding:8px 5px; font-weight: 700;border:0;">'.$suppliers.'</td>
             <td>
                 <table style="width: 100%;">
                     <tr>
-                        <td width="40%" style="padding: 5px;">&nbsp;</td>
-                        <td width="40%" style="padding:8px 5px; font-weight: 700;">';
+                        <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
+                        <td width="40%" style="padding:8px 5px; font-weight: 700;border:0;">';
                       if(  $_GET['defaultCurrencyAmount']  == 1 )  
                                 { 
                         $content .=  getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']);
@@ -190,8 +190,8 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                 { 
          $content .=   '<table style="width: 100%;">
                     <tr>
-                        <td style="padding: 5px;"># Supplier Invoice</td>
-                        <td style="padding: 5px;">'.$ordDet['invNo'].'</td>
+                        <td style="padding: 5px;border:0;"># Supplier Invoice</td>
+                        <td style="padding: 5px;border:0;">'.$ordDet['invNo'].'</td>
                     </tr>
                 </table>';
                 }
@@ -218,8 +218,8 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                              { 
                               $showGrandTotal = true;
             $content .=  '<tr>';
-            $content .=  '<td style="padding: 5px;">'.showOtherLangText('Sub Total').'</td>';
-            $content .=  '<td style="padding: 5px;">';
+            $content .=  '<td style="padding: 5px;border:0;">'.showOtherLangText('Sub Total').'</td>';
+            $content .=  '<td style="padding: 5px;border:0;">';
             if(  $_GET['defaultCurrencyAmount']  == 1  )  
                             { 
             $content .= getPriceWithCur($chargePrice, $getDefCurDet['curCode']);
@@ -247,14 +247,14 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                              $fixedCharges += $row['price'];
                              $fixedChargesOther += $row['curAmt'];
              $content .= '<tr style="border-top: 1px solid #ddd;">
-                        <td style="padding: 5px;">'.$row['feeName'].'</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">'.$row['feeName'].'</td>
+                        <td style="padding: 5px;border:0;">';
              if(  $_GET['defaultCurrencyAmount']  == 1  )  
                             { 
                                 $content .=getPriceWithCur($row['price'], $getDefCurDet['curCode']);
                             }
               $content .= '</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">';
                     if(  $_GET['secondCurrency']  == 1  )  
                              { 
                                 $content .= showOtherCur($row['curAmt'], $ordDet['ordCurId']);
@@ -288,7 +288,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                                $content .=getPriceWithCur($calDiscount, $getDefCurDet['curCode']);
                             }
               $content .= '</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">';
                     if(  $_GET['secondCurrency']  == 1  )  
                              { 
                                  $content .= showOtherCur($calDiscountOther, $ordDet['ordCurId']);
@@ -318,14 +318,14 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                           $calDiscount = ($chargePrice*$row['price']/100);
                          $calDiscountOther = ($chargePriceOther*$row['price']/100);
                          $content .= '<tr style="border-top: 1px solid #ddd;">
-                        <td style="padding: 5px;">'.$row['feeName'].'</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">'.$row['feeName'].'</td>
+                        <td style="padding: 5px;border:0;">';
              if(  $_GET['defaultCurrencyAmount']  == 1  )  
                             { 
                                 $content .= getPriceWithCur($calTax, $getDefCurDet['curCode']);
                             }
               $content .= '</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">';
                     if(  $_GET['secondCurrency']  == 1  )  
                              { 
                                 $content .= showOtherCur($calTaxOther, $ordDet['ordCurId']);
@@ -343,14 +343,14 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                          if($showGrandTotal)
                          {
                $content .= '<tr style="border-top: 1px solid #ddd;">
-                        <td style="padding: 5px;">'.showOtherLangText('Grand Total').'</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">'.showOtherLangText('Grand Total').'</td>
+                        <td style="padding: 5px;border:0;">';
                if(  $_GET['defaultCurrencyAmount']  == 1  )  
                             { 
                                 $content .= getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']);
                             }
                 $content .= '</td>
-                        <td style="padding: 5px;">';
+                        <td style="padding: 5px;border:0;">';
                 if(  $_GET['secondCurrency']  == 1  )  
                             { 
                 $content .= showOtherCur($netTotalAmtOther, $ordDet['ordCurId']);

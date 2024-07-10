@@ -19238,7 +19238,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .supStkclm .dropdown-toggle {
     padding: 12px 16px;
-    width: 160px;
+    width: 100%;
   }
   /* Stock Page CSS End */
   .hisParent-sec {
