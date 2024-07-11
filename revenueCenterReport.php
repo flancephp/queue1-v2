@@ -420,8 +420,11 @@ $usageVarianceValueArr = [];
 $usageTotalAmount = 0;
 $outLetVariance = 0;
 $costPerTot = 0;
+
+$revIdsArr = [];
 while($row = mysqli_fetch_array($getRevenueReport))
 {
+
 
     $color = ($x%2 == 0)? 'white': '#FFFFCC';
     $x++;
@@ -444,38 +447,59 @@ while($row = mysqli_fetch_array($getRevenueReport))
     $usagePerGuests = ($usage && $guests) ? ($usage/$guests) : '';
     
     $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
+
+   
                         ?>
-                                <div class="revCntr-Task align-items-center">
-                                    <div class="mbshw-Revcnt">
-                                        <div class="revCenter-Name d-flex align-items-center itmBody">
-                                            <div class="center-List">
-                                                <p>Casa</p>
+                               
+
+                                    <?php 
+                                     if( !isset($revIdsArr[$row['id']]) )
+                                     {
+                                         $revIdsArr[$row['id']] = $row['id'];
+                                     
+                                       
+                                        $revHeadPart = ' <div class="revCntr-Task align-items-center">
+                                        <div class="mbshw-Revcnt">
+                                            <div class="revCenter-Name d-flex align-items-center itmBody">
+                                                <div class="center-List">
+                                                    <p>'.$row['name'].'</p>
+                                                </div>
+                                                <div class="num-List">
+                                                    <p><span class="mbguest-Head">Guests</span> '. $guests .'</p>
+                                                </div>
                                             </div>
-                                            <div class="num-List">
-                                                <p><span class="mbguest-Head">Guests</span> 20</p>
+                                            <div class="revCenter-Dtl">';
+                                    
+                                    
+                                        $revFooter = '</div>
                                             </div>
-                                        </div>
-                                        <div class="revCenter-Dtl">
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
+
+                                            <div class="align-items-center mbTask">
+                                                <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </div>
+                                        </div>';    
+                                        
+
+
+                                          $outLetParts .= '  <div class="revtable-Detail d-flex align-items-center itmBody">
                                                 <div class="outsale-Dtl align-items-center">
                                                     <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Casa Bar</a>
+                                                        <a href="outlet_report_saleCenter.php">'. $row['outletName'] .'</a>
                                                         <div class="chkbx-revCntr">
 
                                                         </div>
                                                     </div>
                                                     <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
+                                                        
                                                         <p class="bl-Sale">742.0000 $</p>
                                                     </div>
                                                     <div class="outlet-Totalcst d-flex item-items-center">
                                                         <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
+                                                            
                                                             <p class="pr-Tcost">250.9259 $</p>
                                                         </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>33.82%</p>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="outusage-Dtl">
@@ -503,111 +527,17 @@ while($row = mysqli_fetch_array($getRevenueReport))
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-closeStock"><span></span></a>
                                                 </div>
-                                            </div>
+                                            </div>';
 
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Casa Kitchen</a>
-                                                        <div class="chkbx-revCntr">
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
-                                                        <p class="bl-Sale">632.0000 $</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">120.9259 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>23.82%</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>130.25 $</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>130.25 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>4 $</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>-89 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
 
-                                            <div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">Casa Laundry</a>
-                                                        <div class="chkbx-revCntr">
+                                  
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p>&nbsp;</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">45 $</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>&nbsp;</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>&nbsp;</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p>45 $</p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
-                                            </div>
+                                        
 
-                                        </div>
-                                    </div>
 
-                                    <div class="align-items-center mbTask">
-                                        <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
+
+                                ?>
                                 
                     <?php } ?>
                                 <!-- Item Table Body End -->
