@@ -86,8 +86,9 @@
     '600_italic' => $fontDir . '/open_sans_600_italic_fe60986b2b1850bd135c5b0dc7f52c6d',
     'bold_italic' => $fontDir . '/open_sans_bold_italic_dcc95656a50b3b969e7a7f154b5af7ec',
     '800_italic' => $fontDir . '/open_sans_800_italic_b2813606a36674848ce277611cbc19c9',
-    'bold' => $fontDir . '/open_sans_bold_76cc12ba903c653efae07dd0b62d46cf',
+    'bold' => $fontDir . '/open_sans_bold_0e7196744e416eea97ecd5b9781a44c2',
     '800' => $fontDir . '/open_sans_800_da8832a9546e2fae7cc865fab9ab6837',
+    '500' => $fontDir . '/open_sans_500_663f11545dfeea65b44b2da12b5a66b1',
   ),
   'inter' => array(
     'normal' => $fontDir . '/inter_normal_3ba32a48b7860dfb008d0b1457da683a',
