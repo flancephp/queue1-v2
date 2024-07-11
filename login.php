@@ -4,6 +4,7 @@ include('inc/dbConfig.php'); //connection details
 if (isset($_SESSION['adminidusername'])) 
 {
   echo "<script>window.location='index.php'</script>";
+  exit;
 }
 
 

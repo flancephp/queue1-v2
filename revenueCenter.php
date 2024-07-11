@@ -14,7 +14,13 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
-
+    <style>
+        @media screen and (min-width: 1600px) {
+        .gt-Data {
+            width: 118px;
+        }
+        }
+    </style>
 </head>
 
 <body>
@@ -185,7 +191,7 @@
                 </section>
 
                 <section class="hisParent-sec revnueParent-sec">
-                    <section class="ordDetail hisTory revCenter">
+                    <section class=" container hisData">
 
                         <div class="alrtMessage">
                             <div class="container">

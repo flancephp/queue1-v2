@@ -128,7 +128,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-center" <?php echo isMenuActive('revenueCenter.php'); ?> href="revenueCenter.php">
+                    <a class="nav-link text-center" <?php echo isMenuActive('revenueCenterReport.php'); ?> href="revenueCenterReport.php">
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
                             <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">

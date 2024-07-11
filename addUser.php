@@ -84,7 +84,7 @@ if( isset($_POST['user_name']) )
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -99,6 +99,7 @@ if( isset($_POST['user_name']) )
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
 
 </head>
 
@@ -198,7 +199,7 @@ if( isset($_POST['user_name']) )
                                                         class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <div class="d-flex flex-wrap align-items-center" style="min-height: 2.65rem;"> 
+                                                <div class="d-flex flex-wrap gap-2 align-items-center" style="min-height: 2.65rem;"> 
                                                     <div class="form-check"> 
                                                         <input type="radio" name="mobile_user" class="userTypeWeb form-check-input" value="0"
                                                             onclick="get_mobile_User(this.value)" autocomplete="new-password"
