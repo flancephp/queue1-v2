@@ -193,7 +193,7 @@ include_once('script/revenueCenterReport_script.php');
                 </section>
 
                 <section class="hisParent-sec revnueParent-sec">
-                    <section class="ordDetail hisTory revCenter">
+                    <section class="container hisData">
 
                         <div class="alrtMessage">
                             <div class="container">
