@@ -49,162 +49,151 @@ $checkRow = mysqli_fetch_array($resultSet);
 $content = '<!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link href="./PDF Design_files/css2" rel="stylesheet">
-    <style>
-      .form-select-1:hover{background-color:#fff;border:1px solid #666c85}
-      .form-control-01:focus{border:1px solid transparent !important;color:#666c85}
-      .form-control-1:hover{border-color:transparent !important;color:#666C85}
-      .form-control-1:focus{border-color:transparent !important;color:#666C85}
-      .btn-2:hover{color:#666C85}
-      .issueInvoice a:hover{color:#666C85}
-    </style>
-    
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   </head>
   <body style="margin: 0; padding: 0; font-family: inter;">
-    <div style="margin: auto; max-width: 800px; position: relative; border: 1px solid #ddd; border-radius: 5px;">
-      <div class="border-line" style="position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:0px 16px 16px 0px;z-index:1;background-color:#596BF3;"></div>
+    <div style="margin: auto; max-width: 800px; position: relative; border-radius: 5px;">
+      <div  style="position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#E99624;"></div>
       <div style="padding: 1% 4% ;">
-        <div  style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <p  style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#596BF3 !important; margin-bottom: 0; color: #000;">PAID</p>
-            <p  style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#666C85;margin-top: 0rem;">PAYMENT</p>
-          </div>
-          <div>
-            logo here
-            <!-- <img src="" alt=""> -->
-          </div>
-        </div>
-        <div class="payment-tabel-header" style="margin-top: 16px; display: flex; justify-content: space-between;">
-          <table class="table1 table01" style="width: 50%; border-collapse: collapse;">
-            <tbody>
-              <tr>
-                <td class="font-wt" style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Supplier invoice #</td>
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">1233</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td class="font-wt" style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Payment #</td>
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">001538</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td class="font-wt" style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Task #</td>
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">126515</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td class="font-wt" style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Date #</td>
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">2024-06-23 07:23:50</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table1 table01 fl-right cmp-dtl text-end" style="text-align: right; border-collapse: collapse;">
-            <tbody>
-              <tr>
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">Our Zazibar</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">P.o Box 4146,Jambiani</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">Zanzibar,TANZANIA</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">inventory@our-zanzibar.com</td>
-              </tr>
-              <tr style="border-top:none !important;">
-                <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">+255742998277</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <!-- Header Section -->
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td>
+            <p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#E99624 !important; margin-bottom: 0;"> PENDING</p>
+            <p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#666C85;margin-top: 0rem;">INVOICE</p>
+          </td>
+          <td style="text-align: right;">
+            <img width="100" height="100" src="https://queue1.net/qa1/uploads/queue1/clientLogo/17152523391706978392ourzanzibar.png" alt="logo">
+          </td>
+        </tr>
+      </table>
+
+<!-- Supplier Invoice and Payment Info -->
+<table style="width: 100%; margin-top: 16px; border-collapse: collapse;">
+  <tr>
+    <td style="width: 50%;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <tbody>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Supplier invoice #</td>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">1233</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Payment #</td>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">001538</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Task #</td>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">126515</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;line-height:19.36px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;">Date #</td>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">2024-06-23 07:23:50</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <table style=" text-align: right; width: 100%; border-collapse: collapse;">
+        <tbody>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">Our Zazibar</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">P.o Box 4146,Jambiani</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">Zanzibar,TANZANIA</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">inventory@our-zanzibar.com</td>
+          </tr>
+          <tr>
+            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">+255742998277</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+
+
         <br>
         <div>
           <p style="font-size:16px;font-weight:600;line-height:19.36px;text-align:left; margin-bottom: .5rem;">Payment To:</p>
           <p style="margin: 0; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">Green Grocery</p>
-          <p style="margin: 0; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">07711122</p>
         </div>
         <br>
-        <table class="modal-table fs-12 " style="width: 100%; margin-top: 16px; border-collapse: collapse;">
-          <thead style="background: #A9B0C0 !important;">
-            <tr class="tr-bg-1" style="color:white;height:48px;background:#A9B0C0 !important;background-color: #f5f5f5;">
-              <th style="font-weight: 700; font-size: 12px; padding-left:.5rem;border-radius:10px 0 0 10px !important;">#</th>
-              <th style="font-weight: 700; font-size: 12px; padding-left:.5rem;width: 30%;">Item</th>
-              <th style="font-weight: 700; font-size: 12px; padding-left:.5rem;">Unit</th>
-              <th style="font-weight: 700; font-size: 12px; padding-left:.5rem;">Ordered <br>Quantity</th>
-              <th style="font-weight: 700; font-size: 12px; padding-left:.5rem;">Receive <br>Quantity</th>
-              <th style="font-weight: 700; font-size: 12px; background:#7A89FF;text-align:center;padding-left:.5rem;">Price ($)</th>
-              <th style="font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;text-align:center;padding-left:.5rem;border-radius:0 10px 10px 0 !important;">Total ($)</th>
+        <table style="width: 100%; margin-top: 16px; border-collapse: collapse;">
+          <thead style="border-radius:10px !important; ">
+            <tr style="color:white;height:48px;background:#A9B0C0 !important;background-color: #f5f5f5; ">
+              <th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px;  padding:.5rem .5rem .5rem 0;">#</th>
+              <th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px;  padding:.5rem .5rem .5rem 0;width: 30%;">Item</th>
+              <th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px;  padding:.5rem .5rem .5rem 0;">Unit</th>
+              <th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px;  padding:.5rem .5rem .5rem 0;">Quantity</th>
+              <th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px;  background:#7A89FF;text-align:center;padding:.5rem .5rem .5rem 0;">Price ($)</th>
+              <th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px;  font-weight: 700; background:#7A89FF;text-align:center;padding:.5rem .5rem .5rem 0;">Total ($)</th>
             </tr>
           </thead>
-          <tbody class="tabel-body-p">
+          <tbody >
             <tr style="height:48px;">
-              <td style="font-size: 12px; padding:0 .5rem;">1</td>
-              <td style="font-size: 12px; padding:0 .5rem;text-align:center; width: 30%;">Item</td>
-              <td style="font-size: 12px; padding:0 .5rem;text-align:center;">Kg</td>
-              <td style="font-size: 12px; padding:0 .5rem;text-align:center;">20</td>
-              <td style="font-size: 12px; padding:0 .5rem;text-align:center;">20</td>
-              <td style="font-size: 12px; padding:0 .5rem;text-align:center;">3.0000 $</td>
-              <td style="font-size: 12px; font-weight: 700; padding:0 .5rem;">2.0000 $</td>
+              <td style="font-size: 12px; padding: .5rem;">1</td>
+              <td style="font-size: 12px; padding: .5rem;text-align:center; width: 30%;">Item</td>
+              <td style="font-size: 12px; padding: .5rem;text-align:center;">Kg</td>
+              <td style="font-size: 12px; padding: .5rem;text-align:center;">20</td>
+              <td style="font-size: 12px; padding: .5rem;text-align:center;">3.0000 $</td>
+              <td style="font-size: 12px; font-weight: 700; padding:.5rem;">2.0000 $</td>
             </tr>
             <tr style="height:48px;">
-              <td style=" font-size: 12px; padding:0 .5rem;">1</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;width: 30%;">Item</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">Kg</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">20</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">20</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">3.0000 $</td>
-              <td style=" font-size: 12px; font-weight: 700; padding:0 .5rem;">2.0000 $</td>
+              <td style=" font-size: 12px; padding: .5rem;">1</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;width: 30%;">Item</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">Kg</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">20</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">3.0000 $</td>
+              <td style=" font-size: 12px; font-weight: 700; padding: .5rem;">2.0000 $</td>
             </tr>
             <tr style="height:48px;">
-              <td style=" font-size: 12px; padding:0 .5rem;">1</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center; width: 30%;">Item</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">Kg</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">20</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">20</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">3.0000 $</td>
-              <td style=" font-size: 12px; font-weight: 700; padding:0 .5rem;">2.0000 $</td>
+              <td style=" font-size: 12px; padding: .5rem;">1</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center; width: 30%;">Item</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">Kg</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">20</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">3.0000 $</td>
+              <td style=" font-size: 12px; font-weight: 700; padding: .5rem;">2.0000 $</td>
             </tr>
             <tr style="height:48px;">
-              <td style=" font-size: 12px; padding:0 .5rem;">1</td>
-              <td style=" font-size: 12px; padding:0 .5rem; text-align:center; width: 30%;">Item</td>
-              <td style=" font-size: 12px; padding:0 .5rem; text-align:center;">Kg</td>
-              <td style=" font-size: 12px; padding:0 .5rem; text-align:center;">20</td>
-              <td style=" font-size: 12px; padding:0 .5rem; text-align:center;">20</td>
-              <td style=" font-size: 12px; padding:0 .5rem;text-align:center;">3.0000 $</td>
-              <td style=" font-size: 12px; font-weight: 700; padding:0 .5rem;">2.0000 $</td>
+              <td style=" font-size: 12px; padding: .5rem;">1</td>
+              <td style=" font-size: 12px; padding: .5rem; text-align:center; width: 30%;">Item</td>
+              <td style=" font-size: 12px; padding: .5rem; text-align:center;">Kg</td>
+              <td style=" font-size: 12px; padding: .5rem; text-align:center;">20</td>
+              <td style=" font-size: 12px; padding: .5rem;text-align:center;">3.0000 $</td>
+              <td style=" font-size: 12px; font-weight: 700; padding: .5rem;">2.0000 $</td>
             </tr>
           </tbody>
         </table>
-        <div class="divider-blue" style="width:100%;height:3px;background:#7A89FF;margin:.5rem 0;margin-top: 20px;"></div>
+
+        <div  style="width:100%;height:3px;background:#7A89FF;margin:.5rem 0;margin-top: 20px;"></div>
+
         <br>
-        <div class="tabel-body-p-footer" style="display:flex;justify-content:space-between;">
-          <div class="table1">
-            <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left; margin-bottom: 0;">Payment Method:</p>
-            <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">Cash</p>
-            <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">Main Safe USD</p>
-          </div>
-          <table class="grand-total-tabel" style="margin-top:-1rem;min-width:289px;height: 38px; border-collapse: collapse;">
-            <tbody>
-              <tr class="grand-total" style="color:#666C85; font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
-                <th style="font-size:16px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">Grand Total ($)</th>
-                <th style="font-size:16px;font-weight:600; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">238.2235 $</th>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="grand-total" style="color:#666C85; font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
-                <th style="font-size:16px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">Grand Total ($)</th>
-                <th style="font-size:16px;font-weight:600; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">238.2235 $</th>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="grand-total" style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
-                <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">Grand Total ($)</th>
-                <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">238.2235 $</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <table style=" width:100%; border-collapse: collapse;">
+  <tr>
+    <td style="vertical-align: top; width:50%; ">
+      <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left; margin-bottom: 0;">Payment Method:</p>
+      <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">Cash</p>
+      <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">Main Safe USD</p>
+    </td>
+    <td style="vertical-align: top; width:50%;">
+      <table style="margin-top:-1rem;min-width:350px;height: 38px; border-collapse: collapse;">
+        <tbody>
+          <tr style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
+            <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">Grand Total ($)</th>
+            <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">238.2235 $</th>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+
         <br>
         <br>
         <br>

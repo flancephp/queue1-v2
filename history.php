@@ -834,6 +834,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
 
     <style>
@@ -1951,7 +1952,50 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                     <a class="dropdown-item" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
                                                           </li>
                                                 <?php 
-            } getPayPopup($orderRow['id'],$orderRow['ordType']); ?>
+            } 
+             if( $orderRow['ordType'] == 1)//order
+                        {
+
+                    if($accessHistoryAccountsPermission['type_id'] == 1)
+                    {
+                       if ($accessPaymentPermission['type_id']==1) 
+                        {
+
+                           getPayPopup($orderRow['id']);
+                        }
+                        else
+                        {
+                            ?><span style="width: 53%;">&nbsp;</span><?php
+                        } 
+                    }
+                    else
+                    {
+                        ?><span style="width: 53%;">&nbsp;</span><?php
+                    }
+                    
+                    }
+
+                    if($orderRow['ordType'] == 2)//recusation
+                        { 
+                            if($accessHistoryAccountsPermission['type_id'] == 1)
+                            {
+                                if ($accessInvoicePermission['type_id']==1) 
+                                {
+
+                                    getrequisitionPopup($orderRow['id']);  
+                                }
+                                else
+                                {
+                                    ?><span style="width: 66%;">&nbsp;</span><?php
+                                }
+                            }
+                            else
+                            {
+                                ?><span style="width: 66%;">&nbsp;</span><?php
+                            }
+                            
+                        } 
+            // ?>
        
                                     
 

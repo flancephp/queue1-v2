@@ -519,20 +519,7 @@ else
                                                                 <li class="dropdown innerDrop">
                                                                     <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a> 
                                                                     <ul class="subitem submenu list-unstyled">
-                                                                        <?php
-                                                                            //add item fee & custom fee modal box 
-                                                                            $sql = " SELECT * 
-                                                                            FROM tbl_custom_items_fee 
-                                                                            WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-                                                                            $customItemsResult = mysqli_query($con, $sql);
-
-                                                                            //$liCount = 0;
-                                                                            while ($resultRow = mysqli_fetch_array($customItemsResult)) 
-                                                                            {
-                                                                                //$liCount++;
-                                                                                echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='addOrder.php?feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." ' >".$resultRow['itemName']."</a></li>";
-                                                                            } 
-                                                                        ?>
+                                                                
                                                                     </ul>
                                                                 </li>
                                                                 <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
