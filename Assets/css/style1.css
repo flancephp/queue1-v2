@@ -37,3 +37,6 @@ html[dir=rtl] .newOrder {
 html[dir=rtl] .lgOut{
   padding-right: 0 !important;
 }
+html[dir=rtl] .addUser-Form input[type=password]{
+  padding-right: 2rem !important;
+}
