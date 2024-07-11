@@ -540,45 +540,45 @@ include_once('script/revenueCenterReport_script.php');
                             <div class="container position-relative hstTbl-bd">
 
                             <?php
-$x= 0;
-$tr = '';
-$datesArr = [];
-$guestsTotal = 0;
-$useVarianceCount = 0;
-$allVarianceAmt = 0;
-$usageVarianceValueArr = [];
-$usageTotalAmount = 0;
-$outLetVariance = 0;
-$costPerTot = 0;
+                        $x= 0;
+                        $tr = '';
+                        $datesArr = [];
+                        $guestsTotal = 0;
+                        $useVarianceCount = 0;
+                        $allVarianceAmt = 0;
+                        $usageVarianceValueArr = [];
+                        $usageTotalAmount = 0;
+                        $outLetVariance = 0;
+                        $costPerTot = 0;
 
-$revIdsArr = [];
-$isFooterPrinted = false;
+                        $revIdsArr = [];
+                        $isFooterPrinted = false;
 
-while($row = mysqli_fetch_array($getRevenueReport))
-{
+                        while($row = mysqli_fetch_array($getRevenueReport))
+                        {
 
 
-    $color = ($x%2 == 0)? 'white': '#FFFFCC';
-    $x++;
-    
-    $ourLetsTotsArr = getRevenueTotals($row['outLetId'], $_GET['fromDate'], $_GET['toDate']);
+                            $color = ($x%2 == 0)? 'white': '#FFFFCC';
+                            $x++;
+                            
+                            $ourLetsTotsArr = getRevenueTotals($row['outLetId'], $_GET['fromDate'], $_GET['toDate']);
 
-    $sales = $ourLetsTotsArr['salesTotal'];
-    $guests = $ourLetsTotsArr['guestsTotal'];
-    $varience = $ourLetsTotsArr['varience'];
-    $usage = $ourLetsTotsArr['usageTotal'];
-    $usagePer = $ourLetsTotsArr['usagePer'];
-    $usageLevel = $ourLetsTotsArr['usageLevel'];				
-    
-    
-    $usageTotalAmount += $usage;
-    $guestsTotal += $guests;
-    $allVarianceAmt += $varience;
-    $salesTotal += $sales;
-    
-    $usagePerGuests = ($usage && $guests) ? ($usage/$guests) : '';
-    
-    $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
+                            $sales = $ourLetsTotsArr['salesTotal'];
+                            $guests = $ourLetsTotsArr['guestsTotal'];
+                            $varience = $ourLetsTotsArr['varience'];
+                            $usage = $ourLetsTotsArr['usageTotal'];
+                            $usagePer = $ourLetsTotsArr['usagePer'];
+                            $usageLevel = $ourLetsTotsArr['usageLevel'];				
+                            
+                            
+                            $usageTotalAmount += $usage;
+                            $guestsTotal += $guests;
+                            $allVarianceAmt += $varience;
+                            $salesTotal += $sales;
+                            
+                            $usagePerGuests = ($usage && $guests) ? ($usage/$guests) : '';
+                            
+                            $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
 
    
 
@@ -603,7 +603,7 @@ while($row = mysqli_fetch_array($getRevenueReport))
                                     }
 
                                 $revIdsArr[$row['id']] = $row['id'];
-                                echo $headerPart = '<div class="revCntr-Task align-items-center">
+                                echo $headerPart = '<div class="revCntr-Task align-items-center mb-1">
                                     <div class="mbshw-Revcnt">
                                         <div class="revCenter-Name d-flex align-items-center itmBody">
                                             <div class="center-List">
@@ -618,7 +618,7 @@ while($row = mysqli_fetch_array($getRevenueReport))
                                 $isFooterPrinted = false;        
 
 
-                              }
+                                }
 
 
                                         
@@ -668,7 +668,7 @@ while($row = mysqli_fetch_array($getRevenueReport))
 
                                            // $getRevenueReport = '';   
 
-                     }//end while loop
+                                    }//end while loop
                                          
                                             
 
