@@ -3220,8 +3220,8 @@ function getOrderPaymentLink_deleted($orderId) {
 
 }
 
-function getPayPopup($orderId,$orderType) {
-    if($orderType==1) { global $con;
+function getPayPopup($orderId) {
+    global $con;
 		
 	 	$sql= " SELECT * FROM tbl_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1   ";
 	    $resultSet= mysqli_query($con, $sql);
@@ -3236,7 +3236,57 @@ function getPayPopup($orderId,$orderType) {
   <?php   }
 
     
-} }
+}
+
+
+function getrequisitionPopup($orderId) {
+      global $con;
+
+        $selQry = " SELECT * FROM tbl_orders WHERE id = '".$orderId."' AND account_id = '".$_SESSION['accountId']."' ";
+        $selRes = mysqli_query($con, $selQry);
+        $selResRow = mysqli_fetch_array($selRes);
+        $recMemberId = $selResRow['recMemberId'];
+
+        $selQry = " SELECT * FROM tbl_deptusers WHERE id = '".$recMemberId."' AND account_id = '".$_SESSION['accountId']."' ";
+        $selRes = mysqli_query($con, $selQry);
+        $selResRow = mysqli_fetch_array($selRes);
+
+        if ($selResRow['receive_inv'] > 0)
+        {
+	
+		 	$sql= " SELECT * FROM tbl_req_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1 ";
+		    $resultSet= mysqli_query($con, $sql);
+			$pmntRows= mysqli_fetch_array($resultSet);
+			$countRow = mysqli_num_rows($resultSet);
+
+			
+			if ($pmntRows['issueInvoice']==1 && $pmntRows['paymentStatus']!=1)
+			{
+				?>
+				 <li>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice') ?></a>
+                </li>
+				<?php 
+				
+			}
+
+
+			if ($pmntRows['paymentStatus']==1)
+			{ ?>
+            <li>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice received') ?></a>
+                </li>
+           <?php
+			}
+
+		}
+		else
+		{
+			echo '<div style="width: 70%;"><span>&nbsp;</span></div>';
+		}
+
+ }
+
 
 function getOrderPaymentLink($orderId) {
         global $con;

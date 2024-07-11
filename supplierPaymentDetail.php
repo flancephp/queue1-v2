@@ -898,7 +898,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
     if ($orderRow['ordCurId'] > 0)
     { ?>
      <tr>
-                                    <td> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -907,7 +907,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
     <?php }else{ ?>
      <tr>
-                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 <?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -948,7 +948,7 @@ if($row)
 if ($orderRow['ordCurId'] > 0)
 { ?>
 <tr>
-                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
                                          <?php echo showOtherCur($discountPercentOther, $orderRow['ordCurId']); ?></td>
@@ -957,7 +957,7 @@ if ($orderRow['ordCurId'] > 0)
      <?php }else{ ?>
 
 <tr>
-                                    <td> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -986,7 +986,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
     if ($orderRow['ordCurId'] > 0){ ?>
                <tr>
-                                    <td>  <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td>  <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -996,7 +996,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
          <?php }else{ ?>
 
                <tr>
-                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
             &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
                                         <?php echo showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
@@ -1489,6 +1489,25 @@ list'); ?></span><br>
         </div>
     </div>
     </form>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
@@ -1607,55 +1626,32 @@ $.ajax({
 } //End of fetching other currency value
 </script>
 <script>  
- function getDelNumb(delId, orderId){
-
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='supplierPaymentDetail.php?delId='+delId+'&orderId='+orderId;
-          },
-
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
-
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-}  
-</script> 
-<script>  
  function getItemDelNumb(delId, orderId){
+    //var newOnClick = 'supplierPaymentDetail.php?delId='+delId+'&orderId='+orderId;
+    var newOnClick = "window.location.href='supplierPaymentDetail.php?delId=" + delId +'&orderId='+orderId+"'";
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');
+    // $( "#dialog" ).dialog({  
+    //     autoOpen  : false,
+    //     modal     : true,
+    //     //title     : "Title",
+    //     buttons   : {
+    //       '<?php echo showOtherLangText('Yes') ?>' : function() {
+    //         //Do whatever you want to do when Yes clicked
+    //         $(this).dialog('close');
+    //         window.location.href='supplierPaymentDetail.php?delId='+delId+'&orderId='+orderId;
+    //       },
 
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='supplierPaymentDetail.php?delId='+delId+'&orderId='+orderId;
-          },
+    //       '<?php echo showOtherLangText('No') ?>' : function() {
+    //         //Do whatever you want to do when No clicked
+    //         $(this).dialog('close');
+    //       }
+    //    }    
+    // });
 
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
-
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    // $( "#dialog" ).dialog( "open" );
+    // $('.custom-header-text').remove();
+    // $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
 }  
 </script> 
     </script>
