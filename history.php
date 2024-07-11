@@ -1946,7 +1946,7 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
                                                 <?php 
             if($orderRow['ordType'] == 1)
             {
-            //issue in
+         
                 ?>
                                                  <li>
                                                     <a class="dropdown-item" onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('Details(Supplier)') ?></a>
@@ -1963,39 +1963,27 @@ if( isset($_GET['orderId']) && isset($_GET['reqPaymentStatus']) && $_GET['reqPay
 
                            getPayPopup($orderRow['id']);
                         }
-                        else
-                        {
-                            ?><span style="width: 53%;">&nbsp;</span><?php
-                        } 
+                         
                     }
-                    else
-                    {
-                        ?><span style="width: 53%;">&nbsp;</span><?php
-                    }
+                    
                     
                     }
 
-                    if($orderRow['ordType'] == 2)//recusation
+                    if($orderRow['ordType'] == 2)
                         { 
                             if($accessHistoryAccountsPermission['type_id'] == 1)
                             {
                                 if ($accessInvoicePermission['type_id']==1) 
                                 {
-
+                                    
                                     getrequisitionPopup($orderRow['id']);  
                                 }
-                                else
-                                {
-                                    ?><span style="width: 66%;">&nbsp;</span><?php
-                                }
-                            }
-                            else
-                            {
-                                ?><span style="width: 66%;">&nbsp;</span><?php
+                                
                             }
                             
+                            
                         } 
-            // ?>
+                     ?>
        
                                     
 
@@ -2320,6 +2308,22 @@ function openSupPaymentPopup(ordId) {
 
 }
 
+
+function openReqPaymentPopup(ordId) {
+
+$.ajax({
+        method: "POST",
+        url: "requisitionPaymentSummaryPopupAjax.php",
+
+        data: {
+            orderId: ordId
+        }
+    })
+    .done(function(htmlRes) {
+        $('#view_payment_paid_content').html(htmlRes);
+            $('#view_payment_paid').modal('show');
+    });
+}
 
 function hideCheckbox(targetId) {
 

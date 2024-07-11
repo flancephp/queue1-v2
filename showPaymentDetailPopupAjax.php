@@ -333,13 +333,12 @@ $resultRow = mysqli_fetch_array($resSet);
                                             $curCode = "$";
                                             $curName = "USD";
                                         }
-                                        $content .=  '<p class="f-03 mb-0">'.$payModeRow['modeName'].'</p><br>';
+                                        $content .=  '<p class="f-03 mb-0">'.$payModeRow['modeName'].'</p>';
                                         $content .=  '<p class="f-03 mb-0">'.$accDet['accountName'].'</p><br>';
                                
                             
                                     }
-                              // $content .= '<p class="f-03 mb-0">Cash</p>
-                              //       <p class="f-03 mb-0">Main Safe USD</p>';
+                              
                              $content .= '</div>
 
                                 <!-- grand totale  here -->

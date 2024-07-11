@@ -3175,50 +3175,6 @@ function resize_image($image_name, $out_image, $w, $h) {
 
 
 
-function getOrderPaymentLink_deleted($orderId) {
-       global $con;
-		
-	 	$sql= " SELECT * FROM tbl_payment WHERE orderId='".$orderId."' AND account_id = '".$_SESSION['accountId']."' order by id LIMIT 1   ";
-	    $resultSet= mysqli_query($con, $sql);
-		$pmntRows= mysqli_fetch_array($resultSet);
-		$countRow = mysqli_num_rows($resultSet);
-		
-		if ( $countRow==0 || empty($pmntRows['paymentStatus']) )
-		 { ?>
-
-<div style="width: 24%;">
-    <a class="supPayDtl nrmPayDtl"
-        href="supplierPaymentDetail.php?page=history&action=pay&orderId=<?php echo $orderId;?>"><?php echo showOtherLangText('Pay') ?></a>
-</div>
-<div style="border: none; background: transparent; width: 19%;">
-    <span class="supPdtl">&nbsp;</span>
-</div>
-
-<?php }
-
-
-		if ($pmntRows['paymentStatus']==1)
-		 { 
-			?>
-<div style="width:24%;">
-    <a class="supPayDtl" style="background:#8DB5DA"
-        href="supplierPaymentDetail.php?page=history&action=p&orderId=<?php echo $orderId;?>"><?php echo showOtherLangText('Pay') ?></a>
-</div>
-
-<div style="width:2%;">
-    <strong>|</strong>
-</div>
-<div style="width:10%; text-align: center;">
-    <a class="supPdtl" href="javascript:void(0)" onclick="openSupPaymentPopup('<?php echo $orderId ?>')"><img
-            src="./uploads/p-new.svg" alt="p" style="height: 14px;width: auto;"></a>
-</div>
-<div style="width:2%;">
-    <strong>|</strong>
-</div>
-
-<?php }
-
-}
 
 function getPayPopup($orderId) {
     global $con;
@@ -3264,7 +3220,7 @@ function getrequisitionPopup($orderId) {
 			{
 				?>
 				 <li>
-                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice') ?></a>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice') ?></a>
                 </li>
 				<?php 
 				
@@ -3274,7 +3230,7 @@ function getrequisitionPopup($orderId) {
 			if ($pmntRows['paymentStatus']==1)
 			{ ?>
             <li>
-                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice received') ?></a>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice received') ?></a>
                 </li>
            <?php
 			}
