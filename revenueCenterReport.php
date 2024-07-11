@@ -411,7 +411,7 @@ include_once('script/revenueCenterReport_script.php');
 							{
 								$sel = isset($_GET['centerId']) && $_GET['centerId'] == $revRow['id']  ? 'selected="selected"' : '';
 
-                               echo  '<li><a class="dropdown-item" href="javascript:void(0)">'.$revRow['name'].'</a> </li>';
+                               echo  '<li><a class="dropdown-item" href="revenueCenterReport.php?fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'&centerId='.$revRow['id'].'">'.$revRow['name'].'</a> </li>';
 							}
 							
 						?>
@@ -687,7 +687,9 @@ while($row = mysqli_fetch_array($getRevenueReport))
                                  <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
                                  class="fa-solid fa-angle-down"></i></a>
                                  </div>
-                                 </div>';
+                                 </div>
+                                 
+                                 ';
                                  
 
                              }
