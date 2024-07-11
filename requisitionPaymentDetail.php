@@ -804,7 +804,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
         { ?>
         <tr>
                 <td><?php echo showOtherLangText('Sub Total'); ?></td>
-                <td style="width: 30%;"><?php showPrice($chargePrice,$getDefCurDet['curCode']);?></td>
+                <td><?php showPrice($chargePrice,$getDefCurDet['curCode']);?></td>
                     
         </tr>
 
@@ -833,10 +833,10 @@ while($row = mysqli_fetch_array($ordDetResult))//show here order level charges
 {
                   ?>
                   <tr>
-                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                    <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                                         &nbsp;<?php echo $row['feeName'];?></td>
-                    <td style="width: 30%;"><?php showprice($fixedCharges,$getDefCurDet['curCode']);?></td>
+                    <td><?php showprice($fixedCharges,$getDefCurDet['curCode']);?></td>
                    </tr>
                   <?php
 
@@ -866,11 +866,11 @@ if($row)
 {
     ?>
           <tr>
-                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $showCif['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                    <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $showCif['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                                         &nbsp;<?php echo $row['feeName'];?>
                                     <?php echo $row['totalAmt'] ?> %</td>
-                    <td style="width: 30%;"><?php showprice($discountPercent,$getDefCurDet['curCode']); ?>
+                    <td><?php showprice($discountPercent,$getDefCurDet['curCode']); ?>
                     </td>
                     </tr>
 
@@ -893,11 +893,11 @@ $taxCharges=(($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
 $totalTaxCharges += (($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
 ?>
           <tr>
-                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                    <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                                         &nbsp;<?php echo $row['feeName'];?>
                                     <?php echo $row['price'] ?> %</td>
-                    <td style="width: 30%;"><?php showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
+                    <td><?php showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
                     </tr>
 <?php
 } //Ends order lelvel tax discount charges
@@ -914,7 +914,7 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                     
                                 
 
-                                    <tr class="grand-total" style=" max-height: 38px;">
+                                    <tr class="grand-total">
                                         <th class="px-3"><?php echo showOtherLangText('Grand Total'); ?></th>
                                         <th class="px-3"><?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
                                     </tr>

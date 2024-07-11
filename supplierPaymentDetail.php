@@ -898,7 +898,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
     if ($orderRow['ordCurId'] > 0)
     { ?>
      <tr>
-                                    <td> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td class="d-flex gap-1"> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -907,7 +907,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
     <?php }else{ ?>
      <tr>
-                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 <?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -948,7 +948,7 @@ if($row)
 if ($orderRow['ordCurId'] > 0)
 { ?>
 <tr>
-                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
                                          <?php echo showOtherCur($discountPercentOther, $orderRow['ordCurId']); ?></td>
@@ -957,7 +957,7 @@ if ($orderRow['ordCurId'] > 0)
      <?php }else{ ?>
 
 <tr>
-                                    <td> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td class="d-flex gap-1"> <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -986,7 +986,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
     if ($orderRow['ordCurId'] > 0){ ?>
                <tr>
-                                    <td>  <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td class="d-flex gap-1">  <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
 
                 &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
@@ -996,7 +996,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
          <?php }else{ ?>
 
                <tr>
-                                    <td><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
+                                    <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
             &nbsp;<?php echo $row['feeName'];?></td>
                                     <td style="font-weight: bold;">
                                         <?php echo showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
@@ -1099,7 +1099,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                                 <tr class="mb-adrs">
                                                     <td><?php echo showOtherLangText('Supplier Address'); ?></td>
                                                     <td>
-                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>" /><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?>"</textarea>
+                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>" /><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></textarea>
                                                     </td>
                                                 </tr>
 
