@@ -575,6 +575,182 @@
                                             <div class="revtable-Detail d-flex align-items-center itmBody">
                                                 <div class="outsale-Dtl align-items-center">
                                                     <div class="outlet-Name">
+                                                        <a href="outlet_report_saleCenter.php">Casa Bar</a>
+                                                        <div class="chkbx-revCntr">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="outlet-Salecst">
+                                                        <p class="mbhead-revCntr">Sales</p>
+                                                        <p class="bl-Sale">742.0000 $</p>
+                                                    </div>
+                                                    <div class="outlet-Totalcst d-flex item-items-center">
+                                                        <div class="ttlCost-Amt">
+                                                            <p class="mbhead-revCntr">Total Cost</p>
+                                                            <p class="pr-Tcost">250.9259 $</p>
+                                                        </div>
+                                                        <div class="ttlCost-Pnage">
+                                                            <p>33.82%</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="outusage-Dtl">
+                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
+                                                        <div class="saleCost-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Usage-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Variance-prt">
+                                                            <div class="Variance-prtPos">
+                                                                <p>7 $</p>
+                                                            </div>
+                                                            <div class="Variance-prtNeg">
+                                                                <p>-76 $</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="outchk-Dtl"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="revtable-Detail d-flex align-items-center itmBody">
+                                                <div class="outsale-Dtl align-items-center">
+                                                    <div class="outlet-Name">
+                                                        <a href="outlet_report_saleCenter.php">Casa Bar</a>
+                                                        <div class="chkbx-revCntr">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="outlet-Salecst">
+                                                        <p class="mbhead-revCntr">Sales</p>
+                                                        <p class="bl-Sale">742.0000 $</p>
+                                                    </div>
+                                                    <div class="outlet-Totalcst d-flex item-items-center">
+                                                        <div class="ttlCost-Amt">
+                                                            <p class="mbhead-revCntr">Total Cost</p>
+                                                            <p class="pr-Tcost">250.9259 $</p>
+                                                        </div>
+                                                        <div class="ttlCost-Pnage">
+                                                            <p>33.82%</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="outusage-Dtl">
+                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
+                                                        <div class="saleCost-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Usage-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Variance-prt">
+                                                            <div class="Variance-prtPos">
+                                                                <p>7 $</p>
+                                                            </div>
+                                                            <div class="Variance-prtNeg">
+                                                                <p>-76 $</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="outchk-Dtl"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="revtable-Detail d-flex align-items-center itmBody">
+                                                <div class="outsale-Dtl align-items-center">
+                                                    <div class="outlet-Name">
+                                                        <a href="outlet_report_saleCenter.php">Casa Bar</a>
+                                                        <div class="chkbx-revCntr">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="outlet-Salecst">
+                                                        <p class="mbhead-revCntr">Sales</p>
+                                                        <p class="bl-Sale">742.0000 $</p>
+                                                    </div>
+                                                    <div class="outlet-Totalcst d-flex item-items-center">
+                                                        <div class="ttlCost-Amt">
+                                                            <p class="mbhead-revCntr">Total Cost</p>
+                                                            <p class="pr-Tcost">250.9259 $</p>
+                                                        </div>
+                                                        <div class="ttlCost-Pnage">
+                                                            <p>33.82%</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="outusage-Dtl">
+                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
+                                                        <div class="saleCost-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Usage-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Variance-prt">
+                                                            <div class="Variance-prtPos">
+                                                                <p>7 $</p>
+                                                            </div>
+                                                            <div class="Variance-prtNeg">
+                                                                <p>-76 $</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="outchk-Dtl"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="revtable-Detail d-flex align-items-center itmBody">
+                                                <div class="outsale-Dtl align-items-center">
+                                                    <div class="outlet-Name">
+                                                        <a href="outlet_report_saleCenter.php">Casa Bar</a>
+                                                        <div class="chkbx-revCntr">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="outlet-Salecst">
+                                                        <p class="mbhead-revCntr">Sales</p>
+                                                        <p class="bl-Sale">742.0000 $</p>
+                                                    </div>
+                                                    <div class="outlet-Totalcst d-flex item-items-center">
+                                                        <div class="ttlCost-Amt">
+                                                            <p class="mbhead-revCntr">Total Cost</p>
+                                                            <p class="pr-Tcost">250.9259 $</p>
+                                                        </div>
+                                                        <div class="ttlCost-Pnage">
+                                                            <p>33.82%</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="outusage-Dtl">
+                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
+                                                        <div class="saleCost-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Usage-prt">
+                                                            <p>230.25 $</p>
+                                                        </div>
+                                                        <div class="Variance-prt">
+                                                            <div class="Variance-prtPos">
+                                                                <p>7 $</p>
+                                                            </div>
+                                                            <div class="Variance-prtNeg">
+                                                                <p>-76 $</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="outchk-Dtl"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="revtable-Detail d-flex align-items-center itmBody">
+                                                <div class="outsale-Dtl align-items-center">
+                                                    <div class="outlet-Name">
                                                         <a href="outlet_report_saleCenter.php">Casa Kitchen</a>
                                                         <div class="chkbx-revCntr">
 
