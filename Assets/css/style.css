@@ -19872,7 +19872,7 @@ body .ui-widget-content {
 .modal .table-cell {
   display: table-cell; 
   padding: 8px 5px;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .modal .sub-table {
   display: table;

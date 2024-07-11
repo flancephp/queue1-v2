@@ -129,7 +129,7 @@ $content .=   '<head>
       <link href="./PDF Design_files/css2" rel="stylesheet">
       <style>
          @page { margin: 10px 10px; }
-         th, td { border:0; } 
+         th, td { border:0;vertical-align:top; } 
       </style>
    </head>';
  $content .=   '<body style="font-family: Arial, sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
