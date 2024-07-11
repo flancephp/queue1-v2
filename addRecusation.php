@@ -381,39 +381,37 @@ if($_SESSION['deptId'] != '')
 
                 <section class="ordDetail">
                     <div class="tpBar-grn  tpBar-red"></div>
-                    <div class="stcPart">
-                        <div class="container topOrder newReq nwOrder-Div">
-                            <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
-                                <div class="alert alert-success alert-dismissible fade show lg__left__margin" role="alert">
-                                    <p>
-                                        <?php 
+                    <div class="container nordPrice d-block mt-0">
+                        <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
+                            <div class="alert alert-success alert-dismissible fade show lg__left__margin mb-0 mt-4" role="alert">
+                                <p>
+                                    <?php  
+                                        echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
+                                        echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
+                                        echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                                        echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                                        echo isset($_GET['mes']) ? $_GET['mes'] : '';
                                     
-                                      echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
-                                    echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
-                                    echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
-                                    echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
-                                    echo isset($_GET['mes']) ? $_GET['mes'] : '';
-                                  
-                                    if( isset($_GET['delete']) && $_GET['delete'] == 1 )
-                                    {
-                                        echo ' '.showOtherLangText('Item Deleted Successfully').' ';
-                                    }
-                                    elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
-                                    {
-                                        echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
-                                    }
-    
-                                    
-                                    ?>
-                                    </p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            <?php } ?>
-
+                                        if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                                        {
+                                            echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                                        }
+                                        elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                                        {
+                                            echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                                        } 
+                                    ?> 
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php } ?> 
+                    </div>
+                    <div class="stcPart position-relative">
+                        <div class="container cntTable pt-4 pt-lg-5"><!-- topOrder newReq nwOrder-Div--> 
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
-                                    <div class="ord-Box">
-                                        <div class="ordDate">
+                                    <div class="ord-Box ms-0 position start-0" style="top:2rem;">
+                                        <div class="ordDate ms-0">
                                             <h4 class="subTittle1"><?php echo date("d-m-Y"); ?></h4>
                                         </div>
                                     </div>
@@ -1080,21 +1078,33 @@ if($_SESSION['deptId'] != '')
                     </div>
                     <div class="addUser-Form modal-body">
                         <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
-                        <input type="text" class="form-control" name="feeName" id="feeName" value="" autocomplete="off"
-                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
-                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                            onChange="this.setCustomValidity('')" required />
-                        <select class="form-control" name="feeType" id="typeOfFee"
-                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                            onChange="this.setCustomValidity('')" required>
-                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
-                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
-                            </option>
-                        </select>
-                        <input type="text" class="form-control" id="amt" name="amt" value="" autocomplete="off"
-                            placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
-                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                            onChange="this.setCustomValidity('')" required />
+                        <div class="d-flex flex-column gap-3">
+                            <div> 
+                                <input 
+                                    type="text" class="form-control" name="feeName" id="feeName" value="" autocomplete="off"
+                                    placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
+                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                    onChange="this.setCustomValidity('')" required 
+                                />
+                            </div>
+                            <div> 
+                                <select class="form-control" name="feeType" id="typeOfFee"
+                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                                    onChange="this.setCustomValidity('')" required>
+                                    <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
+                                    <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
+                                    </option>
+                                </select>
+                            </div>
+                            <div> 
+                                <input 
+                                    type="text" class="form-control" id="amt" name="amt" value="" autocomplete="off"
+                                    placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
+                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                    onChange="this.setCustomValidity('')" required 
+                                />
+                            </div>
+                        </div>
 
 
                     </div>
@@ -1106,14 +1116,12 @@ if($_SESSION['deptId'] != '')
                     </div>
                     <div class="feeSave">
                         <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+                        <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
 
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
-                            <button type="submit" id="feesave_add" name="feesave_add"
-                                class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                            <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                         </div>
                     </div>
                 </div>

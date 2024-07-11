@@ -1,10 +1,3 @@
-<?php 
-include('inc/dbConfig.php'); //connection details
-
-include_once('script/revenueCenterReport_script.php');
-			
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +20,7 @@ include_once('script/revenueCenterReport_script.php');
 <body>
 
     <div class="container-fluid newOrder">
-        <div class="row">
+        <div class="row g-0">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <nav class="navbar d-flex flex-wrap align-items-stretch">
                     <div>
@@ -238,8 +231,7 @@ include_once('script/revenueCenterReport_script.php');
                                                     name="fromDate" autocomplete="off" value="">
                                             </div>
                                             <div class="reloadBtn">
-                                                <a href="javascript:void(0)"><i
-                                                        class="fa-solid fa-arrows-rotate"></i></a>
+                                                <a href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"></i></a>
                                             </div>
                                             <div class="reloadBtn">
                                                 <a href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
@@ -252,18 +244,18 @@ include_once('script/revenueCenterReport_script.php');
                                 <div
                                     class="col-md-6 expStrdt revenue-Feature d-flex justify-content-end align-items-end">
                                     <div class="d-flex justify-content-end align-items-center">
-                                        <div class="chkStore">
+                                        <!-- <div class="chkStore">
                                             <a href="javascript:void(0)">
                                                 <img src="Assets/icons/history-stock.svg" alt="history stock">
                                             </a>
-                                        </div>
+                                        </div> -->
                                         <div class="chkStore">
                                             <a href="javascript:void(0)">
                                                 <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
                                             </a>
                                         </div>
                                         <div class="chkStore">
-                                            <a href="javascript:void(0)">
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#revenue_center_pdf">
                                                 <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
                                             </a>
                                         </div>
@@ -361,17 +353,18 @@ include_once('script/revenueCenterReport_script.php');
                                         </a>
 
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item ent-Gstno" href="javascript:void(0)">Enter Guest
-                                                    No.</a>
+                                            <li>
+                                                <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)">Enter Guest No.</a>
                                             </li>
-                                            <li><a class="dropdown-item gt-Pos" href="javascript:void(0)">Get POS
-                                                    Sales</a>
+                                            <li>
+                                                <a class="dropdown-item gt-Pos" href="getPosSales.php">Get POS Sales</a>
                                             </li>
-                                            <li><a class="dropdown-item imp-Data" href="javascript:void(0)">Import Data
-                                                    File</a></li>
-                                            <li><a class="dropdown-item dwn-Sample" href="javascript:void(0)"> <i
-                                                        class="fa-solid fa-arrow-down"></i> <span>Download sample
-                                                        file</span></a></li>
+                                            <li><a class="dropdown-item imp-Data" href="javascript:void(0)">Import Data File</a></li>
+                                            <li>
+                                                <a class="dropdown-item dwn-Sample" href="javascript:void(0)"> 
+                                                <i class="fa-solid fa-arrow-down"></i> 
+                                                <span>Download sample file</span></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -405,7 +398,7 @@ include_once('script/revenueCenterReport_script.php');
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="tb-head guest-List">
+                                    <!-- <div class="tb-head guest-List">
                                         <div class="d-flex align-items-center">
                                             <p>Guests</p>
                                             <span class="dblArrow">
@@ -415,7 +408,7 @@ include_once('script/revenueCenterReport_script.php');
                                                         class="fa-solid fa-angle-down"></i></a>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="otRev-head">
                                     <div class="out-Let align-items-center">
@@ -454,7 +447,7 @@ include_once('script/revenueCenterReport_script.php');
                                         </div>
                                         <div class="tb-head out-Ttlcst">
                                             <div class="d-flex align-items-center">
-                                                <p>Total Cost</p>
+                                                <p>Cost</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -467,7 +460,7 @@ include_once('script/revenueCenterReport_script.php');
                                     <div class="sale-Cost align-items-center">
                                         <div class="tb-head sale-Cstlist">
                                             <div class="d-flex align-items-center">
-                                                <p>Sales Cost</p>
+                                                <p>Variance</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -478,7 +471,7 @@ include_once('script/revenueCenterReport_script.php');
                                         </div>
                                         <div class="tb-head sale-Usage">
                                             <div class="d-flex align-items-center">
-                                                <p>Usage</p>
+                                                <p>Guests</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -487,9 +480,12 @@ include_once('script/revenueCenterReport_script.php');
                                                 </span>
                                             </div>
                                         </div>
+
+
+
                                         <div class="tb-head sale-Varlist">
                                             <div class="d-flex align-items-center">
-                                                <p>Variance</p>
+                                                <p>Usageperguests</p>
                                                 <span class="dblArrow">
                                                     <a href="javascript:void(0)" class="d-block aglStock"><i
                                                             class="fa-solid fa-angle-up"></i></a>
@@ -573,12 +569,7 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="grey-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+
                                             </div>
 
                                             <div class="revtable-Detail d-flex align-items-center itmBody">
@@ -622,12 +613,7 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-issueIn fst-Bx"><span></span></a>
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+
                                             </div>
 
                                             <div class="revtable-Detail d-flex align-items-center itmBody">
@@ -670,10 +656,7 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
-                                                    <a href="javascript:void(0)"
-                                                        class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+
                                             </div>
 
                                         </div>
@@ -736,12 +719,12 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
+                                                <!-- <div class="sqChk-Box align-items-center">
                                                     <a href="javascript:void(0)"
                                                         class="grey-Box rev-issueIn fst-Bx"><span></span></a>
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <div class="revtable-Detail d-flex align-items-center itmBody">
@@ -785,12 +768,12 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
+                                                <!-- <div class="sqChk-Box align-items-center">
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-issueIn fst-Bx"><span></span></a>
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                         </div>
@@ -853,12 +836,12 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
+                                                <!-- <div class="sqChk-Box align-items-center">
                                                     <a href="javascript:void(0)"
                                                         class="grey-Box rev-issueIn fst-Bx"><span></span></a>
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <div class="revtable-Detail d-flex align-items-center itmBody">
@@ -902,12 +885,12 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
+                                                <!-- <div class="sqChk-Box align-items-center">
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-issueIn fst-Bx"><span></span></a>
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <div class="revtable-Detail d-flex align-items-center itmBody">
@@ -950,10 +933,10 @@ include_once('script/revenueCenterReport_script.php');
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
                                                 </div>
-                                                <div class="sqChk-Box align-items-center">
+                                                <!-- <div class="sqChk-Box align-items-center">
                                                     <a href="javascript:void(0)"
                                                         class="green-Box rev-closeStock"><span></span></a>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                         </div>
@@ -974,6 +957,399 @@ include_once('script/revenueCenterReport_script.php');
             </div>
         </div>
     </div>
+
+
+    <!-- Enter Guest No. Modal Start --> 
+    
+    <!-- Modal -->
+    <div
+        class="modal fade" id="modalEnterGuestNo" tabindex="-1" role="dialog"
+        aria-labelledby="modalEnterGuestNoTitle" aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <p class="modal-title h1" id="modalEnterGuestNoTitle">
+                        Enter Guest No
+                    </p>
+                </div>
+                <form action="#">
+                    <div class="modal-body">
+                        <div class="row g-3 align-items-center addUser-Form"> 
+                            <div class="col-md-4">
+                                <label for="date" class="label">Date</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input 
+                                    type="date"
+                                    name="date"
+                                    id="date"
+                                    class="form-control m-0"
+                                >
+                            </div>
+                            <div class="col-md-4">
+                                <label for="revenue_center" class="label">Revenue center</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select name="revenue_center" id="revenue_center" class="form-select m-0">
+                                    <option value="Revenue center">Revenue center</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="guest_no" class="label">Guest no.</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input 
+                                    type="text"
+                                    name="guest_no"
+                                    class="form-control m-0"
+                                >
+                            </div> 
+                        </div>
+                    </div><!--.//modal-body -->
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" name="btnSbt" onclick="" class="deletelink btn sub-btn std-btn">Save</button>
+                        </div>
+                        <div class="btnBg">
+                            <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
+    <!-- Enter Guest No. Modal End -->
+
+
+    <!-- ===== Revenue Center pdf popup new in div format======= -->
+    <div class="modal" tabindex="-1" id="revenue_center_pdf" aria-labelledby="revenue_center_pdfModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+            <div class="modal-content p-2">
+                <div class="modal-header pb-3">
+                    <div class="d-md-flex align-items-center justify-content-between w-100 ">
+                        <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
+                        
+                                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
+                                    <i class="fa fa-filter"></i>
+                                </button>
+                            
+                                <div class="collapse" id="modalfiltertop">
+                                    <div class="d-flex gap-3 modal-head-row">
+                                    
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Headers<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
+                                                <span class="fs-13">Address</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="logo" class="form-check-input" value="4">
+                                                <span class="fs-13">Logo</span>
+                                            </li>
+                                        </ul>
+                                    </div>                                  
+
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Summary<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="NoOfGuests" class="form-check-input" value="2">
+                                                <span class="fs-13">No. of Guests</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="sales" class="form-check-input" value="3">
+                                                <span class="fs-13">Sales</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="totalCost" class="form-check-input" value="4">
+                                                <span class="fs-13">Total Cost</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="variance" class="form-check-input" value="5">
+                                                <span class="fs-13">Variance</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Item Table<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="revenueCenter" class="form-check-input" value="2">
+                                                <span class="fs-13">Revenue Center</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="guest" class="form-check-input" value="3">
+                                                <span class="fs-13">Guest</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="outlet" class="form-check-input" value="4">
+                                                <span class="fs-13">Outlet</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="sales" class="form-check-input" value="5">
+                                                <span class="fs-13">Sales</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="totalCost" class="form-check-input" value="6">
+                                                <span class="fs-13">Total Cost</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="salesCost" class="form-check-input" value="7">
+                                                <span class="fs-13">Sales Cost</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="usage" class="form-check-input" value="8">
+                                                <span class="fs-13">Usage</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="Variance" class="form-check-input" value="9">
+                                                <span class="fs-13">variance</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    </div>
+                                
+                                </div>
+
+                        
+
+                        </div>
+                        <a href="revenueCenterReportPdf.html" class="btn" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                    </div>
+                </div> 
+                <div class="modal-body px-2 py-3">
+                    <div class="row pb-3">
+                        <div class="col-6">
+                            <div class="modal-address ">
+                                <h6 class="semibold fs-14">Our Zazibar</h6>
+                                <div class="fs-13 ">
+                                    <p>P.o Box 4146</p>
+                                    <p>Jambiani</p>
+                                    <p>Zanzibar, TANZANIA</p>
+                                    <p>inventory@our-zanzibar.com</p>
+                                    <p>+255743419217</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end">
+                            <div class="modal-logo">
+                                <img src="Assets/icons/logo_Q.svg" alt="Logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="model-title-with-date">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h6 class="semibold">Revenue Center Report</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-end fs-15"><small>From</small> 16-04-2024 <small>To</small> 19-04-2024</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summery-row">
+                        <div class="row">
+                            <div class="col-3 NoOfGuestsSection pe-1">
+                                <div class="modal-table fs-12 w-100 text-center">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell medium">No. of Guests</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell">80</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 SalesSection pe-1 ps-0">
+                                <div class="modal-table fs-12 w-100 text-center">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell medium">Sales</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell">742.0000 $</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 totalCost pe-1 ps-0">
+                                <div class="modal-table fs-12 w-100">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell">&nbsp;</div>
+                                        <div class="table-cell medium">Total Cost</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell">&nbsp;</div>
+                                        <div class="table-cell">3,994.06 $ &nbsp;  34%</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Sales Cost</div>
+                                        <div class="table-cell font-bold">3,600 $</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Usage</div>
+                                        <div class="table-cell font-bold">245.06 $</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell">Variance</div>
+                                        <div class="table-cell font-bold">140 $</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 varianceSection ps-0">
+                                <div class="modal-table fs-12 w-100 text-center">
+                                    <div class="table-row header-row">
+                                        <div class="table-cell medium">Variance</div>
+                                    </div>
+                                    <div class="table-row thead">
+                                        <div class="table-cell">-110 $</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell font-bold">13 $</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell font-bold text-danger">-123 $</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflowTable"> 
+                        <div class="modal-table fs-12 w-100 mt-4 revenue_center_table">
+                            <div class="table-row thead">
+                                <div class="table-cell">#</div>
+                                <div class="table-cell">Revenue Center</div>
+                                <div class="table-cell">Guest</div>
+                                <div class="table-cell">
+                                    <div class="table-row flex-container">
+                                        <div class="table-cell">Outlet</div>
+                                        <div class="table-cell">Sales</div>
+                                        <div class="table-cell">Total Cost</div>
+                                        <div class="table-cell">Sales Cost</div>
+                                        <div class="table-cell">Usage</div>
+                                        <div class="table-cell">Variance</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-row row-seprate">
+                                <div class="table-cell">1</div>
+                                <div class="table-cell medium">Casa</div>
+                                <div class="table-cell">20</div>
+                                <div class="table-cell">
+                                    <div class="table-row flex-container row-seprate">
+                                        <div class="table-cell medium">Casa Bar</div>
+                                        <div class="table-cell">727.00 $</div>
+                                        <div class="table-cell medium">252.23 $ &nbsp;  86.3 %</div>
+                                        <div class="table-cell">240.44 $</div>
+                                        <div class="table-cell">240.44 $</div>
+                                        <div class="table-cell">7 $ <span class="text-danger d-block">-15 $</span></div>
+                                    </div>
+                                    <div class="table-row flex-container row-seprate">
+                                        <div class="table-cell medium">Casa Kitchen</div>
+                                        <div class="table-cell">677.00 $</div>
+                                        <div class="table-cell medium">160.23 $  &nbsp;  0.2 %</div>
+                                        <div class="table-cell">178.34 $</div>
+                                        <div class="table-cell">178.34 $</div>
+                                        <div class="table-cell">8 $ <span class="text-danger d-block">-23 $</span></div>
+                                    </div>
+                                    <div class="table-row flex-container">
+                                        <div class="table-cell medium">Casa Laundry</div>
+                                        <div class="table-cell"> &nbsp;</div>
+                                        <div class="table-cell medium">45 $</div>
+                                        <div class="table-cell"> &nbsp;</div>
+                                        <div class="table-cell">45 $</div>
+                                        <div class="table-cell">&nbsp;</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-row row-seprate">
+                                <div class="table-cell">2</div>
+                                <div class="table-cell medium">Casa</div>
+                                <div class="table-cell">20</div>
+                                <div class="table-cell">
+                                    <div class="table-row flex-container row-seprate">
+                                        <div class="table-cell medium">Nur Bar</div>
+                                        <div class="table-cell">727.00 $</div>
+                                        <div class="table-cell medium">252.23 $ &nbsp;  86.3 %</div>
+                                        <div class="table-cell">240.44 $</div>
+                                        <div class="table-cell">240.44 $</div>
+                                        <div class="table-cell">&nbsp;</div>
+                                    </div>
+                                    <div class="table-row flex-container row-seprate">
+                                        <div class="table-cell medium">Nur Kitchen</div>
+                                        <div class="table-cell">677.00 $</div>
+                                        <div class="table-cell medium">160.23 $  &nbsp;  0.2 %</div>
+                                        <div class="table-cell">178.34 $</div>
+                                        <div class="table-cell">178.34 $</div>
+                                        <div class="table-cell">8 $ <span class="text-danger d-block">-23 $</span></div>
+                                    </div>
+                                    <div class="table-row flex-container">
+                                        <div class="table-cell medium">Nur Laundry</div>
+                                        <div class="table-cell"> &nbsp;</div>
+                                        <div class="table-cell medium">45 $</div>
+                                        <div class="table-cell"> &nbsp;</div>
+                                        <div class="table-cell">45 $</div>
+                                        <div class="table-cell">&nbsp;</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-row row-seprate">
+                                <div class="table-cell">3</div>
+                                <div class="table-cell medium">H.K.</div>
+                                <div class="table-cell">20</div>
+                                <div class="table-cell">
+                                    <div class="table-row flex-container row-seprate">
+                                        <div class="table-cell medium">H.K. Bar</div>
+                                        <div class="table-cell">727.00 $</div>
+                                        <div class="table-cell medium">252.23 $ &nbsp;  86.3 %</div>
+                                        <div class="table-cell">240.44 $</div>
+                                        <div class="table-cell">240.44 $</div>
+                                        <div class="table-cell">7 $ <span class="text-danger d-block">-15 $</span></div>
+                                    </div>
+                                    <div class="table-row flex-container">
+                                        <div class="table-cell medium">H.K. Kitchen</div>
+                                        <div class="table-cell">677.00 $</div>
+                                        <div class="table-cell medium">160.23 $  &nbsp;  0.2 %</div>
+                                        <div class="table-cell">178.34 $</div>
+                                        <div class="table-cell">178.34 $</div>
+                                        <div class="table-cell">8 $ <span class="text-danger d-block">-23 $</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- ===== Revenue Center pdf popup new in div format======= -->
 
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>

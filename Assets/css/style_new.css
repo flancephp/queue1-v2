@@ -19239,7 +19239,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .supStkclm .dropdown-toggle {
     padding: 12px 16px;
-    width: 160px;
+    width: 100%;
   }
   /* Stock Page CSS End */
   .hisParent-sec {
@@ -19765,7 +19765,7 @@ border-radius:3px;
 .modal .table-cell {
   display: table-cell; 
   padding: 8px 5px;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .modal .sub-table {
   display: table;
@@ -19937,7 +19937,7 @@ border-radius:3px;
   .new__layout .dleOptnreq { width: 50%; }
   .new__layout { display: flex !important;flex-wrap: wrap; }
 }
-@media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; }.lg__left__margin{position: relative;z-index: 99;}.w-lg-100{width: 100%;} }
+@media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; }.lg__left__margin{position: relative;z-index: 9;}.w-lg-100{width: 100%;} }
 .featRow.divider::after { content: '';width: 1px;height: 60%;background-color: #A9B0C0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); }
 .featRow.divider .doc__btn:hover { background-color: var(--color-primary);color: var(--color-white); }
 .featRow.divider .doc__btn:hover a, .featRow.divider .doc__btn a:hover .btn2 { color: var(--color-white); }

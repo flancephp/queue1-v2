@@ -19238,7 +19238,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .supStkclm .dropdown-toggle {
     padding: 12px 16px;
-    width: 160px;
+    width: 100%;
   }
   /* Stock Page CSS End */
   .hisParent-sec {
@@ -19872,7 +19872,7 @@ body .ui-widget-content {
 .modal .table-cell {
   display: table-cell; 
   padding: 8px 5px;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .modal .sub-table {
   display: table;
@@ -20232,7 +20232,7 @@ img.previewImg {
 }
 
 .ordInfo.erdInfo.newFeatures { width: 85%; }
-@media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; } .lg__left__margin{position: relative;z-index: 99; } .w-lg-100{width: 100%;} }
+@media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; } .lg__left__margin{position: relative;z-index: 9; } .w-lg-100{width: 100%;} }
 .text-danger { color: #FD3737 !important; }
 .btn-primary {
   background-color: var(--color-primary);padding: .625rem 1.625rem;box-shadow: 0px 4px 20px 0px #7F7FA514;font-size: 1.125rem;font-weight: 600;border-radius: .937rem;border-color: var(--color-primary);transition: all .3s ease-in-out;border-width: 2px;
