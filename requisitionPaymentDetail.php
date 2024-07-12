@@ -1339,6 +1339,25 @@ while( $accRow = mysqli_fetch_array($resultSet) ){
         </div>
     </div>
     </div>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+           </div>
+         </div>
      <!-- View invoice Popup End -->
     <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
     <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
@@ -1423,126 +1442,7 @@ list'); ?></span><br>
         </div>
     </div>
     </form>
-     <div class="modal" tabindex="-1" id="issue-Invoice" aria-labelledby="issue-Invoice" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-            <div class="modal-content p-2">
-                <div class="modal-header pb-3">
-                    <div class="d-md-flex align-items-center justify-content-between w-100 ">
-                        <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2">
-
-                            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
-                                <i class="fa fa-filter"></i>
-                            </button>
-
-                            <div class="collapse" id="modalfiltertop">
-                                <div class="d-flex gap-3 modal-head-row">
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Headers<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Summary<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Item Table<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Task Record<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="1">
-                                                <span class="fs-13">Address</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="2">
-                                                <span class="fs-13">Order details</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="3">
-                                                <span class="fs-13">Logo</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="address" class="form-check-input" value="4">
-                                                <span class="fs-13">Current Date</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-                        <a href="#" class="btn" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
-                    </div>
-                </div>
+     
                 <div class="modal-body m-0 p-0">
                 <!-- invoice Details Start -->
                 <div id="invoice-Details" class="payment-status-left payment-pending position-relative">
@@ -1658,6 +1558,7 @@ list'); ?></span><br>
             </div>
         </div>
     </div>
+
     <!-- invoice issue Popup End -->
     <!-- View invoice pending Details Popup Start -->
     <div class="modal" tabindex="-1" id="view_invoice" aria-labelledby="view_invoice" aria-hidden="true">
@@ -1670,7 +1571,7 @@ list'); ?></span><br>
 
     </div>
     
-
+     
 
 
 
@@ -1758,27 +1659,14 @@ list'); ?></span><br>
 
         function getDelNumb(delId, orderId){
 
-    $( "#dialog" ).dialog({  
-        autoOpen  : false,
-        modal     : true,
-        //title     : "Title",
-        buttons   : {
-          '<?php echo showOtherLangText('Yes') ?>' : function() {
-            //Do whatever you want to do when Yes clicked
-            $(this).dialog('close');
-            window.location.href='requisitionPaymentDetail.php?delId='+delId+'&orderId='+orderId;
-          },
+    
+        
+       var newOnClick = "window.location.href='requisitionPaymentDetail.php?delId=" + delId +'&orderId='+orderId+"'";
+      $('.deletelink').attr('onclick', newOnClick);
+     $('#delete-popup').modal('show');    
+   
 
-          '<?php echo showOtherLangText('No') ?>' : function() {
-            //Do whatever you want to do when No clicked
-            $(this).dialog('close');
-          }
-       }    
-    });
-
-    $( "#dialog" ).dialog( "open" );
-    $('.custom-header-text').remove();
-    $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+   
 }
 
         $('.date-box-search').click(function() {

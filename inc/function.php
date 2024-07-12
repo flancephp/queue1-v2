@@ -3187,7 +3187,7 @@ function getPayPopup($orderId) {
 		 { 
 		 ?>
 	     <li>
-                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Payment') ?></a>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openSupPaymentPopup(<?php echo $orderId;?>)" ><i class="fa-regular fa-credit-card"></i>&nbsp;<?php echo showOtherLangText('View Payment') ?></a>
          </li>
   <?php   }
 
@@ -3220,7 +3220,7 @@ function getrequisitionPopup($orderId) {
 			{
 				?>
 				 <li>
-                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice') ?></a>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="fa-regular fa-file-lines"></i>&nbsp;     <?php echo showOtherLangText('View Invoice') ?></a>
                 </li>
 				<?php 
 				
