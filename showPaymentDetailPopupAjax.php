@@ -361,8 +361,8 @@ $resultRow = mysqli_fetch_array($resSet);
                                 { 
 
                                     $content .= '<tr>
-                            <td style="padding:5px; width:71%">'. showOtherLangText('Sub Total').'</td>
-                            <td style="font-weight: bold; padding:5px;">
+                            <td>'. showOtherLangText('Sub Total').'</td>
+                            <td style="font-weight: bold;">
                                '. showOtherCur($totalPriceOther, $ordersRow['ordCurId']).'
                             </td>
                         </tr>';
@@ -370,8 +370,8 @@ $resultRow = mysqli_fetch_array($resSet);
                         }else{ 
 
                             $content .= '<tr>
-                            <td style="padding:5px; width:71%">'. showOtherLangText('Sub Total').'</td>
-                            <td style="font-weight: bold;padding:5px;">
+                            <td>'. showOtherLangText('Sub Total').'</td>
+                            <td style="font-weight: bold;">
                                 '.  getPriceWithCur($chargePrice,$getDefCurDet['curCode']).'</td>
                         </tr>';
 
@@ -405,14 +405,14 @@ $resultRow = mysqli_fetch_array($resSet);
             if ($ordersRow['ordCurId'] > 0)
                 { 
                             $content .= '<tr>
-                                        <td>'. $row['feeName'].'</td>
-                                        <td>'. showOtherCur($fixedChargesOther, $ordersRow['ordCurId']) .'</td>
+                                        <td>'.$row['feeName'].'</td>
+                                        <td>'.showOtherCur($fixedChargesOther, $ordersRow['ordCurId']) .'</td>
                                     </tr>';
                   }else{ 
 
                             $content .= '<tr>
-                                        <td>'. $row['feeName'].'</td>
-                                        <td>'.  getPriceWithCur($fixedCharges,$getDefCurDet['curCode']) .'</td>
+                                        <td>'.$row['feeName'].'</td>
+                                        <td>'.getPriceWithCur($fixedCharges,$getDefCurDet['curCode']) .'</td>
                                     </tr>';
                       } } 
 
@@ -441,14 +441,14 @@ $resultRow = mysqli_fetch_array($resSet);
                     if ($ordersRow['ordCurId'] > 0)
                     { 
                      $content .= '<tr>
-                                        <td>'. $row['feeName'].'</td>
-                                        <td>'. showOtherCur($fixedChargesOther, $ordersRow['ordCurId']) .'</td>
+                                        <td>'.$row['feeName'].'</td>
+                                        <td>'.showOtherCur($discountPercentOther, $ordersRow['ordCurId']).'</td>
                                     </tr>';
 
                    }else{ 
                      $content .= '<tr>
-                                        <td>'. $row['feeName'].'</td>
-                                        <td>'. showOtherCur($fixedChargesOther, $ordersRow['ordCurId']) .'</td>
+                                        <td>'.$row['feeName'].'</td>
+                                        <td>'.getPriceWithCur($discountPercent,$getDefCurDet['curCode']).'</td>
                                     </tr>';
 
                     }
@@ -474,14 +474,14 @@ $resultRow = mysqli_fetch_array($resSet);
         if ($ordersRow['ordCurId'] > 0)
         { 
              $content .= '<tr>
-                                        <td>'. $row['feeName'].'</td>
-                                        <td>'. showOtherCur($fixedChargesOther, $ordersRow['ordCurId']) .'</td>
+                                        <td>'.$row['feeName'].'</td>
+                                        <td>'.showOtherCur($taxChargesOther, $ordersRow['ordCurId']).'</td>
                                     </tr>';
 
              }else{ 
                  $content .= '<tr>
-                                        <td>'. $row['feeName'].'</td>
-                                        <td>'. showOtherCur($fixedChargesOther, $ordersRow['ordCurId']) .'</td>
+                                        <td>'.$row['feeName'].'</td>
+                                        <td>'.getPriceWithCur($taxCharges,$getDefCurDet['curCode']).'</td>
                                     </tr>';
 
               }
@@ -502,13 +502,13 @@ $resultRow = mysqli_fetch_array($resSet);
         { 
 
                      $content .= '<tr class="grand-total" style=" max-height: 38px;">
-                                        <th>'. showOtherLangText('Grand Total').' ('. $getDefCurDet['curCode'] .')</th>
-                                        <th>'. getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
+                                        <th>'.showOtherLangText('Grand Total').' ('.$getDefCurDet['curCode'].')</th>
+                                        <th>'.getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
                                     </tr>
                                     <tr></tr>';
                       } else { 
                       $content .= '<tr class="grand-total" style=" max-height: 38px;">
-                                        <th>'. showOtherLangText('Grand Total').' ('. $getDefCurDet['curCode'] .')</th>
+                                        <th>'.showOtherLangText('Grand Total').' ('.$getDefCurDet['curCode'].')</th>
                                         <th>'.getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
                                     </tr>
                                     <tr></tr>';

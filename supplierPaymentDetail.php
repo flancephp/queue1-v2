@@ -1127,7 +1127,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                         <table>
                                             <tbody>
                                                 <tr class="payDetail">
-                                    <td><?php echo showOtherLangText('Total Amount').' ('.$curDetail['curCode'].')'; ?></td>
+                                    <td><?php echo showOtherLangText('Total Amount').' ('.$getDefCurDet['curCode'].')'; ?></td>
                                                     <td>
                                                         <input type="text" style="cursor: text; text-align:center; background:none;" class="form-control form-control-01" name="totalAmount" id="totalAmount" value="<?php echo showprice($netTotalAmt,$getDefCurDet['curCode']); ?>" autocomplete="off" readonly="">
                                                     </td>

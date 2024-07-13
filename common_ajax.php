@@ -1,6 +1,7 @@
 <?php 
 include('inc/dbConfig.php'); //connection details
-
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 
 if ( isset($_POST['TotalAmount']) && $_POST['accountId'] && $_POST['action']=="payment" ) 
 {
