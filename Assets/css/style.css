@@ -18810,6 +18810,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itmBody,.itmTable { font-size: 15px;line-height: 20px; }
   .runTask { margin: 0 180px 0 140px; }
   .rntskHead { margin-top: 65px;padding: 0 180px 0 140px; }
+  .body3 {
+    font-size: 16px;
+    font-weight: 400;
+  }
 }
 @media screen and (min-width: 1600px) {
   .body1 {
@@ -18820,10 +18824,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     font-size: 16px;
     font-weight: 500;
   }
-  .body3 {
-    font-size: 16px;
-    font-weight: 400;
-  }
+  
   .h1 {
     font-size: 26px;
     font-weight: 500;
@@ -19076,6 +19077,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     line-height: 20px;
     font-weight: 600;
   }
+  .sub-btn.form-submit-btn,.sub-btn.submit_new_order { padding: 3px 10px !important; }
   .sub-btn:focus {
     background-color: #7a89ff;
   }
@@ -20252,3 +20254,8 @@ img.previewImg {
 .prdtImg.tb-bdy .ordItm-Img { height: 50px;object-fit: contain; }
 .tb-bdy.stkImgcol .imgItm { height: 40px;object-fit: contain; }
 .modal .addUser-Form .form-control { width: 100% !important;margin: 0% !important; }
+
+.compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; }
+.compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
+@media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
+.newOrder > .row { --bs-gutter-y: 0;--bs-gutter-x: 0; }

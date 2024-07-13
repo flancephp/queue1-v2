@@ -278,9 +278,11 @@ $content .= '<div class="modal-header pb-3">
                                     <div class="table-row thead">
                                         <div class="table-cell">'.$ordDet['ordNumber'].'</div>
                                         <div class="table-cell">'.$suppliers.'</div>
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
-                                            <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
+                                        <div class="table-cell">
+                                            <div class="table-row">
+                                                <div class="table-cell p-0"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
+                                                <div class="table-cell p-0"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
+                                            </div>
                                         </div>
                                     </div>
                                     ';

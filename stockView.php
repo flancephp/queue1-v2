@@ -311,19 +311,14 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
 
         #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw { width: 80%; }
         #page2head.stkTblhead .mbHde, .page2bdy .cntTable .mbHde { width: 20%; }  
-
-        
-        .cntTable1 .stkPrcol {
-            width: 25%;
-        }
-
-        .w-55 {
-            width: 45%;
-        }
+ 
+        .cntTable1 .stkPrcol { width: 25%; } 
+        .w-55 { width: 45%; }
         .storeCont .h2 {
             overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 2;display: -webkit-box; -webkit-box-orient: vertical;white-space: normal;
         }
         .itemSectionPart .modal-table .table-row .table-cell:first-child { min-width: 40px; }
+        
     </style>
 </head>
 
@@ -385,7 +380,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                     </div>
                 </section>
 
-                <section class="ordDetail stockView">
+                <section class="ordDetail stockView compact__tb__bdy">
 
                     <form name="frm" id="frm" method="get" action="">
                         <input type="hidden" name="subCatId" id="subCatId" value="<?php echo $_GET['subCatId']; ?>" />
@@ -594,7 +589,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                         <div class="d-flex justify-content-en align-items-center">
                                             <?php if(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ) { ?>
                                             <?php } else { ?>
-                                            <p><?php echo showOtherLangText('Quantity');?></p>
+                                            <p><?php echo showOtherLangText('Qty');?></p>
                                             <span class="dblArrow">
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');"
                                                     href="javascript:void(0)" class="d-block aglStock"><i
@@ -606,12 +601,27 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                             <?php } ?>
                                         </div>
                                     </div>
-
+                                    <div class="tb-head w-55 stkQtyclm">
+                                        <div class="d-flex justify-content-en align-items-center">
+                                            <?php if(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ) { ?>
+                                            <?php } else { ?>
+                                            <p><?php echo showOtherLangText('Req<br> Qty');?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy','asc');"
+                                                    href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy','desc');"
+                                                    href="javascript:void(0)" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
                                     <div class="tb-head w-55  stkavabdy">
                                         <div class="d-flex justify-content-en align-items-center">
                                             <?php if(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ) { ?>
                                             <?php } else { ?>
-                                            <p><?php echo showOtherLangText('Available <br> Qty');?></p>
+                                            <p><?php echo showOtherLangText('Avail<br>Qty');?></p>
                                             <span class="dblArrow">
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkavabdy','asc');"
                                                     href="javascript:void(0)" class="d-block aglStock"><i
@@ -624,22 +634,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                         </div>
                                     </div>
 
-                                    <div class="tb-head w-55 stkQtyclm">
-                                        <div class="d-flex justify-content-en align-items-center">
-                                            <?php if(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ) { ?>
-                                            <?php } else { ?>
-                                            <p><?php echo showOtherLangText('Requested <br> Qty');?></p>
-                                            <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy','asc');"
-                                                    href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-up"></i></a>
-                                                <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy','desc');"
-                                                    href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-down"></i></a>
-                                            </span>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="stkPrcol d-flex align-items-center">
                                     <div class="tb-head lstPrcol">
@@ -932,18 +927,19 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                                                 <p><?php echo $row['stockQty']; ?></p>
                                                 <?php } ?>
                                             </div>
-                                            <div class="tb-bdy stkQtyclm stkavabdy">
-                                                <?php if(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ) { ?>
-                                                <?php } else { ?>
-                                                <p><?php echo ($row['stockQty']-$totalTempProQty); ?></p>
-                                                <?php } ?>
-                                            </div>
                                             <div class="tb-bdy stkQtyclm stkreqbdy">
                                                 <?php if(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ) { ?>
                                                 <?php } else { ?>
                                                 <p><?php echo $totalTempProQty; ?></p>
                                                 <?php } ?>
                                             </div>
+                                            <div class="tb-bdy stkQtyclm stkavabdy">
+                                                <?php if(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ) { ?>
+                                                <?php } else { ?>
+                                                <p><?php echo ($row['stockQty']-$totalTempProQty); ?></p>
+                                                <?php } ?>
+                                            </div>
+                                            
                                         </div>
                                         <div class="stkPrcol d-flex align-items-center">
                                             <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
@@ -1136,7 +1132,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
         $colsArr = [
                     1 => ['lable' => ''.showOtherLangText('Photo').'' ],
                     2 => ['lable' => ''.showOtherLangText('Item').''],
-                    3 => ['lable' => ''.showOtherLangText('Quantity').''],
+                    3 => ['lable' => ''.showOtherLangText('Qty').''],
                     4 => ['lable' => ''.showOtherLangText('Available Quantity').''],
                     5 => ['lable' => ''.showOtherLangText('Request Quantity').''],
                     6 => ['lable' => ''.showOtherLangText('Last Price').''],
