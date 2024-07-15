@@ -74,9 +74,8 @@ $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
 
 $plusvariance = $minusvariance = '';
 $plusqtytot =  $minusqtytot = '';
-
 foreach($resItemHistory['resRows'] as $item){
-    $variancesQtyTot = '';
+   // $variancesQtyTot = '';$amt = '';
            if($showType == 0)
             {
                  $variancesQtyTot = $item['qtyReceived']-$item['qty'];
@@ -84,9 +83,9 @@ foreach($resItemHistory['resRows'] as $item){
                  $amt = $variancesQtyTot*$item['stockPrice'];
                 if($variancesQtyTot>0)
                 {
-                $plusqtytot = $variancesQtyTot;
+                $plusqtytot += $variancesQtyTot;
                 } else {
-                $minusqtytot = $variancesQtyTot;
+                $minusqtytot += $variancesQtyTot;
                 }
 
                 if($amt>0)
@@ -350,7 +349,7 @@ foreach($resItemHistory['resRows'] as $item){
                                     <p class="ttlAmount"><?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-5 is-Outcol">
-                                    <p class="gr-Out">Issue Out</p>
+                                    <p class="gr-Out"><?php echo showOtherLangText('Issue Out'); ?></p>
                                     <p class="ttlAmount-rec"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-2 maxBtn">
@@ -379,15 +378,15 @@ foreach($resItemHistory['resRows'] as $item){
                                             <p class="viewItm-isuOut"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
                                             <p class="isuOut-countUnt"><?php echo $resItemHistory['issuedOutQtyTot'];?> <?php echo $res['countingUnit'];?></p>
                                         </div>
-                                        <div class="itmVw-varPtive">
+                                        <div style="min-width: fit-content;" class="itmVw-varPtive">
                                             <p class="Vw-varHead"><?php echo showOtherLangText('Variances'); ?></p>
                                             <div style="display: flex; gap:5px; justify-content: space-evenly">
-                                                <p class="viewItm-varPlus varDif"><?php echo $plusvariance;?></p>
-                                                <p class="varPlus-countUnt"><?php echo $plusqtytot;?> <?php echo $res['countingUnit'];?></p>
+                                                <p class="viewItm-varPlus varDif"><?php echo $minusvariance!=''?number_format($minusvariance,4):'0';?></p>
+                                                <p class="varPlus-countUnt"><?php echo $plusvariance!=''?number_format($plusvariance,4):'0';?></p>
                                             </div>
                                             <div style="display: flex; gap:5px; justify-content: space-evenly">
-                                                <p class="viewItm-varPlus varDif"><?php echo $minusvariance;?></p>
-                                                <p class="varPlus-countUnt"><?php echo $minusqtytot?> <?php echo $res['countingUnit'];?></p>
+                                                <p class="viewItm-varPlus varDif"><?php echo $minusqtytot!=''?$minusqtytot.' '.$res['countingUnit']:'0';?></p>
+                                                <p class="varPlus-countUnt"><?php echo $plusqtytot!=''?$plusqtytot.' '.$res['countingUnit']:'&nbsp;';?></p>
                                             </div>
                                         </div>
                                         <div class="itmVw-varNtive">

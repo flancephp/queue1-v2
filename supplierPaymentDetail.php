@@ -649,7 +649,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                                             <td class="font-wt">
                                                 <?php echo showOtherLangText('Supplier Invoice'); ?> #
                                             </td>
-                                            <td><?php echo $supplierInvoice;?></td>
+                                            <td id="supInv"><?php echo $supplierInvoice;?></td>
                                         </tr>
 
                                         <tr>
@@ -705,10 +705,10 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             <br>
                             <div class="">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('PAYMENT To') ?></p>
-                                <p class="f-03 mb-0"><?php echo $supName; ?></p>
-                                <p class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></p>
-                                <p class="f-03 mb-0"><?php echo isset($payInfoRow['supplierEmail']) ? $payInfoRow['supplierEmail'] : $email;?></p>
-                                <p class="f-03 mb-0"><?php echo isset($payInfoRow['supplierPhone']) ? $payInfoRow['supplierPhone'] : $phone;?></p>
+                                <p id="name" class="f-03 mb-0"><?php echo $supName; ?></p>
+                                <p id="address" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></p>
+                                <p id="email" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierEmail']) ? $payInfoRow['supplierEmail'] : $email;?></p>
+                                <p id="phone" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierPhone']) ? $payInfoRow['supplierPhone'] : $phone;?></p>
                             </div>
                             <br>
 
@@ -1625,36 +1625,99 @@ $.ajax({
 }
 } //End of fetching other currency value
 </script>
+<script>
+$(document).ready(function() {
+
+var paymentId = $('#paymentId').val();
+var supplierInvoice = $('#supplierInvoice').val();
+var supplierName = $('#supplierName').val();
+var supplierAddress = $('#supplierAddress').val();
+var supplierEmail = $('#supplierEmail').val();
+var supplierPhone = $('#supplierPhone').val();
+
+if (supplierInvoice != '' && supplierName != '' && supplierAddress != '' && supplierContact != '' &&
+supplierPhone != '') {
+$.ajax({
+    method: "POST",
+    data: {
+        supplierInvoice: supplierInvoice,
+        supplierName: supplierName,
+        supplierAddress: supplierAddress,
+        supplierEmail: supplierEmail,
+        supplierPhone: supplierPhone,
+        paymentId: paymentId
+    }
+
+})
+}
+
+})
+
+function getVal() {
+var paymentId = $('#paymentId').val();
+var supplierInvoice = $('#supplierInvoice').val();
+var supplierName = $('#supplierName').val();
+var supplierAddress = $('#supplierAddress').val();
+var supplierEmail = $('#supplierEmail').val();
+var supplierPhone = $('#supplierPhone').val();
+
+if (supplierInvoice != '' && supplierName != '' && supplierAddress != '' && supplierEmail != '' &&
+supplierPhone != '') {
+$.ajax({
+    method: "POST",
+    data: {
+        supplierInvoice: supplierInvoice,
+        supplierName: supplierName,
+        supplierAddress: supplierAddress,
+        supplierEmail: supplierEmail,
+        supplierPhone: supplierPhone,
+        paymentId: paymentId
+    }
+
+})
+}
+}
+</script>
 <script>  
  function getItemDelNumb(delId, orderId){
     //var newOnClick = 'supplierPaymentDetail.php?delId='+delId+'&orderId='+orderId;
     var newOnClick = "window.location.href='supplierPaymentDetail.php?delId=" + delId +'&orderId='+orderId+"'";
       $('.deletelink').attr('onclick', newOnClick);
      $('#delete-popup').modal('show');
-    // $( "#dialog" ).dialog({  
-    //     autoOpen  : false,
-    //     modal     : true,
-    //     //title     : "Title",
-    //     buttons   : {
-    //       '<?php echo showOtherLangText('Yes') ?>' : function() {
-    //         //Do whatever you want to do when Yes clicked
-    //         $(this).dialog('close');
-    //         window.location.href='supplierPaymentDetail.php?delId='+delId+'&orderId='+orderId;
-    //       },
-
-    //       '<?php echo showOtherLangText('No') ?>' : function() {
-    //         //Do whatever you want to do when No clicked
-    //         $(this).dialog('close');
-    //       }
-    //    }    
-    // });
-
-    // $( "#dialog" ).dialog( "open" );
-    // $('.custom-header-text').remove();
-    // $('.ui-dialog-content').prepend('<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
 }  
 </script> 
-    </script>
+<script>
+//show all input value on the left side when we fill supplier details one by one in right side input box 
+function changeSupInv() {
+var supplierInvoice = document.getElementById('supplierInvoice').value;
+var supInv = document.getElementById('supInv');
+supInv.innerHTML = supplierInvoice;
+}
+
+function changeSupName() {
+var supplierName = document.getElementById('supplierName').value;
+var name = document.getElementById('name');
+name.innerHTML = supplierName;
+}
+
+function changeSupAddress() {
+var supplierAddress = document.getElementById('supplierAddress').value;
+var address = document.getElementById('address');
+address.innerHTML = supplierAddress;
+}
+
+function changeSupEmail() {
+var supplierEmail = document.getElementById('supplierEmail').value;
+var email = document.getElementById('email');
+email.innerHTML = supplierEmail;
+}
+
+function changeSupPhone() {
+var supplierPhone = document.getElementById('supplierPhone').value;
+var phone = document.getElementById('phone');
+phone.innerHTML = supplierPhone;
+}
+</script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>

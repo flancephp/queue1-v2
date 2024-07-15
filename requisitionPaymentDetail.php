@@ -719,12 +719,12 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                             <br>
                             <div class="">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('Invoice To'); ?>: </p>
-                                <p class="f-03 mb-0"><?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?></p>
+                                <p  id="name" class="f-03 mb-0"><?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?></p>
                             </div>
                             <div class="">
-                                <p class="f-02 mb-0"> <?php echo isset($reqPayInfo['invoiceAddress']) ? $reqPayInfo['invoiceAddress'] : $address ;?></p>
-                                <p class="f-03 mb-0"><?php echo isset($reqPayInfo['invoiceEmail']) ? $reqPayInfo['invoiceEmail'] : $email ; ?></p>
-                                 <p class="f-03 mb-0"><?php echo isset($reqPayInfo['invoicePhone']) ? $reqPayInfo['invoicePhone'] : $phone ; ?></p>
+                                <p id="address" class="f-02 mb-0"> <?php echo isset($reqPayInfo['invoiceAddress']) ? $reqPayInfo['invoiceAddress'] : $address ;?></p>
+                                <p id="email" class="f-03 mb-0"><?php echo isset($reqPayInfo['invoiceEmail']) ? $reqPayInfo['invoiceEmail'] : $email ; ?></p>
+                                 <p id="phone" class="f-03 mb-0"><?php echo isset($reqPayInfo['invoicePhone']) ? $reqPayInfo['invoicePhone'] : $phone ; ?></p>
                             </div>
                             <br>
 
@@ -973,28 +973,40 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                                 <tr class="mb-adrs">
                                                     <td><?php echo showOtherLangText('Invoice To'); ?></td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="supplierInvoice" id="supplierInvoice" onchange="getVal();" oninput="changeSupInv();" value="<?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?>" autocomplete="off">
+                                                        <input type="text" class="form-control" name="invoiceName" id="invoiceName"
+                            onchange="getVal();" oninput="invNameValueChange()"
+                            value="<?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?>"
+                            autocomplete="off" />
                                                     </td>
                                                 </tr>
 
                                                 <tr class="mb-adrs">
                                                     <td><?php echo showOtherLangText('Address'); ?></td>
                                                     <td>
-                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>"><?php echo isset($reqPayInfo['invoiceAddress']) ? $reqPayInfo['invoiceAddress'] : $address ;?></textarea>
+                                                        <textarea class="form-control" name="invoiceAddress" id="invoiceAddress"
+                            onchange="getVal();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>"
+                            oninput="addressValueChange()"
+                            ><?php echo isset($reqPayInfo['invoiceAddress']) ? $reqPayInfo['invoiceAddress'] : $address ;?></textarea>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Email'); ?></td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="invoiceEmail" id="invoiceEmail" onchange="getVal();" oninput="emailValueChange()" value="<?php echo isset($reqPayInfo['invoiceEmail']) ? $reqPayInfo['invoiceEmail'] : $email ;?>" autocomplete="off" placeholder="<?php echo showOtherLangText('Email') ?>">
+                                                        <input type="text" class="form-control" name="invoiceEmail"
+                            id="invoiceEmail" onchange="getVal();" autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Email') ?>" oninput="emailValueChange()"
+                            value="<?php echo isset($reqPayInfo['invoiceEmail']) ? $reqPayInfo['invoiceEmail'] : $email ;?>" />
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Phone'); ?></td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="supplierPhone" id="supplierPhone" onchange="getVal();" oninput="changeSupPhone()" value="<?php echo isset($reqPayInfo['invoicePhone']) ? $reqPayInfo['invoicePhone'] : $phone ;?>" autocomplete="off" placeholder="Phone no">
+                                                        <input type="text" class="form-control" name="invoicePhone"
+                            id="invoicePhone" onchange="getVal();" autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Phone no') ?>" oninput="phoneValueChange()"
+                            value="<?php echo isset($reqPayInfo['invoicePhone']) ? $reqPayInfo['invoicePhone'] : $phone ;?>" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1745,6 +1757,35 @@ function openPopup1(orderId) {
 
        
 
+}
+</script>
+<script>
+function invNameValueChange() {
+var invoiceName = document.getElementById('invoiceName').value;
+var name = document.getElementById('name');
+name.innerHTML = invoiceName;
+}
+
+function addressValueChange() {
+
+var invoiceAddress = document.getElementById('invoiceAddress').value;
+var address = document.getElementById('address');
+address.innerHTML = invoiceAddress;
+
+}
+
+
+
+function emailValueChange() {
+var invoiceEmail = document.getElementById('invoiceEmail').value;
+var email = document.getElementById('email');
+email.innerHTML = invoiceEmail;
+}
+
+function phoneValueChange() {
+var invoicePhone = document.getElementById('invoicePhone').value;
+var phone = document.getElementById('phone');
+phone.innerHTML = invoicePhone;
 }
 </script>
     <div id="dialog" style="display: none;">

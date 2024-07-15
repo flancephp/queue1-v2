@@ -674,7 +674,9 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                 $varianceClass='col-12';
                             }
                         }
-               
+               //issue in starts here
+                if( $checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1) )
+                {
                 $content .= '<div class="summery-row">
                         <div class="row"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
                             <div class=" '.$issueinClass.' issueInSection pe-1 summaryPart">
@@ -717,7 +719,9 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     }
                                 $content .= '</div></div>
                             </div>';
-                    // Issue OUT 
+                }
+                    if( $checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 2))
+                {
                     $content .= '<div class=" '.$issueoutClass.' issueOutSection pe-1 ps-0 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
@@ -740,6 +744,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     </div>
                                 </div>
                             </div>';
+                    }
                     $variancesPosTot = 0;
                     $variancesPosQtyTot = 0;
                     $variancesNevQtyTot = 0;
