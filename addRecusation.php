@@ -322,6 +322,9 @@ if($_SESSION['deptId'] != '')
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
 
+    <style>
+        .ord-Box.position { border-color: #f05d53; }
+    </style>
 </head>
 
 <body>
@@ -383,7 +386,11 @@ if($_SESSION['deptId'] != '')
                     <div class="tpBar-grn  tpBar-red"></div>
                     <div class="container nordPrice d-block mt-0">
                         <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
-                            <div class="alert alert-success alert-dismissible fade show lg__left__margin mb-0 mt-4" role="alert">
+                            <div 
+                                class="alert  alert-dismissible fade show lg__left__margin mb-0 mt-3
+                                    <?php echo isset($_GET['errorProduct']) ? 'alert-danger' : 'alert-success' ?>
+                                " role="alert"
+                            >
                                 <p>
                                     <?php  
                                         echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
@@ -407,12 +414,15 @@ if($_SESSION['deptId'] != '')
                         <?php } ?> 
                     </div>
                     <div class="stcPart position-relative">
-                        <div class="container cntTable pt-4 pt-lg-5"><!-- topOrder newReq nwOrder-Div--> 
+                        <div class="container cntTable pt-3"><!-- topOrder newReq nwOrder-Div--> 
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
-                                    <div class="ord-Box ms-0 position start-0" style="top:2rem;">
+                                    <div class="ord-Box ms-0 position start-0 ps-4" style="top:1rem;">
                                         <div class="ordDate ms-0">
-                                            <h4 class="subTittle1"><?php echo date("d-m-Y"); ?></h4>
+                                            <h4 class="subTittle1">
+                                                <span>Task#:  332974</span>
+                                                <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>

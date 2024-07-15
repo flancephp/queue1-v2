@@ -422,7 +422,7 @@ if(!empty($fileDataRows))
 <body>
     <main>
         <div class="container-fluid newOrder">
-            <div class="row">
+            <div class="row g-0">
                 <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                     <?php require_once('nav.php');?>
                 </div>
@@ -477,57 +477,59 @@ if(!empty($fileDataRows))
 
                     <section class="ordDetail">
                         <div class="tpBar-grn"></div>
-                        <div class="stcPart position-relative">
-                             <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
-                            name="upload_form" id="upload_form" enctype="multipart/form-data">
-                            <div class="container nwOrder-Div rcvOrder">
-                                 <?php if(isset($_GET['tempDataCleared']) || isset($success_file_upload) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p>
-                                <?php 
-                                echo isset($success_file_upload) ? $success_file_upload : '';
-                                  echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
-                                echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
-                                echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
-                                echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
-                                echo isset($_GET['mes']) ? $_GET['mes'] : '';
-                              
-                                if( isset($_GET['delete']) && $_GET['delete'] == 1 )
-                                {
-                                    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
-                                }
-                                elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
-                                {
-                                    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
-                                }
-
+                        <div class="container nordPrice mt-0">
+                            <?php if(isset($_GET['tempDataCleared']) || isset($success_file_upload) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
+                                <div class="alert alert-success alert-dismissible fade show mt-3 mb-0" role="alert">
+                                    <p>
+                                    <?php 
+                                    echo isset($success_file_upload) ? $success_file_upload : '';
+                                    echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
+                                    echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
+                                    echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
+                                    echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
+                                    echo isset($_GET['mes']) ? $_GET['mes'] : '';
                                 
-                                ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
+                                    if( isset($_GET['delete']) && $_GET['delete'] == 1 )
+                                    {
+                                        echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+                                    }
+                                    elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
+                                    {
+                                        echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+                                    }
+        
+                                    
+                                    ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             <?php } ?>
                             <?php if(isset($_GET['error']) || (isset($error_file_upload) && $error_file_upload !='' )) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div class="alert alert-danger alert-dismissible fade show mt-3 mb-0" role="alert">
                                 <p><?php  if($_GET['error'] == 'alreadyreceived')
-                                   {
+                                {
                                     echo ' '.showOtherLangText('This order has been already received').' ';
-                                   }
-                                   if($error_file_upload)
-                                   {
+                                }
+                                if($error_file_upload)
+                                {
                                     echo $error_file_upload;
-                                   }
-                              ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                }
+                            ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php } ?>
-                                <div class="row mt-4">
+
+                        </div><!--.//container-->
+                        <div class="stcPart position-relative">
+                            <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" name="upload_form" id="upload_form" enctype="multipart/form-data">
+                            <div class="container nwOrder-Div rcvOrder">
+                                <div class="row g-3">
                                     <div class="sltSupp nwOrd-Num">
-                                        <div class="ord-Box update position start-0 ms-0" style="top:2rem;">
+                                        <div class="ord-Box update position start-0 ms-0" style="top:1rem;">
                                             <div class="ordNum m-0">
-                                                <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
+                                                <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span>
+                                                <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -585,7 +587,7 @@ if(!empty($fileDataRows))
                                
                                 <div class="row">
                                     <div class="suppDetl">
-                                        <div class="recvInv">
+                                        <div class="recvInv p-0">
                                             <p><?php echo showOtherLangText('Supplier'); ?>: <span class="supName"><?php
                                     $sqlSet = " SELECT GROUP_CONCAT(DISTINCT(s.name)) suppliers FROM tbl_orders o 
 
@@ -903,7 +905,7 @@ if(!empty($fileDataRows))
                        
 
 
-                        <div id="boxscroll">
+                        <div id="boxscroll" class="compact__tb__bdy">
                             <div class="container cntTable">
                                 <!-- Item Table Body Start -->
 

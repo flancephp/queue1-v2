@@ -40,3 +40,9 @@ html[dir=rtl] .lgOut{
 html[dir=rtl] .addUser-Form input[type=password]{
   padding-right: 2rem !important;
 }
+
+
+.compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; }
+.compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
+@media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
+.newOrder > .row { --bs-gutter-y: 0;--bs-gutter-x: 0; }

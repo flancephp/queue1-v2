@@ -311,19 +311,14 @@ if( isset($_POST['rawItem']) && $_POST['rawItem'] > 0 )
 
         #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw { width: 80%; }
         #page2head.stkTblhead .mbHde, .page2bdy .cntTable .mbHde { width: 20%; }  
-
-        
-        .cntTable1 .stkPrcol {
-            width: 25%;
-        }
-
-        .w-55 {
-            width: 45%;
-        }
+ 
+        .cntTable1 .stkPrcol { width: 25%; } 
+        .w-55 { width: 45%; }
         .storeCont .h2 {
             overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 2;display: -webkit-box; -webkit-box-orient: vertical;white-space: normal;
         }
         .itemSectionPart .modal-table .table-row .table-cell:first-child { min-width: 40px; }
+        
     </style>
 </head>
 
@@ -385,7 +380,7 @@ $storeId = isset($_GET['filterByStorage']) && ($_GET['filterByStorage']) != '' ?
                     </div>
                 </section>
 
-                <section class="ordDetail stockView">
+                <section class="ordDetail stockView compact__tb__bdy">
 
                     <form name="frm" id="frm" method="get" action="">
                         <input type="hidden" name="subCatId" id="subCatId" value="<?php echo $_GET['subCatId']; ?>" />

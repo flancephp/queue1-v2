@@ -335,6 +335,27 @@ $currResultSet = mysqli_query($con, $curQry);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
 
+    <style>
+        .prdtCnt-Fst { width: 64%; }
+        .prdt-Hide { width: 30%; }
+        .prdtCr-Unit { width: 30%; }
+        .prdtCnt-Scnd { width: 10%; }
+        @media(max-width:991px) {
+            .prdtCnt-Fst { width: 84%; }
+            .Itm-Name, .prdtCr-Unit { width: 50%; }
+            .prdt-Hide { width: 84%;margin-left: auto; }
+            .res__label__item::before {
+                content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4;
+            }
+            .mb-brCode .ord-brCode, .mb-brCode .ord-StockQty { width: 100% !important; }
+        }
+        @media(max-width:575px) {
+            .prdtCnt-Fst { width: 84%; }
+            .Itm-Name{ width: 100%; } .prdtCr-Unit { width: 70%; }
+            .prdtCnt-Scnd { width: 30%; } 
+            .col-7 .form-control { font-size:12px; }
+        }
+    </style>
 </head>
 
 <body>
@@ -430,12 +451,15 @@ $currResultSet = mysqli_query($con, $curQry);
                             <form action="" id="frm" class="frm" name="frm" method="post" autocomplete="off">
                             <div class="row">
                                 <div class="sltSupp nwOrd-Num">
-                                    <div class="ord-Box ms-0 position start-0" style="top:1rem;">
+                                    <div class="ord-Box ms-0 position start-0 ps-4" style="top:1rem;">
                                         <!-- <div class="ordNum">
                                             <h4 class="subTittle1"><span>Order#:</span> <span>332974</span></h4>
                                         </div> -->
                                         <div class="ordDate">
-                                            <h4 class="subTittle1"><?php echo date("d-m-Y"); ?></h4>
+                                            <h4 class="subTittle1">
+                                                <span>Task#:  332974</span>
+                                                <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -862,16 +886,16 @@ if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id']
                                     <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                 </div>
                                 <div class="prdtCr-Unit d-flex align-items-center">
-                                    <div class="crncy-Type d-flex align-items-center">
-                                        <div class="dflt-Currency tb-head">
+                                    <div class="crncy-Typ col-7">
+                                        <div class="dflt-Currency tb-head w-100">
                                             <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                         </div>
-                                                                                <?php 
+                                         <?php 
                                         $curAmt = 1;
                                         if( !empty($curDet) )
                                         {
                                         ?>
-                                        <div class="othr-Currency tb-head">
+                                        <div class="othr-Currency tb-head w-100">
                                             <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'] ?>)</p>
                                         </div>
                                         <?php
@@ -879,62 +903,69 @@ if ( !empty($_SESSION['currencyId']) && $_SESSION['currencyId'] == $curDet['id']
                                         }
                                         ?>
                                        </div>
-                                    <div class="itm-Unit tb-head">
+                                    <div class="itm-Uni tb-head col-5">
                                         <p><?php echo showOtherLangText('P.Unit'); ?></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="prdtStk-Qty tb-head">
-                                <p><?php echo showOtherLangText('S.Qty'); ?></p>
-                            </div>
-                            <div class="prdtCnt-Scnd d-flex align-items-center">
-                                <div class="itm-Quantity tb-head">
-                                        <div class="d-flex align-items-center">
-                                                <p><?php echo showOtherLangText('Qty'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                        </div>
+                                <div class="prdtStk-Qty tb-head">
+                                    <p><?php echo showOtherLangText('S.Qty'); ?></p>
                                 </div>
-                                <div class="ttlCr-Type d-flex align-items-center">
-                                    <div class="ttlDft-Crcy tb-head">
-                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-                                    </div>
-                                    <?php 
-                                    $curAmt = 1;
-                                    if( !empty($curDet) )
-                                    {
-                                    ?>
-                                    <div class="ttlOtr-Crcy tb-head">
-                                        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
-                                    </div>
-                                    <?php
-                                    $curAmt = $curDet['amt'];
-                                    }
-                                    ?>
-                                   </div>
+                                <div class="prdtCnt-Scnd d-flex align-items-center">
+                                    <div class="itm-Quantity tb-head w-100">
+                                            <div class="d-flex align-items-center">
+                                                    <p><?php echo showOtherLangText('Qty'); ?></p>
+                                                    <span class="dblArrow">
+                                                        <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                        <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    </span>
+                                            </div>
+                                    </div> 
+                                </div>
                             </div>
                             <div class="prdt-Hide">
                                 <div class="prdt-Note tb-bdy">
-                                    <div class="mb-brCode"></div>
-                                    <p><?php echo showOtherLangText('Note'); ?></p>
+                                    <div class="row g-2">
+                                        <div class="col-5">
+                                            <div class="ttlCr-Type">
+                                                <div class="ttlDft-Crcy tb-head w-100">
+                                                    <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                                                </div>
+                                                <?php 
+                                                $curAmt = 1;
+                                                if( !empty($curDet) )
+                                                {
+                                                ?>
+                                                <div class="ttlOtr-Crcy tb-head">
+                                                    <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
+                                                </div>
+                                                <?php
+                                                $curAmt = $curDet['amt'];
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-7"> 
+                                            <div class="mb-brCode"></div>
+                                            <p><?php echo showOtherLangText('Note'); ?></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Item Table Head End -->
                     </div>
 
-                    <div id="boxscroll">
+                    <div id="boxscroll" class="compact__tb__bdy">
                         <div class="container cntTable">
                             <?php 
-if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
-{
-    while( $row = mysqli_fetch_array($resRows) ) //start custom item charge loop
-    {
-    $x++;
-    $totalCustomCharges += $row['amt'];
-    ?>                          <div class="newOrdTask">
+                                if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
+                                {
+                                    while( $row = mysqli_fetch_array($resRows) ) //start custom item charge loop
+                                    {
+                                    $x++;
+                                    $totalCustomCharges += $row['amt'];
+                            ?>                          
+                            <div class="newOrdTask">
                                 <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
                                     <div class="prdtImg tb-bdy">
                                    <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
@@ -949,58 +980,65 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                             <p class="ord-brCode"><?php echo $row['barCode'];?></p>
                                         </div>
                                         <div class="prdtCr-Unit d-flex">
-                                            <div class="crncy-Type d-flex align-items-center">
+                                            <div class="crncy-Type col-7">
                                                 <div class="dflt-Currency tb-bdy">
                                                     <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
                                                 </div>
                                                  <?php 
-    if( !empty($curDet) )
-    {
-    $newCurAmt = ($row['amt']*$curDet['amt']);
-    $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
-    echo '<div class="othr-Currency tb-bdy"><p>'.$newCurAmt.'</p></div>';
-    } ?>
+                                                if( !empty($curDet) )
+                                                {
+                                                $newCurAmt = ($row['amt']*$curDet['amt']);
+                                                $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+                                                echo '<div class="othr-Currency tb-bdy"><p>'.$newCurAmt.'</p></div>';
+                                                } ?>
                                             </div>
-                                            <div class="itm-Unit tb-bdy">
+                                            <div class="itm-Uni tb-bdy col-5">
                                                 <p><?php echo $row['unit'];?></p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="prdtStk-Qty tb-bdy">
-                                        <div class="itm-Unit tb-bdy">
+                                        <div class="prdtStk-Qty tb-bdy">
+                                            <div class="itm-Uni tb-bdy">
                                                 <p>&nbsp;</p>
                                             </div>
-                                    </div>
-                                    <div  class="prdtCnt-Scnd d-flex align-items-center">
-                                        <div class="itm-Quantity tb-bdy">
-                                            1
                                         </div>
-                                        <div class="ttlCr-Type d-flex align-items-center">
-                                            <div class="ttlDft-Crcy tb-bdy">
-                                                <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
+                                        <div  class="prdtCnt-Scnd d-flex align-items-center">
+                                            <div class="itm-Quantity tb-bdy w-100">
+                                                1
                                             </div>
-                                            <?php 
-
-                                    if( !empty($curDet) )
-                                    {
-
-                                   $newCurAmt = ($row['amt']*$curDet['amt']);
-    $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
-    echo '<div class="ttlDft-Crcy tb-bdy">
-                                                <p>'.$newCurAmt.'</p>
-                                            </div>';
-                                    }
-
-                                      ?>
+                                            
                                         </div>
                                     </div>
                                     <div class="prdt-Hide">
                                         <div class="prdt-Note tb-bdy">
-                                            <div class="mb-brCode"></div>
-                                            <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
-                                            <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
-                                            
-                                            name="itemNotes[<?php echo $row['id'];?>]" value="">
+                                            <div class="row g-2">
+                                                <div class="col-5">
+                                                    <div class="ttlCr-Type d-flex align-items-center">
+                                                        <div class="ttlDft-Crcy tb-bdy">
+                                                            <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
+                                                        </div>
+                                                        <?php 
+            
+                                                        if( !empty($curDet) )
+                                                        {
+            
+                                                        $newCurAmt = ($row['amt']*$curDet['amt']);
+                                                        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+                                                        echo '<div class="ttlDft-Crcy tb-bdy">
+                                                                    <p>'.$newCurAmt.'</p>
+                                                                </div>';
+                                                        }
+            
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7"> 
+                                                    <div class="mb-brCode"></div>
+                                                    <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
+                                                    <input type="text" class="form-control note-itm" autocomplete="off" id="notes" 
+                                                    placeholder="Note"
+                                                    name="itemNotes[<?php echo $row['id'];?>]" value="">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1074,73 +1112,72 @@ if(isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0)
                                     ?>
                                     </div>
                                     <div class="prdtCnt-Fst d-flex align-items-center">
-                                        <div class="Itm-Name tb-bdy">
+                                        <div class="Itm-Name tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Item'); ?>">
                                             <p><?php echo $row['itemName'];?></p>
                                         </div>
                                         <div class="Itm-brCode tb-bdy">
                                             <p class="ord-brCode"><?php echo $row['barCode'];?></p>
                                         </div>
                                         <div class="prdtCr-Unit d-flex">
-                                            <div class="crncy-Type d-flex align-items-center">
-                                                <div class="dflt-Currency tb-bdy">
+                                            <div class="crncy-Typ col-7">
+                                                <div class="dflt-Currency tb-bdy w-100 res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
                                                     <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?></p>
                                                 </div>
                                                 <div class="othr-Currency tb-bdy">
-                                                    <p><?php 
-      if( !empty($curDet) )
-      {
-        $newCurAmt = ($row['price']*$row['factor']*$curDet['amt']);
-        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
-        echo $newCurAmt;
-      }
-      ?></p>
+                                                    <p>
+                                                        <?php 
+                                                        if( !empty($curDet) )
+                                                        {
+                                                            $newCurAmt = ($row['price']*$row['factor']*$curDet['amt']);
+                                                            $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
+                                                            echo $newCurAmt;
+                                                        }
+                                                        ?>
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div class="itm-Unit tb-bdy">
+                                            <div class="itm-Uni tb-bdy col-5 res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
                                                 <p><?php echo $row['purchaseUnit'];?></p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="prdtStk-Qty tb-bdy">
-                                        <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: pink;
-    width: 43px;
-    text-align: center;
-    height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
-                                    </div>
-                                    <div  class="prdtCnt-Scnd d-flex align-items-center">
-                                        <div class="itm-Quantity tb-bdy">
-                                            <strong><input type="text" class="form-control qty-itm"
-                                                name="qty[<?php echo $row['id'];?>]"
-                                                onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
-                                                value="<?php echo $showQtyMinValue ? $showQtyMinValue: '';?>" size="1"
-                                                autocomplete="off"></strong>
+                                        <div class="prdtStk-Qty tb-bdy">
+                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
-                                        <div class="ttlCr-Type d-flex align-items-center">
-                                            <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
-                                                <p><?php $totalPriceVal = isset($_SESSION['productIds'][$row['id']]['qty'])  ? ($_SESSION['productIds'][$row['id']]['qty'] * $_SESSION['productIds'][$row['id']]['price']) : ($showQtyMinValue*$row['price']*$row['factor']); showPrice($totalPriceVal, $getDefCurDet['curCode']);?></p>
-                                            </div>
-                                            <?php 
-                                    if( !empty($curDet) )
-                                    {
-
-                                    $newCurAmt = ($totalPriceVal*$curDet['amt']);
-                                    echo '<div id="totalPriceOther'.$x.'" class="ttlOtr-Crcy tb-bdy"><p>'.showOtherCur($newCurAmt, $curDet['id'], 1).'</p></div>';
-                                    }
-
-                                      ?>
+                                        <div  class="prdtCnt-Scnd d-flex align-items-center">
+                                            <div class="itm-Quantity tb-bdy w-100 res__label__item" data-text="<?php echo showOtherLangText('Qty'); ?>">
+                                                <strong><input type="text" class="form-control qty-itm"
+                                                    name="qty[<?php echo $row['id'];?>]"
+                                                    onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
+                                                    value="<?php echo $showQtyMinValue ? $showQtyMinValue: '';?>" size="1"
+                                                    autocomplete="off"></strong>
+                                            </div> 
                                         </div>
                                     </div>
                                     <div class="prdt-Hide">
                                         <div class="prdt-Note tb-bdy">
-                                            <div class="mb-brCode"></div>
-                                            <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
-                                            <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
-                                            
-                                            name="notes[<?php echo $row['id'];?>]" value="">
+                                            <div class="row g-2">
+                                                <div class="col-5">
+                                                    <div class="ttlCr-Type d-flex align-items-center text-start res__label__item" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                        <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
+                                                            <p><?php $totalPriceVal = isset($_SESSION['productIds'][$row['id']]['qty'])  ? ($_SESSION['productIds'][$row['id']]['qty'] * $_SESSION['productIds'][$row['id']]['price']) : ($showQtyMinValue*$row['price']*$row['factor']); showPrice($totalPriceVal, $getDefCurDet['curCode']);?></p>
+                                                        </div>
+                                                        <?php 
+                                                            if( !empty($curDet) )
+                                                            { 
+                                                            $newCurAmt = ($totalPriceVal*$curDet['amt']);
+                                                            echo '<div id="totalPriceOther'.$x.'" class="ttlOtr-Crcy tb-bdy"><p>'.showOtherCur($newCurAmt, $curDet['id'], 1).'</p></div>';
+                                                            } 
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">  
+                                                    <div class="mb-brCode d-block"></div>
+                                                    <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
+                                                    <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
+                                                    placeholder="Note"
+                                                    name="notes[<?php echo $row['id'];?>]" value="">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
