@@ -436,8 +436,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                         <div class="stcPart position-relative">
                             <div class="container erdOrder nwOrder-Div">
                                 <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
-                                <div class="row py-md-4">
-                                    <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:2rem;">
+                                <div class="row pb-md-4 mt-1">
+                                    <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem;">
                                         <div class="ord-Box w-100 ms-0">
                                             <div class="ordNum">
                                                 <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
@@ -921,7 +921,7 @@ $ordQry = mysqli_query($con, $sql);
                             <!-- Item Table Head End -->
                         </div>
 
-                        <div id="boxscroll">
+                        <div id="boxscroll" class="compact__tb__bdy">
                             <div class="container cntTable">
                                 <!-- Item Table Body Start -->
                                 <?php 
@@ -1227,7 +1227,7 @@ $ordQry = mysqli_query($con, $sql);
                                 <!-- Item Table Head End -->
                             </div>
 
-                            <div id="boxscroll">
+                            <div id="boxscroll" class="compact__tb__bdy">
                                 <div class="container cntTable  ">
                                     <!-- Item Table Body Start -->
                                     <?php 

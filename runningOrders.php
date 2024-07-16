@@ -294,7 +294,7 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, shrink-to-fit=no" />
     <title>Running Tasks - Queue1</title>
     <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -311,7 +311,7 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
 
 <body>
 
-    <div class="container-fluid newOrde pt-0">
+    <div class="container-fluid newOrder">
         <div class="row g-0">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <?php require_once('nav.php');?>

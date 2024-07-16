@@ -415,7 +415,7 @@ $currResultSet = mysqli_query($con, $curQry);
 
                 <section class="ordDetail">
                     <div class="tpBar-grn"></div>
-                    <div class="container nwOrder-Div py-0"> 
+                    <div class="container nordPrice py-0 mt-0"> 
                         <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
                         <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
                             <p>

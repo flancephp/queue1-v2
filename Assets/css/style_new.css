@@ -9869,9 +9869,7 @@ img {
 }
 
 /* Nav CSS Start */
-.nav-bar > ul > li > a{ 
-  min-height: 80px;
-}
+ 
 .logo {
   padding-left: 8px;
 }
@@ -9890,11 +9888,22 @@ img {
   background-color: #f4f5f5;
   transition: color 0s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
+.nav-bar > ul > li > a.nav-link{ 
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .3s ease-in-out;
+}
+.nav-bar > ul > li > a.nav-link .sm__text{ 
+ max-width: 60px;white-space: break-spaces;margin-left: auto;margin-right: auto;
+}
 
-.nav-col {
-  width: 12%;
-  /* padding: 16px 16px 0 17px; */
-  display: flex;
+.nav-col { width: 200px;padding-right: 50px;  display: flex; }
+/* .nav-col .navbar { overflow-y: auto; }
+.nav-col::-webkit-scrollbar { display: none; }
+.nav-col { -ms-overflow-style: none;scrollbar-width: none;  }  */
+@media screen and (max-width: 1399px) {
+  .nav-col { width: 180px;padding-right: 30px; }
+}
+@media screen and (max-width: 1199px) {
+  .nav-col { width: 150px;padding-right: 10px; }
 }
 
 a.active {
@@ -9905,8 +9914,7 @@ a.active {
 
 .nav.h2 {
   line-height: 22px;
-  row-gap: 10px;
-  margin-left: 20px;
+  row-gap: 10px; 
 }
 
 .nav-link:focus,
@@ -9918,8 +9926,8 @@ a.active {
 
 .navIcon,
 .mb_navIcn {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .mb_navIcn,
@@ -9953,8 +9961,7 @@ a.active {
 .lgOut {
   margin-top: auto;
   margin-bottom: 25px;
-  padding-top: 10px;
-  padding-right: 6px;
+  padding-top: 18px; 
 }
 
 .mb-nav,
@@ -10039,9 +10046,9 @@ a.sbActive .mb_nvSubIcn {
   display: inline-block;
 }
 
-.nav-item {
+/* .nav-item {
   width: 80px;
-}
+} */
 
 .lg-Img {
   width: 76%;
@@ -18801,19 +18808,21 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 @media screen and (min-width: 1800px) {
-  .nav-bar a {
-    padding: 14px;
-    border-radius: 15px;
-    font-size: 18px;
-    line-height: 21.78px;
-  }
-  .navbar .nav-bar > ul > li > .nav-link { min-height: 90px; }
+  .nav-bar a {  font-size: 1rem; } 
+  .nav-bar { margin-top: 1.5rem; }
   .itmBody, .itmTable { font-size: 15px;  }
   .runTask { margin: 0 180px 0 140px; }
   .rntskHead { margin-top: 65px;padding: 0 180px 0 140px; }
   .body3 {
     font-size: 16px;
     font-weight: 400;
+  }
+  .navIcon,
+  .nav_sub .navIcon,
+  .mb_nvSubIcn,
+  .mb_navIcn {
+    width: 32px !important;
+    height: 32px !important;
   }
 }
 @media screen and (min-width: 1600px) {
@@ -18902,8 +18911,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .nav_sub .navIcon,
   .mb_nvSubIcn,
   .mb_navIcn {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
   .nav.h2 {
     row-gap: 16px;
@@ -18917,9 +18926,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .nwSub-Menu {
     width: 200px;
   }
-  .nav-item {
-    width: 115px;
-  }
+  
   /* Nav Bar CSS End */
   /* New Order CSS Start */
   .newOrder {
@@ -19077,7 +19084,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     line-height: 20px;
     font-weight: 600;
   }
-  .sub-btn.form-submit-btn,.sub-btn.submit_new_order { padding: 3px 10px !important; }
+  .sub-btn.form-submit-btn,.sub-btn.submit_new_order,.sub-btn.orderupdate { padding: 3px 10px !important; }
   .sub-btn:focus {
     background-color: #7a89ff;
   }
@@ -19971,3 +19978,22 @@ border-radius:3px;
 @media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
 
 .newOrder > .row { --bs-gutter-y: 0;--bs-gutter-x: 0; }
+
+.new_task__icon img { width: 32px !important;height: 32px !important; }
+.task__icon img { width:28px !important;height: 30px !important; }
+.office__icon img { width:35px !important;height: 41px !important; }
+.storage__icon img { width:34px !important;height: 34px !important; }
+.revenue__icon img { width:44px !important;height: 32px !important; }
+.setup__icon img { width:32px !important;height: 32px !important; }
+.logout__icon img { width:32px !important;height: 32px !important; }
+
+@media (max-width:1399px) {
+  .new_task__icon img { width: 28px !important;height: 28px !important; }
+  .task__icon img { width:24px !important;height: 28px !important; }
+  .office__icon img { width:30px !important;height: 38px !important; }
+  .storage__icon img { width:30px !important;height: 30px !important; }
+  .revenue__icon img { width:38px !important;height: 26px !important; }
+  .setup__icon img { width:28px !important;height: 28px !important; }
+  .logout__icon img { width:28px !important;height: 28px !important; }
+  .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
+}

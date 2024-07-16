@@ -849,7 +849,7 @@ if($_SESSION['deptId'] != '')
                         <!-- Item Table Head End -->
                     </div>
 
-                    <div id="boxscroll">
+                    <div id="boxscroll" class="compact__tb__bdy">
                         <div class="container cntTable">
                             <!-- Item Table Body Start -->
                             <?php 
