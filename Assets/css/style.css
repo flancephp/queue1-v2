@@ -9888,16 +9888,14 @@ img {
   transition: color 0s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-.nav-col {
-  width: 200px;padding-right: 50px;
-  /* padding: 16px 16px 0 17px; */
-  display: flex;
-}
+.nav-col { width: 200px;padding-right: 50px; display: flex; }
+.nav-bar .dropend .dropdown-menu[data-bs-popper] { margin-left: -12px; }
 /* .nav-col .navbar { overflow-y: auto; }
 .nav-col::-webkit-scrollbar { display: none; }
 .nav-col { -ms-overflow-style: none;scrollbar-width: none;  }  */
 @media screen and (max-width: 1399px) {
   .nav-col { width: 180px;padding-right: 30px; }
+  .nav-bar .dropend .dropdown-menu[data-bs-popper] { margin-left: -24px; }
 }
 @media screen and (max-width: 1199px) {
   .nav-col { width: 150px;padding-right: 10px; }
