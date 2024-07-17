@@ -162,7 +162,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                     <div class="usrBtns d-flex align-items-center justify-content-between">
                         <div class="usrBk-Btn">
                             <div class="btnBg">
-                                <a href="revenueCenterSetup.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                <a href="revenueCenterSetup.php" class="btn btn-primary mb-usrBkbtn"><span
                                         class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                         class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                             </div>
@@ -170,7 +170,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                         <div class="usrAd-Btn">
                             <div class="btnBg">
 
-                                <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                <button type="submit" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                             class="fa-solid fa-plus"></i></span> <span
                                         class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a></button>
                             </div>

@@ -156,14 +156,14 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Revenue Center Deleted Succ
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addRevenueCenter.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="addRevenueCenter.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
                                 </div>
