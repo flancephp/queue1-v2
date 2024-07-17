@@ -808,7 +808,7 @@ $payModeRow = mysqli_fetch_array($resultSet);
                                                 </tr>
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Account'); ?></td>
-                                                    <td><?php
+                                                    <?php
             $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$payRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."' ";
             $resultSet = mysqli_query($con, $sqlSet);
             $accRow = mysqli_fetch_array($resultSet);
@@ -836,7 +836,7 @@ $payModeRow = mysqli_fetch_array($resultSet);
 
         }
 
-        ?></td>
+        ?> <td><?php echo $accRow['accountName'] ?></td>
                                                 </tr>
 
 

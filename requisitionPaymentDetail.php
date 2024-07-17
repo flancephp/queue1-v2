@@ -449,6 +449,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
 
 
@@ -487,6 +488,9 @@ if(isset($_GET['delId']) && $_GET['orderId'])
         .site-modal .thead+tr {
             border-top: 0;
         }
+
+
+
 
         .site-modal thead,
         .site-modal .thead {
@@ -529,56 +533,50 @@ if(isset($_GET['delId']) && $_GET['orderId'])
             font-size: 10px;
         }
 
-        /* input select custon css for theis page  */
-        .form-control {
-            background-color: white;
-            padding: .5rem;
+        .issueDtl {
+            min-height: 160px !important;
         }
 
-        .form-info tr,
-        .payDetail tr {
-            height: 38px !important;
+        .accntDtl {
+            max-height: 160px !important;
+            overflow-y: scroll;
         }
 
-        .inv-detail tr {
-            min-height: 38px !important;
-        }
+        @media (min-width:1137px) {
+            /* 29 date tabel css */
 
-        .wht-btn:hover,
-        .wht-btn:focus,
-        .wht-btn:active {
-            border-color: #fff;
-            background: #fff;
-            color: #000;
-            border: 1px solid #000000;
-        }
+            .hisTypclm,
+            .hisRefrclm {
+                width: initial !important;
+            }
 
-        .final-btn:hover {
-            background: #ED7D31;
-            border: 2px solid #AE5A21;
-        }
+            .hisTypclm .dropdown-toggle,
+            .hisRefrclm .dropdown-toggle {
+                width: fit-content !important;
+            }
 
-        .wht-btn {
-            font-size: 12px;
-            line-height: 15px;
-            font-weight: 400;
-            color: #000;
-            background: linear-gradient(180deg, #F0EFEE 0%, #DCDCDC 100%);
-            border: 1px solid #000000;
-            border-radius: 4px;
-            padding: 7px 20px;
-        }
+            .hisStatusclm .dropdown-toggle,
+            .hisAcntclm .dropdown-toggle {
+                width: fit-content !important;
+            }
 
-        .final-btn {
-            font-size: 12px;
-            line-height: 15px;
-            font-weight: 700;
-            background: #ED7D31;
-            border: 2px solid #ED7D31;
-            border-radius: 4px;
-            padding: 7px 15px;
-            transition: all .1s ease-in-out;
-            color: white;
+            .hisStatusclm,
+            .hisAcntclm {
+                width: 25% !important;
+            }
+
+
+            .hisValclm {
+                width: 7% !important;
+            }
+
+            .numItmclm {
+                width: 15% !important;
+            }
+
+            .srHisclm {
+                min-width: fit-content;
+            }
         }
     </style>
 
@@ -1036,7 +1034,7 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
             autocomplete="off" />
 
                                     <div class="issueInvoice">
-                                    <a class="btn splitBtn-button"  href="javascript:void(0)" onClick="openPopup1('<?php echo $_GET['orderId'];?>'); getOnClickVal();" data-bs-toggle="modal" data-bs-target="#issue-Invoice"><?php echo showOtherLangText('Issue Invoice'); ?></a>
+                                    <a class="btn splitBtn-button"  href="javascript:void(0)" onClick="openPopup1('<?php echo $_GET['orderId'];?>'); getOnClickVal();"><?php echo showOtherLangText('Issue Invoice'); ?></a>
                                 </div>
                                     <!-- Dropdown menu -->
                                     <div class="dropdown mt-2">
@@ -1454,6 +1452,15 @@ list'); ?></span><br>
         </div>
     </div>
     </form>
+    <div class="modal" tabindex="-1" id="view_invoice" aria-labelledby="view-invoice" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+            <div id="view_invoice_content" class="modal-content p-2">
+                
+            </div>
+            <!-- payment Detail Popup End -->
+        </div>
+
+    </div>
      
                 <div class="modal-body m-0 p-0">
                 <!-- invoice Details Start -->
@@ -1571,22 +1578,7 @@ list'); ?></span><br>
         </div>
     </div>
 
-    <!-- invoice issue Popup End -->
-    <!-- View invoice pending Details Popup Start -->
-    <div class="modal" tabindex="-1" id="view_invoice" aria-labelledby="view_invoice" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-            <div id = "view_invoice_content" class="modal-content p-2">
-                
-            </div>
-            <!-- payment Detail Popup End -->
-        </div>
-
-    </div>
     
-     
-
-
-
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
@@ -1750,8 +1742,8 @@ function openPopup1(orderId) {
         })
         .done(function(htmlRes) {
             $('#view_invoice_content').html(htmlRes);
-            document.getElementById("view_invoice").style.display = "block";
-
+            //document.getElementById("view_invoice").style.display = "block";
+            $('#view_invoice').modal('show');
             //historyPdfJsCode();
         });
 
