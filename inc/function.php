@@ -5953,8 +5953,27 @@ function getRevenueTotals($outLetId, $fromDate, $toDate)
 					//end each item data fet...---------------------------------------------------------------------------------------------------
 
 					
-	print_r($outLetDataArr);
-	echo '<br><br>';
+	//get easy data
+	$sql = "SELECT guests, sales, importDate importDate FROM  tbl_daily_import
+		
+	WHERE outLetId = '".$outLetId."' AND account_id = '".$_SESSION['accountId']."' AND
+		importDate  between '".date('Y-m-d', strtotime($fromDate) )."' AND '".date('Y-m-d', strtotime($toDate) )."'  ";
+	$imptQry = mysqli_query($con, $sql);
+	
+	//$datesArr = [];
+	$salesTotal = 0;
+	$guestsTotal = 0;
+	while($imprtRes = mysqli_fetch_array($imptQry))
+	{
+		$salesTotal += $imprtRes['sales'];
+		
+		if( !in_array($row['importDate'], $datesArr) )
+		{
+			$guestsTotal += $imprtRes['guests'];
+			//$datesArr[] = $imprtRes['importDate'];
+		}
+	}
+	
 	$outLetDataArr =
 	[
 		'salesTotal' => $easySalesAmt,

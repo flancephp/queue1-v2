@@ -198,13 +198,11 @@ include_once('script/revenueCenterReport_script.php');
                         <div class="alrtMessage">
                             <div class="container">
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <p><strong>Hello User!</strong> Ezee sales data imported successfully.</p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>
 
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <p><strong>Hello User!</strong> error while importing data.</p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>
@@ -411,21 +409,19 @@ include_once('script/revenueCenterReport_script.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="outusage-Dtl">
+                                                 <div class="outusage-Dtl">
                                                     <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>'. ($usage ? getNumFormtPrice($usage,$getDefCurDet['curCode']) : '').'</p>
-                                                        </div>
+                                                        <div class="saleCost-prt Variance-prtNeg">
+                                                               '.($varience < 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'
+                                                            </div>
                                                         <div class="Usage-prt">
-                                                            <p></p>
+                                                            <p>'.$guests.'</p>
                                                         </div>
                                                         <div class="Variance-prt">
                                                             <div class="Variance-prtPos">
-                                                                <p>'.($varience > 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'</p>
+                                                                '.getNumFormtPrice($usagePerGuests,$getDefCurDet['curCode']).'
                                                             </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>'.($varience < 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'</p>
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="outchk-Dtl"></div>
@@ -583,7 +579,7 @@ include_once('script/revenueCenterReport_script.php');
                                 <div class="otRev-head">
                                     <div class="out-Let align-items-center">
                                         <div class="tb-head d-flex align-items-center out-List">
-                                            <div class="dropdown d-flex position-relative">
+                                           <!-- <div class="dropdown d-flex position-relative">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
                                                     <span>Outlet</span> <i class="fa-solid fa-angle-down"></i>
@@ -602,7 +598,7 @@ include_once('script/revenueCenterReport_script.php');
                                                             4</a>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div>-->
                                         </div>
                                         <div class="tb-head out-Sales">
                                             <div class="d-flex align-items-center">
