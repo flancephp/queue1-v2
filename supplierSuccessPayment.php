@@ -1049,7 +1049,7 @@ if ($paymentRow['paymentStatus']==1)
                                         </div>
                                         
                                         <div>
-                                            <button class="btn final-btn" onClick="redirectToHistory()" type="submit" name="submitBtn"><?php echo showOtherLangText('Done'); ?></button>
+                                            <button class="btn final-btn" onClick="redirectToHistory()" type="button" name="submitBtn"><?php echo showOtherLangText('Done'); ?></button>
                                         </div>
                                     </div>
                                 <?php  }    ?>

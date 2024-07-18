@@ -218,7 +218,7 @@ $easyDataArr = $easyData['data'];
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="revenueCenterSetup.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="revenueCenterSetup.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
@@ -226,7 +226,7 @@ $easyDataArr = $easyData['data'];
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
 
-                                    <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                    <button type="submit" class="btn btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></a></button>
                                 </div>

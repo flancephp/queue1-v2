@@ -770,22 +770,18 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                                 if ($orderRow['ordCurId'] > 0) 
                                 { ?>
                                     <td><?php echo showOtherCur(($custFeeRow['amt']*$curDetail['amt']), $orderRow['ordCurId']);?></td>
-                                    <?php }else{ ?>
-                                    <td class="pay-dt"><?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?>
-                                    <td><?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?></td>
+                                    <?php }else{ ?><td class="pay-dt"><?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?>
                                     
-                        <?php } 
-                        if ($orderRow['ordCurId'] > 0) 
+                                <?php } 
+                                if ($orderRow['ordCurId'] > 0) 
                                 { ?>
 
-                                    <td class="pay-dt" style="font-weight: bold;">
-                                        <?php echo showOtherCur(($custFeeRow['amt']*$curDetail['amt']), $orderRow['ordCurId']);?>
+                                    <td class="pay-dt" style="font-weight: bold;"><?php echo showOtherCur(($custFeeRow['amt']*$curDetail['amt']), $orderRow['ordCurId']);?>
                                     </td>
 
                                     <?php }else{ ?>
 
-                                    <td class="pay-dt" style="font-weight: bold;">
-                                        <?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?></td>
+                                    <td class="pay-dt" style="font-weight: bold;"><?php echo showPrice($custFeeRow['amt'],$getDefCurDet['curCode']);?></td>
 
                                     <?php } ?>
                         </tr> 
