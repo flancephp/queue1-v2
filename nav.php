@@ -147,7 +147,12 @@
     <div class="nav-bar lgOut pb-xxl-5">
         <ul class="nav flex-column h2">
             <li class="nav-item">
-                <a class="<?php echo isMenuActive(['setup.php','accountSetup.php','users.php','addUser.php','editUser.php','listDesignation.php','addDesignation.php','editDesignation.php','manageSuppliers.php','addEditSupplier.php','manageOutlets.php','addOutlet.php','editOutlet.php','revenueCenterSetup.php','addRevenueCenter.php','editRevenueCenter.php','itemsManager.php','addProduct.php','editProduct.php','physicalStorages.php','manageDepartments.php','categories.php','subCategories.php','manageUnits.php','manageCurrency.php','addCurrency.php','editCurrency.php','editMainCurrency.php','manageAccounts.php','addAccount.php','editAccount.php','manageServiceFee.php','addServiceFee.php','editServiceFee.php','manageAdditionalFee.php','addAdditionalFee.php','editAdditionalFee.php']); ?> nav-link text-center d-flex align-items-center setup__icon" href="setup.php">
+                <a class="<?php echo isMenuActive(['setup.php','accountSetup.php','users.php','addUser.php','editUser.php','listDesignation.php',
+                'addDesignation.php','editDesignation.php','manageSuppliers.php','addEditSupplier.php','manageOutlets.php','addOutlet.php',
+                'editOutlet.php','revenueCenterSetup.php','addRevenueCenter.php','editRevenueCenter.php','itemsManager.php','addProduct.php',
+                'editProduct.php','physicalStorages.php','manageDepartments.php','categories.php','subCategories.php','manageUnits.php',
+                'manageCurrency.php','addCurrency.php','editCurrency.php','editMainCurrency.php','manageAccounts.php','addAccount.php','editAccount.php',
+                'manageServiceFee.php','addServiceFee.php','editServiceFee.php','manageAdditionalFee.php','addAdditionalFee.php','editAdditionalFee.php']);?> nav-link text-center d-flex align-items-center setup__icon" href="setup.php">
                     <span class="d-block w-100"> 
                         <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
                         <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">

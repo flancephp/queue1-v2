@@ -303,6 +303,175 @@ include_once('script/revenueCenterReport_script.php');
 
                         </div>
 
+
+                        <?php
+
+                            $mainBodyParts = '';
+                        $x= 0;
+                        $tr = '';
+                        $datesArr = [];
+                        $guestsTotal = 0;
+                        $useVarianceCount = 0;
+                        $allVarianceAmt = 0;
+                        $usageVarianceValueArr = [];
+                        $usageTotalAmount = 0;
+                        $outLetVariance = 0;
+                        $costPerTot = 0;
+
+                        $revIdsArr = [];
+                        $isFooterPrinted = false;
+
+                        while($row = mysqli_fetch_array($getRevenueReport))
+                        {
+
+
+                            $color = ($x%2 == 0)? 'white': '#FFFFCC';
+                            $x++;
+                            
+                            $ourLetsTotsArr = getRevenueTotals($row['outLetId'], $_GET['fromDate'], $_GET['toDate']);
+
+                            $sales = $ourLetsTotsArr['salesTotal'];
+                            $guests = $ourLetsTotsArr['guestsTotal'];
+                            $varience = $ourLetsTotsArr['varience'];
+                            $usage = $ourLetsTotsArr['usageTotal'];
+                            $usagePer = $ourLetsTotsArr['usagePer'];
+                            $usageLevel = $ourLetsTotsArr['usageLevel'];				
+                            
+                            
+                            $usageTotalAmount += $usage;
+                            $guestsTotal += $guests;
+                            $allVarianceAmt += $varience;
+                            $salesTotal += $sales;
+                            
+                            $usagePerGuests = ($usage && $guests) ? ($usage/$guests) : '';
+                            
+                            $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
+
+   
+
+                
+                              //  <!-- Item Table Body Start -->
+
+                              if( !isset($revIdsArr[$row['id']])  )
+                              {
+
+                                    if($x != 1 && $revCentId = $row['id'])
+                                    {
+                                        $mainBodyParts .=  '</div>
+                                        </div>
+
+                                            <div class="align-items-center mbTask">
+                                            <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
+                                            class="fa-solid fa-angle-down"></i></a>
+                                            </div>
+                                        </div>';
+
+                                        $isFooterPrinted = true;
+                                    }
+
+                                $revIdsArr[$row['id']] = $row['id'];
+                                $mainBodyParts  .= '<div class="revCntr-Task align-items-center mb-1">
+                                    <div class="mbshw-Revcnt">
+                                        <div class="revCenter-Name d-flex align-items-center itmBody">
+                                            <div class="center-List">
+                                               <p>'.$row['name'].'</p>
+                                            </div>
+                                            <div class="num-List">
+                                                <p><span class="mbguest-Head">Guests</span> '.$guests.'</p>
+                                            </div>
+                                        </div>
+                                        <div class="revCenter-Dtl">';
+
+                                $isFooterPrinted = false;        
+
+
+                                }
+
+
+                                        
+                                           $mainBodyParts  .= '<div class="revtable-Detail d-flex align-items-center itmBody">
+                                                <div class="outsale-Dtl align-items-center">
+                                                    <div class="outlet-Name">
+                                                        <a href="outlet_report_saleCenter.php">'. $row['outletName'] .'</a>
+                                                        <div class="chkbx-revCntr">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="outlet-Salecst">
+                                                        <p class="mbhead-revCntr">Sales</p>
+                                                        <p class="bl-Sale">'.getNumFormtPrice($sales,$getDefCurDet['curCode']).'</p>
+                                                    </div>
+                                                    <div class="outlet-Totalcst d-flex item-items-center">
+                                                        <div class="ttlCost-Amt">
+                                                            <p class="mbhead-revCntr">Total Cost</p>
+                                                            <p class="pr-Tcost">'. ($usage ? getNumFormtPrice($usage,$getDefCurDet['curCode']) : '').'</p>
+                                                        </div>
+                                                        <div class="ttlCost-Pnage">
+                                                            <p>'.$usagePerValNew.'</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="outusage-Dtl">
+                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
+                                                        <div class="saleCost-prt">
+                                                            <p>'. ($usage ? getNumFormtPrice($usage,$getDefCurDet['curCode']) : '').'</p>
+                                                        </div>
+                                                        <div class="Usage-prt">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="Variance-prt">
+                                                            <div class="Variance-prtPos">
+                                                                <p>'.($varience > 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'</p>
+                                                            </div>
+                                                            <div class="Variance-prtNeg">
+                                                                <p>'.($varience < 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="outchk-Dtl"></div>
+                                                </div>
+
+                                            </div>';
+
+                                           // $getRevenueReport = '';   
+
+                                    }//end while loop
+                                         
+                                            
+
+                                        
+
+                            
+                             
+                             if($isFooterPrinted === false)
+                             {
+
+                                
+                                 $mainBodyParts .= $footerPart = '</div>
+                                 </div>
+
+                                 <div class="align-items-center mbTask">
+                                 <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
+                                 class="fa-solid fa-angle-down"></i></a>
+                                 </div>
+                                 </div>
+                                 
+                                 ';
+                                 
+
+                             }
+
+
+                             $mainBodyParts .= $footerPart = ' </section>
+
+                                                                                    </section>
+
+                                                                                            </div>
+                                 
+                                 ';
+           
+                             ?>
+
                         <div class="container detailPrice">
                             <div class="row">
                                 <div class="tab-mbDtl">
@@ -321,38 +490,27 @@ include_once('script/revenueCenterReport_script.php');
                                             <div class="sl-Num d-flex">
                                                 <div class="text-center">
                                                     <p class="sale-Name">Sales</p>
-                                                    <p class="sale-Amunt"><?php showPrice($salesTotal,$getDefCurDet['curCode']);?></p>
+                                                    <p class="sale-Amunt"><?php 
+                                                    
+                                                    showPrice($salesTotal,$getDefCurDet['curCode']);?></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="ttlCost">
-                                            <p class="tl-Cst text-center">Total Cost</p>
+                                            <p class="tl-Cst text-center">Cost</p>
                                             <div class="d-flex justify-content-end cst-Value">
                                                 <div class="col-md-7 d-flex">
                                                     <p class="prcntage-Val"><?php echo showPrice($usageTotalAmount,$getDefCurDet['curCode']);
 										?></p>
-                                                    <p class="cst-Prcntage"><?php echo $costPerTot.'%';?>%</p>
+                                                    <p class="cst-Prcntage"><?php echo $costPerTot;?>%</p>
                                                 </div>
                                             </div>
-                                            <div class="d-flex cst-Col">
-                                                <div class="col-md-5">
-                                                    <p class="sl-Cost">Sales Cost</p>
-                                                    <p class="sl-Usage">Usage</p>
-                                                    <p class="sl-Variance">Variance</p>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <p class="sale-Amount">3,438 $</p>
-                                                    <p class="usage-Amount"><?php echo showPrice($usageTotalAmount,$getDefCurDet['curCode']);
-										?></p>
-                                                    <p class="var-Amount"><?php showPrice($allVarianceAmt,$getDefCurDet['curCode']);?></p>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                         <div class="sale-Variance text-center">
                                             <p class="sl-varDtl">Variances</p>
-                                            <p class="sl-varDif">-110 $</p>
-                                            <p class="sl-varValue">13 $</p>
-                                            <p class="sl-varTtl">-123 $</p>
+                                            <p class="sl-varDif"><?php showPrice($allVarianceAmt,$getDefCurDet['curCode']);?></p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -420,17 +578,7 @@ include_once('script/revenueCenterReport_script.php');
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- <div class="tb-head guest-List">
-                                        <div class="d-flex align-items-center">
-                                            <p>Guests</p>
-                                            <span class="dblArrow">
-                                                <a href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-up"></i></a>
-                                                <a href="javascript:void(0)" class="d-block aglStock"><i
-                                                        class="fa-solid fa-angle-down"></i></a>
-                                            </span>
-                                        </div>
-                                    </div> -->
+                                    
                                 </div>
                                 <div class="otRev-head">
                                     <div class="out-Let align-items-center">
@@ -535,171 +683,10 @@ include_once('script/revenueCenterReport_script.php');
                         </div>
                     </section>
 
-                    <section class="hisTblbody">
-                        <div id="boxscroll">
-                            <div class="container position-relative hstTbl-bd">
-
-                            <?php
-                        $x= 0;
-                        $tr = '';
-                        $datesArr = [];
-                        $guestsTotal = 0;
-                        $useVarianceCount = 0;
-                        $allVarianceAmt = 0;
-                        $usageVarianceValueArr = [];
-                        $usageTotalAmount = 0;
-                        $outLetVariance = 0;
-                        $costPerTot = 0;
-
-                        $revIdsArr = [];
-                        $isFooterPrinted = false;
-
-                        while($row = mysqli_fetch_array($getRevenueReport))
-                        {
-
-
-                            $color = ($x%2 == 0)? 'white': '#FFFFCC';
-                            $x++;
-                            
-                            $ourLetsTotsArr = getRevenueTotals($row['outLetId'], $_GET['fromDate'], $_GET['toDate']);
-
-                            $sales = $ourLetsTotsArr['salesTotal'];
-                            $guests = $ourLetsTotsArr['guestsTotal'];
-                            $varience = $ourLetsTotsArr['varience'];
-                            $usage = $ourLetsTotsArr['usageTotal'];
-                            $usagePer = $ourLetsTotsArr['usagePer'];
-                            $usageLevel = $ourLetsTotsArr['usageLevel'];				
-                            
-                            
-                            $usageTotalAmount += $usage;
-                            $guestsTotal += $guests;
-                            $allVarianceAmt += $varience;
-                            $salesTotal += $sales;
-                            
-                            $usagePerGuests = ($usage && $guests) ? ($usage/$guests) : '';
-                            
-                            $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
-
-   
-
-                
-                              //  <!-- Item Table Body Start -->
-
-                              if( !isset($revIdsArr[$row['id']])  )
-                              {
-
-                                    if($x != 1 && $revCentId = $row['id'])
-                                    {
-                                        echo $footerPart = '</div>
-                                        </div>
-
-                                            <div class="align-items-center mbTask">
-                                            <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                            class="fa-solid fa-angle-down"></i></a>
-                                            </div>
-                                        </div>';
-
-                                        $isFooterPrinted = true;
-                                    }
-
-                                $revIdsArr[$row['id']] = $row['id'];
-                                echo $headerPart = '<div class="revCntr-Task align-items-center mb-1">
-                                    <div class="mbshw-Revcnt">
-                                        <div class="revCenter-Name d-flex align-items-center itmBody">
-                                            <div class="center-List">
-                                               <p>'.$row['name'].'</p>
-                                            </div>
-                                            <div class="num-List">
-                                                <p><span class="mbguest-Head">Guests</span> '.$guests.'</p>
-                                            </div>
-                                        </div>
-                                        <div class="revCenter-Dtl">';
-
-                                $isFooterPrinted = false;        
-
-
-                                }
-
-
-                                        
-                                           echo $itemBody = '<div class="revtable-Detail d-flex align-items-center itmBody">
-                                                <div class="outsale-Dtl align-items-center">
-                                                    <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">'. $row['outletName'] .'</a>
-                                                        <div class="chkbx-revCntr">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="outlet-Salecst">
-                                                        <p class="mbhead-revCntr">Sales</p>
-                                                        <p class="bl-Sale">'.getNumFormtPrice($sales,$getDefCurDet['curCode']).'</p>
-                                                    </div>
-                                                    <div class="outlet-Totalcst d-flex item-items-center">
-                                                        <div class="ttlCost-Amt">
-                                                            <p class="mbhead-revCntr">Total Cost</p>
-                                                            <p class="pr-Tcost">'. ($usage ? getNumFormtPrice($usage,$getDefCurDet['curCode']) : '').'</p>
-                                                        </div>
-                                                        <div class="ttlCost-Pnage">
-                                                            <p>'.$usagePerValNew.'</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="outusage-Dtl">
-                                                    <div class="slpart-Detail d-flex align-items-center itmBody">
-                                                        <div class="saleCost-prt">
-                                                            <p>'. ($usage ? getNumFormtPrice($usage,$getDefCurDet['curCode']) : '').'</p>
-                                                        </div>
-                                                        <div class="Usage-prt">
-                                                            <p></p>
-                                                        </div>
-                                                        <div class="Variance-prt">
-                                                            <div class="Variance-prtPos">
-                                                                <p>'.($varience > 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'</p>
-                                                            </div>
-                                                            <div class="Variance-prtNeg">
-                                                                <p>'.($varience < 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="outchk-Dtl"></div>
-                                                </div>
-
-                                            </div>';
-
-                                           // $getRevenueReport = '';   
-
-                                    }//end while loop
-                                         
-                                            
-
-                                        
-
-                            
+                    
+                            <?php echo $mainBodyParts;?>
                              
-                             if($isFooterPrinted === false)
-                             {
-
-                                
-                                 echo $footerPart = '</div>
-                                 </div>
-
-                                 <div class="align-items-center mbTask">
-                                 <a href="javascript:void(0)" class="statusLink mb-hisLink"><i
-                                 class="fa-solid fa-angle-down"></i></a>
-                                 </div>
-                                 </div>
-                                 
-                                 ';
-                                 
-
-                             }
-           
-                             ?>
-                    </section>
-
-                </section>
-
-            </div>
+                   
         </div>
     </div>
 
