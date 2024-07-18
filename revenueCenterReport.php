@@ -197,15 +197,57 @@ include_once('script/revenueCenterReport_script.php');
 
                         <div class="alrtMessage">
                             <div class="container">
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
 
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php 
+
+$error = '';
+$succ = '';
+ if( isset($_GET['easy']) )
+{
+    
+    $succ =  ' '.showOtherLangText('Ezee Sales data imported successfully. Please check the data').' :';
+    
+    if( !empty($_SESSION['barCodesNotFound']) )
+    {
+        $error = ''.showOtherLangText('<br><br>These Bar Codes are not part of the Outlet mentioned in excel sheet.<br>so only these items are not uploaded').': '.implode(', ', $_SESSION['barCodesNotFound']);
+        unset($_SESSION['barCodesNotFound']);
+    }
+}
+elseif( !empty($_SESSION['barCodesNotFound']) )
+{
+    $error =  ''.showOtherLangText('These Bar Codes are not part of the Outlet mentioned in excel sheet.<br>so only these items are not uploaded').': '.implode(', ', $_SESSION['barCodesNotFound']);
+    unset($_SESSION['barCodesNotFound']);
+}
+elseif( isset($_GET['easyOutLetError']) )
+{
+    $error = ' '.showOtherLangText('Outlet name did not match.').' ';
+}
+
+if( isset($_GET['guest']) && $_GET['guest']== 1)
+{
+    $succ = 'Guest no. updated successfully.';
+}
+
+
+                                if($succ)
+                                {
+?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p> <?php echo $succ;?>  </p>
+
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>
+                                <?php } ?>
+
+                            <?php if($error){?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?php echo $error;?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            <?php } ?>
+
                             </div>
                         </div>
 
@@ -390,7 +432,7 @@ include_once('script/revenueCenterReport_script.php');
                                            $mainBodyParts  .= '<div class="revtable-Detail d-flex align-items-center itmBody">
                                                 <div class="outsale-Dtl align-items-center">
                                                     <div class="outlet-Name">
-                                                        <a href="outlet_report_saleCenter.php">'. $row['outletName'] .'</a>
+                                                        <a href="outlet_report_saleCenter.php?outLetId=42&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">'. $row['outletName'] .'</a>
                                                         <div class="chkbx-revCntr">
 
                                                         </div>
@@ -699,10 +741,11 @@ include_once('script/revenueCenterReport_script.php');
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <p class="modal-title h1" id="modalEnterGuestNoTitle">
-                        Enter Guest No
+                    <?php echo showOtherLangText('Enter Guest No') ?>
                     </p>
                 </div>
-                <form action="#">
+
+    <form action="" method="post" id="guestFrm" name="guestFrm">
                     <div class="modal-body">
                         <div class="row g-3 align-items-center addUser-Form"> 
                             <div class="col-md-4">
@@ -711,26 +754,54 @@ include_once('script/revenueCenterReport_script.php');
                             <div class="col-md-8">
                                 <input 
                                     type="date"
-                                    name="date"
-                                    id="date"
+                                    name="adjDate"
+                                    id="adjDate"
                                     class="form-control m-0"
+
+                                    value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : '';?>"
                                 >
                             </div>
+                                        <input type="hidden" size="10" name="fromDate"
+                                        value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y');?>">
+
+                                        <input size="10" type="hidden" name="toDate"
+                                        value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>">
+
+
+                    
                             <div class="col-md-4">
-                                <label for="revenue_center" class="label">Revenue center</label>
+                                <label for="revenue_center" class="label"><?php echo showOtherLangText('Revenue center') ?></label>
                             </div>
                             <div class="col-md-8">
-                                <select name="revenue_center" id="revenue_center" class="form-select m-0">
-                                    <option value="Revenue center">Revenue center</option>
-                                </select>
+
+
+                                <?php 
+						$sql = "SELECT rc.* FROM tbl_revenue_center_departments rcd
+						INNER JOIN tbl_deptusers du ON(du.id = rcd.deptId)  AND du.account_id = rcd.account_id
+						INNER JOIN tbl_revenue_center rc ON(rc.id = rcd.revCenterId)  AND rc.account_id = rcd.account_id
+						INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id
+						WHERE rc.account_id = '".$_SESSION['accountId']."'
+						GROUP BY rc.id order by rc.name desc ";
+						$resultSet = mysqli_query($con, $sql);
+						$optionsRevCenters = '<select class="form-select m-0" id="centerId" class="centerId" name="centerId">';
+							$optionsRevCenters .= '<option value="">'.showOtherLangText('Revenue Center').'</option>';
+							while($revRow = mysqli_fetch_array($resultSet) )
+							{
+								$sel = isset($_GET['centerId']) && $_GET['centerId'] == $revRow['id']  ? 'selected="selected"' : '';
+								$optionsRevCenters .= '<option value="'.$revRow['id'].'" '.$sel.'>'.$revRow['name'].'</option>';
+							}
+							echo $optionsRevCenters .= '</select>';
+						?>
+
                             </div>
                             <div class="col-md-4">
-                                <label for="guest_no" class="label">Guest no.</label>
+                                <label for="guest_no" class="label"><?php echo showOtherLangText('Guest no.') ?></label>
                             </div>
                             <div class="col-md-8">
                                 <input 
                                     type="text"
-                                    name="guest_no"
+                                    name="guest"
+                                    id="guestNo"
                                     class="form-control m-0"
                                 >
                             </div> 
@@ -738,10 +809,10 @@ include_once('script/revenueCenterReport_script.php');
                     </div><!--.//modal-body -->
                     <div class="modal-footer">
                         <div class="btnBg">
-                            <button type="submit" name="btnSbt" onclick="" class="deletelink btn sub-btn std-btn">Save</button>
+                            <button type="submit" name="saveBtn"  class="deletelink btn sub-btn std-btn">Save</button>
                         </div>
                         <div class="btnBg">
-                            <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn">Cancel</button>
+                            <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn" id="backBtn">Cancel</button>
                         </div>
                     </div>
                 </form>
