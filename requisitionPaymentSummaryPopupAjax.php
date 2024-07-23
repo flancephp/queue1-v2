@@ -43,7 +43,14 @@ $paymentInfoRow = mysqli_fetch_array($resultSet);
 
 
 
-
+if($paymentRow['paymentStatus']==1)
+{
+    $classname = 'recived-invoice';
+} else if($paymentRow['paymentStatus']==2) {
+     $classname = 'payment-paid';
+} else {
+    $classname = 'payment-pending';
+}
 
 
 
@@ -54,7 +61,7 @@ $content .= '<div class="modal-header pb-3">
                 </div>
                 <div class="modal-body m-0 p-0">
                     <!-- invoice Details Start -->
-                    <div id="invoice-Details" class="payment-status-left payment-pending position-relative">
+                    <div id="invoice-Details" class="payment-status-left '.$classname.' position-relative">
                         <div class="border-line"></div>
                         <div class=" p-5">
                             <div class="d-flex justify-content-between align-items-center">

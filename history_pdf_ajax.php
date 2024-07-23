@@ -586,8 +586,8 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                      $issueoutClass='';
                      $varianceClass='';
                     
-                    if($count >= 1){
-                        $issueinClass=' col-7';
+                    if($count > 1){
+                        $issueinClass=' col-12';
                     ?>
 
                     <script>
@@ -618,30 +618,30 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                      if($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0)
                         {
-                            if($count >= 1){
+                            if($count > 1){
+                                $issueinClass=' col-12';
+                                $issueoutClass=' col-6';
+                                $varianceClass=' col-6';
+                            }
+                            else
+                            {
                                 $issueinClass=' col-7';
                                 $issueoutClass=' col-3';
                                 $varianceClass=' col-2';
                             }
-                            else
-                            {
-                                $issueinClass=' col-3';
-                                $issueoutClass=' col-3';
-                                $varianceClass=' col-6';
-                            }
                         }
                         elseif($checkIfPermissionToNewOrderSec > 0 )
                         {
-                            if($count >= 1){
-                               $issueinClass=' col-7';
-                                $issueoutClass=' col-3';
-                                $varianceClass=' col-2';
+                            if($count > 1){
+                               $issueinClass=' col-12';
+                                $issueoutClass=' col-6';
+                                $varianceClass=' col-6';
                             }
                             else
                             {
-                                $issueinClass=' col-3';
+                                $issueinClass=' col-7';
                                 $issueoutClass=' col-3';
-                                $varianceClass=' col-6';
+                                $varianceClass=' col-2';
                             }
                         }
                         elseif($checkIfPermissionToNewReqSec > 0 )
@@ -652,9 +652,9 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                         }
                         else
                         {
-                            $issueinClass='20 col-3';
+                            $issueinClass='20 col-7';
                             $issueoutClass='21 col-3';
-                            $varianceClass='22 col-12';
+                            $varianceClass='22 col-2';
                         }
                         
                 //echo 'ooo=>'.$issueinClass.'--'.$issueoutClass.'--'.$varianceClass;

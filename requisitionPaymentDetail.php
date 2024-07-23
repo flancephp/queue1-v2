@@ -542,6 +542,10 @@ if(isset($_GET['delId']) && $_GET['orderId'])
             overflow-y: scroll;
         }
 
+        .paySelect tr{
+            height: 35px;
+        }
+
         @media (min-width:1137px) {
             /* 29 date tabel css */
 

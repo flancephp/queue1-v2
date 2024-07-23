@@ -1291,7 +1291,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
 	$proRows = getAllProducts();
     foreach($proRows as $pId=>$pName){
 		$itemName = $pName.'('.$pId.')';
-		echo "'$itemName'".',';
+		echo "\"$itemName\",";
 	}
     ?>
         ];
