@@ -465,6 +465,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             <div class="">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('Payment To'); ?>: </p>
                                 <p class="f-03 mb-0"><?php echo $payInfoRow['supplierName']; ?></p>
+                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierAddress']; ?></p>
                                 <p class="f-03 mb-0"><?php echo $payInfoRow['supplierEmail']; ?></p>
                                 <p class="f-03 mb-0"><?php echo $payInfoRow['supplierPhone']; ?></p>
                             </div>
@@ -796,16 +797,16 @@ if ($orderRow['ordCurId'] > 0)
                                         <th><?php echo showOtherLangText('Grand Total'); ?>(<?php echo $curDetail['curCode'];?>)</th>
                                         <th><?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']) ?></th>
                                     </tr>
-                                    <tr><th><?php echo showOtherLangText('Grand Total'); ?>(<?php echo $getDefCurDet['curCode'];?>)</th>
+                                    <tr class="grand-total" style=" max-height: 38px;"><th><?php echo showOtherLangText('Grand Total'); ?>(<?php echo $getDefCurDet['curCode'];?>)</th>
                                         <th><?php showPrice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
                                     </tr>
                                      <?php } else { ?>
-                                    <tr class="netTotal">
-                        <td><?php echo showOtherLangText('Grand Total'); ?> (<?php echo $getDefCurDet['curCode'] ?>)
-                        </td>
-                        <td style="font-weight: bold;">
+                                    <tr class="grand-total" style=" max-height: 38px;">
+                        <th><?php echo showOtherLangText('Grand Total'); ?> (<?php echo $getDefCurDet['curCode'] ?>)
+                        </th>
+                        <th style="font-weight: bold;">
                             <?php showPrice($netTotalAmt,$getDefCurDet['curCode']); ?>
-                        </td>
+                        </th>
                     </tr>
 
                     <?php } ?>
@@ -1382,6 +1383,12 @@ if ($paymentRow['paymentStatus']==1)
     var cancelBtn = document.getElementById("cancelBtn");
     cancelBtn.onclick = function() {
     refund_model.style.display = "none";
+    }
+    </script>
+    <script>
+    function redirectToParentPage() {
+    var pageName = "supplierPaymentDetail.php?orderId=<?php echo $_GET['orderId'];?>&cancelPayment=1";
+    window.location.href = pageName
     }
     </script>
     <div id="dialog" style="display: none;">

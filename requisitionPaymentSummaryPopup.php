@@ -51,23 +51,33 @@ $content = '<!DOCTYPE html>
   </head>
   <body style="margin: 0; padding: 0; font-family: inter;">
     <div style="margin: auto; max-width: 800px; position: relative; border-radius: 5px;">
-      <div  style="position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
-      <div style="padding: 1% 4% ;">
-        <!-- Header Section -->
-      <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-          <td>';
+      ';
     
      if (isset($_GET['orderId']) && $paymentRow['paymentStatus']==1 ) 
                             { 
 
-      $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#42AD7F !important; margin-bottom: 0;">'. showOtherLangText('RECEIVED').'</p>';
+      $content .= '<div  style="position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
+      <div style="padding: 1% 4%;">
+        <!-- Header Section -->
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td><p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#42AD7F !important; margin-bottom: 0;">'. showOtherLangText('RECEIVED').'</p>';
       }
       elseif($_GET['paymentStatus']==2) 
       { 
-      $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#42AD7F !important; margin-bottom: 0;">'. showOtherLangText('REFUNDED').'</p>';
+      $content .= '<div  style="position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
+      <div style="padding: 1% 4%;">
+        <!-- Header Section -->
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td><p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#42AD7F !important; margin-bottom: 0;">'. showOtherLangText('REFUNDED').'</p>';
       }else{ 
-      $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#42AD7F !important; margin-bottom: 0;">'. showOtherLangText('PENDING').'</p>';
+      $content .= '<div  style="position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#E99624;"></div>
+      <div style="padding: 1% 4%;">
+        <!-- Header Section -->
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td><p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#E99624 !important; margin-bottom: 0;">'. showOtherLangText('PENDING').'</p>';
       }
      $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#666C85;margin-top: 0rem;">'. showOtherLangText('INVOICE').'</p>';
     $content .= '</td>
@@ -79,7 +89,7 @@ $content = '<!DOCTYPE html>
     if($clientResultRow['logo'] !='' && file_exists(dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientResultRow['logo']))
     {   
 
-        $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientResultRow['logo'].'" width="100" height="100" style="margin-top: 25px;">';
+        $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientResultRow['logo'].'" width="100" height="100">';
 
     }
     $content .= '</td>
@@ -146,7 +156,6 @@ $content = '<!DOCTYPE html>
 </table>
 
 
-        <br>
         <div>
           <p style="font-size:16px;font-weight:600;line-height:19.36px;text-align:left; margin-bottom: .5rem;">'. showOtherLangText('Invoice To').':</p>
           <p style="margin: 0; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">'.$paymentInfoRow['invoiceName'].'</p>
@@ -154,7 +163,7 @@ $content = '<!DOCTYPE html>
           <p style="margin: 0; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">'.$paymentInfoRow['invoiceEmail'].'</p>
           <p style="margin: 0; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">'.$paymentInfoRow['invoicePhone'].'</p>
         </div>
-        <br>
+
         <table style="width: 100%; margin-top: 16px; border-collapse: collapse;">
           <thead style="border-radius:10px !important; ">
             <tr style="color:white;height:48px;background:#A9B0C0 !important;background-color: #f5f5f5; ">
@@ -330,9 +339,6 @@ $content = '<!DOCTYPE html>
   </tr>
 </table>
 
-        <br>
-        <br>
-        <br>
       </div>
     </div>
   </body>

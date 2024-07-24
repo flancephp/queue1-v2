@@ -559,6 +559,14 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
             transition: all .1s ease-in-out;
             color: white;
         }
+        .final-btn:hover {
+            border: 2px solid #ED7D31 !important;
+            color: white !important;
+            border-color: #AE5A21;
+        }
+        .Payment-to p{
+            margin:3px 0px;
+        }
     </style>
 
 </head>
@@ -703,7 +711,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             </div>
 
                             <br>
-                            <div class="">
+                            <div class="Payment-to">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('PAYMENT To') ?></p>
                                 <p id="name" class="f-03 mb-0"><?php echo $supName; ?></p>
                                 <p id="address" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></p>
@@ -1019,11 +1027,11 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                         <th><?php echo showprice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
                                     </tr>
                                       <?php }else{ ?>
-                                     <tr class="netTotal">
-                                    <td><?php echo showOtherLangText('Grand Total'); ?> (<?php echo $getDefCurDet['curCode'] ?>)
-                                    </td>
-                                    <td style="font-weight: bold;"><?php echo showprice($netTotalAmt,$getDefCurDet['curCode']); ?>
-                                    </td>
+                                    <tr class="grand-total" style=" max-height: 38px;">
+                                    <th><?php echo showOtherLangText('Grand Total'); ?> (<?php echo $getDefCurDet['curCode'] ?>)
+                                    </th>
+                                    <th style="font-weight: bold;"><?php echo showprice($netTotalAmt,$getDefCurDet['curCode']); ?>
+                                    </th>
                                 </tr>
                                 <?php } ?>
                                 </table>
@@ -1194,7 +1202,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                                     <td><?php echo showOtherLangText('Payment Type') ?></td>
                                                     <td>
                                                         
-                                                    <select name="paymentType" id="paymentType" class="form-control" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" required>
+                                                    <select name="paymentType" id="paymentType" class="form-select  arrowdown-icon" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" required>
 
                           <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
@@ -1254,7 +1262,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
 
                     </select> -->
-                    <select name="accountId" id="accountId" class="form-control" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="fetchAccountDetail(this.value),this.setCustomValidity('')" required>
+                    <select name="accountId" id="accountId" class="form-select arrowdown-icon" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="fetchAccountDetail(this.value),this.setCustomValidity('')" required>
 
                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
 

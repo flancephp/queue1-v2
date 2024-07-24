@@ -213,7 +213,7 @@ $result = mysqli_query($con, $sql);
                                                 <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
                                             </div>
                                             <div class="tb-bdy usrName-Clm">
-                                                <p class="userName"><?php echo $row['username'];?><?php echo $row['password'];?></p>
+                                                <p class="userName"><?php echo $row['username'];?></p>
                                             </div>
                                             <div class="tb-bdy usrTtl-Clm">
                                                 <p class="userTittle"><?php echo $designationName;?></p>
@@ -230,9 +230,6 @@ $result = mysqli_query($con, $sql);
                                                 <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
                                                     <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
                                                 </a>
-                                                 <!-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete-popup" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a> -->
                                             </div>
                                         </div>
                                     </div>

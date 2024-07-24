@@ -1,51 +1,5 @@
 <script>
 
-
-
-//     $('body').on('click', '.cstm-BtnHistory', function() {
-
-// var allCustomSection = $('.checkRowHistory').css('display');
-
-// if (allCustomSection == "block") {
-//     $('.checkRowHistory').css('display', 'none');
-// } else {
-//     $('.checkRowHistory').css('display', 'block');
-// }
-
-//     });
-
-    
-
- 
-    
-// // Show/Hide all three section checkBox on custom button click.
-
-
-// // End
-// // By default checked all three section checkBox
-
-// // End
-// //////////////////////////////////////////////////////////////////////////
-// // Header section start
-// // Open header sub section list when click on header text or arrow
-
-// $(document).click(function(event) {
-//     if (!$(event.target).closest('.header-txtHistory, #show-headerHistory').length) {
-//         $('#show-headerHistory').css('display', 'none');
-//     }
-// });
-
-// $('body').on('click', '.header-txtHistory', function() {
-
-
-//     event.stopPropagation();
-//     $('#show-headerHistory').toggle();
-//     $('#show-smryHistory').css('display', 'none');
-//     $('#show-itmHistory').css('display', 'none');
-
-   
-
-// });
 // // Do this if click on header check all
 $('body').on('click', '.headChk-AllHistory', function() {
 
@@ -74,50 +28,6 @@ $('body').on('click', '.headChk-AllHistory', function() {
 
 });
 
-// $('body').on('click', '#headerHistory', function() {
-
-
-// if(   $("#headerHistory:checked").length == 1 ) 
-// {
-//     $(".headChk-AllHistory").prop('checked', true);
-//     $(".header-addressHistory").prop('checked', true);
-//     $(".header-logoHistory").prop('checked', true);
-
-
-//     $('.address-sectionHistory').css('display', 'block');
-//     $('.logo-sectionHistory').css('display', 'block');
-    
-// }
-// else
-// {
-//     $(".headChk-AllHistory").prop('checked', false);
-//     $(".header-addressHistory").prop('checked', false);
-//     $(".header-logoHistory").prop('checked', false);
-
-//     $('.address-sectionHistory').css('display', 'none');
-//     $('.logo-sectionHistory').css('display', 'none');
-    
-// }
-
-// });
-// //end header check all sections
-
-// // Summary section start
-// $(document).click(function(event) {
-//     if (!$(event.target).closest('.summary-txtHistory, #show-smryHistory').length) {
-//         $('#show-smryHistory').css('display', 'none');
-//     }
-// });
-
-// $('body').on('click', '.summary-txtHistory', function() {
-
-//     event.stopPropagation();
-//     $('#show-smryHistory').toggle();
-//     $('#show-headerHistory').css('display', 'none');
-//     $('#show-itmHistory').css('display', 'none');   
-
-// });
-
 $('body').on('click', '.smryChk-AllHistory', function() {
 
 
@@ -139,7 +49,7 @@ $('body').on('click', '.smryChk-AllHistory', function() {
         
     }
 
-
+            $(".issueInSection").removeClass("col-12");
             $(".issueInSection").removeClass("col-2");
             $(".issueInSection").removeClass("col-3");
             $(".issueInSection").removeClass("col-6");
@@ -433,10 +343,12 @@ function showHideByClassHistory(targetId) {
     if (  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible") )
     {
         $(".issueOutSection").removeClass("col-3");
+        $(".issueOutSection").removeClass("col-6");
         $(".issueOutSection").removeClass("col-12");
         $(".issueOutSection").addClass("col-7");
 
         $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-6");
         $("#varianceId").removeClass("col-12");
         $("#varianceId").addClass("col-5");
         
@@ -502,55 +414,55 @@ function showHideByClassHistory(targetId) {
         
     }
 
-    // if ( !$('.otherCurSection').is(":visible") &&  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible") )
-    // {
-    //     $(".issueOutSection").removeClass("col-md-2");
-    //     $(".issueOutSection").removeClass("col-md-6");
-    //     $(".issueOutSection").removeClass("col-md-7");
-    //     $(".issueOutSection").removeClass("col-md-3");
-    //     $(".issueOutSection").removeClass("col-md-12");
-    //     $(".issueOutSection").addClass("col-md-4");
+    if ( !$('.otherCurSection').is(":visible") &&  $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible") )
+    {
+        $(".issueOutSection").removeClass("col-2");
+        $(".issueOutSection").removeClass("col-6");
+        $(".issueOutSection").removeClass("col-7");
+        $(".issueOutSection").removeClass("col-3");
+        $(".issueOutSection").removeClass("col-12");
+        $(".issueOutSection").addClass("col-3");
 
-    //     $(".issueInSection").removeClass("col-md-2");
-    //     $(".issueInSection").removeClass("col-md-3");
-    //     $(".issueInSection").removeClass("col-md-6");
-    //     $(".issueInSection").removeClass("col-md-7");
-    //     $(".issueInSection").removeClass("col-md-12");
-    //     $(".issueInSection").addClass("col-md-4");
+        $(".issueInSection").removeClass("col-2");
+        $(".issueInSection").removeClass("col-3");
+        $(".issueInSection").removeClass("col-6");
+        $(".issueInSection").removeClass("col-7");
+        $(".issueInSection").removeClass("col-12");
+        $(".issueInSection").addClass("col-7");
 
-    //     $("#varianceId").removeClass("col-md-2");
-    //     $("#varianceId").removeClass("col-md-3");
-    //     $("#varianceId").removeClass("col-md-7");
-    //     $("#varianceId").removeClass("col-md-6");
-    //     $("#varianceId").removeClass("col-md-12");
-    //     $("#varianceId").addClass("col-md-4");
+        $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-3");
+        $("#varianceId").removeClass("col-7");
+        $("#varianceId").removeClass("col-6");
+        $("#varianceId").removeClass("col-12");
+        $("#varianceId").addClass("col-2");
         
-    // }
+    }
        
-    // if ( $('.otherCurSection').is(":visible") && $('#totalOtherCur').val() > 2 )
-    // {
+    if ( $('.otherCurSection').is(":visible") && $('#totalOtherCur').val() > 1 )
+    {
 
 
-    //     if ( $('.issueOutSection').is(":visible") && !$('#varianceId').is(":visible")  )
-    //     {
-    //         $(".issueOutSection").addClass("col-md-12");
-    //     }
-    //     else if ( !$('.issueOutSection').is(":visible") && $('#varianceId').is(":visible")  )
-    //     {
-    //         $("#varianceId").addClass("col-md-12");
-    //     }
-    //     else
-    //     {
+        if ( $('.issueOutSection').is(":visible") && !$('#varianceId').is(":visible")  )
+        {
+            $(".issueOutSection").addClass("col-12");
+        }
+        else if ( !$('.issueOutSection').is(":visible") && $('#varianceId').is(":visible")  )
+        {
+            $("#varianceId").addClass("col-12");
+        }
+        else
+        {
             
-    //         $(".issueOutSection").addClass("col-md-6");
+            $(".issueOutSection").addClass("col-6");
         
-    //         $("#varianceId").addClass("col-md-6");
-    //     }
+            $("#varianceId").addClass("col-6");
+        }
             
 
-    //         $(".issueInSection").addClass("col-md-12");
+            $(".issueInSection").addClass("col-12");
         
-    // }
+    }
 
     
 

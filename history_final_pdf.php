@@ -461,7 +461,7 @@ $content = '<!DOCTYPE html>
         {
             $_GET['variance'] = 0;
         }
-    $content .= '<table style="font-size:12px;" width="100%">
+    $content .= '<table style="font-size:12px;" width="98%">
         <tr style="vertical-align: baseline;">';
     
          if ($_GET['issueInSummary'] == 1) 
@@ -506,8 +506,17 @@ $content = '<!DOCTYPE html>
             $content .=  '</tr><tr>
                         <td style="padding: 8px 5px;">'.showOtherLangText('Pending').'</td>';
 
-            //$content .=  '<td style="font-weight:bold; padding: 8px 5px;">3,602.56 $</td>';
             $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPendingArr[1][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']).'</td>' : '<td style="font-weight:bold; padding: 8px 5px;"">&nbsp;</td>';
+
+           if ($_GET['otherCurrency'] == 1) 
+                                        {
+                                            // Issue In other currency total pending
+                                            foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                                            {
+                                                $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?  '<td style=" padding: 8px 5px;">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</td>' : '<td style=" padding: 8px 5px;">&nbsp;</td>';
+                                            }
+                                            // End Issue In other currency total pending
+                                        }  
             $content .=  '</tr>
                 </table>';
             $content .= '</td>';

@@ -739,7 +739,7 @@ if( isset($_POST['itemName']) )
     $proRows = getAllProducts();
     foreach($proRows as $pId=>$pName){
         $itemName = $pName.'('.$pId.')';
-        echo "'$itemName'".',';
+        echo "\"$itemName\",";
     }
     ?>
     ];
@@ -769,6 +769,20 @@ if( isset($_POST['itemName']) )
 
 $('.deptOptionCheck:checkbox').not(this).prop('checked', this.checked);
 });
+
+    $(".supplierOptionCheck").on('click', function() {
+
+        var totalCount = $('.supplierOptionCheck').length;
+
+        var totalCheckedCount = $('.supplierOptionCheck:checked').length;
+
+        if (totalCount == totalCheckedCount) {
+
+            $('#CheckAllOptions').prop('checked', true);
+        } else {
+            $('#CheckAllOptions').prop('checked', false);
+        }
+    });
 
 $(".deptOptionCheck").on('click', function() {
 
@@ -821,7 +835,7 @@ if (totalCount == totalCheckedCount) {
             $proRows = getAllProducts();
             foreach($proRows as $pId=>$pName){
                 $itemName = $pName.'('.$pId.')';
-                echo "'$itemName'".',';
+                echo "\"$itemName\",";
             }
             ?>
             ];

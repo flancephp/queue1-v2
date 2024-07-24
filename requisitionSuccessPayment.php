@@ -305,6 +305,11 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
             transition: all .1s ease-in-out;
             color: white;
         }
+        .final-btn:hover {
+            border: 2px solid #ED7D31 !important;
+            color: white !important;
+            border-color: #AE5A21;
+        }
     </style>
 
 </head>
