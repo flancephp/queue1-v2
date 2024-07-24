@@ -209,7 +209,7 @@ $succ = '';
     
     if( !empty($_SESSION['barCodesNotFound']) )
     {
-        $error = ''.showOtherLangText('<br><br>These Bar Codes are not part of the Outlet mentioned in excel sheet.<br>so only these items are not uploaded').': '.implode(', ', $_SESSION['barCodesNotFound']);
+        $error = ''.showOtherLangText('These Bar Codes are not part of the Outlet mentioned in excel sheet.<br>so only these items are not uploaded').': '.implode(', ', $_SESSION['barCodesNotFound']);
         unset($_SESSION['barCodesNotFound']);
     }
 }
@@ -561,21 +561,31 @@ if( isset($_GET['guest']) && $_GET['guest']== 1)
                                                 <span>Get Data</span> <i class="fa-solid fa-angle-down"></i>
                                             </p>
                                         </a>
+                                        <form action="upload_report.php" id="upload_form" name="upload_form"
+                                        method="post" enctype="multipart/form-data">
 
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)">Enter Guest No.</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item gt-Pos" href="getPosSales.php">Get POS Sales</a>
-                                            </li>
-                                            <li><a class="dropdown-item imp-Data" href="javascript:void(0)">Import Data File</a></li>
-                                            <li>
-                                                <a class="dropdown-item dwn-Sample" href="javascript:void(0)"> 
-                                                <i class="fa-solid fa-arrow-down"></i> 
-                                                <span>Download sample file</span></a>
-                                            </li>
-                                        </ul>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)">Enter Guest No.</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item gt-Pos" href="easy.php">Get POS Sales</a>
+                                                </li>
+                                                <li><a target="_blank" class="dropdown-item imp-Data" href="javascript:void(0)" id="btnFileUpload">Import Data File</a></li>
+
+                                                <input type="file" id="uploadFile" name="uploadFile"
+                                                style="display:none">
+
+
+                                                <li>
+                                                    <a class="dropdown-item dwn-Sample" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/import-revenueCenter-hebrew-lang.xlsx' : 'excelSampleFile/english/import-revenueCenter-english-lang.xlsx'; ?>"> 
+                                                    <i class="fa-solid fa-arrow-down"></i> 
+                                                    <span>Download sample file</span></a>
+                                                
+                                                    
+                                                </li>
+                                            </ul>
+                                        </form>
                                     </div>
                                 </div>
 
@@ -1171,6 +1181,19 @@ function loaderFrm() {
     document.getElementById('frm').submit();
     return true;
 }
+
+
+
+    window.onload = function() {
+        var fileupload = document.getElementById("uploadFile");
+        var button = document.getElementById("btnFileUpload");
+        button.onclick = function() {
+            fileupload.click();
+        };
+        fileupload.onchange = function() {
+            document.getElementById('upload_form').submit();
+        };
+    };
 </script>
 
 </body>
