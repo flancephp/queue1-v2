@@ -81,11 +81,20 @@ if( !isset($_GET['fromDate'])  )
 	$_GET['toDate'] = date('d-m-Y');
 }
 
+
+$condOutType = '';
+if( isset($_GET['outLetType'])  && $_GET['outLetType'])
+{
+	$condOutType = " AND ItemType = '".$_GET['outLetType']."' ";
+}
+
+
+
  $sql = "SELECT o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty, o.maxQty outletMaxQty, o.factor, o.notes, p.itemName, p.barCode saleBarcode, p.imgName, p.stockPrice itemLastPrice, IF(u.name!='',u.name,p.unitC) countingUnit, IF(ut.name!='',ut.name,o.subUnit) subUnit, i.*
 
  FROM tbl_outlet_items o
 
-INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id)
+INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id) AND o.status=1 ".$condOutType."
 
 LEFT JOIN tbl_units u ON (u.id = p.unitC) 
 LEFT JOIN tbl_units ut ON (ut.id = o.subUnit) AND (ut.account_id = o.account_id) AND o.outLetId = '".$_GET['outLetId']."'
@@ -106,7 +115,7 @@ if( $_GET['fromDate'] && $_GET['toDate'] )
 	
 	 FROM tbl_outlet_items o
 	
-	INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id)
+	INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id) AND o.status=1 ".$condOutType."
 	
 	
 	INNER JOIN tbl_daily_import_items i ON(p.barCode = i.barCode) AND (p.account_id = i.account_id) AND i.outLetId=o.outLetId AND i.importedOn	 BETWEEN '".date( 'Y-m-d', strtotime($_GET['fromDate']) )."' AND '".date( 'Y-m-d', strtotime($_GET['toDate']) )."' 
@@ -306,4 +315,14 @@ if( isset($_POST['saveBtn']) )
 	
 	
 }
+
+
+$typeOptions = '<select class="form-control" name="outLetType" onchange="this.form.submit()">';
+$typeOptions .= '<option value="">'.showOtherLangText('Type').'</option>';
+
+    $typeOptions .= '<option value="1" '.($_GET['outLetType'] == 1 ? 'selected="selected"' : '').'>Bar Control</option>';
+	$typeOptions .= '<option value="2" '.($_GET['outLetType'] == 2 ? 'selected="selected"' : '').'>Sales</option>';
+	$typeOptions .= '<option value="3" '.($_GET['outLetType'] == 3 ? 'selected="selected"' : '').'>Usage</option>';
+
+$typeOptions .= '</select>';
 ?>
