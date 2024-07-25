@@ -255,10 +255,10 @@ if (isset($_GET['hotelId'])) {
                         </div> -->
 
                         <div class="container hisData">
-                            <div class="d-flex justify-content-between align-items-center g-3 pt-2">
+                            <div class="d-flex justify-content-between flex-wrap align-items-center g-3 gap-3 pt-2">
                                 <div class="">
                                 <form name="frm" id="frm" method="get" action="">
-                                    <div class="hstCal">
+                                    <div class="hstCal gap-1" style=" flex-wrap:wrap;">
 
 
                                     
@@ -293,7 +293,7 @@ if (isset($_GET['hotelId'])) {
                                         </div>
                                         <!-- Date Box Start -->
                                         <div class="prtDate me-2">
-                                            <div class="hstDate">
+                                            <div class="hstDate" style="min-height: 38px;">
 
                                             
                                                 <input type="text" size="10" class="datepicker" placeholder="15/01/2023" name="date" id="date" autocomplete="off" value="<?php echo $date;?>">
