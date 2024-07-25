@@ -90,7 +90,7 @@ $optionsRevCenters .= '</select>';
 
 
 //value insert of guest modal form start from here
-if( isset($_POST['saveBtn']) )
+if( isset($_POST['saveBtn']) && $_POST['adjDate'] && $_POST['centerId'] > 0 && $_POST['guest'] > 0)
 {	
 	$date = date('Y-m-d', strtotime($_POST['adjDate']));
     

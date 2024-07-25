@@ -1,5 +1,30 @@
+<?php 
+include('inc/dbConfig.php'); //connection details
+
+if ( !isset($_SESSION['adminidusername']))
+{
+	echo "<script>window.location='login.php'</script>";
+}
+
+
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+//check page permission
+$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
+
+if (!in_array('7',$checkPermission))
+{
+	echo "<script>window.location='index.php'</script>";
+}
+
+
+include_once('script/outlet_report_saleCenter_script.php');
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+
 
 <head>
     <meta charset="UTF-8">
@@ -22,120 +47,7 @@
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -452,6 +364,213 @@
                                 </div>
                                 <!-- Item Table Head End -->
 
+<?php 
+
+$tr = '';
+		$datesArr = [];
+		$topCosts = 0;
+		$costSalesAmtTot = 0;
+		$x = 0;
+        $varPosAmt = 0;
+        $varNegAmt = 0;
+		//$stockPriceForOpenStock = 0;
+		
+		while( $row = mysqli_fetch_array($outLetItemsQry) )
+		{
+				$x++;
+				
+				$dailyImportedData = $itemFirstReportRowArr[$row['saleBarcode']];//$row;
+				
+				
+				$stockPrice = $dailyImportedData['stockPrice'];
+				$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['itemLastPrice'];
+				
+				
+				//all columns data is here
+				$usageAvg = $dailyImportedData['usageAvg'];
+				$usagePerGuest = $dailyImportedData['usagePerGuest'];
+					
+				$issueIn = $dailyImportedData['issueIn'];
+				$adjustment = $dailyImportedData['adjment'];
+				$sales = $dailyImportedData['easySales'];
+				$barControl = $dailyImportedData['barControl'];
+				$closeStockDone = $dailyImportedData['closeStockDone'];
+				
+				if(  ($_GET['fromDate'] != $_GET['toDate'])  &&  isset($dailyImportedData['saleBarcode']) )
+				{
+					
+					$itemFirstRowDetailsArr = $itemFirstReportRowArr[$dailyImportedData['saleBarcode']];
+					$openStock = $itemFirstRowDetailsArr['openStock'];
+					//$stockPrice = $itemFirstRowDetailsArr['stockPrice'];
+					
+					$itemLastRowDetailsArr = $itemLastReportRowArr[$dailyImportedData['saleBarcode']];
+					
+					$stockPrice = $itemLastRowDetailsArr['stockPrice'] > 0 ? $itemLastRowDetailsArr['stockPrice'] : $itemLastRowDetailsArr['itemLastPrice'];					
+					
+					$closeStock = $itemLastRowDetailsArr['closeStock'];
+					
+					
+					$itemsTotalCntArr = $itemsTotalsArr[$dailyImportedData['saleBarcode']];
+					
+					$usageAvg = ($itemsTotalCntArr['usageNoOfDays'] && $itemsTotalCntArr['usagePerDayTot']) ? ($itemsTotalCntArr['usagePerDayTot']/$itemsTotalCntArr['usageNoOfDays']) : '';
+					$usagePerGuest = $itemsTotalCntArr['usagePerGuestTot'];
+					
+					$issueIn = $itemsTotalCntArr['issueInTot'];
+					$adjustment = $itemsTotalCntArr['adjmentTot'];
+					$sales = $itemsTotalCntArr['easySalesTot'];
+					$barControl = $itemsTotalCntArr['barControlTot'];
+					
+					$adjForEnptyBottle = isset($itemsTotalCntArr['adjForEnptyBottle']) ? $itemsTotalCntArr['adjForEnptyBottle'] : 0;
+														
+				}
+				else
+				{
+					$openStock = $dailyImportedData['openStock'];
+					//$stockPriceForOpenStock = $dailyImportedData['stockPrice'];
+					
+					$closeStock = $dailyImportedData['closeStock'];
+					$adjForEnptyBottle = $dailyImportedData['adjForEnptyBottle'];
+					
+				}
+				
+				$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['itemLastPrice'];//if still its zero then assign from product
+				
+				
+				
+				$usageCloseStock = $adjForEnptyBottle == 1 ? ($closeStock+$adjustment) : $closeStock;//in case of empty bottle adjustment
+				
+				$usage = ($closeStockDone) ? (($openStock+$issueIn+$barControl) - ($usageCloseStock) ) : '';//(Open Stock+Issue In) - (Close Stock)
+				
+				$usageLevel = $usageAvg ?  ( get2DecimalVal(($usage/$usageAvg)-1).'%' ) : '';
+
+				if($row['outletItemType'] == 3)//usage item type=3, bar=1, sales=2
+				{
+					$varience = '';//(Sales+Adjustment) - (Usage )
+					$varienceAmt = '';
+				}
+				else
+				{
+					$adjustmentForVarinc = $adjForEnptyBottle == 1 ? 0 : $adjustment;
+					
+					$varience = $closeStockDone > 0 ? ( ($sales+$adjustmentForVarinc) - $usage ) : '';//(Sales+Adjustment) - (Usage )
+					$varienceAmt = $varience*$stockPrice;
+					$varienceTotalAmt += $varienceAmt;
+				}
+								
+				
+				$usageItemAmt = $usage*$stockPrice;
+				$usageItemTotalAmt += $usageItemAmt;
+				
+
+				//requisition qty
+				$requisition = '';
+				if ( ($_GET['fromDate'] == $_GET['toDate']) && ($closeStockDone) && ($closeStock < $row['outletMinQty']) && $dailyImportedData['requisition'] == 0 ) {
+					
+					$requisition = ($row['outletMaxQty'] - $closeStock);
+					$requisition = ($requisition > 0) && $row['factor'] ? ceil($requisition/$row['factor']) : '';
+				}
+				if ( ($_GET['fromDate'] == $_GET['toDate']) && $dailyImportedData['requisition'] > 0 ) {
+					
+					$requisition = ( ($row['outletMaxQty'] - $closeStock) - ($dailyImportedData['requisition']*$row['factor']) );
+					$requisition = ($requisition > 0) && $row['factor'] ? ceil($requisition/$row['factor']) : '';
+				}
+				
+				
+				//Hide (0) Variances filter---------------------------------------------------------------------------											
+				if( isset($_GET['hideVar']) && $_GET['hideVar'] && ($varience == 0  || $row['outletItemType'] == 3) )
+				{
+					continue;
+				}
+				
+				
+				//-------------------------------------------------------------------------------
+			
+				$img = '';
+				if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
+				{	
+					$img = '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
+				}
+		
+			
+				
+			
+			
+			$note = getNoteDet($row['outLetId'], $row['pId'], $_GET['fromDate']);
+			$requisition = $requisition > 0 ? '<span style="color:grey; font-weight: bold;">'.$requisition. '</span> <span style="color:grey;font-size: 12px;">'.$row['countingUnit'].'</span>' : $requisition;
+			
+			
+			//Get prices
+			$issueInAmt = ($issueIn*$stockPrice);
+			$adjustmentAmt = ($adjustment*$stockPrice);
+			$openStockAmt =  ($openStock*$stockPrice);
+			$closeStockAmt = ($closeStock*$stockPrice);
+			$usageAmt =  ($usage*$stockPrice);
+			$barControlAmt =  ($barControl*$stockPrice);
+			$salesAmt = ($sales*$stockPrice);
+			//end get prices
+			
+			//get total -----------------------------------------------------------------------------------------------------------------				
+
+			$issueInAmtTot += $issueInAmt;
+			$adjustmentAmtTot += $adjustmentAmt;
+			$salesAmtTot += $salesAmt;
+			$openStockAmtTot += $openStockAmt;
+			$closeStockAmtTot += $closeStockAmt;
+			$usageAmtTot += $usageAmt;
+			$barControlAmtTot += $barControlAmt;
+			
+			
+			$decimalPlace = 2;
+			
+			$issueInAmt = getNumFormtPrice( ($issueInAmt),$getDefCurDet['curCode'], $decimalPlace);
+			$adjustmentAmt = getNumFormtPrice( ($adjustmentAmt),$getDefCurDet['curCode'], $decimalPlace);
+			$openStockAmt = getNumFormtPrice( ($openStockAmt),$getDefCurDet['curCode'], $decimalPlace);
+			$closeStockAmt = $closeStockAmt ? getNumFormtPrice( ($closeStockAmt),$getDefCurDet['curCode'], $decimalPlace) : '';
+			$usageAmt = getNumFormtPrice( ($usageAmt),$getDefCurDet['curCode'], $decimalPlace);
+			$barControlAmt = getNumFormtPrice( ($barControlAmt),$getDefCurDet['curCode'], $decimalPlace);
+			$varienceAmt = getNumFormtPrice( ($varienceAmt),$getDefCurDet['curCode'], $decimalPlace);
+			$salesAmt = getNumFormtPrice( ($salesAmt),$getDefCurDet['curCode'], $decimalPlace);
+			//end total ------------------------------------------------------------------------------------------------------------------	
+			
+            if($varienceAmt > 0)
+            {
+			    $varPosAmt += $varienceAmt;
+            }
+
+            if($varienceAmt != '' && $varienceAmt < 0)
+            {
+			    $varNegAmt += $varienceAmt;
+            }
+
+			$variancesVal =  $varience !== 0 ? ( (get2DecimalVal($varience)) ) : 0;
+		
+			
+			//if close stock is done then only show zero/other values
+			if($closeStockDone != 1 && ($_GET['fromDate'] == $_GET['toDate']) )
+			{
+				$requisition = '';
+				$openStock = '';
+				$closeStock = '';
+				$usage = '';
+				$variancesText = '';
+				$usagePerGuest = '';
+				$usageAvg = '';
+				$usageLevel = '';
+				
+				$adjustmentAmt = '';
+				$openStockAmt = '';
+				$closeStockAmt = '';
+				$usageAmt = '';
+				$salesAmt = '';
+				
+			}
+			
+			$issueIn = $issueIn ? $issueIn : '';
+			$barControl = $barControl ? $barControl : '';
+			$barControlAmt = $barControlAmt ? $barControlAmt : '';
+			
+			$salesPriceText =  '<span class="showhideprice"><br>'. $salesAmt. '<br></span>';
+            ?>
                                 <!-- Item Table Body Start -->
                                 <div class="container outletBody-Task">
                                     <div class="otltTbl-bdy border-bottom">
@@ -459,7 +578,7 @@
                                             <img src="Assets/images/jack-daniel.png" alt="Item">
                                         </div>
                                         <div class="otltBd-itm">
-                                            <p>Jack Daniels 1000ml</p>
+                                            <p><?php echo $row['itemName'];?></p>
                                         </div>
                                         <div class="infoBtn-Hide">
                                             <div class="outletInfo">
@@ -468,47 +587,47 @@
                                                         <div class="itmInfo-Otlt">
                                                             <div class="otltBd-opnStk">
                                                                 <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale">23 Tot</p>
+                                                                <p class="mblStock-Sale"><?php echo showValue($openStock);?></p>
                                                             </div>
                                                             <div class="otltBd-isn">
                                                                 <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold">40 Tot</p>
+                                                                <p class="mblStock-Sale fw-bold"><?php echo showValue($issueIn);?></p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
                                                                 <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale">&nbsp;</p>
+                                                                <p class="mblStock-Sale"><?php echo showValue($adjustment); ?></p>
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold">12 Tot</p>
+                                                                <p class="mblStock-Sale fw-bold"><?php echo $sales; ?></p>
                                                             </div>
                                                             <div class="otltBd-slBar">
                                                                 <p class="mbSale-Head">Sales Bar.C</p>
-                                                                <p class="mblStock-Sale fw-bold">13 Tot</p>
+                                                                <p class="mblStock-Sale fw-bold"><?php echo $barControl;?></p>
                                                             </div>
                                                             <div class="otltBd-clStk">
                                                                 <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale">50 Tot</p>
+                                                                <p class="mblStock-Sale"><?php echo $closeStock;?></p>
                                                             </div>
                                                         </div>
                                                         <div class="itmInfo-Otlt currItm-Info">
                                                             <div class="otltBd-opnStk">
-                                                                <p>0.4768 $</p>
+                                                                <p><?php echo $openStockAmt;?></p>
                                                             </div>
                                                             <div class="otltBd-isn">
-                                                                <p>0.4768 $</p>
+                                                                <p><?php echo $issueInAmt;?></p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
-                                                                <p>&nbsp;</p>
+                                                            <p><?php echo $adjustmentAmt;?></p>
                                                             </div>
                                                             <div class="otltBd-Pos">
-                                                                <p>0.4768 $</p>
+                                                                <p><?php echo $salesAmt;?></p>
                                                             </div>
                                                             <div class="otltBd-slBar">
-                                                                <p>0.4768 $</p>
+                                                                <p><?php echo $barControlAmt;?></p>
                                                             </div>
                                                             <div class="otltBd-clStk">
-                                                                <p>0.4768 $</p>
+                                                                <p><?php echo $closeStockAmt;?></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -517,25 +636,25 @@
                                                     <div class="itmInfo-Otlt">
                                                         <div class="otltBd-usg">
                                                             <p class="mbSale-Head">Cost/Usage</p>
-                                                            <p class="mblStock-Sale fw-bold">13 Tot</p>
+                                                            <p class="mblStock-Sale fw-bold"><?php echo $usage;?></p>
                                                         </div>
                                                         <div class="otltBd-var">
                                                             <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold">-1 Tot</p>
+                                                            <p class="mblStock-Sale fw-bold"><?php echo $variancesVal;?></p>
                                                         </div>
                                                     </div>
                                                     <div class="itmInfo-Otlt currItm-Info">
                                                         <div class="otltBd-usg">
-                                                            <p>0.4768 $</p>
+                                                            <p><?php echo $usageAmt;?></p>
                                                         </div>
                                                         <div class="otltBd-var">
-                                                            <p>0.4768 $</p>
+                                                            <p><?php echo $varienceAmt;?></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="otltBd-hdNote">
                                                     <p class="mbSale-Head mbHide-Note">Note</p>
-                                                    <input type="text" class="form-control note-itm outletNote"
+                                                    <input type="text" class="form-control note-itm outletNote" value="<?php echo $note;?>"
                                                         placeholder="Note">
                                                 </div>
                                             </div>
@@ -546,7 +665,7 @@
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-stkPrc">
                                                             <p class="mbSale-Head">Open Stock</p>
-                                                            <p class="opnStk-BdVal">3.4768 $</p>
+                                                            <p class="opnStk-BdVal"><?php echo $openStock;?></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -560,24 +679,24 @@
                                                                     <p class="untSub mbSale-Head">Sub Unit</p>
                                                                 </div>
                                                                 <div class="otltBd-Unit">
-                                                                    <p class="untCount">Btl</p>
-                                                                    <p class="untFtr">40 </p>
-                                                                    <p class="untSub">Tot</p>
+                                                                    <p class="untCount"><?php echo $row['countingUnit'];?></p>
+                                                                    <p class="untFtr"><?php echo $row['factor'];?> </p>
+                                                                    <p class="untSub"><?php echo $row['subUnit'];?></p>
                                                                 </div>
                                                             </div>
 
                                                             <div class="otltBd-Avr">
                                                                 <p class="mbSale-Head">Avr Usage</p>
-                                                                <p class="mblAvg-Dtl">18 Tot</p>
+                                                                <p class="mblAvg-Dtl"><?php echo $usageAvg;?></p>
                                                                 <p class="mblAvr-Usg">24.76 $</p>
                                                             </div>
                                                             <div class="otltBd-Min">
                                                                 <p class="mbSale-Head">Min</p>
-                                                                <p class="mblAvg-Dtl">40 Tot</p>
+                                                                <p class="mblAvg-Dtl"><?php echo $row['minLevel'];?></p>
                                                             </div>
                                                             <div class="otltBd-Max">
                                                                 <p class="mbSale-Head">Max</p>
-                                                                <p class="mblAvg-Dtl">80 Tot</p>
+                                                                <p class="mblAvg-Dtl"><?php echo $row['maxLevel'];?></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -586,7 +705,7 @@
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-Req">
                                                             <p class="mbSale-Head">Requisition</p>
-                                                            <p class="mblAvg-Dtl fw-bold">80 Tot</p>
+                                                            <p class="mblAvg-Dtl fw-bold"><?php echo $requisition;?></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -599,445 +718,11 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="container outletBody-Task">
-                                    <div class="otltTbl-bdy border-bottom">
-                                        <div class="otltBd-hdImg">
-                                            <img src="Assets/images/jack-daniel.png" alt="Item">
-                                        </div>
-                                        <div class="otltBd-itm">
-                                            <p>Jack Daniels 1000ml</p>
-                                        </div>
-                                        <div class="infoBtn-Hide">
-                                            <div class="outletInfo">
-                                                <div class="mbStk-Detail">
-                                                    <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-                                                            <div class="otltBd-opnStk">
-                                                                <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale">23 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-isn">
-                                                                <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold">40 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-Ajst">
-                                                                <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale">&nbsp;</p>
-                                                            </div>
-                                                            <div class="otltBd-Pos">
-                                                                <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold">12 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-slBar">
-                                                                <p class="mbSale-Head">Sales Bar.C</p>
-                                                                <p class="mblStock-Sale fw-bold">13 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-clStk">
-                                                                <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale">50 Tot</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="itmInfo-Otlt currItm-Info">
-                                                            <div class="otltBd-opnStk">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-isn">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-Ajst">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                            <div class="otltBd-Pos">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-slBar">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-clStk">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbShow-Otlt">
-                                                    <div class="itmInfo-Otlt">
-                                                        <div class="otltBd-usg">
-                                                            <p class="mbSale-Head">Cost/Usage</p>
-                                                            <p class="mblStock-Sale fw-bold">13 Tot</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold">-1 Tot</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="itmInfo-Otlt currItm-Info">
-                                                        <div class="otltBd-usg">
-                                                            <p>0.4768 $</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p>0.4768 $</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="otltBd-hdNote">
-                                                    <p class="mbSale-Head mbHide-Note">Note</p>
-                                                    <input type="text" class="form-control note-itm outletNote"
-                                                        placeholder="Note">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flipInfo-Clm">
-                                            <div class="outletInfo">
-                                                <div class="mbFlip-Dtl">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-stkPrc">
-                                                            <p class="mbSale-Head">Open Stock</p>
-                                                            <p class="opnStk-BdVal">3.4768 $</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbStk-Flp">
-                                                    <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-                                                            <div class="unitBd-div">
-                                                                <div class="otltBd-Unithd">
-                                                                    <p class="untCount mbSale-Head">Count Unit</p>
-                                                                    <p class="untFtr mbSale-Head">Factor </p>
-                                                                    <p class="untSub mbSale-Head">Sub Unit</p>
-                                                                </div>
-                                                                <div class="otltBd-Unit">
-                                                                    <p class="untCount">Btl</p>
-                                                                    <p class="untFtr">40 </p>
-                                                                    <p class="untSub">Tot</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="otltBd-Avr">
-                                                                <p class="mbSale-Head">Avr Usage</p>
-                                                                <p class="mblAvg-Dtl">18 Tot</p>
-                                                                <p class="mblAvr-Usg">24.76 $</p>
-                                                            </div>
-                                                            <div class="otltBd-Min">
-                                                                <p class="mbSale-Head">Min</p>
-                                                                <p class="mblAvg-Dtl">40 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-Max">
-                                                                <p class="mbSale-Head">Max</p>
-                                                                <p class="mblAvg-Dtl">80 Tot</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbFlip-DtlReq">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-Req">
-                                                            <p class="mbSale-Head">Requisition</p>
-                                                            <p class="mblAvg-Dtl fw-bold">80 Tot</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-bdyOlt">
-                                        <a href="javascript:void(0)" class="slCst-Lnk">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="container outletBody-Task">
-                                    <div class="otltTbl-bdy border-bottom">
-                                        <div class="otltBd-hdImg">
-                                            <img src="Assets/images/jack-daniel.png" alt="Item">
-                                        </div>
-                                        <div class="otltBd-itm">
-                                            <p>Jack Daniels 1000ml</p>
-                                        </div>
-                                        <div class="infoBtn-Hide">
-                                            <div class="outletInfo">
-                                                <div class="mbStk-Detail">
-                                                    <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-                                                            <div class="otltBd-opnStk">
-                                                                <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale">23 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-isn">
-                                                                <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold">40 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-Ajst">
-                                                                <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale">&nbsp;</p>
-                                                            </div>
-                                                            <div class="otltBd-Pos">
-                                                                <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold">12 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-slBar">
-                                                                <p class="mbSale-Head">Sales Bar.C</p>
-                                                                <p class="mblStock-Sale fw-bold">13 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-clStk">
-                                                                <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale">50 Tot</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="itmInfo-Otlt currItm-Info">
-                                                            <div class="otltBd-opnStk">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-isn">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-Ajst">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                            <div class="otltBd-Pos">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-slBar">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-clStk">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbShow-Otlt">
-                                                    <div class="itmInfo-Otlt">
-                                                        <div class="otltBd-usg">
-                                                            <p class="mbSale-Head">Cost/Usage</p>
-                                                            <p class="mblStock-Sale fw-bold">13 Tot</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold">-1 Tot</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="itmInfo-Otlt currItm-Info">
-                                                        <div class="otltBd-usg">
-                                                            <p>0.4768 $</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p>0.4768 $</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="otltBd-hdNote">
-                                                    <p class="mbSale-Head mbHide-Note">Note</p>
-                                                    <input type="text" class="form-control note-itm outletNote"
-                                                        placeholder="Note">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flipInfo-Clm">
-                                            <div class="outletInfo">
-                                                <div class="mbFlip-Dtl">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-stkPrc">
-                                                            <p class="mbSale-Head">Open Stock</p>
-                                                            <p class="opnStk-BdVal">3.4768 $</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbStk-Flp">
-                                                    <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-                                                            <div class="unitBd-div">
-                                                                <div class="otltBd-Unithd">
-                                                                    <p class="untCount mbSale-Head">Count Unit</p>
-                                                                    <p class="untFtr mbSale-Head">Factor </p>
-                                                                    <p class="untSub mbSale-Head">Sub Unit</p>
-                                                                </div>
-                                                                <div class="otltBd-Unit">
-                                                                    <p class="untCount">Btl</p>
-                                                                    <p class="untFtr">40 </p>
-                                                                    <p class="untSub">Tot</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="otltBd-Avr">
-                                                                <p class="mbSale-Head">Avr Usage</p>
-                                                                <p class="mblAvg-Dtl">18 Tot</p>
-                                                                <p class="mblAvr-Usg">24.76 $</p>
-                                                            </div>
-                                                            <div class="otltBd-Min">
-                                                                <p class="mbSale-Head">Min</p>
-                                                                <p class="mblAvg-Dtl">40 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-Max">
-                                                                <p class="mbSale-Head">Max</p>
-                                                                <p class="mblAvg-Dtl">80 Tot</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbFlip-DtlReq">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-Req">
-                                                            <p class="mbSale-Head">Requisition</p>
-                                                            <p class="mblAvg-Dtl fw-bold">80 Tot</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-bdyOlt">
-                                        <a href="javascript:void(0)" class="slCst-Lnk">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="container outletBody-Task">
-                                    <div class="otltTbl-bdy border-bottom">
-                                        <div class="otltBd-hdImg">
-                                            <img src="Assets/images/jack-daniel.png" alt="Item">
-                                        </div>
-                                        <div class="otltBd-itm">
-                                            <p>Jack Daniels 1000ml</p>
-                                        </div>
-                                        <div class="infoBtn-Hide">
-                                            <div class="outletInfo">
-                                                <div class="mbStk-Detail">
-                                                    <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-                                                            <div class="otltBd-opnStk">
-                                                                <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale">23 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-isn">
-                                                                <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold">40 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-Ajst">
-                                                                <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale">&nbsp;</p>
-                                                            </div>
-                                                            <div class="otltBd-Pos">
-                                                                <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold">12 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-slBar">
-                                                                <p class="mbSale-Head">Sales Bar.C</p>
-                                                                <p class="mblStock-Sale fw-bold">13 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-clStk">
-                                                                <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale">50 Tot</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="itmInfo-Otlt currItm-Info">
-                                                            <div class="otltBd-opnStk">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-isn">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-Ajst">
-                                                                <p>&nbsp;</p>
-                                                            </div>
-                                                            <div class="otltBd-Pos">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-slBar">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                            <div class="otltBd-clStk">
-                                                                <p>0.4768 $</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbShow-Otlt">
-                                                    <div class="itmInfo-Otlt">
-                                                        <div class="otltBd-usg">
-                                                            <p class="mbSale-Head">Cost/Usage</p>
-                                                            <p class="mblStock-Sale fw-bold">13 Tot</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold">-1 Tot</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="itmInfo-Otlt currItm-Info">
-                                                        <div class="otltBd-usg">
-                                                            <p>0.4768 $</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p>0.4768 $</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="otltBd-hdNote">
-                                                    <p class="mbSale-Head mbHide-Note">Note</p>
-                                                    <input type="text" class="form-control note-itm outletNote"
-                                                        placeholder="Note">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flipInfo-Clm">
-                                            <div class="outletInfo">
-                                                <div class="mbFlip-Dtl">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-stkPrc">
-                                                            <p class="mbSale-Head">Open Stock</p>
-                                                            <p class="opnStk-BdVal">3.4768 $</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbStk-Flp">
-                                                    <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-                                                            <div class="unitBd-div">
-                                                                <div class="otltBd-Unithd">
-                                                                    <p class="untCount mbSale-Head">Count Unit</p>
-                                                                    <p class="untFtr mbSale-Head">Factor </p>
-                                                                    <p class="untSub mbSale-Head">Sub Unit</p>
-                                                                </div>
-                                                                <div class="otltBd-Unit">
-                                                                    <p class="untCount">Btl</p>
-                                                                    <p class="untFtr">40 </p>
-                                                                    <p class="untSub">Tot</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="otltBd-Avr">
-                                                                <p class="mbSale-Head">Avr Usage</p>
-                                                                <p class="mblAvg-Dtl">18 Tot</p>
-                                                                <p class="mblAvr-Usg">24.76 $</p>
-                                                            </div>
-                                                            <div class="otltBd-Min">
-                                                                <p class="mbSale-Head">Min</p>
-                                                                <p class="mblAvg-Dtl">40 Tot</p>
-                                                            </div>
-                                                            <div class="otltBd-Max">
-                                                                <p class="mbSale-Head">Max</p>
-                                                                <p class="mblAvg-Dtl">80 Tot</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbFlip-DtlReq">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-Req">
-                                                            <p class="mbSale-Head">Requisition</p>
-                                                            <p class="mblAvg-Dtl fw-bold">80 Tot</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mbLnk-bdyOlt">
-                                        <a href="javascript:void(0)" class="slCst-Lnk">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                              
+ <?php }//end while ?>                              
                                 <!-- Item Table Body End -->
+
+
                             </div>
                     </section>
 

@@ -195,7 +195,7 @@ function getNumFormtPrice($price, $curCode, $decimalPlace=0)
 	global $checkDecPlace;
 	
 	$decimalPlace = $decimalPlace > 0 ? $decimalPlace : $checkDecPlace;
-	return  $price ? number_format($price, $checkDecPlace).' '.$curCode : '';
+	return  $price ? number_format($price, $decimalPlace).' '.$curCode : '';
 }
 
 function getPrice($price)
@@ -3230,7 +3230,7 @@ function getrequisitionPopup($orderId) {
 			if ($pmntRows['paymentStatus']==1)
 			{ ?>
             <li>
-                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="fa-regular fa-file-lines"></i>&nbsp; <?php echo showOtherLangText('View Invoice') ?></a>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice received') ?></a>
                 </li>
            <?php
 			}
@@ -5634,40 +5634,6 @@ function checkStockQtyRequisition($orderId, $accountId)
 }//End Check stock quantity while issue out
 
 
-
-function isMenuActive($pages) {
-    // Get the current page URL
-    $current_url = $_SERVER['REQUEST_URI'];
-    
-    if (!is_array($pages)) {
-        $pages = [$pages];
-    }
-    
-    // Check if the current URL contains any of the given pages
-    foreach ($pages as $page) {
-        if (strpos($current_url, $page) !== false) {
-            return "active"; // Return 'active' if it matches any page
-        }
-    }
-    
-    // Return empty string if none of the pages match
-    return "";
-}
-
-function isSubMenuActive($page) {
-    // Get the current page URL
-    $current_url = $_SERVER['REQUEST_URI'];
-    
-    // Check if the current URL contains the given page
-    if (strpos($current_url, $page) !== false) {
-        return "sbActive"; // Return 'active' if it matches
-    } else {
-        return ""; // Return empty string if it doesn't match
-    }
-}
-
-
-
 function getRevenueTotals($outLetId, $fromDate, $toDate)
 {
 
@@ -5759,7 +5725,24 @@ function getRevenueTotals($outLetId, $fromDate, $toDate)
 					//end		 get Totals of easy sales amount	\
 						
 
-					
+					$sql = "SELECT guests, sales, importDate importDate FROM  tbl_daily_import
+
+					WHERE outLetId = '".$outLetId."' AND account_id = '".$_SESSION['accountId']."' AND
+						importDate  between '".date('Y-m-d', strtotime($fromDate) )."' AND '".date('Y-m-d', strtotime($toDate) )."'  ";
+					$imptQry = mysqli_query($con, $sql);
+
+					$datesArr = [];
+					$salesTot = 0;
+					while($imprtRes = mysqli_fetch_array($imptQry))
+					{
+						$salesTot += $imprtRes['sales'];
+						
+						if( !in_array($row['importDate'], $datesArr) )
+						{
+							$guestsTotal += $imprtRes['guests'];
+							$datesArr[] = $imprtRes['importDate'];
+						}
+					}
 
 
 
@@ -5953,26 +5936,6 @@ function getRevenueTotals($outLetId, $fromDate, $toDate)
 					//end each item data fet...---------------------------------------------------------------------------------------------------
 
 					
-	//get easy data
-	$sql = "SELECT guests, sales, importDate importDate FROM  tbl_daily_import
-		
-	WHERE outLetId = '".$outLetId."' AND account_id = '".$_SESSION['accountId']."' AND
-		importDate  between '".date('Y-m-d', strtotime($fromDate) )."' AND '".date('Y-m-d', strtotime($toDate) )."'  ";
-	$imptQry = mysqli_query($con, $sql);
-	
-	//$datesArr = [];
-	$salesTotal = 0;
-	$guestsTotal = 0;
-	while($imprtRes = mysqli_fetch_array($imptQry))
-	{
-		$salesTotal += $imprtRes['sales'];
-		
-		if( !in_array($row['importDate'], $datesArr) )
-		{
-			$guestsTotal += $imprtRes['guests'];
-			//$datesArr[] = $imprtRes['importDate'];
-		}
-	}
 	
 	$outLetDataArr =
 	[
@@ -5986,5 +5949,36 @@ function getRevenueTotals($outLetId, $fromDate, $toDate)
 	];
 	
 	return $outLetDataArr;
+}
+
+function isMenuActive($pages) {
+    // Get the current page URL
+    $current_url = $_SERVER['REQUEST_URI'];
+    
+    if (!is_array($pages)) {
+        $pages = [$pages];
+    }
+    
+    // Check if the current URL contains any of the given pages
+    foreach ($pages as $page) {
+        if (strpos($current_url, $page) !== false) {
+            return "active"; // Return 'active' if it matches any page
+        }
+    }
+    
+    // Return empty string if none of the pages match
+    return "";
+}
+
+function isSubMenuActive($page) {
+    // Get the current page URL
+    $current_url = $_SERVER['REQUEST_URI'];
+    
+    // Check if the current URL contains the given page
+    if (strpos($current_url, $page) !== false) {
+        return "sbActive"; // Return 'active' if it matches
+    } else {
+        return ""; // Return empty string if it doesn't match
+    }
 }
 ?>

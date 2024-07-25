@@ -30,120 +30,7 @@ include_once('script/revenueCenterReport_script.php');
     <div class="container-fluid newOrder">
         <div class="row g-0">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <nav class="navbar d-flex flex-wrap align-items-stretch">
-                    <div>
-                        <div class="logo">
-                            <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
-                            <div class="clsBar" id="clsBar">
-                                <a href="javascript:void(0)"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="nav-bar">
-                            <ul class="nav flex-column h2">
-                                <li class="nav-item dropdown dropend">
-                                    <a class="nav-link text-center dropdown-toggle" aria-current="page" href="index.php"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
-                                        <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
-                                        <p>New Task</p>
-                                    </a>
-                                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="index.php">
-                                                <img src="Assets/icons/new_order.svg" alt="New order"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_order_hv.svg" alt="New order"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Order</span>
-                                            </a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="newRequisition.php">
-                                                <img src="Assets/icons/new_req.svg" alt="Req"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_req_hv.svg" alt="Req"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Requisition</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_stock.svg" alt="Stock"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_stock_hv.svg" alt="Stock"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Stocktake</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_prod.svg" alt="Product"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_prod_hv.svg" alt="Product"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Production</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_payment.svg" alt="Payment"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_payment_hv.svg" alt="Payment"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Payment</span></a>
-                                        </li>
-                                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
-                                                <img src="Assets/icons/new_invoice.svg" alt="Invoice"
-                                                    class="navIcon align-middle">
-                                                <img src="Assets/icons/new_invoice_hv.svg" alt="Invoice"
-                                                    class="mb_nvSubIcn align-middle">
-                                                <span class="align-middle">New Invoice</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="runningTask.php">
-                                        <img src="Assets/icons/run_task.svg" alt="Run Task" class="navIcon">
-                                        <img src="Assets/icons/run_task_hv.svg" alt="Run Task"
-                                            class="navIcon mb_navIcn">
-                                        <p>Running Tasks</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="history.php">
-                                        <img src="Assets/icons/office.svg" alt="office" class="navIcon">
-                                        <img src="Assets/icons/office_hv.svg" alt="office" class="mb_navIcn">
-                                        <p>Office</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center" href="stockView.php">
-                                        <img src="Assets/icons/storage.svg" alt="storage" class="navIcon">
-                                        <img src="Assets/icons/storage_hv.svg" alt="storage" class="mb_navIcn">
-                                        <p>Storage</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active text-center" href="revenueCenter.php">
-                                        <img src="Assets/icons/revenue_center.svg" alt="Revenue" class="navIcon">
-                                        <img src="Assets/icons/revenue_center_hv.svg" alt="Revenue" class="mb_navIcn">
-                                        <p>Revenue Centers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-bar lgOut">
-                        <ul class="nav flex-column h2">
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="setup.php">
-                                    <img src="Assets/icons/setup.svg" alt="setup" class="navIcon">
-                                    <img src="Assets/icons/setup_hv.svg" alt="setup" class="mb_navIcn">
-                                    <p>Setup</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-center" href="javascript:void(0)">
-                                    <img src="Assets/icons/logout.svg" alt="logout" class="navIcon">
-                                    <img src="Assets/icons/logout_hv.svg" alt="logout" class="mb_navIcn">
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -209,7 +96,7 @@ $succ = '';
     
     if( !empty($_SESSION['barCodesNotFound']) )
     {
-        $error = ''.showOtherLangText('<br><br>These Bar Codes are not part of the Outlet mentioned in excel sheet.<br>so only these items are not uploaded').': '.implode(', ', $_SESSION['barCodesNotFound']);
+        $error = ''.showOtherLangText('These Bar Codes are not part of the Outlet mentioned in excel sheet.<br>so only these items are not uploaded').': '.implode(', ', $_SESSION['barCodesNotFound']);
         unset($_SESSION['barCodesNotFound']);
     }
 }
@@ -388,7 +275,7 @@ if( isset($_GET['guest']) && $_GET['guest']== 1)
                             $usagePerValNew = ($sales != 0 && $usage ? '('.get2DecimalVal( ($usage/$sales) *100).'%)' : '');
 
    
-
+                            $costPerTot = $salesTotal > 0 ? get2DecimalVal( ($usageTotalAmount/$salesTotal)*100 ) : 0;    
                 
                               //  <!-- Item Table Body Start -->
 
@@ -454,7 +341,7 @@ if( isset($_GET['guest']) && $_GET['guest']== 1)
                                                  <div class="outusage-Dtl">
                                                     <div class="slpart-Detail d-flex align-items-center itmBody">
                                                         <div class="saleCost-prt Variance-prtNeg">
-                                                               '.($varience < 0 ? getNumFormtPrice($varience,$getDefCurDet['curCode']) : '').'
+                                                               '.getNumFormtPrice($varience,$getDefCurDet['curCode']).'
                                                             </div>
                                                         <div class="Usage-prt">
                                                             <p>'.$guests.'</p>
@@ -546,7 +433,7 @@ if( isset($_GET['guest']) && $_GET['guest']== 1)
                                             
                                         </div>
                                         <div class="sale-Variance text-center">
-                                            <p class="sl-varDtl">Variances</p>
+                                            <p class="sl-varDtl">Variances1</p>
                                             <p class="sl-varDif"><?php showPrice($allVarianceAmt,$getDefCurDet['curCode']);?></p>
                                             
                                         </div>
@@ -561,21 +448,31 @@ if( isset($_GET['guest']) && $_GET['guest']== 1)
                                                 <span>Get Data</span> <i class="fa-solid fa-angle-down"></i>
                                             </p>
                                         </a>
+                                        <form action="upload_report.php" id="upload_form" name="upload_form"
+                                        method="post" enctype="multipart/form-data">
 
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)">Enter Guest No.</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item gt-Pos" href="getPosSales.php">Get POS Sales</a>
-                                            </li>
-                                            <li><a class="dropdown-item imp-Data" href="javascript:void(0)">Import Data File</a></li>
-                                            <li>
-                                                <a class="dropdown-item dwn-Sample" href="javascript:void(0)"> 
-                                                <i class="fa-solid fa-arrow-down"></i> 
-                                                <span>Download sample file</span></a>
-                                            </li>
-                                        </ul>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)">Enter Guest No.</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item gt-Pos" href="easy.php">Get POS Sales</a>
+                                                </li>
+                                                <li><a target="_blank" class="dropdown-item imp-Data" href="javascript:void(0)" id="btnFileUpload">Import Data File</a></li>
+
+                                                <input type="file" id="uploadFile" name="uploadFile"
+                                                style="display:none">
+
+
+                                                <li>
+                                                    <a class="dropdown-item dwn-Sample" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/import-revenueCenter-hebrew-lang.xlsx' : 'excelSampleFile/english/import-revenueCenter-english-lang.xlsx'; ?>"> 
+                                                    <i class="fa-solid fa-arrow-down"></i> 
+                                                    <span>Download sample file</span></a>
+                                                
+                                                    
+                                                </li>
+                                            </ul>
+                                        </form>
                                     </div>
                                 </div>
 
@@ -1171,6 +1068,19 @@ function loaderFrm() {
     document.getElementById('frm').submit();
     return true;
 }
+
+
+
+    window.onload = function() {
+        var fileupload = document.getElementById("uploadFile");
+        var button = document.getElementById("btnFileUpload");
+        button.onclick = function() {
+            fileupload.click();
+        };
+        fileupload.onchange = function() {
+            document.getElementById('upload_form').submit();
+        };
+    };
 </script>
 
 </body>
