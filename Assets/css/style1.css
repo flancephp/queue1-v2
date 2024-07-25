@@ -41,6 +41,19 @@ html[dir=rtl] .addUser-Form input[type=password]{
   padding-right: 2rem !important;
 }
 
+@media (min-width: 992px) {
+  html[dir=rtl] .ord-Box.ms-0.position {
+      right: 0;
+      border-radius: 15px 0px 0px 15px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  html[dir=rtl] .ord-Box {
+      padding: 15px 32px 15px 15px;
+      border-radius: 15px 0px 0px 15px;
+  }
+}
 
 .compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; }
 .compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
