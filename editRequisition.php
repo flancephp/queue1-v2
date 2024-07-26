@@ -381,7 +381,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:2rem;">
                                     <div class="ord-Box w-100 ms-0">
                                         <div class="ordNum m-0">
-                                            <h4 class="subTittle1"><span>Order#:</span>
+                                            <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
                                                 <span><?php echo $ordRow['ordNumber'];?></span>
                                             </h4>
                                         </div>
@@ -1024,14 +1024,14 @@ $ordRow = mysqli_fetch_array($resultSet);
                                             </div>
                                         </div>
                                     </div>
-
+                                    </form>
                                     <div class="col-md-7"> 
                                         <form
                                             action="editRequisition.php?orderId=<?php echo $_GET['orderId'];?>&deptId=<?php echo $ordRow['deptId'];?>"
                                             method="post" autocomplete="off" id="frm_add_new_items" name="frm_add_new_items"
                                         >
                                             <div class="btnBg text-center text-md-end">
-                                                <!-- <a href="javascript:void(0);" class="sub-btn std-btn add_new_items_in_req"><?php// echo showOtherLangText('Add New Items In Requisition'); ?></a> -->
+                                                
                                                 <a href="javascript:void(0);" class="btn btn-primary add_new_items_in_req"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                                             </div>
                                         </form>

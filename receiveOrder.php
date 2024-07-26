@@ -4,6 +4,8 @@ include('inc/dbConfig.php'); //connection details
 //for excel file upload with Other language
 use Shuchkin\SimpleXLSX;
 require_once 'SimpleXLSX.php';
+$tbl_order_main_or_temp = 'tbl_order_details';
+
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
@@ -11,8 +13,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 $rightSideLanguage = ($getLangType == 1) ? 1 : 0; 
 
- // print_r($_POST);
-// exit;
+
 $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'receive_order' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
@@ -21,7 +22,7 @@ if ($permissionRow)
     echo "<script>window.location='index.php'</script>";
 }
 
-
+//update invoice number when user change it
 if(isset($_POST['invoiceNumber']) && isset($_POST['orderId'])) 
 {
     $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
@@ -47,8 +48,6 @@ $ordRow = mysqli_fetch_array($resultSet);
 $curDetData = getCurrencyDet($ordRow['ordCurId']);
 
 $fileDataRows = [];
-
-
 if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
 {
     $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
@@ -149,14 +148,11 @@ elseif( isset($_POST['updateReceiving']) )
     $sqlSet = " SELECT * FROM tbl_orders where id = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
     $ordQry = mysqli_query($con, $sqlSet);
     $ordResult = mysqli_fetch_array($ordQry);
-    // echo 'hi';
-    // print_r($ordResult);
-    // exit;
     if($ordResult['status'] == 2)
     {
         echo "<script>window.location='receiveOrder.php?orderId=".$_POST['orderId']."&error=alreadyreceived'</script>";die();
     }
-   
+
     foreach($_POST['productIds'] as $productId)//update existing products
     {
         $price = $_POST['price'][$productId]/$_POST['factor'][$productId];
@@ -178,7 +174,6 @@ elseif( isset($_POST['updateReceiving']) )
         $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'  ";
         $stkQry = mysqli_query($con, $sql);
         $stkRow = mysqli_fetch_array($stkQry);
-        
         if($stkRow)
         {
             $upQry = " UPDATE  `tbl_stocks` SET
@@ -230,8 +225,11 @@ elseif( isset($_POST['updateReceiving']) )
 
 } // end of foreach loop
 
+
 if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
 {
+
+
     $i=0;
     foreach($_POST['barCode'] as $barCode)//update existing products
     {
@@ -338,8 +336,21 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
     $res = mysqli_query($con, $sql);
     $ordRow = mysqli_fetch_array($res);
 
-    $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
-    $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    $sql = " SELECT * FROM tbl_order_journey WHERE orderId = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' order by id desc limit 1 ";
+    $res = mysqli_query($con, $sql);
+    $ordJournDet = mysqli_fetch_array($res);
+
+    if( round($ordJournDet['amount']) != round($ordRow['ordAmt']) )
+    {
+        $diffPrice = ($ordRow['ordAmt'] - $ordResult['ordAmt']);
+        $notes = 'Order Received(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    }
+    else
+    {
+        $notes = '';
+    }
+
+    
     
     $qry = " INSERT INTO `tbl_order_journey` SET 
     `account_id` = '".$_SESSION['accountId']."',
@@ -360,46 +371,20 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
 } // end of elseif condition
 
 
-$sql = "SELECT cif.itemName, cif.unit, tod.* FROM tbl_order_details tod 
+$sql = "SELECT cif.itemName, cif.unit, tod.* FROM ".$tbl_order_main_or_temp." tod 
 INNER JOIN tbl_custom_items_fee cif ON(tod.customChargeId = cif.id) AND tod.account_id = cif.account_id
 WHERE tod.ordId = '".$_GET['orderId']."' AND tod.account_id = '".$_SESSION['accountId']."'   and tod.customChargeType=1 ORDER BY cif.itemName ";
 $otherChrgQry=mysqli_query($con, $sql); 
 
 
-    $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
+    $sql = "SELECT tp.*, cm.amt curAmtMaster, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
     INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
     LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
+    LEFT JOIN tbl_currency cm ON(cm.id = od.currencyId) AND cm.account_id = od.account_id
+    
     WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accountId']."'   ";
     $orderQry = mysqli_query($con, $sql);
     
-       
-if(!empty($fileDataRows))
-{
-    $notFoundProducts = [];
-    foreach($fileDataRows as $barCode=>$recRow)
-    {
-        
-        $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '".$barCode."'  AND account_id = '".$_SESSION['accountId']."'   ";
-        $resultSet = mysqli_query($con, $sqlSet);
-        $productRes = mysqli_fetch_array($resultSet);
-        if(!$productRes)
-        {
-            $notFoundProducts[] = $barCode;
-        }
-    }
-
-    if( !empty($notFoundProducts) )
-    {
-        $error_file_upload = ''.showOtherLangText('There is no product in product list for these Bar Codes').' : '.implode(', ', $notFoundProducts).'';
-    }
-    else
-    {
-             $success_file_upload = ''.showOtherLangText('Data imported successfully.').'';
-
-    }
-}
-
-
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
@@ -617,7 +602,7 @@ if(!empty($fileDataRows))
                                                 <?php 
 
                        //get the sum of all product and item level charges 
-                        $sqlSet="SELECT *, SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details 
+                        $sqlSet="SELECT *, SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM ".$tbl_order_main_or_temp." 
 
                         WHERE account_id = '".$_SESSION['accountId']."' AND ordId='".$_GET['orderId']."' AND (customChargeType='1' OR customChargeType='0')";
 
@@ -627,7 +612,7 @@ if(!empty($fileDataRows))
                         $chargePriceOther=$chargeRow['totalAmtOther'];
 
                         //to find order level charge
-                        $ordCount="SELECT * from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                        $ordCount="SELECT * from ".$tbl_order_main_or_temp." where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
                         $ordCountResult = mysqli_query($con, $ordCount);
                         $ordCountRow = mysqli_num_rows($ordCountResult);
 
@@ -655,7 +640,7 @@ if(!empty($fileDataRows))
                                 }
 
                         //Starts order level fixed discount charges
-                        $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                        $sql = "SELECT od.*, tp.feeName FROM ".$tbl_order_main_or_temp." od 
                         INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
 
                         WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
@@ -697,7 +682,7 @@ if(!empty($fileDataRows))
 
 
                     //Starts order level per discount charges
-                      $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                      $sql = "SELECT od.*, tp.feeName FROM ".$tbl_order_main_or_temp." od 
                       INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
 
                       WHERE od.ordId = '".$_GET['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'   and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
@@ -736,7 +721,7 @@ if(!empty($fileDataRows))
                                                     </div>
                                                 </div>
 
-                                                    <?php
+                    <?php
                      } //Ends order lelvel per discount charges
 
 
@@ -744,7 +729,7 @@ if(!empty($fileDataRows))
                     $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
 
 
-                    $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                    $sql = "SELECT od.*, tp.feeName FROM ".$tbl_order_main_or_temp." od 
                     INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
 
                     WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
@@ -761,7 +746,8 @@ if(!empty($fileDataRows))
                     $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
 
 
-                    ?>                          <div class="price justify-content-between taxRow">
+                    ?>
+                      <div class="price justify-content-between taxRow">
                                                     <div class="p-2 delIcn text-center">
                                                         <!-- <a href="javascript:void(0)">
                                                             <i class="fa-solid fa-trash-can"></i>
@@ -783,7 +769,7 @@ if(!empty($fileDataRows))
                                                         <?php } ?>
                                                     </div>
                                                 </div>
-                           <?php
+                          <?php
                 } //Ends order lelvel tax discount charges
 
 

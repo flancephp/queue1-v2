@@ -63,7 +63,7 @@ if( isset($_GET['centerId']) && $_GET['centerId'] > 0)
 $sql = "SELECT  rc.id, rc.name, du.name as outletName, rcd.id as outLetId, rcd.outLetType FROM tbl_revenue_center_departments rcd
 INNER JOIN tbl_deptusers du ON(du.id = rcd.deptId)  AND du.account_id = rcd.account_id
 INNER JOIN tbl_revenue_center rc ON(rc.id = rcd.revCenterId)  AND rc.account_id = rcd.account_id ".$cond."
-INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id
+INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id AND o.status=1
 WHERE rcd.account_id = '".$_SESSION['accountId']."' 
 GROUP BY du.id order by rc.id desc ";
 
@@ -73,7 +73,7 @@ $getRevenueReport = mysqli_query($con, $sql);
 $sql = "SELECT rc.* FROM tbl_revenue_center_departments rcd
 INNER JOIN tbl_revenue_center rc ON(rc.id = rcd.revCenterId) AND  rc.account_id = rcd.account_id
 INNER JOIN tbl_deptusers du ON(du.id = rcd.deptId)  AND du.account_id = rcd.account_id
-INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id
+INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id AND o.status=1
 WHERE rc.account_id= '".$_SESSION['accountId']."'
 GROUP BY rc.id order by rc.name desc ";
 		
@@ -90,7 +90,7 @@ $optionsRevCenters .= '</select>';
 
 
 //value insert of guest modal form start from here
-if( isset($_POST['saveBtn']) && $_POST['adjDate'] && $_POST['centerId'] > 0 && $_POST['guest'] > 0)
+if( isset($_POST['saveBtn']) )
 {	
 	$date = date('Y-m-d', strtotime($_POST['adjDate']));
     
@@ -98,7 +98,7 @@ if( isset($_POST['saveBtn']) && $_POST['adjDate'] && $_POST['centerId'] > 0 && $
 	FROM tbl_revenue_center_departments rcd
 	INNER JOIN tbl_deptusers du ON(du.id = rcd.deptId) AND du.account_id = rcd.account_id
 	INNER JOIN tbl_revenue_center rc ON(rc.id = rcd.revCenterId) AND rc.account_id = rcd.account_id
-	INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id
+	INNER JOIN tbl_outlet_items o ON(o.outLetId = rcd.id) AND o.account_id = rcd.account_id AND o.status=1
 		
 	WHERE rc.id = '".$_POST['centerId']."' AND rc.account_id = '".$_SESSION['accountId']."' GROUP BY du.id order by rc.id desc ";
 	$result = mysqli_query($con, $sql);
@@ -144,4 +144,6 @@ if( isset($_POST['saveBtn']) && $_POST['adjDate'] && $_POST['centerId'] > 0 && $
 	$url = "revenueCenterReport.php?guest=1&fromDate=".$_POST['fromDate']."&toDate=".$_POST['toDate']."&account_id=".$_SESSION['account_id'];
 	echo "<script>window.location='".$url."'</script>";
 } 
+
+
 ?>

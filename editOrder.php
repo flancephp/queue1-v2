@@ -440,11 +440,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem;">
     <div class="ord-Box w-100 ms-0">
         <div class="ordNum">
-            <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
+            <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
         </div>
-        <!-- <div class="ordDate">
-            <h4 class="subTittle1">23/05/2022</h4>
-        </div> -->
     </div>
     <div class="ord-Box w-100 ms-0">
         <div class="ordNum">
@@ -1152,6 +1149,7 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
         </div>
     </div>
 </div>
+</form>
 <div class="col-md-7">
     <form id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"> 
         <?php  
@@ -1174,8 +1172,7 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
                 $proresultSet = mysqli_query($con, $sqlSet);
         ?> 
         <div class="btnBg text-center text-md-end">
-            <!-- <a href="#" class="sub-btn std-btn add-new-items"><?php //echo showOtherLangText('Add New Items In Order'); ?></a> -->
-            <a href="#" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+            <a href="javascript:void(0);" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
         </div>
     </form> 
 </div>

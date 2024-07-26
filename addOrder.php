@@ -2,21 +2,22 @@
 
 if (!isset($_SESSION['adminidusername']))
 {
-echo '<script>window.location ="login.php"</script>';
+  echo '<script>window.location ="login.php"</script>';
 }
 
 if( isset($_GET['autoFill']) )
-{	
-$_SESSION['autoFill'] = 1;
+{   
+    $_SESSION['autoFill'] = 1;
 }
+
 if( isset($_REQUEST['supplierId']) && $_SESSION['supplierId'] !=$_REQUEST['supplierId'] )
 {
-unset($_SESSION['autoFill']);
+    unset($_SESSION['autoFill']);
 }
 
 if( isset($_SESSION['autoFill']) )
 {
-$_GET['autoFill'] = $_SESSION['autoFill'];
+    $_GET['autoFill'] = $_SESSION['autoFill'];
 }
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
@@ -25,7 +26,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 $checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
 if (!in_array('1',$checkPermission))
 {
-echo "<script>window.location='index.php'</script>";
+  echo "<script>window.location='index.php'</script>";
 }
 
 //get supplier permission
@@ -38,232 +39,235 @@ echo "<script>window.location='index.php'</script>";
 // Set currency Id in session if changes by user
 if($_REQUEST['currencyId'] != '')
 {
-$_SESSION['currencyId'] = $_REQUEST['currencyId'];
+  $_SESSION['currencyId'] = $_REQUEST['currencyId'];
 }
 if(isset($_SESSION['currencyId']))
 { 
-$curDet = getCurrencyDet($_SESSION['currencyId']);
-$currencyId = $_SESSION['currencyId'];
+  $curDet = getCurrencyDet($_SESSION['currencyId']);
+  $currencyId = $_SESSION['currencyId'];
 }
 
 
 //Add item level extra charges in list
 if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='1' )
 {
-$_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+  $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
 }
 
 //Add order level extra charges in list
 if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='3' )
 {
-$_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+  $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
 }
 
 // Set supplier id in session for the first time. again if user change supplier then delete all the record of previous selected supplier, currency, Other charges.
 if( $_REQUEST['supplierId'] != '' )
 {
-if($_SESSION['supplierId'] !=$_REQUEST['supplierId']) 
-{
-deleteOrderTempData($_SESSION['id']);
+  if($_SESSION['supplierId'] !=$_REQUEST['supplierId']) 
+  {
+    deleteOrderTempData($_SESSION['id']);
 
-if (isset($_SESSION['currencyId'])) 
-{
-unset($_SESSION['currencyId']);
+    if (isset($_SESSION['currencyId'])) 
+    {
+      unset($_SESSION['currencyId']);
+    }
+
+    if (isset($_SESSION['itemCharges'])) 
+    {
+      unset($_SESSION['itemCharges']);
+    }
+
+  }
+
+  $_SESSION['supplierId'] = $_REQUEST['supplierId'];
+
 }
 
-if (isset($_SESSION['itemCharges'])) 
-{
-unset($_SESSION['itemCharges']);
-}
-
-}
-
-$_SESSION['supplierId'] = $_REQUEST['supplierId'];
-
-}
 $ordRowsTemp = getOrderTempData($_SESSION['id']);
 $proTempRows = [];
 if(!empty($ordRowsTemp['proDetails'])) 
 {
-$proTempRows = $ordRowsTemp['proDetails'];
-$proTempNotes = $ordRowsTemp['notesDetail'];
+  $proTempRows = $ordRowsTemp['proDetails'];
+  $proTempNotes = $ordRowsTemp['notesDetail'];
 
 }
 
 
-if(!empty($_POST['itemName']) && !isset($_POST['donotsubmit']))
+if(!empty($_POST['itemName']))
 { 
-$showHideInList = isset($_POST['visibility']) ? 1 : 0;
+  $showHideInList = isset($_POST['visibility']) ? 1 : 0;
 
-$sql = "INSERT INTO `tbl_custom_items_fee` SET 
-`itemName` = '".$_POST['itemName']."',
-`unit` = '".$_POST['unit']."',
-`amt` = '".$_POST['itemFeeAmt']."',
-`visibility` = '".$showHideInList."',
-`account_id` = '".$_SESSION['accountId']."' ";
-mysqli_query($con, $sql);
-$itemCharges = mysqli_insert_id($con);
+  $sql = "INSERT INTO `tbl_custom_items_fee` SET 
+  `itemName` = '".$_POST['itemName']."',
+  `unit` = '".$_POST['unit']."',
+  `amt` = '".$_POST['itemFeeAmt']."',
+  `visibility` = '".$showHideInList."',
+  `account_id` = '".$_SESSION['accountId']."' ";
+  mysqli_query($con, $sql);
+  $itemCharges = mysqli_insert_id($con);
 
-$_SESSION['itemCharges'][1][$itemCharges] = $itemCharges;
+  $_SESSION['itemCharges'][1][$itemCharges] = $itemCharges;
 
-echo '<script>window.location="addOrder.php?currencyId='.$_POST['currencyPopupForm'].'"</script>';
+  echo '<script>window.location="addOrder.php?currencyId='.$_POST['currencyPopupForm'].'"</script>';
 
 }
 
 
 if(!empty($_POST['feeName']))
 { 
-$showHideInList = isset($_POST['visibility']) ? 1 : 0;
+  $showHideInList = isset($_POST['visibility']) ? 1 : 0;
 
-$sql = "INSERT INTO `tbl_order_fee` SET 
-`feeName` = '".$_POST['feeName']."',
-`feeType` = '".$_POST['feeType']."',
-`amt` = '".$_POST['amt']."',
-`visibility` = '".$showHideInList."',
-`account_id` = '".$_SESSION['accountId']."' ";
+  $sql = "INSERT INTO `tbl_order_fee` SET 
+  `feeName` = '".$_POST['feeName']."',
+  `feeType` = '".$_POST['feeType']."',
+  `amt` = '".$_POST['amt']."',
+  `visibility` = '".$showHideInList."',
+  `isTaxFee` = '".$_POST['isTaxFee']."',
+  `account_id` = '".$_SESSION['accountId']."' ";
 
-mysqli_query($con, $sql);
+  mysqli_query($con, $sql);
 
-$itemCharges = mysqli_insert_id($con);
+  $itemCharges = mysqli_insert_id($con);
 
-$_SESSION['itemCharges'][3][$itemCharges] = $itemCharges;
+  $_SESSION['itemCharges'][3][$itemCharges] = $itemCharges;
 
-echo '<script>window.location="addOrder.php?currencyId='.$_POST['currencyPopupForm'].'"</script>';
+  echo '<script>window.location="addOrder.php?currencyId='.$_POST['currencyPopupForm'].'"</script>';
 
 }
 
+//place order
 if(isset($_POST['placeOrder']))
 { 
+  deleteOrderTempData($_SESSION['id']);
 
-deleteOrderTempData($_SESSION['id']);
+  $sqlSet = " SELECT ordNumber FROM tbl_orders WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY id DESC LIMIT 1 ";
+  $ordQry = mysqli_query($con, $sqlSet);
+  $ordResult = mysqli_fetch_array($ordQry);
 
-$sqlSet = " SELECT ordNumber FROM tbl_orders WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY id DESC LIMIT 1 ";
-$ordQry = mysqli_query($con, $sqlSet);
-$ordResult = mysqli_fetch_array($ordQry);
-
-//Give new order number for each new order
-$ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
-
-
-$qry = " INSERT INTO `tbl_orders` SET 
-`ordType` = 1,
-`supplierId` = '".$_SESSION['supplierId']."',
-`ordNumber` = '".$ordNumber."',
-`orderBy`  = '".$_SESSION['id']."',
-`ordDateTime` = '".date('Y-m-d h:i:s')."',
-`ordAmt` = 0,
-`ordCurId` = '".$currencyId."',
-`account_id` = '".$_SESSION['accountId']."', 
-`status` = 0  ";
-
-mysqli_query($con, $qry);
-$ordId = mysqli_insert_id($con);
+  //Give new order number for each new order
+  $ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
 
 
-//Update for new items
-foreach($_POST['productIds'] as $productId)
-{
-if( isset($_SESSION['productIds'][$productId]) && $_POST['qty'][$productId] < 1 )
-{
-unset($_SESSION['productIds'][$productId]);
-}
-elseif($_POST['qty'][$productId] > 0)
-{
-$_SESSION['productIds'][$productId]['qty'] = $_POST['qty'][$productId];
-$_SESSION['productIds'][$productId]['price'] = $_POST['price'][$productId];
-$_SESSION['productIds'][$productId]['curAmt'] = $_POST['curAmt'][$productId];
-$_SESSION['productIds'][$productId]['factor'] = $_POST['factor'][$productId];
-$_SESSION['productIds'][$productId]['notes'] = $_POST['notes'][$productId];
-$_SESSION['productIds'][$productId]['suppliersId'] = $_SESSION['supplierId'];
-}
-}//End foreach  
+  $qry = " INSERT INTO `tbl_orders` SET 
+  `ordType` = 1,
+  `supplierId` = '".$_SESSION['supplierId']."',
+  `ordNumber` = '".$ordNumber."',
+  `orderBy`  = '".$_SESSION['id']."',
+  `ordDateTime` = '".date('Y-m-d h:i:s')."',
+  `ordAmt` = 0,
+  `ordCurId` = '".$currencyId."',
+  `account_id` = '".$_SESSION['accountId']."', 
+  `status` = 0  ";
+
+  mysqli_query($con, $qry);
+  $ordId = mysqli_insert_id($con);
 
 
-$ordAmt = 0;
-$ordAmtOtherCur = 0;
-$otherCurAmt = 0;
-if(!empty($curDet))
-{ 
-$otherCurAmt = $curDet['amt'];
-}
+  //Update for new items
+  foreach($_POST['productIds'] as $productId)
+  {
+    if( isset($_SESSION['productIds'][$productId]) && $_POST['qty'][$productId] < 1 )
+    {
+      unset($_SESSION['productIds'][$productId]);
+    }
+    elseif($_POST['qty'][$productId] > 0)
+    {
+      $_SESSION['productIds'][$productId]['qty'] = $_POST['qty'][$productId];
+      $_SESSION['productIds'][$productId]['price'] = $_POST['price'][$productId];
+      $_SESSION['productIds'][$productId]['curAmt'] = $_POST['curAmt'][$productId];
+      $_SESSION['productIds'][$productId]['factor'] = $_POST['factor'][$productId];
+      $_SESSION['productIds'][$productId]['notes'] = $_POST['notes'][$productId];
+      $_SESSION['productIds'][$productId]['suppliersId'] = $_SESSION['supplierId'];
+    }
+  }//End foreach  
 
 
-foreach($_SESSION['productIds'] as $productId=>$productRow)
-{       
-$values[] .= " (NULL, 
-'".$_SESSION['accountId']."', 
-'".$ordId."', 
-'".$productId."', 
-'".($productRow['factor'])."',
-'".($productRow['price'])."',
-'".($productRow['price']*$otherCurAmt)."',
-'".$productRow['qty']."',
-'".($productRow['factor']*$productRow['price']*$productRow['qty'])."',
-'".$productRow['notes']."',
-'".$currencyId."',
-'".($productRow['factor']*$productRow['price']*$productRow['qty']*$otherCurAmt)."') ";
-
-$ordAmt += ($productRow['factor']*$productRow['price'] * $productRow['qty']);
-
-$ordAmtOtherCur += ($productRow['factor']*$productRow['price']*$productRow['qty']*$otherCurAmt);
-
-}//End foreach
-
-//insert custom charges ----------------
-$noteArr= $_POST['itemNotes'];
-
-$ordTotArr = insertCustomCharges($ordId, $currencyId, $otherCurAmt, $ordAmt, $noteArr, $_SESSION['supplierId'] );
-
-$ordAmt += $ordTotArr['chargesTot'];
-$ordAmtOtherCur += $ordTotArr['chargesTotOtherCur'];
-//end----------------------
-
-if ($_POST['qty'][$productId] > 0)
-{
-
-$insertQry = " INSERT INTO `tbl_order_details` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `curPrice`, `qty`, `totalAmt`, `note`, `currencyId`, `curAmt`) VALUES  ".implode(',', $values);
-$result=mysqli_query($con, $insertQry); 
-
-orderNetValue($ordId,$currencyId);
-
-unset($_SESSION['productIds']);
-if(isset($_SESSION['itemCharges']) || isset($_SESSION['supplierId']) || isset($_SESSION['currencyId']))
-{
-unset($_SESSION['itemCharges']);
-unset($_SESSION['supplierId']);
-unset($_SESSION['currencyId']);
-}
-
-//Insert few data in order journey tbl to show journey 
-$sql = " SELECT * FROM tbl_orders WHERE id = '".$ordId."' AND account_id = '".$_SESSION['accountId']."' ";
-$res = mysqli_query($con, $sql);
-$resRow = mysqli_fetch_array($res);
-
-$qry = " INSERT INTO `tbl_order_journey` SET 
-`account_id` = '".$_SESSION['accountId']."',
-`orderId` = '".$ordId."',
-`userBy`  = '".$_SESSION['id']."',
-`ordDateTime` = '".date('Y-m-d h:i:s')."',
-`amount` = '".$resRow['ordAmt']."',
-`otherCur` = '".$resRow['ordCurAmt']."',
-`otherCurId` = '".$resRow['ordCurId']."',
-`orderType` = '".$resRow['ordType']."',
-`notes` = 'Added new order',
-`action` = 'submit' ";
-mysqli_query($con, $qry);
+  $ordAmt = 0;
+  $ordAmtOtherCur = 0;
+  $otherCurAmt = 0;
+  if(!empty($curDet))
+  { 
+    $otherCurAmt = $curDet['amt'];
+  }
 
 
-echo '<script>window.location="runningOrders.php?added=1&orderId='.$ordId.'"</script>';
+  foreach($_SESSION['productIds'] as $productId=>$productRow)
+  {       
+    $values[] .= " (NULL, 
+    '".$_SESSION['accountId']."', 
+    '".$ordId."', 
+    '".$productId."', 
+    '".($productRow['factor'])."',
+    '".($productRow['price'])."',
+    '".($productRow['price']*$otherCurAmt)."',
+    '".$productRow['qty']."',
+    '".($productRow['factor']*$productRow['price']*$productRow['qty'])."',
+    '".$productRow['notes']."',
+    '".$currencyId."',
+    '".($productRow['factor']*$productRow['price']*$productRow['qty']*$otherCurAmt)."') ";
+
+    $ordAmt += ($productRow['factor']*$productRow['price'] * $productRow['qty']);
+
+    $ordAmtOtherCur += ($productRow['factor']*$productRow['price']*$productRow['qty']*$otherCurAmt);
+
+  }//End foreach
+
+  //insert custom charges ----------------
+  $noteArr= $_POST['itemNotes'];
+
+  $ordTotArr = insertCustomCharges($ordId, $currencyId, $otherCurAmt, $ordAmt, $noteArr, $_SESSION['supplierId'] );
+
+  $ordAmt += $ordTotArr['chargesTot'];
+  $ordAmtOtherCur += $ordTotArr['chargesTotOtherCur'];
+  //end----------------------
 
 
-}
-else
-{
-$currency = isset($_SESSION['currencyId']) ? $_SESSION['currencyId'] : 0;
+  if ($_POST['qty'][$productId] > 0)
+  {
 
-echo '<script>window.location="addOrder.php?errorProduct=1&currencyId='.$currencyId.'"</script>';
+    $insertQry = " INSERT INTO `tbl_order_details` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `curPrice`, `qty`, `totalAmt`, `note`, `currencyId`, `curAmt`) VALUES  ".implode(',', $values);
+    $result=mysqli_query($con, $insertQry); 
 
-}
+    orderNetValue($ordId,$currencyId);
+
+    unset($_SESSION['productIds']);
+    if(isset($_SESSION['itemCharges']) || isset($_SESSION['supplierId']) || isset($_SESSION['currencyId']))
+    {
+      unset($_SESSION['itemCharges']);
+      unset($_SESSION['supplierId']);
+      unset($_SESSION['currencyId']);
+  }
+
+  //Insert few data in order journey tbl to show journey 
+  $sql = " SELECT * FROM tbl_orders WHERE id = '".$ordId."' AND account_id = '".$_SESSION['accountId']."' ";
+  $res = mysqli_query($con, $sql);
+  $resRow = mysqli_fetch_array($res);
+
+  $qry = " INSERT INTO `tbl_order_journey` SET 
+  `account_id` = '".$_SESSION['accountId']."',
+  `orderId` = '".$ordId."',
+  `userBy`  = '".$_SESSION['id']."',
+  `ordDateTime` = '".date('Y-m-d h:i:s')."',
+  `amount` = '".$resRow['ordAmt']."',
+  `otherCur` = '".$resRow['ordCurAmt']."',
+  `otherCurId` = '".$resRow['ordCurId']."',
+  `orderType` = '".$resRow['ordType']."',
+  `notes` = 'Added new order',
+  `action` = 'submit' ";
+  mysqli_query($con, $qry);
+
+
+  echo '<script>window.location="runningOrders.php?added=1&orderId='.$ordId.'"</script>';
+
+
+  }
+  else
+  {
+    $currency = isset($_SESSION['currencyId']) ? $_SESSION['currencyId'] : 0;
+
+    echo '<script>window.location="addOrder.php?errorProduct=1&currencyId='.$currencyId.'"</script>';
+
+  }
 
 
 }//End Place Order 
@@ -271,45 +275,51 @@ echo '<script>window.location="addOrder.php?errorProduct=1&currencyId='.$currenc
 //to delete item/order level charges
 if(isset($_GET['delId']) && $_GET['delId'])
 {
-unset($_SESSION['itemCharges'][$_GET['feeType']][$_GET['delId']]);
+  unset($_SESSION['itemCharges'][$_GET['feeType']][$_GET['delId']]);
 
-echo '<script>window.location="addOrder.php?delete=1&supplierId='.$_SESSION['supplierId'].'&currencyId='.$_SESSION['currencyId'].'"</script>';
+  echo '<script>window.location="addOrder.php?delete=1&supplierId='.$_SESSION['supplierId'].'&currencyId='.$_SESSION['currencyId'].'"</script>';
 }
 
 if( $_GET['clear']==1 )
 {
-unset($_SESSION['itemCharges']);
-unset($_SESSION['supplierId']);
-unset($_SESSION['currencyId']);
-deleteOrderTempData($_SESSION['id']);
-echo '<script>window.location ="addOrder.php"</script>';
+  unset($_SESSION['itemCharges']);
+  unset($_SESSION['supplierId']);
+  unset($_SESSION['currencyId']);
+  deleteOrderTempData($_SESSION['id']);
+  echo '<script>window.location ="addOrder.php"</script>';
 }
 
 //Add this part of code in main query where clause if supplier is set
 $cond = '';
 if( $_SESSION['supplierId'] != '' )
 {
-$cond .= " AND p.id IN( SELECT productId FROM tbl_productsuppliers WHERE supplierId = '".$_SESSION['supplierId']."' AND account_id = '".$_SESSION['accountId']."' ) ";
+  $cond .= " AND p.id IN( SELECT productId FROM tbl_productsuppliers WHERE supplierId = '".$_SESSION['supplierId']."' AND account_id = '".$_SESSION['accountId']."' ) ";
 }
 
 
 
 $orderBy = isset($_GET['sort']) ?  ' t.qty desc' : 'p.itemName';
 
+
+$supplierId = $_SESSION['supplierId'] > 0 ? $_SESSION['supplierId'] : -1;
+
 //Main query to fetch all the product according to supplier
-$sqlSet = " SELECT 
+ $sqlSet = " SELECT 
 p.*, 
 IF(u.name!='',u.name,p.unitP) AS purchaseUnit, 
 s.qty AS stockQty 
 FROM tbl_products p
+
+INNER JOIN tbl_productsuppliers ps ON(p.id = ps.productId)  AND ps.supplierId = '".$supplierId."' AND p.account_id = ps.account_id
+
 LEFT JOIN tbl_stocks s
 ON(s.pId=p.id) AND p.account_id = s.account_id
 LEFT JOIN tbl_units u 
 ON(u.id=p.unitP) AND u.account_id = p.account_id
 
-LEFT JOIN tbl_order_items_temp t ON(t.pId = p.id) AND t.account_id = p.account_id AND t.userId='".$_SESSION['id']."' AND t.supplierId = '".$_SESSION['supplierId']."'
+LEFT JOIN tbl_order_items_temp t ON(t.pId = p.id) AND t.account_id = p.account_id AND t.userId='".$_SESSION['id']."' 
 
-WHERE   p.status=1 ".$cond. "  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY  ".$orderBy;
+WHERE   p.status=1   AND p.account_id = '".$_SESSION['accountId']."' ORDER BY  ".$orderBy;
 
 $proresultSet = mysqli_query($con, $sqlSet);
 
@@ -339,7 +349,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 .prdtCnt-Fst { width: 64%; }
 .prdt-Hide { width: 30%; }
-.prdtCr-Unit { width: 30%; }
+.prdtCr-Unit { width: 38%; }
 .prdtCnt-Scnd { width: 10%; }
 @media(max-width:991px) {
 .prdtCnt-Fst { width: 84%; }
@@ -356,6 +366,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
 .prdtCnt-Scnd { width: 30%; } 
 .col-7 .form-control { font-size:12px; }
 }
+.dflt-Currency, .othr-Currency {width:72%;}
 </style>
 </head>
 
@@ -904,7 +915,7 @@ $resRows = mysqli_query($con, $sqlSet);
 <p><?php echo showOtherLangText('Bar Code'); ?></p>
 </div>
 <div class="prdtCr-Unit d-flex align-items-center">
-<div class="crncy-Typ col-7">
+
     <div class="dflt-Currency tb-head w-100">
         <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
     </div>
@@ -920,7 +931,7 @@ $resRows = mysqli_query($con, $sqlSet);
     $curAmt = $curDet['amt'];
     }
     ?>
-   </div>
+  
 <div class="itm-Uni tb-head col-5">
     <p><?php echo showOtherLangText('P.Unit'); ?></p>
 </div>
@@ -943,26 +954,26 @@ $resRows = mysqli_query($con, $sqlSet);
 <div class="prdt-Hide">
 <div class="prdt-Note tb-bdy">
 <div class="row g-2">
-    <div class="col-5">
-        <div class="ttlCr-Type">
-            <div class="ttlDft-Crcy tb-head w-100">
-                <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-            </div>
-            <?php 
-            $curAmt = 1;
-            if( !empty($curDet) )
-            {
-            ?>
-            <div class="ttlOtr-Crcy tb-head">
-                <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
-            </div>
-            <?php
-            $curAmt = $curDet['amt'];
-            }
-            ?>
-        </div>
+    <div class="col-7">
+        <div class="ttlCr-Type d-flex align-items-center">
+<div class="ttlDft-Crcy tb-head">
+<p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+</div>
+<?php 
+$curAmt = 1;
+if( !empty($curDet) )
+{
+?>
+<div class="ttlOtr-Crcy tb-head">
+<p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
+</div>
+<?php
+$curAmt = $curDet['amt'];
+}
+?>
+</div>
     </div>
-    <div class="col-7"> 
+    <div class="col-5"> 
         <div class="mb-brCode"></div>
         <p><?php echo showOtherLangText('Note'); ?></p>
     </div>
@@ -1137,7 +1148,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
         <p class="ord-brCode"><?php echo $row['barCode'];?></p>
     </div>
     <div class="prdtCr-Unit d-flex">
-        <div class="crncy-Typ col-7">
+       
             <div class="dflt-Currency tb-bdy w-100 res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
                 <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?></p>
             </div>
@@ -1153,7 +1164,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
                     ?>
                 </p>
             </div>
-        </div>
+        
         <div class="itm-Uni tb-bdy col-5 res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
             <p><?php echo $row['purchaseUnit'];?></p>
         </div>
@@ -1174,7 +1185,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
 <div class="prdt-Hide">
     <div class="prdt-Note tb-bdy">
         <div class="row g-2">
-            <div class="col-5">
+            <div class="col-7">
                 <div class="ttlCr-Type d-flex align-items-center text-start res__label__item" data-text="<?php echo showOtherLangText('Total'); ?>">
                     <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
                         <p><?php $totalPriceVal = isset($_SESSION['productIds'][$row['id']]['qty'])  ? ($_SESSION['productIds'][$row['id']]['qty'] * $_SESSION['productIds'][$row['id']]['price']) : ($showQtyMinValue*$row['price']*$row['factor']); showPrice($totalPriceVal, $getDefCurDet['curCode']);?></p>
@@ -1188,7 +1199,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
                     ?>
                 </div>
             </div>
-            <div class="col-7">  
+            <div class="col-5">  
                 <div class="mb-brCode d-block"></div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
@@ -1373,7 +1384,7 @@ list'); ?></span><br>
 </div>
 </form>
 <form id="supplier_frm_id" name="supplier_frm_id" method="post" action="addOrder.php">
-<input type="text" name="supplierId" id="supplierId" value="">
+<input type="hidden" name="supplierId" id="supplierId" value="">
 </form>
 <form id="currency_frm_id" name="currency_frm_id" method="post" action="">
 <input type="hidden" id="currencyId" name="currencyId" value="">

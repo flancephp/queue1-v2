@@ -143,7 +143,7 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
                             <input type="password" class="form-control" id="password" name="password" value="<?php echo isset($_COOKIE['passwordChk']) ? $_COOKIE['passwordChk'] : '';?>" placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
 
                             <div class="input-group-append password-toggle-icon">
-                                <span class="btn"><i class=" fa fa-eye-slash"></i></span>
+                                <span class="btn"><i id="togglePassword" class="fa fa-eye-slash"></i></span>
                             </div>
                         </div>
 
@@ -199,3 +199,18 @@ function checksubmit() {
     $('#chksubmit').val('1');
 }
 </script>
+<script> 
+        const togglePassword = document.querySelector('#togglePassword');
+    const togglePasswordclick = document.querySelector('.password-toggle-icon');
+        const password = document.querySelector('#password');
+
+        togglePasswordclick.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            // Toggle the icon
+            togglePassword.classList.toggle('fa-eye');
+            togglePassword.classList.toggle('fa-eye-slash');
+        });
+    </script>
