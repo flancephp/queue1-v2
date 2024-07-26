@@ -753,6 +753,9 @@ $ordRow = mysqli_fetch_array($resultSet);
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
                                 <div class="prdtImg tb-head">
+                                    <p><?php echo $total_edit_req_prodts =  mysqli_num_rows($orderQry) > 0 ? mysqli_num_rows($orderQry) : ''; ?></p>
+                                </div>
+                                <div class="prdtImg tb-head">
                                     <p><?php echo showOtherLangText('Image'); ?></p>
                                 </div>
                                 <div class="prdtCnt-Fst d-flex align-items-center">
@@ -820,6 +823,9 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 ?>
                                 <div class="newReqTask">
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                        <div class="prdtImg tb-bdy">
+                                            <?php echo $y; ?>
+                                        </div>
                                         <div class="prdtImg tb-bdy">
                                             <a title="<?php echo showOtherLangText('Delete') ?>"
                                                 href="javascript:void(0)"
@@ -916,8 +922,11 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     value="<?php echo ($row['ordPrice']);?>" />
                                 <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
                                     value="<?php echo $row['factor'];?>" />
+
                                 <div class="newReqTask">
+
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                        <div class="prdtImg tb-bdy"><?php echo $y; ?></div>
                                         <div class="prdtImg tb-bdy">
                                             <?php $img = '';
                         if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
@@ -1058,6 +1067,9 @@ $ordRow = mysqli_fetch_array($resultSet);
                 <!-- Item Table Head Start -->
                 <div class="d-flex align-items-center itmTable">
                     <div class="prdtImg tb-head">
+                        <p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?></p>
+                    </div>
+                    <div class="prdtImg tb-head">
                         <p><?php echo showOtherLangText('Image'); ?></p>
                     </div>
                     <div class="prdtCnt-Fst d-flex align-items-center">
@@ -1136,6 +1148,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                 ?>
                     <div class="newOrdTask">
                         <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                            <div class="prdtImg tb-bdy"><?php echo $y; ?></div>
                             <div class="prdtImg tb-bdy">
                                 <?php $img = '';
                         if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )

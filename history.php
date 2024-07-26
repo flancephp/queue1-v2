@@ -1457,9 +1457,9 @@ $colsArr = [
                                 <div class="align-items-center d-flex">
                                     <div class="numRef numRef1 align-items-center">
                                         <div class="tb-bdy srHisclm">
-                                            <p></p>
+                                            <p><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
                                         </div>
-                                        
+                                           
                                             <?php if (isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields)) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy numItmclm"><div class="d-flex align-items-center" style="min-width: 40px;">
@@ -1471,7 +1471,7 @@ $colsArr = [
                                                 </div></div>
                                             <?php } ?>
                                         
-
+                                              
 
                                         
                                                 <?php if (isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields)) { ?>
@@ -1485,7 +1485,13 @@ $colsArr = [
                                                         <?php echo $dateTypeOptions; ?>
                                                     </div></div></div>
                                                 <?php } ?>
-                                            
+                                                <div class="tb-bdy hisTypclm " style="width: 14% !important; padding-left:0px;">
+                                                      <div class="d-flex align-items-center" style="background:inherit;"><div class="dropdown d-flex position-relative">
+                                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <span id="userText">User</span> <i class="fa-solid fa-angle-down"></i>
+                                                        </a>
+                                                        <?php echo $userOptions; ?>
+                                                    </div></div></div>
                                         
                                                 <?php if (isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields)) { ?>
                                                 <?php } else { ?>

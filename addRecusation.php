@@ -807,6 +807,9 @@ if($_SESSION['deptId'] != '')
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
                             <div class="reqImg tb-head">
+                                <p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?></p>
+                            </div>
+                            <div class="reqImg tb-head">
                                 <p><?php echo showOtherLangText('Image'); ?></p>
                             </div>
                             <div class="reqCnt-Fst d-flex align-items-center">
@@ -866,6 +869,9 @@ if($_SESSION['deptId'] != '')
                             ?>
                             <div class="newReqTask">
                                 <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
+                                    <div class="reqImg tb-bdy">
+                                        <p><?php echo $x; ?></p>
+                                    </div>
                                     <div class="reqImg tb-bdy">
                                         <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
                                             onClick="getDelNumb('<?php echo $row['id'] ?>', 1)" style="color:#808080"><i
@@ -1012,6 +1018,9 @@ if($_SESSION['deptId'] != '')
                             <div class="newReqTask">
                                 <div class="d-flex align-items-center border-bottom itmBody reqCnt-Part">
                                     <div class="reqImg tb-bdy">
+                                            <p><?php echo $x; ?></p>
+                                        </div>
+                                    <div class="reqImg tb-bdy">
 
                                         <?php $img = '';
                     if($row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName']))
@@ -1022,6 +1031,7 @@ if($_SESSION['deptId'] != '')
 
                                     </div>
                                     <div class="reqCnt-Fst d-flex align-items-center">
+
                                         <div class="reqClm-Itm tb-bdy">
                                             <p><?php echo $row['itemName'];?></p>
                                         </div>

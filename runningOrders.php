@@ -446,7 +446,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                         </div>
                         <?php } ?>
                         <div class="d-flex align-items-center taskHead">
-                            <div style="width: 3%;">&nbsp;</div>
+                            <div style="width: 3%;"><?php echo mysqli_num_rows($result) > 0 ? mysqli_num_rows($result) : ''; ?></div>
                             <div class="d-flex align-items-center runTable py-1" style="width: 97%;">
 
                                 <div class="d-flex align-items-center" style="width: 55%;">

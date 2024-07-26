@@ -583,7 +583,7 @@ $cond = '';
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
                             <div class="reqImg tb-head">
-                                <p><?php echo showOtherLangText('Image'); ?></p>
+                                <p><?php echo showOtherLangText('Image11'); ?></p>
                             </div>
                             <div class="reqCnt-Fst d-flex align-items-center">
                                 <div class="reqClm-Itm tb-head">

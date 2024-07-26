@@ -817,6 +817,9 @@ $otherChrgQry=mysqli_query($con, $sql);
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
                                 <div class="prdtImg tb-head">
+                                    <p><?php echo mysqli_num_rows($orderQry) > 0 ? mysqli_num_rows($orderQry) : ''; ?></p>
+                                </div>
+                                <div class="prdtImg tb-head">
                                     <p><?php echo showOtherLangText('Image'); ?></p>
                                 </div>
                                 <div class="recItm-Name tb-head">
@@ -906,7 +909,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                      <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
                                         <div class="prdtImg tb-bdy">
-                                            
+                                            <p><?php echo $y; ?></p>
                                         </div>
                                         <div class="recItm-Name tb-bdy">
                                             <p class="recive-Item"><?php echo $showCif['itemName'];?></p>
@@ -1029,6 +1032,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     
                                 <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
+                                        <div class="prdtImg tb-bdy"><?php echo $y; ?></div>
                                         <div class="prdtImg tb-bdy">
                                             <?php $img = '';
             if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
@@ -1141,6 +1145,9 @@ $otherChrgQry=mysqli_query($con, $sql);
                                 
                                  <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
+                                        <div class="recItm-Name tb-bdy">
+                                            <p class="recive-Item"><?php echo $x;?></p>
+                                        </div>
                                         <div class="prdtImg tb-bdy">
                                            <?php $img = '';
             if( $productRes['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$productRes['imgName'] )  )

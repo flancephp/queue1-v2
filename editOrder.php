@@ -859,6 +859,9 @@ $ordQry = mysqli_query($con, $sql);
 <!-- Item Table Head Start -->
 <div class="d-flex align-items-center itmTable">
 <div class="prdtImg tb-head">
+<p><?php echo mysqli_num_rows($ordQry) > 0 ? mysqli_num_rows($ordQry) : ''; ?></p>
+</div>
+<div class="prdtImg tb-head">
 <p><?php echo showOtherLangText('Image'); ?></p>
 </div>
 <div class="prdtCnt-Fst d-flex align-items-center">
@@ -938,7 +941,10 @@ $x++;
 $y++;
 ?>
 <div class="newOrdTask">
-<div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+<div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">   
+    <div class="prdtImg tb-bdy">
+        <p><?php echo $y; ?></p>
+    </div>
     <div class="prdtImg tb-bdy">
         <a title="<?php echo showOtherLangText('Delete') ?>"
         href="javascript:void(0)"
@@ -1043,7 +1049,10 @@ value="<?php echo $row['factor'];?>" />
 <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
 value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
 <div class="newOrdTask">
-<div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+<div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">   
+    <div class="prdtImg tb-bdy">
+        <p><?php echo $y; ?></p>
+    </div>
     <div class="prdtImg tb-bdy">
         <?php 
   if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
@@ -1183,6 +1192,9 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
 <!-- Item Table Head Start -->
 <div class="d-flex align-items-center itmTable">
 <div class="prdtImg tb-head">
+<p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?></p>
+</div>
+<div class="prdtImg tb-head">
     <p><?php echo showOtherLangText('Image'); ?></p>
 </div>
 <div class="prdtCnt-Fst d-flex align-items-center">
@@ -1256,6 +1268,9 @@ value="<?php echo $row['factor'];?>" />
 value="" />
 <div class="newOrdTask1">
     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+        <div class="prdtImg tb-bdy">
+            <?php echo $y;?>
+        </div>
         <div class="prdtImg tb-bdy">
             <?php 
             if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )

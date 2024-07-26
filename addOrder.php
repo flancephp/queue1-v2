@@ -905,6 +905,9 @@ $resRows = mysqli_query($con, $sqlSet);
 <!-- Item Table Head Start -->
 <div class="d-flex align-items-center itmTable">
 <div class="prdtImg tb-head">
+<p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?></p>
+</div>
+<div class="prdtImg tb-head">
 <p><?php echo showOtherLangText('Image'); ?></p>
 </div>
 <div class="prdtCnt-Fst d-flex align-items-center">
@@ -1003,6 +1006,9 @@ $totalCustomCharges += $row['amt'];
 </div>
 <div class="prdtCnt-Fst d-flex align-items-center">
     <div class="Itm-Name tb-bdy">
+        <p><?php echo $x; ?></p>
+    </div>
+    <div class="Itm-Name tb-bdy">
         <p><?php echo $row['itemName'];?></p>
     </div>
     <div class="Itm-brCode tb-bdy">
@@ -1040,7 +1046,7 @@ $totalCustomCharges += $row['amt'];
 <div class="prdt-Hide">
     <div class="prdt-Note tb-bdy">
         <div class="row g-2">
-            <div class="col-5">
+            <div class="col-7">
                 <div class="ttlCr-Type d-flex align-items-center">
                     <div class="ttlDft-Crcy tb-bdy">
                         <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
@@ -1060,7 +1066,7 @@ $totalCustomCharges += $row['amt'];
                     ?>
                 </div>
             </div>
-            <div class="col-7"> 
+            <div class="col-5"> 
                 <div class="mb-brCode"></div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes" 
@@ -1132,6 +1138,9 @@ value="<?php echo $row['price'];?>" />
 value="<?php echo $row['factor'];?>" />
 <div class="newOrdTask">
 <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+<div class="prdtImg tb-bdy">
+        <p><?php echo $x; ?></p>
+</div>
 <div class="prdtImg tb-bdy">
 <?php 
 if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
