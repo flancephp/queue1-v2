@@ -1,6 +1,10 @@
 <?php include('inc/dbConfig.php'); //connection details
 
-//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
+
+
+//check page permission
+$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
 
 if (!isset($_SESSION['adminidusername']))
 {

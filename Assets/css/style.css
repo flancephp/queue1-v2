@@ -11333,7 +11333,7 @@ a.tabFet:focus .sampleFile {
   flex: 0 0 auto;
   width: 74%;
   overflow-x: auto;
-  padding: 0 12px 10px 0;
+  padding: 10px 12px 10px 0;
 }
 
 .strfetCol {

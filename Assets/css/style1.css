@@ -40,6 +40,13 @@ html[dir=rtl] .lgOut{
 html[dir=rtl] .addUser-Form input[type=password]{
   padding-right: 2rem !important;
 }
+html[dir=rtl] .dropend .dropdown-menu[data-bs-popper] {
+  top: 0;
+  right: 100%;
+  left: auto;
+  margin-top: 0;
+  text-align: start;
+}
 
 @media (min-width: 992px) {
   html[dir=rtl] .ord-Box.ms-0.position {

@@ -1034,16 +1034,24 @@ $colsArr = [
 
             .itmTable1 .numRef {
                 width: auto !important;
-                flex-grow: 1;
+                justify-content: space-between;         
+                flex-grow: 1; 
+                gap:.5rem
             }
+           
             .hisTblbody1 .numRef {
                 width: auto !important;
-                flex-grow: 1;
+                justify-content: space-between;
+               flex-grow: 1; 
+               gap:.5rem
             }
-            .date-dpd {width: 15%;}
-            .user-dpd {width: 15%;         min-width: 65px;}
-            .type-dpd {width: 30%;         min-width: 65px;}
-            .refer-to-dpd {width: 30%;         min-width: 150px;}
+            .hisTblbody1   .hisStatusclm  ,  .itmTable1  .hisStatusclm {
+                max-width:75px;
+            }
+            .date-dpd {width: 15%; min-width: 70px;}
+            .user-dpd {width: 15%; min-width: 65px;}
+            .type-dpd {width: 30%; min-width: 122px;}
+            .refer-to-dpd {width: 30%; min-width: 150px;}
 
 
 
@@ -1532,8 +1540,8 @@ $colsArr = [
                                                 <?php if (isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                            <div class="tb-bdy type-dpd">
-                                            <div class="d-flex align-items-center" style=" background:inherit"><div class="dropdown d-flex position-relative">
-                                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="d-flex align-items-center" style=" background:inherit"><div class="dropdown d-flex position-relative w-100">
+                                                        <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                         </a>
                                                         <?php echo $typeOptions; ?>
@@ -1548,8 +1556,8 @@ $colsArr = [
                                                 <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                                 <?php } else { ?>
                                                     <div class="tb-bdy refer-to-dpd">
-                                            <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative">
-                                                        <a class="dropdown-toggle body3 w-auto" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100">
+                                                        <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                         </a>
                                                         <?php echo $suppMemStoreOptions; ?>
@@ -1564,7 +1572,7 @@ $colsArr = [
                                         
                                             <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
                                             <?php } else { ?>
-                                                <div class="tb-head hisValclm" style="margin-left: -6px"><div class="d-flex align-items-center">
+                                                <div class="tb-head hisValclm"><div class="d-flex align-items-center">
                                                     <p>Supplier <br> inv no</p>
                                                 </div></div>
                                             <?php } ?>
@@ -1621,7 +1629,7 @@ $colsArr = [
                                         
                                                 <?php if (isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) || !isset($colsArr[17]) ) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy hisAcntclm" style="padding-left: 8px;">
+                                                    <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
 
                                             <div class="d-flex align-items-center"><div class="dropdown d-flex align-items-center w-100 position-relative">
                                                         <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -1956,7 +1964,7 @@ $colsArr = [
                                             ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p> </div>
                                             <?php } ?>
                                            
-                                            <div class="stsHiscol d-flex align-items-center flex-grow-1">
+                                            <div class="stsHiscol d-flex align-items-center">
                                                
                                                     <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields)) { ?>
                                                     <?php } else { ?> <div class="tb-bdy hisStatusclm" style=" padding-left:0px;"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>

@@ -444,10 +444,16 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     overflow: visible !important;
 }
 .mblCnt {
-    color: #fff !important;
-    border-radius: 50%;
-    padding: 1px 5px;
-    background: red;
+    border-radius: 20px !important;
+    border: 2px solid #FFF;
+    background: #7A89FE !important;
+    box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+    font-size: 14px;
+    top: -10%;
+    left: -10%;
+    position: absolute !important;
+    padding: 2px 7px;
+    color: #fff;
 }
     </style>
 </head>
