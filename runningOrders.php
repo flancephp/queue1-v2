@@ -376,24 +376,37 @@ if (isset($_POST['assignedOrderType']) && isset($_POST['assignedOrderId'])) {
 
                 $sql = "SELECT o.*, s.name as supplierName, au.id as assignedUserTblId, cur.amt as curAmt, mt.id as mtId, u.name as orderBy, dm.name as deptMem FROM tbl_orders o
 
-                INNER JOIN tbl_user u ON(u.id=o.orderBy) AND u.account_id=o.account_id
+	INNER JOIN tbl_user u ON(u.id=o.orderBy) AND u.account_id=o.account_id
 
-                LEFT JOIN tbl_suppliers s ON(o.supplierId = s.id) AND s.account_id = o.account_id
+	LEFT JOIN tbl_suppliers s ON(o.supplierId = s.id) AND s.account_id = o.account_id
 
-                LEFT JOIN tbl_department dpt ON(dpt.id = o.deptId) AND dpt.account_id = o.account_id
+	LEFT JOIN tbl_department dpt ON(dpt.id = o.deptId) AND dpt.account_id = o.account_id
+	
+	LEFT JOIN tbl_order_assigned_users au ON(au.orderId=o.id) AND au.account_id=o.account_id
+	
+	LEFT JOIN tbl_currency cur ON(cur.id=o.ordCurId) AND cur.account_id=o.account_id
+	
+	LEFT JOIN tbl_mobile_time_track mt ON(mt.stockTakeId=o.id) AND  mt.status=1 AND mt.account_id=o.account_id
+	
+	LEFT JOIN tbl_deptusers dm ON(dm.id=o.recMemberId) AND dm.account_id=o.account_id
 
-                LEFT JOIN tbl_order_assigned_users au ON(au.orderId=o.id) AND au.account_id=o.account_id
 
-                LEFT JOIN tbl_currency cur ON(cur.id=o.ordCurId) AND cur.account_id=o.account_id
+    LEFT JOIN tbl_designation_sub_section_permission dp ON(dp.type_id = o.supplierId) AND
+    o.account_id = dp.account_id AND dp.designation_id = ".$_SESSION['designation_id']." AND dp.type = 'order_supplier' AND dp.account_id = ".$_SESSION['accountId']."
+    AND dp.designation_section_permission_id=1 AND o.ordType=1
 
-                LEFT JOIN tbl_mobile_time_track mt ON(mt.stockTakeId=o.id) AND  mt.status=1 AND mt.account_id=o.account_id
+    LEFT JOIN tbl_designation_sub_section_permission dp1 ON(dp1.type_id = o.recMemberId) AND o.account_id = dp1.account_id AND
+    dp1.designation_id = ".$_SESSION['designation_id']." AND dp1.type = 'member' AND dp1.account_id = ".$_SESSION['accountId']."
+    AND dp1.designation_section_permission_id=2 AND o.ordType=2
 
-                LEFT JOIN tbl_deptusers dm ON(dm.id=o.recMemberId) AND dm.account_id=o.account_id
+	WHERE o.status !=2 AND o.ordType IN(1,2,3) AND o.account_id='".$_SESSION['accountId']."' 
+    
+    AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR o.ordType=4 )
 
-                WHERE o.status !=2 AND o.ordType IN(1,2,3) AND o.account_id='".$_SESSION['accountId']."' ".$cond." GROUP BY o.id Order by o.id desc";
-                // echo $sql;
-                // exit;
-                $result = mysqli_query($con, $sql);
+
+    ".$cond." GROUP BY o.id Order by o.id desc";
+
+	$result = mysqli_query($con, $sql);
 
                 ?>
                 <section class="rntskHead">

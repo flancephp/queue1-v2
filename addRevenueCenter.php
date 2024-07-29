@@ -185,7 +185,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                         <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text"  required class="form-control" name="name" id="name"  placeholder="Casa">
+                                        <input type="text"  required class="form-control" name="name" id="name"  placeholder="<?php echo showOtherLangText('Casa') ?>">
                                     </div>
                                 </div>
                                 <div class="row align-items-center acntStp-Row">
@@ -222,11 +222,11 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                 </div>
                                 <div class="row align-items-start acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="" class="form-label"><?php echo showOtherLangText('Set Ezze Category') ?></label>
+                                        <label for="" class="form-label"><?php echo showOtherLangText('Set Ezee Category') ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="setEze-Ctgry">
-                                            <input required type="text" class="form-control"  name="catNames[]" id="" placeholder="Hot Drinks">
+                                            <input required type="text" class="form-control"  name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
                                             <a href="javascript:void(0)" class="stEze-Lnk"><i
                                                     class="fa-solid fa-minus"></i></a>
                                         </div>
@@ -245,7 +245,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                         <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                    <textarea class="form-control" required style="resize: vertical;" placeholder="Main" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                    <textarea class="form-control" required style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
                                     </div>
                                 </div>
                                 <div class="row align-items-center acntStp-Row">
@@ -254,7 +254,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                     </div>
                                     <div class="col-md-9">
                                         <input type="email" required class="form-control" name="email" id="email"
-                                            placeholder="casa@our-zanzibar.com">
+                                            placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
                                     </div>
                                 </div>
                                 <div class="row align-items-center acntStp-Row">
@@ -262,7 +262,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                         <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="tel" required class="form-control" name="phone" id="phone" placeholder="+99994341000">
+                                        <input type="tel" required class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
                                     </div>
                                 </div>
                             </div>
@@ -293,7 +293,7 @@ $('#'+id).remove();
     var x=<?php echo $x;?>;
     $(".stEze-addLnk").on("click", function () {
         x++;
-      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="Hot Drinks">' +
+      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
     '<a href="javascript:void(0)" onclick="removeRow('+x+')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
     '</div>';
      // Append the new content to the specified element

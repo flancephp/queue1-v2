@@ -676,6 +676,12 @@ $deprtOptions .= '</ul>';
                         <div class="container itmMng-Tblhead position-relative">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
+                            	<div class="tb-head imgItm-MngClm">
+                                    <div class="d-flex align-items-center">
+                                        <p><?php echo mysqli_num_rows($mainQry) > 0 ? mysqli_num_rows($mainQry) : ''; ?></p>
+                                        
+                                    </div>
+                                </div>
                                 <div class="tb-head imgItm-MngClm">
                                     <div class="d-flex align-items-center">
                                         <p>Photo</p>
@@ -843,6 +849,9 @@ $deprtOptions .= '</ul>';
 				?>
                             <div class="target d-flex align-items-center border-bottom itmBody itemManager-Task">
                                 <div class="itmTask-Mng align-items-center">
+                                	<div class="tb-bdy imgItm-MngClm">
+                                        <?php echo $x; ?>
+                                    </div>
                                     <div class="tb-bdy imgItm-MngClm">
                                         <?php echo $img; ?>
                                     </div>

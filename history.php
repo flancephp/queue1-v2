@@ -1921,9 +1921,7 @@ $colsArr = [
                                             </div>
                                           
     <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8]) ) { ?>
-    <?php } else { ?>  <div class="tb-bdy hisValclm"><p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
-                                                . '<br>' .
-                                                ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p></div>
+    <?php } else { ?>  <div class="tb-bdy hisValclm"><p class="dolValcurr"><?php echo $InvoiceNumber; ?></p></div>
                                            <?php } ?>
                                             
 

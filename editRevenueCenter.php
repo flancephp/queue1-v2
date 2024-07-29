@@ -241,7 +241,7 @@ $easyDataArr = $easyData['data'];
                                             <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name'];?>" placeholder="Casa">
+                                            <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name'];?>" placeholder="<?php echo showOtherLangText('Casa') ?>">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
@@ -283,7 +283,7 @@ $easyDataArr = $easyData['data'];
                                     </div>
                                     <div class="row align-items-start acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="" class="form-label"><?php echo showOtherLangText('Set Ezze Category'); ?></label>
+                                            <label for="" class="form-label"><?php echo showOtherLangText('Set Ezee Category') ?></label>
                                         </div>
                                         <div class="col-md-9">
                                         <?php
@@ -301,7 +301,7 @@ $easyDataArr = $easyData['data'];
 				if($x==0)
 				{
 					$catNameInput .= '<div class="setEze-Ctgry" id="'.$x.'" style="display:none;">
-                                                <input type="text" class="form-control" name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'" id="" placeholder="Hot Drinks">
+                                                <input type="text" class="form-control" name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'" id="" placeholder="'.showOtherLangText('Hot Drinks').'">
                                                 <a href="javascript:void(0)" onclick="removeRow('.$x.')" class="stEze-Lnk"><i
                                                         class="fa-solid fa-minus"></i></a>
                                             </div>';
@@ -311,7 +311,7 @@ $easyDataArr = $easyData['data'];
 				//	$catNameInput .= '<span id="'.$x.'"><br><br><input type="text" id="tags'.$x.'"    name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'"  class="frmctrl form-control" />  <a class="btn btn-danger remove" onclick="removeRow('.$x.')">X</a></span>';
 				
             	$catNameInput .= '<div class="setEze-Ctgry" id="'.$x.'" style="display:none;">
-                                                <input type="text" class="form-control" name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'" id="" placeholder="Hot Drinks">
+                                                <input type="text" class="form-control" name="catNames['.$catRes['id'].'cat]" value="'.$catRes['catName'].'" id="" placeholder="'.showOtherLangText('Hot Drinks').'">
                                                 <a href="javascript:void(0)" onclick="removeRow('.$x.')" class="stEze-Lnk"><i
                                                         class="fa-solid fa-minus"></i></a>
                                             </div>';
@@ -351,7 +351,7 @@ $easyDataArr = $easyData['data'];
                                         </div>
                                         <div class="col-md-9">
                                             <input type="email" class="form-control" name="email" id="email" value="<?php echo $revCentArr['email'];?>" autocomplete="off"
-                                                placeholder="casa@our-zanzibar.com">
+                                                placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
@@ -360,7 +360,7 @@ $easyDataArr = $easyData['data'];
                                         </div>
                                         <div class="col-md-9">
                                             <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $revCentArr['phone'];?>" autocomplete="off"
-                                                placeholder="+99994341000">
+                                                placeholder="<?php echo showOtherLangText('+99994341000') ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -390,7 +390,7 @@ $(document).ready(function () {
     var x=<?php echo $x;?>;
     $(".stEze-addLnk").on("click", function () {
         x++;
-      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="Hot Drinks">' +
+      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
     '<a href="javascript:void(0)" onclick="removeRow('+x+')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
     '</div>';
      // Append the new content to the specified element
