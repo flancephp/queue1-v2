@@ -1485,13 +1485,7 @@ $colsArr = [
                                                         <?php echo $dateTypeOptions; ?>
                                                     </div></div></div>
                                                 <?php } ?>
-                                                <div class="tb-bdy hisTypclm " style="width: 14% !important; padding-left:0px;">
-                                                      <div class="d-flex align-items-center" style="background:inherit;"><div class="dropdown d-flex position-relative">
-                                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="userText">User</span> <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-                                                        <?php echo $userOptions; ?>
-                                                    </div></div></div>
+                                                
                                         
                                                 <?php if (isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields)) { ?>
                                                 <?php } else { ?>

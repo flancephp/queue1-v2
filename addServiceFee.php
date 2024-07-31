@@ -209,7 +209,7 @@ if( isset($_POST['itemName']) )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeName" class="form-label">Fee Name<span class="requiredsign">*</span></label>
+                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name');?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
 
@@ -229,7 +229,7 @@ if( isset($_POST['itemName']) )
                                         <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount');?> $<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                    <input placeholder="20" type="text" class="form-control" name="amt" id="amt"
+                                    <input placeholder="<?php echo showOtherLangText('20');?>" type="text" class="form-control" name="amt" id="amt"
                                                     value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>"
                                                      autocomplete="off"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"

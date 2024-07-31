@@ -942,9 +942,6 @@ $colsArr = [
             border-top: 0;
         }
 
-
-
-
         .site-modal thead,
         .site-modal .thead {
             background-color: rgb(122 137 255 / 20%);
@@ -1021,6 +1018,7 @@ $colsArr = [
             .hisValclm {
                 width: 7% !important;
                 padding-left: 0;
+                flex-grow: 0.5;
             } 
             .hisTask .tb-bdy  {
              padding-left: 0;
@@ -1030,7 +1028,7 @@ $colsArr = [
             .hisDateclm {min-width: 65px;}
             .numItmclm {min-width: 70px;}
             .srHisclm {min-width: 35px !important;}
-            .stsHiscol, .numRe {flex-grow: 1;}
+            .stsHiscol, .numRe {flex-grow: 1; justify-content:space-between;}
 
             .itmTable1 .numRef {
                 width: auto !important;
@@ -1050,10 +1048,9 @@ $colsArr = [
             }
             .date-dpd {width: 15%; min-width: 70px;}
             .user-dpd {width: 15%; min-width: 65px;}
-            .type-dpd {width: 30%; min-width: 122px;}
-            .refer-to-dpd {width: 30%; min-width: 150px;}
-
-
+            .type-dpd {width: 30%; min-width: 105px;}
+            .refer-to-dpd {width: 30%; min-width: 155px;}
+            .type-dpd .dropdown-toggle {max-width:130px;}
 
             /* .srHisclm {
                 min-width: fit-content;
@@ -1081,7 +1078,79 @@ $colsArr = [
     padding: 7px 12px;
     font-weight: 700;
       }
+      @media (max-width:1024px) {
+        .numRef {
+            width: 100%;
+        }
+        .hisTask .itmBody {
+            gap: 3px;
+        }
+        .hisTask .itmBody .hisValclm {
+             width: 49% !important;
+        }
+        .hisTask .itmBody .hisValclm .dolValcurr {
+            text-align:start !important;
+        }
+        .stsHiscol {
+            padding:0 .5rem;
+        }
+        .tb-bdy.hisStatusclm p {
+            text-align:start !important;
+        }
+        .dropdnbtns {
+            flex-direction: column;
+        }
+        .hstTbl-head .stsHiscol {
+         flex-wrap: nowrap;
+        }
+        
+      }
+      .toggle-currency-btn {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    color: #666C85;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.36px;
+    border: 1px solid #A9B0C0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+      }
+      .toggle-currency-btn:hover {
+        color: #fff !important;
+        background-color: #7a89ff;
+        border-color:  #7a89ff ;
+      }
 
+     .paidIsue .pdAmount,
+     .paidIsue .pendAmount,
+     .recIsue .pdAmount-rec,
+     .recIsue .pendAmount-rec {
+        font-weight: 400 !important;
+      }
+      /* hover effects */
+      .reloadBtn a:hover {
+        color: #fff !important;
+        background-color: #7a89ff;
+        border-color:  #7a89ff ;
+      }
+      .chkStore a:hover img {
+         scale:1.1;
+      }
+
+      
+
+    #itemDiv, #taskDiv{ background-color: #fff !important;}
+
+    .issueDtl {padding: 9px 10px !important;}
+    .issueDtl .Variance {padding-right:  0px !important; width: 14% !important;}
+    .issueOut {width: 24% !important;} 
+    .issueIn { width: 62% !important; }
+    .detailPrice {padding: 11px 11px 0 !important;}
+    
     </style>
 
 
@@ -1339,6 +1408,21 @@ $colsArr = [
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- added on 31-7-24 -->
+                                        <div class="usdCurr text-center">
+                                                <div class="paidIsue d-flex">
+                                                    <div class="col-md-3">
+                                                        <p class="pdStatus">Paid</p>
+                                                        <p class="pendStatus">Pending</p>
+                                                    </div>
+                                                    <div class="col-md-9 text-center">
+                                                        <p class="usd-In">$</p>
+                                                        <p class="ttlAmount">63,280.5726 $</p>
+                                                        <p class="pdAmount">58,230.0932 $</p>
+                                                        <p class="pendAmount">5,050.4794 $</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php
 
                                         $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
@@ -1381,9 +1465,11 @@ $colsArr = [
                                             }
                                         }
 
-
+                                         
 
                                         foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
+                                        
+                                        
                                             <div class="usdCurr text-center">
                                                 <div class="paidIsue d-flex">
                                                     <div class="col-md-3">
@@ -1398,8 +1484,12 @@ $colsArr = [
                                                     </div>
                                                 </div>
                                             </div>
+                                           
                                         <?php } ?>
-
+                                        
+                                        <div style="padding-left:.5rem;">
+                                            <a class="toggle-currency-btn">$/¥</a>
+                                        </div>
                                     </div>
                                     <div class="issueOut">
                                         <div class="recIsue d-flex">
@@ -1491,12 +1581,12 @@ $colsArr = [
                             <!-- Item Table Head Start -->
                             <div class=" mt-2 itmTable <?php echo count($historyUserFilterFields)<11?'itmTable1':''; ?>" style="background:transparent;  border: none ; box-shadow: none;  border-radius: 10px;  padding: 3px 12px;">
                                 <div class="mb-hstryBareq">&nbsp;</div>
-                                <div class="align-items-center d-flex">
+                                <div class="align-items-center d-flex dropdnbtns">
                                     <div class="numRef numRef1 align-items-center">
                                         <div class="tb-bdy srHisclm">
-                                            <p></p>
+                                            <p><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
                                         </div>
-                                        
+                                            
                                             <?php if (isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields)) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy numItmclm"><div class="d-flex align-items-center">
@@ -1556,7 +1646,7 @@ $colsArr = [
                                                 <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                                 <?php } else { ?>
                                                     <div class="tb-bdy refer-to-dpd">
-                                            <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100">
+                                            <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100" style="max-width:70%">
                                                         <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                         </a>
@@ -1650,7 +1740,7 @@ $colsArr = [
                                         </div>
                                     </div>
                                     <!-- check box model icon -->
-                                        <div>
+                                        <div class="chkStore">
                                             <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
                                                 <img src="Assets/icons/chkColumn.svg" style="width: 22px;" alt="Check Column">
                                             </a>
@@ -1889,15 +1979,24 @@ $colsArr = [
                                         unset($colsValArr[18]);
                                     }
 
-                                ?>
+                    if ($orderRow['ordType'] == 1) {
+                        $mclass = 'mb-hstryBareq';
+                    } elseif ($orderRow['ordType'] == 2) {
+                        $mclass = 'mb-hstryBarord';
+                    } elseif ($orderRow['ordType'] == 3) {
+                        $mclass = 'mb-hstryBarstk';
+                    } else {
+                        $mclass = 'mb-hstryBarstk';
+                    }
+                                                   ?>
 
 
             <div class="hisTask newHistoryTask <?php if ($x > 1) {
                                                     echo 'mt-2';
                                                 } ?>">
-                                        <div class="mb-hstryBareq">&nbsp;</div>
+                                        <div class="<?php echo $mclass; ?>">&nbsp;</div>
                                         <div class="align-items-center itmBody">
-                                            <div class="numRef  align-items-center">
+                                            <div class="numRef numRef2 align-items-center">
                                                 <div class="tb-bdy srHisclm" style="min-width: fit-content;">
                                                     <p><?php echo $x; ?></p>
                                                 </div>
@@ -1951,9 +2050,7 @@ $colsArr = [
                                             </div>
                                           
     <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8]) ) { ?>
-    <?php } else { ?>  <div class="tb-bdy hisValclm"><p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
-                                                . '<br>' .
-                                                ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p></div>
+    <?php } else { ?>  <div class="tb-bdy hisValclm"><p class="dolValcurr"><?php echo $InvoiceNumber; ?></p></div>
                                            <?php } ?>
                                             
 
@@ -1985,7 +2082,7 @@ $colsArr = [
                                                 
                                                     <?php if (isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <div class="tb-bdy hisAcntclm flex-grow-1"><p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p></div><?php } ?>
+                                                        <div class="tb-bdy hisAcntclm"><p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p></div><?php } ?>
                                                 
 
                                             </div>
@@ -2663,8 +2760,8 @@ $colsArr = [
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>
-    <div class="modal" tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal"  tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
+        <div class="modal-dialog  modal-md site-modal">
             <div id="order_details_supplier" class="modal-content p-2">
 
             </div>
@@ -2779,6 +2876,28 @@ $colsArr = [
     </div>
 
     </div>
+    <script>
+ document.addEventListener('DOMContentLoaded', function() {
+    const parentClasses = ['.numRef1', '.numRef2', '.stsHiscol'];
+
+    parentClasses.forEach(parentClass => {
+        const parentDivs = document.querySelectorAll(parentClass);
+
+        parentDivs.forEach(parentDiv => {
+            const childDivs = parentDiv.querySelectorAll('.tb-bdy');
+
+            if (childDivs.length > 1) {
+                parentDiv.style.cssText = 'flex-grow: 1 !important; display: flex !important;';
+            } else if (childDivs.length === 1) {
+                parentDiv.style.cssText = 'flex-grow: 0 !important; display: flex !important;';
+            } else {
+                parentDiv.style.cssText = 'display: none !important;';
+            }
+        });
+    });
+});
+
+    </script>
 
     <?php
     include_once('historyPdfJsCode.php');

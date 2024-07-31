@@ -335,10 +335,10 @@ $resultSet = mysqli_query($con, $sqlSet);
 							
 $subCatOptions = '<a class="dropdown-toggle body3" data-bs-toggle="dropdown"
 aria-expanded="false">
-<span id="subcategoryText">Sub Catagory</span> <i class="fa-solid fa-angle-down"></i>
+<span id="subcategoryText">'.showOtherLangText('Sub Category').'</span> <i class="fa-solid fa-angle-down"></i>
 </a>';
 $subCatOptions .= '<ul class="dropdown-menu subcat">';
-$subCatOptions .= '<li data-id="" data-value="Sub Catagory"><a class="dropdown-item" href="javascript:void(0)">Sub Catagory</a></li>';
+$subCatOptions .= '<li data-id="" data-value="'.showOtherLangText('Sub Category').'"><a class="dropdown-item" href="javascript:void(0)">'. showOtherLangText('Sub Category').'</a></li>';
 while($catRow = mysqli_fetch_array($resultSet) )
 {
 $sel = isset($_GET['subCatId']) && $_GET['subCatId'] == $catRow['id']  ? 'selected' : '';
@@ -582,7 +582,7 @@ $deprtOptions .= '</ul>';
                                                             style="display:none">
                                                     </li> 
                                                     <li>
-                                                        <a class="dropdown-item py-2 gt-Pos" id="btnZipFileUpload" onClick="return uploadZip();"  href="javascript:void(0)">Upload Photos (zip file)</a>
+                                                        <a class="dropdown-item py-2 gt-Pos" id="btnZipFileUpload" onClick="return uploadZip();"  href="javascript:void(0)"><?php echo showOtherLangText('Upload Photos (zip file)') ?></a>
                                                         <input type="file" id="uploadZipFile" name="uploadZipFile"
                                                             style="display:none">
                                                     </li>  
@@ -684,7 +684,7 @@ $deprtOptions .= '</ul>';
                                 </div>
                                 <div class="tb-head imgItm-MngClm">
                                     <div class="d-flex align-items-center">
-                                        <p>Photo</p>
+                                        <p><?php echo showOtherLangText('Photo') ?></p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
@@ -695,7 +695,7 @@ $deprtOptions .= '</ul>';
                                 </div>
                                 <div class="align-items-center brItm-MngClm">
                                     <div class="tb-head d-flex align-items-center item-MngClm">
-                                        <p>Item</p>
+                                        <p><?php echo showOtherLangText('Item') ?></p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
@@ -704,7 +704,7 @@ $deprtOptions .= '</ul>';
                                         </span>
                                     </div>
                                     <div class="tb-head d-flex align-items-center brCode-MngClm">
-                                        <p>Bar Code</p>
+                                        <p><?php echo showOtherLangText('Bar Code') ?></p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
@@ -713,7 +713,7 @@ $deprtOptions .= '</ul>';
                                         </span>
                                     </div>
                                     <div class="tb-head d-flex align-items-center unit-MngClm">
-                                        <p class="untPf">Unit P/F/ <br> Unit C.</p>
+                                        <p class="untPf"><?php echo showOtherLangText('Unit P/F/<br> Unit C.') ?> </p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
@@ -766,8 +766,8 @@ $deprtOptions .= '</ul>';
                                 <div class="align-items-center prcItm-MngClm">
                                     <div class="tb-head lastItm-PrcCol">
                                         <div class="d-flex align-items-center">
-                                            <p>Last <br>
-                                                Price</p>
+                                            <p><?php echo showOtherLangText('Last <br>
+                                                Price') ?></p>
                                             <span class="dblArrow">
                                                 <a href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-up"></i></a>
@@ -778,8 +778,8 @@ $deprtOptions .= '</ul>';
                                     </div>
                                     <div class="tb-head stockItm-PrcCol">
                                         <div class="d-flex align-items-center">
-                                            <p>Stock <br>
-                                                Price</p>
+                                            <p><?php echo showOtherLangText('Stock <br>
+                                                Price') ?></p>
                                             <span class="dblArrow">
                                                 <a href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-up"></i></a>

@@ -214,7 +214,7 @@ if( isset($_POST['feeName']) )
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" name="feeName" id="feeName"
-                                        value="<?php echo isset($_POST['feeName']) ? $_POST['feeName'] : ''; ?>"  placeholder="Ace Transport charge">
+                                        value="<?php echo isset($_POST['feeName']) ? $_POST['feeName'] : ''; ?>"  placeholder="<?php echo showOtherLangText('Ace Transport charge');?>">
                                     </div>
                                 </div>
 
@@ -237,7 +237,7 @@ if( isset($_POST['feeName']) )
                                         <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="amt" value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="10">
+                                        <input type="text" required class="form-control" name="amt" value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="<?php echo showOtherLangText('10');?>">
                                     </div>
                                 </div>
                                 <?php 

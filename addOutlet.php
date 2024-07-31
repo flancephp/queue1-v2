@@ -282,7 +282,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="name" id="name" required
-                                                        placeholder="Casa Kitchen">
+                                                        placeholder="<?php echo showOtherLangText('Casa Kitchen'); ?>">
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
@@ -389,7 +389,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                        <textarea class="form-control" style="resize: vertical;" placeholder="Main" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                                        <textarea class="form-control" style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main'); ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

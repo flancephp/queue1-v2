@@ -15,7 +15,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -30,6 +30,7 @@ $getLangType = getLangType($_SESSION['language_id']);
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
 
 </head>
 
@@ -186,7 +187,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                 <p class="supplier-text bold pb-2"><?php echo showOtherLangText('Supplier'); ?></p>
                                                 <div class="supplier-text pb-3">
                                                     <input type="checkbox" class="supplierCheckall form-check-input" class="form-check-input" id="suppliercheckall">
-                                                    <label for="suppliercheckall" class="fs-13 semibold">Check all</label>
+                                                    <label for="suppliercheckall" class="fs-13 semibold"><?php echo showOtherLangText('Check all') ?></label>
                                                 </div>
 
 

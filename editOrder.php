@@ -12,17 +12,17 @@ if ($permissionRow)
 {
 echo "<script>window.location='index.php'</script>";
 }
-
 if(isset($_REQUEST['currencyId'])) 
 {  
 $curDet = getCurrencyDet($_REQUEST['currencyId']);
 $curAmtVal = $curDet['amt'];
 $currencyId = $_REQUEST['currencyId'];
 
-$updateQry = " UPDATE  `tbl_orders` SET 
+ $updateQry = " UPDATE  `tbl_orders` SET 
 `ordCurId` = '".$currencyId."'
 WHERE id='".$_GET['orderId']."'  ";
 mysqli_query($con, $updateQry);
+
 }
 
 
@@ -87,7 +87,7 @@ mysqli_query($con, $insertQry);
 $sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
 $resultSet = mysqli_query($con, $sqlSet);
 $ordRow = mysqli_fetch_array($resultSet);
-
+//print_r($ordRow);
 
 $curAmtVal = 0;
 $otherCurAmt = 0;
@@ -1067,7 +1067,7 @@ value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
             <p><?php echo $row['itemName'];?></p>
         </div>
         <div class="Itm-brCode tb-bdy">
-            <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+            <p class="ord-brCode"><?php echo $ordRow['ordCurId'].'='.$row['barCode'];?></p>
         </div>
         <div class="prdtCr-Unit d-flex">
             <div class="crncy-Type d-flex align-items-center">
@@ -1081,7 +1081,7 @@ value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
 if($ordRow['ordCurId'] > 0)
 {   ?>
                 <div class="othr-Currency tb-bdy">
-                    <p><?php  echo showOtherCur(($row['price']*$row['factor']*$curDet['amt']), $row['ordCurId']);
+                    <p><?php  echo showOtherCur(($row['price']*$row['factor']*$curDet['amt']), $ordRow['ordCurId']);
 ?></p>
                 </div>
 <?php } ?>
@@ -1114,7 +1114,7 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
             </div>
             <?php if($ordRow['ordCurId'] > 0){?>
             <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy">
-                <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $row['ordCurId']);
+                <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);
 
 ?></p>
             </div>
@@ -1223,12 +1223,25 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
     <div class="itm-Quantity tb-head">
         <p><?php echo showOtherLangText('Qty'); ?></p>
     </div>
+    <?php if($ordRow['ordCurId'] > 0)
+     {?>
+    <div class="ttlCr-Type w-50">
+        <div class="ps-xl-4 tb-head">
+            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+        </div>
+    </div>
+    <div class="ttlCr-Type w-50">
+        <div class="ps-xl-4 tb-head">
+            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)</p>
+        </div>
+    </div>
+    <?php }else{ ?>
     <div class="ttlCr-Type w-50">
         <div class="ps-xl-5 tb-head">
-            <p><?php echo showOtherLangText('Total'); ?></p>
+            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
         </div>
-       
     </div>
+    <?php } ?>
 </div>
 <div class="prdt-Hide">
     <div class="prdt-Note tb-head">
@@ -1328,6 +1341,13 @@ height: 30px;"' : '';?>>
                 </div>
                
             </div>
+            <?php if($ordRow['ordCurId'] > 0){?>
+            <div class="ttlCr-Type w-50 ps-xl-5">
+                <div class=" tb-bdy">
+                    <p id="totalPriceOther<?php echo $x;?>">0</p>
+                </div>
+            </div>
+            <?php } ?>
         </div>
         <div class="prdt-Hide">
             <div class="prdt-Note tb-bdy">
@@ -1382,7 +1402,7 @@ echo '<div class="newOrdTask">
 <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
 </div>
 <form id="currency_frm_id" name="currency_frm_id" method="post" action="">
-<input type="hidden" id="currencyId" name="currencyId" value="">
+<input type="text" id="currencyId" name="currencyId" value="">
 <input type="hidden" id="donotsubmit" name="donotsubmit" value="true">
 </form>
 <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
@@ -1547,6 +1567,7 @@ $(".currency_dropdown").on("click", "a", function(e){
 var $this = $(this).parent();
 $("#add_currency").text($this.data("value"));
 $("#currencyId").val($this.data("id"));
+//console.log('ss',$this.data("id"));
 $('#currency_frm_id').submit();
 });
 

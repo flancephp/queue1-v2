@@ -308,7 +308,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                 <form class="addUser-Form row" id="unitfrm" name="unitfrm" action="" method="post">
                 <div class="modal-body">
                     
-                        <input required type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name*') ?>">
+                        <input required type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name') ?>*">
                    
                 </div>
                 <div class="modal-footer">
@@ -333,7 +333,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                 </div>
                 <div class="modal-body">
                     
-                        <input type="text" required class="form-control" id="editUnit" name="editUnit" placeholder="Name*">
+                        <input type="text" required class="form-control" id="editUnit" name="editUnit" placeholder="<?php echo showOtherLangText('Name') ?>*">
                     
                     <input type="hidden" name="id" id="edit-id" value="" /> 
                 </div>

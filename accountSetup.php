@@ -312,12 +312,12 @@ $sel = $resRow['country'] == $contryResRow['id'] ? 'selected = "selected"' : '';
                                             </div>
                                         </div>
                                         <div class="labelDiv">
-                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> <?php //echo showOtherLangText('Logo');?>
-                                                <!-- <img src="Assets/icons/Import.svg" alt="Import"
-                                                    class="importBtn"> -->
-                                                </label>
+                                            <label class="imgUploadCss" id="imgLabel"  for="imgUpload"><?php echo showOtherLangText('Upload Logo') ?> <img 
+                                                        src="Assets/icons/Import.svg" alt="Import"
+                                                        class="importBtn"></label>
 
-                                            <input class="" onchange="previewFile()"  name="logo" id="logo" type="file">
+                                                <input onchange="previewFile()" name="logo"  class="imgHidden"
+                                                    id="imgUpload" type="file">
                                               
                                         </div>
                                     </div>

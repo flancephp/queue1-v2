@@ -229,7 +229,7 @@ $res = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="<?php echo $res['name'];?>"
-                                            id="name" name="name" required placeholder="Logitech">
+                                            id="name" name="name" required placeholder="<?php echo showOtherLangText('Supplier') ?>">
                                     </div>
                                 </div>
 
@@ -251,7 +251,7 @@ $res = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-9">
                                         <input type="email" value="<?php echo $res['email'];?>" class="form-control"
-                                            id="email" name="email" placeholder="Logitech@gmail.com">
+                                            id="email" name="email" placeholder="<?php echo showOtherLangText('Logitech@gmail.com') ?>">
                                     </div>
                                 </div>
 
@@ -262,7 +262,7 @@ $res = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-9">
                                         <input type="tel" value="<?php echo $res['phone'];?>" class="form-control"
-                                            id="phone" name="phone" placeholder="+99994341000">
+                                            id="phone" name="phone" placeholder="<?php echo showOtherLangText('+99994341000'); ?>">
                                     </div>
                                 </div>
 
