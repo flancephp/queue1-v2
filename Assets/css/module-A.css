@@ -87,11 +87,17 @@
 }
 .grand-total th {
   padding: 0 12px !important;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
-  line-height: 21.78px;
-  }
-
+  line-height: 1.31;
+}
+@media (max-width: 768px) {
+  .grand-total th { font-size: 1rem; }
+  .grand-total-tabel tr td:first-child { font-size: .937rem !important;width: 70%; }
+  .grand-total-tabel tr td:last-child { font-size: .937rem !important;width: 30%; }
+  .grand-total th:first-child { width: 70%; }
+  .grand-total th:last-child { width: 30%; }
+}
 
 .payment-tabel-header tbody tr+tr {
   border-top: none !important;
@@ -102,15 +108,21 @@
 }
 
 .payment-tabel-header .table1 tr td {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 19.36px;
+  line-height: 1.18;
   color: #666C85 !important;
 }
 
 .payment-tabel-header .table1 tr td.font-wt {
   color: #1C2047 !important;
   padding-right: 1rem;
+}
+
+@media(max-width:768px) {
+  .payment-tabel-header .table1 tr td, .grand-total-tabel tr td:last-child, .grand-total-tabel tr td:last-child { font-size: .937rem; }
+  .table01 tbody tr td { height: 22px; }
+  .payment-tabel-header .table1 tr td { line-height: 1.5; }
 }
 
 .table01 tbody tr td {
@@ -201,6 +213,12 @@
   text-align: left;
   color: #666C85;
 }
+@media(max-width:1399px) {
+  .f-01 { font-size: 32px;line-height: 1.2; }
+}
+@media(max-width:767px) {
+  .f-01 { font-size: 24px; }
+}
 
 .f-02 {
   font-size: 16px;
@@ -210,9 +228,9 @@
 }
 
 .f-03 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 19.36px;
+  line-height: 1.18;
   text-align: left;
   color: #666C85;
 }
@@ -226,17 +244,17 @@
 
 
 .grand-total-tabel tr td:last-child {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600 !important;
-  line-height: 19.36px;
+  line-height: 1.18;
   text-align: left;
 
 }
 
 .grand-total-tabel tr td:first-child {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 19.36px;
+  line-height: 1.18;
   text-align: left;
   color: #666C85;
   margin-top: 10px;
@@ -361,3 +379,14 @@
   background-size: 15px 15px;
   background-position: right 0.75rem center !important;
 }
+
+/* ----- History page payment table styles ---------- */
+.payment__table { min-width: 545px; }
+.payment__table th { font-size: .875rem;line-height: 1.18; }
+.payment__table th:nth-child(1), .payment__table td:nth-child(1) { width: 5%; }
+.payment__table th:nth-child(2), .payment__table td:nth-child(2) { width: 25%; }
+.payment__table th:nth-child(3), .payment__table td:nth-child(3) { width: 10%; }
+.payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 12%; }
+.payment__table th:nth-child(5), .payment__table td:nth-child(5) { width: 12%; }
+.payment__table th:nth-child(6), .payment__table td:nth-child(6) { width: 18%; }
+.payment__table th:nth-child(7), .payment__table td:nth-child(7) { width: 18%; }

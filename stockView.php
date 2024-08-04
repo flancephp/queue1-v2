@@ -385,9 +385,26 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
             .page1bdy .cntTable .stkNamcol>div:nth-child(2) {width: 21.5% !important;}
             .page1bdy .cntTable .stkNamcol>div:nth-child(3) {width: 21.5% !important;}
-            .page1bdy .cntTable .stkNamcol>div:nth-child(4) {width: 21.5% !important;}
+            .page1bdy .cntTable .stkNamcol>div:nth-child(4) {width: 21.5% !important;} 
  
         }
+
+        @media (max-width: 991px) {
+            .cntTable .stkPrcol { width: 30%; } 
+            .page2bdy   .cntTable .stkPrcol { width: 33%; }
+            #upload_form { max-width:240px; }
+            #upload_form .stockFeat .tabFet { width: 100%;min-height: 57px; }
+            #upload_form .dropStk p span { white-space: break-spaces; }
+        }
+        @media (max-width: 767px) { 
+            .cntTable .stkNamcol { width: 50%; }
+            .stockView .lstPrcol { width: 100% !important;} 
+            .mbShw { width: 100% !important; }
+            .tb-bdy.stkQtyclm.stkQtybdy, .tb-bdy.stkQtyclm.stkreqbdy, .tb-bdy.stkQtyclm.stkavabdy{ padding-top: 0;padding-bottom: 0; }
+            .mbLst-value { padding-right: 6px; }
+            #upload_form { max-width:225px; }
+        }
+
         .cntTable1 .stkPrcol {
             width: 25%;
         }
@@ -441,20 +458,21 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
         #page2head .mbShw .stkPrcol .lstPrcol {width: 33% !important;} 
         .storeCont .h2 {
-    overflow: visible !important;
-}
-.mblCnt {
-    border-radius: 20px !important;
-    border: 2px solid #FFF;
-    background: #7A89FE !important;
-    box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
-    font-size: 14px;
-    top: -10%;
-    left: -10%;
-    position: absolute !important;
-    padding: 2px 7px;
-    color: #fff;
-}
+            overflow: visible !important;
+        }
+        .mblCnt {
+            border-radius: 20px !important;
+            border: 2px solid #FFF;
+            background: #7A89FE !important;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+            font-size: 14px;
+            top: -10%;
+            left: -10%;
+            position: absolute !important;
+            padding: 2px 7px;
+            color: #fff;
+        }
+        
     </style>
 </head>
 
@@ -465,7 +483,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     <input type="hidden" name="storeName" id="storeName" value="<?php echo $storeId; ?>" />
 
     <div class="container-fluid newOrder">
-        <div class="row g-0 flex-nowrap" style="margin-top: 1.5rem;">
+        <div class="row g-0 flex-nowrap">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <?php require_once('nav.php'); ?>
             </div>
@@ -657,14 +675,14 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
                                     </div>
                                 </div>
-                                <div class="hdfetCol text-center">
+                                <div class="hdfetCol text-center px-0">
 
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="container mb-srcBox">
+                    <div class="container mb-srcBox mb-3 mb-md-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Search Box Start -->
                             <div class="mbClone-src">
@@ -691,6 +709,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
+                                <div class="tb-bdy stkImgcol"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                 <?php } else { ?>
                                     <div class="tb-bdy stkImgcol"><?php echo showOtherLangText('Photo'); ?></div>
@@ -967,6 +986,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="newStockTask">
                                     <div class="d-flex align-items-center border-bottom itmBody">
                                         <div class="mbShw d-flex align-items-center">
+                                            <div class="tb-bdy stkImgcol">
+                                                   <?php echo $x; ?>
+                                                </div>
                                             <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy stkImgcol">
@@ -974,7 +996,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 </div>
                                             <?php } ?>
 
-                                            <div class="stkNamcol d-flex align-items-center">
+                                            <div class="stkNamcol d-md-flex align-items-center">
                                                 <div class="tb-bdy stkItmclm">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
@@ -982,26 +1004,29 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkQtybdy">
+                                                    <span class="d-md-none" style="font-size:9px;">Qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><?php echo $row['stockQty']; ?></p>
+                                                        <span><?php echo $row['stockQty']; ?></span>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkreqbdy">
+                                                    <span class="d-md-none" style="font-size:9px;">Req qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><?php echo $totalTempProQty; ?></p>
+                                                        <span><?php echo $totalTempProQty; ?></span>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkavabdy">
+                                                    <span class="d-md-none" style="font-size:9px;">Avail qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><?php echo ($row['stockQty'] - $totalTempProQty); ?></p>
+                                                        <span><?php echo ($row['stockQty'] - $totalTempProQty); ?></span>
                                                     <?php } ?>
                                                 </div>
 
                                             </div>
-                                            <div class="stkPrcol d-flex align-items-center">
+                                            <div class="stkPrcol d-md-flex align-items-center">
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?> <p><span class="mbLst-value">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
@@ -1126,7 +1151,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 <div class="tmp_qty tb-bdy lstPrcol stkPrcbdy mb-Last" style="width: 33% !important;>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        <p><span class="mbLst-value">Last</span> <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1290,65 +1315,65 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
                     <div class="modal-body  fs-15">
                         <div class="pb-3">
-                            <h2>Convert raw item</h2>
-
+                            <h2>Convert raw item</h2> 
                         </div>
-
-                        <table class="issueout2-table w-100 fs-13">
-                            <tr class="semibold">
-                                <th>Photo</th>
-                                <th>Item</th>
-                                <th>Converted Qyt</th>
-                                <th>Unit</th>
-                                <th>Qyt Before</th>
-                                <th>Qyt After</th>
-                                <th>Price</th>
-                                <th>Converted Qyt Value</th>
-                            </tr>
-                            <tr class="semibold">
-                                <td><?php
-
-                                    if ($rawItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $rawItemRow['imgName'])) {
-                                        echo '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $rawItemRow['imgName'] . '" width="60" height="60">';
-                                    }
-                                    ?></td>
-                                <td><?php echo $rawItemRow['itemName'] !== '' ? $rawItemRow['itemName'] : ''; ?></td>
-                                <td><?php echo $_POST['qtyToConvert']; ?></td>
-                                <td><?php echo $rawItemRow['unitC']; ?></td>
-
-                                <td><?php echo $rawItemRow['stockQty']; ?></td>
-
-                                <td><?php echo ($rawItemRow['stockQty'] - $_POST['qtyToConvert']); ?></td>
-
-                                <td><?php
-                                    if ($rawItemRow['price'] !== '') {
-                                        echo showPrice($rawItemRow['price'], $getDefCurDet['curCode']);
-                                    } ?>
-                                </td>
-                                <td><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
-                                </td>
-                            </tr>
-                            <tr class="semibold">
-                                <td><?php
-                                    if ($convertItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $convertItemRow['imgName'])) {
-                                        echo '<img width="60" height="60" src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $convertItemRow['imgName'] . '" >';
-                                    }
-                                    ?></td>
-                                <td><?php echo $convertItemRow['itemName']; ?></td>
-                                <td><?php echo $_POST['convertedQty']; ?></td>
-                                <td><?php echo $convertItemRow['unitC']; ?></td>
-
-                                <td><?php echo $convertItemRow['stockQty'] > 0 ? $convertItemRow['stockQty'] : 0; ?></td>
-
-                                <td><?php echo $convertItemRow['stockQty'] + $_POST['convertedQty']; ?></td>
-
-                                <td><?php echo showPrice($_POST['unitPrice'], $getDefCurDet['curCode']); ?></td>
-                                <td><?php echo showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']); ?>
-                                </td>
-                            </tr>
-
-
-                        </table>
+                        <div class="table-responsive"> 
+                            <table class="issueout2-table w-100 fs-13" style="min-width:700px;">
+                                <tr class="semibold">
+                                    <th>Photo</th>
+                                    <th>Item</th>
+                                    <th>Converted Qyt</th>
+                                    <th>Unit</th>
+                                    <th>Qyt Before</th>
+                                    <th>Qyt After</th>
+                                    <th>Price</th>
+                                    <th>Converted Qyt Value</th>
+                                </tr>
+                                <tr class="semibold">
+                                    <td><?php
+    
+                                        if ($rawItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $rawItemRow['imgName'])) {
+                                            echo '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $rawItemRow['imgName'] . '" width="60" height="60">';
+                                        }
+                                        ?></td>
+                                    <td><?php echo $rawItemRow['itemName'] !== '' ? $rawItemRow['itemName'] : ''; ?></td>
+                                    <td><?php echo $_POST['qtyToConvert']; ?></td>
+                                    <td><?php echo $rawItemRow['unitC']; ?></td>
+    
+                                    <td><?php echo $rawItemRow['stockQty']; ?></td>
+    
+                                    <td><?php echo ($rawItemRow['stockQty'] - $_POST['qtyToConvert']); ?></td>
+    
+                                    <td><?php
+                                        if ($rawItemRow['price'] !== '') {
+                                            echo showPrice($rawItemRow['price'], $getDefCurDet['curCode']);
+                                        } ?>
+                                    </td>
+                                    <td><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
+                                    </td>
+                                </tr>
+                                <tr class="semibold">
+                                    <td><?php
+                                        if ($convertItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $convertItemRow['imgName'])) {
+                                            echo '<img width="60" height="60" src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $convertItemRow['imgName'] . '" >';
+                                        }
+                                        ?></td>
+                                    <td><?php echo $convertItemRow['itemName']; ?></td>
+                                    <td><?php echo $_POST['convertedQty']; ?></td>
+                                    <td><?php echo $convertItemRow['unitC']; ?></td>
+    
+                                    <td><?php echo $convertItemRow['stockQty'] > 0 ? $convertItemRow['stockQty'] : 0; ?></td>
+    
+                                    <td><?php echo $convertItemRow['stockQty'] + $_POST['convertedQty']; ?></td>
+    
+                                    <td><?php echo showPrice($_POST['unitPrice'], $getDefCurDet['curCode']); ?></td>
+                                    <td><?php echo showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']); ?>
+                                    </td>
+                                </tr>
+    
+    
+                            </table>
+                        </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" onClick="approveConvert();">Approve</button>

@@ -167,7 +167,7 @@ $res = mysqli_fetch_array($result);
                                 <div class="mbpg-name">
                                     <h1 class="h1">
                                         <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add Supplier').' ';?>
-                                        Supplier</h1>
+                                    </h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
