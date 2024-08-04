@@ -234,7 +234,7 @@ if( isset($_POST['user_name']) )
                                             <label class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-lg-9">
-                                        <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" required name="user_name" placeholder="User name">
+                                        <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" required name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
                                         </div>
                                     </div>
                                     <div class="form-field row align-items-center">
@@ -260,10 +260,10 @@ if( isset($_POST['user_name']) )
                                 <div class="col-md-6 col-lg-5">
                                     <div class="form-field row align-items-center">
                                         <div class="col-lg-3">
-                                            <label class="semibold fs-13">Password:</label>
+                                            <label class="semibold fs-13"><?php echo showOtherLangText('Password') ?>:</label>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input type="password" class="form-control" id="password" name="password" value="<?php echo $userRow['password'] ?>" placeholder="Password">
+                                            <input type="password" class="form-control" id="password" name="password" value="<?php echo $userRow['password'] ?>" placeholder="<?php echo showOtherLangText('Password') ?>">
                                              <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                                         </div>
                                     </div>
@@ -272,7 +272,7 @@ if( isset($_POST['user_name']) )
                                         <label class="semibold fs-13"><?php echo showOtherLangText('Email') ?>:</label>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input type="email" value="<?php echo $userRow['email'] ?>" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="Email">
+                                            <input type="email" value="<?php echo $userRow['email'] ?>" class="form-control" id="email" name="email" autocomplete="new-password" placeholder="<?php echo showOtherLangText('Email') ?>">
                                         </div>
                                     </div>
                                     <div class="form-field row align-items-center">
@@ -280,7 +280,7 @@ if( isset($_POST['user_name']) )
                                             <label class="semibold fs-13"><?php echo showOtherLangText('Phone') ?>:</label>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input value="<?php echo $userRow['phone'] ?>" type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+                                            <input value="<?php echo $userRow['phone'] ?>" type="text" class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('Phone') ?>">
                                         </div>
                                     </div>
                                     
@@ -305,7 +305,7 @@ if( isset($_POST['user_name']) )
                                             </div>
                                         </div>
                                         <div class="labelDiv">
-                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"> Upload Photo
+                                            <label class="imgUploadCss" id="imgLabel" for="imgUpload"><?php echo showOtherLangText('Upload Photo') ?>
                                                 <img onclick="document.getElementById('logo').click();" src="Assets/icons/Import.svg" alt="Import" class="importBtn"></label>
 
                                             <input class="imgHidden" name="imgName" onchange="previewFile()" id="imgUpload" type="file">

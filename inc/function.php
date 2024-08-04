@@ -4407,7 +4407,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		{
 			?>
 
-<?php echo showOtherLangText('Ordered') ?>
+      <span class="status-ordered"><?php echo showOtherLangText('Ordered') ?></span>
 
 <?php
 
@@ -4417,9 +4417,9 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 			?>
 
 
-<a href="javascript:void(0)" class="assignedBtn"
+<a href="javascript:void(0)" 
     onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
-    title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
+    title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><span class="status-assigned"><?php echo showOtherLangText('Assigned') ?></span></a>
 
 
 <?php
@@ -4430,7 +4430,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 			?>
 
 
-<?php echo showOtherLangText('Assigned') ?>
+<span class="status-assigned"><?php echo showOtherLangText('Assigned') ?></span>
 
 
 <?php
@@ -4440,7 +4440,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		{
 			?>
 
-<?php echo showOtherLangText('Done') ?>
+<span class="status-done"><?php echo showOtherLangText('Done') ?></span>
 
 <?php
 
@@ -4448,7 +4448,7 @@ function get_all_type_of_status_of_orderType($orderType,$orderId,$orderStatus,$c
 		else
 		{
 			?>
-<?php echo showOtherLangText('Temp Order') ?>
+<span class="status-tmp-order"><?php echo showOtherLangText('Temp Order') ?></span>
 
 <?php
 
@@ -4468,8 +4468,7 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<?php echo showOtherLangText('Requested') ?>
-
+<span class="status-req"><?php echo showOtherLangText('Requested') ?></span>
 <?php
 
 		}
@@ -4477,7 +4476,7 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<?php echo showOtherLangText('Assigned') ?>
+<span class="status-assigned"><?php echo showOtherLangText('Assigned') ?></span>
 
 <?php
 
@@ -4486,9 +4485,9 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<a href="javascript:void(0)" class="assignedBtn"
+<a href="javascript:void(0)" 
     onClick="openAssignPopup('<?php echo $orderType ?>', '<?php echo $orderId ?>')"
-    title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><?php echo showOtherLangText('Assigned') ?></a>
+    title="<?php echo showOtherLangText('Assign / Unassigned Mobile Users') ?>"><span class="status-assigned"><?php echo showOtherLangText('Assigned') ?></span></a>
 
 <?php
 
@@ -4497,8 +4496,8 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<span style="color:red;"
-    title="<?php echo showOtherLangText('Mobile Operator Stock Take Done') ?>"><strong><?php echo showOtherLangText('Done') ?></strong></span>
+<a href="javascript:void(0)"
+    title="<?php echo showOtherLangText('Mobile Operator Stock Take Done') ?>"><span class="status-done"><?php echo showOtherLangText('Done') ?></span></a>
 
 <?php
 
@@ -4507,7 +4506,7 @@ function get_all_type_of_status_of_requisitionType($orderType,$orderId,$orderSta
 		{
 			?>
 
-<?php echo showOtherLangText('Temp Requisition') ?>
+<span class="status-tmp-req"><?php echo showOtherLangText('Temp Requisition') ?></span>
 
 
 <?php
@@ -4544,8 +4543,8 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 		if ($orderStatus == 1 && !$checkOrdAssing && !$timeTrackDet) 
 		{
 			get_receiveOrder_permission($designation_id,$accountId,$orderId);
-			
 			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType);
+			
 		
 			//get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
 			
@@ -4557,7 +4556,7 @@ function get_all_order_action_of_order_type($orderType,$orderStatus,$checkOrdAss
 			?>
 
 <?php
-			
+			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType);
 			
 				//get_editOrder_permission($designation_id,$accountId,$orderId, $orderReceivedByMobUser);
 			
@@ -4673,12 +4672,11 @@ function get_all_order_action_of_requisition_type($orderType,$orderStatus,$check
 		}
 		elseif($orderStatus == 3 && $checkOrdAssing && !$timeTrackDet)
 		{
-
+            
 			get_issueOut_permission($designation_id, $accountId, $orderId);
+			get_assignOrder_permission($designation_id,$accountId,$orderId,$orderType);
 			?>
-<!-- <a style="width: 20%;display: inline-block;text-align: center;" href="javascript:void(0)" class="issueOutBtn" onclick="cnfIssueOut(<?php echo $orderId ?>)"><?php echo showOtherLangText('Issue Out') ?></a> -->
 
-<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
 
 <?php
 

@@ -328,7 +328,7 @@ if( isset($_POST['name']) )
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Add store'); ?></h1>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="name" id="name" required placeholder="Name*">
+                    <input type="text" class="form-control" name="name" id="name" required placeholder="<?php echo showOtherLangText('Name'); ?>*">
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
@@ -352,7 +352,7 @@ if( isset($_POST['name']) )
                 </div>
                 <div class="modal-body">
                 <input type="hidden" name="id" id="edit-id" value="" /> 
-                        <input type="text" class="form-control" id="editStore" required name="name" placeholder="Name*">
+                        <input type="text" class="form-control" id="editStore" required name="name" placeholder="<?php echo showOtherLangText('Name'); ?>*">
                    
                 </div>
                 <div class="modal-footer">

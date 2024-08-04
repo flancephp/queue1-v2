@@ -22,7 +22,7 @@ imgInput.addEventListener('change', function (e){
     if(e.currentTarget.files[0].type == 'image/png' ||e.currentTarget.files[0].type == 'image/jpeg'||e.currentTarget.files[0].type == 'image/jpg'){
         ReadUrl(e.currentTarget.files[0]);
         //img = e.currentTarget.files[0].name;
-        nameShow.innerHTML = 'Replace Logotype <img src="Assets/icons/import.svg" alt="Import" class="importBtn">';
+        //nameShow.innerHTML = 'Replace Logotype <img src="Assets/icons/import.svg" alt="Import" class="importBtn">';
     }else{
         nameShow.innerText = 'please, provide jpg,jpeg or png file'
         nameShow.style.color = '#f00'

@@ -3584,7 +3584,7 @@ textarea.form-control-lg {
   padding: 0.5rem 1rem;
   color: #0d6efd;
   text-decoration: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  transition: color 0.05s ease-in-out, background-color 0.05s ease-in-out, border-color 0.05s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
@@ -19626,10 +19626,23 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .15s ease-in-out;
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .05s ease-in-out;
 }
-.nav-bar > ul > li > a.nav-link .sm__text{ 
-  max-width: 60px;white-space: break-spaces;margin-left: auto;margin-right: auto;
+.nav-bar > ul > li > a.nav-link .sm__text {
+  max-width: 60px;
+  white-space: break-spaces;
+  margin-left: auto;
+  margin-right: auto;
+  color: #8C8FA7 !important;
+}
+ .nav-bar .nav-link.active  .sm__text  {
+  color: white !important;
+ }
+ .nav-bar .nav-link:hover  .sm__text  {
+  color: white !important;
+ }
+ .nav-bar .nav-link:focus  .sm__text  {
+  color: white !important;
  }
 
 .tpBar-red {
@@ -20211,6 +20224,7 @@ img.previewImg {
 .doc__btn svg { width: 1.5rem;height: 1.5rem; }
 .doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}
 .assign__btn svg { width: .75rem;height: 1.067rem; }
+.assign__btn:first svg path, .assign__btn:first svg circle {stroke: var(--color-white) !important;}
 .assign__btn:hover svg path, .assign__btn:hover svg circle {stroke: var(--color-white);}
 .assign__btn:hover svg path { fill: var(--color-white); }
 .stkRow .stockFeat:hover { background-color: var(--color-primary);color: var(--color-white); }
@@ -20258,7 +20272,7 @@ img.previewImg {
   .items__manager__btn svg { width: 18px;height: 18px; } 
 }
 .modal-footer .btn { padding-left: 1rem;padding-right: 1rem; }
-.prdtImg.tb-bdy .ordItm-Img { height: 50px;object-fit: contain; }
+.prdtImg.tb-bdy .ordItm-Img {object-fit: contain;   height: 60px;width: 50px;}
 .tb-bdy.stkImgcol .imgItm { height: 40px;object-fit: contain; }
 .modal .addUser-Form .form-control { width: 100% !important;margin: 0% !important; }
 
@@ -20270,19 +20284,48 @@ img.previewImg {
 
 .new_task__icon img { width: 32px !important;height: 32px !important; }
 .task__icon img { width:28px !important;height: 30px !important; }
-.office__icon img { width:35px !important;height: 41px !important; }
+.office__icon img { width:35px !important; height: 41px !important; }
 .storage__icon img { width:34px !important;height: 34px !important; }
 .revenue__icon img { width:44px !important;height: 32px !important; }
 .setup__icon img { width:32px !important;height: 32px !important; }
 .logout__icon img { width:32px !important;height: 32px !important; }
+.nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
 
-@media (max-width:1599px) {
-  .new_task__icon img { width: 24px !important;height: 24px !important; }
-  .task__icon img { width:24px !important;height: 24px !important; }
-  .office__icon img { width:26px !important;height: 32px !important; }
-  .storage__icon img { width:26px !important;height: 26px !important; }
-  .revenue__icon img { width:30px !important;height: 24px !important; }
-  .setup__icon img { width:24px !important;height: 24px !important; }
-  .logout__icon img { width:24px !important;height: 24px !important; }
-  .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
-} 
+
+@media (max-width: 1599px) {
+  .nav-bar > ul > li > a.nav-link {
+      height: 66px;
+      width: 80px;
+      font-size: 12px;
+  }
+  .new_task__icon img {
+    width: 28px !important;
+    height: 28px !important;
+}
+.task__icon img {
+  width: 24px !important;
+  height: 28px !important;
+}
+  .office__icon img {
+    width: 30px !important;
+    height: 38px !important;
+}
+.storage__icon img {
+  width: 30px !important;
+  height: 30px !important;
+}
+.revenue__icon img {
+  width: 38px !important;
+  height: 26px !important;
+}
+.setup__icon img {
+  width: 32px !important;
+  height: 32px !important;
+}
+.logout__icon img {
+  width: 32px !important;
+  height: 32px !important;
+}
+.nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;}
+
+}

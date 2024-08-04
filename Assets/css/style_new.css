@@ -19999,3 +19999,9 @@ border-radius:3px;
   .logout__icon img { width:28px !important;height: 28px !important; }
   .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
 }
+
+
+/* 30-7-24 changes sudarshan */ 
+
+.status-assigned { color: #0d6efd !important;}
+.status-done{color: red !important;}
