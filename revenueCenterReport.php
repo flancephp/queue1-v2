@@ -23,7 +23,22 @@ include_once('script/revenueCenterReport_script.php');
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-
+    <style>
+        @media screen and (max-width: 992px) {
+        .revFeat { margin-bottom: 15px; }
+        }
+        @media screen and (max-width: 1024px) {
+            .detailPrc-show, .hstTable-show { padding:0;height: calc(100% - 3.5rem);top: 3.5rem;background: #fff;display:block;border-radius: .625rem .625rem 0 0; } 
+            .rev-Cntrgst { margin-top: 65px; }
+            .revTbl-Hd .chk-revCnt { width: 100%;padding-left: 1rem;padding-right: 1rem; }
+            .rev-Cntrgst .dropdown-toggle, .out-Let .dropdown-toggle { min-height: 3.6rem; }
+        }
+        @media screen and (max-width: 767px) {
+            .guestNum .text-center, .sl-Num .text-center { margin-right: auto; } 
+            .cst-Value .col-md-7 { margin: 0 auto; }
+            .sale-Variance, .tl-Cst { margin-right: auto; }
+        }
+    </style>
 </head>
 
 <body>
@@ -209,7 +224,7 @@ if( isset($_GET['guest']) && $_GET['guest']== 1)
                         </div>
                         <!-- Mobile Date Box End -->
 
-                        <div class="container mb-hisDtl">
+                        <div class="container mb-hisDtl res__mb">
                             <div class="row">
                                 <div class="col-md-5 is-Incol">
                                     <p class="sale-Name">Sales</p>

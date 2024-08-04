@@ -1,4 +1,4 @@
-<nav class="navbar d-flex flex-wrap align-items-stretch">
+<nav class="navbar d-flex flex-wrap align-items-stretch position-relative" style="z-index:99;">
     <div class="w-100">
         <div class="logo text-center">
             <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">

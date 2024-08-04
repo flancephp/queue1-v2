@@ -261,10 +261,10 @@ if( $res['proType'] == 3)
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
                     <form role="form" action="" method="post" class="container" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?php echo $res['id'];?>" /><div class="row">
+                    <input type="hidden" name="id" value="<?php echo $res['id'];?>" /><div class="row mb-3 mb-md-0">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
-                                    <a href="itemsManager.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="itemsManager.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
@@ -272,13 +272,13 @@ if( $res['proType'] == 3)
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
                                     <!-- <div class="btnBg">
-                                        <a href="javascript:void(0)" class="sub-btn std-btn mb-usrBkbtn"><span
+                                        <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                                 <span class="nstdSpan">Item</span></span> <span class="dsktp-Btn">Add
                                                 Item</span></a>
                                     </div> -->
                                     <div class="btnBg">
-                                        <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                                 class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                     </div>
@@ -432,7 +432,7 @@ if( $res['proType'] == 3)
                 echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$res['imgName'].'" class="previewImg" >';
              }
             ?>
-                                                    <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;" width="100px"
+                                                    <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;margin-top:.65rem;" width="100px"
                                                     class="previewImg">
                                                 </div>
                                             </div>

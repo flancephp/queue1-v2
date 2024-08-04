@@ -15038,13 +15038,16 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 0 16px 0 0px;
     position: fixed;
     left: -100%;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.4s ease-in-out, background-color 0.5s ease-in-out;
     z-index: 99999;
   }
   .showNav .nav-col {
-    left: 0;
-    background-color: rgba(35, 40, 89, 0.4);
+    left: 0; 
   }
+  .nav-col::after { content: '';width: 100%;height: 100%;display: block;position: fixed;top:0%;right: 0%;left: 0%;
+    background-color: rgba(35, 40, 89, 0.4);transition: all .5s ease-in-out;z-index: 0;opacity: 0;visibility: hidden;
+  }
+  .showNav .nav-col::after { opacity: 1;visibility: visible; }
   .navbar {
     background-color: #fff;
     width: 30%;
@@ -15767,7 +15770,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
     order: 4;
     display: none;
-    margin-left: 15%;
+    margin-left: 25%;
   }
   .mb-CodeItm,
   .mb-UnitItm,
@@ -17989,6 +17992,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 10px 0;
     margin: 15px auto 0;
   }
+  .mb-hisDtl.res__mb { 
+    margin: 15px auto 15px;
+  }
   .hisTory {
     background: transparent;
     box-shadow: none;
@@ -18359,8 +18365,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     max-width: 100%;
   }
   .modal-content {
-    margin-top: auto;
-    border-radius: 10px 10px 0px 0px;
+    margin-top: auto; 
     height: 400px;
   }
   .modal-dialog.modal-dialog-centered {
@@ -18617,7 +18622,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 25%;
   }
   .brItm-MngClm {
-    width: 60%;
+    width: 50%;
   }
   /* Item Manager Page CSS End */
   .alert {
@@ -20265,10 +20270,13 @@ img.previewImg {
 .items__manager__btn { width: 110px; }
 .items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
 @media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .btn-primary { padding: .625rem 1rem;border-radius: .5rem; }
-  .items__manager__btn { width: 78px;font-size: 10px; }
+  .items__manager__btn { width: 78px;font-size: 10px;height: 57px;gap: 4px;padding: 0.2rem .75rem; }
   .items__manager__btn svg { width: 18px;height: 18px; } 
+}
+@media (max-width: 575px) {
+  .mbItm-MngIcns { width: 65%; }
 }
 .modal-footer .btn { padding-left: 1rem;padding-right: 1rem; }
 .prdtImg.tb-bdy .ordItm-Img {object-fit: contain;   height: 60px;width: 50px;}

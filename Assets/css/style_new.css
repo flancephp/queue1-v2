@@ -15048,8 +15048,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .showNav .nav-col {
     left: 0;
-    background-color: rgba(35, 40, 89, 0.4);
+    /* background-color: rgba(35, 40, 89, 0.4); */
   }
+  .nav-col::after { content: '';width: 100%;height: 100%;display: block;position: fixed;top:0%;right: 0%;left: 0%;
+    background-color: rgba(35, 40, 89, 0.4);transition: all .5s ease-in-out;z-index: 0;opacity: 0;visibility: hidden;
+  }
+  .showNav .nav-col::after { opacity: 1;visibility: visible; }
   .navbar {
     background-color: #fff;
     width: 30%;
@@ -17994,6 +17998,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .mb-hisDtl {
     padding: 10px 0;
     margin: 15px auto 0;
+  }
+  .mb-hisDtl.res__mb { 
+    margin: 15px auto 15px;
   }
   .hisTory {
     background: transparent;
