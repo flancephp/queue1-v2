@@ -9889,7 +9889,7 @@ img {
   transition: color 0s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 .nav-bar > ul > li > a.nav-link{ 
-  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .3s ease-in-out;
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .1s ease-in-out;
 }
 .nav-bar > ul > li > a.nav-link .sm__text{ 
  max-width: 60px;white-space: break-spaces;margin-left: auto;margin-right: auto;
@@ -19887,7 +19887,7 @@ border-radius:3px;
 :root { 
 --color-primary: #7a89fe;--color-white: #fff;--radius: .625rem;
 } 
-.cnfrm, .doc-bx, .dlt-bx { transition: all .3s ease-in-out; }
+.cnfrm, .doc-bx, .dlt-bx { transition: all .1s ease-in-out; }
 .cnfrm:hover, .doc-bx:hover, .dlt-bx:hover { background-color:var(--color-primary);border-color: var(--color-primary); }
 .cnfrm:hover svg path, .doc-bx:hover svg path, .dlt-bx:hover svg path { fill: var(--color-white); }
 .cnfrm:hover .cn-btn, .doc-bx:hover .cn-btn, .dlt-bx:hover .cn-btn { color: var(--color-white); }
@@ -19901,7 +19901,7 @@ border-radius:3px;
 .doc__btn.document { min-width: auto; }
 .doc__btn svg { width: 1.5rem;height: 1.5rem; } 
 .doc__btn.edit svg { width: 17px;height: 19px; } 
-.doc__btn:hover svg path, .doc__btn:focus svg path, .doc__btn:active svg path, .doc__btn:hover svg rect, .doc__btn:focus svg rect, .doc__btn:active svg rect {stroke: var(--color-white);}
+.doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}
 .doc__btn.edit:hover svg path { stroke: var(--color-white);fill: transparent; }
 .doc__btn.edit:hover svg path:nth-child(1) { fill: var(--color-white);stroke: transparent; }
 .doc__btn.delete:hover svg path, .doc__btn.complete:hover svg path { fill: transparent;stroke: var(--color-white); }
@@ -19910,8 +19910,8 @@ border-radius:3px;
 .doc__btn.receive:hover svg path:nth-of-type(2) { fill: var(--color-white);stroke: transparent; }
 
 .assign__btn svg { width: .75rem;height: 1.067rem; }
-.assign__btn:hover svg path, .assign__btn:focus svg path, .assign__btn:active svg path, .assign__btn:hover svg circle, .assign__btn:focus svg circle, .assign__btn:active svg circle {stroke: var(--color-white);}
-.assign__btn:hover svg path, .assign__btn:focus svg path, .assign__btn:active svg path { fill: var(--color-white); }
+.assign__btn:hover svg path, .assign__btn:hover svg circle {stroke: var(--color-white);}
+.assign__btn:hover svg path { fill: var(--color-white); }
 .stkRow .stockFeat:hover { background-color: var(--color-primary);color: var(--color-white); }
 .stkRow .stockFeat:hover a { color: var(--color-white); }
 .stkRow .stockFeat { border-radius: var(--radius); }

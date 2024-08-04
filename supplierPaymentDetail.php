@@ -643,7 +643,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
 
     if($clientResultRow['logo'] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$clientResultRow['logo'] ))
     {  
-        echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientResultRow['logo'].'" width="100" height="100" style="margin-top: 25px;">';
+        echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientResultRow['logo'].'" width="100" height="100" style="margin-top: 25px;object-fit:contain;">';
     }
 
 ?>

@@ -11257,7 +11257,7 @@ a.tabFet:focus .sampleFile {
 .doc-bx,
 .dlt-bx {
   background: rgba(255, 255, 255, 0.26);
-  border: 1px solid #ffffff;transition: all .3s ease-in-out;
+  border: 1px solid #ffffff;transition: all .15s ease-in-out;
   box-shadow: 1px 2px 4px rgba(70, 79, 146, 0.15);
   border-radius: 2px;
   padding: 3px;
@@ -19626,7 +19626,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .3s ease-in-out;
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .15s ease-in-out;
 }
 .nav-bar > ul > li > a.nav-link .sm__text{ 
   max-width: 60px;white-space: break-spaces;margin-left: auto;margin-right: auto;
@@ -20209,10 +20209,10 @@ img.previewImg {
 .btn-white:hover, .btn-white:focus, .btn-white:active {color:var(--color-white);background-color: var(--color-primary);}
 .btn-white:hover svg path, .btn-white:focus svg path, .btn-white:active svg path {stroke: var(--color-white);}
 .doc__btn svg { width: 1.5rem;height: 1.5rem; }
-.doc__btn:hover svg path, .doc__btn:focus svg path, .doc__btn:active svg path, .doc__btn:hover svg rect, .doc__btn:focus svg rect, .doc__btn:active svg rect {stroke: var(--color-white);}
+.doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}
 .assign__btn svg { width: .75rem;height: 1.067rem; }
-.assign__btn:hover svg path, .assign__btn:focus svg path, .assign__btn:active svg path, .assign__btn:hover svg circle, .assign__btn:focus svg circle, .assign__btn:active svg circle {stroke: var(--color-white);}
-.assign__btn:hover svg path, .assign__btn:focus svg path, .assign__btn:active svg path { fill: var(--color-white); }
+.assign__btn:hover svg path, .assign__btn:hover svg circle {stroke: var(--color-white);}
+.assign__btn:hover svg path { fill: var(--color-white); }
 .stkRow .stockFeat:hover { background-color: var(--color-primary);color: var(--color-white); }
 .stkRow .stockFeat:hover a { color: var(--color-white); }
 .stkRow .stockFeat { border-radius: var(--radius); }
