@@ -391,7 +391,12 @@ if( isset($_POST['outLetId']) && !empty($_POST['outLetId']) )
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-
+    <style>
+        @media screen and (max-width: 767px) {
+            .chkOlt-Row .col-md-8.phone__number { width: 100%;order: 2;padding-right: .75rem; }
+            .chkOlt-Row .col-md-4.phone__number { width: 100%;order: 1;padding-left: calc(var(--bs-gutter-x) * 0.5); }
+        }
+    </style>
 </head>
 
 <body class="mb-Bgbdy">
@@ -489,24 +494,21 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
-                                    <a href="manageOutlets.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="manageOutlets.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
-                                    <div class="btnBg">
-                                    <a href="addCategory.php" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal"
-                                        data-bs-target="#add-Item"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-plus"></i><span class="nstdSpan">Store</span></span>
-                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span></a>
-                                    </div>
-                                    <div class="btnBg">
-                                        <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
-                                                class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
-                                    </div>
+                                    <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#add-Item">
+                                        <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Add Item'); ?></span></span>
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span>
+                                    </a> 
+                                    <button type="submit" class="btn btn-primary mb-usrBkbtn">
+                                        <span class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> 
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -712,10 +714,10 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row chkOlt-Row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 phone__number">
                                                         <label for="asgnEzcat" class="form-label"><?php echo showOtherLangText('Phone number'); ?></label>
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-8 phone__number">
                                                     <input type="text" class="form-control" value="<?php echo $deptUserRow['phone']; ?>" name="phone" id="phone" 
                                                         placeholder="Casa Kitchen">
                                                     </div>

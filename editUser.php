@@ -174,7 +174,7 @@ if( isset($_POST['user_name']) )
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Add User') ?></h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit User') ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">

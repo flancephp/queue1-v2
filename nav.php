@@ -1,4 +1,4 @@
-<nav class="navbar d-flex flex-wrap align-items-stretch">
+<nav class="navbar d-flex flex-wrap align-items-stretch position-relative" style="z-index:99;">
     <div class="w-100">
         <div class="logo text-center">
             <img src="Assets/icons/logo_Q.svg" alt="Logo" class="lg-Img">
@@ -41,7 +41,7 @@
                         }
                         ?></span></a>
                         </li>
-                        <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
+                        <!-- <li><a class="nav-link nav_sub" aria-current="page" href="javascript:void(0)">
                                 <img src="Assets/icons/new_stock.svg" alt="Stock" class="navIcon align-middle">
                                 <img src="Assets/icons/new_stock_hv.svg" alt="Stock" class="mb_nvSubIcn align-middle">
                                 <span class="align-middle"><?php
@@ -82,7 +82,7 @@
                             echo $newInvoiceText;
                         }
                         ?></span></a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -144,7 +144,7 @@
             </ul>
         </div>
     </div>
-    <div class="nav-bar lgOut pb-xxl-5">
+    <div class="nav-bar lgOut">
         <ul class="nav flex-column h2">
             <li class="nav-item">
                 <a class="<?php echo isMenuActive(['setup.php','accountSetup.php','users.php','addUser.php','editUser.php','listDesignation.php',

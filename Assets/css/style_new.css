@@ -15048,8 +15048,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .showNav .nav-col {
     left: 0;
-    background-color: rgba(35, 40, 89, 0.4);
+    /* background-color: rgba(35, 40, 89, 0.4); */
   }
+  .nav-col::after { content: '';width: 100%;height: 100%;display: block;position: fixed;top:0%;right: 0%;left: 0%;
+    background-color: rgba(35, 40, 89, 0.4);transition: all .5s ease-in-out;z-index: 0;opacity: 0;visibility: hidden;
+  }
+  .showNav .nav-col::after { opacity: 1;visibility: visible; }
   .navbar {
     background-color: #fff;
     width: 30%;
@@ -16203,7 +16207,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     border-radius: 10px;
   }
   .std-btn {
-    line-height: 22.19px;
+    line-height: 1.375;
   }
   .erdInfo .col-md-4 {
     padding: 0 8px;
@@ -17699,7 +17703,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 60%;
   }
   .std-btn {
-    line-height: 21.5px;
+    line-height: 1.31;
   }
   .cntArea {
     padding: 0;
@@ -17994,6 +17998,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .mb-hisDtl {
     padding: 10px 0;
     margin: 15px auto 0;
+  }
+  .mb-hisDtl.res__mb { 
+    margin: 15px auto 15px;
   }
   .hisTory {
     background: transparent;
@@ -19099,7 +19106,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Custom Btn CSS End */
   .std-btn {
-    padding: 12px 30px;
+    padding: .75rem 1.875rem;
   }
   .invNum {
     padding: 10px;
@@ -19656,7 +19663,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
             background-color: #7a89ff;
             color: #fff;padding: .5rem 1rem;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: .875rem;
             border-color: #7a89ff;
 }
 
@@ -19965,7 +19972,7 @@ border-radius:3px;
 .items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
 @media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  }
 @media (max-width: 767px) {
-  .btn-primary { padding: .625rem 1rem; }
+  .btn-primary { padding: .625rem 1rem;border-radius: .5rem; }
   .items__manager__btn { width: 78px;font-size: 10px; }
   .items__manager__btn svg { width: 18px;height: 18px; } 
 }
@@ -20005,3 +20012,4 @@ border-radius:3px;
 
 .status-assigned { color: #0d6efd !important;}
 .status-done{color: red !important;}
+

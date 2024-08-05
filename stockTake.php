@@ -300,6 +300,20 @@ if( isset($_POST['btnSbt']) )
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <style>
+        @media screen and (max-width: 992px) {
+            .supTbl-IcnCol { order: 2;width: 15%; }
+            .supTbl-NmCol { width: 85%; }
+        }
+        .res__label { font-size:.625rem; }
+        .overwrite__btn { font-size:1rem;line-height: 1.2;width: 9rem; }
+        @media (max-width: 575px) {
+            .overwrite__btn { width: 8rem; }
+            .res__info__box { padding-top: 3rem; }
+            .res__info__box .mid__info { position: absolute;top:-1rem;left:0;width:100%;text-align:center; }
+            .res__info__box .mid__info h3 { margin-bottom: 0; }
+        }
+    </style>
 </head>
 
 <body class="mb-Bgbdy">
@@ -325,7 +339,7 @@ if( isset($_POST['btnSbt']) )
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Manage Suppliers') ?></h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Stock view') ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -383,31 +397,27 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
 
                     <input type="hidden" name="storeId" value="<?php echo $_SESSION['storeId'];?>" />
 
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
+                        <div class="usrBtns res__info__box position-relative d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="<?php echo $backLink; ?>" class="sub-btn std-btn mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
+                                    <a href="<?php echo $backLink; ?>" class="btn btn-primary mb-usrBkbtn">
+                                        <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="usrBk-Btn">
+                            <div class="usrBk-Btn mid__info">
                                 <div class="btnBg">
-                                  <h3 style="
-    text-align: center;
-"> <?php echo showOtherLangText('Stock Take'); ?></h3>
+                                  <h3 style="text-align: center;"> <?php echo showOtherLangText('Stock Take'); ?></h3>
                                 </div>
                                 <div class="btnBg">
-                                  <strong><?php echo date('m/d/Y');?>
-                        <?php echo $storeRow['name'];?></strong></a>
+                                  <strong><?php echo date('m/d/Y');?> <?php echo $storeRow['name'];?></strong> 
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="sub-btn std-btn mb-usrBkbtn" style="width: 151px;"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
-                                            <span class="nstdSpan">Supplier</span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Overwrite and Save') ?></span></button>
-                                </div>
+                                <button type="submit" class="btn btn-primary mb-usrBkbtn overwrite__btn"> 
+                                    <?php echo showOtherLangText('Overwrite and Save') ?>
+                                </button> 
                             </div>
 
                         </div>
@@ -526,25 +536,31 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                     ?></p>
                                             </div>
                                             <div class="tb-bdy supAdd-Clm">
-                                                <p class="suplAdrs"><?php echo $row['itemName'];?></p>
+                                                <span class="d-lg-none res__label">Item: </span>
+                                                <span class="suplAdrs"><?php echo $row['itemName'];?></span>
                                             </div>
                                             <div class="tb-head supEml-Clm">
-                                                <p><?php echo $row['barCode'];?></p>
+                                                <span class="d-lg-none res__label">Bar code: </span>
+                                                <span><?php echo $row['barCode'];?></span>
                                             </div>
                                         </div>
                                         <div class="supTbl-EmCol align-items-center">
                                             
                                             <div class="tb-head supPhn-Clm">
-                                                <p><?php echo $row['unitC'];?></p>
-                                            </div>
-                                             <div class="tb-head supPhn-Clm">
-                                                <p><?php echo $row['stockQty'];?></p>
+                                                <span class="d-lg-none res__label">Unit: </span>
+                                                <span><?php echo $row['unitC'];?></span>
                                             </div>
                                             <div class="tb-head supPhn-Clm">
-                                                <p><?php echo $fileDataRows[$row['barCode']];?></p>
+                                                <span class="d-lg-none res__label">Qty: </span>
+                                                <span><?php echo $row['stockQty'];?></span>
                                             </div>
                                             <div class="tb-head supPhn-Clm">
-                                                <p><?php echo $fileDataRows[$row['barCode']]-$row['stockQty'];?></p>
+                                                <span class="d-lg-none res__label">Stock take: </span>
+                                                <span><?php echo $fileDataRows[$row['barCode']];?></span>
+                                            </div>
+                                            <div class="tb-head supPhn-Clm">
+                                                <span class="d-lg-none res__label">Variances: </span>
+                                                <span><?php echo $fileDataRows[$row['barCode']]-$row['stockQty'];?></span>
                                             </div>
                                         </div>
                                         <div class="supTbl-IcnCol">

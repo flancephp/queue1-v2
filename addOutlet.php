@@ -184,7 +184,12 @@ $deptResult = mysqli_query($con, $deptQry);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-
+    <style>
+        @media screen and (max-width: 767px) {
+            .chkOlt-Row .col-md-8.phone__number { width: 100%;order: 2;padding-right: .75rem; }
+            .chkOlt-Row .col-md-4.phone__number { width: 100%;order: 1;padding-left: calc(var(--bs-gutter-x) * 0.5); }
+        }
+    </style>
 </head>
 
 <body class="mb-Bgbdy">
@@ -403,10 +408,10 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row chkOlt-Row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 phone__number">
                                                         <label for="asgnEzcat" class="form-label"><?php echo showOtherLangText('Phone number'); ?></label>
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-8 phone__number">
                                                     <input type="text" class="form-control" name="phone" id="phone" 
                                                         placeholder="">
                                                     </div>

@@ -10354,7 +10354,7 @@ a.sbActive .mb_nvSubIcn {
 /* Custom Btn CSS End */
 /* Standard Btn CSS Start */
 .std-btn {
-  padding: 6px 21px;
+  padding: .375rem 1.31rem;
 }
 
 /* Standard Btn CSS End */
@@ -14836,7 +14836,7 @@ html[dir=rtl] .rcvOrder .smBtn {
 }
 
 html[dir=rtl] .std-btn {
-  padding: 6px 21px;
+  padding: .375rem 1.31rem;
 }
 
 .reqPrc-end {
@@ -15038,13 +15038,16 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 0 16px 0 0px;
     position: fixed;
     left: -100%;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.4s ease-in-out, background-color 0.5s ease-in-out;
     z-index: 99999;
   }
   .showNav .nav-col {
-    left: 0;
-    background-color: rgba(35, 40, 89, 0.4);
+    left: 0; 
   }
+  .nav-col::after { content: '';width: 100%;height: 100%;display: block;position: fixed;top:0%;right: 0%;left: 0%;
+    background-color: rgba(35, 40, 89, 0.4);transition: all .5s ease-in-out;z-index: 0;opacity: 0;visibility: hidden;
+  }
+  .showNav .nav-col::after { opacity: 1;visibility: visible; }
   .navbar {
     background-color: #fff;
     width: 30%;
@@ -15200,9 +15203,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .detailPrc-show .row {
     background: #fff;
     padding: 10px;
-    border-radius: 10px;
-    width: 100%;
-    margin: auto;
+    border-radius: .625rem .625rem 0 0;
+    width: 100%; 
   }
   .issueDtl {
     width: 100%;
@@ -15768,7 +15770,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
     order: 4;
     display: none;
-    margin-left: 15%;
+    margin-left: 25%;
   }
   .mb-CodeItm,
   .mb-UnitItm,
@@ -16198,7 +16200,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     border-radius: 10px;
   }
   .std-btn {
-    line-height: 22.19px;
+    line-height: 1.375;
   }
   .erdInfo .col-md-4 {
     padding: 0 8px;
@@ -17694,7 +17696,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 60%;
   }
   .std-btn {
-    line-height: 21.5px;
+    line-height: 1.375;
   }
   .cntArea {
     padding: 0;
@@ -17989,6 +17991,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .mb-hisDtl {
     padding: 10px 0;
     margin: 15px auto 0;
+  }
+  .mb-hisDtl.res__mb { 
+    margin: 15px auto 15px;
   }
   .hisTory {
     background: transparent;
@@ -18360,8 +18365,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     max-width: 100%;
   }
   .modal-content {
-    margin-top: auto;
-    border-radius: 10px 10px 0px 0px;
+    margin-top: auto; 
     height: 400px;
   }
   .modal-dialog.modal-dialog-centered {
@@ -18438,11 +18442,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .mb-usrBkbtn:hover,
   .mb-usrBkbtn:focus {
     color: #fff;
-    background: rgba(122, 137, 255, 0.5);
-    padding: 7px 10px;
-    border: none;
-    border-radius: 8px;
-    margin: 0;
+    background: rgba(122, 137, 255, 0.5); 
   }
   .mb-usrBkbtn:active {
     background: rgba(122, 137, 255, 0.5) !important;
@@ -18622,7 +18622,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 25%;
   }
   .brItm-MngClm {
-    width: 60%;
+    width: 50%;
   }
   /* Item Manager Page CSS End */
   .alert {
@@ -19095,7 +19095,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Custom Btn CSS End */
   .std-btn {
-    padding: 12px 30px;
+    padding: .75rem 1.875rem;
   }
   .invNum {
     padding: 10px;
@@ -19546,7 +19546,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 0 40px 0 8px;
   }
   html[dir=rtl] .std-btn {
-    padding: 12px 30px;
+    padding: .75rem 1.875rem;
   }
   html[dir=rtl] .rcvOrder .smBtn {
     padding: 0 35px 0 12px;
@@ -20012,9 +20012,10 @@ body .ui-widget-content {
   background-color: #7a89ff;
   color: #fff;padding: .5rem 1rem;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: .875rem;
   border-color: #7a89ff;
 }
+
 .modal-md{
   max-width:800px;
 }
@@ -20260,16 +20261,22 @@ img.previewImg {
 .btn-primary {
   background-color: var(--color-primary);padding: .625rem 1.625rem;box-shadow: 0px 4px 20px 0px #7F7FA514;font-size: 1.125rem;font-weight: 600;border-radius: .937rem;border-color: var(--color-primary);transition: all .3s ease-in-out;border-width: 2px;
 }
-.btn-primary:hover,.btn-primary:focus,.btn-primary:active {
-  background-color: var(--color-primary);border-color: var(--color-primary);outline: 3px solid var(--color-white);outline-offset: -6px;
+.btn-primary:hover {
+  background-color: #5b6dfa;border-color: #5b6dfa; 
+}
+.btn-primary:active,.btn-primary:focus {
+  outline: 3px solid var(--color-white);outline-offset: -6px;
 }
 .items__manager__btn { width: 110px; }
 .items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
 @media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  }
-@media (max-width: 767px) {
-  .btn-primary { padding: .625rem 1rem; }
-  .items__manager__btn { width: 78px;font-size: 10px; }
+@media (max-width: 991px) {
+  .btn-primary { padding: .625rem 1rem;border-radius: .5rem; }
+  .items__manager__btn { width: 78px;font-size: 10px;height: 57px;gap: 4px;padding: 0.2rem .75rem; }
   .items__manager__btn svg { width: 18px;height: 18px; } 
+}
+@media (max-width: 575px) {
+  .mbItm-MngIcns { width: 65%; }
 }
 .modal-footer .btn { padding-left: 1rem;padding-right: 1rem; }
 .prdtImg.tb-bdy .ordItm-Img {object-fit: contain;   height: 60px;width: 50px;}
@@ -20301,31 +20308,36 @@ img.previewImg {
   .new_task__icon img {
     width: 28px !important;
     height: 28px !important;
-}
-.task__icon img {
-  width: 24px !important;
-  height: 28px !important;
-}
-  .office__icon img {
+  }
+  .task__icon img {
+    width: 24px !important;
+    height: 28px !important;
+  }
+    .office__icon img {
+      width: 30px !important;
+      height: 38px !important;
+  }
+  .storage__icon img {
     width: 30px !important;
-    height: 38px !important;
-}
-.storage__icon img {
-  width: 30px !important;
-  height: 30px !important;
-}
-.revenue__icon img {
-  width: 38px !important;
-  height: 26px !important;
-}
-.setup__icon img {
-  width: 32px !important;
-  height: 32px !important;
-}
-.logout__icon img {
-  width: 32px !important;
-  height: 32px !important;
-}
-.nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;}
+    height: 30px !important;
+  }
+  .revenue__icon img {
+    width: 38px !important;
+    height: 26px !important;
+  }
+  .setup__icon img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .logout__icon img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;}
 
 }
+
+
+html { font-size: 100%; }
+@media (max-width: 1399px) { html { font-size: 93.75%; } }
+@media (max-width: 767px) { html { font-size: 87.5%; } }

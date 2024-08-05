@@ -1090,17 +1090,17 @@ $colsArr = [
         padding-left:0;
     }
  .itmTable .dropdown-toggle{
-color: #666c85;
-text-decoration: none;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: space-between;
-background: #ffffff;
-border: 1px solid #dfe0e8;
-border-radius: 10px;
-padding: 7px 12px;
-font-weight: 700;
+    color: #666c85;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border: 1px solid #dfe0e8;
+    border-radius: 10px;
+    padding: 7px 12px;
+    font-weight: 700;
   }
   @media (max-width:1024px) {
     .numRef {
@@ -1171,9 +1171,59 @@ cursor: pointer;
 
 .issueDtl {padding: 9px 10px !important;}
 .issueDtl .Variance {padding-right:  0px !important; width: 14% !important;}
-.issueOut {width: 24% !important;} 
-.issueIn { width: 62% !important; }
+.issueOut {width: 31% !important;} 
+.issueIn { width: 55% !important; }
 .detailPrice {padding: 11px 11px 0 !important;}
+
+@media (max-width:767px) {
+     #order_details_supplier {
+        margin: 0;
+     }
+}
+
+@media(max-width:991px) {
+    .account-name-section { position: absolute;top:1rem;right:9rem; }
+    .issueIn { padding-right: 2rem; }
+}
+@media(max-width:575px) {
+    .account-name-section { top:4rem;right: 0;text-align: center;width: 100%; }
+    .container.hisData { margin-top: 1rem; }
+    .issueIn { padding-right: 0;width: 100% !important;margin-bottom: 2rem; }
+    .issueOut {width: 60% !important;} 
+    .issueDtl .Variance { width: 40% !important; }
+}
+
+/* ---- Responsive Filterbox styles start -------- */
+.res__filter__box .itmTable { border: none;box-shadow: none;  border-radius: 10px 10px 0 0;padding: 3px 12px; }
+.res__filter__box .his-Paybtn { width:17%; }
+@media (min-width: 992px) {
+    .res__filter__box .label__box { width:155px; }
+    .res__filter__box .lg__70 { max-width:70%; }
+}
+@media (max-width: 1024px) {
+  .hstTable-show{ top: 3rem;padding-top: 0 !important;background: transparent; }
+  .detailPrice.detailPrc-show { padding: 0% !important;top: 3.5rem;background-color: #fff;display: block; } 
+  .detailPrice.detailPrc-show .tab-mbDtl { padding: 10px;margin-bottom: 0; } 
+  .detailPrice.detailPrc-show .scroller { max-height: calc(100vh - 7rem);overflow-y: auto; } 
+}
+@media (max-width:991px) {
+    .res__filter__box .itmTable { min-height: calc(100vh - 3rem);padding: .75rem .75rem .5rem .75rem; }
+    .res__filter__box .back__btn { width: 2.5rem;height: 2.5rem;}
+    .res__filter__box .his-Paybtn { width:50%;position: absolute;top:0;right:0;flex-direction: row;padding-top: .875rem;padding-right: 1rem; }
+    .hstTbl-head .numRef, .hstTbl-head .stsHiscol { width: 100%;justify-content: space-between; }
+    .res__filter__box .itmTable .tb-bdy { width: 49%;padding-top: .45rem;padding-bottom: .45rem; }
+    .res__filter__box .itmTable .tb-bdy .dropdown, .res__filter__box .itmTable .dropdown-toggle { width: 100%; } 
+    .res__filter__box .itmTable .dropdown-toggle { min-height: 3.25rem; } 
+    .res__filter__box .dropdnbtns { margin-top: 1rem; }
+}
+@media (max-width:575px) { 
+    .res__filter__box .itmTable .tb-bdy, .res__filter__box .itmTable .tb-bdy { width: 100%; } 
+    .res__filter__box .stsHiscol.d-flex.align-items-center{flex-wrap: wrap;padding-left: 0;padding-right: 0;}
+}
+@media(min-width:576px) {
+    .sm__ml { margin-left: -0.3rem; }
+}
+/* ---- Responsive Filterbox styles end -------- */
 
 </style>
 
@@ -1188,7 +1238,7 @@ cursor: pointer;
             <?php require_once('nav.php'); ?>
         </div>
         <div class="cntArea">
-            <section class="usr-info">
+            <section class="usr-info position-relative">
                 <div class="row">
                     <div class="col-md-4 d-flex align-items-end">
                         <h1 class="h1"><?php echo showOtherLangText('History'); ?></h1>
@@ -1419,199 +1469,205 @@ cursor: pointer;
                     </div>
 
                     <div class="container detailPrice">
-                        <div class="row align-items-start">
-                            <div class="tab-mbDtl">
-                                <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                            <div class="issueDtl">
-                                <div class="issueIn">
-                                    <div class="dspBlk">
-                                        <div class="paidIsue d-flex">
-                                            <div class="col-md-3">
-                                                <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
-                                                <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
-                                            </div>
-                                            <div class="col-md-9 text-center">
-                                                <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
-                                                <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
-                                                <p class="pdAmount"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                <p class="pendAmount"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- added on 31-7-24 -->
-                                    <div class="usdCurr text-center">
-                                            <div class="paidIsue d-flex">
-                                                <div class="col-md-3">
-                                                    <p class="pdStatus">Paid</p>
-                                                    <p class="pendStatus">Pending</p>
-                                                </div>
-                                                <div class="col-md-9 text-center">
-                                                    <p class="usd-In">$</p>
-                                                    <p class="ttlAmount"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
-                                                    <p class="pdAmount"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
-                                                    <p class="pendAmount"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php
-
-                                    $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
-                                INNER JOIN tbl_orders o 
-                                    ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                                INNER JOIN tbl_currency c
-                                    ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                                WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "' GROUP BY o.id ORDER BY o.id desc ";
-                                    $result = mysqli_query($con, $sql);
-                                    $otherCurrRowArr = [];
-                                    $otherCurrTotalValueArr = [];
-                                    $otherCurrPendingTotalValueArr = [];
-                                    while ($otherCurrRows = mysqli_fetch_array($result)) {
-                                        if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2)) {
-
-                                            // Total rows of other currency pending amount
-                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                            // Sum of total values of pending amount 
-                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                            $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                        } elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
-
-                                            // Total rows of other currency paid amount
-                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                            // Sum of total values of paid amount 
-                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                            $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                        }
-
-                                        if ($otherCurrRows['currencyId'] > 0) {
-
-                                            // Total rows of other currency paid amount
-                                            $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                            // Sum of total values of paid amount 
-                                            $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                            $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                        }
-                                    }
-
-                                     
-
-                                    foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
-                                    
-                                    
-                                        <div class="usdCurr text-center">
+                        <div class="tab-mbDtl">
+                            <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
+                        </div>
+                        <div class="scroller"> 
+                            <div class="row align-items-start">
+                                <div class="issueDtl">
+                                    <div class="issueIn">
+                                        <div class="dspBlk">
                                             <div class="paidIsue d-flex">
                                                 <div class="col-md-3">
                                                     <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
                                                     <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                 </div>
                                                 <div class="col-md-9 text-center">
-                                                    <p class="usd-In"><?php echo ($otherCurrRow['curCode']); ?></p>
-                                                    <p class="ttlAmount"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
-                                                    <p class="pdAmount"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '&nbsp;'; ?></p>
-                                                    <p class="pendAmount"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                    <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
+                                                    <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
+                                                    <p class="pdAmount"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                    <p class="pendAmount"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                                 </div>
                                             </div>
                                         </div>
-                                       
-                                    <?php } ?>
-                                    
-                                    <div style="padding-left:.5rem;">
-                                        <a class="toggle-currency-btn">$/¥</a>
-                                    </div>
-                                </div>
-                                <div class="issueOut">
-                                    <div class="recIsue d-flex">
-                                        <div class="col-md-5">
-                                            <p class="recStatus"><?php echo showOtherLangText('Received'); ?></p>
-                                            <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                        <!-- added on 31-7-24 -->
+                                        <div class="usdCurr text-center">
+                                                <div class="paidIsue d-flex">
+                                                    <div class="col-md-3">
+                                                        <p class="pdStatus">Paid</p>
+                                                        <p class="pendStatus">Pending</p>
+                                                    </div>
+                                                    <div class="col-md-9 text-center">
+                                                        <p class="usd-In">$</p>
+                                                        <p class="ttlAmount"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
+                                                        <p class="pdAmount"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
+                                                        <p class="pendAmount"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php
+    
+                                        $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                                    INNER JOIN tbl_orders o 
+                                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                                    INNER JOIN tbl_currency c
+                                        ON(od.currencyId=c.id) AND od.account_id=c.account_Id
+                                    WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "' GROUP BY o.id ORDER BY o.id desc ";
+                                        $result = mysqli_query($con, $sql);
+                                        $otherCurrRowArr = [];
+                                        $otherCurrTotalValueArr = [];
+                                        $otherCurrPendingTotalValueArr = [];
+                                        while ($otherCurrRows = mysqli_fetch_array($result)) {
+                                            if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2)) {
+    
+                                                // Total rows of other currency pending amount
+                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+    
+                                                // Sum of total values of pending amount 
+                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                            } elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
+    
+                                                // Total rows of other currency paid amount
+                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+    
+                                                // Sum of total values of paid amount 
+                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                            }
+    
+                                            if ($otherCurrRows['currencyId'] > 0) {
+    
+                                                // Total rows of other currency paid amount
+                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+    
+                                                // Sum of total values of paid amount 
+                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                            }
+                                        }
+    
+                                         
+    
+                                        foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
+                                        
+                                        
+                                            <div class="usdCurr text-center">
+                                                <div class="paidIsue d-flex">
+                                                    <div class="col-md-3">
+                                                        <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
+                                                        <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                    </div>
+                                                    <div class="col-md-9 text-center">
+                                                        <p class="usd-In"><?php echo ($otherCurrRow['curCode']); ?></p>
+                                                        <p class="ttlAmount"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                        <p class="pdAmount"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '&nbsp;'; ?></p>
+                                                        <p class="pendAmount"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                        <?php } ?>
+                                        
+                                        <div style="padding-left:.5rem;">
+                                            <a class="toggle-currency-btn">$/¥</a>
                                         </div>
-                                        <div class="col-md-7 text-center">
-                                            <p class="rd-In"><?php echo showOtherLangText('Issued Out'); ?></p>
-                                            <p class="ttlAmount-rec"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
-                                            <p class="pdAmount-rec"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
-                                            <p class="pendAmount-rec"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
+                                    </div>
+                                    <div class="issueOut">
+                                        <div class="recIsue d-flex">
+                                            <div class="col-md-5">
+                                                <p class="recStatus"><?php echo showOtherLangText('Received'); ?></p>
+                                                <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                            </div>
+                                            <div class="col-md-7 text-center">
+                                                <p class="rd-In"><?php echo showOtherLangText('Issued Out'); ?></p>
+                                                <p class="ttlAmount-rec"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
+                                                <p class="pdAmount-rec"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                <p class="pendAmount-rec"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
+                                            </div>
                                         </div>
                                     </div>
+                                    <?php
+                                    $variancesPosTot = 0;
+                                    $variancesPosQtyTot = 0;
+                                    $variancesNevQtyTot = 0;
+                                    $variancesNevTot = 0;
+                                    $varaincesVal = 0;
+    
+                                    //variance starts here
+                                    // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+    
+                                        $sqlSet = " SELECT od.* FROM tbl_order_details od
+                        INNER JOIN tbl_orders o
+                            ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                        WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . " ";
+                                        $resultSet = mysqli_query($con, $sqlSet);
+                                        while ($resRow = mysqli_fetch_array($resultSet)) {
+                                            if ($resRow['qtyReceived'] < $resRow['qty']) {
+                                                $varaincesVal = $resRow['qty'] - $resRow['qtyReceived'];
+                                                $variancesPosQtyTot += $varaincesVal;
+                                                $variancesPosTot += ($varaincesVal * $resRow['lastPrice']);
+                                            } elseif ($resRow['qtyReceived'] > $resRow['qty']) {
+                                                $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+    
+                                                $variancesNevQtyTot += $varaincesVal;
+                                                $variancesNevTot += ($varaincesVal * $resRow['lastPrice']);
+                                            }
+                                        }
+                                    ?>
+                                        <div class="Variance text-center">
+                                            <p class="varDtl">Variances</p>
+                                            <p class="varValue"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
+                                            <p class="varDif"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
+                                        </div>
+                                   
                                 </div>
                                 <?php
-                                $variancesPosTot = 0;
-                                $variancesPosQtyTot = 0;
-                                $variancesNevQtyTot = 0;
-                                $variancesNevTot = 0;
-                                $varaincesVal = 0;
-
-                                //variance starts here
-                                // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
-
-                                    $sqlSet = " SELECT od.* FROM tbl_order_details od
-                    INNER JOIN tbl_orders o
-                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                    WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . " ";
-                                    $resultSet = mysqli_query($con, $sqlSet);
-                                    while ($resRow = mysqli_fetch_array($resultSet)) {
-                                        if ($resRow['qtyReceived'] < $resRow['qty']) {
-                                            $varaincesVal = $resRow['qty'] - $resRow['qtyReceived'];
-                                            $variancesPosQtyTot += $varaincesVal;
-                                            $variancesPosTot += ($varaincesVal * $resRow['lastPrice']);
-                                        } elseif ($resRow['qtyReceived'] > $resRow['qty']) {
-                                            $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
-
-                                            $variancesNevQtyTot += $varaincesVal;
-                                            $variancesNevTot += ($varaincesVal * $resRow['lastPrice']);
-                                        }
-                                    }
+                                if ($accessHistoryAccountsPermission['type_id'] == 1) {
                                 ?>
-                                    <div class="Variance text-center">
-                                        <p class="varDtl">Variances</p>
-                                        <p class="varValue"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
-                                        <p class="varDif"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
+                                    <div class="accntDtl">
+                                        <p class="accHead text-center">Accounts</p>
+                                        <?php
+                                        $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+            INNER JOIN tbl_currency c 
+                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
+            WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
+                                        $result = mysqli_query($con, $sqlSet);
+    
+                                        while ($resultRow = mysqli_fetch_array($result)) {
+    
+                                            $curCode = $resultRow['curCode'];
+                                            $balanceAmt = round($resultRow['balanceAmt'], 4);
+                                        ?>
+    
+                                            <div class="d-flex gap-2 py-2 w-100">
+                                                <p class="w-50"><?php echo $resultRow['accountName'] ?></p>
+    
+                                                <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
+                                                    <?php echo $curCode; ?></p>
+                                            </div>
+    
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
-                               
+                                <?php } ?>
                             </div>
-                            <?php
-                            if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                            ?>
-                                <div class="accntDtl">
-                                    <p class="accHead text-center">Accounts</p>
-                                    <?php
-                                    $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
-        INNER JOIN tbl_currency c 
-            ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-        WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
-                                    $result = mysqli_query($con, $sqlSet);
-
-                                    while ($resultRow = mysqli_fetch_array($result)) {
-
-                                        $curCode = $resultRow['curCode'];
-                                        $balanceAmt = round($resultRow['balanceAmt'], 4);
-                                    ?>
-
-                                        <div class="d-flex gap-2 py-2 w-100">
-                                            <p class="w-50"><?php echo $resultRow['accountName'] ?></p>
-
-                                            <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
-                                                <?php echo $curCode; ?></p>
-                                        </div>
-
-                                    <?php
-                                    }
-                                    ?>
-                                </div>
-                            <?php } ?>
                         </div>
                     </div>
 
 
 
 
-                    <div class="container position-relative hstTbl-head px-0 <?php echo count($historyUserFilterFields)<11?'hstTbl-head1':''; ?>">
+                    <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields)<11?'hstTbl-head1':''; ?>">
                         
                         <!-- Item Table Head Start -->
-                        <div class=" mt-2 itmTable <?php echo count($historyUserFilterFields)<11?'itmTable1':''; ?>" style="background:transparent;  border: none ; box-shadow: none;  border-radius: 10px;  padding: 3px 12px;">
-                            <div class="mb-hstryBareq">&nbsp;</div>
+                        <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields)<11?'itmTable1':''; ?>">
+                            <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
+                                <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white"/>
+                                </svg> 
+                            </button>
                             <div class="align-items-center d-flex dropdnbtns">
                                 <div class="numRef numRef1 align-items-center">
                                     <div class="tb-bdy srHisclm">
@@ -1677,7 +1733,7 @@ cursor: pointer;
                                             <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy refer-to-dpd">
-                                        <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100" style="max-width:70%">
+                                        <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100 lg__70">
                                                     <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
@@ -1713,13 +1769,13 @@ cursor: pointer;
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14]) ) { ?>
                                             <?php } else { ?>
-                                                <div class="tb-bdy hisStatusclm" style="margin-left: -0.3rem;">
+                                                <div class="tb-bdy hisStatusclm sm__ml">
                                         <div class="d-flex align-items-center"  ><div class="dropdown d-flex align-items-center w-100  position-relative">
                                                     <a class="dropdown-toggle body3 " data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="statusText"><?php echo showOtherLangText('St'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $statusTypeOptions; ?>
-                                                    <span class="dblArrow">
+                                                    <span class="dblArrow d-none d-lg-block">
                                                         <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
                                                         <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
                                                     </span>
@@ -1732,7 +1788,7 @@ cursor: pointer;
                                     
                                         <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !isset($colsArr[15]) ) { ?>
                                         <?php } else { ?>
-                                            <div class="tb-bdy hisStatusclm"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                            <div class="tb-bdy hisStatusclm d-none d-lg-block"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
                                                 <p style="color: #666c85; font-size: 12px; font-weight:600;"><?php echo showOtherLangText('Payment <br>No.'); ?></p>
                                             </div></div>
                                         <?php } ?>
@@ -1741,7 +1797,7 @@ cursor: pointer;
                                    
                                         <?php if (isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
                                         <?php } else { ?>
-                                             <div class="tb-bdy hisStatusclm" ><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                             <div class="tb-bdy hisStatusclm d-none d-lg-block" ><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
                                     <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
                                             </div> </div>
                                         <?php } ?>
@@ -1764,24 +1820,25 @@ cursor: pointer;
                                 </div>
                                 
 
-                                <div class="d-flex align-items-center justify-content-end his-Paybtn" style="width:17%">
-                                <div style="width:155px">
-                                    <div class="d-flex align-items-center">
-                                        <p><?php echo showOtherLangText('Action'); ?></p>
+                                <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
+                                    <div class="label__box">
+                                        <div class="d-flex align-items-center">
+                                            <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
+                                            <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- check box model icon -->
+                                    <!-- check box model icon -->
                                     <div class="chkStore">
                                         <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
                                             <img src="Assets/icons/chkColumn.svg" style="width: 22px;" alt="Check Column">
                                         </a>
                                     </div>
-                        </div>
+                                </div>
 
                             </div>
-                            <div class="align-items-center mbTask">
+                            <!-- <div class="align-items-center mbTask">
                                 <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- Item Table Head End -->
                     </div>
@@ -2932,6 +2989,15 @@ parentClasses.forEach(parentClass => {
 });
 });
 
+</script>
+
+<script>
+    // set filter box responsive class remove script 
+    var closeBtn = document.getElementById("closeResFilterBox");
+    var closeBox = document.getElementById("resFilterBox");
+    closeBtn.addEventListener('click', function(){
+        closeBox.classList.remove('hstTable-show');
+    })
 </script>
 
 <?php

@@ -241,7 +241,7 @@ if( isset($_POST['itemName']) )
                             </div>
                             <?php } ?>
                     <form role="form" action="" method="post" class="container" enctype="multipart/form-data">
-                        <div class="row">
+                        <div class="row mb-3 mb-md-0">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
                                     <a href="itemsManager.php" class="btn btn-primary"><span
@@ -387,7 +387,7 @@ if( isset($_POST['itemName']) )
                                                 <button type="button" id="upload-img-btn" class="sub-btn"
                                                     onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
                                             </div> 
-                                                    <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;" width="100px"
+                                                    <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;margin-top:.65rem;" width="100px"
                                                     class="previewImg">
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
