@@ -465,7 +465,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     <input type="hidden" name="storeName" id="storeName" value="<?php echo $storeId; ?>" />
 
     <div class="container-fluid newOrder">
-        <div class="row g-0 flex-nowrap" style="margin-top: 1.5rem;">
+        <div class="row g-0 flex-nowrap">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
                 <?php require_once('nav.php'); ?>
             </div>
@@ -691,6 +691,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
+                                <div class="tb-bdy stkImgcol"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                 <?php } else { ?>
                                     <div class="tb-bdy stkImgcol"><?php echo showOtherLangText('Photo'); ?></div>
@@ -967,6 +968,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="newStockTask">
                                     <div class="d-flex align-items-center border-bottom itmBody">
                                         <div class="mbShw d-flex align-items-center">
+                                            <div class="tb-bdy stkImgcol">
+                                                   <?php echo $x; ?>
+                                                </div>
                                             <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy stkImgcol">
