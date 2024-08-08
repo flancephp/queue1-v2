@@ -389,6 +389,7 @@ $tr = '';
 
 			$variancesVal =  $varience !== 0 ? ( (get2DecimalVal($varience)) ) : 0;
 		
+            $varianceShowHideClass = $variancesVal == 0 ? 'hideVariance' : 'showVariance';
 			
 			//if close stock is done then only show zero/other values
 			if($closeStockDone != 1 && ($_GET['fromDate'] == $_GET['toDate']) )
@@ -417,7 +418,7 @@ $tr = '';
 			$salesPriceText =  '<span class="showhideprice"><br>'. $salesAmt. '<br></span>';
             
                                $itemsLists .= ' <!-- Item Table Body Start -->
-                                <div class="container outletBody-Task">
+                                <div class="container outletBody-Task '.$varianceShowHideClass.'" >
                                     <div class="otltTbl-bdy border-bottom">
                                         <div class="otltBd-hdImg">
                                             <img src="'.$img.'" alt="Item">
@@ -635,9 +636,9 @@ $tr = '';
                                             <img src="Assets/icons/filter.svg" alt="Filter">
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sales</a></li>
-                                            <li><a class="dropdown-item" href="#">Bar Control</a></li>
-                                            <li><a class="dropdown-item" href="#">Usage</a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=2">Sales</a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=1">Bar Control</a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=3">Usage</a></li>
                                         </ul>
                                     </div>
                                     <!-- Filter Btn End -->
@@ -650,7 +651,7 @@ $tr = '';
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
                                                 class="cstBtn-Img"> <span class="cstMb">Adjust</span>
                                         </a>
-                                        <a href="javascript:void(0)" class="cstBtn-Sale">
+                                        <a href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Sale hideBtn-Info">

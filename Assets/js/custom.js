@@ -746,6 +746,28 @@ function removeQueryParameter(url, parameterName) {
     
     return url;
 }
+
+
+
+$(document).ready(function () {
+  $(".cstBtn-Sale").on("click", function () {
+
+
+        if( $(".actvSale-Cst").length )
+        {
+          $(".hideVariance").hide();
+          $(".showVariance").show();
+        }
+        else
+        {
+          $(".hideVariance").show();
+          $(".showVariance").show();
+        }
+
+
+  });
+});
+
 // Add/Edit Outlet Page Checkbox End
 // Login page password field toggle visibility
 
