@@ -84,8 +84,11 @@ $qry = " INSERT INTO `tbl_order_journey` SET
 `userBy`  = '" . $_SESSION['id'] . "',
 `ordDateTime` = '" . date('Y-m-d h:i:s') . "',
 `amount` = '" . $resRow['ordAmt'] . "',
+`otherCur` = '".$resRow['ordCurAmt']."',
+`otherCurId` = '".$resRow['ordCurId']."',
 `invoiceNo` = '" . $resRow['invNo'] . "',
 `orderType` = '" . $resRow['ordType'] . "',
+ `notes` = 'Paid',
 `action` = 'payment' ";
 mysqli_query($con, $qry);
 
@@ -1089,6 +1092,13 @@ $colsArr = [
     .itmTable .tb-bdy {
         padding-left:0;
     }
+
+ .itmTable .dropdown {
+    width: 100%;
+ }
+ .itmTable .dropdown a span{
+    overflow: hidden;
+ }
  .itmTable .dropdown-toggle{
     color: #666c85;
     text-decoration: none;
@@ -1101,6 +1111,7 @@ $colsArr = [
     border-radius: 10px;
     padding: 7px 12px;
     font-weight: 700;
+    width: 100%;
   }
   @media (max-width:1024px) {
     .numRef {
@@ -1224,7 +1235,42 @@ cursor: pointer;
     .sm__ml { margin-left: -0.3rem; }
 }
 /* ---- Responsive Filterbox styles end -------- */
-
+.toggle-currency-btn-disabled {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    color: #666C85;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.36px;
+    border: 1px solid #A9B0C0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.toggle-currency-btn-disabled:hover ,.toggle-currency-btn-disabled:focus{
+    color: #666C85;
+    cursor:default;
+}
+.input-group {
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: .5rem;
+}
+.input-group button {
+ border-radius: 10px !important;
+}
+.input-group input {
+    background-color: white;
+    border-radius: 10px !important;
+    max-width: 200px;
+    height: 32px;
+    padding: 0 .5rem;
+}
+.srHisclm {
+    width: 10%;
+}
 </style>
 
 
@@ -1244,13 +1290,7 @@ cursor: pointer;
                         <h1 class="h1"><?php echo showOtherLangText('History'); ?></h1>
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-end">
-                    <div class="account-name-section">
-							<span class="user-name">
-					                    admin | 
-					              <span class="account-name">Our Zazibar</span>
-					              <span><img src="https://queue1.net/qa1/uploads/queue1/clientLogo/17152523391706978392ourzanzibar.png" width="45" class="headLogo-Img"></span>
-                            </span>
-						</div>
+                    
                         <div class="mbPage">
                             <div class="mb-nav" id="mb-nav">
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -1261,24 +1301,7 @@ cursor: pointer;
                                 <h1 class="h1"><?php echo showOtherLangText('History'); ?></h1>
                             </div>
                         </div>
-                        <div class="user d-flex align-items-center">
-                            <img src="Assets/images/user.png" alt="user">
-                            <p class="body3 m-0 d-inline-block">User</p>
-                        </div>
-                        <div class="acc-info">
-                            <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                            <div class="dropdown d-flex">
-                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                    <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                    <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                    <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                    <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                          <?php require_once('header.php'); ?>
                     </div>
                 </div>
             </section>
@@ -1490,6 +1513,15 @@ cursor: pointer;
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php
+                                        $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                                    INNER JOIN tbl_orders o 
+                                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                                    INNER JOIN tbl_currency c
+                                        ON(od.currencyId=c.id) AND od.account_id=c.account_Id
+                                    WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "' GROUP BY o.id ORDER BY o.id desc ";
+                                        $result = mysqli_query($con, $sql);
+                                        if(mysqli_num_rows($result)>0){?>
                                         <!-- added on 31-7-24 -->
                                         <div class="usdCurr text-center">
                                                 <div class="paidIsue d-flex">
@@ -1506,14 +1538,8 @@ cursor: pointer;
                                                 </div>
                                             </div>
                                         <?php
-    
-                                        $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
-                                    INNER JOIN tbl_orders o 
-                                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                                    INNER JOIN tbl_currency c
-                                        ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                                    WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "' GROUP BY o.id ORDER BY o.id desc ";
-                                        $result = mysqli_query($con, $sql);
+                                         }
+                                        
                                         $otherCurrRowArr = [];
                                         $otherCurrTotalValueArr = [];
                                         $otherCurrPendingTotalValueArr = [];
@@ -1570,7 +1596,13 @@ cursor: pointer;
                                         <?php } ?>
                                         
                                         <div style="padding-left:.5rem;">
-                                            <a class="toggle-currency-btn">$/¥</a>
+                                    <a class="<?php 
+                                    if (mysqli_num_rows($result) == 0) { 
+                                    echo 'toggle-currency-btn-disabled'; 
+                                    } else { 
+                                    echo 'toggle-currency-btn'; 
+                                    } 
+                                    ?>">$/¥</a>
                                         </div>
                                     </div>
                                     <div class="issueOut">
@@ -1772,7 +1804,11 @@ cursor: pointer;
                                                 <div class="tb-bdy hisStatusclm sm__ml">
                                         <div class="d-flex align-items-center"  ><div class="dropdown d-flex align-items-center w-100  position-relative">
                                                     <a class="dropdown-toggle body3 " data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span id="statusText"><?php echo showOtherLangText('St'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                        <span id="statusText">
+                                                            <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Status'); ?></span>
+                                                            <span class="d-lg-none"><?php echo showOtherLangText('Status'); ?></span>
+                                                        </span> 
+                                                        <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $statusTypeOptions; ?>
                                                     <span class="dblArrow d-none d-lg-block">
@@ -1810,7 +1846,11 @@ cursor: pointer;
 
                                         <div class="d-flex align-items-center"><div class="dropdown d-flex align-items-center w-100 position-relative">
                                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span id="accountTxt"><?php echo showOtherLangText('Acc'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                        <span id="accountTxt">
+                                                            <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Accound'); ?></span>
+                                                            <span class="d-lg-none"><?php echo showOtherLangText('Accound'); ?></span>
+                                                        </span> 
+                                                        <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $accountOptions; ?>
                                                 </div> </div>
@@ -2151,7 +2191,7 @@ cursor: pointer;
                                        
                                         <div class="stsHiscol d-flex align-items-center">
                                            
-                                                <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields)) { ?>
+                                                <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
                                                 <?php } else { ?> <div class="tb-bdy hisStatusclm" style=" padding-left:0px;"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
                                                 <?php } ?>
                                             
@@ -2168,7 +2208,7 @@ cursor: pointer;
                                             
 
                                             
-                                                <?php if (isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields)) { ?>
+                                                <?php if (isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
                                                 <?php } else { ?>
                                                     <div class="tb-bdy hisAcntclm"><p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p></div><?php } ?>
                                             
@@ -2197,7 +2237,7 @@ cursor: pointer;
                             } else {
                                     ?><span style="width: 53%;">&nbsp;</span><?php
                             }
-                        }
+                }
 
                         elseif ($orderRow['ordType'] == 2) 
                         {
@@ -2284,8 +2324,8 @@ cursor: pointer;
                                         <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
 
                                         <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
-                                            <input type="password" value="" placeholder="" name="password">&nbsp;&nbsp;
-                                            <button type="submit" class=" btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
+                                            <input type="password" value="" placeholder="" class="form-control" name="password">&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
                                             &nbsp;&nbsp;
 
                                             <a href="history.php" class="class=" btn-primary><?php echo showOtherLangText('Cancel') ?></a>
@@ -2935,9 +2975,8 @@ cursor: pointer;
 <!-- raw materiels Popup Start -->
 <div class="modal" tabindex="-1" id="Raw_Convert_Item_details" aria-labelledby="Raw-Convert-Item-details" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-        <div id="Raw_Convert_Item_details_content" class="modal-content p-2">
-
-
+        <div class="modal-content p-2"> 
+            <div id="Raw_Convert_Item_details_content"></div>
         </div>
     </div>
 </div>

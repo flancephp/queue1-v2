@@ -306,6 +306,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style_new.css">
 <style>
 .supMem-Name { color: #3fb180; }
+.site-modal .modal-content { border-radius: 8px; }
+@media (max-width:991px) {
+    .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; }
+    .modal .modal-table { min-width: 750px; }
+    .overflow-auto { overflow-x:auto;overflow-y:visible }
+
+}
 </style>
 </head>
 
@@ -335,24 +342,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                             <h1 class="h1"><?php echo showOtherLangText('Running Tasks'); ?></h1>
                         </div>
                     </div>
-                    <div class="user d-flex align-items-center">
-                        <img src="Assets/images/user.png" alt="user">
-                        <p class="body3 m-0 d-inline-block">User</p>
-                    </div>
-                    <div class="acc-info">
-                        <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                        <div class="dropdown d-flex">
-                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                <span> Account</span> <i class="fa-solid fa-angle-down rtl-down-arrow"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                     <?php require_once('header.php'); ?>
                 </div>
             </div>
         </section>

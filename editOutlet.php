@@ -516,7 +516,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
 </div>
                     <div class="container itmMng-Src outletFrm">
                      <div class="row">
-                            <div class="col-md-8 oltCol-8">
+                            <div class="col-xl-8 oltCol-8">
                                 <div class="acntStp">
                                     <div class="addUser-Form acntSetup-Form row">
                                         <div class="acnt-Div nmOutlet">
@@ -644,7 +644,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                     </div>
                                                 </div>
                                                  <div class="dropContent" id="dropContent">
-                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row chkOlt-Row">
+                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
                                                 </div>

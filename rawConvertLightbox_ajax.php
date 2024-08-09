@@ -32,18 +32,19 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
 			$resultSet = mysqli_query($con, $sqlSet);
 			$orderBy = mysqli_fetch_array($resultSet);
 
-$content  .= '<form action="rawConvert_pdf_download.php" target="_blank" method="get"><div class="modal-header pb-3">';
+$content  .= '<form action="rawConvert_pdf_download.php" target="_blank" method="get"><div class="modal-header pb-3">  ';
 $content  .= '<input type="hidden" name="orderId" value="'.$_POST['orderId'].'"/>';
-$content  .= '<div class="d-md-flex align-items-center justify-content-end w-100">
-                       <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></a>
+$content  .= '<div class="d-flex align-items-center justify-content-end w-100 pe-3">
+                       <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></button>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body px-2 py-3">
                     <div class="test-center">
                         <h4 class="text-center semibold">'.showOtherLangText('Raw Convert Item Details').'</h4>
-                    </div>';
+                    </div><div class="table-responsive">';
 
- $content  .=  '<table class="modal-table fs-12 w-100 mt-4">
+ $content  .=  '<table class="modal-table fs-12 w-100 mt-4" style="min-width: 700px;">
                         <thead style="background-color: white !important;">
                             <tr>
                                 <th>'.showOtherLangText('Task No.').'</th>
@@ -61,7 +62,7 @@ $content  .=  '<tr>
                             </tr>';
  $content  .= '</tbody>
                     </table><br>
-                    <table class="modal-table fs-12 w-100 mt-4">
+                    <table class="modal-table fs-12 w-100 mt-4" style="min-width: 700px;">
                         <thead>
                             <tr>
                                 <th>'.showOtherLangText('#').'</th>
@@ -95,5 +96,5 @@ $content  .=  '<tr>
             $content  .= '</tbody>
                     </table>
 
-                </div>';
+                </div> </div>';
 echo $content ;

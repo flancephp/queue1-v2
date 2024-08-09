@@ -118,14 +118,14 @@ $det = mysqli_fetch_array($res);
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="manageAdditionalFee.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="manageAdditionalFee.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn">Back</span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
+                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                             class="dsktp-Btn">Save</span></button>
                                 </div>

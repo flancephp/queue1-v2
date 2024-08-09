@@ -166,7 +166,7 @@ $res = mysqli_fetch_array($result);
                                 </div>
                                 <div class="mbpg-name">
                                     <h1 class="h1">
-                                        <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add Supplier').' ';?>
+                                        <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit Supplier').' ' : ' '.showOtherLangText('Add Supplier').' ';?>
                                     </h1>
                                 </div>
                             </div>

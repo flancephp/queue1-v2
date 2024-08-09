@@ -388,10 +388,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .page1bdy .cntTable .stkNamcol>div:nth-child(4) {width: 21.5% !important;} 
  
         }
-
+        #upload_form .dropStk ul{ opacity: 1 !important;     inset: 13px 0px auto auto !important;}
+        .md__33 { width: 33%; }
         @media (max-width: 991px) {
             .cntTable .stkPrcol { width: 30%; } 
-            .page2bdy   .cntTable .stkPrcol { width: 33%; }
+            .page2bdy .cntTable .stkPrcol { width: 33%;display:block !important; }
+            .md__33{ width: 100%; }
             #upload_form { max-width:240px; }
             #upload_form .stockFeat .tabFet { width: 100%;min-height: 57px; }
             #upload_form .dropStk p span { white-space: break-spaces; }
@@ -707,7 +709,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
                     <div class="container stkTblhead  position-relative tbl-head-page-1" id="page1head">
                         <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable" style="min-height: 70px;">
+                        <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy stkImgcol"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
@@ -827,7 +829,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                     </div>
                     <div class="container  stkTblhead position-relative tbl-head-page-1" id="page2head" style="display: none;">
                         <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable" style="min-height: 70px;">
+                        <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy stkImgcol">
                                     <p><?php echo showOtherLangText('Photo'); ?></p>
@@ -1148,20 +1150,22 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 </div>
                                             </div>
                                             <div class="stkPrcol d-flex align-items-center">
-                                                <div class="tmp_qty tb-bdy lstPrcol stkPrcbdy mb-Last" style="width: 33% !important;>
+                                                <div class="tmp_qty tb-bdy lstPrcol stkPrcbdy mb-Last md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Last</span> <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        <p>
+                                                        <span class="mbLst-value">Last</span> 
+                                                        <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
-                                                <div class="department tb-bdy lstPrcol stkPrcbdy mb-Stock" style="width: 33% !important;>
+                                                <div class="department tb-bdy lstPrcol stkPrcbdy mb-Stock md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <p><span class="mbLst-value">Stock</span><?php echo $deptNames; ?></p>
                                                     <?php } ?>
                                                 </div>
-                                                <div class="min_qty tb-bdy lstPrcol stkPrcbdy mb-Value" style="width: 33% !important;">
+                                                <div class="min_qty tb-bdy lstPrcol stkPrcbdy mb-Value md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <p><span class="mbLst-value">Value</span><?php echo $row['minLevel']; ?>

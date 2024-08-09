@@ -288,23 +288,6 @@ $content .= '<div class="modal-header pb-3">
                             ';
 
 
-                            $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
-                     $resultSet = mysqli_query($con, $sqlSet);
-                     $chargeRow = mysqli_fetch_array($resultSet);   
-                     $chargePrice=$chargeRow['sum1'];
-                     $chargePriceOther=$chargeRow['totalAmtOther'];
-                     
-
-                     //to find order level charge
-                     $ordCount="SELECT * from tbl_order_details where ordId='".$_REQUEST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
-                     $ordCountResult = mysqli_query($con, $ordCount);
-                     $ordCountRow = mysqli_num_rows($ordCountResult);
-                     $showGrandTotal = false;
-
-                     if ($ordCountRow > 0)
-                     { 
-
-                        $showGrandTotal = true;
                             $content .= '<div  class="SummaryItems table-row">
                                 <div class="table-cell" style="width: 30%;">
                                     <div class="sub-table w-100" style="display: table;">
@@ -317,9 +300,25 @@ $content .= '<div class="modal-header pb-3">
                         </span></div></div>';
           }
                              $content .= '</div>
-                                </div>
+                                </div>';
+           $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
+                             $resultSet = mysqli_query($con, $sqlSet);
+                             $chargeRow = mysqli_fetch_array($resultSet);   
+                             $chargePrice=$chargeRow['sum1'];
+                             $chargePriceOther=$chargeRow['totalAmtOther'];
+                             
+     
+                             //to find order level charge
+                             $ordCount="SELECT * from tbl_order_details where ordId='".$_REQUEST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                             $ordCountResult = mysqli_query($con, $ordCount);
+                             $ordCountRow = mysqli_num_rows($ordCountResult);
+                             $showGrandTotal = false;
 
-                                <div class="table-cell" style="width: 35%;"></div>
+                             if ($ordCountRow > 0)
+                             { 
+
+                                $showGrandTotal = true;
+                 $content .= '<div class="table-cell" style="width: 35%;"></div>
                                 <div class="table-cell" style="width: 35%;">
                                 <div class="sub-table w-100" style="display: table;">
                                         <div class="table-row">

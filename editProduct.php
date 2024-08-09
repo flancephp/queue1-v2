@@ -429,7 +429,7 @@ if( $res['proType'] == 3)
                                             <?php 
              if( $res['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/products/'.$res['imgName'] ) )
              {  
-                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$res['imgName'].'" class="previewImg" >';
+                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$res['imgName'].'" class="previewImg" style="margin-top:.65rem;" >';
              }
             ?>
                                                     <img src="<?php echo $_POST['picField']; ?>" style="width: 100px;margin-top:.65rem;" width="100px"
