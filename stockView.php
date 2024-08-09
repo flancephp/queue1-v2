@@ -388,10 +388,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .page1bdy .cntTable .stkNamcol>div:nth-child(4) {width: 21.5% !important;} 
  
         }
-
+        #upload_form .dropStk ul{ opacity: 1 !important;     inset: 13px 0px auto auto !important;}
+        .md__33 { width: 33%; }
         @media (max-width: 991px) {
             .cntTable .stkPrcol { width: 30%; } 
-            .page2bdy   .cntTable .stkPrcol { width: 33%; }
+            .page2bdy .cntTable .stkPrcol { width: 33%;display:block !important; }
+            .md__33{ width: 100%; }
             #upload_form { max-width:240px; }
             #upload_form .stockFeat .tabFet { width: 100%;min-height: 57px; }
             #upload_form .dropStk p span { white-space: break-spaces; }
@@ -504,24 +506,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     <h1 class="h1"><?php echo showOtherLangText('Stock View'); ?></h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -707,7 +692,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
                     <div class="container stkTblhead  position-relative tbl-head-page-1" id="page1head">
                         <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable" style="min-height: 70px;">
+                        <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy stkImgcol"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
@@ -827,7 +812,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                     </div>
                     <div class="container  stkTblhead position-relative tbl-head-page-1" id="page2head" style="display: none;">
                         <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable" style="min-height: 70px;">
+                        <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy stkImgcol">
                                     <p><?php echo showOtherLangText('Photo'); ?></p>
@@ -1148,20 +1133,22 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 </div>
                                             </div>
                                             <div class="stkPrcol d-flex align-items-center">
-                                                <div class="tmp_qty tb-bdy lstPrcol stkPrcbdy mb-Last" style="width: 33% !important;>
+                                                <div class="tmp_qty tb-bdy lstPrcol stkPrcbdy mb-Last md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Last</span> <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        <p>
+                                                        <span class="mbLst-value">Last</span> 
+                                                        <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
-                                                <div class="department tb-bdy lstPrcol stkPrcbdy mb-Stock" style="width: 33% !important;>
+                                                <div class="department tb-bdy lstPrcol stkPrcbdy mb-Stock md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <p><span class="mbLst-value">Stock</span><?php echo $deptNames; ?></p>
                                                     <?php } ?>
                                                 </div>
-                                                <div class="min_qty tb-bdy lstPrcol stkPrcbdy mb-Value" style="width: 33% !important;">
+                                                <div class="min_qty tb-bdy lstPrcol stkPrcbdy mb-Value md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <p><span class="mbLst-value">Value</span><?php echo $row['minLevel']; ?>

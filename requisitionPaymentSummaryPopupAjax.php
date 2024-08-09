@@ -55,8 +55,11 @@ if($paymentRow['paymentStatus']==1)
 
 
 $content .= '<div class="modal-header pb-3">
+                      <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
                     <div class="d-md-flex align-items-center justify-content-end w-100">
-                        <a href="inv_pdf_download.php?orderId='.$_POST['orderId'].'"" class="btn" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <a href="inv_pdf_download.php?orderId='.$_POST['orderId'].'"" class="btn btn-primary" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
                     </div>
                 </div>
                 <div class="modal-body m-0 p-0">
@@ -90,7 +93,7 @@ $content .= '<div class="modal-header pb-3">
                     if($clientResultRow['logo'] !='' && file_exists(dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientResultRow['logo']))
                     {   
 
-                        $content .=  '<img src="'.$siteUrl.'uploads/'.$accountImgPath."/clientLogo/".$clientResultRow['logo'].'" width="100" height="100" style="margin-top: 25px;">';
+                        $content .=  '<img src="'.$siteUrl.'uploads/'.$accountImgPath."/clientLogo/".$clientResultRow['logo'].'" width="100" height="100" style="object-fit: contain;">';
 
                     } 
         $content .='</div></div>

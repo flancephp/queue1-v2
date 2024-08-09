@@ -47,7 +47,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                         <div class="col-md-4 d-flex align-items-end">
                             <h1 class="h1"><?php echo showOtherLangText('Add Title');?></h1>
                         </div>
-                        <div class="col-md-8 d-flex align-items-center justify-content-end">
+                       <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
                                 <div class="mb-nav" id="mb-nav">
                                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -60,24 +60,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                     <h1 class="h1"><?php echo showOtherLangText('Add Title');?></h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>

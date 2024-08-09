@@ -427,24 +427,7 @@ if( isset($_POST['outLetId']) && !empty($_POST['outLetId']) )
                                     <h1 class="h1"><?php echo showOtherLangText('Edit Outlet'); ?></h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -516,7 +499,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
 </div>
                     <div class="container itmMng-Src outletFrm">
                      <div class="row">
-                            <div class="col-md-8 oltCol-8">
+                            <div class="col-xl-8 oltCol-8">
                                 <div class="acntStp">
                                     <div class="addUser-Form acntSetup-Form row">
                                         <div class="acnt-Div nmOutlet">
@@ -644,7 +627,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                     </div>
                                                 </div>
                                                  <div class="dropContent" id="dropContent">
-                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row chkOlt-Row">
+                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
                                                 </div>

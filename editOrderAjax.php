@@ -52,7 +52,7 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_POST['orderId'] && isset($_P
 						$productPrice = $prodRow['price']*$prodRow['factor']*$_POST['qty'];
 						$productPriceOther = $prodRow['price']*$prodRow['factor']*$_POST['qty']*$_POST['curAmtVal'];
 
-					$sqlSet=" SELECT * FROM  tbl_order_details WHERE ordId = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' and pId= '".$_POST['pId']."' ";
+					$sqlSet=" SELECT * FROM  tbl_order_details_temp WHERE ordId = '".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' and pId= '".$_POST['pId']."' ";
 					$resultSet= mysqli_query($con, $sqlSet);
 					$prodRow= mysqli_fetch_array($resultSet);
 					if(!$prodRow)
@@ -67,7 +67,10 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_POST['orderId'] && isset($_P
 							,`currencyId` = '".$currencyId."' 
 							,`curPrice` = '".($price*$otherCurAmt)."' 
 							,`curAmt` = '".($productPriceOther)."'
-							,`account_id` = '".$_SESSION['accountId']."'  ";
+							,`account_id` = '".$_SESSION['accountId']."'
+							,`editOrdNewItemStatus` = '".$_POST['editOrdNewItemStatus']."'
+
+							";
 
 							mysqli_query($con, $sql); //die($sql);
 
@@ -83,7 +86,7 @@ if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_POST['orderId'] && isset($_P
 
 						$upQry = " UPDATE  `tbl_order_details_temp` SET
 						`price` = '".$price."', 
-						
+						`editOrdNewItemStatus` = '".$_POST['editOrdNewItemStatus']."',
 						`qty` = '".$_POST['qty']."', 
 						`totalAmt` = '".$productPrice."',
 						`curAmt` = '".($productPriceOther)."'

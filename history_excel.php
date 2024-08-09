@@ -91,15 +91,15 @@ if( isset($_SESSION['getVals']['suppMemStoreId']) && $_SESSION['getVals']['suppM
 	$getId = $getSupMemStoreId[1];
 
 	if ($getTxtById == 'suppId') {
-      $cond .= " AND o.supplierId = ".$getId." AND o.account_id = '".$_SESSION['accountId']."' ";
+      $cond .= " AND o.supplierId = ".$getId."  ";
  	}
 
  	if ($getTxtById == 'deptUserId') {
-   	$cond .= " AND o.recMemberId = ".$getId." AND o.account_id = '".$_SESSION['accountId']."' ";
+   	$cond .= " AND o.recMemberId = ".$getId."  ";
  	}
 
  	if ($getTxtById == 'storeId') {
-   	$cond .= " AND o.storeId = ".$getId." AND o.account_id = '".$_SESSION['accountId']."' ";
+   	$cond .= " AND o.storeId = ".$getId."  ";
  	}
 }
 
@@ -181,7 +181,7 @@ LEFT JOIN tbl_stores s ON
 LEFT JOIN tbl_suppliers sp ON
 	(o.supplierId = sp.id) AND o.account_id = sp.account_id
 
-WHERE o.status = 2 ".$cond." ";
+WHERE o.status = 2 AND o.account_id='".$_SESSION['accountId']."'  ".$cond." ";
 
 $historyQry = mysqli_query($con, $mainSqlQry);
 

@@ -349,7 +349,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 .prdtCnt-Fst { width: 64%; }
 .prdt-Hide { width: 30%; }
-.prdtCr-Unit { width: 38%; }
+/* .prdtCr-Unit { width: 38%; } */
 .prdtCnt-Scnd { width: 10%; }
 @media(max-width:991px) {
 .prdtCnt-Fst { width: 84%; }
@@ -367,6 +367,18 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
 .col-7 .form-control { font-size:12px; }
 }
 .dflt-Currency, .othr-Currency {width:72%;}
+.Itm-brCode {
+    width: 18%;
+}
+.Itm-Name {
+    width: 25%;
+}
+.ttlCr-Type {
+    width: 100% !important;
+}
+.prdtStk-Qty {
+    width: 9%;
+}
 </style>
 </head>
 
@@ -396,24 +408,8 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
 <h1 class="h1"><?php echo showOtherLangText('New Order'); ?></h1>
 </div>
 </div>
-<div class="user d-flex align-items-center">
-<img src="Assets/images/user.png" alt="user">
-<p class="body3 m-0 d-inline-block">User</p>
-</div>
-<div class="acc-info">
-<img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-<div class="dropdown d-flex">
-<a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-    <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-</a>
-<ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-    <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-    <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-    <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-</ul>
-</div>
-</div>
+
+  <?php require_once('header.php'); ?>
 </div>
 </div>
 </section>
@@ -956,7 +952,7 @@ $resRows = mysqli_query($con, $sqlSet);
 </div>
 <div class="prdt-Hide">
 <div class="prdt-Note tb-bdy">
-<div class="row g-2">
+<div class="row g-2 align-items-baseline">
     <div class="col-7">
         <div class="ttlCr-Type d-flex align-items-center">
 <div class="ttlDft-Crcy tb-head">
@@ -999,15 +995,16 @@ $totalCustomCharges += $row['amt'];
 ?>                          
 <div class="newOrdTask">
 <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-<div class="prdtImg tb-bdy">
-<a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
+  <div class="prdtImg tb-bdy">
+        <p><?php echo $x; ?></p>
+    </div>
+    <div class="prdtImg tb-bdy">
+    <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
         onClick="getDelNumb('<?php echo $row['id'] ?>', '1', '<?php echo $_SESSION['currencyId'] ?>');"
         style="color:#808080"><span class="dlTe"></span></a>
 </div>
 <div class="prdtCnt-Fst d-flex align-items-center">
-    <div class="Itm-Name tb-bdy">
-        <p><?php echo $x; ?></p>
-    </div>
+    
     <div class="Itm-Name tb-bdy">
         <p><?php echo $row['itemName'];?></p>
     </div>
@@ -1015,7 +1012,8 @@ $totalCustomCharges += $row['amt'];
         <p class="ord-brCode"><?php echo $row['barCode'];?></p>
     </div>
     <div class="prdtCr-Unit d-flex">
-        <div class="crncy-Type col-7">
+        <!-- <div class=" crncy-Type col-7"> -->
+        <div class=" d-flex col-7">
             <div class="dflt-Currency tb-bdy">
                 <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
             </div>

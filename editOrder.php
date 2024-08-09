@@ -1,84 +1,87 @@
 <?php 
 include('inc/dbConfig.php'); //connection details
 
+
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
+//delete new items which are in temp
+$selQry = " DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND editOrdNewItemStatus=1  ";
+mysqli_query($con, $selQry);
 
 $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_order' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
 if ($permissionRow)
 {
-echo "<script>window.location='index.php'</script>";
+    echo "<script>window.location='index.php'</script>";
 }
+
 if(isset($_REQUEST['currencyId'])) 
 {  
-$curDet = getCurrencyDet($_REQUEST['currencyId']);
-$curAmtVal = $curDet['amt'];
-$currencyId = $_REQUEST['currencyId'];
-
- $updateQry = " UPDATE  `tbl_orders` SET 
-`ordCurId` = '".$currencyId."'
-WHERE id='".$_GET['orderId']."'  ";
-mysqli_query($con, $updateQry);
-
+    $curDet = getCurrencyDet($_REQUEST['currencyId']);
+    $curAmtVal = $curDet['amt'];
+    $currencyId = $_REQUEST['currencyId'];
+    
+    $updateQry = " UPDATE  `tbl_orders` SET 
+    `ordCurId` = '".$currencyId."'
+    WHERE id='".$_GET['orderId']."'  ";
+    mysqli_query($con, $updateQry);
 }
 
 
 
 if (!isset($_SESSION['supplierIdOrd']))
 {
-$selQry = " SELECT * FROM tbl_orders WHERE id='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
-$orderResult = mysqli_query($con, $selQry);
-$orderRow = mysqli_fetch_array($orderResult);
-$_SESSION['supplierIdOrd'] = $orderRow['supplierId'];
+    $selQry = " SELECT * FROM tbl_orders WHERE id='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    $orderResult = mysqli_query($con, $selQry);
+    $orderRow = mysqli_fetch_array($orderResult);
+    $_SESSION['supplierIdOrd'] = $orderRow['supplierId'];
 }
 
 
 //insert data in order_details_temp table when user land on this page
 if (isset($_GET['orderId'])) 
 {
+   
+    $selQry = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND editOrdNewItemStatus=0 limit 1 ";
+    $tempOrdDetResult = mysqli_query($con, $selQry);
+    
+    $tempOrdDetRow = mysqli_fetch_array($tempOrdDetResult);
+    
+    if (!$tempOrdDetRow)
+    {
+    
 
-$selQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
-$ordDetResult = mysqli_query($con, $selQry);
-while($ordDetRow = mysqli_fetch_array($ordDetResult))
-{
+        $selQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+        $ordDetResult = mysqli_query($con, $selQry);
+        while($ordDetRow = mysqli_fetch_array($ordDetResult))
+        {
+        
+            $values[] .= " (NULL, 
+            '".$_SESSION['accountId']."',
+            '".$_GET['orderId']."', 
+            '".$ordDetRow['pId']."',
+            '".$ordDetRow['factor']."',
+            '".$ordDetRow['price']."',
+            '".$ordDetRow['qty']."',
+            '".$ordDetRow['qtyReceived']."',
+            '".$ordDetRow['totalAmt']."',
+            '".$ordDetRow['note']."',
+            '".$ordDetRow['lastPrice']."',
+            '".$ordDetRow['stockPrice']."',
+            '".$ordDetRow['stockQty']."',
+            '".$ordDetRow['curPrice']."',
+            '".$ordDetRow['currencyId']."',
+            '".$ordDetRow['curAmt']."',
+            '".$ordDetRow['customChargeId']."',
+            '".$ordDetRow['customChargeType']."') "; 
+        }
 
-$values[] .= " (NULL, 
-'".$_SESSION['accountId']."',
-'".$_GET['orderId']."', 
-'".$ordDetRow['pId']."',
-'".$ordDetRow['factor']."',
-'".$ordDetRow['price']."',
-'".$ordDetRow['qty']."',
-'".$ordDetRow['qtyReceived']."',
-'".$ordDetRow['totalAmt']."',
-'".$ordDetRow['note']."',
-'".$ordDetRow['lastPrice']."',
-'".$ordDetRow['stockPrice']."',
-'".$ordDetRow['stockQty']."',
-'".$ordDetRow['curPrice']."',
-'".$ordDetRow['currencyId']."',
-'".$ordDetRow['curAmt']."',
-'".$ordDetRow['customChargeId']."',
-'".$ordDetRow['customChargeType']."') "; 
-}
+        $insertQry = " INSERT INTO `tbl_order_details_temp` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`,`note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`) VALUES  ".implode(',', $values);
+        mysqli_query($con, $insertQry);   
 
-$selQry = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
-$tempOrdDetResult = mysqli_query($con, $selQry);
-$x=0;
-while($tempOrdDetRow = mysqli_fetch_array($tempOrdDetResult))
-{
-$x++;
-
-}
-
-if ($x == 0)
-{
-$insertQry = " INSERT INTO `tbl_order_details_temp` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`,`note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`) VALUES  ".implode(',', $values);
-mysqli_query($con, $insertQry);   
-}
+    }
 
 }//end
 
@@ -87,102 +90,103 @@ mysqli_query($con, $insertQry);
 $sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
 $resultSet = mysqli_query($con, $sqlSet);
 $ordRow = mysqli_fetch_array($resultSet);
-//print_r($ordRow);
+
 
 $curAmtVal = 0;
 $otherCurAmt = 0;
 $currencyId = 0;
 if($ordRow['ordCurId'] > 0)
 {
-$curDet = getCurrencyDet($ordRow['ordCurId']);
+    $curDet = getCurrencyDet($ordRow['ordCurId']);
 
-if(!empty($curDet))
-{
-$otherCurAmt = $curDet['amt'];
-$currencyId = $curDet['id'];
-$curAmtVal = $curDet['amt'];
-}
-
+    if(!empty($curDet))
+    {
+        $otherCurAmt = $curDet['amt'];
+        $currencyId = $curDet['id'];
+        $curAmtVal = $curDet['amt'];
+    }
+    
 }
 
 //Add item charges in list
 if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='1' )
 {
-editCustomCharge($_GET['orderId'],$_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd'], 1);
-orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    editCustomCharge($_GET['orderId'],$_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
 }
 
 
 //Add order charges in list
 if( isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType']=='3' )
 {
-editCustomCharge($_GET['orderId'],$_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd'], 1);
-orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    editCustomCharge($_GET['orderId'],$_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
 }
 
 
 if( !empty($_POST['itemName']) )
 { 
-$showHideInList = isset($_POST['visibility']) ? 1 : 0;
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
 
-$sql = " INSERT INTO `tbl_custom_items_fee` SET 
-`itemName` = '".$_POST['itemName']."',
-`unit` = '".$_POST['unit']."',
-`amt` = '".$_POST['itemFeeAmt']."',
-`visibility` = '".$showHideInList."',
-`account_id` = '".$_SESSION['accountId']."'  ";
-mysqli_query($con, $sql);
-$itemCharges = mysqli_insert_id($con);
+    $sql = " INSERT INTO `tbl_custom_items_fee` SET 
+    `itemName` = '".$_POST['itemName']."',
+    `unit` = '".$_POST['unit']."',
+    `amt` = '".$_POST['itemFeeAmt']."',
+    `visibility` = '".$showHideInList."',
+    `account_id` = '".$_SESSION['accountId']."'  ";
+    mysqli_query($con, $sql);
+    $itemCharges = mysqli_insert_id($con);
 
-editCustomCharge($_GET['orderId'],1,$itemCharges, $_SESSION['supplierIdOrd'], 1);
-orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
-
-echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
+    editCustomCharge($_GET['orderId'],1,$itemCharges, $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    
+    echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
 }
 
 
 if( !empty($_POST['feeName']) )
 { 
-$showHideInList = isset($_POST['visibility']) ? 1 : 0;
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
 
-$sql = " INSERT INTO `tbl_order_fee` SET 
-`feeName` = '".$_POST['feeName']."',
-`feeType` = '".$_POST['feeType']."',
-`amt` = '".$_POST['amt']."',
-`visibility` = '".$showHideInList."',
-`account_id` = '".$_SESSION['accountId']."'  ";
+    $sql = " INSERT INTO `tbl_order_fee` SET 
+    `feeName` = '".$_POST['feeName']."',
+    `feeType` = '".$_POST['feeType']."',
+    `amt` = '".$_POST['amt']."',
+    `visibility` = '".$showHideInList."',
+    `isTaxFee` = '".$_POST['isTaxFee']."',
+    `account_id` = '".$_SESSION['accountId']."'  ";
 
-mysqli_query($con, $sql);
+    mysqli_query($con, $sql);
 
-$itemCharges = mysqli_insert_id($con);
+    $itemCharges = mysqli_insert_id($con);
 
-editCustomCharge($_GET['orderId'],3,$itemCharges, $_SESSION['supplierIdOrd'], 1);
-orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    editCustomCharge($_GET['orderId'],3,$itemCharges, $_SESSION['supplierIdOrd'], 1);
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
 
-echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
+    echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
 }
 
 
 
 if(isset($_REQUEST['currencyId']))
 { 
-$sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  "; 
-$resultSet= mysqli_query($con, $sql);
-
-while($resultRow= mysqli_fetch_array($resultSet))
-{ 
-$price=$resultRow['price'];
-$totalAmt=$resultRow['totalAmt'];
-
-$update = " UPDATE tbl_order_details_temp SET 
-`currencyId`='".$currencyId."',
-`curPrice` = '".($price*$otherCurAmt)."',
-`curAmt` = '".($totalAmt*$otherCurAmt)."'
-WHERE id= '".$resultRow['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
-$result= mysqli_query($con, $update);    
-
-}
-orderNetValue($_GET['orderId'],$currencyId);
+    $sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' AND editOrdNewItemStatus=0  "; 
+    $resultSet= mysqli_query($con, $sql);
+    
+    while($resultRow= mysqli_fetch_array($resultSet))
+    { 
+        $price=$resultRow['price'];
+        $totalAmt=$resultRow['totalAmt'];
+        
+        $update = " UPDATE tbl_order_details_temp SET 
+        `currencyId`='".$currencyId."',
+        `curPrice` = '".($price*$otherCurAmt)."',
+        `curAmt` = '".($totalAmt*$otherCurAmt)."'
+        WHERE id= '".$resultRow['id']."' AND account_id = '".$_SESSION['accountId']."'  ";
+        $result= mysqli_query($con, $update);    
+        
+    }
+       orderNetValue($_GET['orderId'],$currencyId);
 
 }
 
@@ -192,167 +196,170 @@ orderNetValue($_GET['orderId'],$currencyId);
 if( isset($_POST['updateOrder']) )
 {
 
-$sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
-$res = mysqli_query($con, $sql);
-$resRowOld = mysqli_fetch_array($res);
+    $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $res = mysqli_query($con, $sql);
+    $resRowOld = mysqli_fetch_array($res);
+    
+    //Update for new items
+    foreach($_POST['productIds'] as $productId)
+    { 
+        if($_POST['qty'][$productId] > 0)
+        { 
+            //Add new product in tbl_order_details on update button
+           $sqlQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND pId='".$productId."' ";
+            $orderDetailsResult = mysqli_query($con, $sqlQry);
+            $orderDetailsResRow = mysqli_fetch_array($orderDetailsResult);
 
-//Update for new items
-foreach($_POST['productIds'] as $productId)
-{ 
-if($_POST['qty'][$productId] > 0)
-{ 
-//Add new product in tbl_order_details on update button
-$sqlQry = " SELECT * FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND pId='".$productId."' ";
-$orderDetailsResult = mysqli_query($con, $sqlQry);
-$orderDetailsResRow = mysqli_fetch_array($orderDetailsResult);
+            if ( !isset($orderDetailsResRow['pId']) )
+            {
+               $sql = "INSERT INTO `tbl_order_details` SET
 
-if ( !isset($orderDetailsResRow['pId']) )
-{
-$sql = "INSERT INTO `tbl_order_details` SET
+                `currencyId` = '".$currencyId."',
+                `ordId` = '".$_GET['orderId']."',
+                `factor` = '".($_POST['factor'][$productId])."', 
+                `pId` = '".$productId."',
+                `price` = '".($_POST['price'][$productId]/$_POST['factor'][$productId])."',
+                `curPrice` = '".(($_POST['price'][$productId]/$_POST['factor'][$productId])*$curAmtVal)."', 
+                `curAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId]*$curAmtVal)."',
+                `qty` = '".$_POST['qty'][$productId]."',
+                `totalAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId])."',
+                `note` = '".$_POST['notes'][$productId]."',
+                `account_id` = '".$_SESSION['accountId']."'   ";
 
-`currencyId` = '".$currencyId."',
-`ordId` = '".$_GET['orderId']."',
-`factor` = '".($_POST['factor'][$productId])."', 
-`pId` = '".$productId."',
-`price` = '".($_POST['price'][$productId]/$_POST['factor'][$productId])."',
-`curPrice` = '".(($_POST['price'][$productId]/$_POST['factor'][$productId])*$curAmtVal)."', 
-`curAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId]*$curAmtVal)."',
-`qty` = '".$_POST['qty'][$productId]."',
-`totalAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId])."',
-`note` = '".$_POST['notes'][$productId]."',
-`account_id` = '".$_SESSION['accountId']."'   ";
+                mysqli_query($con, $sql);
 
-mysqli_query($con, $sql);
+            }
+            else
+            {
 
-}
-else
-{
-
-$upQry = " UPDATE  `tbl_order_details` SET
-`currencyId` = '".$currencyId."',
-`price` = '".($_POST['price'][$productId]/$_POST['factor'][$productId])."', 
-`curPrice` = '".(($_POST['price'][$productId]/$_POST['factor'][$productId])*$curAmtVal)."', 
-`qty` = '".$_POST['qty'][$productId]."', 
-`totalAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId])."',
-`curAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId]*$curAmtVal)."',
-`note` = '".$_POST['notes'][$productId]."'
-WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."' AND account_id = '".$_SESSION['accountId']."'  ";
-mysqli_query($con, $upQry);
-
-orderNetValue($_GET['orderId'],$currencyId);
-
-}
-
-} 
-else
-{
-$delQry=" DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND pId='".$productId."' AND account_id='".$_SESSION['accountId']."' ";
-mysqli_query($con, $delQry);
-
-orderNetValue($_GET['orderId'],$currencyId);
-}
-}//End foreach
-
-
-$sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeType > 0 ";
-$sqlSet= mysqli_query($con, $sql);  
-while($tempOrdDetRow = mysqli_fetch_array($sqlSet))
-{
-$sql=" SELECT * FROM tbl_order_details WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."'  ";
-$ordQryData= mysqli_query($con, $sql);  
-$ordDetRowCheck = mysqli_fetch_array($ordQryData);
-
-if ($ordDetRowCheck)
-{ 
-$updateQry = " UPDATE tbl_order_details SET 
-`note` = '".$tempOrdDetRow['note']."',
-`curPrice` = '".$tempOrdDetRow['curPrice']."',
-`currencyId` = '".$tempOrdDetRow['currencyId']."',
-`curAmt` = '".$tempOrdDetRow['curAmt']."'
-
-WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
-mysqli_query($con, $updateQry); 
-
-}
-else
-{
-
-$insertQry = " INSERT INTO `tbl_order_details` SET
-
-`account_id` = '".$tempOrdDetRow['account_id']."',
-`ordId` = '".$tempOrdDetRow['ordId']."',
-`note` = '".$tempOrdDetRow['note']."',
-`customChargeType` = '".$tempOrdDetRow['customChargeType']."',
-`customChargeId` = '".$tempOrdDetRow['customChargeId']."',
-`price` = '".$tempOrdDetRow['price']."',
-`curPrice` = '".$tempOrdDetRow['curPrice']."',
-`currencyId` = '".$tempOrdDetRow['currencyId']."',
-`curAmt` = '".$tempOrdDetRow['curAmt']."',
-`qty` = '1',
-`totalAmt` = '".$tempOrdDetRow['totalAmt']."' ";
-
-mysqli_query($con, $insertQry); 
-
-}
-
-}//end while
+                $upQry = " UPDATE  `tbl_order_details` SET
+                `currencyId` = '".$currencyId."',
+                `price` = '".($_POST['price'][$productId]/$_POST['factor'][$productId])."', 
+                `curPrice` = '".(($_POST['price'][$productId]/$_POST['factor'][$productId])*$curAmtVal)."', 
+                `qty` = '".$_POST['qty'][$productId]."', 
+                `totalAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId])."',
+                `curAmt` = '".($_POST['price'][$productId]*$_POST['qty'][$productId]*$curAmtVal)."',
+                `note` = '".$_POST['notes'][$productId]."'
+                WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."' AND account_id = '".$_SESSION['accountId']."'  ";
+                mysqli_query($con, $upQry);
+                
+                orderNetValue($_GET['orderId'],$currencyId);
+                
+            }
+       
+        } 
+        else
+        {
+            $delQry=" DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND pId='".$productId."' AND account_id='".$_SESSION['accountId']."' ";
+            mysqli_query($con, $delQry);
+            
+            orderNetValue($_GET['orderId'],$currencyId);
+        }
+    }//End foreach
 
 
+    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeType > 0 AND editOrdNewItemStatus=0 ";
+    $sqlSet= mysqli_query($con, $sql);  
+    while($tempOrdDetRow = mysqli_fetch_array($sqlSet))
+    {
+        $sql=" SELECT * FROM tbl_order_details WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."'  ";
+        $ordQryData= mysqli_query($con, $sql);  
+        $ordDetRowCheck = mysqli_fetch_array($ordQryData);
+
+        if ($ordDetRowCheck)
+        { 
+            $updateQry = " UPDATE tbl_order_details SET 
+            `note` = '".$tempOrdDetRow['note']."',
+            `curPrice` = '".$tempOrdDetRow['curPrice']."',
+            `currencyId` = '".$tempOrdDetRow['currencyId']."',
+            `curAmt` = '".$tempOrdDetRow['curAmt']."'
+
+            WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
+            mysqli_query($con, $updateQry); 
+                
+        }
+        else
+        {
+        
+            $insertQry = " INSERT INTO `tbl_order_details` SET
+
+              `account_id` = '".$tempOrdDetRow['account_id']."',
+              `ordId` = '".$tempOrdDetRow['ordId']."',
+              `note` = '".$tempOrdDetRow['note']."',
+              `customChargeType` = '".$tempOrdDetRow['customChargeType']."',
+              `customChargeId` = '".$tempOrdDetRow['customChargeId']."',
+              `price` = '".$tempOrdDetRow['price']."',
+              `curPrice` = '".$tempOrdDetRow['curPrice']."',
+              `currencyId` = '".$tempOrdDetRow['currencyId']."',
+              `curAmt` = '".$tempOrdDetRow['curAmt']."',
+              `qty` = '1',
+              `totalAmt` = '".$tempOrdDetRow['totalAmt']."' ";
+
+            mysqli_query($con, $insertQry); 
+            
+        }
+
+    }//end while
 
 
-//show order net value
-orderNetValue($_GET['orderId'],$currencyId);
+   
 
-//Insert few data in order journey tbl to show journey 
-$sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
-$res = mysqli_query($con, $sql);
-$resRow = mysqli_fetch_array($res);
+    //show order net value
+    orderNetValue($_GET['orderId'],$currencyId);
+    
+    //Insert few data in order journey tbl to show journey 
+    $sql = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $res = mysqli_query($con, $sql);
+    $resRow = mysqli_fetch_array($res);
 //echo $resRowOld['ordAmt'] .'-'. $resRow['ordAmt'];
 //echo "<br>";
-$diffPrice =  ($resRow['ordAmt'] - $resRowOld['ordAmt']);
-$notes = 'Order edited(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    $diffPrice =  ($resRow['ordAmt'] - $resRowOld['ordAmt']);
+    $notes = 'Order edited(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
 
-$qry = " INSERT INTO `tbl_order_journey` SET 
-`account_id` = '".$_SESSION['accountId']."',
-`orderId` = '".$resRow['id']."',
-`userBy`  = '".$_SESSION['id']."',
-`ordDateTime` = '".date('Y-m-d h:i:s')."',
-`amount` = '".$resRow['ordAmt']."',
-`otherCur` = '".$resRow['ordCurAmt']."',
-`otherCurId` = '".$resRow['ordCurId']."',
-`orderType` = '".$resRow['ordType']."',
-`notes` = '".$notes."',
-`action` = 'edit' ";
-mysqli_query($con, $qry);
-
-
-
-//delete order_details_temp data after form submit
-$delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
-mysqli_query($con, $delQry);
-
-echo '<script>window.location="runningOrders.php?updated=1"</script>';
+    $qry = " INSERT INTO `tbl_order_journey` SET 
+    `account_id` = '".$_SESSION['accountId']."',
+    `orderId` = '".$resRow['id']."',
+    `userBy`  = '".$_SESSION['id']."',
+    `ordDateTime` = '".date('Y-m-d h:i:s')."',
+    `amount` = '".$resRow['ordAmt']."',
+    `otherCur` = '".$resRow['ordCurAmt']."',
+    `otherCurId` = '".$resRow['ordCurId']."',
+    `orderType` = '".$resRow['ordType']."',
+    `notes` = '".$notes."',
+    `action` = 'edit' ";
+    mysqli_query($con, $qry);
 
 
+
+    //delete order_details_temp data after form submit
+    $delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    mysqli_query($con, $delQry);
+
+    echo '<script>window.location="runningOrders.php?updated=1"</script>';
+    exit;
+    
 }
-
+   
 //delete item level / order level charges
 if( isset($_GET['delId']) && $_GET['orderId'])
 {   
 
-$sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and id='".$_GET['delId']."' ";
-$sqlSet= mysqli_query($con, $sql);  
-$tempOrdDetRow = mysqli_fetch_array($sqlSet);
+    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and id='".$_GET['delId']."' ";
+    $sqlSet= mysqli_query($con, $sql);  
+    $tempOrdDetRow = mysqli_fetch_array($sqlSet);
 
-$sql= " DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
-$resultSet= mysqli_query($con, $sql);
+    if($tempOrdDetRow['customChargeId'] && $tempOrdDetRow['customChargeType'])
+    {
+        $sql= " DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
+        $resultSet= mysqli_query($con, $sql);
+    }
 
-$sql= " DELETE FROM tbl_order_details_temp WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
-$resultSet= mysqli_query($con, $sql);
+    $sql= " DELETE FROM tbl_order_details_temp WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $resultSet= mysqli_query($con, $sql);
 
-orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
-
-echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&delete=1"</script>';
+    orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
+    
+    echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&delete=1"</script>';
 
 }//end 
 
@@ -402,25 +409,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     <h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
 </div>
 </div>
-<div class="user d-flex align-items-center">
-<img src="Assets/images/user.png" alt="user">
-<p class="body3 m-0 d-inline-block">User</p>
-</div>
-<div class="acc-info">
-<img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-<!-- <h1>Q</h1> -->
-<div class="dropdown d-flex">
-    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-    </ul>
-</div>
-</div>
+ <?php require_once('header.php'); ?>
 </div>
 </div>
 </section>
@@ -437,13 +426,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="container erdOrder nwOrder-Div">
 <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
 <div class="row pb-md-4 mt-1">
-<div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem;">
-    <div class="ord-Box w-100 ms-0">
+<div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem; min-width:fit-content;">
+    <div class="ord-Box w-100 ms-0 d-flex gap-2">
         <div class="ordNum">
             <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
         </div>
-    </div>
-    <div class="ord-Box w-100 ms-0">
         <div class="ordNum">
             <h4 class="subTittle1"><span><?php echo showOtherLangText('Supplier'); ?>:</span> <span><?php
 $ordDetQry = " SELECT * FROM tbl_suppliers WHERE id='".$_SESSION['supplierIdOrd']."' AND account_Id='".$_SESSION['accountId']."' ";
@@ -454,8 +441,8 @@ echo $ordDetResRow['name'];
 
 ?></span></h4>
         </div>
-        
     </div>
+
 </div>
 <div class="ordInfo erdInfo newFeatures">
     <div class="container">
@@ -1067,7 +1054,7 @@ value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
             <p><?php echo $row['itemName'];?></p>
         </div>
         <div class="Itm-brCode tb-bdy">
-            <p class="ord-brCode"><?php echo $ordRow['ordCurId'].'='.$row['barCode'];?></p>
+            <p class="ord-brCode"><?php echo $row['barCode'];?></p>
         </div>
         <div class="prdtCr-Unit d-flex">
             <div class="crncy-Type d-flex align-items-center">
@@ -1160,7 +1147,7 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
 </div>
 </form>
 <div class="col-md-7">
-    <form id="add-new-items" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"> 
+    <!-- <form id="add-new-items" action="editOrderAddNewItems.php?orderId=<?php //echo $_GET['orderId'];?>" method="post" autocomplete="off">  -->
         <?php  
             $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
 
@@ -1181,13 +1168,36 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
                 $proresultSet = mysqli_query($con, $sqlSet);
         ?> 
         <div class="btnBg text-center text-md-end">
-            <a href="javascript:void(0);" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+            <a href="javascript:void(0);" class="sub-btn std-btn add-new-items add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
         </div>
-    </form> 
+    <!-- </form>  -->
 </div>
 </div> 
 </div><!--.//container -->
+<form id="add-new-items" action="editOrderAddNewItems.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"
+                        class="container">
 
+
+                        <?php 
+
+                $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
+
+                if($cond != '')
+                {
+                    if( !empty( $pidArr ) )
+                    {
+                        $cond .= " AND p.id NOT IN(".implode(',', $pidArr).") ";
+                    }
+
+                    $sqlSet = " SELECT p.*, 
+                    IF(u.name!='',u.name,p.unitP) as purchaseUnit ,
+                    s.qty AS stockQty
+                    FROM tbl_products p
+                    LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
+                    LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
+                    WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
+                    $proresultSet = mysqli_query($con, $sqlSet);
+                 ?>
 <div class="container nordPrice position-relative">
 <!-- Item Table Head Start -->
 <div class="d-flex align-items-center itmTable">
@@ -1332,7 +1342,7 @@ height: 30px;"' : '';?>>
             <div class="itm-Quantity tb-bdy">
                  <input type="text" class="form-control qty-itm editQty-Rec" name="qty[<?php echo $row['id'];?>]"
         autocomplete="off"
-        onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_SESSION['supplierIdOrd'];?>')"
+        onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_POST['supplierId'];?>', '1')"
         value="" size="5">
             </div>
             <div class="ttlCr-Type w-50 ps-xl-5">
@@ -1381,13 +1391,14 @@ echo '<div class="newOrdTask">
 
 </div>
 </div>
-<?php } ?>
-</form>
+<?php }} ?>
+
 <div class="container pb-4 topOrder">
 <div class="btnBg mt-3">
 <a href="#" class="sub-btn std-btn add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
 
 </div>
+</form>
 </div>
 </div>
 
@@ -1491,39 +1502,41 @@ list'); ?></span>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script type="text/javascript">
-function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>') {
+function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>', editOrdNewItemStatusVal=0) {
 
-if (isNaN(qty) || qty == '') {
-qty = 0;
-}
+        if (isNaN(qty) || qty == '') {
+            qty = 0;
+        }
 
-if (isNaN(supplierId) || supplierId == '') {
-supplierId = 0;
-} else {
-supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>';
-}
+        if (isNaN(supplierId) || supplierId == '') {
+            supplierId = 0;
+        } else {
+            supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>';
+        }
 
-$.ajax({
-method: "POST",
-url: "editOrderAjax.php",
-dataType: 'json',
-data: {
-orderId: '<?php echo $_GET['orderId'];?>',
-supplierId: supplierId,
-pId: pId,
-qty: qty,
-curAmtVal: '<?php echo $curDet['amt']; ?>',
-currencyId: '<?php echo $curDet['id']; ?>'
-}
-})
-.done(function(responseObj) {
-$('#totalOrdArea').html(responseObj.resHtml);
+        $.ajax({
+                method: "POST",
+                url: "editOrderAjax.php",
+                dataType: 'json',
+                data: {
+                    orderId: '<?php echo $_GET['orderId'];?>',
+                    supplierId: supplierId,
+                    pId: pId,
+                    editOrdNewItemStatus: editOrdNewItemStatusVal,
+                    qty: qty,
+                    curAmtVal: '<?php echo $curDet['amt']; ?>',
+                    currencyId: '<?php echo $curDet['id']; ?>'
+                    
+                }
+            })
+            .done(function(responseObj) {
+                $('#totalOrdArea').html(responseObj.resHtml);
 
-$('#totalPrice' + priceId).html(responseObj.productPrice);
-$('#totalPriceOther' + priceId).html(responseObj.totalPriceOther);
-});
+                $('#totalPrice' + priceId).html(responseObj.productPrice);
+                $('#totalPriceOther' + priceId).html(responseObj.totalPriceOther);
+            });
 
-} //end  
+    } //end  
 </script>
 <script>
 function getDelNumb(delId, orderId, supplierId){

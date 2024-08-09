@@ -68,6 +68,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
     
     
         <div class="modal-header pb-3">
+        <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
+                            </div>
                                 <div class="d-md-flex align-items-center justify-content-between w-100 ">
                                     <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
                                     
@@ -253,7 +256,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="overflow-auto">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell medium"><span  class="taskNo smryHead">'.showOtherLangText('Task No.').'</span></div>
@@ -262,10 +265,10 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <div class="table-cell medium"><span  class="total amountSections smryHead">'.showOtherLangText('Total').'</span></div>
                                     </div>
                                     <div class="table-row thead">
-                                        <div style="padding: 0px;" class="table-cell"><span class="taskNo smryHead">'.$ordDet['ordNumber'].'</span></div>
-                                        <div  class="table-cell"><span  class="department smryHead">'.$departRow['departments'].'</span></div>
-                                        <div style="padding: 0px;" class="table-cell"><span  class="member smryHead">'.$mebRes['name'].'</span></div>
-                                        <div style="padding: 0px;" class="table-cell"><span  class="total amountSections smryHead">'.getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
+                                        <div class="table-cell"><span class="taskNo smryHead">'.$ordDet['ordNumber'].'</span></div>
+                                        <div class="table-cell"><span  class="department smryHead">'.$departRow['departments'].'</span></div>
+                                        <div class="table-cell"><span  class="member smryHead">'.$mebRes['name'].'</span></div>
+                                        <div class="table-cell"><span  class="total amountSections smryHead">'.getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
                                     </div>
                                     <div class="table-row">';
                                      if( $ordDet['invNo'] != '')
@@ -444,9 +447,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                              }
 
 
-                                $content .= '</div>';
+                                $content .= '</div></div>';
 
-                             $content .= '<div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead">';
+                             $content .= '<div class="overflow-auto"><div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead">';
                               $content .= '<div class="table-cell">#</div>';
                               $content .= '<div class="table-cell"><span style="display:none;"   class="photo">Photo</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmProd">Item</span></div>';
@@ -457,7 +460,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                               $content .= '<div class="table-cell"><span   class="itmPurqty">Qty</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmTotal">Total('.$getDefCurDet['curCode'].')</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmNote">Note</span></div>';
-                              $content .= '</div>';
+                              $content .= '</div></div>';
                               while($row = mysqli_fetch_array($proresultSet) )
                         {
                           $i++;

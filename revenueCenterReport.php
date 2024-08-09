@@ -38,6 +38,15 @@ include_once('script/revenueCenterReport_script.php');
             .cst-Value .col-md-7 { margin: 0 auto; }
             .sale-Variance, .tl-Cst { margin-right: auto; }
         }
+        /* hover effects */
+  .reloadBtn a:hover {
+    color: #fff !important;
+    background-color: #7a89ff;
+    border-color:  #7a89ff ;
+  }
+  .chkStore a:hover img {
+     scale:1.1;
+  }
     </style>
 </head>
 

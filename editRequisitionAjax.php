@@ -57,6 +57,7 @@ if(isset($_POST['pId']) && $_POST['orderId'] && isset($_POST['qty']))
 				`price` = '".$price."',
 				`qty` = '".$_POST['qty']."',
 				`totalAmt` = '".$productPrice."',
+				`editOrdNewItemStatus` = 1,
 				`account_id` = '".$_SESSION['accountId']."'   ";
 				mysqli_query($con, $sql);
 
@@ -65,6 +66,7 @@ if(isset($_POST['pId']) && $_POST['orderId'] && isset($_POST['qty']))
 			$upQry = " UPDATE  `tbl_order_details_temp` SET
 			`price` = '".$price."', 
 			`qty` = '".$_POST['qty']."', 
+			`editOrdNewItemStatus` = 1,
 			`totalAmt` = '".$productPrice."'
 			
 			WHERE ordId = '".$_POST['orderId']."' AND pId = '".$_POST['pId']."' AND account_id = '".$_SESSION['accountId']."'  ";
