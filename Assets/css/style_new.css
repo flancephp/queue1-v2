@@ -20013,3 +20013,46 @@ border-radius:3px;
 .status-assigned { color: #0d6efd !important;}
 .status-done{color: red !important;}
 
+
+/* 6-8-24 */
+.chkStore a:hover img {
+  scale:1.1;
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+      margin: 1.75rem auto;
+  }
+  .modal-dialog-centered {
+    align-items: self-start;
+}
+}
+
+/* 8-8-24 changes sudarshan  */ 
+.fa-filter::before {
+  display: none !important;
+}
+.fa-filter::after {
+  content: "";
+  background-image: url(../icons/filter.svg) !important;
+  width: 20px;
+  height: 21px;
+  background-repeat: no-repeat;
+  display: flex;
+  margin: -.7rem -.1rem;
+  align-items: center;
+}
+
+.user-info .user-name{
+  font-weight: 600;
+}
+.user-info .user-name span{
+  font-weight: 400;
+}
+.sltSupp ul {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.dleOptnreq {
+  width: 31% !important;
+}

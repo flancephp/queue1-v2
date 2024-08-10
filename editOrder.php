@@ -380,11 +380,30 @@ if( isset($_GET['delId']) && $_GET['orderId'])
 integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style.css">
+<link rel="stylesheet" href="Assets/css/style1.css">
+<style>
+.fa-angle-right, .fa-angles-left {
+    background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
+    box-shadow: inset 1px 4px 4px #596bf3;
+    filter: blur(0.2px);
+    padding: 5px;
+    border-radius: 50%;
+    border: 0.5px solid;
+    border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
+    margin-left: 10px;
+    font-size: 10px;
+    vertical-align: middle;
+    width: 22px;
+}
+.newOrde {
+    padding: 0 25px 0 5px;
+}
+</style>
 </head>
 
 <body>
 <main>
-<div class="container-fluid newOrde">
+<div class="container-fluid newOrder">
 <div class="row g-0">
 <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
 <?php require_once('nav.php');?>
@@ -423,9 +442,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <section class="ordDetail">
 <div class="tpBar-grn"></div>
 <div class="stcPart position-relative">
-<div class="container erdOrder nwOrder-Div">
+<div class="container erdOrder" style="padding: 1rem 24px 0 24px;"> 
 <form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
-<div class="row pb-md-4 mt-1">
+<div class="row pb-md-4">
 <div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem; min-width:fit-content;">
     <div class="ord-Box w-100 ms-0 d-flex gap-2">
         <div class="ordNum">
@@ -444,7 +463,7 @@ echo $ordDetResRow['name'];
     </div>
 
 </div>
-<div class="ordInfo erdInfo newFeatures">
+<div class="col-lg-9 col-xl-10 newFeatures">
     <div class="container">
         <div class="mbFeature">
             <div class="ms-auto text-center w-100" style="max-width:236px;">
@@ -559,15 +578,15 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-<div class="col-md-2 smBtn nwNxt-Btn">
+<div class="col-lg-3 col-xl-2 nwNxt-Btn">
     <div class="btnBg">
-        <a href="javascript:void(0)" class="btn sub-btn orderupdate"><span
+        <a href="javascript:void(0)" class="w-100 btn btn-primary orderupdate"><span
                 class="align-middle">Update</span> <i
                 class="fa-solid fa-angle-right"></i></a>
     </div>
     <input type="hidden" name="updateOrder"  value="<?php echo showOtherLangText('Update Order'); ?>" />
     <div class="btnBg mt-3">
-        <a href="runningOrders.php" class="sub-btn std-btn update"><?php echo showOtherLangText('Back'); ?></a>
+        <a href="runningOrders.php" class="w-lg-100 btn  btn-primary std-btn update"><?php echo showOtherLangText('Back'); ?></a>
     </div>
     <div class="fetBtn">
         <a href="javascript:void(0)">
@@ -1168,7 +1187,7 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
                 $proresultSet = mysqli_query($con, $sqlSet);
         ?> 
         <div class="btnBg text-center text-md-end">
-            <a href="javascript:void(0);" class="sub-btn std-btn add-new-items add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+            <a href="javascript:void(0);" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
         </div>
     <!-- </form>  -->
 </div>
@@ -1395,7 +1414,7 @@ echo '<div class="newOrdTask">
 
 <div class="container pb-4 topOrder">
 <div class="btnBg mt-3">
-<a href="#" class="sub-btn std-btn add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+<a href="#" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
 
 </div>
 </form>
@@ -1443,7 +1462,7 @@ echo '<div class="newOrdTask">
 </div>
 <div class="modal-footer">
 <div class="btnBg">
-<button type="submit" id="addFee" name="addFee" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+<button type="submit" id="addFee" name="addFee" class="sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
 </div>
 </div>
 </div>
@@ -1490,7 +1509,7 @@ list'); ?></span>
 </div>
 <div class="modal-footer">
 <div class="btnBg">
-<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
 </div>
 </div>
 </div>

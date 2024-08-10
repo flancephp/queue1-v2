@@ -20341,3 +20341,36 @@ img.previewImg {
 html { font-size: 100%; }
 @media (max-width: 1399px) { html { font-size: 93.75%; } }
 @media (max-width: 767px) { html { font-size: 87.5%; } }
+
+
+
+/* 6-8-24 */
+.revnueParent-sec a:hover img,
+.chkStore a:hover img {scale:1.1;}
+
+/* 8-8-24 changes sudarshan  */ 
+.fa-filter::before {
+  display: none !important;
+}
+.fa-filter::after {
+  content: "";
+  background-image: url(../icons/filter.svg) !important;
+  width: 20px;
+  height: 21px;
+  background-repeat: no-repeat;
+  display: flex;
+  margin: -.7rem -.1rem;
+  align-items: center;
+}
+
+.user-info .user-name{
+  font-weight: 600;
+}
+.user-info .user-name span{
+  font-weight: 400;
+}
+
+.sltSupp ul {
+  max-height: 300px;
+  overflow-y: scroll;
+}

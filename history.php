@@ -1139,6 +1139,11 @@ $colsArr = [
     font-weight: 700;
     width: 100%;
   }
+  .itmTable .dropdown-menu {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+  
   @media (max-width:1024px) {
     .numRef {
         width: 100%;
@@ -1303,6 +1308,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
 .overflowTable {
     background-color: #fff;
 }
+
 </style>
 
 
@@ -1834,7 +1840,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                             <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14]) ) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy hisStatusclm sm__ml">
-                                        <div class="d-flex align-items-center"  ><div class="dropdown d-flex align-items-center w-100  position-relative">
+                                        <div class="d-flex align-items-center"  ><div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
                                                     <a class="dropdown-toggle body3 " data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="statusText">
                                                             <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Status'); ?></span>

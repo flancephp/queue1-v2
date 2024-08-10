@@ -914,6 +914,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                             {
                               // unset( $headerArr[7] );
                                 unset( $headerArr[5] );
+                                unset( $headerArr[9] );
                                unset( $headerArr[10] );
                                unset( $headerArr[11] );
                                unset( $headerArr[12] );

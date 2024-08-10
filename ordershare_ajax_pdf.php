@@ -81,7 +81,7 @@ $content .= '<div class="modal-header pb-3">
 
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Headers<i class="fa-solid fa-angle-down ps-1"></i>
+                                            Headers<i class="fa-solid fa-angle-down px-1"></i>
                                             </button>
                                             <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                 <li>
@@ -114,7 +114,7 @@ $content .= '<div class="modal-header pb-3">
 
                                         <div class=" dropdown">
                                             <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Summary<i class="fa-solid fa-angle-down ps-1"></i>
+                                            Summary<i class="fa-solid fa-angle-down px-1"></i>
                                             </button>
                                             <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                 <li>
@@ -147,7 +147,7 @@ $content .= '<div class="modal-header pb-3">
 
                                         <div class=" dropdown">
                                             <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Item Table<i class="fa-solid fa-angle-down ps-1"></i>
+                                            Item Table<i class="fa-solid fa-angle-down px-1"></i>
                                             </button>
                                             <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                 <li>
@@ -213,7 +213,7 @@ $content .= '<div class="modal-header pb-3">
 
                                         <div class=" dropdown">
                                             <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Task Record<i class="fa-solid fa-angle-down ps-1"></i>
+                                            Task Record<i class="fa-solid fa-angle-down px-1"></i>
                                             </button>
                                             <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                                 <li>
@@ -280,8 +280,9 @@ $content .= '<div class="modal-header pb-3">
                                 <div class="table-cell">'.$suppliers.'</div>
                                 <div class="table-cell">
                                     <div class="table-row">
-                                        <div class="table-cell p-0"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
-                                        <div class="table-cell p-0"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
+                                        <div class="table-cell py-0" style="width: 20%;"></div>
+                                        <div class="table-cell py-0" style="width: 33%;"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
+                                        <div class="table-cell py-0" style="width: 30%;"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -567,7 +568,8 @@ $content .= '<div class="modal-header pb-3">
                             
                      $content .= '</div></div>';
 
-                     $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"><div class="modal-table fs-12 w-100 mt-4">
+                     $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">
+                           <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
                                 <div class="table-cell">Status</div>
                                 <div class="table-cell">Date</div>
