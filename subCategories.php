@@ -14,8 +14,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 if( isset($_GET['delId']) && $_GET['delId'] )
 
 {
-
-	$sql = "DELETE FROM tbl_category  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    $sql = "DELETE FROM tbl_category  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
 
 	mysqli_query($con, $sql);
 	
@@ -398,8 +397,9 @@ $( document ).ready(function() {
         $('#parent-id').val(editparentid);
       });
 });    
- function getDelNumb(delId){
-var newOnClick = "window.location.href='subCategories.php?delId=" + delId + "'";
+ function getDelNumb(delId,parentId){
+var newOnClick = "window.location.href='subCategories.php?delId=" + delId + "&parentId=" + parentId + "'";
+
 
       $('.deletelink').attr('onclick', newOnClick);
      $('#delete-popup').modal('show');

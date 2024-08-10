@@ -350,33 +350,33 @@ LEFT JOIN tbl_suppliers sp ON
 WHERE o.status = 2 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
 $historyQry = mysqli_query($con, $mainSqlQry);
 
-$cond = '';
-$cond1 = '';
+// $cond = '';
+// $cond1 = '';
 
-//From Date || To Date Filter
-if( isset($_SESSION['getVals']['fromDate']) && $_SESSION['getVals']['fromDate'] != '' && $_SESSION['getVals']['toDate'] != '')
-{
-    $cond = " AND DATE(setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['getVals']['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['getVals']['toDate']) )."'   ";
-    $cond1 = $cond;
-    $fromDate = $_SESSION['getVals']['fromDate'];
-    $toDate = $_SESSION['getVals']['toDate'];
-}
-elseif (isset($_SESSION['fromDate']) && $_SESSION['fromDate'] != '' && $_SESSION['toDate'] != '') {
-    $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['toDate']) )."' ";
-    $cond1 = $cond;
-    $fromDate = $_SESSION['fromDate'];
-    $toDate = $_SESSION['toDate'];
-}
-else
-{
-    $_GET['fromDate'] = date('d-m-Y', strtotime('-3 days') );
-    $_GET['toDate'] = date('d-m-Y');
+// //From Date || To Date Filter
+// if( isset($_SESSION['getVals']['fromDate']) && $_SESSION['getVals']['fromDate'] != '' && $_SESSION['getVals']['toDate'] != '')
+// {
+//     $cond = " AND DATE(setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['getVals']['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['getVals']['toDate']) )."'   ";
+//     $cond1 = $cond;
+//     $fromDate = $_SESSION['getVals']['fromDate'];
+//     $toDate = $_SESSION['getVals']['toDate'];
+// }
+// elseif (isset($_SESSION['fromDate']) && $_SESSION['fromDate'] != '' && $_SESSION['toDate'] != '') {
+//     $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['toDate']) )."' ";
+//     $cond1 = $cond;
+//     $fromDate = $_SESSION['fromDate'];
+//     $toDate = $_SESSION['toDate'];
+// }
+// else
+// {
+//     $_GET['fromDate'] = date('d-m-Y', strtotime('-3 days') );
+//     $_GET['toDate'] = date('d-m-Y');
 
-    $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_GET['fromDate']) )."' AND '".date('Y-m-d', strtotime($_GET['toDate']) )."' ";
-    $cond1 = $cond;
-    $fromDate = $_GET['fromDate'];
-    $toDate = $_GET['toDate'];
-}
+//     $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_GET['fromDate']) )."' AND '".date('Y-m-d', strtotime($_GET['toDate']) )."' ";
+//     $cond1 = $cond;
+//     $fromDate = $_GET['fromDate'];
+//     $toDate = $_GET['toDate'];
+// }
 //get issued in total and issued out total
 $sql = " SELECT o.ordAmt AS totalOrdAmt, o.ordType, o.paymentStatus,od.currencyId 
 FROM tbl_order_details od 

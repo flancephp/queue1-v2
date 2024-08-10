@@ -913,7 +913,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'storeId' )
                             {
                               // unset( $headerArr[7] );
-                               //unset( $headerArr[9] );
+                                unset( $headerArr[5] );
                                unset( $headerArr[10] );
                                unset( $headerArr[11] );
                                unset( $headerArr[12] );
@@ -1177,7 +1177,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'storeId')
                             {   
-                               //unset( $colsValArr[7] );
+                                unset( $colsValArr[5] );
                                unset( $colsValArr[9] );
                                unset( $colsValArr[10] );
                                unset( $colsValArr[11] );

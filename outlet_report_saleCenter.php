@@ -39,6 +39,19 @@ include_once('script/outlet_report_saleCenter_script.php');
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <style>
+              /* hover effects */
+  .reloadBtn a:hover,
+  .cstBtn-Sale:hover {
+    color: #fff !important;
+    background-color: #7a89ff;
+    border-color:  #7a89ff ;
+  }
+  .chkStore a:hover img {
+     scale:1.1;
+  }
+    
+    </style>
 
 </head>
 
@@ -68,24 +81,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     <h1 class="h1">Casa Bar</h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -101,7 +97,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                         <div class="container hisData">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="revenueCenterReport.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="revenueCenterReport.php" class="sub-btn btn btn-primary std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn">Back</span></a>
                                 </div>
@@ -389,7 +385,6 @@ $tr = '';
 
 			$variancesVal =  $varience !== 0 ? ( (get2DecimalVal($varience)) ) : 0;
 		
-            $varianceShowHideClass = $variancesVal == 0 ? 'hideVariance' : 'showVariance';
 			
 			//if close stock is done then only show zero/other values
 			if($closeStockDone != 1 && ($_GET['fromDate'] == $_GET['toDate']) )
@@ -418,7 +413,7 @@ $tr = '';
 			$salesPriceText =  '<span class="showhideprice"><br>'. $salesAmt. '<br></span>';
             
                                $itemsLists .= ' <!-- Item Table Body Start -->
-                                <div class="container outletBody-Task '.$varianceShowHideClass.'" >
+                                <div class="container outletBody-Task">
                                     <div class="otltTbl-bdy border-bottom">
                                         <div class="otltBd-hdImg">
                                             <img src="'.$img.'" alt="Item">
@@ -636,9 +631,9 @@ $tr = '';
                                             <img src="Assets/icons/filter.svg" alt="Filter">
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=2">Sales</a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=1">Bar Control</a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=3">Usage</a></li>
+                                            <li><a class="dropdown-item" href="#">Sales</a></li>
+                                            <li><a class="dropdown-item" href="#">Bar Control</a></li>
+                                            <li><a class="dropdown-item" href="#">Usage</a></li>
                                         </ul>
                                     </div>
                                     <!-- Filter Btn End -->
@@ -651,7 +646,7 @@ $tr = '';
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
                                                 class="cstBtn-Img"> <span class="cstMb">Adjust</span>
                                         </a>
-                                        <a href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
+                                        <a href="javascript:void(0)" class="cstBtn-Sale">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Sale hideBtn-Info">
