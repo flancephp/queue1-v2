@@ -304,11 +304,16 @@ die();
 integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style_new.css">
+<link rel="stylesheet" href="Assets/css/style1.css">
 <style>
 .supMem-Name { color: #3fb180; }
-.modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; }
+/* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
 .modal .modal-table { min-width: 750px; }
 .site-modal .modal-content { border-radius: 8px; }
+#itemDiv, #taskDiv , #taskDiv {
+    background: #fff;
+}
+
 </style>
 </head>
 
