@@ -350,7 +350,33 @@ LEFT JOIN tbl_suppliers sp ON
 WHERE o.status = 2 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
 $historyQry = mysqli_query($con, $mainSqlQry);
 
+// $cond = '';
+// $cond1 = '';
 
+// //From Date || To Date Filter
+// if( isset($_SESSION['getVals']['fromDate']) && $_SESSION['getVals']['fromDate'] != '' && $_SESSION['getVals']['toDate'] != '')
+// {
+//     $cond = " AND DATE(setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['getVals']['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['getVals']['toDate']) )."'   ";
+//     $cond1 = $cond;
+//     $fromDate = $_SESSION['getVals']['fromDate'];
+//     $toDate = $_SESSION['getVals']['toDate'];
+// }
+// elseif (isset($_SESSION['fromDate']) && $_SESSION['fromDate'] != '' && $_SESSION['toDate'] != '') {
+//     $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['toDate']) )."' ";
+//     $cond1 = $cond;
+//     $fromDate = $_SESSION['fromDate'];
+//     $toDate = $_SESSION['toDate'];
+// }
+// else
+// {
+//     $_GET['fromDate'] = date('d-m-Y', strtotime('-3 days') );
+//     $_GET['toDate'] = date('d-m-Y');
+
+//     $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_GET['fromDate']) )."' AND '".date('Y-m-d', strtotime($_GET['toDate']) )."' ";
+//     $cond1 = $cond;
+//     $fromDate = $_GET['fromDate'];
+//     $toDate = $_GET['toDate'];
+// }
 //get issued in total and issued out total
 $sql = " SELECT o.ordAmt AS totalOrdAmt, o.ordType, o.paymentStatus,od.currencyId 
 FROM tbl_order_details od 
@@ -672,7 +698,7 @@ WHERE o.status = 2 " . $date . " " . $suppDetail . " AND s.account_id = '" . $_S
 $result = mysqli_query($con, $sqlQry);
 
 $suppMemStoreOptions = '<ul class="dropdown-menu referto_dropdown">';
-$suppMemStoreOptions .= '<li data-id="' . showOtherLangText('Refer To') . '" data-value=""><a class="dropdown-item" href="javascript:void(0)">' . showOtherLangText('Refer To') . '</a></li>';
+$suppMemStoreOptions .= '<li data-id="" data-value="' . showOtherLangText('Refer To') . '"><a class="dropdown-item" href="javascript:void(0)">' . showOtherLangText('Refer To') . '</a></li>';
 while ($suppRow = mysqli_fetch_array($result)) {
 $checkorderRow = checkorderPermissionRow($_SESSION['designation_id'], $_SESSION['accountId'], $suppRow['id']);
 if (mysqli_num_rows($checkorderRow) < 1) {
@@ -1271,6 +1297,12 @@ cursor: pointer;
 .srHisclm {
     width: 10%;
 }
+html[dir=rtl]   .dropdown-item .fa-square {
+  padding: 0 0 0 .5rem !important;
+}
+.overflowTable {
+    background-color: #fff;
+}
 </style>
 
 
@@ -1636,7 +1668,7 @@ cursor: pointer;
                                         $resultSet = mysqli_query($con, $sqlSet);
                                         while ($resRow = mysqli_fetch_array($resultSet)) {
                                             if ($resRow['qtyReceived'] < $resRow['qty']) {
-                                                $varaincesVal = $resRow['qty'] - $resRow['qtyReceived'];
+                                $varaincesVal = $resRow['qty'] - $resRow['qtyReceived'];
                                                 $variancesPosQtyTot += $varaincesVal;
                                                 $variancesPosTot += ($varaincesVal * $resRow['lastPrice']);
                                             } elseif ($resRow['qtyReceived'] > $resRow['qty']) {
@@ -1648,7 +1680,7 @@ cursor: pointer;
                                         }
                                     ?>
                                         <div class="Variance text-center">
-                                            <p class="varDtl">Variances</p>
+                                            <p class="varDtl"><?php echo showOtherLangText('Variances'); ?></p>
                                             <p class="varValue"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
                                             <p class="varDif"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
                                         </div>
@@ -1658,7 +1690,7 @@ cursor: pointer;
                                 if ($accessHistoryAccountsPermission['type_id'] == 1) {
                                 ?>
                                     <div class="accntDtl">
-                                        <p class="accHead text-center">Accounts</p>
+                                        <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
                                         <?php
                                         $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
             INNER JOIN tbl_currency c 
@@ -1782,7 +1814,7 @@ cursor: pointer;
                                         <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
                                         <?php } else { ?>
                                             <div class="tb-head hisValclm"><div class="d-flex align-items-center">
-                                                <p>Supplier <br> inv no</p>
+                            <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1791,7 +1823,7 @@ cursor: pointer;
                                         <?php if (isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields)) { ?>
                                         <?php } else { ?>
                                             <div class="tb-head hisValclm"><div class="d-flex align-items-center">
-                                                <p>Value</p>
+                                                <p><?php echo showOtherLangText('Value'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -2949,9 +2981,9 @@ cursor: pointer;
 
                     <br>
                     <p>
-                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Show</button>
+                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
                         <?php if (isset($historyUserFilterFields)) { ?>
-                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Clear filter</a>
+                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
 
                         <?php } ?>
                     </p>
@@ -2975,8 +3007,9 @@ cursor: pointer;
 <!-- raw materiels Popup Start -->
 <div class="modal" tabindex="-1" id="Raw_Convert_Item_details" aria-labelledby="Raw-Convert-Item-details" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-        <div class="modal-content p-2"> 
-            <div id="Raw_Convert_Item_details_content"></div>
+        <div id="Raw_Convert_Item_details_content" class="modal-content p-2">
+
+
         </div>
     </div>
 </div>

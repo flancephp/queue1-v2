@@ -345,18 +345,18 @@ mysqli_query($con, $updatePayQry);
     $res = mysqli_query($con, $sql);
     $orderDetRow = mysqli_fetch_array($res);
 
-    $qry = " INSERT INTO `tbl_order_journey` SET 
-            `account_id` = '".$_SESSION['accountId']."',
-            `orderId` = '".$_GET['orderId']."',
-            `userBy`  = '".$_SESSION['id']."',
-            `amount` = '".$orderDetRow['ordAmt']."',
-            `otherCur` = '".$orderDetRow['ordCurAmt']."',
-            `otherCurId` = '".$orderDetRow['ordCurId']."',
-            `orderType` = '".$orderDetRow['ordType']."',
-            `ordDateTime` = '".date('Y-m-d h:i:s')."',
-            `notes` = 'Paid',
-            `action` = 'Payment' ";
-            mysqli_query($con, $qry);
+    // $qry = " INSERT INTO `tbl_order_journey` SET 
+    //         `account_id` = '".$_SESSION['accountId']."',
+    //         `orderId` = '".$_GET['orderId']."',
+    //         `userBy`  = '".$_SESSION['id']."',
+    //         `amount` = '".$orderDetRow['ordAmt']."',
+    //         `otherCur` = '".$orderDetRow['ordCurAmt']."',
+    //         `otherCurId` = '".$orderDetRow['ordCurId']."',
+    //         `orderType` = '".$orderDetRow['ordType']."',
+    //         `ordDateTime` = '".date('Y-m-d h:i:s')."',
+    //         `notes` = 'Paid',
+    //         `action` = 'Payment' ";
+    //         mysqli_query($con, $qry);
 
 
 }
@@ -595,24 +595,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                                     <!-- <h1 class="h1"> History </h1> -->
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>

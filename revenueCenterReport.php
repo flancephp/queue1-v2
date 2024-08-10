@@ -38,6 +38,15 @@ include_once('script/revenueCenterReport_script.php');
             .cst-Value .col-md-7 { margin: 0 auto; }
             .sale-Variance, .tl-Cst { margin-right: auto; }
         }
+        /* hover effects */
+  .reloadBtn a:hover {
+    color: #fff !important;
+    background-color: #7a89ff;
+    border-color:  #7a89ff ;
+  }
+  .chkStore a:hover img {
+     scale:1.1;
+  }
     </style>
 </head>
 
@@ -67,24 +76,7 @@ include_once('script/revenueCenterReport_script.php');
                                     <h1 class="h1">Revenue Centers</h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>

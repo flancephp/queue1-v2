@@ -39,6 +39,19 @@ include_once('script/outlet_report_saleCenter_script.php');
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <style>
+              /* hover effects */
+  .reloadBtn a:hover,
+  .cstBtn-Sale:hover {
+    color: #fff !important;
+    background-color: #7a89ff;
+    border-color:  #7a89ff ;
+  }
+  .chkStore a:hover img {
+     scale:1.1;
+  }
+    
+    </style>
 
 </head>
 
@@ -68,24 +81,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     <h1 class="h1">Casa Bar</h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -101,7 +97,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                         <div class="container hisData">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="revenueCenterReport.php" class="sub-btn std-btn mb-usrBkbtn"><span
+                                    <a href="revenueCenterReport.php" class="sub-btn btn btn-primary std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn">Back</span></a>
                                 </div>

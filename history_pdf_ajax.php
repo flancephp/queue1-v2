@@ -210,6 +210,9 @@ $clientDetRow = mysqli_fetch_array($result);
 
 
 $content = '<form action="history_pdf_download.php" target="_blank" method="get"><div class="modal-header pb-3">
+    <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                     <div class="d-md-flex align-items-center justify-content-between w-100 ">
                         <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
                         
@@ -677,8 +680,8 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                //issue in starts here
                 if( $checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1) )
                 {
-                $content .= '<div class="summery-row">
-                        <div class="row"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
+                $content .= '<div class="summery-row summery-row1">
+                        <div class="row m-0"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
                             <div class=" '.$issueinClass.' issueInSection pe-1 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
@@ -888,7 +891,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                                     case 3: //stockTake
                                     unset( $headerArr[5] );
-                                    unset( $headerArr[7] );
+                                    //unset( $headerArr[7] );
                                     unset( $headerArr[9] );
                                     unset( $headerArr[10] );
                                     unset( $headerArr[11] );
@@ -909,8 +912,8 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'storeId' )
                             {
-                               unset( $headerArr[7] );
-                               unset( $headerArr[9] );
+                              // unset( $headerArr[7] );
+                                unset( $headerArr[5] );
                                unset( $headerArr[10] );
                                unset( $headerArr[11] );
                                unset( $headerArr[12] );
@@ -918,17 +921,27 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'deptUserId')
                             {   
-                               unset( $headerArr[7] );
-                               unset( $headerArr[9] );
+                               unset( $headerArr[5] );
+                              // unset( $headerArr[9] );
                             }
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'suppId' )
                             {
-                               unset( $headerArr[7] );
-                               unset( $headerArr[9] );
+                              // unset( $headerArr[7] );
+                              // unset( $headerArr[9] );
                                unset( $headerArr[10] );
-                               unset( $headerArr[11] );
-                               unset( $headerArr[12] );
+                               //unset( $headerArr[11] );
+                               //unset( $headerArr[12] );
+                            }
+                           
+                            if (isset($_SESSION['getVals']['statusType']) && $_SESSION['getVals']['statusType'] == 2) {
+                            //unset( $colsArr[7] );
+                            unset( $headerArr[5] );
+                            }
+                            if (isset($_SESSION['getVals']['statusType']) && $_SESSION['getVals']['statusType'] == 3) {
+                            //unset( $colsArr[7] );
+                            unset( $headerArr[11] );
+                            unset( $headerArr[12] );
                             }
                    
                         foreach($headerArr as $key=>$header)
@@ -1143,7 +1156,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                                     case 3: //stockTake
                                     unset( $colsValArr[5] );
-                                    unset( $colsValArr[7] );
+                                   // unset( $colsValArr[7] );
                                     unset( $colsValArr[9] );
                                     unset( $colsValArr[10] );
                                     unset( $colsValArr[11] );
@@ -1164,26 +1177,35 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'storeId')
                             {   
-                               unset( $colsValArr[7] );
+                                unset( $colsValArr[5] );
                                unset( $colsValArr[9] );
                                unset( $colsValArr[10] );
+                               unset( $colsValArr[11] );
+                               unset( $colsValArr[12] );
+                            }
+
+                             if (isset($_SESSION['getVals']['statusType']) && $_SESSION['getVals']['statusType'] == 2) {
+                               unset( $colsValArr[5] );
+                            }
+
+                            if (isset($_SESSION['getVals']['statusType']) && $_SESSION['getVals']['statusType'] == 3) {
                                unset( $colsValArr[11] );
                                unset( $colsValArr[12] );
                             }
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'deptUserId')
                             {   
-                               unset( $colsValArr[7] );
-                               unset( $colsValArr[9] );
+                               unset( $colsValArr[5] );
+                               //unset( $colsValArr[9] );
                             }
 
                             if( isset($_SESSION['getVals']['suppMemStoreId']) && $getTxtById == 'suppId')
                             {   
-                               unset( $colsValArr[7] );
-                               unset( $colsValArr[9] );
+                              // unset( $colsValArr[7] );
+                              // unset( $colsValArr[9] );
                                unset( $colsValArr[10] );
-                               unset( $colsValArr[11] );
-                               unset( $colsValArr[12] );
+                             //  unset( $colsValArr[11] );
+                             //  unset( $colsValArr[12] );
                             }
 
                             // Open tr tag

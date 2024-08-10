@@ -173,11 +173,13 @@ $email = $row['departmentEmail'];
 $address = $row['departmentAddress'];
 $phone = $row['departmentPhone'];
 
-
+// echo '<pre>';
+// print_r($_POST);
+// exit;
 //insert requesition contact details
 if (isset($_POST['invoiceEmail']) && isset($_POST['invoiceAddress']) && isset($_POST['invoiceNumber']) && isset($_POST['invoiceName']))
 {   
-
+// echo 'hi'; exit;
 //Update invoice Number in tbl_orders when user fill it by itself.
 $upQry = " UPDATE tbl_orders SET `invNo` = '".$_POST['invoiceNumber']."' 
 WHERE id='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."'  ";
@@ -614,24 +616,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                     <!-- <h1 class="h1"> History </h1> -->
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -679,7 +664,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('Invoice'); ?> #
                                                 </td>
-                                                <td><?php echo getinvoiceNumber($invoiceNumber);?></td>
+                                                <td id="leftInvoiceNum"><?php echo getinvoiceNumber($invoiceNumber);?></td>
                                             </tr>
 
                                             <tr>
@@ -984,23 +969,12 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                             <tbody class="payDetail">
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Invoice'); ?> #</td>
-                                                    <td>
-                                                        <input type="text" style="cursor: text; background:none;"
-                                                            class="form-control form-control-1" onchange="getVal();"
-                                                            name="paymentId" id="paymentId" autocomplete="off"
-                                                            value="<?php echo getinvoiceNumber($invoiceNumber);?>"
-                                                            readonly="">
-                                                    </td>
+                                                    <td id="rightInvoiceNum"><?php echo getinvoiceNumber($invoiceNumber);?></td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Task'); ?> #</td>
-                                                    <td>
-                                                        <input type="text" style="cursor: text; background:none;"
-                                                            class="form-control form-control-1" name="ordNumber"
-                                                            value="<?php echo $orderRow['ordNumber'];?>"
-                                                            autocomplete="off" readonly="">
-                                                    </td>
+                                                    <td><?php echo $orderRow['ordNumber'];?></td>
                                                 </tr>
 
                                                 <tr>
@@ -1897,6 +1871,61 @@ list'); ?></span><br>
         phone.innerHTML = invoicePhone;
     }
     </script>
+    <script>
+$(document).ready(function() {
+
+var invoiceNumber = $('#rightInvoiceNum').text();
+var invoiceName = $('#invoiceName').val();
+var invoiceAddress = $('#invoiceAddress').val();
+var invoiceEmail = $('#invoiceEmail').val();
+var invoicePhone = $('#invoicePhone').val();
+
+if (invoiceNumber != '' && invoiceName != '' && invoiceAddress != '' && invoiceEmail != '' &&
+invoicePhone != '') {
+
+$.ajax({
+method: "POST",
+data: {
+invoiceNumber: invoiceNumber,
+invoiceName: invoiceName,
+invoiceAddress: invoiceAddress,
+invoiceEmail: invoiceEmail,
+invoicePhone: invoicePhone
+}
+
+})
+
+}
+
+})
+
+
+function getVal() {
+var invoiceNumber = $('#rightInvoiceNum').text();
+var invoiceName = $('#invoiceName').val();
+var invoiceAddress = $('#invoiceAddress').val();
+var invoiceEmail = $('#invoiceEmail').val();
+var invoicePhone = $('#invoicePhone').val();
+
+if (invoiceNumber != '' && invoiceName != '' && invoiceAddress != '' && invoiceEmail != '' && invoicePhone !=
+'') {
+
+$.ajax({
+method: "POST",
+data: {
+invoiceNumber: invoiceNumber,
+invoiceName: invoiceName,
+invoiceAddress: invoiceAddress,
+invoiceEmail: invoiceEmail,
+invoicePhone: invoicePhone
+}
+
+})
+
+}
+
+}
+</script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>

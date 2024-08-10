@@ -34,6 +34,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
 			$storageDeptRow = getStoreDetailsById($ordDet['storeId']);
 
 $content  .= '<form action="stockTake_pdf_download_history.php" target="_blank" method="get"><div class="modal-header pb-3">
+<div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                   <input type="hidden" name="orderId" value="'.$_POST['orderId'].'"/>  <div class="d-md-flex align-items-center justify-content-end w-100">
                         <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></a>
                     </div>

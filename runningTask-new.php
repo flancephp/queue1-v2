@@ -1760,20 +1760,6 @@
                                         <div class="table-cell" style="width: 25%;"></div>
                                         <div class="table-cell" style="width: 25%;"></div>
                                     </div>
-                                    <div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;">
-                                            <div class="sub-table w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell">Grand Total</div>
-                                                    <div class="table-cell">157 $</div>
-                                                    <div class="table-cell">138.888 €</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="modal-table fs-12 w-100 mt-4">

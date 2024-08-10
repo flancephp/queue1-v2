@@ -5,6 +5,10 @@ include('inc/dbConfig.php'); //connection details
 $getLangType = getLangType($_SESSION['language_id']);
 
 
+//delete new items which are in temp
+$selQry = " DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND editOrdNewItemStatus=1  ";
+mysqli_query($con, $selQry);
+
 $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_requisition' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
@@ -29,7 +33,7 @@ if (!isset($_SESSION['ordDeptId']))
 if (isset($_GET['orderId'])) 
 {
 
-    $selQry = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+    $selQry = " SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' AND editOrdNewItemStatus=0 ";
     $tempOrdDetResult = mysqli_query($con, $selQry);
     $tempOrdDetRow = mysqli_fetch_array($tempOrdDetResult);
     
@@ -77,7 +81,7 @@ if(isset($_POST['updateOrder']))
     $res = mysqli_query($con, $sql);
     $resRowOld = mysqli_fetch_array($res);
     
-    
+    //Update for new items
     foreach($_POST['productIds'] as $productId)
     {
             
@@ -116,7 +120,6 @@ if(isset($_POST['updateOrder']))
                         `stockQty` = '".($stkRow['qty'] - $_POST['qty'][$productId])."',
                         `account_id` = '".$_SESSION['accountId']."'   ";
                         mysqli_query($con, $sql);
-                       
                     }
                     else
                     {    
@@ -129,7 +132,7 @@ if(isset($_POST['updateOrder']))
                         `stockPrice` = '".$stkRow['stockPrice']."',
                         `stockQty` = '".($stkRow['qty'] - $_POST['qty'][$productId])."'
                         WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."' ";
-                        
+                    
                         mysqli_query($con, $upQry);
                     }
                 
@@ -137,7 +140,7 @@ if(isset($_POST['updateOrder']))
             
             }//End foreach
 
-    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeType > 0 ";
+    $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeType > 0 AND editOrdNewItemStatus=0 ";
     $sqlSet= mysqli_query($con, $sql);  
     while($tempOrdDetRow = mysqli_fetch_array($sqlSet))
     {
@@ -200,7 +203,7 @@ if(isset($_POST['updateOrder']))
 
         
         //delete order_details_temp data after form submit
-        $delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."' ";
+        $delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."'  ";
         mysqli_query($con, $delQry);
         
         echo '<script>window.location="runningOrders.php?updated=1&orderId='.$_GET['orderId'].'"</script>';
@@ -244,7 +247,7 @@ if( !empty($_POST['itemName']) )
     
     editCustomCharge($_GET['orderId'],1,$itemCharges,$_SESSION['ordDeptId'], 1);
     
-    echo '<script>window.location="editRequisition.php?orderId='.$_GET['orderId'].'"</script>';
+    echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'"</script>';
 
 }
 
@@ -267,7 +270,7 @@ if( !empty($_POST['feeName']) )
     
     editCustomCharge($_GET['orderId'],3,$itemCharges,$_SESSION['ordDeptId'], 1);
     
-    echo '<script>window.location="editRequisition.php?orderId='.$_GET['orderId'].'"</script>';
+    echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'"</script>';
 
 }
 //end
@@ -280,14 +283,17 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     $sqlSet= mysqli_query($con, $sql);  
     $tempOrdDetRow = mysqli_fetch_array($sqlSet);
     
-    $sql= " DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
-    $resultSet= mysqli_query($con, $sql);
+    if($tempOrdDetRow['customChargeId'] && $tempOrdDetRow['customChargeType'])
+    {
+        $sql= " DELETE FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
+        $resultSet= mysqli_query($con, $sql);
+    }
     
     $sql= " DELETE FROM tbl_order_details_temp WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
     $resultSet= mysqli_query($con, $sql);
     
     
-    echo '<script>window.location="editRequisition.php?orderId='.$_GET['orderId'].'&delete=1"</script>';
+    echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'&delete=1"</script>';
 
 }//end 
 
@@ -339,25 +345,7 @@ $cond = '';
                                     <h1 class="h1"><?php echo showOtherLangText('Edit Requisition'); ?></h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <!-- <h1>Q</h1> -->
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -1034,21 +1022,11 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         </div>
                                     </div>
                                     </form>
-                                    <div class="col-md-7"> 
-                                        <form
-                                            action="editRequisition.php?orderId=<?php echo $_GET['orderId'];?>&deptId=<?php echo $ordRow['deptId'];?>"
-                                            method="post" autocomplete="off" id="frm_add_new_items" name="frm_add_new_items"
-                                        >
-                                            <div class="btnBg text-center text-md-end">
-                                                
-                                                <a href="javascript:void(0);" class="btn btn-primary add_new_items_in_req"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div> 
-                            </div><!--.//container-->
-
-            <?php 
+                                   
+                                    <div class="col-md-7">
+    <form action="editRecusationAddNewItem.php?orderId=<?php echo $_GET['orderId'];?>&deptId=<?php echo $ordRow['deptId'];?>"
+                        method="post" id="frm_add_new_items" autocomplete="off" class="container">
+  <?php 
         if($_GET['orderId'] != '')
         {
             if( !empty( $pidArr ) )
@@ -1062,7 +1040,23 @@ $ordRow = mysqli_fetch_array($resultSet);
         INNER JOIN tbl_productdepartments pd ON(p.id = pd.productId) AND p.account_id = pd.account_id AND pd.deptId = '".$_SESSION['ordDeptId']."' AND p.status=1
         INNER JOIN tbl_stocks s ON(s.pId = p.id)  AND s.account_id=p.account_id
         ".$cond. " AND  p.account_id = '".$_SESSION['accountId']."' GROUP BY(p.id) ORDER BY p.itemName ";
-        $proresultSet = mysqli_query($con, $sqlSet); ?>
+        $proresultSet = mysqli_query($con, $sqlSet);
+
+
+    if( mysqli_num_rows($proresultSet) > 0 )
+    {
+    ?>
+                                            <div class="btnBg text-center text-md-end">
+                                                
+                                                <a href="javascript:void(0);" class="btn btn-primary add_new_items_in_req"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
+                                            </div>
+                                      
+                                    </div>
+                                </div> 
+                            </div><!--.//container-->
+
+         
+        
             <div class="container nordPrice position-relative">
                 <!-- Item Table Head Start -->
                 <div class="d-flex align-items-center itmTable">
@@ -1120,7 +1114,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                 </div>
                 <!-- Item Table Head End -->
             </div>
-
+            
             <div id="boxscroll">
                 <div class="container cntTable  ">
                     <!-- Item Table Body Start -->
@@ -1145,7 +1139,9 @@ $ordRow = mysqli_fetch_array($resultSet);
                 $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
 
                 $availableQty = $row['stockQty'] - $totalProQty;
-                ?>
+                ?> <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
+                   <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
+                                    value="" />
                     <div class="newOrdTask">
                         <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
                             <div class="prdtImg tb-bdy"><?php echo $y; ?></div>
@@ -1239,14 +1235,14 @@ $ordRow = mysqli_fetch_array($resultSet);
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <?php }} ?>
         </section>
-        </form>
+       
 
     </div>
     </div>
     </div>
-
+ </form>
     <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post"
         autocomplete="off">
         <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">

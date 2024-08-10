@@ -14,8 +14,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 if( isset($_GET['delId']) && $_GET['delId'] )
 
 {
-
-	$sql = "DELETE FROM tbl_category  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    $sql = "DELETE FROM tbl_category  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
 
 	mysqli_query($con, $sql);
 	
@@ -162,24 +161,7 @@ elseif(isset($_POST['category']))
                                     <h1 class="h1"><?php echo showOtherLangText('Manage Sub Categories') ?>&nbsp;<?php echo isset($catRes['name']) ? '('.$catRes['name'].')' : '' ?></h1>
                                 </div>
                             </div>
-                            <div class="user d-flex align-items-center">
-                                <img src="Assets/images/user.png" alt="user">
-                                <p class="body3 m-0 d-inline-block">User</p>
-                            </div>
-                            <div class="acc-info">
-                                <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                <div class="dropdown d-flex">
-                                    <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                        <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                             <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -415,8 +397,9 @@ $( document ).ready(function() {
         $('#parent-id').val(editparentid);
       });
 });    
- function getDelNumb(delId){
-var newOnClick = "window.location.href='subCategories.php?delId=" + delId + "'";
+ function getDelNumb(delId,parentId){
+var newOnClick = "window.location.href='subCategories.php?delId=" + delId + "&parentId=" + parentId + "'";
+
 
       $('.deletelink').attr('onclick', newOnClick);
      $('#delete-popup').modal('show');

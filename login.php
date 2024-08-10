@@ -10,7 +10,7 @@ if (isset($_SESSION['adminidusername']))
 
 if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1)
 {
-	$url = 'mobile/index.php';
+	$url = 'mobileNew/index.php';
 	echo "<script>window.location.href='".$url."';</script>";
 	exit;
 }
@@ -69,7 +69,7 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
 
 		if($res['userType'] == 1)
 		{
-			$url = 'mobile/index.php';
+			$url = 'mobileNew/index.php';
 		}
 		echo "<script>window.location.href='".$url."';</script>";
 			
