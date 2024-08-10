@@ -1686,7 +1686,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         }
                                     ?>
                                         <div class="Variance text-center">
-                                            <p class="varDtl">Variances</p>
+                                            <p class="varDtl"><?php echo showOtherLangText('Variances'); ?></p>
                                             <p class="varValue"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
                                             <p class="varDif"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
                                         </div>
@@ -1696,7 +1696,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                 if ($accessHistoryAccountsPermission['type_id'] == 1) {
                                 ?>
                                     <div class="accntDtl">
-                                        <p class="accHead text-center">Accounts</p>
+                                        <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
                                         <?php
                                         $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
             INNER JOIN tbl_currency c 
@@ -1820,7 +1820,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
                                         <?php } else { ?>
                                             <div class="tb-head hisValclm"><div class="d-flex align-items-center">
-                                                <p>Supplier <br> inv no</p>
+                            <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1829,7 +1829,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <?php if (isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields)) { ?>
                                         <?php } else { ?>
                                             <div class="tb-head hisValclm"><div class="d-flex align-items-center">
-                                                <p>Value</p>
+                                                <p><?php echo showOtherLangText('Value'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -2987,9 +2987,9 @@ html[dir=rtl]   .dropdown-item .fa-square {
 
                     <br>
                     <p>
-                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Show</button>
+                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
                         <?php if (isset($historyUserFilterFields)) { ?>
-                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Clear filter</a>
+                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
 
                         <?php } ?>
                     </p>

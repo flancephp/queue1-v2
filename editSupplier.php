@@ -440,7 +440,7 @@
 
 
 
-                                <div class="row align-items-center acntStp-Row">
+                                < class="row align-items-center acntStp-Row">
 
                                     <div class="col-md-3">
 
@@ -456,7 +456,7 @@
 
                                     </div>
 
-                                </div>
+                                </
 
 
 
