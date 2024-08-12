@@ -8,10 +8,20 @@ html[dir=rtl] .acc-info .fa-angle-down {
   margin-right: 40% !important;
   margin-left: 0;
 }
+
 html[dir=rtl]   .dropdown-menu.date_type {
   white-space: normal !important;
 }
-
+html[dir=rtl]   .form-control {
+  direction: rtl;
+}
+html[dir=rtl]   .ordDetail .nwOrder-Div {
+  padding: 16px 24px 0 !important;
+}
+html[dir=rtl]   .nav-col {
+  padding-right: 0px !important;
+  padding-left: 50px !important;
+}
 
 
 html[dir=rtl] .brdLft::after {
@@ -31,7 +41,7 @@ html[dir=rtl] .brdLft {
   border-right: none;
 }
 
-html[dir=rtl] .newOrder {
+html[dir=rtl] .newOrder{
   padding: 0 25px !important;
 }
 html[dir=rtl] .lgOut{
@@ -61,8 +71,54 @@ html[dir=rtl] .dropend .dropdown-menu[data-bs-popper] {
       border-radius: 15px 0px 0px 15px;
   }
 }
+html[dir=rtl] .tmpStatus, html[dir=rtl] .conStatus {
+  border-radius: 10px !important;
+}
 
-.compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; }
+html[dir=rtl] .issueInSection {
+  padding-left: 0rem;
+}
+html[dir=rtl] .varianceRow  {
+ padding-right: .2rem !important;
+}
+html[dir=rtl] .fa-angle-down.ps-1  {
+  padding: 0 .5rem !important;
+ }
+
+html[dir=rtl] .reqDtl-Bg {
+  background: linear-gradient(270deg, rgba(33, 184, 136, 0.2) -19.18%, rgba(241, 241, 241, 0.2) 44.47%), rgba(255, 255, 255, 0.54);
+}
+html[dir=rtl]  .mbrDtl-Bg {
+  background: linear-gradient(270deg, rgba(243, 120, 113, 0.2) -19.18%, rgba(241, 241, 241, 0.2) 44.47%), rgba(255, 255, 255, 0.54);
+}
+html[dir=rtl] .tmpStatus {
+  background: rgba(255, 255, 255, 0.66) !important;
+}
+.compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; object-fit: contain; }
 .compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
 @media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
 .newOrder > .row { --bs-gutter-y: 0;--bs-gutter-x: 0; }
+
+
+/* edit requsation */
+
+html[dir=rtl] .featRow  {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+html[dir=rtl] .sltSupp.nwOrd-Num.position {
+  right: 0;
+}
+html[dir=rtl] .sltSupp.nwOrd-Num.position .ord-Box {
+  border-radius:  10px 0px  0px 10px !important;
+  border-left: 1px !important;
+  border-right: 0;
+}
+html[dir=rtl] .ordDetail .mbFeature > div {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+html[dir=rtl] .ordDetail .nwOrd-Num {
+  padding-right: 0 !important;
+
+}

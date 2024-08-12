@@ -474,7 +474,23 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             padding: 2px 7px;
             color: #fff;
         }
-        
+        @media (min-width: 768px) {
+  .stkView .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .stkView .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1350px) {
+ .stkView  .container {
+    max-width: 1140px;
+  }
+}
         
     </style>
 </head>

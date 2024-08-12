@@ -316,6 +316,22 @@ $cond = '';
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
+    <style>
+    .fa-angle-right, .fa-angles-left {
+    background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
+    box-shadow: inset 1px 4px 4px #596bf3;
+    filter: blur(0.2px);
+    padding: 5px;
+    border-radius: 50%;
+    border: 0.5px solid;
+    border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
+    margin-left: 10px;
+    font-size: 10px;
+    vertical-align: middle;
+    width: 22px;
+}
+    </style>
 
 </head>
 
@@ -364,10 +380,10 @@ $ordRow = mysqli_fetch_array($resultSet);
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <div class="stcPart position-relative">
-                            <div class="container cntTable pt-4 pt-lg-5">
+                            <div class="container cntTable" style="padding: 1rem 24px 0 24px;"> 
                                 <!-- topOrder edtReq nwOrder-Div-->
-                                <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:2rem;">
-                                    <div class="ord-Box w-100 ms-0">
+                                <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
+                                    <div class="ord-Box w-100 d-flex gap-2 ms-0" style="border-color: #F05D53;">
                                         <div class="ordNum m-0">
                                             <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
                                                 <span><?php echo $ordRow['ordNumber'];?></span>
@@ -376,12 +392,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <!-- <div class="ordDate">
                                         <h4 class="subTittle1">23/05/2022</h4>
                                     </div> -->
-                                    </div>
-
-                                    <input type="hidden" name="updateOrder" class="btn btn-primary"
-                                        value="<?php echo showOtherLangText('Update Requisition'); ?>" />
-                                    <div class="ord-Box w-100 ms-0">
-                                        <div class="ordNum m-0">
+                                    <div class="ordNum m-0">
                                             <h4 class="subTittle1">
                                                 <span><?php echo showOtherLangText('Requisition By'); ?>:</span> <span><?php
                                         $sqlSet = " SELECT o.recMemberId, du.* FROM tbl_orders o  
@@ -396,14 +407,17 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         ?></span>
                                             </h4>
                                         </div>
-
                                     </div>
+
+                                    <input type="hidden" name="updateOrder" class="btn btn-primary"
+                                        value="<?php echo showOtherLangText('Update Requisition'); ?>" />
+                                    
                                 </div>
 
                                 <div class="row gy-2 gx-0 gx-lg-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->
-                                    <div class="col-lg-9 col-xl-10">
-                                        <div class="mbFeature">
+                                    <div class="col-lg-9 col-xl-10 newFeatures">
+                                        <div class="mbFeature container">
                                             <div class="">
                                                 <div class="text-center">
                                                     <div class="featRow ms-auto w-100" style="max-width:118px;">
@@ -479,14 +493,14 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     </div>
                                     <!-- <div class="smBtn nwNxt-Btn"> -->
                                     <div class="col-lg-3 col-xl-2">
-                                        <div class="d-flex flex-row flex-lg-column gap-3 justify-content-between ps-lg-4 ps-xl-5"> 
+                                        <div class="d-flex flex-row flex-lg-column gap-3 justify-content-between "> 
                                             <div class="btnBg">
-                                                <a href="javascript:void(0)" class="btn sub-btn form-submit-btn w-lg-100">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-lg-100">
                                                     <span class="align-middle">Update</span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
                                             <div class="btnBg">
-                                                <a href="runningOrders.php" class="sub-btn std-btn update w-lg-100">Back</a>
+                                                <a href="runningOrders.php" class="w-lg-100 btn  btn-primary std-btn update">Back</a>
                                             </div>
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)">
@@ -1231,7 +1245,7 @@ $ordRow = mysqli_fetch_array($resultSet);
             <div class="container pb-4 topOrder">
                 <div class="btnBg mt-3">
                     <a href="javascript:void(0);"
-                        class="add_new_items_in_req sub-btn std-btn"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
+                        class="add_new_items_in_req sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                 </div>
             </div>
         </div>

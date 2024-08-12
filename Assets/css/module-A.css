@@ -93,10 +93,10 @@
 }
 @media (max-width: 768px) {
   .grand-total th { font-size: 1rem; }
-  .grand-total-tabel tr td:first-child { font-size: .937rem !important;width: 70%; }
-  .grand-total-tabel tr td:last-child { font-size: .937rem !important;width: 30%; }
-  .grand-total th:first-child { width: 70%; }
-  .grand-total th:last-child { width: 30%; }
+  .grand-total-tabel tr td:first-child { font-size: .937rem !important;width: 50%; }
+  .grand-total-tabel tr td:last-child { font-size: .937rem !important;width: 50%;text-align: right !important; }
+  .grand-total th:first-child { width: 50%; }
+  .grand-total th:last-child { width: 50%;text-align: right; }
 }
 
 .payment-tabel-header tbody tr+tr {
@@ -118,6 +118,7 @@
   color: #1C2047 !important;
   padding-right: 1rem;
 }
+.table01 tbody tr td { height: 30px; }
 
 @media(max-width:768px) {
   .payment-tabel-header .table1 tr td, .grand-total-tabel tr td:last-child, .grand-total-tabel tr td:last-child { font-size: .937rem; }
@@ -125,9 +126,7 @@
   .payment-tabel-header .table1 tr td { line-height: 1.5; }
 }
 
-.table01 tbody tr td {
-  height: 30px;
-}
+
 
 .tr-bg-1 {
   background: #A9B0C0 !important;
@@ -237,6 +236,7 @@
 
 .grand-total-tabel {
   margin-top: -1rem;
+  height: fit-content;
 }
 .grand-total-tabel tr {
   height: 38px;
