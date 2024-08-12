@@ -155,7 +155,7 @@ if ($_SESSION['getVals']['dateType'] !='' && $_SESSION['getVals']['dateType'] ==
    $cond .= " GROUP BY o.id ORDER BY o.paymentDateTime desc, o.setDateTime desc ";
 }
 
-
+ $cond1 = $cond;
 //Access Invoice permission for user
 $accessInvoicePermission = get_access_invoice_permission($_SESSION['designation_id'],$_SESSION['accountId']);
 //Access payment permission for user
@@ -758,7 +758,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                     if($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3)
                     {
 
-                        $sqlSet = " SELECT od.* FROM tbl_order_details od
+                         $sqlSet = " SELECT od.* FROM tbl_order_details od
                         INNER JOIN tbl_orders o
                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
                         WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$cond1." ";
@@ -914,6 +914,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                             {
                               // unset( $headerArr[7] );
                                 unset( $headerArr[5] );
+                                unset( $headerArr[9] );
                                unset( $headerArr[10] );
                                unset( $headerArr[11] );
                                unset( $headerArr[12] );

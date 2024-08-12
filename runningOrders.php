@@ -304,11 +304,16 @@ die();
 integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style_new.css">
+<link rel="stylesheet" href="Assets/css/style1.css">
 <style>
 .supMem-Name { color: #3fb180; }
-.modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; }
+/* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
 .modal .modal-table { min-width: 750px; }
 .site-modal .modal-content { border-radius: 8px; }
+#itemDiv, #taskDiv , #taskDiv {
+    background: #fff;
+}
+
 </style>
 </head>
 
@@ -622,18 +627,18 @@ while($orderRow = mysqli_fetch_array($result))
                                                         <path d="M9 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7"
                                                             stroke-width="2" stroke-linecap="round" />
                                                     </svg>
-                                                    <p class="btn2">Documents <i
+                                                    <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i
                                                             class="fa-solid fa-angle-down"></i></p>
                                                 </a>
 
                                                 <ul class="dropdown-menu">
 
-                                                    <li>
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                            onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')"><i
-                                                                class="far fa-square pe-2"></i>View Details
-                                                        </a>
-                                                    </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0)"
+                                    onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')"><i
+                                        class="far fa-square pe-2"></i> <?php echo showOtherLangText('View Details'); ?>
+                                </a>
+                            </li>
                                                     <?php  if($orderRow['ordType'] == 1) { ?>
                                                     <li>
                                                         <a class="dropdown-item" href="javascript:void(0)"

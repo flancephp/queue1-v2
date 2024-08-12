@@ -1680,7 +1680,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         }
                                     ?>
                                         <div class="Variance text-center">
-                                            <p class="varDtl">Variances</p>
+                                            <p class="varDtl"><?php echo showOtherLangText('Variances'); ?></p>
                                             <p class="varValue"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
                                             <p class="varDif"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
                                         </div>
@@ -1690,7 +1690,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                 if ($accessHistoryAccountsPermission['type_id'] == 1) {
                                 ?>
                                     <div class="accntDtl">
-                                        <p class="accHead text-center">Accounts</p>
+                                        <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
                                         <?php
                                         $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
             INNER JOIN tbl_currency c 
@@ -1770,7 +1770,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                                 <div class="tb-bdy user-dpd">
                                                   <div class="d-flex align-items-center" style="background:inherit;"><div class="dropdown d-flex position-relative">
                                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span id="userText">User</span> <i class="fa-solid fa-angle-down"></i>
+                                                        <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $userOptions; ?>
                                                 </div></div></div>
@@ -1814,7 +1814,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
                                         <?php } else { ?>
                                             <div class="tb-head hisValclm"><div class="d-flex align-items-center">
-                                                <p>Supplier <br> inv no</p>
+                            <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1823,7 +1823,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <?php if (isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields)) { ?>
                                         <?php } else { ?>
                                             <div class="tb-head hisValclm"><div class="d-flex align-items-center">
-                                                <p>Value</p>
+                                                <p><?php echo showOtherLangText('Value'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1857,7 +1857,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !isset($colsArr[15]) ) { ?>
                                         <?php } else { ?>
                                             <div class="tb-bdy hisStatusclm d-none d-lg-block"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                <p style="color: #666c85; font-size: 12px; font-weight:600;"><?php echo showOtherLangText('Payment <br>No.'); ?></p>
+                                                <p style="color: #666c85; font-size: 12px; font-weight:600;"><?php echo showOtherLangText('Payment No.'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1879,8 +1879,8 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <div class="d-flex align-items-center"><div class="dropdown d-flex align-items-center w-100 position-relative">
                                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="accountTxt">
-                                                            <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Accound'); ?></span>
-                                                            <span class="d-lg-none"><?php echo showOtherLangText('Accound'); ?></span>
+                                                            <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
+                                                            <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
                                                         </span> 
                                                         <i class="fa-solid fa-angle-down"></i>
                                                     </a>
@@ -2293,12 +2293,12 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                                     <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <span class="docMent"></span>
-                                                            <p class="btn2">Documents <i class="fa-solid fa-angle-down"></i>
+                                                            <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i class="fa-solid fa-angle-down"></i>
                                                             </p>
                                                         </a>
 
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i>View Details</a>
+                                                            <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Details'); ?></a>
                                                             </li>
                 <?php
                 if ($orderRow['ordType'] == 1) {
@@ -2981,9 +2981,9 @@ html[dir=rtl]   .dropdown-item .fa-square {
 
                     <br>
                     <p>
-                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Show</button>
+                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
                         <?php if (isset($historyUserFilterFields)) { ?>
-                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"> Clear filter</a>
+                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
 
                         <?php } ?>
                     </p>
