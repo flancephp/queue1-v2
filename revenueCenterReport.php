@@ -21,6 +21,7 @@ include_once('script/revenueCenterReport_script.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
@@ -51,6 +52,7 @@ include_once('script/revenueCenterReport_script.php');
             .header__area { background-color: #ffffff8a;box-shadow: 0px 8px 30px 0px #6973BE21;border-radius: 10px;margin-bottom: 8px;border:1px solid #fff; }
 
         }
+        .res__date__picker { width: calc(50% - .65rem); }
     </style>
 </head>
 
@@ -172,22 +174,20 @@ include_once('script/revenueCenterReport_script.php');
                                             </div>
                                             <!-- Date Box Start -->
                                             <form action="revenueCenterReport.php" id="frm" name="frm" method="get">
-                                                <div class="prtDate">
-    
-                                                            <div class="hstDate">
-                                                                <input type="text" size="10" class="datepicker"  
-                                                                    name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y');?>">
-                                                                <span>-</span>
-                                                                <input type="text" size="10" class="datepicker" 
-                                                                    name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>">
-                                                            </div>
-                                                            <div class="reloadBtn">
-                                                                <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
-                                                            </div>
-                                                            <div class="reloadBtn">
-                                                                <a href="javascript:void(0)"  onClick="window.location.href='revenueCenterReport.php';"><i class="fa-solid fa-xmark"></i></a>
-                                                            </div>
-                                                    
+                                                <div class="prtDate"> 
+                                                    <div class="hstDate">
+                                                        <input type="text" size="10" class="datepicker"  
+                                                            name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y');?>">
+                                                        <span>-</span>
+                                                        <input type="text" size="10" class="datepicker" 
+                                                            name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>">
+                                                    </div>
+                                                    <div class="reloadBtn">
+                                                        <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                                    </div>
+                                                    <div class="reloadBtn">
+                                                        <a href="javascript:void(0)"  onClick="window.location.href='revenueCenterReport.php';"><i class="fa-solid fa-xmark"></i></a>
+                                                    </div> 
                                                 </div>
                                             </form>
                                             <!-- Date Box End -->
@@ -218,7 +218,34 @@ include_once('script/revenueCenterReport_script.php');
                             </div>
                             <!-- Mobile Date Box Start -->
                             <div class="container mb-hisDate">
-                                <div class="date-flx"></div>
+                                <form action="revenueCenterReport.php" name="frm" method="get">
+                                    <div class="prtDat bg-white px-3 border d-flex gap-3" style="border-radius:.5rem;padding-top: 0.75rem !important;padding-bottom: 0.75rem !important;"> 
+                                        <div class="hstDate d-flex align-items-center col border-0 px-0" style="width: calc(100% - 5.65rem);">
+                                            <input 
+                                                type="date" size="10" class="datepicke border-0 res__date__picker bg-white"  
+                                                name="fromDate" autocomplete="off" 
+                                                value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y');?>"
+                                                onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"
+                                            >
+                                            <span>-</span>
+                                            <input 
+                                                type="date" size="10" class="datepicke border-0 res__date__picker bg-white" 
+                                                name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>"
+                                                onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"
+                                            >
+                                        </div>
+                                        <div class="d-inline-flex gap-2" style="width:5.65rem;"> 
+                                            <div class="reloadBtn m-0">
+                                                <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                            </div>
+                                            <div class="reloadBtn m-0">
+                                                <a href="javascript:void(0)"  onClick="window.location.href='revenueCenterReport.php';"><i class="fa-solid fa-xmark"></i></a>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- <div class="date-flx"></div> -->
                             </div>
                             <!-- Mobile Date Box End -->
     
@@ -1067,7 +1094,7 @@ include_once('script/revenueCenterReport_script.php');
     <script type="text/javascript" src="Assets/js/custom.js"></script>
 
      <!-- Links for datePicker and dialog popup -->
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     
 
 <script type="text/javascript" src="cdn_js/jquery-ui-1.12.1.js"></script>
 <script>

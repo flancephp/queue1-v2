@@ -294,7 +294,7 @@ die();
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Running Tasks - Queue1</title>
 <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -306,14 +306,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style_new.css">
 <link rel="stylesheet" href="Assets/css/style1.css">
 <style>
-.supMem-Name { color: #3fb180; }
-/* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
-.modal .modal-table { min-width: 750px; }
-.site-modal .modal-content { border-radius: 8px; }
-#itemDiv, #taskDiv , #taskDiv {
-    background: #fff;
-}
-
+    .supMem-Name { color: #3fb180; }
+    /* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
+    /* .modal .modal-table { min-width: 750px; } */
+    .site-modal .modal-content { border-radius: 8px; }
+    #itemDiv, #taskDiv , #taskDiv { background: #fff; }
+    @media(max-width:767px){
+        .modal .modal-table { font-size: 5px }
+        .modal .table-cell { padding: 1px 5px; }
+    }
 </style>
 </head>
 

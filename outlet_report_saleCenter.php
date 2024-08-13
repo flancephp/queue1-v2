@@ -766,7 +766,7 @@ $tr = '';
                     <h1 class="modal-title h1">Adjustment</h1>
                 </div>
                 <div class="modal-body">
-                    <form class="addUser-Form row">
+                    <form class="addUser-Form row gap-3">
                         <input type="text" class="form-control" id="ajstName" placeholder="Item">
                         <input type="date" class="form-control" id="ajstDate">
                         <input type="number" class="form-control" id="ajstNum" placeholder="1">
