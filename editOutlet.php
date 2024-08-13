@@ -53,22 +53,22 @@ $sameDetails = '0';
 
 if( isset($_GET['delId']) && $_GET['delId'] )
 {
-// check that item is present in our report or not. if not then only delete.
-$selQry = " SELECT dii.* FROM tbl_outlet_items oi 
-INNER JOIN tbl_products p ON(oi.pId=p.id) AND (oi.account_id=p.account_id)
-INNER JOIN tbl_daily_import_items dii ON(p.barCode=dii.barCode AND oi.outLetId=dii.outLetId) AND (p.account_id=dii.account_id)
-WHERE oi.id='".$_GET['delId']."' AND oi.account_id='".$_SESSION['accountId']."' GROUP BY (dii.outLetId) ";
-$result = mysqli_query($con, $selQry);
+    // check that item is present in our report or not. if not then only delete.
+    $selQry = " SELECT dii.* FROM tbl_outlet_items oi 
+    INNER JOIN tbl_products p ON(oi.pId=p.id) AND (oi.account_id=p.account_id)
+    INNER JOIN tbl_daily_import_items dii ON(p.barCode=dii.barCode AND oi.outLetId=dii.outLetId) AND (p.account_id=dii.account_id)
+    WHERE oi.id='".$_GET['delId']."' AND oi.account_id='".$_SESSION['accountId']."' GROUP BY (dii.outLetId) ";
+    $result = mysqli_query($con, $selQry);
 
-if (mysqli_num_rows($result) > 0)
-{
-echo '<script>window.location="editOutlet.php?id='.$_GET['id'].'&revCenDeptId='.$_GET['revCenDeptId'].'&deptId='.$_GET['deptId'].'&itemReportAvailable=1"</script>';
-}
-else
-{
-$sql = "DELETE FROM tbl_outlet_items  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
-mysqli_query($con, $sql);
-}
+    if (mysqli_num_rows($result) > 0)
+    {
+        echo '<script>window.location="editOutlet.php?id='.$_GET['id'].'&revCenDeptId='.$_GET['revCenDeptId'].'&deptId='.$_GET['deptId'].'&itemReportAvailable=1"</script>';
+    }
+    else
+    {
+        $sql = "DELETE FROM tbl_outlet_items  WHERE id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+        mysqli_query($con, $sql);
+    }
 
 }
 
@@ -553,8 +553,8 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                             }
                                             ?>
                                             <?php
-                                            if ($_SESSION['accountId'] != 4) 
-                                            {
+                                            //if ($_SESSION['accountId'] != 4) 
+                                            //{
                                             ?>
                                             <div class="row align-items-center acntStp-Row chkOlt-Row">
                                                 <div class="col-md-4">
@@ -568,7 +568,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                 </div>
                                             </div>
                                             <?php        
-                                            }
+                                           // }
                                             ?>
                                             <div class="outletChk" style="display:block;">
                                                 <div class="row align-items-center acntStp-Row">
@@ -1274,9 +1274,21 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
         var availableTags = [
             <?php 
 	$proRows = getAllProducts();
+    $i=0;
     foreach($proRows as $pId=>$pName){
+
+        $i++;
+        
 		$itemName = $pName.'('.$pId.')';
-		echo "\"$itemName\",";
+
+        
+		    echo "\"$itemName\",";
+      
+        
+        if($_SESSION['accountId'] ==4 && $i==100)
+        {
+            break;
+        }
 	}
     ?>
         ];
