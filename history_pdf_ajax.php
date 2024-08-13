@@ -48,20 +48,20 @@ $headerArrOptions  = [
 ];
 
 
-$cond = '';
-$cond1 = '';
+// $cond = '';
+// $cond1 = '';
 
 //From Date || To Date Filter
 if( isset($_SESSION['getVals']['fromDate']) && $_SESSION['getVals']['fromDate'] != '' && $_SESSION['getVals']['toDate'] != '')
 {
-    $cond = " AND DATE(setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['getVals']['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['getVals']['toDate']) )."'   ";
-    $cond1 = $cond;
+    $cond .= " AND DATE(setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['getVals']['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['getVals']['toDate']) )."'   ";
+   // $cond1 = $cond;
     $fromDate = $_SESSION['getVals']['fromDate'];
     $toDate = $_SESSION['getVals']['toDate'];
 }
 elseif (isset($_SESSION['fromDate']) && $_SESSION['fromDate'] != '' && $_SESSION['toDate'] != '') {
-    $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['toDate']) )."' ";
-    $cond1 = $cond;
+    $cond .= " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_SESSION['fromDate']) )."' AND '".date('Y-m-d', strtotime($_SESSION['toDate']) )."' ";
+   // $cond1 = $cond;
     $fromDate = $_SESSION['fromDate'];
     $toDate = $_SESSION['toDate'];
 }
@@ -70,8 +70,8 @@ else
     $_GET['fromDate'] = date('d-m-Y', strtotime('-3 days') );
     $_GET['toDate'] = date('d-m-Y');
 
-    $cond = " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_GET['fromDate']) )."' AND '".date('Y-m-d', strtotime($_GET['toDate']) )."' ";
-    $cond1 = $cond;
+    $cond .= " AND DATE(o.setDateTime) BETWEEN '".date('Y-m-d', strtotime($_GET['fromDate']) )."' AND '".date('Y-m-d', strtotime($_GET['toDate']) )."' ";
+   
     $fromDate = $_GET['fromDate'];
     $toDate = $_GET['toDate'];
 }
@@ -155,7 +155,7 @@ if ($_SESSION['getVals']['dateType'] !='' && $_SESSION['getVals']['dateType'] ==
    $cond .= " GROUP BY o.id ORDER BY o.paymentDateTime desc, o.setDateTime desc ";
 }
 
- $cond1 = $cond;
+
 //Access Invoice permission for user
 $accessInvoicePermission = get_access_invoice_permission($_SESSION['designation_id'],$_SESSION['accountId']);
 //Access payment permission for user
@@ -205,9 +205,7 @@ WHERE cl.id = '".$_SESSION['accountId']."' ";
 $result = mysqli_query($con, $sql);
 $clientDetRow = mysqli_fetch_array($result);
 // ==========================================
-
-
-
+ $cond1 = $cond;
 
 $content = '<form action="history_pdf_download.php" target="_blank" method="get"><div class="modal-header pb-3">
     <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
@@ -758,7 +756,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                     if($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3)
                     {
 
-                         $sqlSet = " SELECT od.* FROM tbl_order_details od
+                     $sqlSet = " SELECT od.* FROM tbl_order_details od
                         INNER JOIN tbl_orders o
                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
                         WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$cond1." ";
