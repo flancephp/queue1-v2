@@ -49,19 +49,17 @@ $checkRow = mysqli_fetch_array($resultSet);
 
 
 
-$content .= '<div class="modal-header pb-3">
-                            <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                    <div class="d-md-flex align-items-center justify-content-end w-100">
+$content .= '<div class="modal-header pb-3"> 
+                    <div class="d-flex align-items-center justify-content-between justify-content-lg-end w-100">
                         <a href="payment_pdf_download.php?orderId='.$_POST['orderId'].'" class="btn btn-primary" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <button type="button" class="btn-close d-lg-none me-1" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body p-0">
                     <!--payment paid Details Popup Start -->
                     <div class="payment-status-left payment-paid position-relative">
                         <div class="border-line"></div>
-                        <div class="modal-body p-5">
+                        <div class="modal-body p-4 p-md-5">
                             <div class="d-flex justify-content-between align-items-center">';
                             if (isset($_POST['orderId']) && $paymentRow['paymentStatus']==1 ) 
 { 
@@ -111,42 +109,45 @@ if($clientResultRow['logo'] !='' && file_exists(dirname(__FILE__)."/uploads/".$a
      $content .=   '</div>
                             </div>
 
-                            <div class="mt-4 d-flex justify-content-between payment-tabel-header">
-                                <table class="table1 table01">
-                                    <tbody>
-                                        <tr>
-                                            <td class="font-wt">'. showOtherLangText('Supplier Invoice').' #
-                                            </td>
-                                            <td>'. $checkRow['supplierInvoice'] .'</td>
-                                        </tr>
+                            <div class="mt-4 row g-0 payment-tabel-header">
+                                <div class="col-sm-6">
+                                    <table class="table1 table01 info__table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-wt">'. showOtherLangText('Supplier Invoice').' #
+                                                </td>
+                                                <td>'. $checkRow['supplierInvoice'] .'</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="font-wt">
-                                                '. showOtherLangText('Payment').' #
-                                            </td>
-                                            <td>'. setPaymentId($paymentRow['id']).'</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="font-wt">
+                                                    '. showOtherLangText('Payment').' #
+                                                </td>
+                                                <td>'. setPaymentId($paymentRow['id']).'</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="font-wt">'. showOtherLangText('Task').' #</td>
-                                            <td>'. $ordersRow['ordNumber'] .'</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="font-wt">'. showOtherLangText('Task').' #</td>
+                                                <td>'. $ordersRow['ordNumber'] .'</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="font-wt">'. showOtherLangText('Date').' #
-                                            </td>
-                                            <td>'. $paymentRow['paymentDateTime'].'</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="font-wt">'. showOtherLangText('Date').' #
+                                                </td>
+                                                <td>'. $paymentRow['paymentDateTime'].'</td>
+                                            </tr>
 
-                                    </tbody>
-                                </table>';
+                                        </tbody>
+                                    </table>
+                                </div>';
      
 $sql = " SELECT * FROM tbl_country WHERE id = '".$clientResultRow['country']."' ";
 $resSet = mysqli_query($con, $sql);
 $resultRow = mysqli_fetch_array($resSet);
 
-                               $content .= '<table>
-                                    <tbody class="table1 table01 fl-right cmp-dtl text-end">
+                               $content .= '<div class="col-md-6">
+                                <table class="w-100">
+                                    <tbody class="table1 table01 fl-right cmp-dtl text-start text-md-end">
                                         <tr>
                                             <td>'. $clientResultRow['accountName'].'</td>
                                         </tr>
@@ -164,7 +165,7 @@ $resultRow = mysqli_fetch_array($resSet);
                                         </tr>
                                     </tbody>
                                 </table>
-
+                                </div>
                             </div>
 
                             <br>
@@ -177,7 +178,7 @@ $resultRow = mysqli_fetch_array($resSet);
                             </div>
                             <br>
 
-                            <table class="modal-table fs-12 w-100 mt-4">
+                            <table class="modal-table fs-12 w-100 mt-md-4">
                                 <thead style="background: #A9B0C0 !important;">
                                     <tr class="tr-bg-1">
                                         <th>#</th>
@@ -303,8 +304,8 @@ $resultRow = mysqli_fetch_array($resSet);
                             </table>
                             <div class="divider-blue"></div>
                             <br>
-                            <div class="tabel-body-p-footer">
-                                <div class="table1 ">
+                            <div class="tabel-body-p-footer flex-wrap">
+                                <div class="table1 col-md-4">
                                     <p class="f-02 mb-0">'. showOtherLangText('Payment Method').'</p>';
                             $sqlSet= " SELECT * FROM tbl_payment WHERE orderId='".$paymentRow['orderId']."'  AND account_id = '".$_SESSION['accountId']."' order by id limit 1 ";
 

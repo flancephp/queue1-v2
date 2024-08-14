@@ -55,6 +55,9 @@
   border-radius: 0px 16px 16px 0px;
   z-index: 1;
 }
+@media(max-width:767px) {
+  .border-line { width: 6px; }
+}
 
 .payment-pending .modal-content {
   border-radius: 0;
@@ -166,7 +169,11 @@
 .tabel-body-p tr td {
   padding: 0 .5rem;
 }
-
+@media(max-width:768px) {
+  .tabel-body-p tr,.tr-bg-1 {
+    height: 30px;
+  }
+}
 /* .tabel-body-p tr td:nth-last-child(2) {
   text-align: center;
 } */

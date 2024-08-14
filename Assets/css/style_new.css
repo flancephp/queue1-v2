@@ -18822,10 +18822,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itmBody, .itmTable { font-size: 15px;  }
   .runTask { margin: 0 180px 0 140px; }
   .rntskHead { margin-top: 65px;padding: 0 180px 0 140px; }
-  .body3 {
-    font-size: 16px;
-    font-weight: 400;
-  }
+  .body3 {font-size: 14px;font-weight: 400; }
   .navIcon,
   .nav_sub .navIcon,
   .mb_nvSubIcn,
@@ -20063,3 +20060,4 @@ border-radius:3px;
 .dleOptnreq {
   width: 31% !important;
 }
+.ui-datepicker { z-index: 999 !important; }

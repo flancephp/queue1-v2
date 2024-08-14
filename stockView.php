@@ -250,13 +250,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
-        .strfetCol {
-            width: 310px;
-        }
-
-        .storeCol {
-            width: calc(100% - 350px);
-        }
+        .strfetCol { width: 310px; } 
+        .storeCol { width: calc(100% - 350px); }
 
         @media(max-width:991px) {
             .storeCol {
@@ -307,15 +302,15 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             width: 100% !important;
             margin: 0% !important;
         }
-
+        .counter__col { width: 55px; }
         .stkItmclm { width: 100%; } 
         .stkTblhead .stkItmclm,
         .stkTblhead .stkItmclm,
         .stkTblhead .stkbarclm { width: 61%;  } 
         .stkTblhead .stkNamcol,
-        .cntTable .stkNamcol { width: 50%; } 
+        .cntTable .stkNamcol { width: calc(60% - 55px); } 
         .page2bdy .stkTblhead .stkNamcol{width: 65% !important;}
-        .page2bdy .cntTable .stkNamcol { width: 50% !important;}
+        .page2bdy .cntTable .stkNamcol { width: calc(60% - 55px) !important;}
 
 
         .cntTable1 .stkNamcol {
@@ -466,22 +461,15 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             color: #fff;
         }
         @media (min-width: 768px) {
-  .stkView .container {
-    max-width: 720px;
-  }
-}
+            .stkView .container:not(.large) { max-width: 720px; }
+        } 
+        @media (min-width: 992px) {
+        .stkView .container:not(.large) {max-width: 960px;}
+        }
 
-@media (min-width: 992px) {
-  .stkView .container {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1350px) {
- .stkView  .container {
-    max-width: 1140px;
-  }
-}
+        @media (min-width: 1350px) {
+        .stkView  .container:not(.large) {max-width: 1140px;}
+        }
         
     </style>
 </head>
@@ -533,7 +521,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         <input type="hidden" name="filterByStorage" id="filterByStorage" value="<?php echo $_GET['filterByStorage']; ?>" />
                     </form>
                     <div class="stkView">
-                        <div class="container">
+                        <div class="container large">
                             <?php if (isset($_GET['stockTake']) || isset($_GET['convertRawItem'])) { ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <p>
@@ -702,7 +690,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         <!-- Item Table Head Start -->
                         <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
-                                <div class="tb-bdy stkImgcol"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
+                                <div class="tb-bdy counter__col"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                 <?php } else { ?>
                                     <div class="tb-bdy stkImgcol"><?php echo showOtherLangText('Photo'); ?></div>
@@ -822,7 +810,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         <!-- Item Table Head Start -->
                         <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
-                                <div class="tb-bdy stkImgcol"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
+                                <div class="tb-bdy counter__col"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <div class="tb-bdy stkImgcol">
                                     <p><?php echo showOtherLangText('Photo'); ?></p>
                                 </div>
@@ -980,7 +968,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="newStockTask">
                                     <div class="d-flex align-items-center border-bottom itmBody">
                                         <div class="mbShw d-flex align-items-center">
-                                            <div class="tb-bdy stkImgcol">
+                                            <div class="tb-bdy counter__col">
                                                    <?php echo $x; ?>
                                                 </div>
                                             <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
@@ -1099,7 +1087,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="newStockTask1">
                                     <div class="d-flex align-items-center border-bottom itmBody">
                                         <div class="mbShw d-flex align-items-center">
-                                            <div class="tb-bdy stkImgcol"><?php echo $x; ?></div>
+                                            <div class="tb-bdy counter__col"><?php echo $x; ?></div>
                                             <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy stkImgcol">
