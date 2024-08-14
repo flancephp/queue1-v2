@@ -3230,7 +3230,7 @@ function getrequisitionPopup($orderId) {
 			if ($pmntRows['paymentStatus']==1)
 			{ ?>
             <li>
-                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Invoice received') ?></a>
+                                             <a class="dropdown-item" href="javascript:void(0)" onclick="openReqPaymentPopup(<?php echo $orderId;?>)" ><i class="far fa-regular fa-credit-card pe-2"></i><?php echo showOtherLangText('View Invoice received') ?></a>
                 </li>
            <?php
 			}
@@ -3853,7 +3853,7 @@ function get_issueOut_permission($designation_id, $accountId, $orderId){
 <a href="javascript:void(0)" onclick="cnfIssueOut(<?php echo $orderId ?>)" data-bs-toggle="modal" data-bs-target="#issue-out" class="cnfrm text-center d-flex justify-content-center align-items-center doc__btn receive">
     <span class="editicon runLink edt_CatLnk">
         <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 24"><path d="M3.9 9q0-.5.6-.4l7 1.5q.4.1.4.5l-1 5-.2.3.3.4-.3-.4-1 .7q0 .2-.4.1L3 15.4l-.3-.6z" stroke="#8C8FA7"/><circle cx="12.8" cy="20.7" r="1.8" stroke="#8C8FA7" stroke-width="2"/><path d="M1.8 16.9a1 1 0 1 0-.4 2zm-.4 2 8 1.8.5-2L1.8 17zM20.6 6.4a1 1 0 0 0 0-2zm-8 9.8-.2 1 2 .5.2-1zm8-11.8h-2.8v2h2.8zm-5.7 2.3-2.3 9.5 2 .5 2.3-9.5zm3-2.3a3 3 0 0 0-3 2.3l2 .5a1 1 0 0 1 1-.8z" fill="#8C8FA7"/><path d="M14 3.5H6" stroke="#8C8FA7" stroke-width="2"/><path d="m4 3.5 5 2.9V.6zM14 3H8.7v1H14z" fill="#8C8FA7"/></svg>
-        <p class="btn2 cn-btn">Issue out</p>
+        <p class="btn2 cn-btn"><?php echo showOtherLangText('Issue out'); ?></p>
     </span>
 </a>
 <?php

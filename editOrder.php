@@ -368,90 +368,108 @@ if( isset($_GET['delId']) && $_GET['orderId'])
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-<title>Edit Order - Queue1</title>
-<link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="Assets/css/style.css">
-<link rel="stylesheet" href="Assets/css/style1.css">
-<style>
-.fa-angle-right, .fa-angles-left {
-    background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
-    box-shadow: inset 1px 4px 4px #596bf3;
-    filter: blur(0.2px);
-    padding: 5px;
-    border-radius: 50%;
-    border: 0.5px solid;
-    border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
-    margin-left: 10px;
-    font-size: 10px;
-    vertical-align: middle;
-    width: 22px;
-}
-.newOrde {
-    padding: 0 25px 0 5px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Edit Order - Queue1</title>
+    <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
+    <style>
+    .fa-angle-right,
+    .fa-angles-left {
+        background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
+        box-shadow: inset 1px 4px 4px #596bf3;
+        filter: blur(0.2px);
+        padding: 5px;
+        border-radius: 50%;
+        border: 0.5px solid;
+        border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
+        margin-left: 10px;
+        font-size: 10px;
+        vertical-align: middle;
+        width: 22px;
+    }
+
+    .newOrde {
+        padding: 0 25px 0 5px;
+    }
+    @media (max-width:991px) {
+        .newFeatures { padding: 1rem 0 0 0; }
+        .newFeatures .ms-auto { margin: 0 auto !important; }
+        .btn__box { max-width: 14rem;}
+        .fetBtn img { height:3rem; }
+    }
+    @media screen and (max-width: 767px) {
+        .ordFeature { width: 49.3%; }
+    }
+    </style>
 </head>
 
 <body>
-<main>
-<div class="container-fluid newOrder">
-<div class="row g-0">
-<div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-<?php require_once('nav.php');?>
-</div>
-<div class="cntArea">
-<section class="usr-info">
-<div class="row">
-<div class="col-md-4 d-flex align-items-end">
-<h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
-</div>
-<div class="col-md-8 d-flex align-items-center justify-content-end">
-<div class="mbPage">
-<div class="mb-nav" id="mb-nav">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
-    </button>
-</div>
-<div class="mbpg-name">
-    <h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
-</div>
-</div>
- <?php require_once('header.php'); ?>
-</div>
-</div>
-</section>
+    <main>
+        <div class="container-fluid newOrder">
+            <div class="row g-0">
+                <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
+                    <?php require_once('nav.php');?>
+                </div>
+                <div class="cntArea">
+                    <section class="usr-info">
+                        <div class="row">
+                            <div class="col-md-4 d-flex align-items-end">
+                                <h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
+                            </div>
+                            <div class="col-md-8 d-flex align-items-center justify-content-end">
+                                <div class="mbPage">
+                                    <div class="mb-nav" id="mb-nav">
+                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">
+                                            <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+                                        </button>
+                                    </div>
+                                    <div class="mbpg-name">
+                                        <h1 class="h1"><?php echo showOtherLangText('Edit Order'); ?></h1>
+                                    </div>
+                                </div>
+                                <?php require_once('header.php'); ?>
+                            </div>
+                        </div>
+                    </section>
 
-<section id="landScape">
-<div class="container">
-<h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
-</div>
-</section>
+                    <section id="landScape">
+                        <div class="container">
+                            <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
+                        </div>
+                    </section>
 
-<section class="ordDetail">
-<div class="tpBar-grn"></div>
-<div class="stcPart position-relative">
-<div class="container erdOrder" style="padding: 1rem 24px 0 24px;"> 
-<form name="frmupdateOrder" id="frmupdateOrder" action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off">
-<div class="row pb-md-4">
-<div class="sltSupp nwOrd-Num position start-0 ps-0" style="top:1rem; min-width:fit-content;">
-    <div class="ord-Box w-100 ms-0 d-flex gap-2">
-        <div class="ordNum">
-            <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span> <span><?php echo $ordRow['ordNumber'];?></span></h4>
-        </div>
-        <div class="ordNum">
-            <h4 class="subTittle1"><span><?php echo showOtherLangText('Supplier'); ?>:</span> <span><?php
+                    <section class="ordDetail">
+                        <div class="tpBar-grn"></div>
+                        <div class="stcPart position-relative">
+                            <div class="container erdOrder" style="padding: 1rem 24px 0 24px;">
+                                <form name="frmupdateOrder" id="frmupdateOrder"
+                                    action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
+                                    autocomplete="off">
+                                    <div class="row pb-md-4">
+                                        <div class="sltSupp nwOrd-Num position start-0 ps-0"
+                                            style="top:1rem; min-width:fit-content;">
+                                            <div class="ord-Box w-100 ms-0 d-flex flex-wrap gap-2">
+                                                <div class="ordNum">
+                                                    <h4 class="subTittle1 flex-wrap">
+                                                        <span><?php echo showOtherLangText('Task no.'); ?>#:</span>
+                                                        <span><?php echo $ordRow['ordNumber'];?></span></h4>
+                                                </div>
+                                                <div class="ordNum">
+                                                    <h4 class="subTittle1 flex-wrap">
+                                                        <span><?php echo showOtherLangText('Supplier'); ?>:</span>
+                                                        <span><?php
 $ordDetQry = " SELECT * FROM tbl_suppliers WHERE id='".$_SESSION['supplierIdOrd']."' AND account_Id='".$_SESSION['accountId']."' ";
 $ordDetRes = mysqli_query($con, $ordDetQry);
 $ordDetResRow = mysqli_fetch_array($ordDetRes);
@@ -459,31 +477,36 @@ $ordDetResRow = mysqli_fetch_array($ordDetRes);
 echo $ordDetResRow['name'];
 
 ?></span></h4>
-        </div>
-    </div>
+                                                </div>
+                                            </div>
 
-</div>
-<div class="col-lg-9 col-xl-10 newFeatures">
-    <div class="container">
-        <div class="mbFeature">
-            <div class="ms-auto text-center w-100" style="max-width:236px;">
-                <div class="row featRow">
-                    <div
-                        class="col-md-6 ordFeature dropdown drpCurr position-relative">
-                        <a href="javascript:void(0)"
-                            class="dropdown-toggle tabFet" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="currency"></span>
-                            <p class="btn2"><span id="add_currency"><?php echo showOtherLangText('currency') ?> <i
-                                    class="fa-solid fa-angle-down"></i></span></p>
-                        </a>
+                                        </div>
+                                        <div class="col-lg-9 col-xl-10 newFeatures">
+                                            <div class="container">
+                                                <div class="mbFeature">
+                                                    <div class="ms-auto text-center w-100" style="max-width:236px;">
+                                                        <div class="row g-3 featRow">
+                                                            <div
+                                                                class="col-md-6 ordFeature dropdown drpCurr position-relative">
+                                                                <a href="javascript:void(0)"
+                                                                    class="dropdown-toggle tabFet" role="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span class="currency"></span>
+                                                                    <p class="btn2"><span
+                                                                            id="add_currency"><?php echo showOtherLangText('currency') ?>
+                                                                            <i
+                                                                                class="fa-solid fa-angle-down"></i></span>
+                                                                    </p>
+                                                                </a>
 
-                            <ul class="currency_dropdown dropdown-menu">
-                            <li data-id="0" data-value="<?php echo showOtherLangText('Currency') ?>">
-                    <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Currency') ?>
-                    </a>
-                    </li>
-                                        <?php
+                                                                <ul class="currency_dropdown dropdown-menu">
+                                                                    <li data-id="0"
+                                                                        data-value="<?php echo showOtherLangText('Currency') ?>">
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:void(0)"><?php echo showOtherLangText('Currency') ?>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php
                             $sqlSet = " SELECT * FROM tbl_currency WHERE is_default = 0 AND account_id = '".$_SESSION['accountId']."' order by currency ";
                             $resultSet = mysqli_query($con, $sqlSet); 
                             while($curRow=mysqli_fetch_array($resultSet))
@@ -507,25 +530,27 @@ echo $ordDetResRow['name'];
                                                 href="javascript:void(0)">'.$curRow['currency'].'</a></li>';
                             }
                             ?>
-                                        
-                        </ul>
 
-                    </div>
-                    <div class="col-md-6 ordFeature drpFee position-relative">
-                        <a href="javascript:void(0)"
-                            class="dropdown-toggle tabFet" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="fee"></span>
-                            <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
-                                    class="fa-solid fa-angle-down"></i>
-                            </p>
-                        </a>
+                                                                </ul>
 
-                        <ul class="item dropdown-menu">
-                            <li class="innerDrop dropdown">
-                                <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-                                  <ul class="subitem  submenu list-unstyled">
-                                        <?php 
+                                                            </div>
+                                                            <div class="col-md-6 ordFeature drpFee position-relative">
+                                                                <a href="javascript:void(0)"
+                                                                    class="dropdown-toggle tabFet" role="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span class="fee"></span>
+                                                                    <p class="btn2">
+                                                                        <?php echo showOtherLangText('Fee'); ?> <i
+                                                                            class="fa-solid fa-angle-down"></i>
+                                                                    </p>
+                                                                </a>
+
+                                                                <ul class="item dropdown-menu">
+                                                                    <li class="innerDrop dropdown">
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
+                                                                        <ul class="subitem  submenu list-unstyled">
+                                                                            <?php 
                                             //add item fee & custom fee modal box 
                                             $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
                                             $customItemsResult = mysqli_query($con, $sql);
@@ -535,15 +560,21 @@ echo $ordDetResRow['name'];
                                             echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']." '>".$resultRow['itemName']."</a></li>";
                                             }
                                         ?>
-                                    </ul> 
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
-                                </li>
-                                <li class="innerDrop dropdown">
-                                    <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
-                                    <ul class="subitem  submenu large list-unstyled">
-                                    <?php
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                            class="sub-btn std-btn mb-usrBkbtn"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#new-service-item"
+                                                                            href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
+                                                                    </li>
+                                                                    <li class="innerDrop dropdown">
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                        <ul
+                                                                            class="subitem  submenu large list-unstyled">
+                                                                            <?php
                                         //add item fee & custom fee modal box 
                                         $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
                                         $ordFeeFetch = mysqli_query($con, $sqlQry);
@@ -554,19 +585,23 @@ echo $ordDetResRow['name'];
                                             echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='editOrder.php?orderId=".$_GET['orderId']."&supplierId=".$_SESSION['supplierIdOrd']."&feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$ordRow['ordCurId']."'>".$resultRow['feeName']."</a> ";
                                         } 
                                     ?>
-                                 </ul></li>
-                            <li><a class="dropdown-item"
-                                href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
-                                
-                            </li>
-                        </ul>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-</div>
-<?php
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item"
+                                                                            href="javascript:void(0)"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a>
+                                                                    </li>
+
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
 $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
 $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
 
@@ -578,43 +613,45 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-<div class="col-lg-3 col-xl-2 nwNxt-Btn">
-    <div class="btnBg">
-        <a href="javascript:void(0)" class="w-100 btn btn-primary orderupdate"><span
-                class="align-middle">Update</span> <i
-                class="fa-solid fa-angle-right"></i></a>
-    </div>
-    <input type="hidden" name="updateOrder"  value="<?php echo showOtherLangText('Update Order'); ?>" />
-    <div class="btnBg mt-3">
-        <a href="runningOrders.php" class="w-lg-100 btn  btn-primary std-btn update"><?php echo showOtherLangText('Back'); ?></a>
-    </div>
-    <div class="fetBtn">
-        <a href="javascript:void(0)">
-            <img src="Assets/icons/dashboard.svg" alt="dashboard">
-        </a>
-    </div>
-</div>
-</div>
-</div>
-<div class="container topOrder erdOrder">
-<div class="row">
-<div class="sltSupp">
-    <div id="searchBox2" class="input-group srchBx">
-        <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" name="search2" id="search2" onKeyUp="myFunction('search2', 'totalOrdArea', 1)" 
-            aria-label="Search">
-        <div class="input-group-append">
-            <button class="btn" type="button">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
-    </div>
+                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn d-flex justify-content-between d-lg-block">
+                                            <div class="fetBtn">
+                                                <a href="javascript:void(0)">
+                                                    <img src="Assets/icons/dashboard.svg" alt="dashboard">
+                                                </a>
+                                            </div>
+                                            <div class="d-inline-flex flex-lg-column col gap-3 justify-content-end btn__box">
+                                                <a href="javascript:void(0)" class="w-100 btn btn-primary orderupdate">
+                                                    <span class="align-middle">Update</span> 
+                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-block"></i>
+                                                </a> 
+                                                <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" /> 
+                                                <a href="runningOrders.php" class="w-lg-100 btn  btn-primary std-btn update"><?php echo showOtherLangText('Back'); ?></a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="container topOrder erdOrder">
+                                <div class="row">
+                                    <div class="sltSupp">
+                                        <div id="searchBox2" class="input-group srchBx">
+                                            <input type="search" class="form-control"
+                                                placeholder="<?php echo showOtherLangText('Search Item'); ?>"
+                                                name="search2" id="search2"
+                                                onKeyUp="myFunction('search2', 'totalOrdArea', 1)" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn" type="button">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
 
-</div>
+                                    </div>
 
-<div class="ordInfo erdInfo" id="totalOrdArea">
-    <div class="container">
-        <div class="prcTable" >
-            <?php 
+                                    <div class="ordInfo erdInfo" id="totalOrdArea">
+                                        <div class="container">
+                                            <div class="prcTable">
+                                                <?php 
 //get the sum of all product and item level charges 
 
 $sqlSet="SELECT *,SUM(totalAmt) AS totalAmt, SUM(curAmt) AS totalAmtOther FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
@@ -630,25 +667,27 @@ $ordCountRow = mysqli_num_rows($ordCountResult);
 
 if ($ordCountRow > 0)
 { ?>
-            <div class="price justify-content-between">
-                <div class="p-2 delIcn text-center"></div>
-                <div class="p-2 txnmRow">
-                    <p><?php echo showOtherLangText('Sub Total'); ?></p>
-                </div>
-                <div class="d-flex align-items-center justify-content-end curRow">
-                    <div class="p-2">
-                        <p><?php showPrice($chargePrice, $getDefCurDet['curCode']); ?></p>
-                    </div>
-                    <?php
+                                                <div class="price justify-content-between">
+                                                    <div class="p-2 delIcn text-center"></div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo showOtherLangText('Sub Total'); ?></p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php showPrice($chargePrice, $getDefCurDet['curCode']); ?>
+                                                            </p>
+                                                        </div>
+                                                        <?php
                 if ($chargeRow['currencyId'] > 0)
                     { ?>
-                    <div class="p-2 otherCurr">
-                        <p><?php echo showOtherCur($chargePriceOther, $chargeRow['currencyId']); ?></p>
-                    </div>
-                    <?php  } ?>
-                </div>
-            </div>
-             <?php  } //Starts order level fixed discount charges
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($chargePriceOther, $chargeRow['currencyId']); ?>
+                                                            </p>
+                                                        </div>
+                                                        <?php  } ?>
+                                                    </div>
+                                                </div>
+                                                <?php  } //Starts order level fixed discount charges
 $sql = "SELECT od.*, tp.feeName, tp.feeType FROM tbl_order_details_temp od 
 INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
 WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
@@ -663,30 +702,33 @@ $fixedCharges += $row['price'];
 $fixedChargesOther += $row['curAmt'];
 
 ?>
-            <div class="price justify-content-between taxRow">
-                <div class="p-2 delIcn text-center">
-                    <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');" href="javascript:void(0)">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </a>
-                </div>
-                <div class="p-2 txnmRow">
-                    <p><?php echo $row['feeName'];?></p>
-                </div>
-                <div class="d-flex align-items-center justify-content-end curRow">
-                    <div class="p-2">
-                        <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
-                    </div>
-                    <?php 
+                                                <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                            href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo $row['feeName'];?></p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?>
+                                                            </p>
+                                                        </div>
+                                                        <?php 
 if($row['currencyId'] > 0) 
 {   ?>
-                    <div class="p-2 otherCurr">
-                        <p><?php echo showOtherCur($row['curAmt'],$row['currencyId']);?></p>
-                    </div>
-                    <?php 
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($row['curAmt'],$row['currencyId']);?>
+                                                            </p>
+                                                        </div>
+                                                        <?php 
 } ?>
-                </div>
-            </div>
-<?php } 
+                                                    </div>
+                                                </div>
+                                                <?php } 
 $sql = "SELECT od.*, tp.feeName, tp.feeType FROM tbl_order_details_temp od 
 INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
 WHERE od.ordId = '".$_GET['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
@@ -702,31 +744,35 @@ $calDiscountOther = ($chargePriceOther*$row['price']/100);
 
 
 ?>
-            <div class="price justify-content-between taxRow">
-                <div class="p-2 delIcn text-center">
-                    <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');" href="javascript:void(0)">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </a>
-                </div>
-                <div class="p-2 txnmRow">
-                    <p><?php echo $row['feeName'];?><?php echo  $row['price'];?> %</p>
-                </div>
-                <div class="d-flex align-items-center justify-content-end curRow">
-                    <div class="p-2">
-                        <p><?php showPrice($calDiscount, $getDefCurDet['curCode']);?></p>
-                    </div>
-                    <?php 
+                                                <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                            href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo $row['feeName'];?><?php echo  $row['price'];?> %
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php showPrice($calDiscount, $getDefCurDet['curCode']);?>
+                                                            </p>
+                                                        </div>
+                                                        <?php 
               if ($row['currencyId'] > 0)
                {    ?>
-                   <div class="p-2 otherCurr">
-                        <p><?php echo showOtherCur($calDiscountOther,$row['currencyId']);?></p>
-                    </div>
-                <?php 
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($calDiscountOther,$row['currencyId']);?>
+                                                            </p>
+                                                        </div>
+                                                        <?php 
 } ?>
-                </div>
-            </div>
-<?php }  ?>
-<?php 
+                                                    </div>
+                                                </div>
+                                                <?php }  ?>
+                                                <?php 
 $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
 $totalCalDiscountOther = ($chargePriceOther*$perCharges/100);
 
@@ -749,31 +795,34 @@ $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$
 
 
 ?>
-<div class="price justify-content-between taxRow">
-                <div class="p-2 delIcn text-center">
-                    <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');" href="javascript:void(0)">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </a>
-                </div>
-                <div class="p-2 txnmRow">
-                    <p><?php echo $row['feeName'];?><?php echo $row['price'];?> %</p>
-                </div>
-                <div class="d-flex align-items-center justify-content-end curRow">
-                    <div class="p-2">
-                        <p><?php showPrice($calTax, $getDefCurDet['curCode']);?></p>
-                    </div>
-                    <?php 
+                                                <div class="price justify-content-between taxRow">
+                                                    <div class="p-2 delIcn text-center">
+                                                        <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                            href="javascript:void(0)">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo $row['feeName'];?><?php echo $row['price'];?> %
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php showPrice($calTax, $getDefCurDet['curCode']);?></p>
+                                                        </div>
+                                                        <?php 
 if ($row['currencyId'] > 0)
 {?>
-                    <div class="p-2 otherCurr">
-                        <p><?php echo showOtherCur($calTaxOther, $row['currencyId']);?></p>
-                    </div>
-                    <?php 
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($calTaxOther, $row['currencyId']);?>
+                                                            </p>
+                                                        </div>
+                                                        <?php 
 } ?>
-                </div>
-            </div>
+                                                    </div>
+                                                </div>
 
-<?php } $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
+                                                <?php } $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
 $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
 
 $totalDiscountOther = (($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$totalTaxChargesOther/100);
@@ -784,37 +833,39 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-            <div <?php
+                                                <div <?php
          if ($ordCountRow == 0)
         { 
 echo 'style="border-top: 0px;"';  
 } ?> class="price justify-content-between grdTtl-Row">
-                <div class="p-2 delIcn text-center"></div>
-                <div class="p-2 txnmRow">
-                    <p><?php echo showOtherLangText('Grand Total'); ?></p>
-                </div>
-                <div class="d-flex align-items-center justify-content-end curRow">
-                    <div class="p-2">
-                        <p><?php showPrice($netTotalAmt, $getDefCurDet['curCode']) ?></p>
-                    </div>
-                    <?php 
+                                                    <div class="p-2 delIcn text-center"></div>
+                                                    <div class="p-2 txnmRow">
+                                                        <p><?php echo showOtherLangText('Grand Total'); ?></p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="p-2">
+                                                            <p><?php showPrice($netTotalAmt, $getDefCurDet['curCode']) ?>
+                                                            </p>
+                                                        </div>
+                                                        <?php 
 $sql=" SELECT * FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  ";
 $sqlSet= mysqli_query($con, $sql);
 $sqlSetRow= mysqli_fetch_array($sqlSet);
 
 if (!empty($sqlSetRow['currencyId'])) {?>
-                <div class="p-2 otherCurr">
-                        <p><?php echo showOtherCur($netTotalAmtOther, $sqlSetRow['currencyId']);?></p>
-                    </div>
+                                                        <div class="p-2 otherCurr">
+                                                            <p><?php echo showOtherCur($netTotalAmtOther, $sqlSetRow['currencyId']);?>
+                                                            </p>
+                                                        </div>
 
-                <?php } ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-<!-- <div class="col-md-2 smBtn">
+                                    <!-- <div class="col-md-2 smBtn">
     <div class="btnBg">
         <a href="receiveOrder.php" class="btn sub-btn"><span
                 class="align-middle">Update</span> <i
@@ -829,10 +880,10 @@ if (!empty($sqlSetRow['currencyId'])) {?>
         </a>
     </div>
 </div> -->
-</div>
-</div>
-</div>
-<?php
+                                </div>
+                            </div>
+                        </div>
+                        <?php
 
 //other Charge query
 $totalCustomCharges = 0;
@@ -861,80 +912,86 @@ WHERE od.ordId = '".$_GET['orderId']."' AND tp.account_id = '".$_SESSION['accoun
 $ordQry = mysqli_query($con, $sql);
 
 ?>
-<div class="container nordPrice position-relative">
-<!-- Item Table Head Start -->
-<div class="d-flex align-items-center itmTable">
-<div class="prdtImg tb-head">
-<p><?php echo mysqli_num_rows($ordQry) > 0 ? mysqli_num_rows($ordQry) : ''; ?></p>
-</div>
-<div class="prdtImg tb-head">
-<p><?php echo showOtherLangText('Image'); ?></p>
-</div>
-<div class="prdtCnt-Fst d-flex align-items-center">
-<div class="Itm-Name tb-head">
-    <p><?php echo showOtherLangText('Item'); ?></p>
-</div>
-<div class="Itm-brCode tb-head">
-    <p><?php echo showOtherLangText('Bar Code'); ?></p>
-</div>
-<div class="prdtCr-Unit d-flex align-items-center">
-    <div class="crncy-Type d-flex align-items-center">
-        <?php if($ordRow['ordCurId'] > 0)
+                        <div class="container nordPrice position-relative">
+                            <!-- Item Table Head Start -->
+                            <div class="d-flex align-items-center itmTable">
+                                <div class="prdtImg tb-head">
+                                    <p><?php echo mysqli_num_rows($ordQry) > 0 ? mysqli_num_rows($ordQry) : ''; ?></p>
+                                </div>
+                                <div class="prdtImg tb-head">
+                                    <p><?php echo showOtherLangText('Image'); ?></p>
+                                </div>
+                                <div class="prdtCnt-Fst d-flex align-items-center">
+                                    <div class="Itm-Name tb-head">
+                                        <p><?php echo showOtherLangText('Item'); ?></p>
+                                    </div>
+                                    <div class="Itm-brCode tb-head">
+                                        <p><?php echo showOtherLangText('Bar Code'); ?></p>
+                                    </div>
+                                    <div class="prdtCr-Unit d-flex align-items-center">
+                                        <div class="crncy-Type d-flex align-items-center">
+                                            <?php if($ordRow['ordCurId'] > 0)
 {   ?>
-        <div class="dflt-Currency tb-head">
-            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-        </div>
-        <div class="othr-Currency tb-head">
-            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'];?>)</p>
-        </div>
-        <?php }else{ ?>
-        <div class="dflt-Currency tb-head">
-        <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-        </div>
-        <?php } ?>
-    </div>
-    <div class="itm-Unit tb-head">
-        <p><?php echo showOtherLangText('P.Unit'); ?></p>
-    </div>
-</div>
-</div>
-<div class="prdtStk-Qty tb-head">
-<p><?php echo showOtherLangText('S.Qty'); ?></p>
-</div>
-<div class="prdtCnt-Scnd d-flex align-items-center">
-<div class="itm-Quantity tb-head">
-    <p><?php echo showOtherLangText('Qty'); ?></p>
-</div>
-<div class="ttlCr-Type d-flex align-items-center">
-    <?php if($ordRow['ordCurId'] > 0)
+                                            <div class="dflt-Currency tb-head">
+                                                <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                                </p>
+                                            </div>
+                                            <div class="othr-Currency tb-head">
+                                                <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'];?>)
+                                                </p>
+                                            </div>
+                                            <?php }else{ ?>
+                                            <div class="dflt-Currency tb-head">
+                                                <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                                </p>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="itm-Unit tb-head">
+                                            <p><?php echo showOtherLangText('P.Unit'); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="prdtStk-Qty tb-head">
+                                    <p><?php echo showOtherLangText('S.Qty'); ?></p>
+                                </div>
+                                <div class="prdtCnt-Scnd d-flex align-items-center">
+                                    <div class="itm-Quantity tb-head">
+                                        <p><?php echo showOtherLangText('Qty'); ?></p>
+                                    </div>
+                                    <div class="ttlCr-Type d-flex align-items-center">
+                                        <?php if($ordRow['ordCurId'] > 0)
      {?>
-    <div class="ttlDft-Crcy tb-head">
-        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-    </div>
-    <div class="ttlOtr-Crcy tb-head">
-        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)</p>
-    </div>
-    <?php }else{ ?>
-    <div class="ttlDft-Crcy tb-head">
-        <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-    </div>
-    <?php } ?>    
-</div>
-</div>
-<div class="prdt-Hide">
-<div class="prdt-Note tb-bdy">
-    <div class="mb-brCode"></div>
-    <p><?php echo showOtherLangText('Note'); ?></p>
-</div>
-</div>
-</div>
-<!-- Item Table Head End -->
-</div>
+                                        <div class="ttlDft-Crcy tb-head">
+                                            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                            </p>
+                                        </div>
+                                        <div class="ttlOtr-Crcy tb-head">
+                                            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)
+                                            </p>
+                                        </div>
+                                        <?php }else{ ?>
+                                        <div class="ttlDft-Crcy tb-head">
+                                            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                            </p>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <div class="prdt-Hide">
+                                    <div class="prdt-Note tb-bdy">
+                                        <div class="mb-brCode"></div>
+                                        <p><?php echo showOtherLangText('Note'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item Table Head End -->
+                        </div>
 
-<div id="boxscroll" class="compact__tb__bdy">
-<div class="container cntTable">
-<!-- Item Table Body Start -->
-<?php 
+                        <div id="boxscroll" class="compact__tb__bdy">
+                            <div class="container cntTable">
+                                <!-- Item Table Body Start -->
+                                <?php 
 $fixedCharges = 0;
 $perCharges = 0;
 $x = 0;
@@ -946,30 +1003,32 @@ $totalCustomCharges += $row['price'];
 $x++;
 $y++;
 ?>
-<div class="newOrdTask">
-<div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">   
-    <div class="prdtImg tb-bdy">
-        <p><?php echo $y; ?></p>
-    </div>
-    <div class="prdtImg tb-bdy">
-        <a title="<?php echo showOtherLangText('Delete') ?>"
-        href="javascript:void(0)"
-        onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
-        style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a>
-    </div>
-    <div class="prdtCnt-Fst d-flex align-items-center">
-        <div class="Itm-Name tb-bdy">
-            <p><?php echo $row['itemName'];?></p>
-        </div>
-        <div class="Itm-brCode tb-bdy">
-            <p class="ord-brCode"></p>
-        </div>
-        <div class="prdtCr-Unit d-flex">
-            <div class="crncy-Type d-flex align-items-center">
-                <div class="dflt-Currency tb-bdy">
-                    <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
-                </div>
-                <?php 
+                                <div class="newOrdTask">
+                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                        <div class="prdtImg tb-bdy">
+                                            <p><?php echo $y; ?></p>
+                                        </div>
+                                        <div class="prdtImg tb-bdy">
+                                            <a title="<?php echo showOtherLangText('Delete') ?>"
+                                                href="javascript:void(0)"
+                                                onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                style="color:#808080" class="glyphicon glyphicon-trash"><i
+                                                    class="fa-solid fa-trash-can"></i></a>
+                                        </div>
+                                        <div class="prdtCnt-Fst d-flex align-items-center">
+                                            <div class="Itm-Name tb-bdy">
+                                                <p><?php echo $row['itemName'];?></p>
+                                            </div>
+                                            <div class="Itm-brCode tb-bdy">
+                                                <p class="ord-brCode"></p>
+                                            </div>
+                                            <div class="prdtCr-Unit d-flex">
+                                                <div class="crncy-Type d-flex align-items-center">
+                                                    <div class="dflt-Currency tb-bdy">
+                                                        <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?>
+                                                        </p>
+                                                    </div>
+                                                    <?php 
 if($ordRow['ordCurId'] > 0)
 {
 
@@ -977,25 +1036,25 @@ echo '<div class="othr-Currency tb-bdy"><p>'.showOtherCur($row['curAmt'], $row['
 }
 
 ?>
-                
-            </div>
-            <div class="itm-Unit tb-bdy">
-                <p><?php echo $row['unit'];?></p>
-            </div>
-        </div>
-    </div>
-    <div class="prdtStk-Qty tb-bdy">
-        <p class="ord-StockQty"><span class="tabOn-Stk">On stock</span></p>
-    </div>
-    <div class="prdtCnt-Scnd d-flex align-items-center">
-        <div class="itm-Quantity tb-bdy">
-            1
-        </div>
-        <div class="ttlCr-Type d-flex align-items-center">
-            <div class="ttlDft-Crcy tb-bdy">
-                <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
-            </div>
-            <?php 
+
+                                                </div>
+                                                <div class="itm-Unit tb-bdy">
+                                                    <p><?php echo $row['unit'];?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="prdtStk-Qty tb-bdy">
+                                            <p class="ord-StockQty"><span class="tabOn-Stk">On stock</span></p>
+                                        </div>
+                                        <div class="prdtCnt-Scnd d-flex align-items-center">
+                                            <div class="itm-Quantity tb-bdy">
+                                                1
+                                            </div>
+                                            <div class="ttlCr-Type d-flex align-items-center">
+                                                <div class="ttlDft-Crcy tb-bdy">
+                                                    <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
+                                                </div>
+                                                <?php 
 if($ordRow['ordCurId'] > 0)
 {
             echo '<div class="ttlOtr-Crcy tb-bdy">
@@ -1004,26 +1063,27 @@ if($ordRow['ordCurId'] > 0)
 }
 
 ?>
-        </div>
-    </div>
-    <div class="prdt-Hide">
-        <div class="prdt-Note tb-bdy">
-            <div class="mb-brCode"></div>
-            <input type="text" class="note-itm form-control" autocomplete="off"
-        name="itemNotes[<?php echo $row['id'];?>]" id="itemNotes<?php echo $x;?>"
-        onChange="getItemNotesVal('<?php echo $x;?>', '<?php echo $row['id'];?>');"
-        value="<?php echo $row['note'];?>">
-        </div>
-    </div>
-</div>
-<div class="mbLnk-Order">
-    <a href="javascript:void(0)" class="orderLink">
-        <i class="fa-solid fa-angle-down"></i>
-    </a>
-</div>
+                                            </div>
+                                        </div>
+                                        <div class="prdt-Hide">
+                                            <div class="prdt-Note tb-bdy">
+                                                <div class="mb-brCode"></div>
+                                                <input type="text" class="note-itm form-control" autocomplete="off"
+                                                    name="itemNotes[<?php echo $row['id'];?>]"
+                                                    id="itemNotes<?php echo $x;?>"
+                                                    onChange="getItemNotesVal('<?php echo $x;?>', '<?php echo $row['id'];?>');"
+                                                    value="<?php echo $row['note'];?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mbLnk-Order">
+                                        <a href="javascript:void(0)" class="orderLink">
+                                            <i class="fa-solid fa-angle-down"></i>
+                                        </a>
+                                    </div>
 
-</div>
-<?php } 
+                                </div>
+                                <?php } 
 $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
 $pidArr = [];
 $x = 0;
@@ -1047,58 +1107,59 @@ $stockQty = $stockQty - $totalProQty;
 // $supRow = mysqli_fetch_array($resultSet);
 
 ?>
-<input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
-<input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
-value="<?php echo $row['SupplierId'];?>" />
-<input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
-value="<?php echo $row['factor'];?>" />
-<input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
-value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
-<div class="newOrdTask">
-<div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">   
-    <div class="prdtImg tb-bdy">
-        <p><?php echo $y; ?></p>
-    </div>
-    <div class="prdtImg tb-bdy">
-        <?php 
+                                <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
+                                <input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
+                                    value="<?php echo $row['SupplierId'];?>" />
+                                <input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
+                                    value="<?php echo $row['factor'];?>" />
+                                <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
+                                    value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
+                                <div class="newOrdTask">
+                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                        <div class="prdtImg tb-bdy">
+                                            <p><?php echo $y; ?></p>
+                                        </div>
+                                        <div class="prdtImg tb-bdy">
+                                            <?php 
   if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
    {   
   echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
     
     }
      ?>
-    </div>
-    <div class="prdtCnt-Fst d-flex align-items-center">
-        <div class="Itm-Name tb-bdy">
-            <p><?php echo $row['itemName'];?></p>
-        </div>
-        <div class="Itm-brCode tb-bdy">
-            <p class="ord-brCode"><?php echo $row['barCode'];?></p>
-        </div>
-        <div class="prdtCr-Unit d-flex">
-            <div class="crncy-Type d-flex align-items-center">
-                <div class="dflt-Currency tb-bdy">
-                    <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
-            type="hidden" name="price[<?php echo $row['id'];?>]"
-            id="<?php echo $x;?>"
-            value="<?php echo ($row['price']*$row['factor']);?>" /></p>
-                </div>
-                <?php 
+                                        </div>
+                                        <div class="prdtCnt-Fst d-flex align-items-center">
+                                            <div class="Itm-Name tb-bdy">
+                                                <p><?php echo $row['itemName'];?></p>
+                                            </div>
+                                            <div class="Itm-brCode tb-bdy">
+                                                <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                            </div>
+                                            <div class="prdtCr-Unit d-flex">
+                                                <div class="crncy-Type d-flex align-items-center">
+                                                    <div class="dflt-Currency tb-bdy">
+                                                        <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
+                                                                type="hidden" name="price[<?php echo $row['id'];?>]"
+                                                                id="<?php echo $x;?>"
+                                                                value="<?php echo ($row['price']*$row['factor']);?>" />
+                                                        </p>
+                                                    </div>
+                                                    <?php 
 if($ordRow['ordCurId'] > 0)
 {   ?>
-                <div class="othr-Currency tb-bdy">
-                    <p><?php  echo showOtherCur(($row['price']*$row['factor']*$curDet['amt']), $ordRow['ordCurId']);
+                                                    <div class="othr-Currency tb-bdy">
+                                                        <p><?php  echo showOtherCur(($row['price']*$row['factor']*$curDet['amt']), $ordRow['ordCurId']);
 ?></p>
-                </div>
-<?php } ?>
-            </div>
-            <div class="itm-Unit tb-bdy">
-                <p><?php echo $row['purchaseUnit'];?></p>
-            </div>
-        </div>
-    </div>
-    <div class="prdtStk-Qty tb-bdy">
-        <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
+                                                    </div>
+                                                    <?php } ?>
+                                                </div>
+                                                <div class="itm-Unit tb-bdy">
+                                                    <p><?php echo $row['purchaseUnit'];?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="prdtStk-Qty tb-bdy">
+                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
@@ -1106,68 +1167,73 @@ background-color: pink;
 width: 43px;
 text-align: center;
 height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
-    </div>
-    <div class="prdtCnt-Scnd d-flex align-items-center">
-        <div class="itm-Quantity tb-bdy">
-            <input type="text" class="form-control qty-itm" name="qty[<?php echo $row['id'];?>]"
-            autocomplete="off"
-            onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
-            value="<?php echo $row['ordQty'];?>" size="5">
-        </div>
-        <div class="ttlCr-Type d-flex align-items-center">
-            <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
-                <p><?php showPrice($row['ordPrice'], $getDefCurDet['curCode']) ?></p>
-            </div>
-            <?php if($ordRow['ordCurId'] > 0){?>
-            <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy">
-                <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);
+                                        </div>
+                                        <div class="prdtCnt-Scnd d-flex align-items-center">
+                                            <div class="itm-Quantity tb-bdy">
+                                                <input type="text" class="form-control qty-itm"
+                                                    name="qty[<?php echo $row['id'];?>]" autocomplete="off"
+                                                    onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
+                                                    value="<?php echo $row['ordQty'];?>" size="5">
+                                            </div>
+                                            <div class="ttlCr-Type d-flex align-items-center">
+                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
+                                                    <p><?php showPrice($row['ordPrice'], $getDefCurDet['curCode']) ?>
+                                                    </p>
+                                                </div>
+                                                <?php if($ordRow['ordCurId'] > 0){?>
+                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy">
+                                                    <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);
 
 ?></p>
-            </div>
-             <?php } ?>
-        </div>
-    </div>
-    <div class="prdt-Hide">
-        <div class="prdt-Note tb-bdy">
-            <div class="mb-brCode"></div>
-            <input type="text" class="form-control note-itm" autocomplete="off"
-        id="notes<?php echo $row['id'];?>"
-        onChange="getnotesVal('<?php echo $row['id'] ?>');"
-        name="notes[<?php echo $row['id'];?>]" value="<?php echo $row['note'];?>">
-        </div>
-    </div>
-</div>
-<div class="mbLnk-Order">
-    <a href="javascript:void(0)" class="orderLink">
-        <i class="fa-solid fa-angle-down"></i>
-    </a>
-</div>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div class="prdt-Hide">
+                                            <div class="prdt-Note tb-bdy">
+                                                <div class="mb-brCode"></div>
+                                                <input type="text" class="form-control note-itm" autocomplete="off"
+                                                    id="notes<?php echo $row['id'];?>"
+                                                    onChange="getnotesVal('<?php echo $row['id'] ?>');"
+                                                    name="notes[<?php echo $row['id'];?>]"
+                                                    value="<?php echo $row['note'];?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mbLnk-Order">
+                                        <a href="javascript:void(0)" class="orderLink">
+                                            <i class="fa-solid fa-angle-down"></i>
+                                        </a>
+                                    </div>
 
-</div>
-<?php } ?>
+                                </div>
+                                <?php } ?>
 
-</div>
-</div>
+                            </div>
+                        </div>
 
-<div>
+                        <div>
 
-<div class="container pt-5 topOrder ">
-<div class="row g-4 align-items-end">
-<div class="col-md-5">
-    <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
-    <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);"> 
-        <input onKeyUp="myFunction('search3', 'newOrdTask1', 2)" type="search" class="form-control" placeholder="Search Item" id="search3" name="search3" aria-label="Search">
-        <div class="input-group-append">
-            <button class="btn" type="button" style="background-color: rgb(122, 137, 255);">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
-    </div>
-</div>
-</form>
-<div class="col-md-7">
-    <!-- <form id="add-new-items" action="editOrderAddNewItems.php?orderId=<?php //echo $_GET['orderId'];?>" method="post" autocomplete="off">  -->
-        <?php  
+                            <div class="container pt-5 topOrder ">
+                                <div class="row g-4 align-items-end">
+                                    <div class="col-md-5">
+                                        <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
+                                        <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
+                                            <input onKeyUp="myFunction('search3', 'newOrdTask1', 2)" type="search"
+                                                class="form-control" placeholder="Search Item" id="search3"
+                                                name="search3" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn" type="button"
+                                                    style="background-color: rgb(122, 137, 255);">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                                    <div class="col-md-7">
+                                        <!-- <form id="add-new-items" action="editOrderAddNewItems.php?orderId=<?php //echo $_GET['orderId'];?>" method="post" autocomplete="off">  -->
+                                        <?php  
             $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
 
             if($cond != '')
@@ -1185,19 +1251,22 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
                 LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
                 WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
                 $proresultSet = mysqli_query($con, $sqlSet);
-        ?> 
-        <div class="btnBg text-center text-md-end">
-            <a href="javascript:void(0);" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
-        </div>
-    <!-- </form>  -->
-</div>
-</div> 
-</div><!--.//container -->
-<form id="add-new-items" action="editOrderAddNewItems.php?orderId=<?php echo $_GET['orderId'];?>" method="post" autocomplete="off"
-                        class="container">
+        ?>
+                                        <div class="btnBg text-center text-md-end">
+                                            <a href="javascript:void(0);"
+                                                class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+                                        </div>
+                                        <!-- </form>  -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--.//container -->
+                            <form id="add-new-items"
+                                action="editOrderAddNewItems.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
+                                autocomplete="off" class="container">
 
 
-                        <?php 
+                                <?php 
 
                 $cond .= " AND p.id IN( SELECT ps.productId FROM tbl_productsuppliers ps WHERE ps.supplierId = '".$_SESSION['supplierIdOrd']."' AND ps.account_id = '".$_SESSION['accountId']."') ";
 
@@ -1217,75 +1286,79 @@ height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <spa
                     WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
                     $proresultSet = mysqli_query($con, $sqlSet);
                  ?>
-<div class="container nordPrice position-relative">
-<!-- Item Table Head Start -->
-<div class="d-flex align-items-center itmTable">
-<div class="prdtImg tb-head">
-<p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?></p>
-</div>
-<div class="prdtImg tb-head">
-    <p><?php echo showOtherLangText('Image'); ?></p>
-</div>
-<div class="prdtCnt-Fst d-flex align-items-center">
-    <div class="Itm-Name tb-head">
-        <p><?php echo showOtherLangText('Item'); ?></p>
-    </div>
-    <div class="Itm-brCode tb-head">
-        <p><?php echo showOtherLangText('Bar Code'); ?></p>
-    </div>
-    <div class="prdtCr-Unit d-flex align-items-center">
-        <div class="crncy-Type w-50 ">
-            <div class="tb-head">
-                <p><?php echo showOtherLangText('P.Price'); ?></p>
-            </div>
-           
-        </div>
-        <div class="itm-Unit tb-head">
-            <p><?php echo showOtherLangText('P.Unit'); ?></p>
-        </div>
-    </div>
-</div>
-<div class="prdtStk-Qty tb-head">
-    <p><?php echo showOtherLangText('S.Qty'); ?></p>
-</div>
-<div class="prdtCnt-Scnd d-flex align-items-center">
-    <div class="itm-Quantity tb-head">
-        <p><?php echo showOtherLangText('Qty'); ?></p>
-    </div>
-    <?php if($ordRow['ordCurId'] > 0)
-     {?>
-    <div class="ttlCr-Type w-50">
-        <div class="ps-xl-4 tb-head">
-            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-        </div>
-    </div>
-    <div class="ttlCr-Type w-50">
-        <div class="ps-xl-4 tb-head">
-            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)</p>
-        </div>
-    </div>
-    <?php }else{ ?>
-    <div class="ttlCr-Type w-50">
-        <div class="ps-xl-5 tb-head">
-            <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-        </div>
-    </div>
-    <?php } ?>
-</div>
-<div class="prdt-Hide">
-    <div class="prdt-Note tb-head">
-        <div class="mb-brCode" style="display: none;"></div>
-        <p><?php echo showOtherLangText('Note'); ?></p>
-    </div>
-</div>
-</div>
-<!-- Item Table Head End -->
-</div>
+                                <div class="container nordPrice position-relative">
+                                    <!-- Item Table Head Start -->
+                                    <div class="d-flex align-items-center itmTable">
+                                        <div class="prdtImg tb-head">
+                                            <p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?>
+                                            </p>
+                                        </div>
+                                        <div class="prdtImg tb-head">
+                                            <p><?php echo showOtherLangText('Image'); ?></p>
+                                        </div>
+                                        <div class="prdtCnt-Fst d-flex align-items-center">
+                                            <div class="Itm-Name tb-head">
+                                                <p><?php echo showOtherLangText('Item'); ?></p>
+                                            </div>
+                                            <div class="Itm-brCode tb-head">
+                                                <p><?php echo showOtherLangText('Bar Code'); ?></p>
+                                            </div>
+                                            <div class="prdtCr-Unit d-flex align-items-center">
+                                                <div class="crncy-Type w-50 ">
+                                                    <div class="tb-head">
+                                                        <p><?php echo showOtherLangText('P.Price'); ?></p>
+                                                    </div>
 
-<div id="boxscroll" class="compact__tb__bdy">
-<div class="container cntTable  ">
-<!-- Item Table Body Start -->
-<?php 
+                                                </div>
+                                                <div class="itm-Unit tb-head">
+                                                    <p><?php echo showOtherLangText('P.Unit'); ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="prdtStk-Qty tb-head">
+                                            <p><?php echo showOtherLangText('S.Qty'); ?></p>
+                                        </div>
+                                        <div class="prdtCnt-Scnd d-flex align-items-center">
+                                            <div class="itm-Quantity tb-head">
+                                                <p><?php echo showOtherLangText('Qty'); ?></p>
+                                            </div>
+                                            <?php if($ordRow['ordCurId'] > 0)
+     {?>
+                                            <div class="ttlCr-Type w-50">
+                                                <div class="ps-xl-4 tb-head">
+                                                    <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="ttlCr-Type w-50">
+                                                <div class="ps-xl-4 tb-head">
+                                                    <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'];?>)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <?php }else{ ?>
+                                            <div class="ttlCr-Type w-50">
+                                                <div class="ps-xl-5 tb-head">
+                                                    <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="prdt-Hide">
+                                            <div class="prdt-Note tb-head">
+                                                <div class="mb-brCode" style="display: none;"></div>
+                                                <p><?php echo showOtherLangText('Note'); ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Item Table Head End -->
+                                </div>
+
+                                <div id="boxscroll" class="compact__tb__bdy">
+                                    <div class="container cntTable  ">
+                                        <!-- Item Table Body Start -->
+                                        <?php 
 
 $x= $x+1;
 $i = 0;
@@ -1301,53 +1374,57 @@ $stockQty = $row['stockQty'];
 $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
 $stockQty = $stockQty - $totalProQty;
 ?>
-<input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
-<input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
-value="<?php echo $row['supplierId'];?>" />
-<input type="hidden" name="factor[<?php echo $row['id'];?>]" id="factor<?php echo $x;?>"
-value="<?php echo $row['factor'];?>" />
-<input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
-value="" />
-<div class="newOrdTask1">
-    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-        <div class="prdtImg tb-bdy">
-            <?php echo $y;?>
-        </div>
-        <div class="prdtImg tb-bdy">
-            <?php 
+                                        <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
+                                        <input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
+                                            value="<?php echo $row['supplierId'];?>" />
+                                        <input type="hidden" name="factor[<?php echo $row['id'];?>]"
+                                            id="factor<?php echo $x;?>" value="<?php echo $row['factor'];?>" />
+                                        <input type="hidden" name="totalPriceShowTop[]"
+                                            id="totalPriceShowTop<?php echo $x;?>" value="" />
+                                        <div class="newOrdTask1">
+                                            <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                                <div class="prdtImg tb-bdy">
+                                                    <?php echo $y;?>
+                                                </div>
+                                                <div class="prdtImg tb-bdy">
+                                                    <?php 
             if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
             {   
                 echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
             }
              ?>
-        </div>
-        <div class="prdtCnt-Fst d-flex align-items-center">
-            <div class="Itm-Name tb-bdy">
-                <p><?php echo $row['itemName'];?></p>
-            </div>
-            <div class="Itm-brCode tb-bdy">
-                <p class="ord-brCode"><?php echo $row['barCode'];?></p>
-            </div>
-            <div class="prdtCr-Unit d-flex">
-                <div class="crncy-Type w-50">
-                    <div class=" tb-bdy">
-                        <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
-        type="hidden" name="price[<?php echo $row['id'];?>]" id="<?php echo $x;?>"
-        value="<?php echo getPrice($row['price']);?>" />
+                                                </div>
+                                                <div class="prdtCnt-Fst d-flex align-items-center">
+                                                    <div class="Itm-Name tb-bdy">
+                                                        <p><?php echo $row['itemName'];?></p>
+                                                    </div>
+                                                    <div class="Itm-brCode tb-bdy">
+                                                        <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                                    </div>
+                                                    <div class="prdtCr-Unit d-flex">
+                                                        <div class="crncy-Type w-50">
+                                                            <div class=" tb-bdy">
+                                                                <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
+                                                                        type="hidden"
+                                                                        name="price[<?php echo $row['id'];?>]"
+                                                                        id="<?php echo $x;?>"
+                                                                        value="<?php echo getPrice($row['price']);?>" />
 
 
-    <input type="hidden" name="curAmt[<?php echo $row['id'];?>]"
-        value="<?php echo getPrice($row['curAmt']);?>" /></p>
-                    </div>
-                    
-                </div>
-                <div class="itm-Unit tb-bdy">
-                    <p><?php echo $row['purchaseUnit'];?></p>
-                </div>
-            </div>
-        </div>
-        <div class="prdtStk-Qty tb-bdy">
-            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
+                                                                    <input type="hidden"
+                                                                        name="curAmt[<?php echo $row['id'];?>]"
+                                                                        value="<?php echo getPrice($row['curAmt']);?>" />
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="itm-Unit tb-bdy">
+                                                            <p><?php echo $row['purchaseUnit'];?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="prdtStk-Qty tb-bdy">
+                                                    <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
@@ -1355,173 +1432,184 @@ background-color: pink;
 width: 43px;
 text-align: center;
 height: 30px;"' : '';?>>
-    <?php echo round(($stockQty/$row['factor']), 1);?> <span class="tabOn-Stk">On stock</span></p>
-        </div>
-        <div class="prdtCnt-Scnd d-flex align-items-center">
-            <div class="itm-Quantity tb-bdy">
-                 <input type="text" class="form-control qty-itm editQty-Rec" name="qty[<?php echo $row['id'];?>]"
-        autocomplete="off"
-        onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_POST['supplierId'];?>', '1')"
-        value="" size="5">
-            </div>
-            <div class="ttlCr-Type w-50 ps-xl-5">
-                <div class=" tb-bdy">
-                    <p id="totalPrice<?php echo $x;?>">0</p>
-                </div>
-               
-            </div>
-            <?php if($ordRow['ordCurId'] > 0){?>
-            <div class="ttlCr-Type w-50 ps-xl-5">
-                <div class=" tb-bdy">
-                    <p id="totalPriceOther<?php echo $x;?>">0</p>
-                </div>
-            </div>
-            <?php } ?>
-        </div>
-        <div class="prdt-Hide">
-            <div class="prdt-Note tb-bdy">
-                <div class="mb-brCode" style="display: none;"></div>
-               
-                <input type="text" class="form-control  note-itm" autocomplete="off"
-        id="notes<?php echo $row['id'];?>"
-        onChange="getnotesVal('<?php echo $row['id'] ?>');"
-        name="notes[<?php echo $row['id'];?>]" value="">
-            </div>
-        </div>
-    </div>
-    <div class="mbLnk-Order">
-        <a href="javascript:void(0)" class="orderLink">
-            <i class="fa-solid fa-angle-down"></i>
-        </a>
-    </div>
+                                                        <?php echo round(($stockQty/$row['factor']), 1);?> <span
+                                                            class="tabOn-Stk">On stock</span></p>
+                                                </div>
+                                                <div class="prdtCnt-Scnd d-flex align-items-center">
+                                                    <div class="itm-Quantity tb-bdy">
+                                                        <input type="text" class="form-control qty-itm editQty-Rec"
+                                                            name="qty[<?php echo $row['id'];?>]" autocomplete="off"
+                                                            onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_POST['supplierId'];?>', '1')"
+                                                            value="" size="5">
+                                                    </div>
+                                                    <div class="ttlCr-Type w-50 ps-xl-5">
+                                                        <div class=" tb-bdy">
+                                                            <p id="totalPrice<?php echo $x;?>">0</p>
+                                                        </div>
 
-</div>
+                                                    </div>
+                                                    <?php if($ordRow['ordCurId'] > 0){?>
+                                                    <div class="ttlCr-Type w-50 ps-xl-5">
+                                                        <div class=" tb-bdy">
+                                                            <p id="totalPriceOther<?php echo $x;?>">0</p>
+                                                        </div>
+                                                    </div>
+                                                    <?php } ?>
+                                                </div>
+                                                <div class="prdt-Hide">
+                                                    <div class="prdt-Note tb-bdy">
+                                                        <div class="mb-brCode" style="display: none;"></div>
 
-<?php 
+                                                        <input type="text" class="form-control  note-itm"
+                                                            autocomplete="off" id="notes<?php echo $row['id'];?>"
+                                                            onChange="getnotesVal('<?php echo $row['id'] ?>');"
+                                                            name="notes[<?php echo $row['id'];?>]" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mbLnk-Order">
+                                                <a href="javascript:void(0)" class="orderLink">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <?php 
 }
 if($i > 0)
 {
 ?>
 
-<?php }else{
+                                        <?php }else{
 echo '<div class="newOrdTask">
     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">No Product Found.</div> </div>';
 } ?>
 
-</div>
-</div>
-<?php }} ?>
+                                    </div>
+                                </div>
+                                <?php }} ?>
 
-<div class="container pb-4 topOrder">
-<div class="btnBg mt-3">
-<a href="#" class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
+                                <div class="container pb-4 topOrder">
+                                    <div class="btnBg mt-3">
+                                        <a href="#"
+                                            class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
 
-</div>
-</form>
-</div>
-</div>
+                                    </div>
+                            </form>
+                        </div>
+                </div>
 
-</section>
+                </section>
 
 
-</div>
-</div>
-</div>
-</main>
-<div id="dialog" style="display: none;">
-<?php echo showOtherLangText('Are you sure to delete this record?') ?>  
-</div>
-<form id="currency_frm_id" name="currency_frm_id" method="post" action="">
-<input type="text" id="currencyId" name="currencyId" value="">
-<input type="hidden" id="donotsubmit" name="donotsubmit" value="true">
-</form>
-<form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
-<div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-<h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
-</div>
-<div class="modal-body">
-<input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
-        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-        onChange="this.setCustomValidity('')" required>
-<input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>" autocomplete="off"
-        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-        onChange="this.setCustomValidity('')" required>
-<input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
-        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-        onChange="this.setCustomValidity('')" required>
-</div>
-<div>
-<div class="feeSave">
-<input type="checkbox" id="visibility" name="visibility" value="1">
-<span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
-</div>
-</div>
-<div class="modal-footer">
-<div class="btnBg">
-<button type="submit" id="addFee" name="addFee" class="sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</form>
-<form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
-<div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-<h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
-</div>
-<div class="modal-body">
-<input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
-<input type="text" class="form-control" name="feeName" id="feeName" value=""
-         autocomplete="off"
-        placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
-        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-        onChange="this.setCustomValidity('')" required />
-<select class="form-control" name="feeType" id="typeOfFee"
-        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-        onChange="this.setCustomValidity('')" required>
-        <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
-        <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
-        </option>
-    </select>
-<input type="text" class="form-control" id="amt" name="amt" value=""
-         autocomplete="off"
-        placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
-        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-        onChange="this.setCustomValidity('')" required />
-     
-</div>
-<div>
-<input type="checkbox" name="feeType" id="feeType" value="1">
-<span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
-<div class="feeSave">
-<input type="checkbox" id="visibility" name="visibility" value="1">
-<span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
+            </div>
+        </div>
+        </div>
+    </main>
+    <div id="dialog" style="display: none;">
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
+    <form id="currency_frm_id" name="currency_frm_id" method="post" action="">
+        <input type="text" id="currencyId" name="currencyId" value="">
+        <input type="hidden" id="donotsubmit" name="donotsubmit" value="true">
+    </form>
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm"
+        method="post" autocomplete="off">
+        <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" required class="form-control" id="itemName" name="itemName"
+                            placeholder="<?php echo showOtherLangText('Service Name');?>" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                        <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt"
+                            placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?>"
+                            autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                        <input type="text" required class="form-control" id="unit" name="unit"
+                            placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                    </div>
+                    <div>
+                        <div class="feeSave">
+                            <input type="checkbox" id="visibility" name="visibility" value="1">
+                            <span class="subTittle1" style="vertical-align:text-top;">
+                                <?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" id="addFee" name="addFee"
+                                class="sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post"
+        autocomplete="off">
+        <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
+                        <input type="text" class="form-control" name="feeName" id="feeName" value="" autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required />
+                        <select class="form-control" name="feeType" id="typeOfFee"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
+                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
+                            </option>
+                        </select>
+                        <input type="text" class="form-control" id="amt" name="amt" value="" autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode']; ?>"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required />
+
+                    </div>
+                    <div>
+                        <input type="checkbox" name="feeType" id="feeType" value="1">
+                        <span class="subTittle1"
+                            style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
+                        <div class="feeSave">
+                            <input type="checkbox" id="visibility" name="visibility" value="1">
+                            <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
 list'); ?></span>
-</div>
-</div>
-<div class="modal-footer">
-<div class="btnBg">
-<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</form>
-<?php require_once('footer.php');?>
-<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script type="text/javascript">
-function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>', editOrdNewItemStatusVal=0) {
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" id="feesave_add" name="feesave_add"
+                                class="sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <?php require_once('footer.php');?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['supplierIdOrd'] ?>',
+        editOrdNewItemStatusVal = 0) {
 
         if (isNaN(qty) || qty == '') {
             qty = 0;
@@ -1545,7 +1633,7 @@ function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['suppli
                     qty: qty,
                     curAmtVal: '<?php echo $curDet['amt']; ?>',
                     currencyId: '<?php echo $curDet['id']; ?>'
-                    
+
                 }
             })
             .done(function(responseObj) {
@@ -1556,202 +1644,205 @@ function showTotal(qty, priceId, pId, supplierId = '<?php echo $_SESSION['suppli
             });
 
     } //end  
-</script>
-<script>
-function getDelNumb(delId, orderId, supplierId){
-var newOnClick = "window.location.href='editOrder.php?delId=" + delId + "&orderId=" + orderId + "&supplierId=" + supplierId + "'";
+    </script>
+    <script>
+    function getDelNumb(delId, orderId, supplierId) {
+        var newOnClick = "window.location.href='editOrder.php?delId=" + delId + "&orderId=" + orderId + "&supplierId=" +
+            supplierId + "'";
 
-//console.log('click',newOnClick);
-//return false;
+        //console.log('click',newOnClick);
+        //return false;
 
-$('.deletelink').attr('onclick', newOnClick);
-$('#delete-popup').modal('show');
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
 
-}
-// function getDelNumb(delId, orderId, supplierId) {
+    }
+    // function getDelNumb(delId, orderId, supplierId) {
 
-//     $("#dialog").dialog({
-//         autoOpen: false,
-//         modal: true,
-//         //title     : "Title",
-//         buttons: {
-//             '<?php echo showOtherLangText('Yes') ?>': function() {
-//                 //Do whatever you want to do when Yes clicked
-//                 $(this).dialog('close');
-//                 window.location.href = 'editOrder.php?delId=' + delId + '&orderId=' + orderId +
-//                     '&supplierId=' + supplierId;
-//             },
+    //     $("#dialog").dialog({
+    //         autoOpen: false,
+    //         modal: true,
+    //         //title     : "Title",
+    //         buttons: {
+    //             '<?php echo showOtherLangText('Yes') ?>': function() {
+    //                 //Do whatever you want to do when Yes clicked
+    //                 $(this).dialog('close');
+    //                 window.location.href = 'editOrder.php?delId=' + delId + '&orderId=' + orderId +
+    //                     '&supplierId=' + supplierId;
+    //             },
 
-//             '<?php echo showOtherLangText('No') ?>': function() {
-//                 //Do whatever you want to do when No clicked
-//                 $(this).dialog('close');
-//             }
-//         }
-//     });
+    //             '<?php echo showOtherLangText('No') ?>': function() {
+    //                 //Do whatever you want to do when No clicked
+    //                 $(this).dialog('close');
+    //             }
+    //         }
+    //     });
 
-//     $("#dialog").dialog("open");
-//     $('.custom-header-text').remove();
-//     $('.ui-dialog-content').prepend(
-//         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
-// }
+    //     $("#dialog").dialog("open");
+    //     $('.custom-header-text').remove();
+    //     $('.ui-dialog-content').prepend(
+    //         '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+    // }
 
-$(".currency_dropdown").on("click", "a", function(e){
-var $this = $(this).parent();
-$("#add_currency").text($this.data("value"));
-$("#currencyId").val($this.data("id"));
-//console.log('ss',$this.data("id"));
-$('#currency_frm_id').submit();
-});
+    $(".currency_dropdown").on("click", "a", function(e) {
+        var $this = $(this).parent();
+        $("#add_currency").text($this.data("value"));
+        $("#currencyId").val($this.data("id"));
+        //console.log('ss',$this.data("id"));
+        $('#currency_frm_id').submit();
+    });
 
-$(document).ready(function() {
-if($(".currency_dropdown .selected").length>0)
-{
-$("#add_currency").text($(".currency_dropdown .selected").text());
-}
-});
-function myFunction(searchId, tableId, searchBoxNo) {
-var input = document.getElementById(searchId);
-var filter = input.value.toLowerCase();
-if(searchBoxNo==1)
-{
-console.log('searchId',searchBoxNo);
-var nodes = document.querySelectorAll('.newOrdTask');
-} else {
-console.log('searchId',searchBoxNo);
-var nodes = document.querySelectorAll('.newOrdTask1');  
-}
+    $(document).ready(function() {
+        if ($(".currency_dropdown .selected").length > 0) {
+            $("#add_currency").text($(".currency_dropdown .selected").text());
+        }
+    });
 
-for (i = 0; i < nodes.length; i++) {
-if (nodes[i].innerText.toLowerCase().includes(filter)) {
-nodes[i].style.setProperty("display", "block", "important");
-} else {
-nodes[i].style.setProperty("display", "none", "important");
-}
-}
+    function myFunction(searchId, tableId, searchBoxNo) {
+        var input = document.getElementById(searchId);
+        var filter = input.value.toLowerCase();
+        if (searchBoxNo == 1) {
+            console.log('searchId', searchBoxNo);
+            var nodes = document.querySelectorAll('.newOrdTask');
+        } else {
+            console.log('searchId', searchBoxNo);
+            var nodes = document.querySelectorAll('.newOrdTask1');
+        }
 
-}
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].innerText.toLowerCase().includes(filter)) {
+                nodes[i].style.setProperty("display", "block", "important");
+            } else {
+                nodes[i].style.setProperty("display", "none", "important");
+            }
+        }
 
-$("#search2").on("search", function(evt){
-if($(this).val().length == 0){
-resetData();
-}
-});
+    }
 
-$("#search3").on("search", function(evt){
-if($(this).val().length == 0){
-resetData1();
-}
-});
+    $("#search2").on("search", function(evt) {
+        if ($(this).val().length == 0) {
+            resetData();
+        }
+    });
 
-function resetData() {
+    $("#search3").on("search", function(evt) {
+        if ($(this).val().length == 0) {
+            resetData1();
+        }
+    });
 
-$('#search2').val('');
-myFunction('search2', 'totalOrdArea', 1);
-}
+    function resetData() {
 
-function resetData1() {
+        $('#search2').val('');
+        myFunction('search2', 'totalOrdArea', 1);
+    }
 
-$('#search3').val('');
-myFunction('search3', 'totalOrdArea1', 2);
-}
+    function resetData1() {
 
-$(document).ready(function() {
+        $('#search3').val('');
+        myFunction('search3', 'totalOrdArea1', 2);
+    }
 
-$('#typeOfFee').change(function() {
-var getValue = $('#typeOfFee').val();
+    $(document).ready(function() {
 
-if (getValue == '2') {
+        $('#typeOfFee').change(function() {
+            var getValue = $('#typeOfFee').val();
 
-$('#amt').attr("placeholder", "Fee amount $");
+            if (getValue == '2') {
 
-} else {
-$('#amt').attr("placeholder", "Fee percentage %");
-}
+                $('#amt').attr("placeholder", "Fee amount $");
 
-});
-$('.orderupdate').click(function(){
-$('#frmupdateOrder').submit();
-});
-$('.add-new-items').click(function(){
-$('#add-new-items').submit();
-});
-});
+            } else {
+                $('#amt').attr("placeholder", "Fee percentage %");
+            }
 
-function getItemNotesVal(indexVal, itemNotesId) {
+        });
+        $('.orderupdate').click(function() {
+            $('#frmupdateOrder').submit();
+        });
+        $('.add-new-items').click(function() {
+            $('#add-new-items').submit();
+        });
+    });
 
-var itemNotes = $('#itemNotes' + indexVal).val();
+    function getItemNotesVal(indexVal, itemNotesId) {
 
-$.ajax({
-method: "POST",
-url: "editOrderAjax.php",
+        var itemNotes = $('#itemNotes' + indexVal).val();
 
-data: {
-itemNotes: itemNotes,
-itemNotesId: itemNotesId,
-orderId: '<?php echo $_GET['orderId'] ?>'
-}
-})
-.done(function(responseObj) {
+        $.ajax({
+                method: "POST",
+                url: "editOrderAjax.php",
 
-
-});
+                data: {
+                    itemNotes: itemNotes,
+                    itemNotesId: itemNotesId,
+                    orderId: '<?php echo $_GET['orderId'] ?>'
+                }
+            })
+            .done(function(responseObj) {
 
 
-}
-
-function getnotesVal(pId) {
-
-var notes = $('#notes' + pId).val();
-
-$.ajax({
-method: "POST",
-url: "editOrderAjax.php",
-
-data: {
-notes: notes,
-pId: pId,
-orderId: '<?php echo $_GET['orderId'] ?>'
-}
-})
-.done(function(responseObj) {
+            });
 
 
-});
+    }
+
+    function getnotesVal(pId) {
+
+        var notes = $('#notes' + pId).val();
+
+        $.ajax({
+                method: "POST",
+                url: "editOrderAjax.php",
+
+                data: {
+                    notes: notes,
+                    pId: pId,
+                    orderId: '<?php echo $_GET['orderId'] ?>'
+                }
+            })
+            .done(function(responseObj) {
 
 
-} //end 
-</script>
-<div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-<h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
-</div>
+            });
 
-<div class="modal-footer">
-<div class="btnBg">
-<button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
-</div>
-<div class="btnBg"> 
-<button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+    } //end 
+    </script>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?>
+                    </h1>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick=""
+                            class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <style>
 .subitem {
-display: none;
+    display: none;
 }
 </style>
 <script>
 $('.item').on('mouseover', 'li', function() {
-$(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+    $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
 }).on('mouseleave', function() {
-$('.subitem', this).hide();
+    $('.subitem', this).hide();
 });
 </script>

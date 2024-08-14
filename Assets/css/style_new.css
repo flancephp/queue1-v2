@@ -18009,7 +18009,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     margin: 0;
   }
   .hisParent-sec {
-    padding: 0 10px;
+    padding: 0 10px;padding-bottom: 3rem;
   }
   .hisTblbody {
     margin: 0;
@@ -18105,7 +18105,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
   }
   .revnueParent-sec {
-    padding: 0 10px;
+    padding: 0 10px;padding-bottom: 3rem;
   }
   /* Revenue Center Page CSS End */
   /* Item History View Page CSS Start */
@@ -20047,6 +20047,13 @@ border-radius:3px;
 }
 .user-info .user-name span{
   font-weight: 400;
+}
+.user-info { max-width: 240px;margin-left: auto; }
+@media(max-width:575px){
+  .user-info { line-height: 1.3; }
+  .user-info .col{ border-right: 1px solid #aeaeae;padding-right: .45rem; }
+  .user-info .user-name{ font-size: .937rem; }
+  .user-info .account-name{ font-size: .75rem; }
 }
 .sltSupp ul {
   max-height: 300px;

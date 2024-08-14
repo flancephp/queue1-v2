@@ -294,7 +294,7 @@ die();
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Running Tasks - Queue1</title>
 <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -306,14 +306,24 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style_new.css">
 <link rel="stylesheet" href="Assets/css/style1.css">
 <style>
-.supMem-Name { color: #3fb180; }
-/* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
-.modal .modal-table { min-width: 750px; }
-.site-modal .modal-content { border-radius: 8px; }
-#itemDiv, #taskDiv , #taskDiv {
-    background: #fff;
-}
-
+    .supMem-Name { color: #3fb180; }
+    /* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
+    /* .modal .modal-table { min-width: 750px; } */
+    .site-modal .modal-content { border-radius: 8px; }
+    #itemDiv, #taskDiv , #taskDiv { background: #fff; }
+    .remove__parent__padding { margin-left: -.5rem;margin-right: -.5rem; }
+    .modal .table-cell { font-size:12px; }
+    @media(max-width:767px){
+        .modal .modal-table { font-size: 5px }
+        .modal .table-cell { padding: 1px 5px;font-size:5px; }
+        .modal .fs-13 {font-size: 8px;line-height: 1.2; }
+        .modal .headerTxt.modal-date {font-size: 9px; }
+        .modal .headerTxt {font-size: 12px; }
+        .modal .modal-header { padding:0; }
+    }
+    @media(min-width:992px) {
+        #modalfiltertop { position: absolute;top:.5rem;left:4rem; }
+    }
 </style>
 </head>
 
@@ -627,18 +637,18 @@ while($orderRow = mysqli_fetch_array($result))
                                                         <path d="M9 9h6m-6 4h6m-6 4h4" stroke="#8C8FA7"
                                                             stroke-width="2" stroke-linecap="round" />
                                                     </svg>
-                                                    <p class="btn2">Documents <i
+                                                    <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i
                                                             class="fa-solid fa-angle-down"></i></p>
                                                 </a>
 
                                                 <ul class="dropdown-menu">
 
-                                                    <li>
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                            onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')"><i
-                                                                class="far fa-square pe-2"></i>View Details
-                                                        </a>
-                                                    </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0)"
+                                    onClick="return openPopup('<?php echo $orderRow['ordType'];?>', '<?php echo $orderRow['id'];?>')"><i
+                                        class="far fa-square pe-2"></i> <?php echo showOtherLangText('View Details'); ?>
+                                </a>
+                            </li>
                                                     <?php  if($orderRow['ordType'] == 1) { ?>
                                                     <li>
                                                         <a class="dropdown-item" href="javascript:void(0)"
@@ -786,7 +796,7 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 
 <div class="modal" tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-    <div id="order_details_supplier" class="modal-content p-2">
+    <div id="order_details_supplier" class="modal-content overflow-hidden p-2">
 
     </div>
 </div>

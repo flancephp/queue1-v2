@@ -158,8 +158,8 @@ unset($_SESSION['toDate']);
 }
 
 
-$cond = '';
-$cond1 = '';
+// $cond = '';
+// $cond1 = '';
 
 if (isset($_GET['fromDate']) && isset($_GET['toDate'])) {
 $_SESSION['fromDate'] = $_GET['fromDate'];
@@ -293,21 +293,26 @@ unset($_SESSION['getVals']);
 
 if (isset($_GET['accountNo']) && $_GET['accountNo'] > 0) {
 $cond .= " AND o.bankAccountId = '" . $_GET['accountNo'] . "' AND o.paymentStatus = 1 ";
+$cond1 = $cond;
 }
 
 if ($_GET['dateType'] == '') {
 $cond .= " GROUP BY o.id ORDER BY o.id desc ";
+$cond1 = $cond;
 }
 
 if ($_GET['dateType'] != '' && $_GET['dateType'] == 1) {
 $cond .= " GROUP BY o.id ORDER BY o.ordDateTime desc ";
+$cond1 = $cond;
 }
 if ($_GET['dateType'] != '' && $_GET['dateType'] == 2) {
 $cond .= " GROUP BY o.id ORDER BY o.setDateTime desc ";
+$cond1 = $cond;
 }
 if ($_GET['dateType'] != '' && $_GET['dateType'] == 3) {
 
 $cond .= " GROUP BY o.id ORDER BY o.paymentDateTime desc, o.setDateTime desc ";
+$cond1 = $cond;
 }
 
 
@@ -378,7 +383,7 @@ $historyQry = mysqli_query($con, $mainSqlQry);
 //     $toDate = $_GET['toDate'];
 // }
 //get issued in total and issued out total
-$sql = " SELECT o.ordAmt AS totalOrdAmt, o.ordType, o.paymentStatus,od.currencyId 
+ $sql = " SELECT o.ordAmt AS totalOrdAmt, o.ordType, o.paymentStatus,od.currencyId 
 FROM tbl_order_details od 
 
 INNER JOIN tbl_orders o 
@@ -390,7 +395,7 @@ ON(p.orderId = o.id) AND p.account_id = o.account_id
 LEFT JOIN tbl_req_payment rp 
 ON(rp.orderId = o.id) AND rp.account_id = o.account_id
 
-WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "'  GROUP BY od.ordId ";
+WHERE o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "'" . $cond1 . "  ";
 
 $issueInAndOutQry = mysqli_query($con, $sql);
 
@@ -1557,7 +1562,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                     INNER JOIN tbl_currency c
                                         ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                                    WHERE o.status = '2' " . $cond1 . " AND o.account_id = '" . $_SESSION['accountId'] . "' GROUP BY o.id ORDER BY o.id desc ";
+                                    WHERE o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
                                         $result = mysqli_query($con, $sql);
                                         if(mysqli_num_rows($result)>0){?>
                                         <!-- added on 31-7-24 -->
@@ -1667,7 +1672,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                     //variance starts here
                                     // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
     
-                                        $sqlSet = " SELECT od.* FROM tbl_order_details od
+                                     $sqlSet = " SELECT od.* FROM tbl_order_details od
                         INNER JOIN tbl_orders o
                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
                         WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . " ";
@@ -1681,7 +1686,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                                 $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
     
                                                 $variancesNevQtyTot += $varaincesVal;
-                                                $variancesNevTot += ($varaincesVal * $resRow['lastPrice']);
+                        $variancesNevTot += ($varaincesVal * $resRow['lastPrice']);
                                             }
                                         }
                                     ?>
@@ -1776,7 +1781,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                                 <div class="tb-bdy user-dpd">
                                                   <div class="d-flex align-items-center" style="background:inherit;"><div class="dropdown d-flex position-relative">
                                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span id="userText">User</span> <i class="fa-solid fa-angle-down"></i>
+                                                        <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $userOptions; ?>
                                                 </div></div></div>
@@ -1863,7 +1868,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !isset($colsArr[15]) ) { ?>
                                         <?php } else { ?>
                                             <div class="tb-bdy hisStatusclm d-none d-lg-block"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                <p style="color: #666c85; font-size: 12px; font-weight:600;"><?php echo showOtherLangText('Payment <br>No.'); ?></p>
+                                                <p style="color: #666c85; font-size: 12px; font-weight:600;"><?php echo showOtherLangText('Payment No.'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1885,8 +1890,8 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         <div class="d-flex align-items-center"><div class="dropdown d-flex align-items-center w-100 position-relative">
                                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="accountTxt">
-                                                            <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Accound'); ?></span>
-                                                            <span class="d-lg-none"><?php echo showOtherLangText('Accound'); ?></span>
+                                                            <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
+                                                            <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
                                                         </span> 
                                                         <i class="fa-solid fa-angle-down"></i>
                                                     </a>
@@ -2299,12 +2304,12 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                                     <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <span class="docMent"></span>
-                                                            <p class="btn2">Documents <i class="fa-solid fa-angle-down"></i>
+                                                            <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i class="fa-solid fa-angle-down"></i>
                                                             </p>
                                                         </a>
 
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i>View Details</a>
+                                                            <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Details'); ?></a>
                                                             </li>
                 <?php
                 if ($orderRow['ordType'] == 1) {

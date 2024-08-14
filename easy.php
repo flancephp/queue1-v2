@@ -280,11 +280,11 @@ if (isset($_GET['hotelId'])) {
                                         </div>
 
                                         <div class="d-flex justify-content-end mx-2 align-items-end">
-                                            <a href="javascript:void(0);" class="sub-btn std-btn update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();">Get data</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();">Get data</a>
                                         </div>
 
                                         <div class=" d-flex justify-content-end mx-2 align-items-end">
-                                            <a class="sub-btn std-btn update w-lg-100" style="max-width: 165px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('Are you sure to sync the data?');">Sync to report</a>
+                                            <a class="btn btn-primary update w-lg-100 px-2" style="max-width: 165px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('Are you sure to sync the data?');">Sync to report</a>
                                         </div>
                                         <!-- Date Box End -->
 
@@ -295,7 +295,7 @@ if (isset($_GET['hotelId'])) {
 
                                 </div>
                                 <div class="d-flex justify-content-end align-items-end">
-                                    <a href="revenueCenterReport.php" class="sub-btn std-btn update w-lg-100" style="max-width: 140px;">Back</a>
+                                    <a href="revenueCenterReport.php" class="btn btn-primary update w-lg-100" style="max-width: 140px;">Back</a>
                                 </div>
                             </div>
                         </div>

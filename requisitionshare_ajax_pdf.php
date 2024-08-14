@@ -67,163 +67,157 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
         <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
     
     
-        <div class="modal-header pb-3">
-        <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
-                            </div>
-                                <div class="d-md-flex align-items-center justify-content-between w-100 ">
-                                    <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
+        <div class="modal-header pb-2 pb-lg-3 position-relative">
+                             
+                                <div class="d-flex align-items-center justify-content-between w-100 ">
+                                    <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+                                    <div class="d-inline-flex align-items-center gap-2">
+                                        <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></button>
+                                        <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="modalfiltertop">
+                                    <div class="d-flex gap-1 gap-md-3 mt-2 flex-wrap modal-head-row">
                                     
-                                            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
-                                                <i class="fa fa-filter"></i>
-                                            </button>
-                                        
-                                            <div class="collapse" id="modalfiltertop">
-                                                <div class="d-flex gap-3 modal-head-row">
-                                                
 
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Headers<i class="fa-solid fa-angle-down ps-1"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="checkAll" class="headerCheckAll headChk-All form-check-input" value="1">
-                                                            <span class="fs-13">Check All</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox"  name="address" class="headCheckbox header-address form-check-input" value="1" onClick="hideCheckbox(\'adrsClm\')">
-                                                            <span class="fs-13">Address</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="orderDetails" class="headCheckbox header-address form-check-input" value="1" onClick="hideCheckbox(\'orderDetailsText\')">
-                                                            <span class="fs-13">Requisition details</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox"  name="logo" class="form-check-input headCheckbox header-logo" value="1" onClick="hideCheckbox(\'logoClm\')">
-                                                            <span class="fs-13">Logo</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox"  name="currentDate" class="headCheckbox header-currentDate form-check-input" value="1" onClick="hideCheckbox(\'currentDate\')">
-                                                            <span class="fs-13">Current Date</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>                                  
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Headers<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="headerCheckAll headChk-All form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="address" class="headCheckbox header-address form-check-input" value="1" onClick="hideCheckbox(\'adrsClm\')">
+                                                <span class="fs-13">Address</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="orderDetails" class="headCheckbox header-address form-check-input" value="1" onClick="hideCheckbox(\'orderDetailsText\')">
+                                                <span class="fs-13">Requisition details</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="logo" class="form-check-input headCheckbox header-logo" value="1" onClick="hideCheckbox(\'logoClm\')">
+                                                <span class="fs-13">Logo</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="currentDate" class="headCheckbox header-currentDate form-check-input" value="1" onClick="hideCheckbox(\'currentDate\')">
+                                                <span class="fs-13">Current Date</span>
+                                            </li>
+                                        </ul>
+                                    </div>                                  
 
-                                                <div class=" dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Summary<i class="fa-solid fa-angle-down ps-1"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input" 
-                                                            onClick="hideCheckbox(\'smryDiv\')" value="1">
-                                                            <span class="fs-13">Check All</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="taskNo" class="smryCheckbox form-check-input"
-                                                            onClick="showHideByClassSummary(\'taskNo\');" value="1">
-                                                            <span class="fs-13">Task No.</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="department"
-                                                            onClick="showHideByClassSummary(\'department\');"  class="smryCheckbox form-check-input" value="1">
-                                                            <span class="fs-13">Department</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="member"
-                                                            onClick="showHideByClassSummary(\'member\');" class="smryCheckbox form-check-input" value="1">
-                                                            <span class="fs-13">Member</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="amount" 
-                                                            onClick="showHideByClassSummary(\'amountSections\');" class="smryCheckbox form-check-input" value="1">
-                                                            <span class="fs-13">Amounts</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" '.($ordDet['invNo'] != '' ? 'checked="checked"' : 'disabled').' name="Invoice" 
-                                                            onClick="showHideByClassSummary(\'smrySuplr\')" class="smryCheckbox summary-invoice  form-check-input" value="1">
-                                                            <span class="fs-13">Invoice</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Summary<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input" 
+                                                onClick="hideCheckbox(\'smryDiv\')" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="taskNo" class="smryCheckbox form-check-input"
+                                                onClick="showHideByClassSummary(\'taskNo\');" value="1">
+                                                <span class="fs-13">Task No.</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="department"
+                                                onClick="showHideByClassSummary(\'department\');"  class="smryCheckbox form-check-input" value="1">
+                                                <span class="fs-13">Department</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="member"
+                                                onClick="showHideByClassSummary(\'member\');" class="smryCheckbox form-check-input" value="1">
+                                                <span class="fs-13">Member</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="amount" 
+                                                onClick="showHideByClassSummary(\'amountSections\');" class="smryCheckbox form-check-input" value="1">
+                                                <span class="fs-13">Amounts</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" '.($ordDet['invNo'] != '' ? 'checked="checked"' : 'disabled').' name="Invoice" 
+                                                onClick="showHideByClassSummary(\'smrySuplr\')" class="smryCheckbox summary-invoice  form-check-input" value="1">
+                                                <span class="fs-13">Invoice</span>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                                <div class=" dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Item Table<i class="fa-solid fa-angle-down ps-1"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" onClick="hideCheckbox(\'itemDiv\')" name="checkAll" class="itemChk-All form-check-input" value="1">
-                                                            <span class="fs-13">Check All</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox"  name="photo" onClick="showHideByClassItems(\'photo\');" class="itmTblCheckbox item-name form-check-input" value="1">
-                                                            <span class="fs-13">Photo</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="itemName" onClick="showHideByClassItems(\'itmProd\');" class="itmTblCheckbox item-name form-check-input" value="1">
-                                                            <span class="fs-13">Item Name</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="barcode" class="form-check-input itmTblCheckbox item-barcode" onClick="showHideByClassItems(\'itmCode\');" value="1">
-                                                            <span class="fs-13">Barcode</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="price" class="form-check-input itmTblCheckbox item-price" onClick="showHideByClassItems(\'itmPrc\');" value="1">
-                                                            <span class="fs-13">Price</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="unit" onClick="showHideByClassItems(\'itmPrcunit\');" class="itmTblCheckbox item-unit form-check-input" value="1">
-                                                            <span class="fs-13">Unit</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="reqQty" onClick="showHideByClassItems(\'itmRecqty\');" class="itmTblCheckbox item-purchase-qty form-check-input" value="1">
-                                                            <span class="fs-13">Requested Qty</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked"
-                                                            onClick="showHideByClassItems(\'itmPurqty\');"  name="qty" class="itmTblCheckbox item-receive-qty form-check-input" value="1">
-                                                            <span class="fs-13">Qty</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="total" class="form-check-input itmTblCheckbox item-total"
-                                                            onClick="showHideByClassItems(\'itmTotal\');" value="1">
-                                                            <span class="fs-13">Total</span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="note" class="itmTblCheckbox item-note form-check-input"
-                                                            onClick="showHideByClassItems(\'itmNote\');" value="1">
-                                                            <span class="fs-13">Note</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Item Table<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" onClick="hideCheckbox(\'itemDiv\')" name="checkAll" class="itemChk-All form-check-input" value="1">
+                                                <span class="fs-13">Check All</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="photo" onClick="showHideByClassItems(\'photo\');" class="itmTblCheckbox item-name form-check-input" value="1">
+                                                <span class="fs-13">Photo</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="itemName" onClick="showHideByClassItems(\'itmProd\');" class="itmTblCheckbox item-name form-check-input" value="1">
+                                                <span class="fs-13">Item Name</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="barcode" class="form-check-input itmTblCheckbox item-barcode" onClick="showHideByClassItems(\'itmCode\');" value="1">
+                                                <span class="fs-13">Barcode</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="price" class="form-check-input itmTblCheckbox item-price" onClick="showHideByClassItems(\'itmPrc\');" value="1">
+                                                <span class="fs-13">Price</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="unit" onClick="showHideByClassItems(\'itmPrcunit\');" class="itmTblCheckbox item-unit form-check-input" value="1">
+                                                <span class="fs-13">Unit</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="reqQty" onClick="showHideByClassItems(\'itmRecqty\');" class="itmTblCheckbox item-purchase-qty form-check-input" value="1">
+                                                <span class="fs-13">Requested Qty</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked"
+                                                onClick="showHideByClassItems(\'itmPurqty\');"  name="qty" class="itmTblCheckbox item-receive-qty form-check-input" value="1">
+                                                <span class="fs-13">Qty</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="total" class="form-check-input itmTblCheckbox item-total"
+                                                onClick="showHideByClassItems(\'itmTotal\');" value="1">
+                                                <span class="fs-13">Total</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="note" class="itmTblCheckbox item-note form-check-input"
+                                                onClick="showHideByClassItems(\'itmNote\');" value="1">
+                                                <span class="fs-13">Note</span>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                                <div class=" dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Task Record<i class="fa-solid fa-angle-down ps-1"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                        <li>
-                                                            <input type="checkbox" checked="checked" name="taskRecord" class="form-check-input"
-                                                            onClick="hideCheckbox(\'taskDiv\')"
-                                                            id="taskRecord" value="1">
-                                                            <span class="fs-13">Task Record</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                </div>
-                                            
-                                            </div>
-
-                                    
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Task Record<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="taskRecord" class="form-check-input"
+                                                onClick="hideCheckbox(\'taskDiv\')"
+                                                id="taskRecord" value="1">
+                                                <span class="fs-13">Task Record</span>
+                                            </li>
+                                        </ul>
+                                    </div>
 
                                     </div>
-                                    <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></button>
+                                
                                 </div>
                             </div></form>'; 
-                      $content  .= '<div class="modal-body px-2 py-3">
+                      $content  .= '<div class="modal-body px- py-3">
                                 <div class="row pb-3">
                                     <div class="col-md-4">
                                         <div id="adrsClm"  style="display:none;" class="headerTxt modal-address">
@@ -256,7 +250,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         </div>
                                     </div>
                                 </div>
-                                <div class="overflow-auto">
+                                <div class="overflow-aut">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell medium"><span  class="taskNo smryHead">'.showOtherLangText('Task No.').'</span></div>
@@ -449,7 +443,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
 
                                 $content .= '</div></div>';
 
-                             $content .= '<div class="overflow-auto"><div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead">';
+                             $content .= '<div class="overflow-aut"><div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead">';
                               $content .= '<div class="table-cell">#</div>';
                               $content .= '<div class="table-cell"><span style="display:none;"   class="photo">Photo</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmProd">Item</span></div>';
