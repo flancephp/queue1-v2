@@ -67,177 +67,163 @@ $content  = '<form action="ordershare_pdf_download.php" target="_blank" method="
 <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
 <input type="hidden" name="isSupDet" value="'.$_POST['isSupDet'].'" />
 <input type="hidden" name="ordCurId" id="ordCurId" value="'.$ordDet['ordCurId'].'" />';
-$content .= '<div class="modal-header pb-3">
+$content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                         <div class="d-md-flex align-items-center justify-content-between w-100 ">
-                            <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
+                            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
+                                <i class="fa fa-filter"></i>
+                            </button>
+                             
+                            <div class="d-inline-flex align-items-center gap-2">
+                                <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></button> 
+                                <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="modalfiltertop">
+                            <div class="d-flex flex-wrap gap-1 gap-md-3 modal-head-row mt-2">
                             
-                                    <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
-                                        <i class="fa fa-filter"></i>
-                                    </button>
-                                
-                                    <div class="collapse" id="modalfiltertop">
-                                        <div class="d-flex gap-3 modal-head-row">
-                                        
 
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Headers<i class="fa-solid fa-angle-down px-1"></i>
-                                            </button>
-                                            <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="checkAll" class="headChk-All form-check-input" value="1">
-                                                    <span class="fs-13">Check All</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="address" class="form-check-input header-address headCheckbox" value="1" onClick="hideCheckbox(\'adrsClm\')">
-                                                    <span class="fs-13">Address</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="orderDetails" class="form-check-input headCheckbox"
-                                                        onClick="hideCheckbox(\'orderDet\')" value="1">
-                                                    <span class="fs-13">Order details</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="logo" class="form-check-input headCheckbox" 
-                                                      onClick="hideCheckbox(\'logoClm\')"
-                                                        value="1">
-                                                    <span class="fs-13">Logo</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="currentDate" class="form-check-input headCheckbox"
-                                                        onClick="hideCheckbox(\'curDate\')"
-                                                        value="1">
-                                                    <span class="fs-13">Current Date</span>
-                                                </li>
-                                            </ul>
-                                        </div>                                  
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                Headers<i class="fa-solid fa-angle-down px-1"></i>
+                                </button>
+                                <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="checkAll" class="headChk-All form-check-input" value="1">
+                                        <span class="fs-13">Check All</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="address" class="form-check-input header-address headCheckbox" value="1" onClick="hideCheckbox(\'adrsClm\')">
+                                        <span class="fs-13">Address</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="orderDetails" class="form-check-input headCheckbox"
+                                            onClick="hideCheckbox(\'orderDet\')" value="1">
+                                        <span class="fs-13">Order details</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="logo" class="form-check-input headCheckbox" 
+                                            onClick="hideCheckbox(\'logoClm\')"
+                                            value="1">
+                                        <span class="fs-13">Logo</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="currentDate" class="form-check-input headCheckbox"
+                                            onClick="hideCheckbox(\'curDate\')"
+                                            value="1">
+                                        <span class="fs-13">Current Date</span>
+                                    </li>
+                                </ul>
+                            </div>                                  
 
-                                        <div class=" dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Summary<i class="fa-solid fa-angle-down px-1"></i>
-                                            </button>
-                                            <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input"
-                                                    onClick="hideCheckbox(\'smryDiv\')" value="1">
-                                                    <span class="fs-13">Check All</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox"  name="defaultCurrencyAmount" onClick="showHideByClassSummary(\'smryDef_Val\');" class="smryCheckbox summary-default-currency form-check-input" 
-                                                        '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                                                        value="1">
-                                                    <span class="fs-13">Default Currency Amount</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                            '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassSummary(\'smryOtr_Val\');" name="secondCurrency" class="form-check-input smryCheckbox summary-second-currency" value="1">
-                                                    <span class="fs-13">Second Currency Amount</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" 
-                            value="1" onclick="showHideByClassSummary(\'smrySuplr\')"  name="supplierInvoice" class="smryCheckbox summary-payment form-check-input" value="1" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').'>
-                                                    <span class="fs-13">Supplier Invoice #</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').' value="1">
-                                                    <span class="fs-13">Payment #</span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                            <div class=" dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                Summary<i class="fa-solid fa-angle-down px-1"></i>
+                                </button>
+                                <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input"
+                                        onClick="hideCheckbox(\'smryDiv\')" value="1">
+                                        <span class="fs-13">Check All</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  name="defaultCurrencyAmount" onClick="showHideByClassSummary(\'smryDef_Val\');" class="smryCheckbox summary-default-currency form-check-input" 
+                                            '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                            value="1">
+                                        <span class="fs-13">Default Currency Amount</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassSummary(\'smryOtr_Val\');" name="secondCurrency" class="form-check-input smryCheckbox summary-second-currency" value="1">
+                                        <span class="fs-13">Second Currency Amount</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" value="1" onclick="showHideByClassSummary(\'smrySuplr\')"  name="supplierInvoice" class="smryCheckbox summary-payment form-check-input" value="1" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').'>
+                                        <span class="fs-13">Supplier Invoice #</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').' value="1">
+                                        <span class="fs-13">Payment #</span>
+                                    </li>
+                                </ul>
+                            </div>
 
-                                        <div class=" dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Item Table<i class="fa-solid fa-angle-down px-1"></i>
-                                            </button>
-                                            <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="checkAll" 
-                                                        onClick="hideCheckbox(\'itemDiv\')" class="itemChk-All form-check-input" value="1" >
-                                                    <span class="fs-13">Check All</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox"  name="photo" onClick="showHideByClassItems(\'photo\');" class="itmTblCheckbox item-name form-check-input" value="1">
-                                                    <span class="fs-13">Photo</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked"
-                                                    onClick="showHideByClassItems(\'itmProd\');" name="itemName" class="itmTblCheckbox item-name form-check-input" value="1">
-                                                    <span class="fs-13">Item Name</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                                                    onClick="showHideByClassItems(\'itmCode\');" name="barcode" class="itmTblCheckbox item-barcode form-check-input" value="1">
-                                                    <span class="fs-13">Barcode</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                            onClick="showHideByClassItems(\'itmPrc\');" class="itmTblCheckbox item-price form-check-input" name="price" class="form-check-input" value="1">
-                                                    <span class="fs-13">Price</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                        '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).'
-                        
-                            onClick="showHideByClassItems(\'otherCurPrice\');" class="form-check-input itmTblCheckbox" name="secondCurrencyPrice" class="form-check-input" value="1">
-                                                    <span class="fs-13">Second Currency Price</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPrcunit\');" name="unit" class="itmTblCheckbox item-unit form-check-input" value="1">
-                                                    <span class="fs-13">Unit</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPurqty\');" name="qty" class="itmTblCheckbox item-purchase-qty form-check-input" value="1">
-                                                    <span class="fs-13">Qty</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" onClick="showHideByClassItems(\'itmRecqty\');"  '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' name="receivedQty" class="itmTblCheckbox item-receive-qty form-check-input" value="1">
-                                                    <span class=" item-receive-qty fs-13">Received Qty</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                            onClick="showHideByClassItems(\'itmTotal\');" name="total" class="itmTblCheckbox item-total item-total form-check-input" value="1">
-                                                    <span class="fs-13">Total</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                        '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).'
-                            onClick="showHideByClassItems(\'otherCurTotal\');" name="secondCurrencyTotal" class="itmTblCheckbox form-check-input" value="1">
-                                                    <span class="fs-13">Second Currency Total</span>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" checked="checked" name="note" onClick="showHideByClassItems(\'itmNote\');" class="itmTblCheckbox item-note form-check-input" value="1">
-                                                    <span class="fs-13">Note</span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                            <div class=" dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                Item Table<i class="fa-solid fa-angle-down px-1"></i>
+                                </button>
+                                <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="checkAll" 
+                                            onClick="hideCheckbox(\'itemDiv\')" class="itemChk-All form-check-input" value="1" >
+                                        <span class="fs-13">Check All</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  name="photo" onClick="showHideByClassItems(\'photo\');" class="itmTblCheckbox item-name form-check-input" value="1">
+                                        <span class="fs-13">Photo</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked"
+                                        onClick="showHideByClassItems(\'itmProd\');" name="itemName" class="itmTblCheckbox item-name form-check-input" value="1">
+                                        <span class="fs-13">Item Name</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
+                                        onClick="showHideByClassItems(\'itmCode\');" name="barcode" class="itmTblCheckbox item-barcode form-check-input" value="1">
+                                        <span class="fs-13">Barcode</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' onClick="showHideByClassItems(\'itmPrc\');" class="itmTblCheckbox item-price form-check-input" name="price" class="form-check-input" value="1">
+                                        <span class="fs-13">Price</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassItems(\'otherCurPrice\');" class="form-check-input itmTblCheckbox" name="secondCurrencyPrice" class="form-check-input" value="1">
+                                        <span class="fs-13">Second Currency Price</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPrcunit\');" name="unit" class="itmTblCheckbox item-unit form-check-input" value="1">
+                                        <span class="fs-13">Unit</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPurqty\');" name="qty" class="itmTblCheckbox item-purchase-qty form-check-input" value="1">
+                                        <span class="fs-13">Qty</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" onClick="showHideByClassItems(\'itmRecqty\');"  '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' name="receivedQty" class="itmTblCheckbox item-receive-qty form-check-input" value="1">
+                                        <span class=" item-receive-qty fs-13">Received Qty</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' onClick="showHideByClassItems(\'itmTotal\');" name="total" class="itmTblCheckbox item-total item-total form-check-input" value="1">
+                                        <span class="fs-13">Total</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassItems(\'otherCurTotal\');" name="secondCurrencyTotal" class="itmTblCheckbox form-check-input" value="1">
+                                        <span class="fs-13">Second Currency Total</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="note" onClick="showHideByClassItems(\'itmNote\');" class="itmTblCheckbox item-note form-check-input" value="1">
+                                        <span class="fs-13">Note</span>
+                                    </li>
+                                </ul>
+                            </div>
 
-                                        <div class=" dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Task Record<i class="fa-solid fa-angle-down px-1"></i>
-                                            </button>
-                                            <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                                <li>
-                                                    <input type="checkbox" name="taskRecord" class="form-check-input" id="taskRecord"
-                    '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
-                    onClick="hideCheckbox(\'taskDiv\')" value="1">
-                                                    <span class="fs-13">Task Record</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        </div>
-                                    
-                                    </div>
-
-                            
+                            <div class=" dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                Task Record<i class="fa-solid fa-angle-down px-1"></i>
+                                </button>
+                                <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" name="taskRecord" class="form-check-input" id="taskRecord" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' onClick="hideCheckbox(\'taskDiv\')" value="1">
+                                        <span class="fs-13">Task Record</span>
+                                    </li>
+                                </ul>
+                            </div>
 
                             </div>
-                            <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></button>
+                        
                         </div>
                     </div></form>';
      $content  .= '<div class="modal-body px-2 py-3">
                         <div class="row pb-3">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-7 order-md-1">
                                 <div id="adrsClm" class="headerTxt modal-address ">
                                     <h6 class="semibold fs-14">'.$clientDetRow['accountName'].'</h6>
                                     <div class="fs-13 ">
@@ -248,11 +234,8 @@ $content .= '<div class="modal-header pb-3">
                                         <p>'.$clientDetRow['phone'].'</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div  class="col-md-4">
-                                <h4 id="orderDet" class="headerTxt text-center semibold">'.showOtherLangText('Order Details').'</h4>
-                            </div>
-                            <div class="col-md-4 text-md-end">
+                            </div> 
+                            <div class="col-md-4 col-5 order-md-3 text-end">
                                 <div id="logoClm" class="headerTxt modal-logo">';
                                 if(!isset($_GET['pdfDownload']) || $clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
                                 {  
@@ -267,9 +250,12 @@ $content .= '<div class="modal-header pb-3">
                                     <p>'.date('d/m/Y').'</p>
                                 </div>
                             </div>
+                            <div  class="col-md-4 order-md-2">
+                                <h4 id="orderDet" class="headerTxt text-center semibold">'.showOtherLangText('Order Details').'</h4>
+                            </div>
                         </div>';
 
-                 $content .=   '<div class="show-smry-cls"><div class="modal-table fs-12 w-100">
+                 $content .=   '<div class="show-smry-cls remove__parent__padding"><div class="modal-table fs-12 w-100">
                             <div class="table-row header-row">
                                 <div class="table-cell medium">'.showOtherLangText('Task No.').'</div>
                                 <div class="table-cell medium">'.showOtherLangText('Supplier').'</div>
@@ -481,7 +467,7 @@ $content .= '<div class="modal-header pb-3">
                      
                
 
-                 $content .=     '<div id="itemDiv"><div class="modal-table fs-12 w-100 mt-4">
+                 $content .=     '<div id="itemDiv"><div class="modal-table fs-12 w-100 mt-">
                             <div class="table-row thead">';
                    $content .=    '<div class="table-cell">#</div>';
                    $content .=    '<div class="table-cell"><span style="display:none;"   class="photo">Photo</span></div>';
@@ -610,4 +596,3 @@ $content .= '<div class="modal-header pb-3">
 
 
 ?>
-              

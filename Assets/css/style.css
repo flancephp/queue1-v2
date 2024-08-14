@@ -20372,6 +20372,7 @@ html { font-size: 100%; }
 .user-info { max-width: 240px;margin-left: auto; }
 @media(max-width:575px){
   .user-info { line-height: 1.3; }
+  .user-info .col{ border-right: 1px solid #aeaeae;padding-right: .45rem; }
   .user-info .user-name{ font-size: .937rem; }
   .user-info .account-name{ font-size: .75rem; }
 }
