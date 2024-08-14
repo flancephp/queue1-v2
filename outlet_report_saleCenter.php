@@ -784,9 +784,9 @@ $tr = '';
                         <input type="date" class="form-control" name="adjDate" id="adjDate">
                         <input type="number" class="form-control" name="qty" id="ajstNum" placeholder="1">
 
-                        <div style="display: flex;margin-bottom: 15px; display:none;" id="barItemAdj">
-                            <div style="width: 35%;"></div>
-                            <div><input type="checkbox" name="adjForEnptyBottle" value="1" />&nbsp;&nbsp;Tick it to adjust
+                        <div style="display:none;" id="barItemAdj" class="my-3">
+                            <!-- <div style="width: 35%;"></div> -->
+                            <div class="d-flex align-items-center"><input type="checkbox" name="adjForEnptyBottle" value="1" class="form-check-input" />&nbsp;&nbsp;Tick it to adjust
                                 empty bottle(s)</div>
                         </div>
 
