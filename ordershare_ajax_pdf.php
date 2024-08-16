@@ -269,7 +269,83 @@ $content .= '<div class="modal-header pb-3">
                             </div>
                         </div>';
 
-                 $content .=   '<div class="show-smry-cls"><div class="modal-table fs-12 w-100">
+                 $content .=   '
+
+                   <div class="table fs-12 show-smry-cls">
+        <div class="table-row ">
+            <div class="table-cell medium"><span>Tas no. </span></div>
+            <div class="table-cell medium"><span>Supplier </span></div>
+            <div class="table-cell medium"><span>Total </span></div>
+        </div>
+
+        <div class="table-row  site-modal thead">
+            <div class="table-cell"><span> 126515 </span></div>
+            <div class="table-cell"><span> Active </span> Store</div>
+            <div class="table-cell"><span> 22.7200$ </span> </div>
+        </div>
+
+        <div class="table-row">
+
+            <div class="table-cell">
+                <div class="table-row" style="display: table;">
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"># Payment</span>
+                    </div>
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead">001539</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-cell" ><span> Active Store </span></div>
+
+            <div class="table-cell">
+                <div class="table-row" style="display: table;">
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"><span>$24534</span></span>
+                    </div>
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"><span>$34562</span></span>
+                    </div>
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"><span>$34562</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="table-row">
+            <div class="table-cell">
+                <div class="table-row" style="display: table;">
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"># Payment</span>
+                    </div>
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead">001539</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-cell"><span> Active Store </span></div>
+
+            <div class="table-cell">
+                <div class="table-row" style="display: table;">
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"><span>$24534</span></span>
+                    </div>
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"><span>$34562</span></span>
+                    </div>
+                    <div class="table-cell">
+                        <span class="smryPayment smryHead"><span>$34562</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                 <div class="show-smry-cls"><div class="modal-table fs-12 w-100">
                             <div class="table-row header-row">
                                 <div class="table-cell medium">'.showOtherLangText('Task No.').'</div>
                                 <div class="table-cell medium">'.showOtherLangText('Supplier').'</div>
