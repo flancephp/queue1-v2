@@ -455,7 +455,7 @@ if ($checkIfPermissionToNewOrderSec > 0) {
                         ON(o.id=od.ordId) AND o.account_id=od.account_Id
                     INNER JOIN tbl_currency c
                         ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                    WHERE o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
+                    WHERE o.status = '2' AND totalOrdCurAmt > 0 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
                   
 $result = mysqli_query($con, $sql);
 while ($otherCurrRows = mysqli_fetch_array($result)) {
@@ -1562,7 +1562,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
                                         ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                     INNER JOIN tbl_currency c
                                         ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                                    WHERE o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
+                                    WHERE o.status = '2' AND o.ordCurAmt>0 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
                                         $result = mysqli_query($con, $sql);
                                         if(mysqli_num_rows($result)>0){?>
                                         <!-- added on 31-7-24 -->
