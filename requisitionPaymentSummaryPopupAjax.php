@@ -54,19 +54,17 @@ if($paymentRow['paymentStatus']==1)
 
 
 
-$content .= '<div class="modal-header pb-3">
-                      <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                    <div class="d-md-flex align-items-center justify-content-end w-100">
+$content .= '<div class="modal-header pb-3"> 
+                    <div class="d-md-flex align-items-center justify-content-lg-end justify-content-between w-100">
                         <a href="inv_pdf_download.php?orderId='.$_POST['orderId'].'"" class="btn btn-primary" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <button type="button" class="btn-close me-2 d-lg-none" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body m-0 p-0">
                     <!-- invoice Details Start -->
                     <div id="invoice-Details" class="payment-status-left '.$classname.' position-relative">
                         <div class="border-line"></div>
-                        <div class=" p-5">
+                        <div class=" p-4 p-md-5">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>';
         if (isset($_POST['orderId']) && $paymentRow['paymentStatus']==1 ) 
@@ -98,61 +96,60 @@ $content .= '<div class="modal-header pb-3">
                     } 
         $content .='</div></div>
 
-                            <div class="mt-4 d-flex justify-content-between payment-tabel-header">
-                                <table class="table1 table01">
-                                    <tbody>
-                                        <tr>
-                                            <td class="font-wt">
-                                                '. showOtherLangText('Invoice').' #
-                                            </td>
-                                            <td>'. getinvoiceNumber($paymentInfoRow['invoiceNumber']).'</td>
-                                        </tr>
+                            <div class="mt-1 mt-md-4 row g-2 g-md-0 payment-tabel-header">
+                                <div class="col-md-6">
+                                    <table class="table1 table01">
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-wt">
+                                                    '. showOtherLangText('Invoice').' #
+                                                </td>
+                                                <td>'. getinvoiceNumber($paymentInfoRow['invoiceNumber']).'</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="font-wt">'. showOtherLangText('Task').' #</td>
-                                            <td>'. $ordersRow['ordNumber'] .'</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="font-wt">'. showOtherLangText('Task').' #</td>
+                                                <td>'. $ordersRow['ordNumber'] .'</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="font-wt">'. showOtherLangText('Date').' #
-                                            </td><td>';
-                                if ($paymentRow['paymentStatus'] ==1 ) {
-                        
-                                        $content .=   $paymentRow['paymentDateTime'];
-
-                                    }else{
-
-                                        $content .=   $ordersRow['ordDateTime'];
-                                        
-                                    }
-                                  $content .= '</td></tr>
-
-                                    </tbody>
-                                </table>';
+                                            <tr>
+                                                <td class="font-wt">'. showOtherLangText('Date').' #
+                                                </td><td>';
+                                                if ($paymentRow['paymentStatus'] ==1 ) { 
+                                                    $content .=   $paymentRow['paymentDateTime']; 
+                                                }else{ 
+                                                    $content .=   $ordersRow['ordDateTime'];   
+                                                }
+                                                $content .= '</td>
+                                            </tr> 
+                                        </tbody>
+                                    </table>
+                                </div>';
                                 $sql = " SELECT * FROM tbl_country WHERE id = '".$clientResultRow['country']."' ";
         $resSet = mysqli_query($con, $sql);
         $resultRow = mysqli_fetch_array($resSet);
 
-                                $content .= '<table>
-                                    <tbody class="table1 table01 fl-right cmp-dtl text-end">
-                                        <tr>
-                                            <td>'.$clientResultRow['accountName'].'</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'.$clientResultRow['address_one'].','.$clientResultRow['address_two'].'</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'.$clientResultRow['city'].','.$resultRow['name'].'</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'.$clientResultRow['email'].'</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'.$clientResultRow['phone'].'</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                                $content .= '<div class="col-md-6">
+                                    <table class="w-100">
+                                        <tbody class="table1 table01 fl-right cmp-dtl text-start text-md-end">
+                                            <tr>
+                                                <td>'.$clientResultRow['accountName'].'</td>
+                                            </tr>
+                                            <tr>
+                                                <td>'.$clientResultRow['address_one'].','.$clientResultRow['address_two'].'</td>
+                                            </tr>
+                                            <tr>
+                                                <td>'.$clientResultRow['city'].','.$resultRow['name'].'</td>
+                                            </tr>
+                                            <tr>
+                                                <td>'.$clientResultRow['email'].'</td>
+                                            </tr>
+                                            <tr>
+                                                <td>'.$clientResultRow['phone'].'</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <br>
@@ -165,7 +162,7 @@ $content .= '<div class="modal-header pb-3">
                             </div>
                             <br>
 
-                            <table class="modal-table fs-12 w-100 mt-4">
+                            <table class="modal-table fs-12 w-100 mt-2 mt-sm-3 mt-lg-4">
                                 <thead style="background: #A9B0C0 !important;">
                                     <tr class="tr-bg-1">
                                         <th>#</th>
@@ -220,8 +217,8 @@ $content .= '<div class="modal-header pb-3">
                             </table>
                             <div class="divider-blue"></div>
                             <br>
-                            <div class="tabel-body-p-footer">
-                                <div class="table1 ">
+                            <div class="tabel-body-p-footer row g-3">
+                                <div class="table1 col-md-4">
                                     <p class="f-02 mb-0">'. showOtherLangText('Payment Method') .':</p>';
                             $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
                                     $resultSet = mysqli_query($con, $sqlSet);
@@ -230,8 +227,8 @@ $content .= '<div class="modal-header pb-3">
                                     <p class="f-03 mb-0">'.$accDet['accountName'].'</p>';
                              $content .= '</div>
 
-                               
-                                <table class="grand-total-tabel"><tbody>';
+                               <div class="col-md-7 d-flex justify-content-end"> 
+                                <table class="grand-total-tabel m-0"><tbody>';
                             $sqlSet="SELECT SUM(totalAmt) as sum1 from tbl_order_details where ordId='".$_POST['orderId']."'   AND account_id = '".$_SESSION['accountId']."' AND (customChargeType='1' OR customChargeType='0')";
                             $resultSet = mysqli_query($con, $sqlSet);
                             $chargeRow = mysqli_fetch_array($resultSet);    
@@ -341,11 +338,9 @@ $content .= '<div class="modal-header pb-3">
                                         <tr></tr>
                                     </tbody>
                                 </table>
-
+                                </div>
                             </div>
-
-                            <br>
-                            <br>
+ 
                             <br>
                         </div>
                     </div>

@@ -953,7 +953,7 @@ $colsArr = [
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>History - Queue1</title>
 <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -965,53 +965,18 @@ $colsArr = [
 <link rel="stylesheet" href="Assets/css/module-A.css">
 
 <style>
-    .modal-md {
-        max-width: 800px;
-    }
-
-    .modal-address p {
-        padding-bottom: 2px;
-    }
-
-    .site-modal .modal-content {
-        background: #f0f0f0;
-    }
-
-    .site-modal .modal-body {
-        background: #ffffff;
-    }
-
-
-    .site-modal thead tr th {
-        font-weight: 500;
-        padding: 8px 5px;
-    }
-
-    .site-modal tr.thead td {
-        font-weight: 500;
-        padding: 8px 5px;
-    }
-
-    .site-modal .thead {
-        border-top: 0;
-    }
-
-    .site-modal .thead+tr {
-        border-top: 0;
-    }
-
+    .modal-md { max-width: 800px; } 
+    .modal-address p { padding-bottom: 2px; } 
+    .site-modal .modal-content { background: #f0f0f0; } 
+    .site-modal .modal-body { background: #ffffff; } 
+    .site-modal thead tr th {font-weight: 500;padding: 8px 5px;}
+    .site-modal tr.thead td {font-weight: 500;padding: 8px 5px;} 
+    .site-modal .thead { border-top: 0; } 
+    .site-modal .thead+tr { border-top: 0; } 
     .site-modal thead,
-    .site-modal .thead {
-        background-color: rgb(122 137 255 / 20%);
-    }
-
-    .site-modal tbody tr+tr {
-        border-top: 1px solid #ddd;
-    }
-
-    .site-modal tbody tr td {
-        padding: 5px 5px;
-    }
+    .site-modal .thead { background-color: rgb(122 137 255 / 20%); } 
+    .site-modal tbody tr+tr { border-top: 1px solid #ddd; } 
+    .site-modal tbody tr td { padding: 5px 5px; }
 
     .modal-header .btn {
         background-color: #7a89ff;
@@ -1271,49 +1236,31 @@ cursor: pointer;
     .sm__ml { margin-left: -0.3rem; }
 }
 /* ---- Responsive Filterbox styles end -------- */
-.toggle-currency-btn-disabled {
-    width: 40px;
-    height: 30px;
-    display: flex;
-    color: #666C85;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 19.36px;
-    border: 1px solid #A9B0C0;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    cursor: pointer;
+.toggle-currency-btn-disabled {width: 40px;height: 30px; display: flex;color: #666C85;font-size: 14px;font-weight: 600;line-height: 19.36px;border: 1px solid #A9B0C0;align-items: center;justify-content: center;border-radius: 10px;cursor: pointer;}
+.toggle-currency-btn-disabled:hover ,.toggle-currency-btn-disabled:focus{color: #666C85;cursor:default;}
+.input-group {align-items: center;padding: 1rem 2rem;gap: .5rem;}
+.input-group button {border-radius: 10px !important;}
+.input-group input {background-color: white;border-radius: 10px !important;max-width: 200px;height: 32px;padding: 0 .5rem;}
+.srHisclm { width: 10%; }
+html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
+.overflowTable { background-color: #fff; }
+.site-modal thead tr th { font-size:12px; }
+.modal-content {overflow-x:hidden; }
+@media(max-width:767px){
+    .modal .modal-table { font-size: 5px }
+    .modal .table-cell { padding: 1px 5px;font-size:5px; }
+    .modal .fs-13 {font-size: 8px;line-height: 1.2; }
+    .modal .headerTxt.modal-date {font-size: 9px; }
+    .modal .headerTxt {font-size: 12px; }
+    .modal .modal-header { padding:0; }
+    .site-modal thead tr th {font-size: 6px;padding: 4px 5px;line-height: 1.2;}
+    .site-modal .table1 tr td { padding: 0px 5px; }
+    .grand-total-tabel tr { height: 28px; }
 }
-.toggle-currency-btn-disabled:hover ,.toggle-currency-btn-disabled:focus{
-    color: #666C85;
-    cursor:default;
+@media(min-width:992px) {
+    #modalfiltertop { position: absolute;top:.5rem;left:4rem; }
 }
-.input-group {
-    align-items: center;
-    padding: 1rem 2rem;
-    gap: .5rem;
-}
-.input-group button {
- border-radius: 10px !important;
-}
-.input-group input {
-    background-color: white;
-    border-radius: 10px !important;
-    max-width: 200px;
-    height: 32px;
-    padding: 0 .5rem;
-}
-.srHisclm {
-    width: 10%;
-}
-html[dir=rtl]   .dropdown-item .fa-square {
-  padding: 0 0 0 .5rem !important;
-}
-.overflowTable {
-    background-color: #fff;
-}
-
+.info__table td:nth-child(1){width:55%}
 </style>
 
 
@@ -2392,10 +2339,10 @@ html[dir=rtl]   .dropdown-item .fa-square {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                <h1 class="modal-title h1 mt-3"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-center">
                 <div class="btnBg">
                     <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
                 </div>
@@ -2936,7 +2883,7 @@ html[dir=rtl]   .dropdown-item .fa-square {
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>
 </div>
 <div class="modal"  tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
-    <div class="modal-dialog  modal-md site-modal">
+    <div class="modal-dialog  modal-md site-modal modal-dialog-centered">
         <div id="order_details_supplier" class="modal-content p-2">
 
         </div>

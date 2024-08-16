@@ -311,9 +311,18 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     /* .modal .modal-table { min-width: 750px; } */
     .site-modal .modal-content { border-radius: 8px; }
     #itemDiv, #taskDiv , #taskDiv { background: #fff; }
+    .remove__parent__padding { margin-left: -.5rem;margin-right: -.5rem; }
+    .modal .table-cell { font-size:12px; }
     @media(max-width:767px){
         .modal .modal-table { font-size: 5px }
-        .modal .table-cell { padding: 1px 5px; }
+        .modal .table-cell { padding: 1px 5px;font-size:5px; }
+        .modal .fs-13 {font-size: 8px;line-height: 1.2; }
+        .modal .headerTxt.modal-date {font-size: 9px; }
+        .modal .headerTxt {font-size: 12px; }
+        .modal .modal-header { padding:0; }
+    }
+    @media(min-width:992px) {
+        #modalfiltertop { position: absolute;top:.5rem;left:4rem; }
     }
 </style>
 </head>
@@ -787,7 +796,7 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 
 <div class="modal" tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered modal-md site-modal">
-    <div id="order_details_supplier" class="modal-content p-2">
+    <div id="order_details_supplier" class="modal-content overflow-hidden p-2">
 
     </div>
 </div>

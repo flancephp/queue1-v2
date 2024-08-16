@@ -167,7 +167,7 @@ foreach($resItemHistory['resRows'] as $item){
 
                     <section class="itm-profileDtl">
                         <div class="btnBg">
-                            <a href="stockView.php" class="sub-btn std-btn">Back</a>
+                            <a href="stockView.php" class="btn btn-primary">Back</a>
                         </div>
                         <div class="itemImage">
                             <div class="itemImage-bg">

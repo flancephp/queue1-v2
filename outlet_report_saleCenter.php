@@ -758,6 +758,7 @@ $tr = '';
     </div>
 
     <!-- Add Storage Popup Start -->
+    <form action="" method="post" id="adjustmentFrm" name="adjustmentFrm" class="addUser-Form row">
     <div class="modal" tabindex="-1" id="adjust" aria-labelledby="add-PhyStorageLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -766,15 +767,34 @@ $tr = '';
                     <h1 class="modal-title h1">Adjustment</h1>
                 </div>
                 <div class="modal-body">
-                    <form class="addUser-Form row gap-3">
-                        <input type="text" class="form-control" id="ajstName" placeholder="Item">
-                        <input type="date" class="form-control" id="ajstDate">
-                        <input type="number" class="form-control" id="ajstNum" placeholder="1">
-                    </form>
+
+                
+                    
+
+                <input type="hidden" name="outLetId" value="<?php echo $_GET['outLetId'];?>" />
+
+                <input type="hidden" size="10" name="fromDate"
+                    value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y');?>">
+
+                <input type="hidden" size="10" name="toDate"
+                    value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>">
+
+
+                        <input type="text" class="form-control" name="item" id="item" onChange="checkItemtype(this.value);" placeholder="Item">
+                        <input type="date" class="form-control" name="adjDate" id="adjDate">
+                        <input type="number" class="form-control" name="qty" id="ajstNum" placeholder="1">
+
+                        <div style="display:none;" id="barItemAdj" class="my-3">
+                            <!-- <div style="width: 35%;"></div> -->
+                            <div class="d-flex align-items-center"><input type="checkbox" name="adjForEnptyBottle" value="1" class="form-check-input" />&nbsp;&nbsp;Tick it to adjust
+                                empty bottle(s)</div>
+                        </div>
+
+     
                 </div>
                 <div class="modal-footer justify-content-between">
                     <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn">Save</button>
+                        <button type="submit" name="saveBtn" class="btn sub-btn std-btn">Save</button>
                     </div>
                     <div class="btnBg">
                         <button type="submit" class="btn sub-btn std-btn">Cancel</button>
@@ -783,6 +803,7 @@ $tr = '';
             </div>
         </div>
     </div>
+    </form>
     <!-- Add Storage Popup End -->
 
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
@@ -806,6 +827,53 @@ function loaderFrm() {
     document.getElementById('frm').submit();
     return true;
 }
+<<<<<<< HEAD
+
+function checkItemtype(itemName) {
+
+$.ajax({
+        method: "POST",
+        url: "ajax.php",
+
+        data: {
+            itemNameVal: itemName,
+            outLetId: '<?php echo $_GET['outLetId'];?>'
+        }
+    })
+    .done(function(itemType) {
+
+        if (itemType == 1) {
+            $('#barItemAdj').show();
+        } else {
+            $('#barItemAdj').hide();
+        }
+
+
+    });
+}
+
+
+$(document).ready(function() {
+
+    var availableTags = [
+        <?php 
+
+    foreach($proRows as $pId=>$pName){
+        $itemName = $pName.'('.$pId.')';
+        echo "'$itemName'".',';
+    }
+    ?>
+    ];
+
+    $("#item").autocomplete({
+        source: availableTags
+    });
+    $("#itemNotes").autocomplete({
+        source: availableTags
+    });
+});
+
+=======
 function myFunction() {
     var parentDivs = document.getElementsByClassName("outletBody-Task");
     var input = document.getElementById("search");
@@ -861,6 +929,7 @@ document.getElementById("search").addEventListener("input", debounce(myFunction,
 		$('#search').val('');
 		myFunction();
 		}
+>>>>>>> e10e4e8192efad0dca15e91d04bab6ce4e9891ae
 </script>
 </body>
 

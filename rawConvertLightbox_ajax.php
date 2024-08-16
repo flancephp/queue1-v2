@@ -41,10 +41,10 @@ $content  .= '<div class="d-flex align-items-center justify-content-end w-100 pe
                 </div>
                 <div class="modal-body px-2 py-3">
                     <div class="test-center">
-                        <h4 class="text-center semibold">'.showOtherLangText('Raw Convert Item Details').'</h4>
-                    </div><div class="table-responsive">';
+                        <h4 class="text-center semibold headerTxt">'.showOtherLangText('Raw Convert Item Details').'</h4>
+                    </div><div class="table-responsiv">';
 
- $content  .=  '<table class="modal-table fs-12 w-100 mt-4" style="min-width: 700px;">
+ $content  .=  '<table class="modal-table fs-12 w-100 mt-2 mt-lg-4">
                         <thead style="background-color: white !important;">
                             <tr>
                                 <th>'.showOtherLangText('Task No.').'</th>
@@ -62,7 +62,7 @@ $content  .=  '<tr>
                             </tr>';
  $content  .= '</tbody>
                     </table><br>
-                    <table class="modal-table fs-12 w-100 mt-4" style="min-width: 700px;">
+                    <table class="modal-table fs-12 w-100 mt-lg-4">
                         <thead>
                             <tr>
                                 <th>'.showOtherLangText('#').'</th>

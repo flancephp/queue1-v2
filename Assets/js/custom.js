@@ -306,25 +306,43 @@ $(".otrStock").click(function () {
 // Stock Page Single Store End
 
 // History Page Date Clone Start
+// $(document).ready(function () {
+//   $(window).resize(function () {
+//     if ($(window).width() > 1024) {
+//       $(".mb-hisDate .date-flx").hide();
+//     } else {
+//       $(".mb-hisDate .date-flx").show();
+//       $(".prtDate").remove().clone().appendTo(".mb-hisDate .date-flx");
+//     }
+//   });
+// });
+
+// $(document).ready(function () {
+//   if ($(window).width() > 1024) {
+//     $(".mb-hisDate .date-flx").hide();
+//   } else {
+//     $(".mb-hisDate .date-flx").show();
+//     $(".prtDate").remove().clone().appendTo(".mb-hisDate .date-flx");
+//   }
+// });
+
 $(document).ready(function () {
-  $(window).resize(function () {
+  function handleResize() {
     if ($(window).width() > 1024) {
       $(".mb-hisDate .date-flx").hide();
     } else {
       $(".mb-hisDate .date-flx").show();
       $(".prtDate").remove().clone().appendTo(".mb-hisDate .date-flx");
+      $(".mb-hisDate .date-flx .datepicker").datepicker(); // Reinitialize the datepicker after cloning
     }
-  });
+  }
+
+  $(window).resize(handleResize);
+  
+  // Trigger the resize event on page load to handle the initial state
+  handleResize();
 });
 
-$(document).ready(function () {
-  if ($(window).width() > 1024) {
-    $(".mb-hisDate .date-flx").hide();
-  } else {
-    $(".mb-hisDate .date-flx").show();
-    $(".prtDate").remove().clone().appendTo(".mb-hisDate .date-flx");
-  }
-});
 // History Page Date Clone End
 
 // History Page Account No. Clone Start
