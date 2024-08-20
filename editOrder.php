@@ -405,9 +405,21 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .newFeatures .ms-auto { margin: 0 auto !important; }
         .btn__box { max-width: 14rem;}
         .fetBtn img { height:3rem; }
+        .newOrdTask1 {background: rgba(255, 255, 255, 0.8);box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);padding: 0;margin-bottom: 5px;border-radius:.5rem;display:flex;}
+        .prdtImg { width: 25%; }
+        .prdtCnt-Fst { width: calc(75% - 44px); }
+        .prdtCnt-Scnd { width: calc(75% - 44px);margin-left:auto;}
+        .prdtCnt-Scnd .itm-Quantity,.prdtCnt-Scnd .ttlCr-Type { width: 50%; }
+        .res__label__item::before {content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4; }
+        .res__label__item.stock::after {content: attr(data-text-stock);display: block;font-size: 9px;color: #777;line-height: 1.4;position:absolute;top:0;right:0; }
+        .prdtCr-Unit .itm-Unit, .prdtCr-Unit .crncy-Type { width: 50%; }
+        .itmBody { font-size: 12px; }
+        .mb-brCode .ord-StockQty { width: 50%; }
     }
     @media screen and (max-width: 767px) {
         .ordFeature { width: 49.3%; }
+        /* .prdtCnt-Scnd { width: calc(84% - 55px); } */
+        .ordDetail { padding-bottom: 3rem; }
     }
     </style>
 </head>
@@ -992,20 +1004,20 @@ $ordQry = mysqli_query($con, $sql);
                             <div class="container cntTable">
                                 <!-- Item Table Body Start -->
                                 <?php 
-$fixedCharges = 0;
-$perCharges = 0;
-$x = 0;
-$y = 0;
-while($row = mysqli_fetch_array($chrgQry))//show here order level charges
-{ 
+                                    $fixedCharges = 0;
+                                    $perCharges = 0;
+                                    $x = 0;
+                                    $y = 0;
+                                    while($row = mysqli_fetch_array($chrgQry))//show here order level charges
+                                    { 
 
-$totalCustomCharges += $row['price'];
-$x++;
-$y++;
-?>
+                                    $totalCustomCharges += $row['price'];
+                                    $x++;
+                                    $y++;
+                                ?>
                                 <div class="newOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
+                                        <div class="counter__box tb-bdy" style="width:55px;">
                                             <p><?php echo $y; ?></p>
                                         </div>
                                         <div class="prdtImg tb-bdy">
@@ -1029,14 +1041,10 @@ $y++;
                                                         </p>
                                                     </div>
                                                     <?php 
-if($ordRow['ordCurId'] > 0)
-{
-
-echo '<div class="othr-Currency tb-bdy"><p>'.showOtherCur($row['curAmt'], $row['currencyId']).'</p></div>';
-}
-
-?>
-
+                                                    if($ordRow['ordCurId'] > 0) { 
+                                                        echo '<div class="othr-Currency tb-bdy"><p>'.showOtherCur($row['curAmt'], $row['currencyId']).'</p></div>';
+                                                    } 
+                                                    ?> 
                                                 </div>
                                                 <div class="itm-Unit tb-bdy">
                                                     <p><?php echo $row['unit'];?></p>
@@ -1055,14 +1063,11 @@ echo '<div class="othr-Currency tb-bdy"><p>'.showOtherCur($row['curAmt'], $row['
                                                     <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
                                                 </div>
                                                 <?php 
-if($ordRow['ordCurId'] > 0)
-{
-            echo '<div class="ttlOtr-Crcy tb-bdy">
-                <p>'.showOtherCur($row['curAmt'], $row['currencyId']).'</p></div>';
-            
-}
-
-?>
+                                                if($ordRow['ordCurId'] > 0)
+                                                {
+                                                    echo '<div class="ttlOtr-Crcy tb-bdy"><p>'.showOtherCur($row['curAmt'], $row['currencyId']).'</p></div>';          
+                                                } 
+                                                ?>
                                             </div>
                                         </div>
                                         <div class="prdt-Hide">
@@ -1084,29 +1089,29 @@ if($ordRow['ordCurId'] > 0)
 
                                 </div>
                                 <?php } 
-$productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
-$pidArr = [];
-$x = 0;
-while($row = mysqli_fetch_array($ordQry))
-{
-$pidArr[] = $row['id'];
-$x++;
-$y++;
+                                $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
+                                $pidArr = [];
+                                $x = 0;
+                                while($row = mysqli_fetch_array($ordQry))
+                                {
+                                $pidArr[] = $row['id'];
+                                $x++;
+                                $y++;
 
-$stockQty = $row['stockQty'];
-$totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
-$stockQty = $stockQty - $totalProQty;
+                                $stockQty = $row['stockQty'];
+                                $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
+                                $stockQty = $stockQty - $totalProQty;
 
-// $sqlSet = " SELECT qty stockQty FROM tbl_stocks WHERE pId = '".$row['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
-// $resultSet = mysqli_query($con, $sqlSet);
-// $stkRow = mysqli_fetch_array($resultSet);
+                                // $sqlSet = " SELECT qty stockQty FROM tbl_stocks WHERE pId = '".$row['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+                                // $resultSet = mysqli_query($con, $sqlSet);
+                                // $stkRow = mysqli_fetch_array($resultSet);
 
-// $sqlSet = " SELECT GROUP_CONCAT(s.name) suppls FROM tbl_productsuppliers ps
-// INNER JOIN tbl_suppliers s ON(ps.supplierId = s.id) AND ps.account_id = s.account_id WHERE ps.productId = '".$row['id']."' AND ps.account_id = '".$_SESSION['accountId']."'  GROUP BY ps.productId ";
-// $resultSet = mysqli_query($con, $sqlSet);
-// $supRow = mysqli_fetch_array($resultSet);
+                                // $sqlSet = " SELECT GROUP_CONCAT(s.name) suppls FROM tbl_productsuppliers ps
+                                // INNER JOIN tbl_suppliers s ON(ps.supplierId = s.id) AND ps.account_id = s.account_id WHERE ps.productId = '".$row['id']."' AND ps.account_id = '".$_SESSION['accountId']."'  GROUP BY ps.productId ";
+                                // $resultSet = mysqli_query($con, $sqlSet);
+                                // $supRow = mysqli_fetch_array($resultSet);
 
-?>
+                                ?>
                                 <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
                                 <input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
                                     value="<?php echo $row['SupplierId'];?>" />
@@ -1116,20 +1121,20 @@ $stockQty = $stockQty - $totalProQty;
                                     value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
                                 <div class="newOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="prdtImg tb-bdy">
+                                        <div class="tb-bdy" style="width:44px;">
                                             <p><?php echo $y; ?></p>
                                         </div>
                                         <div class="prdtImg tb-bdy">
                                             <?php 
-  if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
-   {   
-  echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
-    
-    }
-     ?>
+                                            if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
+                                            {   
+                                            echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
+                                                
+                                                }
+                                            ?>
                                         </div>
                                         <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
+                                            <div class="Itm-Name tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Item'); ?>">
                                                 <p><?php echo $row['itemName'];?></p>
                                             </div>
                                             <div class="Itm-brCode tb-bdy">
@@ -1137,7 +1142,7 @@ $stockQty = $stockQty - $totalProQty;
                                             </div>
                                             <div class="prdtCr-Unit d-flex">
                                                 <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy">
+                                                    <div class="dflt-Currency tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
                                                         <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
                                                                 type="hidden" name="price[<?php echo $row['id'];?>]"
                                                                 id="<?php echo $x;?>"
@@ -1145,58 +1150,53 @@ $stockQty = $stockQty - $totalProQty;
                                                         </p>
                                                     </div>
                                                     <?php 
-if($ordRow['ordCurId'] > 0)
-{   ?>
+                                                    if($ordRow['ordCurId'] > 0)
+                                                    {   ?>
                                                     <div class="othr-Currency tb-bdy">
                                                         <p><?php  echo showOtherCur(($row['price']*$row['factor']*$curDet['amt']), $ordRow['ordCurId']);
-?></p>
+                                                    ?></p>
                                                     </div>
                                                     <?php } ?>
                                                 </div>
-                                                <div class="itm-Unit tb-bdy">
+                                                <div class="itm-Unit tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
                                                     <p><?php echo $row['purchaseUnit'];?></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-background-color: pink;
-width: 43px;
-text-align: center;
-height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
                                         <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy">
+                                            <div class="itm-Quantity tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Qty'); ?>">
                                                 <input type="text" class="form-control qty-itm"
                                                     name="qty[<?php echo $row['id'];?>]" autocomplete="off"
                                                     onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
                                                     value="<?php echo $row['ordQty'];?>" size="5">
                                             </div>
                                             <div class="ttlCr-Type d-flex align-items-center">
-                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
+                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                     <p><?php showPrice($row['ordPrice'], $getDefCurDet['curCode']) ?>
                                                     </p>
                                                 </div>
                                                 <?php if($ordRow['ordCurId'] > 0){?>
-                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy">
-                                                    <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);
-
-?></p>
+                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                    <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);?></p>
                                                 </div>
                                                 <?php } ?>
                                             </div>
                                         </div>
                                         <div class="prdt-Hide">
                                             <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode"></div>
-                                                <input type="text" class="form-control note-itm" autocomplete="off"
-                                                    id="notes<?php echo $row['id'];?>"
-                                                    onChange="getnotesVal('<?php echo $row['id'] ?>');"
-                                                    name="notes[<?php echo $row['id'];?>]"
-                                                    value="<?php echo $row['note'];?>">
+                                                <div class="res__label__item stock position-relative" data-text="<?php echo showOtherLangText('Bar code'); ?>" data-text-stock="<?php echo showOtherLangText('S.qty'); ?>"> 
+                                                    <div class="mb-brCode" ></div>
+                                                </div>
+                                                <div class=" res__label__item" data-text="<?php echo showOtherLangText('Note'); ?>"> 
+                                                    <input type="text" class="form-control note-itm" autocomplete="off"
+                                                        id="notes<?php echo $row['id'];?>"
+                                                        onChange="getnotesVal('<?php echo $row['id'] ?>');"
+                                                        name="notes[<?php echo $row['id'];?>]"
+                                                        value="<?php echo $row['note'];?>">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1383,27 +1383,27 @@ $stockQty = $stockQty - $totalProQty;
                                             id="totalPriceShowTop<?php echo $x;?>" value="" />
                                         <div class="newOrdTask1">
                                             <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                                <div class="prdtImg tb-bdy">
+                                                <div class="tb-bdy" style="width:44px;">
                                                     <?php echo $y;?>
                                                 </div>
                                                 <div class="prdtImg tb-bdy">
                                                     <?php 
-            if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
-            {   
-                echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
-            }
-             ?>
+                                                    if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] ) )
+                                                    {   
+                                                        echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" class="ordItm-Img">';
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <div class="prdtCnt-Fst d-flex align-items-center">
-                                                    <div class="Itm-Name tb-bdy">
+                                                    <div class="Itm-Name tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Item'); ?>">
                                                         <p><?php echo $row['itemName'];?></p>
                                                     </div>
                                                     <div class="Itm-brCode tb-bdy">
                                                         <p class="ord-brCode"><?php echo $row['barCode'];?></p>
                                                     </div>
                                                     <div class="prdtCr-Unit d-flex">
-                                                        <div class="crncy-Type w-50">
-                                                            <div class=" tb-bdy">
+                                                        <div class="crncy-Type w-50 ">
+                                                            <div class=" tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
                                                                 <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
                                                                         type="hidden"
                                                                         name="price[<?php echo $row['id'];?>]"
@@ -1418,32 +1418,25 @@ $stockQty = $stockQty - $totalProQty;
                                                             </div>
 
                                                         </div>
-                                                        <div class="itm-Unit tb-bdy">
+                                                        <div class="itm-Unit tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
                                                             <p><?php echo $row['purchaseUnit'];?></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="prdtStk-Qty tb-bdy">
-                                                    <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-background-color: pink;
-width: 43px;
-text-align: center;
-height: 30px;"' : '';?>>
+                                                    <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;: 30px;"' : '';?>>
                                                         <?php echo round(($stockQty/$row['factor']), 1);?> <span
                                                             class="tabOn-Stk">On stock</span></p>
                                                 </div>
                                                 <div class="prdtCnt-Scnd d-flex align-items-center">
-                                                    <div class="itm-Quantity tb-bdy">
+                                                    <div class="itm-Quantity tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Qty'); ?>">
                                                         <input type="text" class="form-control qty-itm editQty-Rec"
                                                             name="qty[<?php echo $row['id'];?>]" autocomplete="off"
                                                             onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_POST['supplierId'];?>', '1')"
                                                             value="" size="5">
                                                     </div>
                                                     <div class="ttlCr-Type w-50 ps-xl-5">
-                                                        <div class=" tb-bdy">
+                                                        <div class=" tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                             <p id="totalPrice<?php echo $x;?>">0</p>
                                                         </div>
 
@@ -1457,7 +1450,7 @@ height: 30px;"' : '';?>>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="prdt-Hide">
-                                                    <div class="prdt-Note tb-bdy">
+                                                    <div class="prdt-Note tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Note'); ?>">
                                                         <div class="mb-brCode" style="display: none;"></div>
 
                                                         <input type="text" class="form-control  note-itm"
