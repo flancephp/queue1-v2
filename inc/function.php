@@ -4102,7 +4102,7 @@ function access_import_stockTake($designation_id,$accountId,$filterByStorage, $r
     aria-expanded="false">
     <span class="edIt"></span>
     <p class="btn2 d-flex justify-content-center align-items-center">
-        <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
+        <span><?php echo showOtherLangText('Stock take file') ?></span> <i class="fa-solid fa-angle-down"></i>
     </p>
 </a>
 <ul class="dropdown-menu">
@@ -4127,7 +4127,7 @@ function access_import_stockTake($designation_id,$accountId,$filterByStorage, $r
     data-bs-toggle="dropdown" aria-expanded="false">
     <span class="edIt"></span>
     <p class="btn2 d-flex justify-content-center align-items-center">
-        <span>Stock take file</span> <i class="fa-solid fa-angle-down"></i>
+        <span><?php echo showOtherLangText('Stock take file') ?></span> <i class="fa-solid fa-angle-down"></i>
     </p>
 </a>
 <ul style="opacity: 0.5;" class="dropdown-menu">

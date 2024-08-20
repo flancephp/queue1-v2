@@ -470,7 +470,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                     action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
                                     autocomplete="off">
                                     <div class="row pb-md-4">
-                                        <div class="sltSupp nwOrd-Num position start-0 ps-0"
+                                        <div class="sltSupp nwOrd-Num position start-0 p-0"
                                             style="top:1rem; min-width:fit-content;">
                                             <div class="ord-Box w-100 ms-0 d-flex flex-wrap gap-2">
                                                 <div class="ordNum">
@@ -631,13 +631,13 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
                                             </div>
-                                            <div class="d-inline-flex flex-lg-column col gap-3 justify-content-end btn__box">
+                                            <div class="d-inline-flex flex-lg-column w-100 col gap-3 justify-content-end btn__box">
                                                 <a href="javascript:void(0)" class="w-100 btn btn-primary orderupdate">
-                                                    <span class="align-middle">Update</span> 
+                                                    <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
                                                     <i class="fa-solid fa-angle-right d-none d-lg-inline-block"></i>
                                                 </a> 
                                                 <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" /> 
-                                                <a href="runningOrders.php" class="w-lg-100 btn  btn-primary std-btn update"><?php echo showOtherLangText('Back'); ?></a>
+                                                <a href="runningOrders.php" class="w-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             
                                         </div>
@@ -1220,7 +1220,7 @@ $ordQry = mysqli_query($con, $sql);
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
                                         <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
                                             <input onKeyUp="myFunction('search3', 'newOrdTask1', 2)" type="search"
-                                                class="form-control" placeholder="Search Item" id="search3"
+                                                class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>" id="search3"
                                                 name="search3" aria-label="Search">
                                             <div class="input-group-append">
                                                 <button class="btn" type="button"
@@ -1476,7 +1476,7 @@ if($i > 0)
 
                                         <?php }else{
 echo '<div class="newOrdTask">
-    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">No Product Found.</div> </div>';
+    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">'.showOtherLangText('No Product Found').'</div> </div>';
 } ?>
 
                                     </div>

@@ -67,13 +67,14 @@ $clientDetRow = mysqli_fetch_array($result);
             $curDet = mysqli_fetch_array($res);
         } 
  $content = '<!doctype html>';
-$content .= '<html lang="en">';
+$content .= '<html lang="'.($getLangType == '1' ? 'he' : '').'">';
  $content .= '<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PDF Design</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         @page { margin: 10px 10px; }
@@ -83,7 +84,9 @@ $content .= '<html lang="en">';
     </style>
     </head>';
 
-$content .= '<body style="font-family: \'Inter\', Sans- serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
+$content .= '<body style="' . ($getLangType == '1' 
+    ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;' 
+    : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
 if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['orderDetails'] == 1 || $_GET['currentDate'] == 1)
     {
 $content .= '<table style="width: 100%; border-spacing: 0;">
@@ -368,48 +371,48 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         <th style="font-weight:700;padding:8px 5px;text-align: left;">#</th>';
  if( $_GET['photo'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Photo</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Photo').'</th>';
             } 
 
     if( $_GET['itemName'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Item</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Item').'</th>';
             }
 if( $_GET['barcode'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Barcode</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Barcode').'</th>';
             }
  if( $_GET['price'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Price('.$getDefCurDet['curCode'].')</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</th>';
             }
             if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Price('.$curDet['curCode'].')</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Price').'('.$curDet['curCode'].')</th>';
             }
         if( $_GET['unit'] == 1)
             {                                 
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Unit</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Unit').'</th>';
             } 
             if( $_GET['qty'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Qty.</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Qty').'</th>';
              } 
              if( $_GET['receivedQty'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Rec Qty.</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Rec Qty').'</th>';
             } 
             if( $_GET['total'] == 1)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Total('.$getDefCurDet['curCode'].')</th>';
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Total').'('.$getDefCurDet['curCode'].')</th>';
             } 
              if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
             {
- $content .=  '<th style="font-weight:700;padding:8px 5px;">Total('.$curDet['curCode'].')</th>';               
+ $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Total').'('.$curDet['curCode'].')</th>';               
             } 
          if( $_GET['note'] == 1)
             {
- $content .= '<th style="font-weight:700;padding:8px 5px;">Note</th>';
+ $content .= '<th style="font-weight:700;padding:8px 5px;">'.$getDefCurDet['Note'].'</th>';
             } 
  $content .=    '</tr>';
    $i = 0;
@@ -540,15 +543,15 @@ if( $_GET['taskRecord'] == 1)
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">
     
         <tr style="background-color: rgba(122, 137, 255, 0.2);">
-            <th style="font-weight:700;padding:8px 5px;">Status</th>
-            <th style="font-weight:700;padding:8px 5px;">Date</th>
-            <th style="font-weight:700;padding:8px 5px;">User</th>';
- $content .= '<th style="font-weight:700;padding:8px 5px;">Price('.$getDefCurDet['curCode'].')</th>';
+            <th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Status').'</th>
+            <th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Date').'</th>
+            <th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('User').'</th>';
+ $content .= '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</th>';
  if($_GET['secondCurrency'] == 1 &&  $curDet['curCode'] != '')
             {
- $content .= '<th style="font-weight:700;padding:8px 5px;">Price('.$curDet['curCode'].')</th>';       
+ $content .= '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Price').'('.$curDet['curCode'].')</th>';       
             }              
- $content .= '<th style="font-weight:700;padding:8px 5px;">Note</th></tr>';
+ $content .= '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Note').'</th></tr>';
    while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
         {  
  $content .= '<tr>
@@ -576,4 +579,14 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
 
 $content .= '</body>
              </html>';
+// unset($content);
+// $content = '<html>
+// <head>
+//     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+// </head>
+// <body>
+//     <div><p style="font-family: firefly, DejaVu Sans, sans-serif;">'.showOtherLangText('Note').'</p></div>
+// </body>
+// </html>';
+
 ?>

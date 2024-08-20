@@ -414,7 +414,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     
                                 </div>
 
-                                <div class="row gy-2 gx-0 gx-lg-4">
+                                <div class="row gy-2 gx-0 gx-lg-4 pb-md-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->
                                     <div class="col-lg-9 col-xl-10 newFeatures">
                                         <div class="mbFeature container">
@@ -496,11 +496,11 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <div class="d-flex flex-row flex-lg-column gap-3 justify-content-between "> 
                                             <div class="btnBg">
                                                 <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-lg-100">
-                                                    <span class="align-middle">Update</span> <i class="fa-solid fa-angle-right"></i>
+                                                    <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
                                             <div class="btnBg">
-                                                <a href="runningOrders.php" class="w-lg-100 btn  btn-primary std-btn update">Back</a>
+                                                <a href="runningOrders.php" class="w-lg-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)">
@@ -511,7 +511,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     </div>
                                 </div>
                             </div>
-                            <div class="container cntTable mt-lg-4">
+                            <div class="container cntTable pb-md-4" style="padding-top: 8px;">
                                 <div class="row g-4">
                                     <div class="sltSupp">
                                         <!-- Select Supplier -->
@@ -546,7 +546,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     </div> -->
 
                                         <div class="input-group srchBx">
-                                            <input type="search" id="search1" class="form-control" placeholder="Search"
+                                            <input type="search" id="search1" class="form-control" placeholder="<?php echo showOtherLangText('Search'); ?>"
                                                 onKeyUp="myFunction('search1', 'newOrdTask', 1)" aria-label="Search">
                                             <div class="input-group-append">
                                                 <button class="btn" type="button">
@@ -888,7 +888,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                 <div class="mb-brCode" style="display: none;"></div>
                                                 <input type="text" class="note-itm form-control" autocomplete="off"
                                                     name="itemNotes[<?php echo $row['id'];?>]"
-                                                    id="itemNotes<?php echo $x;?>" placeholder="Note"
+                                                    id="itemNotes<?php echo $x;?>" placeholder="<?php echo showOtherLangText('Note'); ?>"
                                                     onChange="getItemNotesVal('<?php echo $x;?>', '<?php echo $row['id'];?>');"
                                                     value="<?php echo $row['note'];?>">
                                             </div>
@@ -992,10 +992,10 @@ $ordRow = mysqli_fetch_array($resultSet);
                                             <div class="prdt-Note tb-bdy">
                                                 <div class="mb-brCode" style="display: none;"></div>
                                                 <input type="text" class="form-control note-itm" autocomplete="off"
-                                                    placeholder="Note" name="notes[<?php echo $row['id'];?>]"
+                                                    placeholder="<?php echo showOtherLangText('Note'); ?>" name="notes[<?php echo $row['id'];?>]"
                                                     id="notes<?php echo $row['id'];?>"
                                                     onchange="getnotesVal('<?php echo $row['id'] ?>');"
-                                                    placeholder="Note" value="<?php echo $row['note'];?>">
+                                                    placeholder="<?php echo $row['Note'];?>" value="<?php echo $row['note'];?>">
                                             </div>
                                         </div>
                                     </div>
@@ -1022,7 +1022,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="col-md-5">
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
                                         <div class="input-group srchBx"> 
-                                            <input type="search" class="form-control" placeholder="Search Item"
+                                <input type="search" class="form-control" placeholder="<?php echo showOtherLangText('Search Item'); ?>"
                                                 name="search2" class="form-control" id="search2"
                                                 onKeyUp="myFunction('search2', 'newOrdTask1', 2)"
                                                 placeholder="<?php echo showOtherLangText('Search Item'); ?>"
@@ -1223,7 +1223,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="mb-brCode" style="display: none;"></div>
                                     <input type="text" class="form-control note-itm" autocomplete="off"
                                         name="notes[<?php echo $row['id'];?>]" id="notes<?php echo $row['id'];?>"
-                                        onchange="getnotesVal('<?php echo $row['id'] ?>');" placeholder="Note"
+                                        onchange="getnotesVal('<?php echo $row['id'] ?>');" placeholder="<?php echo showOtherLangText('Note'); ?>"
                                         value="<?php echo $row['note'];?>">
                                 </div>
                             </div>

@@ -39,6 +39,7 @@ include_once('script/outlet_report_saleCenter_script.php');
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
               /* hover effects */
   .reloadBtn a:hover,
@@ -50,6 +51,9 @@ include_once('script/outlet_report_saleCenter_script.php');
   .chkStore a:hover img {
      scale:1.1;
   }
+  .cstBtn-Sale:hover img {
+    filter: brightness(200%) !important;
+}
     
     </style>
 
@@ -612,9 +616,9 @@ $tr = '';
                             </div>
                         </div>
 
-                        <div class="container saleSrch-Cst">
+                        <div class="container px-3 saleSrch-Cst">
                             <div class="row">
-                                <div class="col-md-6 slCst-Srch">
+                                <div class="col-md-6 slCst-Srch gap-2">
                                     <div class="input-group srchBx">
                                         <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search"
                                             aria-label="Search">

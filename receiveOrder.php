@@ -402,6 +402,7 @@ $otherChrgQry=mysqli_query($con, $sql);
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style_new.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
 </head>
 
 <body>
@@ -431,25 +432,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                         <h1 class="h1"><?php echo showOtherLangText('Receive Order'); ?></h1>
                                     </div>
                                 </div>
-                                <div class="user d-flex align-items-center">
-                                    <img src="Assets/images/user.png" alt="user">
-                                    <p class="body3 m-0 d-inline-block">User</p>
-                                </div>
-                                <div class="acc-info">
-                                    <img src="Assets/icons/Q.svg" alt="Logo" class="q-Logo">
-                                    <!-- <h1>Q</h1> -->
-                                    <div class="dropdown d-flex">
-                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown">
-                                            <span> Account</span> <i class="fa-solid fa-angle-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Account 1</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Account 2</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Account 3</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Account 4</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                        <?php require_once('header.php'); ?>
                             </div>
                         </div>
                     </section>
@@ -532,21 +515,15 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                             }
                                                             .featRow .stockFeat .dropdown-menu {
                                                                 overflow: hidden;
-                                                                border: 1px solid #7a89ff;
                                                             }
                                                             .featRow .stockFeat .dropdown-menu a {
                                                                 display: flex;
                                                                 gap:.5rem;
+                                                                padding: 5px 16px;
                                                                 
                                                             }
                                                             .featRow .stockFeat .dropdown-menu a:hover {
-                                                                background-color: #7a89ff;
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu a:hover p {
-                                                                color: #fff;
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu a:hover svg {
-                                                                filter: brightness(0) saturate(100%) invert(97%) sepia(5%) saturate(26%) hue-rotate(326deg) brightness(106%) contrast(100%);
+                                                                background-color: #e9ecef;
                                                             }
                                                             .featRow .stockFeat .dropdown-menu a svg {
                                                                 width: 18px;
@@ -561,11 +538,11 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                          
                                                           </style>
                                                         <div class="row featRow stkRow divider p-0 position-relative"> 
-                                                            <div class="stockFeat p-0 p-lg-3  d-flex">
-                                                            <a  href="javascript:void(0)" class="dropdown-toggle tabFet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <div class="stockFeat p-0   d-flex">
+                                                            <a  href="javascript:void(0)" class="dropdown-toggle tabFet p-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 <span class="edIt"></span>
-                                                                <p class="btn2 d-flex justify-content-center align-items-center">
-                                                                    <span>Import receiving file</span> <i class="fa-solid fa-angle-down fa-angle-up"></i>
+                                                                <p class="btn2 d-flex justify-content-center align-items-center gap-1">
+                                                                    <span><?php echo showOtherLangText('Import receiving file'); ?></span> <i class="fa-solid fa-angle-down fa-angle-up"></i>
                                                                 </p>
                                                             </a>
                                                             <ul class="dropdown-menu">
@@ -576,7 +553,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                                 </a>
                                                                 </li>
                                                                 <li>
-                                                                <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>" target="_blank" class="tabFet mt-2 nav_sub">
+                                                                <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>" target="_blank" class="tabFet nav_sub">
                                                                     <!-- <span class="sampleFile"></span> -->
                                                                     <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 31"><path d="M24.8 7.7q2.4-.1 3.1.4l.7.7q.5.8.4 3.2v11.5q.2 3.3-.7 4.2t-4.2.7H17q-3.3.2-4.2-.7t-.7-4.2V12q-.1-2.4.4-3.2l.7-.7c.6-.4 1.4-.4 3.2-.4" stroke="#8C8FA7" stroke-width="2"/><path d="M16.9 7.7c0-1.3 1-2.4 2.4-2.4h2.4a2.4 2.4 0 0 1 0 4.9h-2.4Q17 10 16.9 7.7Z" stroke="#8C8FA7" stroke-width="2"/><path d="m5 19-.7.7.7.7.7-.7zM6 7a1 1 0 0 0-2 0zM.3 15.6l4 4 1.4-1.5-4-4zm5.4 4 4-4-1.4-1.5-4 4zm.3-.8V7H4v12zm8.9 4.2v-6.6h4.4v1.1h-3v1.6H19v1.1h-2.9v1.6h3.1v1.1zm9.9-4.5-.2-.4-.3-.3-.4-.2-.5-.1q-.5 0-.9.3t-.6.7l-.2 1.1q0 .7.2 1.2t.6.8l.9.2q.5 0 .8-.2.3 0 .5-.4l.2-.8h.3-1.7v-1h2.7v.8q0 .9-.3 1.5-.4.7-1 1l-1.5.3q-1 0-1.6-.4-.8-.3-1.1-1.1-.4-.7-.4-1.8 0-.8.2-1.5l.7-1q.4-.5 1-.7.4-.2 1.2-.2l1 .1.9.5a3 3 0 0 1 .9 1.6z" fill="#8C8FA7"/></svg>
                                                                     <p class="btn2"><?php echo showOtherLangText('Download Sample File'); ?></p>

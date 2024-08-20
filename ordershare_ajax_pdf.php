@@ -74,7 +74,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             </button>
                              
                             <div class="d-inline-flex align-items-center gap-2">
-                                <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></button> 
+                                <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></button> 
                                 <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
                             </div>
                         </div>
@@ -83,136 +83,136 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             
 
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                Headers<i class="fa-solid fa-angle-down px-1"></i>
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('Headers').'
+                                <i class="fa-solid fa-angle-down px-1"></i>
                                 </button>
                                 <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                     <li>
                                         <input type="checkbox" checked="checked" name="checkAll" class="headChk-All form-check-input" value="1">
-                                        <span class="fs-13">Check All</span>
+                                        <span class="fs-13">'.showOtherLangText('Check All').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" name="address" class="form-check-input header-address headCheckbox" value="1" onClick="hideCheckbox(\'adrsClm\')">
-                                        <span class="fs-13">Address</span>
+                                        <span class="fs-13">'.showOtherLangText('Address').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" name="orderDetails" class="form-check-input headCheckbox"
                                             onClick="hideCheckbox(\'orderDet\')" value="1">
-                                        <span class="fs-13">Order details</span>
+                                        <span class="fs-13">'.showOtherLangText('Order details').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" name="logo" class="form-check-input headCheckbox" 
                                             onClick="hideCheckbox(\'logoClm\')"
                                             value="1">
-                                        <span class="fs-13">Logo</span>
+                                        <span class="fs-13">'.showOtherLangText('Logo').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" name="currentDate" class="form-check-input headCheckbox"
                                             onClick="hideCheckbox(\'curDate\')"
                                             value="1">
-                                        <span class="fs-13">Current Date</span>
+                                        <span class="fs-13">'.showOtherLangText('Current Date').'</span>
                                     </li>
                                 </ul>
                             </div>                                  
 
                             <div class=" dropdown">
-                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                Summary<i class="fa-solid fa-angle-down px-1"></i>
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('Summary').'
+                                <i class="fa-solid fa-angle-down px-1"></i>
                                 </button>
                                 <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                     <li>
                                         <input type="checkbox" checked="checked" name="checkAll" class="smryChk-All form-check-input"
                                         onClick="hideCheckbox(\'smryDiv\')" value="1">
-                                        <span class="fs-13">Check All</span>
+                                        <span class="fs-13">'.showOtherLangText('Check All').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox"  name="defaultCurrencyAmount" onClick="showHideByClassSummary(\'smryDef_Val\');" class="smryCheckbox summary-default-currency form-check-input" 
                                             '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
                                             value="1">
-                                        <span class="fs-13">Default Currency Amount</span>
+                                        <span class="fs-13">'.showOtherLangText('Default Currency Amount').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassSummary(\'smryOtr_Val\');" name="secondCurrency" class="form-check-input smryCheckbox summary-second-currency" value="1">
-                                        <span class="fs-13">Second Currency Amount</span>
+                                        <span class="fs-13">'.showOtherLangText('Second Currency Amount').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" value="1" onclick="showHideByClassSummary(\'smrySuplr\')"  name="supplierInvoice" class="smryCheckbox summary-payment form-check-input" value="1" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').'>
-                                        <span class="fs-13">Supplier Invoice #</span>
+                                        <span class="fs-13">'.showOtherLangText('Supplier Invoice').' #</span>
                                     </li>
                                     <li>
                                         <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').' value="1">
-                                        <span class="fs-13">Payment #</span>
+                                        <span class="fs-13">'.showOtherLangText('Payment').' #</span>
                                     </li>
                                 </ul>
                             </div>
 
                             <div class=" dropdown">
-                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                Item Table<i class="fa-solid fa-angle-down px-1"></i>
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('
+                                Item Table').'<i class="fa-solid fa-angle-down px-1"></i>
                                 </button>
                                 <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                     <li>
                                         <input type="checkbox" checked="checked" name="checkAll" 
                                             onClick="hideCheckbox(\'itemDiv\')" class="itemChk-All form-check-input" value="1" >
-                                        <span class="fs-13">Check All</span>
+                                        <span class="fs-13">'.showOtherLangText('Check All').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox"  name="photo" onClick="showHideByClassItems(\'photo\');" class="itmTblCheckbox item-name form-check-input" value="1">
-                                        <span class="fs-13">Photo</span>
+                                        <span class="fs-13">'.showOtherLangText('Photo').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked"
                                         onClick="showHideByClassItems(\'itmProd\');" name="itemName" class="itmTblCheckbox item-name form-check-input" value="1">
-                                        <span class="fs-13">Item Name</span>
+                                        <span class="fs-13">'.showOtherLangText('Item Name').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').'
                                         onClick="showHideByClassItems(\'itmCode\');" name="barcode" class="itmTblCheckbox item-barcode form-check-input" value="1">
-                                        <span class="fs-13">Barcode</span>
+                                        <span class="fs-13">'.showOtherLangText('Barcode').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' onClick="showHideByClassItems(\'itmPrc\');" class="itmTblCheckbox item-price form-check-input" name="price" class="form-check-input" value="1">
-                                        <span class="fs-13">Price</span>
+                                        <span class="fs-13">'.showOtherLangText('Price').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassItems(\'otherCurPrice\');" class="form-check-input itmTblCheckbox" name="secondCurrencyPrice" class="form-check-input" value="1">
-                                        <span class="fs-13">Second Currency Price</span>
+                                        <span class="fs-13">'.showOtherLangText('Second Currency Price').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPrcunit\');" name="unit" class="itmTblCheckbox item-unit form-check-input" value="1">
-                                        <span class="fs-13">Unit</span>
+                                        <span class="fs-13">'.showOtherLangText('Unit').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" onClick="showHideByClassItems(\'itmPurqty\');" name="qty" class="itmTblCheckbox item-purchase-qty form-check-input" value="1">
-                                        <span class="fs-13">Qty</span>
+                                        <span class="fs-13">'.showOtherLangText('Qty').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" onClick="showHideByClassItems(\'itmRecqty\');"  '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' name="receivedQty" class="itmTblCheckbox item-receive-qty form-check-input" value="1">
-                                        <span class=" item-receive-qty fs-13">Received Qty</span>
+                                        <span class=" item-receive-qty fs-13">'.showOtherLangText('Received Qty').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' onClick="showHideByClassItems(\'itmTotal\');" name="total" class="itmTblCheckbox item-total item-total form-check-input" value="1">
-                                        <span class="fs-13">Total</span>
+                                        <span class="fs-13">'.showOtherLangText('Total').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' '.( ($ordDet['ordCurId'] == 0) ? 'disabled' : '' ).' onClick="showHideByClassItems(\'otherCurTotal\');" name="secondCurrencyTotal" class="itmTblCheckbox form-check-input" value="1">
-                                        <span class="fs-13">Second Currency Total</span>
+                                        <span class="fs-13">'.showOtherLangText('Second Currency Total').'</span>
                                     </li>
                                     <li>
                                         <input type="checkbox" checked="checked" name="note" onClick="showHideByClassItems(\'itmNote\');" class="itmTblCheckbox item-note form-check-input" value="1">
-                                        <span class="fs-13">Note</span>
+                                        <span class="fs-13">'.showOtherLangText('Note').'</span>
                                     </li>
                                 </ul>
                             </div>
 
                             <div class=" dropdown">
-                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                Task Record<i class="fa-solid fa-angle-down px-1"></i>
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('
+                                Task Record').'<i class="fa-solid fa-angle-down px-1"></i>
                                 </button>
                                 <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                     <li>
                                         <input type="checkbox" name="taskRecord" class="form-check-input" id="taskRecord" '.(($_POST['isSupDet'] == 1) ? '' : 'checked="checked"').' onClick="hideCheckbox(\'taskDiv\')" value="1">
-                                        <span class="fs-13">Task Record</span>
+                                        <span class="fs-13">'.showOtherLangText('Task Record').'</span>
                                     </li>
                                 </ul>
                             </div>
@@ -279,11 +279,11 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                                 <div class="table-cell" style="width: 30%;">
                                     <div class="sub-table w-100" style="display: table;">
                                         <div class="table-row">
-                                            <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1 || $_POST['page']=='order') ? 'display:none;' : '').'"> # Supplier Invoice</span></div><div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div></div>';
+                                            <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1 || $_POST['page']=='order') ? 'display:none;' : '').'">'.showOtherLangText('Supplier Invoice').' # </span></div><div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div></div>';
                             if( $ordDet['paymentId'] > 0)
         {
                              $content .= '<div class="table-row">
-                                            <div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"># Payment</span></div><div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.($ordDet['paymentId'] ? setPaymentId($ordDet['paymentId']) : '').'
+                                            <div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"># '.showOtherLangText('Payment').'</span></div><div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.($ordDet['paymentId'] ? setPaymentId($ordDet['paymentId']) : '').'
                         </span></div></div>';
           }
                              $content .= '</div>
@@ -470,23 +470,23 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                  $content .=     '<div id="itemDiv"><div class="modal-table fs-12 w-100 mt-">
                             <div class="table-row thead">';
                    $content .=    '<div class="table-cell">#</div>';
-                   $content .=    '<div class="table-cell"><span style="display:none;"   class="photo">Photo</span></div>';
-                   $content .=   '<div class="table-cell"><span   class="itmProd">Item</span></div>';
-                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmCode">Barcode</span></div>';
-                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmPrc">Price('.$getDefCurDet['curCode'].')</div>';
+                   $content .=    '<div class="table-cell"><span style="display:none;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
+                   $content .=   '<div class="table-cell"><span   class="itmProd">'.showOtherLangText('Item').'</span></div>';
+                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmCode">'.showOtherLangText('Barcode').'</span></div>';
+                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmPrc">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</div>';
                     if($ordDet['ordCurId'] > 0)
                     {
-                    $content .=   '<div  class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="otherCurPrice">Price('.$curDet['curCode'].')</span></div>';    
+                    $content .=   '<div  class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="otherCurPrice">'.showOtherLangText('Price').'('.$curDet['curCode'].')</span></div>';    
                     }
-                   $content .=   '<div class="table-cell"><span   class="itmPrcunit">Unit</span></div>';
-                   $content .=   '<div class="table-cell"><span   class="itmPurqty">Qty.</span></div>';
-                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmRecqty">Rec Qty.</span></div>';
-                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmTotal">Total('.$getDefCurDet['curCode'].')</span></div>';
+                   $content .=   '<div class="table-cell"><span   class="itmPrcunit">'.showOtherLangText('Unit').'</span></div>';
+                   $content .=   '<div class="table-cell"><span   class="itmPurqty">'.showOtherLangText('Qty').'</span></div>';
+                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmRecqty">'.showOtherLangText('Rec Qty').'</span></div>';
+                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmTotal">'.showOtherLangText('Total').'('.$getDefCurDet['curCode'].')</span></div>';
                     if($ordDet['ordCurId'] > 0)
                    {
-                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="otherCurTotal">Total('.$curDet['curCode'].')</span></div>';
+                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="otherCurTotal">'.showOtherLangText('Total').'('.$curDet['curCode'].')</span></div>';
                    }
-                   $content .=   '<div class="table-cell"><span   class="itmNote">Note</span></div>';
+                   $content .=   '<div class="table-cell"><span   class="itmNote">'.showOtherLangText('Note').'</span></div>';
                    $content .=   '</div>';
                             $i = 0;
                             while($row = mysqli_fetch_array($otherChrgQry) )
@@ -557,15 +557,15 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                      $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">
                            <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
-                                <div class="table-cell">Status</div>
-                                <div class="table-cell">Date</div>
-                                <div class="table-cell">User</div>
-                                <div class="table-cell">Price($)</div>';
+                                <div class="table-cell">'.showOtherLangText('Status').'</div>
+                                <div class="table-cell">'.showOtherLangText('Date').'</div>
+                                <div class="table-cell">'.showOtherLangText('User').'</div>
+                                <div class="table-cell">'.showOtherLangText('Price').'($)</div>';
                          if($curDet['curCode'] != '')
                         {
-                         $content .=  '<div class="table-cell">Price('.$curDet['curCode'].')</div>';
+                         $content .=  '<div class="table-cell">'.showOtherLangText('Price').'('.$curDet['curCode'].')</div>';
                          }
-                         $content .=  '<div class="table-cell">Note</div>
+                         $content .=  '<div class="table-cell">'.showOtherLangText('Note').'</div>
                             </div>';
                        while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
                       {
@@ -591,7 +591,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             
                       $content .=    '</div>
                     </div></div>';
-             
+                
                     echo $content ;
 
 
