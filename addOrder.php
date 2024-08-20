@@ -602,7 +602,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 <div class="smBtn nwNxt-Btn">
 <div class="btnBg">
 
-    <a href="javascript:void(0)" class="btn sub-btn submit_new_order"><span
+    <a href="javascript:void(0)" class="btn sub-btn btn-primary submit_new_order"><span
             class="align-middle">Submit</span> <i
             class="fa-solid fa-angle-right"></i></a>
 </div>
@@ -1348,7 +1348,7 @@ list'); ?></span><br>
 </div>
 <div class="modal-footer">
 <div class="btnBg">
-<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn btn-primary btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
 </div>
 </div>
 </div>

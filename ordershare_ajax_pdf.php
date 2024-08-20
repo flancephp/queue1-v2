@@ -283,7 +283,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             if( $ordDet['paymentId'] > 0)
         {
                              $content .= '<div class="table-row">
-                                            <div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"># Payment</span></div><div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.($ordDet['paymentId'] ? setPaymentId($ordDet['paymentId']) : '').'
+                                            <div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"># Payment11</span></div><div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.($ordDet['paymentId'] ? setPaymentId($ordDet['paymentId']) : '').'
                         </span></div></div>';
           }
                              $content .= '</div>
