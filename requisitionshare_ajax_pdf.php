@@ -459,7 +459,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                               $content .= '<div class="table-cell"><span style="display:none;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmProd">'.showOtherLangText('Item').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmCode">'.showOtherLangText('Barcode').'</span></div>';
-                              $content .= '<div class="table-cell"><span   class="itmPrc">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</span></div>';
+                              $content .= '<div class="table-cell"><span   class="itmPrc">Price('.$getDefCurDet['curCode'].')</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmPrcunit">'.showOtherLangText('C.Unit').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmRecqty">'.showOtherLangText('Req Qty').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmPurqty">'.showOtherLangText('Qty').'</span></div>';
@@ -506,7 +506,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                      while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
                                     {
                                     $content .= '<div class="table-row">
-                                        <div class="table-cell">'.ucfirst($orderJourney['action']).'</div>
+                                        <div class="table-cell">'.showOtherLangText(ucfirst($orderJourney['action'])).'</div>
                                         <div class="table-cell">'.date('d/m/Y
                     h:iA', strtotime($orderJourney['ordDateTime']) ).'</div>
                                         <div class="table-cell">'.ucfirst($orderJourney['name']).'('.ucfirst($orderJourney['designation_name']).')</div>

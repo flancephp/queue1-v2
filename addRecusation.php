@@ -380,7 +380,7 @@ if($_SESSION['deptId'] != '')
                             >
                                 <p>
                                     <?php  
-                                        echo isset($_GET['errorProduct']) ? ' '.'Select atleast one product to make requisition successfully.'.' ' : '';
+                                        echo isset($_GET['errorProduct']) ?' '.showOtherLangText('Select atleast one product to make requisition successfully').' ' : '';
                                         echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
                                         echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
                                         echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
@@ -407,7 +407,7 @@ if($_SESSION['deptId'] != '')
                                     <div class="ord-Box ms-0 position start-0 ps-4" style="top:1rem;">
                                         <div class="ordDate ms-0">
                                             <h4 class="subTittle1">
-                                                <span>Task#:  332974</span>
+                                                <span><?php echo showOtherLangText('Task'); ?>#:  332974</span>
                                                 <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
                                             </h4>
                                         </div>
@@ -1375,7 +1375,7 @@ list'); ?></span><br>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data?') ?> </h1>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data') ?> </h1>
                 </div>
 
                 <div class="modal-footer">

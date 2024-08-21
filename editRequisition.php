@@ -1243,7 +1243,7 @@ $ordRow = mysqli_fetch_array($resultSet);
             </div>
 
             <div class="container pb-4 topOrder">
-                <div class="btnBg mt-3">
+                <div class="btnBg my-3">
                     <a href="javascript:void(0);"
                         class="add_new_items_in_req sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                 </div>

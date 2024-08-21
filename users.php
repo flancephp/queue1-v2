@@ -74,7 +74,7 @@ $result = mysqli_query($con, $sql);
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Users</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Users'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">

@@ -449,7 +449,7 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
 <?php } ?>
 <?php if(isset($_GET['errorProduct'])) { ?>
 <div class="alert alert-danger alert-dismissible fade show lg__left__margin mb-0  mt-3" role="alert">
-<p><?php echo showOtherLangText('Select atleast one product to make order successfully.') ?></p>
+<p><?php echo showOtherLangText('Select atleast one product to make order successfully') ?></p>
 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <?php } ?>
@@ -465,7 +465,7 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
     </div> -->
     <div class="ordDate">
         <h4 class="subTittle1">
-            <span>Task#:  332974</span>
+            <span><?php echo showOtherLangText('Task'); ?>#:  332974</span>
             <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
         </h4>
     </div>
@@ -1301,7 +1301,7 @@ echo '<script>window.location="addOrder.php"</script>';
 </div>
 </div>
 <div id="dialog" style="display: none;">
-<?php echo showOtherLangText('Are you sure to clear data?') ?>
+<?php echo showOtherLangText('Are you sure to clear data') ?>
 </div>
 <div id="dialog1" style="display: none;">
 <?php echo showOtherLangText('Are you sure to delete this charges?') ?>
@@ -1342,8 +1342,7 @@ echo '<script>window.location="addOrder.php"</script>';
 <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
 <div class="feeSave">
 <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-<span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+<span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
 </div>
 </div>
 <div class="modal-footer">
@@ -1427,7 +1426,7 @@ list'); ?></span><br>
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-<h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data?') ?> </h1>
+<h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to clear data') ?> </h1>
 </div>
 
 <div class="modal-footer">

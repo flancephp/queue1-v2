@@ -531,22 +531,22 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                      $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">
                            <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
-                                <div class="table-cell">Status</div>
-                                <div class="table-cell">Date</div>
-                                <div class="table-cell">User</div>
-                                <div class="table-cell">Price($)</div>';
+                                <div class="table-cell">'.showOtherLangText('Status').'</div>
+                                <div class="table-cell">'.showOtherLangText('Date').'</div>
+                                <div class="table-cell">'.showOtherLangText('User').'</div>
+                                <div class="table-cell">'.showOtherLangText('Price').'($)</div>';
                          if($curDet['curCode'] != '')
                         {
-                         $content .=  '<div class="table-cell">Price('.$curDet['curCode'].')</div>';
+                         $content .=  '<div class="table-cell">'.showOtherLangText('Price').'('.$curDet['curCode'].')</div>';
                          }
-                         $content .=  '<div class="table-cell">Note</div>
+                         $content .=  '<div class="table-cell">'.showOtherLangText('Note').'</div>
                             </div>';
                        while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
                       {
 
                       $content .=  '<div class="table-row">
                                 <div class="table-cell">
-        '.ucfirst($orderJourney['action']).'</div>
+        '.showOtherLangText(ucfirst($orderJourney['action'])).'</div>
                                 <div class="table-cell">'.date('d/m/Y
         h:iA', strtotime($orderJourney['ordDateTime']) ).'</div>
                                 <div class="table-cell">

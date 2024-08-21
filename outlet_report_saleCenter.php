@@ -39,7 +39,6 @@ include_once('script/outlet_report_saleCenter_script.php');
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
-    <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
               /* hover effects */
   .reloadBtn a:hover,
@@ -51,9 +50,6 @@ include_once('script/outlet_report_saleCenter_script.php');
   .chkStore a:hover img {
      scale:1.1;
   }
-  .cstBtn-Sale:hover img {
-    filter: brightness(200%) !important;
-}
     
     </style>
 
@@ -499,7 +495,7 @@ $tr = '';
                                                 </div>
                                                 <div class="otltBd-hdNote">
                                                     <p class="mbSale-Head mbHide-Note">Note</p>
-                                                    <input type="text" class="form-control note-itm outletNote" value="'. $note.'"
+                                                    <input type="text" class="form-control note-itm outletNote"  id="note'.$row['pId'].'" onchange="updateNote(this.value,  '.$row['pId'].')" value="'. $note.'"
                                                         placeholder="Note">
                                                 </div>
                                             </div>
@@ -616,7 +612,7 @@ $tr = '';
                             </div>
                         </div>
 
-                        <div class="container px-3 saleSrch-Cst">
+                        <div class="container saleSrch-Cst px-3">
                             <div class="row">
                                 <div class="col-md-6 slCst-Srch gap-2">
                                     <div class="input-group srchBx">
@@ -856,6 +852,27 @@ $.ajax({
     });
 }
 
+function updateNote(notes,  pId) {
+
+    $.ajax({
+            method: "POST",
+            url: "ajax.php",
+
+            data: {
+                actionType: 'updateProductNote',
+                outLetId: '<?php echo $_GET['outLetId'];?>',
+                pId: pId,
+                fromDate: '<?php echo $_GET['fromDate'];?>',
+                notes: notes
+            }
+        })
+        .done(function(note) {
+
+        });
+}
+
+
+
 
 $(document).ready(function() {
 
@@ -877,6 +894,61 @@ $(document).ready(function() {
     });
 });
 
+function myFunction() {
+    var parentDivs = document.getElementsByClassName("outletBody-Task");
+    var input = document.getElementById("search");
+    var filter = input.value.toLowerCase();
+
+   for (var i = 0; i < parentDivs.length; i++) {
+        var parentDiv = parentDivs[i];
+        var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
+        var foundInChild = false;
+
+
+        for (var j = 0; j < childNodes.length; j++) {
+            var childNode = childNodes[j];
+            var text = childNode.textContent || childNode.innerText;
+
+
+            if (text.toLowerCase().includes(filter)) {
+                if (!foundInChild) {
+                    parentDiv.style.display = "block";  
+                }
+                childNode.style.display = "block";  
+                foundInChild = true;
+            } else {
+                childNode.style.display = "none";  // Hide non-matching child
+            }
+        }
+
+        if (!foundInChild) {
+            parentDiv.style.display = "none";
+        }
+    }
+}
+
+function debounce(fn, delay) {
+    let timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, arguments), delay);
+    };
+}
+
+
+document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
+
+		$("#search").on("search", function(evt){
+		if($(this).val().length == 0){
+		resetData();
+		}
+		});
+
+		function resetData() {
+
+		$('#search').val('');
+		myFunction();
+		}
 </script>
 </body>
 

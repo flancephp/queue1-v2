@@ -555,7 +555,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
    while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
         {  
  $content .= '<tr>
-            <td style="padding: 5px;">'.ucfirst($orderJourney['action']).'</td>                          
+            <td style="padding: 5px;">'.showOtherLangText(ucfirst($orderJourney['action'])).'</td>                          
             <td style="padding: 5px;">'.date('d/m/Y
                 h:iA', strtotime($orderJourney['ordDateTime']) ).'</td>
             <td style="padding: 5px;">
