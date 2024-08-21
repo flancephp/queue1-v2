@@ -237,7 +237,7 @@ if (isset($_GET['hotelId'])) {
                                             
 
 
-                                            <?php if($_SESSION['accountId'] == 1){?>
+                                            <?php if($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4){?>
                                                 <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 3.25rem 0.375rem 0.75rem;" aria-label="Default select example">
 
     												<option value="21866" <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>Fun Beach Hotel(21866)</option>
@@ -280,11 +280,11 @@ if (isset($_GET['hotelId'])) {
                                         </div>
 
                                         <div class="d-flex justify-content-end mx-2 align-items-end">
-                                            <a href="javascript:void(0);" class="btn btn-primary update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();">Get data</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();"><?php echo showOtherLangText('Get data'); ?></a>
                                         </div>
 
                                         <div class=" d-flex justify-content-end mx-2 align-items-end">
-                                            <a class="btn btn-primary update w-lg-100 px-2" style="max-width: 165px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('Are you sure to sync the data?');">Sync to report</a>
+                                            <a class="btn btn-primary update w-lg-100 px-2" style="max-width: 165px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('<?php echo showOtherLangText('Are you sure to sync the data?'); ?>');"><?php echo showOtherLangText('Sync to report'); ?></a>
                                         </div>
                                         <!-- Date Box End -->
 
@@ -295,7 +295,7 @@ if (isset($_GET['hotelId'])) {
 
                                 </div>
                                 <div class="d-flex justify-content-end align-items-end">
-                                    <a href="revenueCenterReport.php" class="btn btn-primary update w-lg-100" style="max-width: 140px;">Back</a>
+                                    <a href="revenueCenterReport.php" class="btn btn-primary update w-lg-100" style="max-width: 140px;"><?php echo showOtherLangText('Back'); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -308,7 +308,7 @@ if (isset($_GET['hotelId'])) {
 
                         <div class="data__table">
                             <div class="container nordPrice d-block">
-                                <h2 class="fs-6 fw-bold px-2 px-lg-0">Inventory items
+                                <h2 class="fs-6 fw-bold px-2 px-lg-0"><?php echo showOtherLangText('Inventory items'); ?>
 
                                 </h2>
                             </div>

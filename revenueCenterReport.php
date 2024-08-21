@@ -333,7 +333,7 @@ include_once('script/revenueCenterReport_script.php');
                                                $mainBodyParts  .= '<div class="revtable-Detail d-flex align-items-center itmBody">
                                                     <div class="outsale-Dtl align-items-center">
                                                         <div class="outlet-Name">
-                                                            <a href="outlet_report_saleCenter.php?outLetId=42&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">'. $row['outletName'] .'</a>
+                                                            <a href="outlet_report_saleCenter.php?outLetId='.$row['outLetId'].'&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">'. $row['outletName'] .'</a>
                                                             <div class="chkbx-revCntr">
     
                                                             </div>
