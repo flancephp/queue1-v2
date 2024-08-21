@@ -459,7 +459,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                               $content .= '<div class="table-cell"><span style="display:none;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmProd">'.showOtherLangText('Item').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmCode">'.showOtherLangText('Barcode').'</span></div>';
-                              $content .= '<div class="table-cell"><span   class="itmPrc">Price('.$getDefCurDet['curCode'].')</span></div>';
+                              $content .= '<div class="table-cell"><span   class="itmPrc">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmPrcunit">'.showOtherLangText('C.Unit').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmRecqty">'.showOtherLangText('Req Qty').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmPurqty">'.showOtherLangText('Qty').'</span></div>';

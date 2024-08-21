@@ -88,7 +88,7 @@
                 <section class="usr-info stockUser">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Edit Additional Fee</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Edit Additional Fee'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -100,7 +100,7 @@
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Edit Additional Fee</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit Additional Fee'); ?></h1>
                                 </div>
                             </div>
                             <div class="user d-flex align-items-center">
@@ -138,14 +138,14 @@
                                 <div class="btnBg">
                                     <a href="manageAdditionalFee.php" class="sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" class="btn sub-btn std-btn mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn">Save</span></button>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                 </div>
                             </div>
                         </div>

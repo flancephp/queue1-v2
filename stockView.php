@@ -1283,7 +1283,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                             <?php } ?>
                         <?php } ?>
                         <p style="display: flex; gap:.5rem;" class="mt-3">
-                            <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn">Show</button>&nbsp;
+                            <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn"><?php echo showOtherLangText('Show'); ?></button>&nbsp;
                             <button type="button" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn" onclick="window.location.href='stockView.php?clearshowFieldsStock=1'"><?php echo showOtherLangText('Clear Filter'); ?></button>
                         </p>
                     </form>

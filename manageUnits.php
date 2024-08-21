@@ -312,7 +312,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1">Edit Unit</h1>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Edit Unit'); ?></h1>
                 </div>
                 <div class="modal-body">
                     

@@ -157,7 +157,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
 
                                     <div class=" dropdown">
                                         <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Summary<i class="fa-solid fa-angle-down ps-1"></i>
+                                        '. showOtherLangText('Summary') .'<i class="fa-solid fa-angle-down ps-1"></i>
                                         </button>
                                         <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                             <li>
@@ -342,17 +342,17 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                         <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
                                 <div class="table-cell"><span class="item1 itemSectionPart">#</span></div>
-                                <div class="table-cell"><span class="item2 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Photo</span></div>';
+                                <div class="table-cell"><span class="item2 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Photo') .'</span></div>';
                          $content .=  '<div class="table-cell"><span class="item3 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'.showOtherLangText('Item') .'</span><span class="slashItem itemSectionPart">/</span><span class="itemSectionPart item4" '.(isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('BarCode').'</span></div>';
 
-                        $content .=  '<div class="table-cell"><span class="item5 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Quantity</span></div>';
-                          $content .=  '<div class="table-cell"><span class="item6 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Req Qty</span></div>';
-                           $content .= '<div class="table-cell"><span class="item7 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Avail Qty</span></div>';
-                            $content .= '<div class="table-cell"><span class="item8 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Last Price</span></div>';
-                            $content .= '<div class="table-cell"><span class="item9 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Stock Price</span></div>';
-                            $content .= '<div class="table-cell"><span class="item10 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Stock Value</span></div>';
-                             $content .= '<div class="table-cell"><span class="item11 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Sub Category</span></div>';
-                             $content .= '<div class="table-cell"><span class="item12 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(9, $stockUserFilterFields) ? 'style="display:none;"' : '').'>Supplier</span></div>';
+                        $content .=  '<div class="table-cell"><span class="item5 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Quantity') .'</span></div>';
+                          $content .=  '<div class="table-cell"><span class="item6 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Req Qty') .'</span></div>';
+                           $content .= '<div class="table-cell"><span class="item7 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Avail Qty') .'</span></div>';
+                            $content .= '<div class="table-cell"><span class="item8 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Last Price') .'</span></div>';
+                            $content .= '<div class="table-cell"><span class="item9 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Stock Price') .'</span></div>';
+                            $content .= '<div class="table-cell"><span class="item10 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Stock Value') .'</span></div>';
+                             $content .= '<div class="table-cell"><span class="item11 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Sub Category') .'</span></div>';
+                             $content .= '<div class="table-cell"><span class="item12 itemSectionPart" '.(isset($stockUserFilterFields) && !in_array(9, $stockUserFilterFields) ? 'style="display:none;"' : '').'>'. showOtherLangText('Supplier') .'</span></div>';
                              $content .= '</div>';
                               //get confirmed requsitions total qty of each productd
                             $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);

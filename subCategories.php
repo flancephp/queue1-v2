@@ -333,18 +333,18 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1">Edit Sub Category</h1>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Edit Sub Category'); ?></h1>
                 </div>
                 <div class="modal-body">
                    
                     <input type="hidden" name="id" id="edit-id" value="" /> 
                     <input type="hidden" name="parentId" id="parent-id" value="" />   
-                    <input type="text"required class="form-control" id="editSub-Category" value="" name="editSub-Category" placeholder="Sub Category*">
+                    <input type="text"required class="form-control" id="editSub-Category" value="" name="editSub-Category" placeholder="<?php echo showOtherLangText('Sub Category*'); ?>">
                     
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn">Save</button>
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
                     </div>
                 </div>
             </div>
