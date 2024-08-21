@@ -141,14 +141,14 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                                     </li>
                                     <li>
                                         <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" '.(($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"').' value="1">
-                                        <span class="fs-13">'.showOtherLangText('Payment').' #</span>
+                                        <span class="fs-13">'.showOtherLangText('Payment').'#</span>
                                     </li>
                                 </ul>
                             </div>
 
                             <div class=" dropdown">
-                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('
-                                Item Table').'<i class="fa-solid fa-angle-down px-1"></i>
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('Item Table').'
+                                <i class="fa-solid fa-angle-down px-1"></i>
                                 </button>
                                 <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                     <li>
@@ -206,8 +206,8 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             </div>
 
                             <div class=" dropdown">
-                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('
-                                Task Record').'<i class="fa-solid fa-angle-down px-1"></i>
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">'.showOtherLangText('Task Record').'
+                                <i class="fa-solid fa-angle-down px-1"></i>
                                 </button>
                                 <ul class="dropdown-menu px-3" aria-labelledby="headers">
                                     <li>
@@ -255,40 +255,55 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             </div>
                         </div>';
 
-                 $content .=   '<div class="show-smry-cls remove__parent__padding"><div class="modal-table fs-12 w-100">
-                            <div class="table-row header-row">
-                                <div class="table-cell medium">'.showOtherLangText('Task No.').'</div>
-                                <div class="table-cell medium">'.showOtherLangText('Supplier').'</div>
-                                <div style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'" class="amountSections smryHead sumBreakupAmtText table-cell medium">'.showOtherLangText('Total').'</div>
-                            </div>
-                            <div class="table-row thead">
-                                <div class="table-cell">'.$ordDet['ordNumber'].'</div>
-                                <div class="table-cell">'.$suppliers.'</div>
-                                <div class="table-cell">
-                                    <div class="table-row">
-                                        <div class="table-cell py-0" style="width: 20%;"></div>
-                                        <div class="table-cell py-0" style="width: 33%;"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
-                                        <div class="table-cell py-0" style="width: 30%;"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            ';
-
-
-                            $content .= '<div  class="SummaryItems table-row">
-                                <div class="table-cell" style="width: 30%;">
-                                    <div class="sub-table w-100" style="display: table;">
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1 || $_POST['page']=='order') ? 'display:none;' : '').'">'.showOtherLangText('Supplier Invoice').' # </span></div><div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div></div>';
-                            if( $ordDet['paymentId'] > 0)
+                 $content .=   '
+                 <div class="show-smry-cls remove__parent__padding">
+    <div class="modal-table fs-12 w-100">
+        <div class="table-row header-row">
+            <div class="table-cell medium">'.showOtherLangText('Task No.').'</div>
+            <div class="table-cell medium">'.showOtherLangText('Supplier').'</div>
+            <div style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'" class="amountSections smryHead sumBreakupAmtText table-cell medium">'.showOtherLangText('Total').'</div>
+        </div>
+        <div class="table-row thead">
+            <div class="table-cell">'.$ordDet['ordNumber'].'</div>
+            <div class="table-cell">'.$suppliers.'</div>
+            <div class="table-cell">
+                <div class="table-row">
+                    <div class="table-cell py-0 width-20"></div>
+                    <div class="table-cell py-0 width-33"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
+                    <div class="table-cell py-0 width-30"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="SummaryItems table-row">
+            <div class="table-cell width-30">
+                <div class="sub-table w-100">
+                    <div class="table-row">
+                        <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1 || $_POST['page']=='order') ? 'display:none;' : '').'"> # Supplier Invoice</span></div>
+                        <div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div>
+                    </div>';
+                  if( $ordDet['paymentId'] > 0)
         {
-                             $content .= '<div class="table-row">
-                                            <div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"># '.showOtherLangText('Payment').'</span></div><div class="table-cell"><span  class="smryPayment smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.($ordDet['paymentId'] ? setPaymentId($ordDet['paymentId']) : '').'
-                        </span></div></div>';
-          }
-                             $content .= '</div>
-                                </div>';
-           $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
+                   $content .=   '<div class="table-row">
+                        <div class="table-cell"><span class="smryPayment smryHead"># Payment11</span></div>
+                        <div class="table-cell"><span class="smryPayment smryHead">001539</span></div>
+                       </div>';
+        }
+                 $content .=  '</div>
+            </div>
+           <div class="table-cell width-35">
+                <div class="sub-table w-100">
+                    <div class="table-row">
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead">&nbsp;</span></div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead">&nbsp;</span></div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead">&nbsp;</span></div>
+                    </div>
+                </div>
+            </div>';
+          $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                              $resultSet = mysqli_query($con, $sqlSet);
                              $chargeRow = mysqli_fetch_array($resultSet);   
                              $chargePrice=$chargeRow['sum1'];
@@ -305,25 +320,20 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                              { 
 
                                 $showGrandTotal = true;
-                 $content .= '<div class="table-cell" style="width: 35%;"></div>
-                                <div class="table-cell" style="width: 35%;">
-                                <div class="sub-table w-100" style="display: table;">
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherLangText('Sub Total').'</span></div>';
-                                    $content .=  '<div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'
+        $content .= '<div class="table-cell width-35">
+                <div class="sub-table w-100">
+                    <div class="table-row">
+                        <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherLangText('Sub Total').'</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'
                                 </span></div>';
-                                    if($ordDet['ordCurId'] > 0)
-                            {
-                                    $content .= '<div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($chargePriceOther, $ordDet['ordCurId']).'
+         if($ordDet['ordCurId'] > 0)
+         {
+         $content .= '<div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($chargePriceOther, $ordDet['ordCurId']).'
                                 </span></div>';
-                            }
-                                    $content .=    '</div>
-                                    </div>
-                                </div>
-                               </div>';
-                           }
-
-             $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+         }
+         $content .= '</div>';
+        }
+         $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
                      INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
                      WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
 
@@ -334,27 +344,14 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
              $fixedChargesOther = 0;
              while($row = mysqli_fetch_array($ordQry))//show here order level charges
              {
-                     $fixedCharges += $row['price'];
-                     $fixedChargesOther += $row['curAmt'];
-                          $content .=  '<div class="SummaryItems table-row">
-                                <div class="table-cell" style="width: 30%;">
-                                    
-                                </div>
-
-                                <div class="table-cell" style="width: 35%;"></div>
-                                <div class="table-cell" style="width: 35%;">
-                                <div class="sub-table w-100" style="display: table;">
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
-                                            <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'
+        $content .= '<div class="table-row">
+                        <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'
                                     </span></div>
-                                            <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($row['curAmt'], $ordDet['ordCurId']).'
+                        <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($row['curAmt'], $ordDet['ordCurId']).'
                                 </span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                               </div>';
-                    }
+                      </div>';
+              }
 
                      $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
                      INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
@@ -372,26 +369,16 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
 
                  $calDiscount = ($chargePrice*$row['price']/100);
                  $calDiscountOther = ($chargePriceOther*$row['price']/100);
-
-                           $content .=    '<div class="SummaryItems table-row">
-                                <div class="table-cell" style="width: 30%;">
-                                    
-                                </div>
-
-                                <div class="table-cell" style="width: 35%;"></div>
-                                <div class="table-cell" style="width: 35%;">
-                                <div class="sub-table w-100" style="display: table;">
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
-                                            <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'
+                 $content .= '<div class="table-row">
+                        <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'
                  </span></div>
-                                            <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($calDiscountOther, $ordDet['ordCurId']).'
+                 <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($calDiscountOther, $ordDet['ordCurId']).'
                  </span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                               </div>';
-                           }
+                      </div>';
+
+
+              }
 
                               $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
                  $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
@@ -411,26 +398,15 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
 
                  $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
                  $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
-
-                                 $content .=    '<div class="SummaryItems table-row">
-                                <div class="table-cell" style="width: 30%;">
-                                    
-                                </div>
-
-                                <div class="table-cell" style="width: 35%;"></div>
-                                <div class="table-cell" style="width: 35%;">
-                                <div class="sub-table w-100" style="display: table;">
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
-                                            <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'
+                 $content .= '<div class="table-row">
+                        <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$row['feeName'].'</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'
                     </span></div>
-                                            <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($calTaxOther, $ordDet['ordCurId']).'
+                    <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($calTaxOther, $ordDet['ordCurId']).'
                     </span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                               </div>';
-            }
+                      </div>';
+ 
+         }
 
              $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
                   $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
@@ -441,26 +417,24 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
              
                  if($showGrandTotal)
                  {
-                                 $content .=    '<div class="SummaryItems table-row">
-                                <div class="table-cell" style="width: 30%;">
-                                    
-                                </div>
+         $content .= '<div class="table-row">
+                        <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherLangText('Grand Total').'</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'
+                    </span></div> <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($netTotalAmtOther, $ordDet['ordCurId']).'
+                    </span></div>';
+                 }
+          $content .= '</div>
 
-                                <div class="table-cell" style="width: 35%;"></div>
-                                <div class="table-cell" style="width: 35%;">
-                                <div class="sub-table w-100" style="display: table;">
-                                        <div class="table-row">
-                                            <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherLangText('Grand Total').'</span></div>
-                                            <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'
-                    </span></div>
-                                            <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherCur($netTotalAmtOther, $ordDet['ordCurId']).'
-                    </span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                               </div>';
-                      }
-                          $content .= '</div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>';
+
+
+                        $content .= '';
+                      
+                        $content .= '</div>
                                         </div>
                                     </div>
                                 </div></div>';
@@ -480,7 +454,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                     }
                    $content .=   '<div class="table-cell"><span   class="itmPrcunit">'.showOtherLangText('Unit').'</span></div>';
                    $content .=   '<div class="table-cell"><span   class="itmPurqty">'.showOtherLangText('Qty').'</span></div>';
-                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmRecqty">'.showOtherLangText('Rec Qty').'</span></div>';
+                   $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmRecqty">'.showOtherLangText('Rec Qty.').'</span></div>';
                    $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmTotal">'.showOtherLangText('Total').'('.$getDefCurDet['curCode'].')</span></div>';
                     if($ordDet['ordCurId'] > 0)
                    {
@@ -557,15 +531,15 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                      $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">
                            <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
-                                <div class="table-cell">'.showOtherLangText('Status').'</div>
-                                <div class="table-cell">'.showOtherLangText('Date').'</div>
-                                <div class="table-cell">'.showOtherLangText('User').'</div>
-                                <div class="table-cell">'.showOtherLangText('Price').'($)</div>';
+                                <div class="table-cell">Status</div>
+                                <div class="table-cell">Date</div>
+                                <div class="table-cell">User</div>
+                                <div class="table-cell">Price($)</div>';
                          if($curDet['curCode'] != '')
                         {
-                         $content .=  '<div class="table-cell">'.showOtherLangText('Price').'('.$curDet['curCode'].')</div>';
+                         $content .=  '<div class="table-cell">Price('.$curDet['curCode'].')</div>';
                          }
-                         $content .=  '<div class="table-cell">'.showOtherLangText('Note').'</div>
+                         $content .=  '<div class="table-cell">Note</div>
                             </div>';
                        while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
                       {
@@ -591,7 +565,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             
                       $content .=    '</div>
                     </div></div>';
-                
+             
                     echo $content ;
 
 

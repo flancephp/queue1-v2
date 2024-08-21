@@ -20384,3 +20384,15 @@ html[dir=rtl] .user-info {
   overflow-y: scroll;
 }
 .ui-datepicker { z-index: 999 !important; }
+
+
+
+/* sudarshan changes 17-8-24 */
+
+.mbFeature .ordFeature {
+  margin-top: 0px !important;
+}
+
+html[dir=rtl] .sub-btn {
+  padding: .625rem 0.625rem;
+}

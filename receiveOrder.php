@@ -491,7 +491,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                         <div class="stcPart position-relative">
                             <form action="receiveOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post" name="upload_form" id="upload_form" enctype="multipart/form-data">
                             <div class="container nwOrder-Div rcvOrder">
-                                <div class="row g-3">
+                                <div class="row g-3 justify-content-between">
                                     <div class="sltSupp nwOrd-Num">
                                         <div class="ord-Box update position start-0 ms-0" style="top:1rem;">
                                             <div class="ordNum m-0">
@@ -571,10 +571,10 @@ $otherChrgQry=mysqli_query($con, $sql);
 
                                     <div class="col-md-2 text-end smBtn nwNxt-Btn">
                                         <div class="btnBg">
-                                            <a href="javascript:void(0)" class="btn sub-btn std-btn receive-btn"><?php echo showOtherLangText('Receive');?></a>
+                                            <a href="javascript:void(0)" class="btn btn-primary w-100 receive-btn"><?php echo showOtherLangText('Receive');?></a>
                                         </div>
                                         <div class="btnBg mt-3">
-                                            <a href="runningOrders.php" class="btn sub-btn std-btn"><?php echo showOtherLangText('Back');?></a>
+                                            <a href="runningOrders.php" class="btn btn-primary w-100"><?php echo showOtherLangText('Back');?></a>
                                         </div>
                                         <div class="fetBtn">
                                             <a href="javascript:void(0)">

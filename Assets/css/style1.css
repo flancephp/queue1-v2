@@ -9,9 +9,8 @@ html[dir=rtl]   .dropdown-menu.date_type {
 html[dir=rtl]   .form-control {
   direction: rtl;
 }
-html[dir=rtl]   .ordDetail .nwOrder-Div {
-  padding: 16px 24px 0 !important;
-}
+
+
 html[dir=rtl]   .nav-col {
   padding-right: 0px !important;
   padding-left: 50px !important;
@@ -111,28 +110,28 @@ html[dir=rtl] .ordDetail .mbFeature > div {
   margin-left: 0 !important;
   margin-right: auto !important;
 }
-html[dir=rtl] .ordDetail .nwOrd-Num {
+/* html[dir=rtl] .ordDetail .nwOrd-Num {
   padding-right: 0 !important;
 
-}
+} */
 
 /* add order req */
 
-html[dir=rtl] .topOrder {
-  padding: 8px 27px 0 49px;
-} 
 
 html[dir=rtl] .topOrder div .btnBg {
   text-align: end !important;
 }
 
-html[dir=rtl] .erdOrder .ord-Box ,
-html[dir=rtl] .nwOrder-Div .ord-Box {
-  border-left: 1px solid #94ebc6;
-}
+
 html[dir=rtl] .stcPart .cntTable .ord-Box,
 html[dir=rtl] .cntTable .ord-Box {
   border-left: 1px solid #f05d53;;
+}
+
+html[dir=rtl] .erdOrder .ord-Box ,
+html[dir=rtl] .nwOrder-Div .ord-Box,
+html[dir=rtl] .pl-g.pl-g {
+  border-left: 1px solid #94ebc6 !important;
 }
 
 html[dir=rtl] .mbFeature .ordFeature:before {
@@ -162,13 +161,52 @@ html[dir=rtl] .grand-total th:last-child {
 }
 
 
+
 /* lightbox tabel  */
-.modal .show-smry-cls .table-cell {
+/* .modal .show-smry-cls .table-cell {
   vertical-align: middle;
-}
+} */
 
 /* user ui */
 html[dir=rtl] .user-info {
   margin-left: 0;
   margin-right: auto;
+}
+
+
+html[dir=rtl] .fa-solid.fa-angle-right {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+
+
+html[dir=rtl] .sltSupp.nwOrd-Num.position .ord-Box .subTittle1 {
+   padding: 0 !important;
+}
+
+html[dir=rtl] .ordNum .subTittle1 {
+  padding: 0 !important;
+}
+html[dir=rtl] .stcPart .reqInfo,
+html[dir=rtl] .ordInfo {
+  padding: 0 50px 0 65px ;
+}
+
+.topOrder {
+  padding: 8px 24px 0 24px !important;
+}
+
+
+html[dir=rtl] .rcvOrder {
+padding: 1rem 24px 0 24px;
+}
+
+html[dir=rtl] .rcvOrder .smBtn {
+  padding: 0 23px 0 8px !important;
+  width: 17.5%;
+}
+html[dir=rtl] .rcvOrder .sltSupp {
+  flex: 0 0 auto;
+  width: 20%;
 }

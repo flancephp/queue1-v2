@@ -831,7 +831,7 @@ function loaderFrm() {
     document.getElementById('frm').submit();
     return true;
 }
-<<<<<<< HEAD
+
 
 function checkItemtype(itemName) {
 
@@ -877,63 +877,6 @@ $(document).ready(function() {
     });
 });
 
-=======
-function myFunction() {
-    var parentDivs = document.getElementsByClassName("outletBody-Task");
-    var input = document.getElementById("search");
-    var filter = input.value.toLowerCase();
-    
-   for (var i = 0; i < parentDivs.length; i++) {
-        var parentDiv = parentDivs[i];
-        var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
-        var foundInChild = false;
-
-       
-        for (var j = 0; j < childNodes.length; j++) {
-            var childNode = childNodes[j];
-            var text = childNode.textContent || childNode.innerText;
-
-           
-            if (text.toLowerCase().includes(filter)) {
-                if (!foundInChild) {
-                    parentDiv.style.display = "block";  
-                }
-                childNode.style.display = "block";  
-                foundInChild = true;
-            } else {
-                childNode.style.display = "none";  // Hide non-matching child
-            }
-        }
-
-        if (!foundInChild) {
-            parentDiv.style.display = "none";
-        }
-    }
-}
-
-function debounce(fn, delay) {
-    let timeout;
-    return function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => fn.apply(this, arguments), delay);
-    };
-}
-
-
-document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
-
-		$("#search").on("search", function(evt){
-		if($(this).val().length == 0){
-		resetData();
-		}
-		});
-
-		function resetData() {
-
-		$('#search').val('');
-		myFunction();
-		}
->>>>>>> e10e4e8192efad0dca15e91d04bab6ce4e9891ae
 </script>
 </body>
 
