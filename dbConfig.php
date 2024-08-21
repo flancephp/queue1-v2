@@ -3,6 +3,7 @@ session_start();
 //error_reporting(E_ALL);
 ini_set('display_errors', '0');
 //$con = new mysqli("localhost", "root", "", "queue1live_db");
+//$con = new mysqli("localhost", "queueone_invDev", "?uHZ%dsQXo8&", "queueone_invDev");
 $con = new mysqli("localhost", "queueone_devQA", "u)w(oN0r_a%O", "queueone_devQA");
 
 if ($con->connect_errno) {
@@ -10,7 +11,8 @@ if ($con->connect_errno) {
 }
 
 //$siteUrl = "http://localhost/queue1/development/";
-$siteUrl = "https://queue1.net/qa1/";
+$siteUrl = "https://queue1.net/newdesign/";
+$mobileSiteUrl = "https://queue1.net/newdesign/mobileNew/";
 //$domainUrl = "https://queue1.com/devsite/";
 //error_reporting(1);
 date_default_timezone_set('Africa/Dar_es_Salaam');

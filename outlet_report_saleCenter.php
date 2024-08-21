@@ -495,7 +495,7 @@ $tr = '';
                                                 </div>
                                                 <div class="otltBd-hdNote">
                                                     <p class="mbSale-Head mbHide-Note">Note</p>
-                                                    <input type="text" class="form-control note-itm outletNote" value="'. $note.'"
+                                                    <input type="text" class="form-control note-itm outletNote"  id="note'.$row['pId'].'" onchange="updateNote(this.value,  '.$row['pId'].')" value="'. $note.'"
                                                         placeholder="Note">
                                                 </div>
                                             </div>
@@ -612,9 +612,9 @@ $tr = '';
                             </div>
                         </div>
 
-                        <div class="container saleSrch-Cst">
+                        <div class="container saleSrch-Cst px-3">
                             <div class="row">
-                                <div class="col-md-6 slCst-Srch">
+                                <div class="col-md-6 slCst-Srch gap-2">
                                     <div class="input-group srchBx">
                                         <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search"
                                             aria-label="Search">
@@ -852,6 +852,27 @@ $.ajax({
     });
 }
 
+function updateNote(notes,  pId) {
+
+    $.ajax({
+            method: "POST",
+            url: "ajax.php",
+
+            data: {
+                actionType: 'updateProductNote',
+                outLetId: '<?php echo $_GET['outLetId'];?>',
+                pId: pId,
+                fromDate: '<?php echo $_GET['fromDate'];?>',
+                notes: notes
+            }
+        })
+        .done(function(note) {
+
+        });
+}
+
+
+
 
 $(document).ready(function() {
 
@@ -873,6 +894,61 @@ $(document).ready(function() {
     });
 });
 
+function myFunction() {
+    var parentDivs = document.getElementsByClassName("outletBody-Task");
+    var input = document.getElementById("search");
+    var filter = input.value.toLowerCase();
+
+   for (var i = 0; i < parentDivs.length; i++) {
+        var parentDiv = parentDivs[i];
+        var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
+        var foundInChild = false;
+
+
+        for (var j = 0; j < childNodes.length; j++) {
+            var childNode = childNodes[j];
+            var text = childNode.textContent || childNode.innerText;
+
+
+            if (text.toLowerCase().includes(filter)) {
+                if (!foundInChild) {
+                    parentDiv.style.display = "block";  
+                }
+                childNode.style.display = "block";  
+                foundInChild = true;
+            } else {
+                childNode.style.display = "none";  // Hide non-matching child
+            }
+        }
+
+        if (!foundInChild) {
+            parentDiv.style.display = "none";
+        }
+    }
+}
+
+function debounce(fn, delay) {
+    let timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, arguments), delay);
+    };
+}
+
+
+document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
+
+		$("#search").on("search", function(evt){
+		if($(this).val().length == 0){
+		resetData();
+		}
+		});
+
+		function resetData() {
+
+		$('#search').val('');
+		myFunction();
+		}
 </script>
 </body>
 

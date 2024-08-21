@@ -1,5 +1,39 @@
 <?php include('inc/dbConfig.php'); //connection details
 
+
+//Item note starts here
+if( $_POST['actionType'] == 'updateProductNote')
+{
+
+		$sql = "SELECT * from tbl_revoutletnotes WHERE outLetId = '".$_POST['outLetId']."'  AND account_id = '".$_SESSION['accountId']."'  AND pId = '".$_POST['pId']."' AND noteDate = '".date('Y-m-d', strtotime($_POST['fromDate']) )."' ";
+		$qry = mysqli_query($con, $sql);
+		$res = mysqli_fetch_array($qry);
+	
+		if($res)
+		{
+			$qry = " UPDATE tbl_revoutletnotes SET  
+				notes = '".$_POST['notes']."'
+				WHERE  outLetId = '".$_POST['outLetId']."' 
+				AND account_id = '".$_SESSION['accountId']."'
+				AND pId = '".$_POST['pId']."' AND noteDate = '".date('Y-m-d', strtotime($_POST['fromDate']) )."'  ";
+			mysqli_query($con, $qry);
+			
+		}
+		else
+		{
+		 	$qry = " INSERT INTO tbl_revoutletnotes SET  
+				outLetId = '".$_POST['outLetId']."',
+				pId = '".$_POST['pId']."',
+				noteDate = '".date('Y-m-d', strtotime($_POST['fromDate']) )."',
+				notes = '".$_POST['notes']."',
+				account_id = '".$_SESSION['accountId']."' ";
+			mysqli_query($con, $qry);
+
+		}
+
+}
+//end item notes
+
 if( isset($_POST['pId']) && $_POST['pId'] > 0  && $_POST['deptId'] > 0 && $_SESSION['id'] > 0 )
 {
 
