@@ -80,7 +80,7 @@ $result = mysqli_query($con, $sql);
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Manage Service Fee</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Manage Service Fee'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">

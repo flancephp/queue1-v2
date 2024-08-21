@@ -525,7 +525,7 @@ if($_SESSION['deptId'] != '')
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn sub-btn form-submit-btn"><span class="align-middle">Submit</span>
+                                        <a class="btn sub-btn btn-primary form-submit-btn"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
                                             <i class="fa-solid fa-angle-right"></i></a>
                                     </div>
                                     <div class="fetBtn">
@@ -540,7 +540,7 @@ if($_SESSION['deptId'] != '')
                         <div class="container topOrder newReq">
 
                             <div class="row">
-                                <div class="sltSupp ps-0">
+                                <div class="sltSupp">
                                     <!-- Select Supplier  -->
                                     <!-- <div class="btn-group glb-btn">
                                         <button type="button"
@@ -888,7 +888,7 @@ if($_SESSION['deptId'] != '')
                                     <div class="requi-Hide">
                                         <div class="reqClm-Note tb-bdy">
                                             <div class="mb-ReqCode"></div>
-                                            <input type="text" class="form-control note-itm" placeholder="Note"
+                                            <input type="text" class="form-control note-itm" placeholder="<?php echo showOtherLangText('Note'); ?>"
                                                 autocomplete="off" name="itemNotes[<?php echo $row['id'];?>]">
                                         </div>
                                     </div>
@@ -1043,7 +1043,7 @@ if($_SESSION['deptId'] != '')
                                             <div class="mb-ReqCode"></div>
                                             <input type="text" name="notes[<?php echo $row['id'];?>]"
                                                 id="notes<?php echo $row['id'];?>" class="form-control note-itm"
-                                                placeholder="Note">
+                                                placeholder="<?php echo showOtherLangText('Note'); ?>">
                                         </div>
                                     </div>
                                 </div>

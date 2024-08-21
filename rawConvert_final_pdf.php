@@ -52,9 +52,11 @@ $content = '
             text-align:left;
         }
     </style>
-   </head>
-   <body style="font-family: \'Inter\', sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">
-      <table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
+   </head>';
+   $content .= '<body style="' . ($getLangType == '1' 
+    ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;' 
+    : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
+   $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
         <tr>
            <td>
             <h4 style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859;     font-size: 23px;">'.showOtherLangText('Raw Convert Item Details').'</h4>

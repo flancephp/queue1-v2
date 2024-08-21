@@ -103,14 +103,14 @@ $det = mysqli_fetch_array($res);
                                 <div class="btnBg">
                                     <a href="manageAdditionalFee.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn">Save</span></button>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                 </div>
                             </div>
                         </div>

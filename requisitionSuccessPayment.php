@@ -161,7 +161,8 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+
 
 <head>
     <meta charset="UTF-8">
@@ -176,6 +177,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
 
 
@@ -695,7 +697,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                     <div class="row table-responsive">
                                         <h6 class="bill-head">
                                             <img src="https://queue1.net/qa1/uploads/hand.png" alt="Payment-hand">
-                                            Payment
+                                            <?php echo showOtherLangText('Payment'); ?>
                                         </h6>
                                     </div>
 

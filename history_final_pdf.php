@@ -342,6 +342,7 @@ $content = '<!DOCTYPE html>
       <link rel="preconnect" href="https://fonts.googleapis.com/">
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet">
       <link href="./PDF Design_files/css2" rel="stylesheet">
      <style>
         @page { margin: 10px 10px; }
@@ -349,9 +350,11 @@ $content = '<!DOCTYPE html>
             text-align:left;
         }
     </style>
-   </head>
-   <body style="font-family: \'Inter\', sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">
-      <table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
+   </head>';
+   $content .= '<body style="' . ($getLangType == '1' 
+    ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;' 
+    : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
+  $content .= '<table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
          <tbody>';
            if($_GET['address'] == 1 || $_GET['logo'] == 1)
             {
@@ -362,7 +365,7 @@ $content = '<!DOCTYPE html>
             $content .= '<table style="width: 100%; border-spacing: 0;">
                      <tbody>
                         <tr>
-                           <td style="font-size: 14px; line-height: 16px; font-weight: 600;">'.$clientDetRow['accountName'].'</td>
+                           <td>'.$clientDetRow['accountName'].'</td>
                         </tr>
                      </tbody>
                      </table>';
@@ -403,7 +406,7 @@ $content = '<!DOCTYPE html>
             <td style="width: 50%; border-block: 1px solid #d2d2d2; padding-block: 20px;">
                 <div style="display: flex; align-items: center;">
                     <div style="flex: 1;">
-                        <h6 style="font-weight: 600; font-size: 16px; margin: 0;">'.showOtherLangText('History Report').'</h6>
+                        <h6 style="font-weight: bold; font-size: 15px; margin: 0;">'.showOtherLangText('History Report').'</h6>
                     </div>
                     <div style="flex: 1; text-align: right; font-size: 15px;">
                         <small>'.showOtherLangText('From').'</small> '.$fromDate.'<small> '.showOtherLangText('To').'</small> '.$toDate.'
@@ -826,7 +829,7 @@ $content = '<!DOCTYPE html>
                         $variancesPosTotAmt = $variances['variancesPosTot'];
                         $variancesNevTotAmt = $variances['variancesNevTot'];
 
-                        $ordType = '<span style="font-weight: 600;">'.showOtherLangText('Stock Take').'</span>';
+                        $ordType = '<span style="font-weight: bold;">'.showOtherLangText('Stock Take').'</span>';
                     }
                     else
                     {
@@ -834,18 +837,18 @@ $content = '<!DOCTYPE html>
 
                         $variancesTotAmt = $variances['variancesTot'];
 
-                        $ordType = '<span style="font-weight: 600;">'.showOtherLangText('Raw Item Convert').'</span>';
+                        $ordType = '<span style="font-weight: bold;">'.showOtherLangText('Raw Item Convert').'</span>';
                     }
 
                     if ($_GET['itemDefCurrValue'] == 1) 
                     {
                         if ($orderRow['ordAmt'] > 0) 
                         {
-                            $total = '<span style="font-weight: 600;" class="itemTable-def-curr">'.getPrice($orderRow['ordAmt']) .' '.$getDefCurDet['curCode'].'</span>';
+                            $total = '<span style="font-weight: bold;" class="itemTable-def-curr">'.getPrice($orderRow['ordAmt']) .' '.$getDefCurDet['curCode'].'</span>';
                         }
                         else
                         {
-                            $total = '<span style="font-weight: 600;" class="itemTable-def-curr" style="color:green">'.getPrice($variancesPosTotAmt).' '.$getDefCurDet['curCode'].'</span>'.'<br>'.'<span style="font-weight: bold;color:#f00" class="itemTable-def-curr">-'.getPrice($variancesNevTotAmt).' '.$getDefCurDet['curCode'].'</span>';
+                            $total = '<span style="font-weight: bold;" class="itemTable-def-curr" style="color:green">'.getPrice($variancesPosTotAmt).' '.$getDefCurDet['curCode'].'</span>'.'<br>'.'<span style="font-weight: bold;color:#f00" class="itemTable-def-curr">-'.getPrice($variancesNevTotAmt).' '.$getDefCurDet['curCode'].'</span>';
                         }
                     }
                     

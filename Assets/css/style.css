@@ -20367,6 +20367,11 @@ html { font-size: 100%; }
   font-weight: 400;
 }
 .user-info { max-width: 240px;margin-left: auto; }
+/* user ui */
+html[dir=rtl] .user-info {
+  margin-left: 0;
+  margin-right: auto;
+}
 @media(max-width:575px){
   .user-info { line-height: 1.3; }
   .user-info .col{ border-right: 1px solid #aeaeae;padding-right: .45rem; }
@@ -20379,3 +20384,15 @@ html { font-size: 100%; }
   overflow-y: scroll;
 }
 .ui-datepicker { z-index: 999 !important; }
+
+
+
+/* sudarshan changes 17-8-24 */
+
+.mbFeature .ordFeature {
+  margin-top: 0px !important;
+}
+
+html[dir=rtl] .sub-btn {
+  padding: .625rem 0.625rem;
+}

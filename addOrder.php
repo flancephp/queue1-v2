@@ -455,11 +455,11 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
 <?php } ?>
 </div>
 <div class="stcPart position-relative">
-<div class="container nwOrder-Div">
+<div class="container  pt-3  cntTable">
 <form action="" id="frm" class="frm" name="frm" method="post" autocomplete="off">
 <div class="row">
 <div class="sltSupp nwOrd-Num">
-<div class="ord-Box ms-0 position start-0 ps-4" style="top:1rem;">
+<div class="ord-Box ms-0 position start-0 ps-4 pl-g" style="top:1rem;">
     <!-- <div class="ordNum">
         <h4 class="subTittle1"><span>Order#:</span> <span>332974</span></h4>
     </div> -->
@@ -602,8 +602,8 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 <div class="smBtn nwNxt-Btn">
 <div class="btnBg">
 
-    <a href="javascript:void(0)" class="btn sub-btn submit_new_order"><span
-            class="align-middle">Submit</span> <i
+    <a href="javascript:void(0)" class="btn sub-btn btn-primary submit_new_order"><span
+            class="align-middle"><?php echo showOtherLangText('Submit'); ?></span> <i
             class="fa-solid fa-angle-right"></i></a>
 </div>
 <div class="fetBtn">
@@ -618,7 +618,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 
 <div class="container topOrder">
 <div class="row">
-<div class="sltSupp ps-0">
+<div class="sltSupp">
 <!-- Select Supplier -->
 
 
@@ -650,7 +650,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 
 <input type="hidden" name="placeOrder"  value="<?php echo showOtherLangText('Submit'); ?>" />
 <div class="input-group srchBx">
-    <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search"
+    <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="<?php echo showOtherLangText('Search'); ?>" name="search" id="search"
         aria-label="Search">
     <div class="input-group-append">
         <button class="btn" type="button">
@@ -1068,7 +1068,7 @@ $totalCustomCharges += $row['amt'];
                 <div class="mb-brCode"></div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes" 
-                placeholder="Note"
+                placeholder="<?php echo showOtherLangText('Note'); ?>"
                 name="itemNotes[<?php echo $row['id'];?>]" value="">
             </div>
         </div>
@@ -1210,7 +1210,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
                 <div class="mb-brCode d-block"></div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
-                placeholder="Note"
+                placeholder="<?php echo showOtherLangText('Note'); ?>"
                 name="notes[<?php echo $row['id'];?>]" value="">
             </div>
         </div>
@@ -1348,7 +1348,7 @@ list'); ?></span><br>
 </div>
 <div class="modal-footer">
 <div class="btnBg">
-<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+<button type="submit" id="feesave_add" name="feesave_add" class="sub-btn btn-primary btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
 </div>
 </div>
 </div>

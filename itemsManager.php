@@ -707,7 +707,7 @@ $deprtOptions .= '</ul>';
                                         </span>
                                     </div>
                                     <div class="tb-head d-flex align-items-center unit-MngClm">
-                                        <p class="untPf"><?php echo showOtherLangText('Unit P/F/<br> Unit C.') ?> </p>
+                                        <p class="untPf"><?php echo showOtherLangText('Unit.P/F/Unit.C') ?> </p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
@@ -760,8 +760,7 @@ $deprtOptions .= '</ul>';
                                 <div class="align-items-center prcItm-MngClm">
                                     <div class="tb-head lastItm-PrcCol">
                                         <div class="d-flex align-items-center">
-                                            <p><?php echo showOtherLangText('Last <br>
-                                                Price') ?></p>
+                                            <p><?php echo showOtherLangText('Last Price'); ?></p>
                                             <span class="dblArrow">
                                                 <a href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-up"></i></a>
@@ -772,8 +771,7 @@ $deprtOptions .= '</ul>';
                                     </div>
                                     <div class="tb-head stockItm-PrcCol">
                                         <div class="d-flex align-items-center">
-                                            <p><?php echo showOtherLangText('Stock <br>
-                                                Price') ?></p>
+                                            <p><?php echo showOtherLangText('Stock Price') ?></p>
                                             <span class="dblArrow">
                                                 <a href="javascript:void(0)" class="d-block aglStock"><i
                                                         class="fa-solid fa-angle-up"></i></a>
@@ -861,7 +859,7 @@ $deprtOptions .= '</ul>';
                                             </p>
                                         </div>
                                         <div class="tb-bdy unit-MngClm bdyCol-Itm">
-                                            <p><span class="mb-UnitItm">Unit P/F/C</span>
+                                            <p><span class="mb-UnitItm"><?php echo showOtherLangText('Unit P/F/C') ?></span>
                                                 <?php echo $row['purchaseUnit'] .'/'.$row['factor'].'/'.$row['countingUnit']; ?>
                                             </p>
                                         </div>
@@ -890,12 +888,12 @@ $deprtOptions .= '</ul>';
                                     </div>
                                     <div class="align-items-center prcItm-MngClm">
                                         <div class="tb-bdy lastItm-PrcCol bdyCol-Itm">
-                                            <p><span class="mbLst-ItmMng">L. Price</span>
+                                            <p><span class="mbLst-ItmMng"><?php echo showOtherLangText('L. Price') ?></span>
                                                 <?php echo getPrice($row['price']) .' '.$getDefCurDet['curCode']; ?>
                                             </p>
                                         </div>
                                         <div class="tb-bdy stockItm-PrcCol bdyCol-Itm">
-                                            <p><span class="mbLst-ItmMng">S. Price</span>
+                                            <p><span class="mbLst-ItmMng"><?php echo showOtherLangText('S. Price') ?></span>
                                                 <?php echo getPrice($row['stockPrice']) .' '.$getDefCurDet['curCode']; ?>
                                             </p>
                                         </div>

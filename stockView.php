@@ -612,7 +612,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="col-md-6 mbCol-stk">
                                     <!-- Search Box Start -->
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search" aria-label="Search">
+                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="<?php echo showOtherLangText('Search') ?>" name="search" id="search" aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
                                                 <i class="fa fa-search"></i>
@@ -1000,7 +1000,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkavabdy">
-                                                    <span class="d-md-none" style="font-size:9px;">Avail qty:</span>
+                                                    <span class="d-md-none" style="font-size:9px;"><?php echo showOtherLangText('Avail Qty'); ?>:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <span><?php echo ($row['stockQty'] - $totalTempProQty); ?></span>
@@ -1283,7 +1283,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                             <?php } ?>
                         <?php } ?>
                         <p style="display: flex; gap:.5rem;" class="mt-3">
-                            <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn">Show</button>&nbsp;
+                            <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn"><?php echo showOtherLangText('Show'); ?></button>&nbsp;
                             <button type="button" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn" onclick="window.location.href='stockView.php?clearshowFieldsStock=1'"><?php echo showOtherLangText('Clear Filter'); ?></button>
                         </p>
                     </form>

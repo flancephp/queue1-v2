@@ -3,7 +3,7 @@ include_once('inc/dbConfig.php'); //connection details
 
 $cond = '';
 $storeCond = '';
-
+$getLangType = getLangType($_SESSION['language_id']);
 if( isset($_SESSION['filterByStorage']) && ($_SESSION['filterByStorage']) != '' )
 {
     $cond = " AND tp.storageDeptId = '".$_SESSION['filterByStorage']."' ";
@@ -132,7 +132,9 @@ $content .=   '<head>
          th, td { border:0;vertical-align:top; } 
       </style>
    </head>';
- $content .=   '<body style="font-family: Arial, sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">';
+ $content .= '<body style="' . ($getLangType == '1' 
+    ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;' 
+    : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
   $content .=   '<table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
          <tbody>
             <tr valign="top">';
