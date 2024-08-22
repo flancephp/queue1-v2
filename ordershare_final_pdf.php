@@ -67,7 +67,7 @@ $clientDetRow = mysqli_fetch_array($result);
             $curDet = mysqli_fetch_array($res);
         } 
  $content = '<!doctype html>';
-$content .= '<html lang="'.($getLangType == '1' ? 'he' : '').'">';
+$content .= '<html dir="'.($getLangType == '1' ?'rtl' : '').'"   lang="'.($getLangType == '1' ? 'he' : '').'">';
  $content .= '<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">

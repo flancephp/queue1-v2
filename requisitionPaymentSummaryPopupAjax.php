@@ -55,9 +55,10 @@ if($paymentRow['paymentStatus']==1)
 
 
 $content .= '<div class="modal-header pb-3"> 
-                    <div class="d-md-flex align-items-center justify-content-lg-end justify-content-between w-100">
+                      <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
+                    <div class="d-flex align-items-center justify-content-end w-100">
                         <a href="inv_pdf_download.php?orderId='.$_POST['orderId'].'"" class="btn btn-primary" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
-                        <button type="button" class="btn-close me-2 d-lg-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                        
                     </div>
                 </div>
                 <div class="modal-body m-0 p-0">

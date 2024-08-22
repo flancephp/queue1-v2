@@ -68,15 +68,14 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
     
     
         <div class="modal-header pb-2 pb-lg-3 position-relative">
-                             
+                                   <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                                 <div class="d-flex align-items-center justify-content-between w-100 ">
                                     <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
                                         <i class="fa fa-filter"></i>
                                     </button>
                                     <div class="d-inline-flex align-items-center gap-2">
                                         <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></button>
-                                        <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
-                                    </div>
+                                     </div>
                                 </div>
                                 <div class="collapse" id="modalfiltertop">
                                     <div class="d-flex gap-1 gap-md-3 mt-2 flex-wrap modal-head-row">

@@ -68,6 +68,7 @@ $content  = '<form action="ordershare_pdf_download.php" target="_blank" method="
 <input type="hidden" name="isSupDet" value="'.$_POST['isSupDet'].'" />
 <input type="hidden" name="ordCurId" id="ordCurId" value="'.$ordDet['ordCurId'].'" />';
 $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
+                      <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                         <div class="d-md-flex align-items-center justify-content-between w-100 ">
                             <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
                                 <i class="fa fa-filter"></i>
@@ -75,7 +76,6 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                              
                             <div class="d-inline-flex align-items-center gap-2">
                                 <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></button> 
-                                <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
                             </div>
                         </div>
                         <div class="collapse" id="modalfiltertop">
@@ -268,8 +268,8 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
             <div class="table-cell">'.$suppliers.'</div>
             <div class="table-cell">
                 <div class="table-row">
-                    <div class="table-cell py-0 width-20"></div>
-                    <div class="table-cell py-0 width-33"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
+                    <div class="table-cell py-0 width-20" style="width:41%"></div>
+                    <div class="table-cell py-0 width-33" style="width:30%"><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
                     <div class="table-cell py-0 width-30"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
                 </div>
             </div>
@@ -320,7 +320,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                              { 
 
                                 $showGrandTotal = true;
-        $content .= '<div class="table-cell width-35">
+        $content .= '<div class="table-cell width-35" style="width:35%">
                 <div class="sub-table w-100">
                     <div class="table-row">
                         <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.showOtherLangText('Sub Total').'</span></div>

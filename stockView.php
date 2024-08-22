@@ -460,6 +460,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             padding: 2px 7px;
             color: #fff;
         }
+
         @media (min-width: 768px) {
             .stkView .container:not(.large) { max-width: 720px; }
         } 
@@ -470,6 +471,24 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         @media (min-width: 1350px) {
         .stkView  .container:not(.large) {max-width: 1140px;}
         }
+
+
+        
+
+
+
+
+@media (min-width: 1200px) {
+  .stkView .container {
+    max-width: 1000px !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .stkView .container {
+    max-width: 1140px  !important;
+  }
+}
         
     </style>
 </head>
