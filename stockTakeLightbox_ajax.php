@@ -34,9 +34,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
 			$storageDeptRow = getStoreDetailsById($ordDet['storeId']);
 
 $content  .= '<form action="stockTake_pdf_download_history.php" target="_blank" method="get"><div class="modal-header pb-3 "> 
-                        <input type="hidden" name="orderId" value="'.$_POST['orderId'].'"/>  <div class="d-md-flex align-items-center justify-content-lg-end justify-content-between w-100">
-                        <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></a>
-                        <button type="button" class="btn-close me-2 d-lg-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
+                        <input type="hidden" name="orderId" value="'.$_POST['orderId'].'"/>  <div class="d-flex align-items-center justify-content-end w-100">
+                        <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></a></button>
                     </div>
                 </div></form>';
  $content  .= '<div class="modal-body px-2 py-3">

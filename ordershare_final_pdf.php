@@ -67,7 +67,7 @@ $clientDetRow = mysqli_fetch_array($result);
             $curDet = mysqli_fetch_array($res);
         } 
  $content = '<!doctype html>';
-$content .= '<html lang="'.($getLangType == '1' ? 'he' : '').'">';
+$content .= '<html dir="'.($getLangType == '1' ?'rtl' : '').'"   lang="'.($getLangType == '1' ? 'he' : '').'">';
  $content .= '<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -555,7 +555,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
    while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
         {  
  $content .= '<tr>
-            <td style="padding: 5px;">'.ucfirst($orderJourney['action']).'</td>                          
+            <td style="padding: 5px;">'.showOtherLangText(ucfirst($orderJourney['action'])).'</td>                          
             <td style="padding: 5px;">'.date('d/m/Y
                 h:iA', strtotime($orderJourney['ordDateTime']) ).'</td>
             <td style="padding: 5px;">

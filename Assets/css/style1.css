@@ -1,3 +1,7 @@
+html[dir=rtl] body {
+  background-image: url(../images/bg-rtl.png);
+}
+
 html[dir=rtl] .acc-info .fa-angle-down {
   margin-right: 40% !important;
   margin-left: 0;
@@ -145,7 +149,6 @@ html[dir=rtl] .ord-Box.ms-0.position {
 
 html[dir=rtl] .tr-bg-1 th:first-child, .grand-total th:first-child {
   border-radius: 0px 10px 10px 0px !important;
-  text-align: center;
 }
 
 html[dir=rtl] .tr-bg-1 th:last-child{
@@ -209,4 +212,50 @@ html[dir=rtl] .rcvOrder .smBtn {
 html[dir=rtl] .rcvOrder .sltSupp {
   flex: 0 0 auto;
   width: 20%;
+}
+html[dir=rtl] #rawProId,
+html[dir=rtl] #convrtProId{
+  padding-right: 1.5rem;
+}
+html[dir=rtl] #password {
+  padding-right: 2rem;
+}
+
+
+
+@media (min-width: 576px) {
+  html[dir=rtl] .text-sm-end {
+      text-align: left !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html[dir=rtl] .text-md-end {
+      text-align: left !important;
+  }
+}
+
+html[dir=rtl] .tabel-body-p-footer .table1 p {
+  text-align: right !important;
+}
+
+
+html[dir=rtl]  .fa-square.pe-2 {
+   padding-left: 0.2 !important;
+   padding-right: 0 !important;
+}
+
+@media (min-width: 992px) {
+  html[dir=rtl] #modalfiltertop {
+      right: 4rem;
+  }
+}
+
+html[dir=rtl] .order-md-3 {
+  text-align: end !important;
+}
+
+html[dir=rtl] .fa-credit-card.pe-2 {
+  padding-right: 0 !important;
+  padding-left: 0.5rem;
 }

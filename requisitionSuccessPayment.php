@@ -1285,6 +1285,17 @@ $payModeRow = mysqli_fetch_array($resultSet);
         window.location.href = pageName
     }
     </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Find all elements with the class 'grand-total'
+    const grandTotalElements = document.querySelectorAll('.grand-total');
+
+    if (grandTotalElements.length > 0) {
+        grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
+    }
+});
+</script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>

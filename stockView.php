@@ -460,6 +460,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             padding: 2px 7px;
             color: #fff;
         }
+
         @media (min-width: 768px) {
             .stkView .container:not(.large) { max-width: 720px; }
         } 
@@ -470,6 +471,24 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         @media (min-width: 1350px) {
         .stkView  .container:not(.large) {max-width: 1140px;}
         }
+
+
+        
+
+
+
+
+@media (min-width: 1200px) {
+  .stkView .container {
+    max-width: 1000px !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .stkView .container {
+    max-width: 1140px  !important;
+  }
+}
         
     </style>
 </head>
@@ -1283,8 +1302,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                             <?php } ?>
                         <?php } ?>
                         <p style="display: flex; gap:.5rem;" class="mt-3">
-                            <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn"><?php echo showOtherLangText('Show'); ?></button>&nbsp;
-                            <button type="button" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn gray-btn" onclick="window.location.href='stockView.php?clearshowFieldsStock=1'"><?php echo showOtherLangText('Clear Filter'); ?></button>
+                            <button type="submit" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn btn-primary gray-btn"><?php echo showOtherLangText('Show'); ?></button>&nbsp;
+                            <button type="button" name="btnSubmit" style="background-color: #7a89fe; border-radius: 10px; border: none; color:white; " class="btn btn-primary gray-btn" onclick="window.location.href='stockView.php?clearshowFieldsStock=1'"><?php echo showOtherLangText('Clear Filter'); ?></button>
                         </p>
                     </form>
                 </div>
@@ -1361,7 +1380,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" onClick="approveConvert();">Approve</button>
+                        <button type="button" class="btn btn-primary" onClick="approveConvert();">Approve</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>

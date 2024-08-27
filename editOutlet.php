@@ -499,7 +499,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
 </div>
                     <div class="container itmMng-Src outletFrm">
                      <div class="row">
-                            <div class="col-xl-8 oltCol-8">
+             <!--  <div class="col-xl-8 oltCol-8"> --> <div>
                                 <div class="acntStp">
                                     <div class="addUser-Form acntSetup-Form row">
                                         <div class="acnt-Div nmOutlet">

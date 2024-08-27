@@ -79,14 +79,18 @@
   padding: 0 12px !important;
 }
 
+
 .grand-total {
-  background: #7A89FF;
-  color: white;
   height: 38px;
   font-size: 18px;
   font-weight: 600;
   line-height: 21.78px;
   text-align: left;
+
+}
+.grand-total-table tbody .grand-total:first-of-type {
+  background: #7A89FF;
+  color: white;
 }
 .grand-total th {
   padding: 0 12px !important;
@@ -151,7 +155,6 @@
 .tr-bg-1 th:first-child,
 .grand-total th:first-child {
   border-radius: 10px 0 0 10px !important;
-  text-align: center;
 }
 
 .tr-bg-1 th:last-child,

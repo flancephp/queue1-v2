@@ -492,10 +492,10 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         </div>
                                     </div>
                                     <!-- <div class="smBtn nwNxt-Btn"> -->
-                                    <div class="col-lg-3 col-xl-2">
-                                        <div class="d-flex flex-row flex-lg-column gap-3 justify-content-between "> 
+                                    <div class="col-lg-3 col-xl-2 nwNxt-Btn d-flex justify-content-between d-lg-block">
+                                        <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-lg-100">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn ">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
@@ -1243,9 +1243,9 @@ $ordRow = mysqli_fetch_array($resultSet);
             </div>
 
             <div class="container pb-4 topOrder">
-                <div class="btnBg mt-3">
+                <div class="btnBg my-3">
                     <a href="javascript:void(0);"
-                        class="add_new_items_in_req sub-btn btn btn-primary std-btn"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
+                        class="add_new_items_in_req btn btn-primar"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                 </div>
             </div>
         </div>

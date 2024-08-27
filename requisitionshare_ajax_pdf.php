@@ -68,15 +68,14 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
     
     
         <div class="modal-header pb-2 pb-lg-3 position-relative">
-                             
+                                   <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                                 <div class="d-flex align-items-center justify-content-between w-100 ">
                                     <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
                                         <i class="fa fa-filter"></i>
                                     </button>
                                     <div class="d-inline-flex align-items-center gap-2">
                                         <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></button>
-                                        <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button>
-                                    </div>
+                                     </div>
                                 </div>
                                 <div class="collapse" id="modalfiltertop">
                                     <div class="d-flex gap-1 gap-md-3 mt-2 flex-wrap modal-head-row">
@@ -459,7 +458,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                               $content .= '<div class="table-cell"><span style="display:none;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmProd">'.showOtherLangText('Item').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmCode">'.showOtherLangText('Barcode').'</span></div>';
-                              $content .= '<div class="table-cell"><span   class="itmPrc">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</span></div>';
+                              $content .= '<div class="table-cell"><span   class="itmPrc">Price('.$getDefCurDet['curCode'].')</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmPrcunit">'.showOtherLangText('C.Unit').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmRecqty">'.showOtherLangText('Req Qty').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmPurqty">'.showOtherLangText('Qty').'</span></div>';
@@ -506,7 +505,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                      while($orderJourney = mysqli_fetch_array($orderJourneyQry) )
                                     {
                                     $content .= '<div class="table-row">
-                                        <div class="table-cell">'.ucfirst($orderJourney['action']).'</div>
+                                        <div class="table-cell">'.showOtherLangText(ucfirst($orderJourney['action'])).'</div>
                                         <div class="table-cell">'.date('d/m/Y
                     h:iA', strtotime($orderJourney['ordDateTime']) ).'</div>
                                         <div class="table-cell">'.ucfirst($orderJourney['name']).'('.ucfirst($orderJourney['designation_name']).')</div>

@@ -20061,3 +20061,32 @@ border-radius:3px;
   width: 31% !important;
 }
 .ui-datepicker { z-index: 999 !important; }
+
+.modal-content {
+  overflow: auto !important;
+}
+
+
+/* 21-8-24 sudarshan */
+
+.rntskHead .taskHead > div:first-child {
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 700;
+  color: #666c85;
+}
+.srNum p {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+
+
+.mb-modal-close-icon {
+  display: flex;
+  justify-content: end;
+  padding: 0 .5rem .5rem;
+  width: 100%;
+}
+

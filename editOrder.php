@@ -631,13 +631,13 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
                                             </div>
-                                            <div class="d-inline-flex flex-lg-column w-100 col gap-3 justify-content-end btn__box">
-                                                <a href="javascript:void(0)" class="w-100 btn btn-primary orderupdate">
+                                            <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box">
+                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
                                                     <i class="fa-solid fa-angle-right d-none d-lg-inline-block"></i>
                                                 </a> 
                                                 <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" /> 
-                                                <a href="runningOrders.php" class="w-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
+                                                <a href="runningOrders.php" class=" btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             
                                         </div>
@@ -1484,7 +1484,7 @@ echo '<div class="newOrdTask">
                                 <?php }} ?>
 
                                 <div class="container pb-4 topOrder">
-                                    <div class="btnBg mt-3">
+                                    <div class="btnBg my-3">
                                         <a href="#"
                                             class="btn btn-primary add-new-items"><?php echo showOtherLangText('Add New Items In Order'); ?></a>
 

@@ -50,9 +50,9 @@ $checkRow = mysqli_fetch_array($resultSet);
 
 
 $content .= '<div class="modal-header pb-3"> 
-                    <div class="d-flex align-items-center justify-content-between justify-content-lg-end w-100">
+                      <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
+                    <div class="d-flex align-items-center justify-content-end w-100">
                         <a href="payment_pdf_download.php?orderId='.$_POST['orderId'].'" class="btn btn-primary" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
-                        <button type="button" class="btn-close d-lg-none me-1" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body p-0">

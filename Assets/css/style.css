@@ -9878,7 +9878,7 @@ img {
 }
 
 .nav-bar a {
-  color: #666c85;
+  color: #8C8FA7;
   padding: 10px;
   font-size: 12px;
   line-height: 17px;
@@ -20005,13 +20005,13 @@ body .ui-widget-content {
 .task-status{
   width:46%;
 }
-.modal-footer .btn, .modal-header .btn {
+/* .modal-footer .btn, .modal-header .btn {
   background-color: #7a89ff;
   color: #fff;padding: .5rem 1rem;
   border-radius: 6px;
   font-size: .875rem;
   border-color: #7a89ff;
-}
+} */
 
 .modal-md{
   max-width:800px;
@@ -20256,8 +20256,10 @@ img.previewImg {
 @media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; } .lg__left__margin{position: relative;z-index: 9; } .w-lg-100{width: 100%;} }
 .text-danger { color: #FD3737 !important; }
 .btn-primary {
+
   background-color: var(--color-primary);padding: .625rem 1.625rem;box-shadow: 0px 4px 20px 0px #7F7FA514;font-size: 1.125rem;font-weight: 600;border-radius: .937rem;border-color: var(--color-primary);transition: all .3s ease-in-out;border-width: 2px;
-}
+ 
+} 
 .btn-primary:hover {
   background-color: #5b6dfa;border-color: #5b6dfa; 
 }
@@ -20275,7 +20277,7 @@ img.previewImg {
 @media (max-width: 575px) {
   .mbItm-MngIcns { width: 65%; }
 }
-.modal-footer .btn { padding-left: 1rem;padding-right: 1rem; }
+/* .modal-footer .btn { padding-left: 1rem;padding-right: 1rem; } */
 .prdtImg.tb-bdy .ordItm-Img {object-fit: contain;   height: 60px;width: 50px;}
 .tb-bdy.stkImgcol .imgItm { height: 40px;object-fit: contain; }
 .modal .addUser-Form .form-control { width: 100% !important;margin: 0% !important; }
@@ -20395,4 +20397,157 @@ html[dir=rtl] .user-info {
 
 html[dir=rtl] .sub-btn {
   padding: .625rem 0.625rem;
+}
+
+
+
+@media (min-width: 576px) {
+  .stkView .container {
+    max-width: 540px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .stkView .container {
+    max-width: 720px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .stkView .container {
+    max-width: 960px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .stkView .container {
+    max-width: 1140px !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .stkView .container {
+  /*   max-width: 1320px !important; */
+  }
+}
+
+
+html[dir=rtl] body {
+  background-image: url(../images/bg-rtl.png);
+}
+
+.chkStore:hover a svg {
+    scale: 1.1;
+}
+
+.modal-content {
+  overflow: auto !important;
+}
+
+
+/* 21-8-24 sudarshan  */
+
+.res__filter__box .itmTable .srHisclm p {
+  font-weight: 700;
+}
+
+
+.srHisclm p {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.itmBody > div:first-child p {
+  font-size: 13px;
+}
+.itmBody >  div:first-child .counter__col {
+  font-size: 13px;
+}
+.itmBody >  div:first-child {
+  font-size: 13px;
+}
+
+.prdtImg.tb-head {
+  font-weight: 700;
+}
+
+.numRef1:first-child .srHisclm p {
+  font-weight: 700;
+}
+
+nav p {
+font-weight: 500;
+text-align: center;
+}
+
+
+.mb-modal-close-icon {
+  display: flex;
+  justify-content: end;
+  padding: 0 .5rem .5rem;
+  width: 100%;
+}
+
+/* 23-8-24 client issues */
+
+@media (max-width: 575px) {
+  .Itm-Name {
+      width: 100% !important;
+  }
+}
+@media (max-width: 992px) {
+
+  .prdtCr-Unit {
+      flex-wrap: nowrap !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .prdtCnt-Fst {
+      width: 100% !important;
+  }
+  .Itm-Name, .prdtCr-Unit {
+      width: 100% !important;
+  }
+}
+
+
+.fa-angle-right,
+.fa-angles-left {
+    background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
+    box-shadow: inset 1px 4px 4px #596bf3;
+    filter: blur(0.2px);
+    padding: 5px;
+    border-radius: 50%;
+    border: 0.5px solid;
+    border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
+    margin-left: 10px;
+    font-size: 10px;
+    vertical-align: middle;
+    width: 22px;
+}
+
+
+@media (min-width: 1137px) {
+  html[dir=rtl] .dspBlk {
+      padding-left: .5rem;
+  }
+}
+@media (min-width: 1137px) {
+  .nwNxt-Btn1 {
+    display: flex !important;
+    justify-content: end !important;
+  }
+  .nwNxt-Btn1 > div {
+    max-width: fit-content !important;
+  }
+   .nwNxt-Btn2 {
+        max-width: fit-content !important;
+   }
+}
+
+
+.btn-primary:focus {
+  outline: 3px solid var(--color-white) !important;
+  outline-offset: -6px !important;
 }
