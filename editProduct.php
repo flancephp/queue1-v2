@@ -767,6 +767,12 @@ if( $res['proType'] == 3)
         <?php 
     $proRows = getAllProducts();
     foreach($proRows as $pId=>$pName){
+
+        $pName = str_replace("'", '', $pName);
+       // $pName = trim(preg_replace('/[^א-ת ]/u', '', $pName));
+
+       $pName = preg_replace('/[^\w\s]+/u','' , $pName);
+
         $itemName = $pName.'('.$pId.')';
          echo "\"$itemName\",";
     }
@@ -862,6 +868,9 @@ if (totalCount == totalCheckedCount) {
                 <?php 
             $proRows = getAllProducts();
             foreach($proRows as $pId=>$pName){
+
+                $pName = str_replace("'", '', $pName);
+                $pName = preg_replace('/[^\w\s]+/u','' , $pName);
                 $itemName = $pName.'('.$pId.')';
                 echo "\"$itemName\",";
             }

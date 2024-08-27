@@ -174,7 +174,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
                                         <label for="ezzeAddress" class="form-label"><?php 
-		if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1) {
+		if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4) {
 		
 			echo showOtherLangText('Assign Ezee Address') . ' :';
 		} ?></label>

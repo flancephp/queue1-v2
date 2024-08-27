@@ -576,7 +576,6 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
 
 
 
-
 $content .= '</body>
              </html>';
 // unset($content);

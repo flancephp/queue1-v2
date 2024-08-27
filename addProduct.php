@@ -721,6 +721,9 @@ if( isset($_POST['itemName']) )
         <?php 
     $proRows = getAllProducts();
     foreach($proRows as $pId=>$pName){
+        $pName = str_replace("'", '', $pName);
+        $pName = preg_replace('/[^\w\s]+/u','' , $pName);
+
         $itemName = $pName.'('.$pId.')';
         echo "\"$itemName\",";
     }
@@ -817,7 +820,13 @@ if (totalCount == totalCheckedCount) {
                 <?php 
             $proRows = getAllProducts();
             foreach($proRows as $pId=>$pName){
+
+                $pName = str_replace("'", '', $pName);
+
+                $pName = preg_replace('/[^\w\s]+/u','' , $pName);
+
                 $itemName = $pName.'('.$pId.')';
+
                 echo "\"$itemName\",";
             }
             ?>

@@ -66,7 +66,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Casa Bar</h1>
+                            <h1 class="h1"><?php echo $outLetDet['name'];?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -78,7 +78,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Casa Bar</h1>
+                                    <h1 class="h1"><?php echo $outLetDet['name'];?></h1>
                                 </div>
                             </div>
                              <?php require_once('header.php'); ?>
@@ -211,10 +211,11 @@ $tr = '';
 		//$stockPriceForOpenStock = 0;
         $usageItemTotalAmt = 0;
         $itemsLists = '';
-		
+		$slno = 0;
 		while( $row = mysqli_fetch_array($outLetItemsQry) )
 		{
 				$x++;
+                $slno++;
 				
 				$dailyImportedData = $itemFirstReportRowArr[$row['saleBarcode']];//$row;
 				
@@ -385,7 +386,8 @@ $tr = '';
 
 			$variancesVal =  $varience !== 0 ? ( (get2DecimalVal($varience)) ) : 0;
 		
-			
+			$varianceShowHideClass = $variancesVal == 0 ? 'hideVariance' : 'showVariance';
+
 			//if close stock is done then only show zero/other values
 			if($closeStockDone != 1 && ($_GET['fromDate'] == $_GET['toDate']) )
 			{
@@ -413,8 +415,14 @@ $tr = '';
 			$salesPriceText =  '<span class="showhideprice"><br>'. $salesAmt. '<br></span>';
             
                                $itemsLists .= ' <!-- Item Table Body Start -->
-                                <div class="container outletBody-Task">
+                                <div class="container outletBody-Task '.$varianceShowHideClass.'" >
+                                
                                     <div class="otltTbl-bdy border-bottom">
+
+                                        <div class="otltBd-slno">
+                                            '.$slno.'
+                                        </div>
+
                                         <div class="otltBd-hdImg">
                                             <img src="'.$img.'" alt="Item">
                                         </div>
@@ -631,9 +639,9 @@ $tr = '';
                                             <img src="Assets/icons/filter.svg" alt="Filter">
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sales</a></li>
-                                            <li><a class="dropdown-item" href="#">Bar Control</a></li>
-                                            <li><a class="dropdown-item" href="#">Usage</a></li>
+                                        <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=2">Sales</a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=1">Bar Control</a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=3">Usage</a></li>
                                         </ul>
                                     </div>
                                     <!-- Filter Btn End -->
@@ -646,7 +654,7 @@ $tr = '';
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
                                                 class="cstBtn-Img"> <span class="cstMb">Adjust</span>
                                         </a>
-                                        <a href="javascript:void(0)" class="cstBtn-Sale">
+                                        <a href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Sale hideBtn-Info">
@@ -670,6 +678,7 @@ $tr = '';
                                 <!-- Item Table Head Start -->
                                 <div class="container outletTask">
                                     <div class="otltTbl-head">
+                                    <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
                                         <div class="otlt-hdImg"></div>
                                         <div class="otlt-itm">
                                             <p>Item</p>
@@ -949,6 +958,26 @@ document.getElementById("search").addEventListener("input", debounce(myFunction,
 		$('#search').val('');
 		myFunction();
 		}
+
+
+$(document).ready(function () {
+
+  $(".cstBtn-Sale").on("click", function () {
+
+
+      
+       
+        if($('.hideVariance').css('display') == 'none')
+        {
+            $('.hideVariance').show();
+        }
+        else
+        {
+            $('.hideVariance').hide();
+        }
+
+  });
+});
 </script>
 </body>
 

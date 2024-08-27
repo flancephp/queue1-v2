@@ -1274,21 +1274,17 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
         var availableTags = [
             <?php 
 	$proRows = getAllProducts();
-    $i=0;
+   
     foreach($proRows as $pId=>$pName){
 
-        $i++;
+       
         
-		$itemName = $pName.'('.$pId.')';
+        $pName = str_replace("'", '', $pName);
+        $pName = preg_replace('/[^\w\s]+/u','' , $pName);
 
-        
-		    echo "\"$itemName\",";
-      
-        
-        if($_SESSION['accountId'] ==4 && $i==100)
-        {
-            break;
-        }
+        $itemName = $pName.'('.$pId.')';
+         echo "\"$itemName\",";
+       
 	}
     ?>
         ];
