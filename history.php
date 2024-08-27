@@ -1187,12 +1187,6 @@ cursor: pointer;
 .issueIn { width: 55% !important; }
 .detailPrice {padding: 11px 11px 0 !important;}
 
-@media (max-width:767px) {
-     #order_details_supplier {
-        margin: 0;
-     }
-}
-
 @media(max-width:991px) {
     .account-name-section { position: absolute;top:1rem;right:9rem; }
     .issueIn { padding-right: 2rem; }
@@ -1258,9 +1252,80 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
     .grand-total-tabel tr { height: 28px; }
 }
 @media(min-width:992px) {
-    #modalfiltertop { position: absolute;top:.5rem;left:4rem; }
+    #modalfiltertop { position: absolute;  top:1.7rem;left:4rem; }
 }
 .info__table td:nth-child(1){width:55%}
+
+
+/* 23-8-23 sudarshan changes */
+
+@media (min-width: 1137px) {
+.issueDtl_accntDtl_main > div:nth-child(1):only-child {
+    width: 100%;
+}
+.issueIn {
+    width: unset !important;
+}
+.issueIn1 {
+    flex-grow: 3 !important;
+    width: 55% !important;
+}
+.issueOut {
+    flex-grow: 1;
+}
+.issueDtl .Variance {
+    flex-grow: 1 !important;
+}
+.dspBlk {
+    width: unset !important;
+    padding-right: .5rem;
+}
+.issueIn1  .dspBlk {
+    width: 47% !important;
+}
+.paidIsue .col-md-3 {
+    width: fit-content !important;
+}
+
+.dropdnbtns .numRef,
+.cntTableData .numRef {
+   width: 45% !important;
+}
+.dropdnbtns .stsHiscol,
+.cntTableData .stsHiscol {
+    width: 25% !important;
+}
+.numItmclm {
+    width: 15% !important;
+}
+
+    .hisStatusclm, .hisAcntclm {
+        width: 30% !important;
+        padding-left: 0px;
+    }
+}
+
+/* Apply styles for exactly 2 divs */
+.stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3))) {
+    display: flex;
+    justify-content: space-around;
+    width: 15% !important;
+}
+.stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3))) > div {
+    width: 50% !important;
+}
+
+/* Apply styles for exactly 1 div */
+.stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) {
+    display: flex;
+    justify-content: space-around;
+    width: 10% !important;
+}
+.stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) > div {
+    width: 100% !important;
+}
+
+
 </style>
 
 
@@ -1486,7 +1551,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                             <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
                         </div>
                         <div class="scroller"> 
-                            <div class="row align-items-start">
+                            <div class="row align-items-start issueDtl_accntDtl_main">
                                 <div class="issueDtl">
                                     <div class="issueIn">
                                         <div class="dspBlk">
@@ -2939,9 +3004,9 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 
                     <br>
                     <p>
-                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
+                        <button class="btn btn-primary dropdown-toggle py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
                         <?php if (isset($historyUserFilterFields)) { ?>
-                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
+                            <a class="btn btn-primary dropdown-toggle py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
 
                         <?php } ?>
                     </p>
@@ -3028,6 +3093,32 @@ parentClasses.forEach(parentClass => {
     closeBtn.addEventListener('click', function(){
         closeBox.classList.remove('hstTable-show');
     })
+</script>
+<script>
+    // Add a click event listener to the toggle-currency-btn button
+document.querySelector('.toggle-currency-btn').addEventListener('click', function() {
+    // Loop through all .issueIn elements
+    document.querySelectorAll('.issueIn').forEach(function(issueInElement) {
+        // Check all .usdCurr elements within the current .issueIn element
+        const usdCurrElements = issueInElement.querySelectorAll('.usdCurr');
+
+        // If any .usdCurr has display: none, add the class .issueIn1 to the parent .issueIn
+        let isHidden = false;
+        usdCurrElements.forEach(function(usdCurrElement) {
+            if (window.getComputedStyle(usdCurrElement).display === 'none') {
+                isHidden = true;
+            }
+        });
+
+        // Add the class .issueIn1 if the condition is met
+        if (isHidden) {
+            issueInElement.classList.remove('issueIn1');
+        } else {
+            issueInElement.classList.add('issueIn1');
+        }
+    });
+});
+
 </script>
 
 <?php

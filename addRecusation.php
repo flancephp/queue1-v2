@@ -525,7 +525,7 @@ if($_SESSION['deptId'] != '')
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn sub-btn btn-primary form-submit-btn"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
+                                        <a class="btn btn-primary form-submit-btn"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
                                             <i class="fa-solid fa-angle-right"></i></a>
                                     </div>
                                     <div class="fetBtn">

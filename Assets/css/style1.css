@@ -149,7 +149,6 @@ html[dir=rtl] .ord-Box.ms-0.position {
 
 html[dir=rtl] .tr-bg-1 th:first-child, .grand-total th:first-child {
   border-radius: 0px 10px 10px 0px !important;
-  text-align: center;
 }
 
 html[dir=rtl] .tr-bg-1 th:last-child{

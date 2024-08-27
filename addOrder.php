@@ -602,7 +602,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 <div class="smBtn nwNxt-Btn">
 <div class="btnBg">
 
-    <a href="javascript:void(0)" class="btn sub-btn btn-primary submit_new_order"><span
+    <a href="javascript:void(0)" class="btn btn-primary submit_new_order"><span
             class="align-middle"><?php echo showOtherLangText('Submit'); ?></span> <i
             class="fa-solid fa-angle-right"></i></a>
 </div>
@@ -1281,11 +1281,11 @@ echo '<script>window.location="addOrder.php"</script>';
 }
 }
 ?>
-<div class="mbLnk-Order">
+<!-- <div class="mbLnk-Order">
 <a href="javascript:void(0)" class="orderLink">
     <i class="fa-solid fa-angle-down"></i>
 </a>
-</div>
+</div> -->
 
 </div>
 
@@ -1382,7 +1382,7 @@ list'); ?></span><br>
 </div>
 <div class="modal-footer">
 <div class="btnBg">
-<button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+<button type="submit" id="addFee" name="addFee" class="btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
 </div>
 </div>
 </div>
@@ -1411,7 +1411,7 @@ list'); ?></span><br>
 
 <div class="modal-footer">
 <div class="btnBg">
-<button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+<button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
 </div>
 <div class="btnBg">
 <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
