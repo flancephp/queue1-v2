@@ -1849,11 +1849,16 @@ list'); ?></span><br>
         name.innerHTML = invoiceName;
     }
 
+    function nl2br (str, is_xhtml) {   
+        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+    }
+
     function addressValueChange() {
 
         var invoiceAddress = document.getElementById('invoiceAddress').value;
         var address = document.getElementById('address');
-        address.innerHTML = invoiceAddress;
+        address.innerHTML = nl2br(invoiceAddress);
 
     }
 

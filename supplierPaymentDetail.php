@@ -1701,6 +1701,12 @@ $.ajax({
 }  
 </script> 
 <script>
+
+function nl2br (str, is_xhtml) {   
+        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+}
+
 //show all input value on the left side when we fill supplier details one by one in right side input box 
 function changeSupInv() {
 var supplierInvoice = document.getElementById('supplierInvoice').value;
@@ -1717,7 +1723,7 @@ name.innerHTML = supplierName;
 function changeSupAddress() {
 var supplierAddress = document.getElementById('supplierAddress').value;
 var address = document.getElementById('address');
-address.innerHTML = supplierAddress;
+address.innerHTML = nl2br(supplierAddress);
 }
 
 function changeSupEmail() {
