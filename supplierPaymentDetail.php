@@ -1113,7 +1113,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                                 <tr class="mb-adrs">
                                                     <td><?php echo showOtherLangText('Supplier Address'); ?></td>
                                                     <td>
-                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>" /><?php echo isset($payInfoRow['supplierAddress']) ? nl2br($payInfoRow['supplierAddress']) : nl2br($address);?></textarea>
+                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>" /><?php echo isset($payInfoRow['supplierAddress']) ? ($payInfoRow['supplierAddress']) : ($address);?></textarea>
                                                     </td>
                                                 </tr>
 

@@ -448,7 +448,7 @@ $tr = '';
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold">'. $sales.'</p>
+                                                                <p class="mblStock-Sale fw-bold salesQty">'. $sales.'</p>
                                                             </div>
                                                             <div class="otltBd-slBar">
                                                                 <p class="mbSale-Head">Sales Bar.C</p>
@@ -976,6 +976,22 @@ $(document).ready(function () {
 
   });
 });
+
+$(document).ready(function () {
+
+$(".cstBtn-Qty").on("click", function () {
+
+     
+      
+          $('.salesQty').toggle();
+
+          $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+          
+      
+
+});
+});
+
 </script>
 </body>
 
