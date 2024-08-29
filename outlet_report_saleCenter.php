@@ -654,7 +654,7 @@ $tr = '';
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
                                                 class="cstBtn-Img"> <span class="cstMb">Adjust</span>
                                         </a>
-                                        <a href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
+                                        <a id="ShowHideZeroVar" href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Sale hideBtn-Info">
@@ -964,16 +964,14 @@ $(document).ready(function () {
 
   $(".cstBtn-Sale").on("click", function () {
 
-
-      
        
-        if($('.hideVariance').css('display') == 'none')
+        if( $("#ShowHideZeroVar.actvSale-Cst").length )
         {
-            $('.hideVariance').show();
+            $('.hideVariance').hide();
         }
         else
         {
-            $('.hideVariance').hide();
+            $('.hideVariance').show();
         }
 
   });

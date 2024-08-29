@@ -172,7 +172,7 @@ $resultRow = mysqli_fetch_array($resSet);
                             <div class="">
                                 <p class="f-02 mb-0">'. showOtherLangText('Payment To:').'</p>
                                 <p class="f-03 mb-0">'. $checkRow['supplierName'] .'</p>
-                                <p class="f-03 mb-0">'. $checkRow['supplierAddress'] .'</p>
+                                <p class="f-03 mb-0">'. nl2br($checkRow['supplierAddress']) .'</p>
                                 <p class="f-03 mb-0">'. $checkRow['supplierEmail'] .'</p>
                                 <p class="f-03 mb-0">'. $checkRow['supplierPhone'] .'</p>
                             </div>

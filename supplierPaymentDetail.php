@@ -702,7 +702,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             <div class="Payment-to">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('PAYMENT To') ?></p>
                                 <p id="name" class="f-03 mb-0"><?php echo $supName; ?></p>
-                                <p id="address" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></p>
+                                <p id="address" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? nl2br($payInfoRow['supplierAddress']) : nl2br($address);?></p>
                                 <p id="email" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierEmail']) ? $payInfoRow['supplierEmail'] : $email;?></p>
                                 <p id="phone" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierPhone']) ? $payInfoRow['supplierPhone'] : $phone;?></p>
                             </div>
@@ -1113,7 +1113,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                                 <tr class="mb-adrs">
                                                     <td><?php echo showOtherLangText('Supplier Address'); ?></td>
                                                     <td>
-                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>" /><?php echo isset($payInfoRow['supplierAddress']) ? $payInfoRow['supplierAddress'] : $address;?></textarea>
+                                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" onchange="getVal();" oninput="changeSupAddress();" autocomplete="off" placeholder="<?php echo showOtherLangText('Address') ?>" /><?php echo isset($payInfoRow['supplierAddress']) ? nl2br($payInfoRow['supplierAddress']) : nl2br($address);?></textarea>
                                                     </td>
                                                 </tr>
 
