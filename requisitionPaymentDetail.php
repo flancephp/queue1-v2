@@ -719,7 +719,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                             </div>
                             <div class="">
                                 <p id="address" class="f-02 mb-0">
-                                    <?php echo isset($reqPayInfo['invoiceAddress']) ? $reqPayInfo['invoiceAddress'] : $address ;?>
+                                    <?php echo isset($reqPayInfo['invoiceAddress']) ? nl2br($reqPayInfo['invoiceAddress']) : nl2br($address) ;?>
                                 </p>
                                 <p id="email" class="f-03 mb-0">
                                     <?php echo isset($reqPayInfo['invoiceEmail']) ? $reqPayInfo['invoiceEmail'] : $email ; ?>
@@ -1006,7 +1006,7 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                                         <textarea class="form-control" name="invoiceAddress"
                                                             id="invoiceAddress" onchange="getVal();" autocomplete="off"
                                                             placeholder="<?php echo showOtherLangText('Address') ?>"
-                                                            oninput="addressValueChange()"><?php echo isset($reqPayInfo['invoiceAddress']) ? $reqPayInfo['invoiceAddress'] : $address ;?></textarea>
+                                                            oninput="addressValueChange()"><?php echo isset($reqPayInfo['invoiceAddress']) ? ($reqPayInfo['invoiceAddress']) : ($address) ;?></textarea>
                                                     </td>
                                                 </tr>
 

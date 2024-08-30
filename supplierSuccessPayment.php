@@ -457,7 +457,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             <div class="">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('Payment To'); ?>: </p>
                                 <p class="f-03 mb-0"><?php echo $payInfoRow['supplierName']; ?></p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierAddress']; ?></p>
+                                <p class="f-03 mb-0"><?php echo nl2br($payInfoRow['supplierAddress']); ?></p>
                                 <p class="f-03 mb-0"><?php echo $payInfoRow['supplierEmail']; ?></p>
                                 <p class="f-03 mb-0"><?php echo $payInfoRow['supplierPhone']; ?></p>
                             </div>
@@ -898,7 +898,7 @@ if ($orderRow['ordCurId'] > 0)
                                                 <tr class="mb-adrs" style="vertical-align: top;">
                                                     <td><?php echo showOtherLangText('Supplier Address'); ?></td>
                                                     <td>
-                                                        <?php echo $payInfoRow['supplierAddress'] ?>
+                                                        <?php echo nl2br($payInfoRow['supplierAddress']) ?>
                                                     </td>
                                                 </tr>
 

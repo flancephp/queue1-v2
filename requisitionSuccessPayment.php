@@ -482,7 +482,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             <div class="">
                                 <p class="f-02 mb-0"><?php echo showOtherLangText('Invoice To'); ?>: </p>
                                 <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceName'] ?></p>
-                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceAddress']; ?></p>
+                                <p class="f-03 mb-0"><?php echo nl2br($paymentInfoRow['invoiceAddress']); ?></p>
                                 <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceEmail']; ?></p>
                                 <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoicePhone']; ?></p>
                             </div>
@@ -755,7 +755,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Address'); ?> :</td>
                                                     <td>
-                                                        <?php echo $paymentInfoRow['invoiceAddress'] ?>
+                                                        <?php echo nl2br($paymentInfoRow['invoiceAddress']) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -426,8 +426,12 @@ $tr = '';
                                         <div class="otltBd-hdImg">
                                             <img src="'.$img.'" alt="Item">
                                         </div>
+                                        
                                         <div class="otltBd-itm">
                                             <p>'. $row['itemName'].'</p>
+                                        </div>
+                                        <div class="otltBd-itm">
+                                            <p>'. getItemType($row['outletItemType']).'</p>
                                         </div>
                                         <div class="infoBtn-Hide">
                                             <div class="outletInfo">
@@ -448,7 +452,7 @@ $tr = '';
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold">'. $sales.'</p>
+                                                                <p class="mblStock-Sale fw-bold salesQty">'. $sales.'</p>
                                                             </div>
                                                             <div class="otltBd-slBar">
                                                                 <p class="mbSale-Head">Sales Bar.C</p>
@@ -461,22 +465,22 @@ $tr = '';
                                                         </div>
                                                         <div class="itmInfo-Otlt currItm-Info">
                                                             <div class="otltBd-opnStk">
-                                                                <p>'. $openStockAmt.'</p>
+                                                                <p>'. getNumFormtPrice($openStockAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
                                                             <div class="otltBd-isn">
-                                                                <p>'. $issueInAmt.'</p>
+                                                                <p>'. getNumFormtPrice($issueInAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
-                                                            <p>'. $adjustmentAmt.'</p>
+                                                            <p>'. getNumFormtPrice($adjustmentAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
                                                             <div class="otltBd-Pos">
-                                                                <p>'. $salesAmt.'</p>
+                                                                <p>'. getNumFormtPrice($salesAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
                                                             <div class="otltBd-slBar">
-                                                                <p>'. $barControlAmt.'</p>
+                                                                <p>'. getNumFormtPrice($barControlAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                             </div>
                                                             <div class="otltBd-clStk">
-                                                                <p>'. $closeStockAmt.'</p>
+                                                                <p>'.getNumFormtPrice($closeStockAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -494,10 +498,10 @@ $tr = '';
                                                     </div>
                                                     <div class="itmInfo-Otlt currItm-Info">
                                                         <div class="otltBd-usg">
-                                                            <p>'. $usageAmt.'</p>
+                                                            <p>'. getNumFormtPrice($usageAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                         </div>
                                                         <div class="otltBd-var">
-                                                            <p>'. $varienceAmt.'</p>
+                                                            <p>'. getNumFormtPrice($varienceAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -514,7 +518,7 @@ $tr = '';
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-stkPrc">
                                                             <p class="mbSale-Head">Open Stock</p>
-                                                            <p class="opnStk-BdVal">'. $openStock.'</p>
+                                                            <p class="opnStk-BdVal">'.getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -536,7 +540,7 @@ $tr = '';
 
                                                             <div class="otltBd-Avr">
                                                                 <p class="mbSale-Head">Avr Usage</p>
-                                                                <p class="mblAvg-Dtl">'. $usageAvg.'</p>
+                                                                <p class="mblAvg-Dtl">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                                 <p class="mblAvr-Usg">24.76 $</p>
                                                             </div>
                                                             <div class="otltBd-Min">
@@ -654,7 +658,7 @@ $tr = '';
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
                                                 class="cstBtn-Img"> <span class="cstMb">Adjust</span>
                                         </a>
-                                        <a href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
+                                        <a id="ShowHideZeroVar" href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Sale hideBtn-Info">
@@ -684,6 +688,11 @@ $tr = '';
                                             <p>Item</p>
                                             <p>Totals</p>
                                         </div>
+
+                                        <div class="otlt-itm">
+                                            <p>Item Type</p>
+                                        </div>
+
                                         <div class="flipClm-Otlt">
                                             <div class="mbStock">
                                                 <div class="otlt-opnStk">
@@ -964,20 +973,37 @@ $(document).ready(function () {
 
   $(".cstBtn-Sale").on("click", function () {
 
-
-      
        
-        if($('.hideVariance').css('display') == 'none')
+        if( $("#ShowHideZeroVar.actvSale-Cst").length )
         {
-            $('.hideVariance').show();
+            $('.hideVariance').hide();
         }
         else
         {
-            $('.hideVariance').hide();
+            $('.hideVariance').show();
         }
 
   });
 });
+
+$(document).ready(function () {
+
+$(".cstBtn-Qty").on("click", function () {
+
+     
+      
+
+          $('.mblStock-Sale').toggle();
+
+          
+
+          $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+          
+      
+
+});
+});
+
 </script>
 </body>
 

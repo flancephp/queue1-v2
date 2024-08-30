@@ -157,7 +157,7 @@ $content .= '<div class="modal-header pb-3">
                             <div class="">
                                 <p class="f-02 mb-0">'. showOtherLangText('Invoice To').': </p>
                                 <p class="f-03 mb-0">'. $paymentInfoRow['invoiceName'].'</p>
-                                <p class="f-03 mb-0">'. $paymentInfoRow['invoiceAddress'].'</p>
+                                <p class="f-03 mb-0">'. nl2br($paymentInfoRow['invoiceAddress']).'</p>
                                 <p class="f-03 mb-0">'. $paymentInfoRow['invoiceEmail'].'</p>
                                 <p class="f-03 mb-0">'. $paymentInfoRow['invoicePhone'].'</p>
                             </div>
