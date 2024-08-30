@@ -403,6 +403,18 @@ $otherChrgQry=mysqli_query($con, $sql);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style_new.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
+    <style>
+.btn-primary:focus {
+  outline: 3px solid var(--color-white) !important;
+  outline-offset: -6px !important;
+}
+
+.btn-check:focus + .btn,
+.btn:focus {
+  box-shadow: none !important;
+}
+
+    </style>
 </head>
 
 <body>

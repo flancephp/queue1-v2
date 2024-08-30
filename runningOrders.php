@@ -767,7 +767,7 @@ while($orderRow = mysqli_fetch_array($result))
                 <input type="hidden" name="orderId" class="issueOutOrdId" value="">
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo showOtherLangText('Back'); ?></button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo showOtherLangText('Back'); ?></button>
                 <button type="button"
                     class="approveBtn btn btn-primary"><?php echo showOtherLangText('Issue Out'); ?></button>
             </div>

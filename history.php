@@ -1053,19 +1053,16 @@ $colsArr = [
         .srHisclm {min-width: 35px !important;}
         .stsHiscol, .numRe {flex-grow: 1; justify-content:space-between;}
 
-        .itmTable1 .numRef {
-            width: auto !important;
+        .itmTable1 .numRef,
+        .hisTblbody1 .numRef {
+            width: auto;
             justify-content: space-between;         
             flex-grow: 1; 
             gap:.5rem
         }
-       
-        .hisTblbody1 .numRef {
-            width: auto !important;
-            justify-content: space-between;
-           flex-grow: 1; 
-           gap:.5rem
-        }
+        
+
+
         .hisTblbody1   .hisStatusclm  ,  .itmTable1  .hisStatusclm {
             max-width:75px;
         }
@@ -1139,7 +1136,7 @@ $colsArr = [
     .hstTbl-head .stsHiscol {
      flex-wrap: nowrap;
     }
-    
+
   }
   .toggle-currency-btn {
 width: 40px;
@@ -1260,29 +1257,15 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 /* 23-8-23 sudarshan changes */
 
 @media (min-width: 1137px) {
-.issueDtl_accntDtl_main > div:nth-child(1):only-child {
-    width: 100%;
-}
-.issueIn {
-    width: unset !important;
-}
-.issueIn1 {
-    flex-grow: 3 !important;
-    width: 55% !important;
-}
-.issueOut {
-    flex-grow: 1;
-}
-.issueDtl .Variance {
-    flex-grow: 1 !important;
-}
-.dspBlk {
-    width: unset !important;
-    padding-right: .5rem;
-}
-.issueIn1  .dspBlk {
-    width: 47% !important;
-}
+ 
+.dspBlk  {width: 90%;}
+.issueIn  {width: 34% !important;}
+.issueDtl .Variance { width: 33% !important;}
+.issueDtl1 .dspBlk  {width: 47%;}
+.issueDtl1 .issueIn  {width: 55% !important;}
+.issueDtl.issueDtl1 .Variance { width: 14% !important;}
+
+
 .paidIsue .col-md-3 {
     width: fit-content !important;
 }
@@ -1303,8 +1286,28 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
         width: 30% !important;
         padding-left: 0px;
     }
+    .numRef3.numRef3 {
+        width: 15% !important;
+        flex-grow: 0  !important;
+        justify-content: unset !important;
+    }
+        .numRef4.numRef4 {
+        width: 25% !important;
+        flex-grow: 0 !important;
+    }
+    .numRef4 .hisTypclm {
+        width: initial;
+    }
+}
+@media (min-width:1600px) {
+    .res__filter__box .itmTable {
+        padding: 3px 24px;
+    }
 }
 
+.SummaryItems > div:nth-child(1) {width: 35% !important;}
+.SummaryItems > div:nth-child(2) {width: 30% !important;}
+.SummaryItems > div:nth-child(3) {width: 35% !important;}
 /* Apply styles for exactly 2 divs */
 .stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3))) {
     display: flex;
@@ -1323,6 +1326,14 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) > div {
     width: 100% !important;
+}
+
+.modal-footer .btn {
+    font-size: .875rem;
+}
+
+.issueDtl_accntDtl_main > div:only-child {
+    width: 100%;
 }
 
 
@@ -1560,7 +1571,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                                     <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
                                                     <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                 </div>
-                                                <div class="col-md-9 text-center">
+                                                <div class="flex-grow-1 text-center">
                                                     <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
                                                     <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
                                                     <p class="pdAmount"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
@@ -1836,7 +1847,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     
                                         <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
                                         <?php } else { ?>
-                                            <div class="tb-head hisValclm"><div class="d-flex align-items-center">
+                                            <div class="tb-bdy hisValclm"><div class="d-flex align-items-center">
                             <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
                                             </div></div>
                                         <?php } ?>
@@ -1845,7 +1856,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     
                                         <?php if (isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields)) { ?>
                                         <?php } else { ?>
-                                            <div class="tb-head hisValclm"><div class="d-flex align-items-center">
+                                            <div class="tb-bdy hisValclm"><div class="d-flex align-items-center">
                                                 <p><?php echo showOtherLangText('Value'); ?></p>
                                             </div></div>
                                         <?php } ?>
@@ -2407,12 +2418,12 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                 <h1 class="modal-title h1 mt-3"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
             </div>
 
-            <div class="modal-footer justify-content-center">
+            <div class="modal-footer justify-content-start">
                 <div class="btnBg">
-                    <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
                 </div>
                 <div class="btnBg">
-                    <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    <button type="button" onclick="" class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                 </div>
             </div>
         </div>
@@ -3063,7 +3074,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 </div>
 
 </div>
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function() {
 const parentClasses = ['.numRef1', '.numRef2', '.stsHiscol'];
 
@@ -3084,7 +3095,7 @@ parentClasses.forEach(parentClass => {
 });
 });
 
-</script>
+</script> -->
 
 <script>
     // set filter box responsive class remove script 
@@ -3098,7 +3109,7 @@ parentClasses.forEach(parentClass => {
     // Add a click event listener to the toggle-currency-btn button
 document.querySelector('.toggle-currency-btn').addEventListener('click', function() {
     // Loop through all .issueIn elements
-    document.querySelectorAll('.issueIn').forEach(function(issueInElement) {
+    document.querySelectorAll('.issueDtl').forEach(function(issueInElement) {
         // Check all .usdCurr elements within the current .issueIn element
         const usdCurrElements = issueInElement.querySelectorAll('.usdCurr');
 
@@ -3112,9 +3123,30 @@ document.querySelector('.toggle-currency-btn').addEventListener('click', functio
 
         // Add the class .issueIn1 if the condition is met
         if (isHidden) {
-            issueInElement.classList.remove('issueIn1');
+            issueInElement.classList.remove('issueDtl1');
         } else {
-            issueInElement.classList.add('issueIn1');
+            issueInElement.classList.add('issueDtl1');
+        }
+    });
+});
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var numRefElements = document.querySelectorAll('.numRef1, .numRef2');
+
+    numRefElements.forEach(function(numRef) {
+        var childDivs = numRef.children; // Get all direct child elements
+
+        console.log('Processing:', numRef, 'Number of child divs:', childDivs.length);
+
+        // Count only div elements
+        var divCount = Array.from(childDivs).filter(child => child.tagName === 'DIV').length;
+
+        if (divCount <= 2) {
+            numRef.classList.add('numRef3');
+        } else if (divCount === 3) {
+            numRef.classList.add('numRef4');
         }
     });
 });

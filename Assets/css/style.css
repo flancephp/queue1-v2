@@ -20145,6 +20145,7 @@ img.previewImg {
 
 /* 20-05-2024 */
 
+
 .std-btn {
   padding: 6px 12px ;
 }
@@ -20400,7 +20401,7 @@ html[dir=rtl] .sub-btn {
 }
 
 
-
+/* 
 @media (min-width: 576px) {
   .stkView .container {
     max-width: 540px !important;
@@ -20427,10 +20428,10 @@ html[dir=rtl] .sub-btn {
 
 @media (min-width: 1400px) {
   .stkView .container {
-  /*   max-width: 1320px !important; */
+    max-width: 1320px !important; 
   }
 }
-
+ */
 
 html[dir=rtl] body {
   background-image: url(../images/bg-rtl.png);
@@ -20551,3 +20552,28 @@ text-align: center;
   outline: 3px solid var(--color-white) !important;
   outline-offset: -6px !important;
 }
+.btn-check:focus + .btn,
+.btn:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+@media (max-width: 1599px) {
+ .innerDrop .submenu {
+      right: -5.3rem;
+  }
+
+ html[dir=rtl] .ordFeature .innerDrop:first-child .submenu {
+      right: -6rem;
+  }
+}
+
+.issueIn .ttlAmount {font-weight: 600;}
+.issueIn .gr-Out {font-weight: 600;}
+.amountSections { text-align: center;}
+.SummaryItems div:nth-child(3) .sub-table .table-row div:nth-child(2){ text-align: end;}
+.SummaryItems div:nth-child(3) .sub-table .table-row div:nth-child(3) { text-align: end;}
+.show-smry-cls .thead div:nth-child(3) .table-row { display: flex; padding: 0 5px;}
+.show-smry-cls .thead div:nth-child(3) .table-row div { width: 33.33%;}
+.show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(2) { text-align: end;}
+.show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(3) { text-align: end;}

@@ -421,6 +421,9 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         /* .prdtCnt-Scnd { width: calc(84% - 55px); } */
         .ordDetail { padding-bottom: 3rem; }
     }
+    .ttlDft-Crcy {
+        margin: auto;
+    }
     </style>
 </head>
 
@@ -625,13 +628,13 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn d-flex justify-content-between d-lg-block">
+                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)">
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
                                             </div>
-                                            <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box">
+                                            <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
                                                 <a href="javascript:void(0)" class=" btn btn-primary orderupdate">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
                                                     <i class="fa-solid fa-angle-right d-none d-lg-inline-block"></i>
@@ -927,10 +930,10 @@ $ordQry = mysqli_query($con, $sql);
                         <div class="container nordPrice position-relative">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
-                                <div class="prdtImg tb-head">
+                                <div class=" tb-head" style="width: 44px;">
                                     <p><?php echo mysqli_num_rows($ordQry) > 0 ? mysqli_num_rows($ordQry) : ''; ?></p>
                                 </div>
-                                <div class="prdtImg tb-head">
+                                <div class="prdtImg tb-head ">
                                     <p><?php echo showOtherLangText('Image'); ?></p>
                                 </div>
                                 <div class="prdtCnt-Fst d-flex align-items-center">
@@ -1017,7 +1020,7 @@ $ordQry = mysqli_query($con, $sql);
                                 ?>
                                 <div class="newOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
-                                        <div class="counter__box tb-bdy" style="width:55px;">
+                                        <div class="counter__box tb-bdy" style="width:44px;">
                                             <p><?php echo $y; ?></p>
                                         </div>
                                         <div class="prdtImg tb-bdy">
@@ -1174,7 +1177,7 @@ $ordQry = mysqli_query($con, $sql);
                                                     value="<?php echo $row['ordQty'];?>" size="5">
                                             </div>
                                             <div class="ttlCr-Type d-flex align-items-center">
-                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy res__label__item text-start " data-text="<?php echo showOtherLangText('Total'); ?>">
                                                     <p><?php showPrice($row['ordPrice'], $getDefCurDet['curCode']) ?>
                                                     </p>
                                                 </div>
@@ -1289,7 +1292,7 @@ $ordQry = mysqli_query($con, $sql);
                                 <div class="container nordPrice position-relative">
                                     <!-- Item Table Head Start -->
                                     <div class="d-flex align-items-center itmTable">
-                                        <div class="prdtImg tb-head">
+                                        <div class="prdtImg tb-head" style="width: 44px;">
                                             <p><?php echo mysqli_num_rows($proresultSet) > 0 ? mysqli_num_rows($proresultSet) : ''; ?>
                                             </p>
                                         </div>
@@ -1814,11 +1817,11 @@ list'); ?></span>
                 <div class="modal-footer">
                     <div class="btnBg">
                         <button type="button" data-bs-dismiss="modal"
-                            class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                            class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
                     </div>
                     <div class="btnBg">
                         <button type="button" onclick=""
-                            class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                            class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                     </div>
                 </div>
             </div>
