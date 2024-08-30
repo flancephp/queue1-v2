@@ -431,8 +431,13 @@ $tr = '';
                                             <p>'. $row['itemName'].'</p>
                                         </div>
                                         <div class="otltBd-itm">
-                                            <p>'. getItemType($row['outletItemType']).'</p>
+                                            '. getItemType($row['outletItemType']).'
                                         </div>
+
+                                        <div class="otltBd-itm">
+                                            '. getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'
+                                        </div>
+
                                         <div class="infoBtn-Hide">
                                             <div class="outletInfo">
                                                 <div class="mbStk-Detail">
@@ -518,7 +523,7 @@ $tr = '';
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-stkPrc">
                                                             <p class="mbSale-Head">Open Stock</p>
-                                                            <p class="opnStk-BdVal">'.getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'</p>
+                                                            <p class="opnStk-BdVal"></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -643,6 +648,8 @@ $tr = '';
                                             <img src="Assets/icons/filter.svg" alt="Filter">
                                         </button>
                                         <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>">All</a></li>
+
                                         <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=2">Sales</a></li>
                                             <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=1">Bar Control</a></li>
                                             <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=3">Usage</a></li>
@@ -693,6 +700,10 @@ $tr = '';
                                             <p>Item Type</p>
                                         </div>
 
+                                        <div class="otlt-stkPrc">
+                                                    <p>Stock price</p>
+                                                </div>
+
                                         <div class="flipClm-Otlt">
                                             <div class="mbStock">
                                                 <div class="otlt-opnStk">
@@ -718,10 +729,12 @@ $tr = '';
                                                     <p>Close Stock</p>
                                                     <p class="stkVal-Otlt"><?php echo getNumFormtPrice($closeStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
+                                                
                                                 <div class="otlt-usg">
                                                     <p>Usage/ Cost</p>
                                                     <p class="cstVal-Otlt"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
+                                                
                                                 <div class="otlt-var">
                                                     <p>Variance</p>
                                                     <p class="varnVal-Otlt"><?php echo getNumFormtPrice($varienceTotalAmt,$getDefCurDet['curCode'], 2);?></p>
@@ -731,9 +744,7 @@ $tr = '';
                                         </div>
                                         <div class="flipClm-Hide">
                                             <div class="mbStock">
-                                                <div class="otlt-stkPrc">
-                                                    <p>Stock price</p>
-                                                </div>
+                                                
                                                 <div class="otlt-Unit">
                                                     <p class="untCount">Count Unit</p>
                                                     <p class="untFtr">Factor </p>
