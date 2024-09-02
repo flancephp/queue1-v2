@@ -48,9 +48,17 @@ include_once('script/outlet_report_saleCenter_script.php');
     background-color: #7a89ff;
     border-color:  #7a89ff ;
   }
-  .chkStore a:hover img {
-     scale:1.1;
-  }
+  .chkStore a:hover img {scale:1.1;}
+  .otltBd-usg, .otltBd-var {width: 12.5% !important;}
+  .mbStock,   .mbStk-Detail {width: 90% !important;}
+  .otlt-itm, .otltBd-itm {width: 15% !important;}
+  .flipClm-Hide .mbStock { width: 100% !important;}
+  .mbStk-Flp {width: 100%;}
+  .unitBd-div {width: 27%;display: flex;}
+  .otltBd-stkPrc-1 {width: 27% !important;}
+  .otltBd-Unit {display: flex;width: 72%;padding: 4px 8px;}
+  .otltBd-Avr {width: 15%;}
+  .otltBd-Min, .otltBd-Max {width: 13%;}
     </style>
 
 </head>
@@ -467,6 +475,14 @@ $tr = '';
                                                                 <p class="mbSale-Head">Close Stock</p>
                                                                 <p class="mblStock-Sale">'. $closeStock.'</p>
                                                             </div>
+                                                              <div class="otltBd-usg">
+                                                            <p class="mbSale-Head">Cost/Usage</p>
+                                                            <p class="mblStock-Sale fw-bold">'. $usage.'</p>
+                                                        </div>
+                                                        <div class="otltBd-var">
+                                                            <p class="mbSale-Head">Variance</p>
+                                                            <p class="mblStock-Sale fw-bold">'. $variancesVal.'</p>
+                                                        </div>
                                                             <div class="usg-p-g">
                                                                 <p class="mbSale-Head">Usage/Guest</p>
                                                                 <p class="mblStock-Sale">'.get2DecimalVal($usagePerGuest).'</p>
@@ -480,6 +496,7 @@ $tr = '';
                                                                 <p class="mblStock-Sale">'.$usageLevel.'</p>
 
                                                             </div>
+
                                                         </div>
                                                         <div class="itmInfo-Otlt currItm-Info">
                                                             <div class="otltBd-opnStk">
@@ -500,29 +517,29 @@ $tr = '';
                                                             <div class="otltBd-clStk">
                                                                 <p>'.getNumFormtPrice($closeStockAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mbShow-Otlt">
-                                                    <div class="itmInfo-Otlt">
-                                                        <div class="otltBd-usg">
-                                                            <p class="mbSale-Head">Cost/Usage</p>
-                                                            <p class="mblStock-Sale fw-bold">'. $usage.'</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold">'. $variancesVal.'</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="itmInfo-Otlt currItm-Info">
-                                                        <div class="otltBd-usg">
+                                                              <div class="otltBd-usg">
                                                             <p>'. getNumFormtPrice($usageAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                         </div>
                                                         <div class="otltBd-var">
                                                             <p>'. getNumFormtPrice($varienceAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                         </div>
+                                                               <div class="usg-p-g">
+                                                                <p class="mbSale-Head">Usage/Guest</p>
+                                                                <p class="mblStock-Sale"></p>
+                                                            </div>
+                                                            <div class="avg-usg">
+                                                                <p class="mbSale-Head">Usage Avg</p>
+                                                                <p class="mblStock-Sale"></p>
+                                                            </div>
+                                                            <div class="usg-lvl">
+                                                                <p class="mbSale-Head">Usage Level</p>
+                                                                <p class="mblStock-Sale"></p>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="otltBd-hdNote">
                                                     <p class="mbSale-Head mbHide-Note">Note</p>
                                                     <input type="text" class="form-control note-itm outletNote"  id="note'.$row['pId'].'" onchange="updateNote(this.value,  '.$row['pId'].')" value="'. $note.'"
@@ -532,18 +549,24 @@ $tr = '';
                                         </div>
                                         <div class="flipInfo-Clm">
                                             <div class="outletInfo">
-                                                <div class="mbFlip-Dtl">
+                                            
+                                           <div class="mbFlip-Dtl d-none">
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-stkPrc">
                                                             <p class="mbSale-Head">Open Stock</p>
                                                             <p class="opnStk-BdVal"></p>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> 
+
                                                 <div class="mbStk-Flp">
                                                     <div class="mbHide-Otlt">
                                                         <div class="itmInfo-Otlt">
                                                             <div class="unitBd-div">
+                                                        <div class="otltBd-stkPrc otltBd-stkPrc-1">
+                                                            <p class="mbSale-Head">Open Stock</p>
+                                                            <p class="opnStk-BdVal"></p>
+                                                        </div>
                                                                 <div class="otltBd-Unithd">
                                                                     <p class="untCount mbSale-Head">Count Unit</p>
                                                                     <p class="untFtr mbSale-Head">Factor </p>
@@ -569,17 +592,14 @@ $tr = '';
                                                                 <p class="mbSale-Head">Max</p>
                                                                 <p class="mblAvg-Dtl">'. $row['outletMaxQty'].'</p>
                                                             </div>
+                                                            <div class="otltBd-Req">
+                                                                <p class="mbSale-Head">Requisition</p>
+                                                                <p class="mblAvg-Dtl fw-bold">'. $requisition.'</p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="mbFlip-DtlReq">
-                                                    <div class="mbFlp-Shw">
-                                                        <div class="otltBd-Req">
-                                                            <p class="mbSale-Head">Requisition</p>
-                                                            <p class="mblAvg-Dtl fw-bold">'. $requisition.'</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -742,6 +762,18 @@ $tr = '';
                                                     <p>Close Stock</p>
                                                     <p class="stkVal-Otlt"><?php echo getNumFormtPrice($closeStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
+                                               
+                                            
+                                                <div class="otlt-usg">
+                                                    <p>Usage</p>
+                                                    <p class="cstVal-Otlt"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                </div>
+                                                
+                                                <div class="otlt-var">
+                                                    <p>Variance</p>
+                                                    <p class="varnVal-Otlt"><?php echo getNumFormtPrice($varienceTotalAmt,$getDefCurDet['curCode'], 2);?></p>
+                                                </div>
+ 
                                                 <div class="usg-p-g">
                                                     <p>Usage/Guest</p>
                                                     <p class="stkVal-Otlt"></p>
@@ -753,24 +785,9 @@ $tr = '';
                                                 <div class="usg-lvl">
                                                     <p>Usage Level</p>
                                                     <p class="stkVal-Otlt"></p>
-
-                                                </div>
-                                            
- 
-                                                
-                                            </div>
-                                            <div class="otlt-usg__otlt-var">
-
-                                            <div class="otlt-usg">
-                                                    <p>Usage</p>
-                                                    <p class="cstVal-Otlt"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
-                                                </div>
-                                                
-                                                <div class="otlt-var">
-                                                    <p>Variance</p>
-                                                    <p class="varnVal-Otlt"><?php echo getNumFormtPrice($varienceTotalAmt,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                             </div>
+
                                             <div class="otlt-hdNote"></div>
                                         </div>
                                         <div class="flipClm-Hide">
