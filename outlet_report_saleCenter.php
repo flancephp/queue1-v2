@@ -478,6 +478,7 @@ $tr = '';
                                                             <div class="usg-lvl">
                                                                 <p class="mbSale-Head">Usage Level</p>
                                                                 <p class="mblStock-Sale">'.$usageLevel.'</p>
+
                                                             </div>
                                                         </div>
                                                         <div class="itmInfo-Otlt currItm-Info">
@@ -752,13 +753,15 @@ $tr = '';
                                                 <div class="usg-lvl">
                                                     <p>Usage Level</p>
                                                     <p class="stkVal-Otlt"></p>
+
                                                 </div>
                                             
  
                                                 
                                             </div>
                                             <div class="otlt-usg__otlt-var">
-                                             <div class="otlt-usg">
+
+                                            <div class="otlt-usg">
                                                     <p>Usage/ Cost</p>
                                                     <p class="cstVal-Otlt"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>

@@ -1227,7 +1227,7 @@ cursor: pointer;
     .sm__ml { margin-left: -0.3rem; }
 }
 /* ---- Responsive Filterbox styles end -------- */
-.toggle-currency-btn-disabled {width: 40px;height: 30px; display: flex;color: #666C85;font-size: 14px;font-weight: 600;line-height: 19.36px;border: 1px solid #A9B0C0;align-items: center;justify-content: center;border-radius: 10px;cursor: pointer;}
+.toggle-currency-btn-disabled {width: 40px;height: 30px; display: none;color: #666C85;font-size: 14px;font-weight: 600;line-height: 19.36px;border: 1px solid #A9B0C0;align-items: center;justify-content: center;border-radius: 10px;cursor: pointer;}
 .toggle-currency-btn-disabled:hover ,.toggle-currency-btn-disabled:focus{color: #666C85;cursor:default;}
 .input-group {align-items: center;padding: 1rem 2rem;gap: .5rem;}
 .input-group button {border-radius: 10px !important;}
@@ -1336,6 +1336,9 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
     width: 100%;
 }
 
+
+.grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
+.invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
 
 </style>
 
@@ -2662,6 +2665,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
     }
 
     function openSupPaymentPopup(ordId) {
+        
         $.ajax({
                 method: "POST",
                 url: "showPaymentDetailPopupAjax.php",
@@ -2677,9 +2681,6 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 
                 //orderAndReqJsCode();
             });
-
-
-
     }
 
 
@@ -3138,8 +3139,6 @@ document.addEventListener("DOMContentLoaded", function() {
     numRefElements.forEach(function(numRef) {
         var childDivs = numRef.children; // Get all direct child elements
 
-        console.log('Processing:', numRef, 'Number of child divs:', childDivs.length);
-
         // Count only div elements
         var divCount = Array.from(childDivs).filter(child => child.tagName === 'DIV').length;
 
@@ -3150,6 +3149,19 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+</script>
+<script>
+    function styleFirstGrandTotalRow() {
+    const grandTotalRows = document.querySelectorAll('.grand-total-tabel .grand-total');
+    console.log("runned")
+
+    if (grandTotalRows.length > 0) {
+        const firstGrandTotalRow = grandTotalRows[0];
+        firstGrandTotalRow.style.backgroundColor = '#7a89ff';
+        firstGrandTotalRow.style.color = 'white';
+    }
+}
 
 </script>
 
