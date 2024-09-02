@@ -39,6 +39,7 @@ include_once('script/outlet_report_saleCenter_script.php');
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
               /* hover effects */
   .reloadBtn a:hover,
@@ -50,7 +51,6 @@ include_once('script/outlet_report_saleCenter_script.php');
   .chkStore a:hover img {
      scale:1.1;
   }
-    
     </style>
 
 </head>
@@ -430,11 +430,11 @@ $tr = '';
                                         <div class="otltBd-itm">
                                             <p>'. $row['itemName'].'</p>
                                         </div>
-                                        <div class="otltBd-itm">
+                                        <div class="otltBd-itm-typ">
                                             '. getItemType($row['outletItemType']).'
                                         </div>
 
-                                        <div class="otltBd-itm">
+                                        <div class="otltBd-stkPrc">
                                             '. getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'
                                         </div>
 
@@ -466,6 +466,18 @@ $tr = '';
                                                             <div class="otltBd-clStk">
                                                                 <p class="mbSale-Head">Close Stock</p>
                                                                 <p class="mblStock-Sale">'. $closeStock.'</p>
+                                                            </div>
+                                                            <div class="usg-p-g">
+                                                                <p class="mbSale-Head">Usage Per Guest</p>
+                                                                <p class="mblStock-Sale">'.get2DecimalVal($usagePerGuest).'</p>
+                                                            </div>
+                                                            <div class="avg-usg">
+                                                                <p class="mbSale-Head">Usage Avg</p>
+                                                                <p class="mblStock-Sale">'.get2DecimalVal($usageAvg).'</p>
+                                                            </div>
+                                                            <div class="usg-lvl">
+                                                                <p class="mbSale-Head">Usage Level</p>
+                                                                <p class="mblStock-Sale">'.$usageLevel.'</p>
                                                             </div>
                                                         </div>
                                                         <div class="itmInfo-Otlt currItm-Info">
@@ -696,7 +708,7 @@ $tr = '';
                                             <p>Totals</p>
                                         </div>
 
-                                        <div class="otlt-itm">
+                                        <div class="otlt-itm-typ">
                                             <p>Item Type</p>
                                         </div>
 
@@ -729,8 +741,24 @@ $tr = '';
                                                     <p>Close Stock</p>
                                                     <p class="stkVal-Otlt"><?php echo getNumFormtPrice($closeStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
+                                                <div class="usg-p-g">
+                                                    <p>Usage Per Guest</p>
+                                                    <p class="stkVal-Otlt"></p>
+                                                </div>
+                                                <div class="avg-usg">
+                                                    <p>Avg Usage</p>
+                                                    <p class="stkVal-Otlt"></p>
+                                                </div>
+                                                <div class="usg-lvl">
+                                                    <p>Usage Level</p>
+                                                    <p class="stkVal-Otlt"></p>
+                                                </div>
+                                            
+ 
                                                 
-                                                <div class="otlt-usg">
+                                            </div>
+                                            <div class="otlt-usg__otlt-var">
+                                             <div class="otlt-usg">
                                                     <p>Usage/ Cost</p>
                                                     <p class="cstVal-Otlt"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>

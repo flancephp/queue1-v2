@@ -20577,3 +20577,56 @@ text-align: center;
 .show-smry-cls .thead div:nth-child(3) .table-row div { width: 33.33%;}
 .show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(2) { text-align: end;}
 .show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(3) { text-align: end;}
+
+
+/* 30-8-24 */
+.otlt-opnStk, .otlt-isn, .otlt-Ajst, .otlt-Pos, .otlt-slBar, .otlt-clStk, .otlt-usg, .otlt-var, .usg-p-g, .avg-usg, .usg-lvl{
+  width: 12.5%;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.otlt-itm-typ,
+.otltBd-itm-typ{
+  width: 10%;
+    padding: 8px;
+}
+.otlt-slno,
+.otltBd-slno {
+  width: 5%;
+  padding: 0.5rem;
+}
+.otltBd-stkPrc, .otlt-stkPrc {
+   width: 10% !important;
+}
+.flipClm-Otlt {
+  display: flex;
+}
+
+.otlt-hdNote {
+  display: flex !important;
+  width: 20%;
+  padding: .5rem;
+}
+
+.otlt-usg__otlt-var {
+  width: 20%;
+  display: flex;
+}
+.otlt-usg__otlt-var > div {
+   width: 50% !important;
+}
+.otltBd-hdNote,
+.otlt-hdNote {
+  width: 10%;
+}
+.otltBd-hdNote .note-itm {
+  width: 100%;
+}
+.mbStk-Detail {
+  width: 80%;
+}
+.otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk {
+  width: 12.5%;
+}

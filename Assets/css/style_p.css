@@ -1,0 +1,34 @@
+@media (max-width: 1599px) {
+    .new__layout .payOptnreq {
+        width: 24%;
+    }
+}
+.tb-bdy .fa-solid {
+    position: relative;
+    right: -4px;
+}
+.itmTable .dropdown-toggle {
+    padding: 7px 14px 7px 8px !important;
+}
+.itmTable .dropdown-menu {
+    min-width: 90px;
+}
+.itmTable .dropdown-toggle {
+    width: auto !important;
+    max-width: 80px !important;
+}
+.hisStatusclm .dropdown-toggle, .hisAcntclm .dropdown-toggle {
+    width: auto !important;
+    max-width: 80px !important;
+}
+.itmTable .dropdown a span {
+    text-overflow: ellipsis;
+}
+.in-val-p {
+    font-weight: 400 !important;
+    line-height: 19px !important;
+}
+.payment__table th{
+    font-size: 14px;
+    font-weight: 700;
+}
