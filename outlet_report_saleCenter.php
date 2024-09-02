@@ -468,7 +468,7 @@ $tr = '';
                                                                 <p class="mblStock-Sale">'. $closeStock.'</p>
                                                             </div>
                                                             <div class="usg-p-g">
-                                                                <p class="mbSale-Head">Usage Per Guest</p>
+                                                                <p class="mbSale-Head">Usage/Guest</p>
                                                                 <p class="mblStock-Sale">'.get2DecimalVal($usagePerGuest).'</p>
                                                             </div>
                                                             <div class="avg-usg">
@@ -735,7 +735,7 @@ $tr = '';
                                                     <p class="posValue"><?php echo getNumFormtPrice($salesAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="otlt-slBar">
-                                                    <p>Sales Bar.Ctrl</p>
+                                                    <p>Sales Bar</p>
                                                     <p class="posValue"><?php echo getNumFormtPrice($barControlAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="otlt-clStk">
@@ -743,7 +743,7 @@ $tr = '';
                                                     <p class="stkVal-Otlt"><?php echo getNumFormtPrice($closeStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="usg-p-g">
-                                                    <p>Usage Per Guest</p>
+                                                    <p>Usage/Guest</p>
                                                     <p class="stkVal-Otlt"></p>
                                                 </div>
                                                 <div class="avg-usg">
@@ -762,7 +762,7 @@ $tr = '';
                                             <div class="otlt-usg__otlt-var">
 
                                             <div class="otlt-usg">
-                                                    <p>Usage/ Cost</p>
+                                                    <p>Usage</p>
                                                     <p class="cstVal-Otlt"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 
