@@ -1,6 +1,6 @@
-@media (max-width: 1599px) {
+@media (max-width: 1920px) {
     .new__layout .payOptnreq {
-        width: 24%;
+        width: 19%;
     }
 }
 .tb-bdy .fa-solid {
@@ -31,4 +31,70 @@
 .payment__table th{
     font-size: 14px;
     font-weight: 700;
+}
+
+.payment-tabel-header .table1 tr td {
+    font-size: 16px;   
+}
+.grand-total th{
+    font-size: 18px;
+}
+.invoiceto-p p, .paymentto-p p{
+    font-size: 16px;
+}
+.invoiceto-p .f-02, .paymentto-p .f-02{
+    line-height: 35px;
+}
+tr.grand-total th:last-child {
+    text-align: right;
+}
+.tabel-body-p-footer table:last-child {
+    max-width: 289px;
+}
+.numItmclm .dblArrow, .hisStatusclm .dblArrow  {
+    display: none !important;
+}
+.modal-header .fa.fa-filter {
+    position: relative;
+    top: -3px;
+}
+.mt-2.flex-wrap.modal-head-row {
+    margin-top: 1px !important;
+}
+@media (min-width: 300px) and (max-width: 575px){
+    .tabel-body-p-footer table:last-child {
+        max-width: 100%;
+        min-width: 289px;
+    }
+    table.grand-total-tabel.col {
+        margin-top: 15px;
+    }
+    tr.grand-total th {
+        font-size: 16px;
+    }
+}
+@media (min-width: 1700px) and (max-width: 1825px) {
+    .cnfrm {
+        width: 65px;
+    }
+    .doc__btn.edit, .doc__btn.delete {
+        width: 40px;
+    }
+}
+@media (min-width: 1920px) { 
+    .new__layout .task-status {
+        width: 50%;
+    }
+    .cnfrm {
+        width: 60px;
+    }
+    .new__layout .payOptnreq {
+        width: 17%;
+    }
+    .doc__btn.edit, .doc__btn.delete {
+        width: 40px;
+    }
+    .hisTask .doc-bx {
+        width: 96px;
+    }
 }

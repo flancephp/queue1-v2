@@ -183,6 +183,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
 
 
     <style>
@@ -382,32 +383,32 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             </div>
 
                             <div class="mt-4 row g-0 payment-tabel-header">
-                                <div class="col-md-6">
+                                <div class="col-md-7">
                                     <table class="table1 table01">
                                         <tbody>
                                             <tr>
-                                                <td class="font-wt">
+                                                <td class="font-wt" style="white-space:nowrap">
                                                     <?php echo showOtherLangText('Supplier Invoice'); ?> #
                                                 </td>
-                                                <td><?php echo $payInfoRow['supplierInvoice'] ?></td>
+                                                <td class="in-val-p"><?php echo $payInfoRow['supplierInvoice'] ?></td>
                                             </tr>
     
                                             <tr>
-                                                <td class="font-wt">
+                                                <td class="font-wt" style="white-space:nowrap">
                                                     <?php echo showOtherLangText('Payment'); ?> #
                                                 </td>
-                                                <td><?php echo setPaymentId($paymentRow['id']); ?></td>
+                                                <td class="in-val-p"><?php echo setPaymentId($paymentRow['id']); ?></td>
                                             </tr>
     
                                             <tr>
-                                                <td class="font-wt"><?php echo showOtherLangText('Task') ?> #</td>
-                                                <td><?php echo $orderRow['ordNumber'] ?></td>
+                                                <td class="font-wt" style="white-space:nowrap"><?php echo showOtherLangText('Task') ?> #</td>
+                                                <td class="in-val-p"><?php echo $orderRow['ordNumber'] ?></td>
                                             </tr>
     
                                             <tr>
-                                                <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
+                                                <td class="font-wt" style="white-space:nowrap"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td>
+                                                <td class="in-val-p">
                                                     <?php 
                                         if ($paymentRow['paymentStatus'] ==1 ) {
     
@@ -429,7 +430,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                     $resSet = mysqli_query($con, $sql);
                                     $resultRow = mysqli_fetch_array($resSet); 
                                 ?>
-                                <div class="col-md-6"> 
+                                <div class="col-md-5"> 
                                     <table class="w-100">
                                         <tbody class="table1 table01 fl-right cmp-dtl text-start text-md-end">
                                             <tr>
@@ -454,12 +455,12 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             </div>
 
                             <br>
-                            <div class="">
-                                <p class="f-02 mb-0"><?php echo showOtherLangText('Payment To'); ?>: </p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierName']; ?></p>
-                                <p class="f-03 mb-0"><?php echo nl2br($payInfoRow['supplierAddress']); ?></p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierEmail']; ?></p>
-                                <p class="f-03 mb-0"><?php echo $payInfoRow['supplierPhone']; ?></p>
+                            <div class="paymentto-p">
+                                <p class="f-02 mb-2"><?php echo showOtherLangText('Payment To'); ?>: </p>
+                                <p class="f-03 in-val-p mb-1"><?php echo $payInfoRow['supplierName']; ?></p>
+                                <p class="f-03 in-val-p mb-1"><?php echo nl2br($payInfoRow['supplierAddress']); ?></p>
+                                <p class="f-03 in-val-p mb-1"><?php echo $payInfoRow['supplierEmail']; ?></p>
+                                <p class="f-03 in-val-p mb-1"><?php echo $payInfoRow['supplierPhone']; ?></p>
                             </div>
                             <br>
 
@@ -469,11 +470,11 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                     <thead style="background: #A9B0C0 !important;">
                                         <tr class="tr-bg-1">
                                             <th>#</th>
-                                            <th style="width: 30%;"><?php echo showOtherLangText('Item'); ?></th>
+                                            <th style="width: 22%;"><?php echo showOtherLangText('Item'); ?></th>
                                             <th><?php echo showOtherLangText('Unit'); ?></th>
-                                            <th><?php echo showOtherLangText('Ordered'); ?><br><?php echo showOtherLangText('Quantity'); ?>
+                                            <th style="width: 14%;"><?php echo showOtherLangText('Ordered'); ?><br><?php echo showOtherLangText('Quantity'); ?>
                                             </th>
-                                            <th><?php echo showOtherLangText('Receive'); ?><br><?php echo showOtherLangText('Quantity'); ?>
+                                            <th style="width: 14%;"><?php echo showOtherLangText('Receive'); ?><br><?php echo showOtherLangText('Quantity'); ?>
                                             </th>
     
                                             <?php 
@@ -517,10 +518,10 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                         ?>
                                         <tr>
                                             <td><?php echo $x; ?></td>
-                                            <td style="width: 30%;"><?php echo $showCif['itemName'];?></td>
+                                            <td style="width: 22%;"><?php echo $showCif['itemName'];?></td>
                                             <td><?php echo $showCif['unit'];?></td>
-                                            <td>1</td>
-                                            <td>1</td>
+                                            <td style="width: 14%;">1</td>
+                                            <td style="width: 14%;">1</td>
                                             <?php 
                                             if ($orderRow['ordCurId'] > 0) { 
                                             ?>
@@ -600,14 +601,14 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             <br>
                             <div class="tabel-body-p-footer gap-3 flex-wrap">
                                 <div class="table1 col-md-4">
-                                    <p class="f-02 mb-0"><?php echo showOtherLangText('Payment Method'); ?></p>
+                                    <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method'); ?></p>
                                     <?php 
                     $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
                     $resultSet = mysqli_query($con, $sqlSet);
                     $accDet = mysqli_fetch_array($resultSet);
                     ?>
-                                    <p class="f-03 mb-0"><?php echo $payModeRow['modeName'];?></p>
-                                    <p class="f-03 mb-0"><?php echo $accDet['accountName'];?></p>
+                                    <p class="f-03 mb-1 in-val-p"><?php echo $payModeRow['modeName'];?></p>
+                                    <p class="f-03 mb-0 in-val-p"><?php echo $accDet['accountName'];?></p>
                                 </div>
 
                                 <!-- grand totale  here -->
@@ -890,7 +891,7 @@ if ($orderRow['ordCurId'] > 0)
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Payment To'); ?></td>
                                                     <td>
-                                                        <?php echo $payInfoRow['supplierName'] ?>
+                                                        <p class="mt-2"><?php echo $payInfoRow['supplierName'] ?></p>
                                                     </td>
                                                 </tr>
 
@@ -923,15 +924,15 @@ if ($orderRow['ordCurId'] > 0)
 
 
                                     <div class="invTotal">
-                                        <table>
+                                        <table width="100%">
                                             <tbody>
                                                 <?php 
             if ($orderRow['ordCurId'] > 0)
                 { ?>
                                                 <tr class="payDetail">
-                                                    <td><?php echo showOtherLangText('Total Amount'); ?>
+                                                    <td class="pb-1"><?php echo showOtherLangText('Total Amount'); ?>
                                                         (<?php echo $curDetail['curCode'] ?>)</td>
-                                                    <td class="text-center">
+                                                    <td class="pb-1">
                                                         <?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>
                                                     </td>
                                                 </tr>

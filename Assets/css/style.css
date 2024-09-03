@@ -20585,6 +20585,7 @@ text-align: center;
   padding: 8px;
   display: flex;
   flex-wrap: wrap;
+  padding-left: 0;
 }
 
 .otlt-itm-typ,
@@ -20606,7 +20607,7 @@ text-align: center;
 
 .otlt-hdNote {
   display: flex !important;
-  width: 20%;
+  width: 15%;
   padding: .5rem;
 }
 
@@ -20629,4 +20630,37 @@ text-align: center;
 }
 .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk {
   width: 12.5%;
+  padding-left: 0;
+}
+.modal-table .table-cell {
+  font-size: 1rem;
+}
+.modal-dialog tbody.table1.table01.fl-right.cmp-dtl.text-start.text-md-end td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.btn.btn-primary.dwnBtn {
+  padding: 4.5px 18px;
+  display: flex;
+  align-items: center;
+}
+.modal-dialog #modalfiltertop {
+  top: 19px;
+}
+
+@media (min-width: 300px) and (max-width: 991px){
+  .modal-header #modalfiltertop{
+    position: relative !important;
+    top: 0 !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+ .modal-table .table-cell {
+  max-width: 150px;
+  line-height: 20px;
+}
+.tble-design-fix-p .fs-13 p{
+  font-size: 15px;
+  line-height: 20px;
 }

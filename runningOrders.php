@@ -305,6 +305,7 @@ integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcn
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style_new.css">
 <link rel="stylesheet" href="Assets/css/style1.css">
+<link rel="stylesheet" href="Assets/css/style_p.css">
 <style>
     .supMem-Name { color: #3fb180; }
     /* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
@@ -322,8 +323,29 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .modal .modal-header { padding:0; }
     }
     @media(min-width:992px) {
-        #modalfiltertop { position: absolute;top:.5rem;left:4rem; }
+        #modalfiltertop { position: absolute;top:1rem; left:4rem; }
     }
+    .nav-bar a {
+        color: #8C8FA7;
+    }
+    a.active {
+    color: #fff !important;
+}
+.btn-primary {
+    background-color: var(--color-primary) !important;
+    padding: .625rem 1.625rem !important;
+    box-shadow: 0px 4px 20px 0px #7F7FA514;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: .937rem !important;
+    border-color: var(--color-primary) !important;
+    transition: all .3s ease-in-out;
+    border-width: 2px;
+}
+.btn-primary:focus {
+  outline: 3px solid var(--color-white) !important;
+  outline-offset: -6px !important;
+}
 </style>
 </head>
 
@@ -750,7 +772,7 @@ while($orderRow = mysqli_fetch_array($result))
             <div class="modal-footer">
                 <div class="btnBg">
                     <button type="submit"
-                        class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                        class="btn btn-primary std-btn"><?php echo showOtherLangText('Save'); ?></button>
                 </div>
             </div>
         </div>
@@ -813,11 +835,11 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
         <div class="modal-footer">
             <div class="btnBg">
                 <button type="button" data-bs-dismiss="modal"
-                    class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
             </div>
             <div class="btnBg">
                 <button type="button" onclick=""
-                    class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
             </div>
         </div>
     </div>

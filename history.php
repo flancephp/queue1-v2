@@ -963,6 +963,7 @@ $colsArr = [
 <link rel="stylesheet" href="Assets/css/style.css">
 <link rel="stylesheet" href="Assets/css/style1.css">
 <link rel="stylesheet" href="Assets/css/module-A.css">
+<link rel="stylesheet" href="Assets/css/style_p.css">
 
 <style>
     .modal-md { max-width: 800px; } 
@@ -1028,7 +1029,8 @@ $colsArr = [
 
         .hisStatusclm .dropdown-toggle,
         .hisAcntclm .dropdown-toggle {
-            width: 100% !important;
+            width: auto !important;
+            max-width: 85px !important;
         }
 
         .hisStatusclm,
@@ -1833,9 +1835,9 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                             <?php } else { ?>
-                                                <div class="tb-bdy refer-to-dpd">
+                                                <div class="tb-bdy refer-to-dpd" style="width:100px;min-width:100px">
                                         <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100 lg__70">
-                                                    <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false" style="max-width: 90px !important;">
                                                         <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $suppMemStoreOptions; ?>
@@ -1866,7 +1868,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     
 
 
-                                <div class="stsHiscol d-flex align-items-center">
+                                <div class="stsHiscol d-flex align-items-center" style="width: 35% !important;">
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14]) ) { ?>
                                             <?php } else { ?>
@@ -2241,7 +2243,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                            
                                             <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy hisRefrclm"><p class="refTomember"><?php echo $suppMemStoreId; ?></p></div>
+                                                    <div class="tb-bdy hisRefrclm" style="width:100px;min-width:100px;"><p class="refTomember"><?php echo $suppMemStoreId; ?></p></div>
                                                 <?php } ?>
                                             
                                         </div>
@@ -2258,10 +2260,10 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                         ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p> </div>
                                         <?php } ?>
                                        
-                                        <div class="stsHiscol d-flex align-items-center">
+                                        <div class="stsHiscol d-flex align-items-center" style="width: 35% !important;">
                                            
                                                 <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
-                                                <?php } else { ?> <div class="tb-bdy hisStatusclm" style=" padding-left:0px;"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
+                                                <?php } else { ?> <div class="tb-bdy hisStatusclm" style=" padding-left:8px;"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
                                                 <?php } ?>
                                             
                                             

@@ -179,6 +179,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
 
 
     <style>
@@ -415,25 +416,25 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             </div>
 
                             <div class="mt-4 row g-0 payment-tabel-header">
-                                <div class="col-md-6"> 
+                                <div class="col-md-7"> 
                                     <table class="table1 table01">
                                         <tbody>
                                             <tr>
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('Invoice'); ?> #
                                                 </td>
-                                                <td><?php echo getinvoiceNumber($paymentInfoRow['invoiceNumber']); ?></td>
+                                                <td class="in-val-p"><?php echo getinvoiceNumber($paymentInfoRow['invoiceNumber']); ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
-                                                <td><?php echo $ordersRow['ordNumber'] ?></td>
+                                                <td class="in-val-p"><?php echo $ordersRow['ordNumber'] ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td><?php
+                                                <td class="in-val-p"><?php
                                                 if ($paymentRow['paymentStatus'] ==1 ) {
                                         
                                                     echo $paymentRow['paymentDateTime'];
@@ -453,7 +454,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                 $resSet = mysqli_query($con, $sql);
                                 $resultRow = mysqli_fetch_array($resSet);
                                 ?>
-                                <div class="col-md-6"> 
+                                <div class="col-md-5"> 
                                     <table class="w-100">
                                         <tbody class="table1 table01 fl-right cmp-dtl text-start text-md-end">
                                             <tr>
@@ -479,12 +480,12 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             </div>
 
                             <br>
-                            <div class="">
-                                <p class="f-02 mb-0"><?php echo showOtherLangText('Invoice To'); ?>: </p>
-                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceName'] ?></p>
-                                <p class="f-03 mb-0"><?php echo nl2br($paymentInfoRow['invoiceAddress']); ?></p>
-                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoiceEmail']; ?></p>
-                                <p class="f-03 mb-0"><?php echo $paymentInfoRow['invoicePhone']; ?></p>
+                            <div class="mt-4 invoiceto-p">
+                                <p class="f-02 mb-2"><?php echo showOtherLangText('Invoice To'); ?>: </p>
+                                <p class="f-03 in-val-p mb-1"><?php echo $paymentInfoRow['invoiceName'] ?></p>
+                                <p class="f-03 in-val-p mb-1"><?php echo nl2br($paymentInfoRow['invoiceAddress']); ?></p>
+                                <p class="f-03 in-val-p mb-1"><?php echo $paymentInfoRow['invoiceEmail']; ?></p>
+                                <p class="f-03 in-val-p mb-1"><?php echo $paymentInfoRow['invoicePhone']; ?></p>
                             </div>
                             <br>
 
@@ -492,7 +493,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                 <table class="modal-table fs-12 w-100 payment__table">
                                     <thead style="background: #A9B0C0 !important;">
                                         <tr class="tr-bg-1">
-                                            <th>#</th>
+                                            <th style="">#</th>
                                             <th style="width: 30%;"><?php echo showOtherLangText('Item'); ?></th>
                                             <th><?php echo showOtherLangText('Unit'); ?></th>
                                             <th><?php echo showOtherLangText('Quantity'); ?></th>
@@ -545,14 +546,14 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             <br>
                             <div class="tabel-body-p-footer gap-3 flex-wrap">
                                 <div class="table1 col-md-4">
-                                    <p class="f-02 mb-0"><?php echo showOtherLangText('Payment Method'); ?>:</p>
+                                    <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method'); ?>:</p>
                                     <?php 
                                     $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."' AND account_id = '".$_SESSION['accountId']."'  ";
                                     $resultSet = mysqli_query($con, $sqlSet);
                                     $accDet = mysqli_fetch_array($resultSet); 
                                     ?>
-                                    <p class="f-03 mb-0"><?php echo $payModeRow['modeName'];?></p>
-                                    <p class="f-03 mb-0"><?php echo $accDet['accountName'];?></p>
+                                    <p class="f-03 mb-1 in-val-p"><?php echo $payModeRow['modeName'];?></p>
+                                    <p class="f-03 mb-0 in-val-p"><?php echo $accDet['accountName'];?></p>
                                 </div>
 
                                 <!-- grand totale  here -->
@@ -675,8 +676,8 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
 
                                     ?> 
                                     <tr class="grand-total" style=" max-height: 38px;">
-                                        <th><?php echo showOtherLangText('Grand Total'); ?></th>
-                                        <th><?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
+                                        <th style="font-weight:600;"><?php echo showOtherLangText('Grand Total'); ?></th>
+                                        <th style="font-weight:600;"><?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
                                     </tr> 
                                 </table>
 
@@ -779,11 +780,11 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
 
 
                                     <div class="invTotal">
-                                        <table>
+                                        <table width="100%">
                                             <tbody>
                                                 <tr class="payDetail">
-                                                    <td><?php echo showOtherLangText('Total Amount'); ?></td>
-                                                    <td class="text-center">
+                                                    <td class="pb-1"><?php echo showOtherLangText('Total Amount'); ?></td>
+                                                    <td class="pb-1">
                                                         <?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?>
                                                     </td>
                                                 </tr>

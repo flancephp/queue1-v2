@@ -455,6 +455,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
 
 
     <style>
@@ -657,25 +658,25 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                             </div>
 
                             <div class="mt-4 row g-0 payment-tabel-header">
-                                <div class="col-sm-6">
+                                <div class="col-sm-7">
                                     <table class="table1 table01">
                                         <tbody>
                                             <tr>
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('Invoice'); ?> #
                                                 </td>
-                                                <td id="leftInvoiceNum"><?php echo getinvoiceNumber($invoiceNumber);?></td>
+                                                <td class="in-val-p" id="leftInvoiceNum"><?php echo getinvoiceNumber($invoiceNumber);?></td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
-                                                <td><?php echo $orderRow['ordNumber'] ?></td>
+                                                <td class="in-val-p"><?php echo $orderRow['ordNumber'] ?></td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td><?php echo $orderRow['ordDateTime']?></td>
+                                                <td class="in-val-p"><?php echo $orderRow['ordDateTime']?></td>
                                             </tr>
 
                                         </tbody>
@@ -686,7 +687,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                     $resSet = mysqli_query($con, $sql);
                                     $resultRow = mysqli_fetch_array($resSet); 
                                 ?>
-                                <div class="col-sm-6">
+                                <div class="col-sm-5">
                                     <table class="w-100">
                                         <tbody class="table1 table01 fl-right cmp-dtl  text-start text-sm-end">
                                             <tr>
@@ -711,20 +712,20 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                             </div>
 
                             <br>
-                            <div class="">
-                                <p class="f-02 mb-0"><?php echo showOtherLangText('Invoice To'); ?>: </p>
-                                <p id="name" class="f-03 mb-0">
+                            <div class="mt-4 invoiceto-p">
+                                <p class="f-02 mb-2"><?php echo showOtherLangText('Invoice To'); ?>: </p>
+                                <p id="name" class="f-03 in-val-p mb-1">
                                     <?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?>
                                 </p>
                             </div>
                             <div class="">
-                                <p id="address" class="f-02 mb-0">
+                                <p id="address" class="f-02 mt-2 mb-1">
                                     <?php echo isset($reqPayInfo['invoiceAddress']) ? nl2br($reqPayInfo['invoiceAddress']) : nl2br($address) ;?>
                                 </p>
-                                <p id="email" class="f-03 mb-0">
+                                <p id="email" class="f-03 in-val-p mb-1">
                                     <?php echo isset($reqPayInfo['invoiceEmail']) ? $reqPayInfo['invoiceEmail'] : $email ; ?>
                                 </p>
-                                <p id="phone" class="f-03 mb-0">
+                                <p id="phone" class="f-03 in-val-p mb-1">
                                     <?php echo isset($reqPayInfo['invoicePhone']) ? $reqPayInfo['invoicePhone'] : $phone ; ?>
                                 </p>
                             </div>
@@ -815,7 +816,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                     ?>
                                     <tr>
                                         <td><?php echo showOtherLangText('Sub Total'); ?></td>
-                                        <td><?php showPrice($chargePrice,$getDefCurDet['curCode']);?></td>
+                                        <td style="text-align: right;"><?php showPrice($chargePrice,$getDefCurDet['curCode']);?></td>
 
                                     </tr>
 
@@ -851,7 +852,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                                     class="dlTe"></span></a>
 
                                             &nbsp;<?php echo $row['feeName'];?></td>
-                                        <td><?php showprice($fixedCharges,$getDefCurDet['curCode']);?></td>
+                                        <td style="text-align: right;"><?php showprice($fixedCharges,$getDefCurDet['curCode']);?></td>
                                     </tr>
                                     <?php
 
@@ -889,7 +890,7 @@ if($row)
 
                                             &nbsp;<?php echo $row['feeName'];?>
                                             <?php echo $row['totalAmt'] ?> %</td>
-                                        <td><?php showprice($discountPercent,$getDefCurDet['curCode']); ?>
+                                        <td style="text-align:right;"><?php showprice($discountPercent,$getDefCurDet['curCode']); ?>
                                         </td>
                                     </tr>
 
@@ -920,7 +921,7 @@ $totalTaxCharges += (($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$ta
 
                                             &nbsp;<?php echo $row['feeName'];?>
                                             <?php echo $row['price'] ?> %</td>
-                                        <td><?php showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
+                                        <td style="text-align:right;"><?php showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
                                     </tr>
                                     <?php
 } //Ends order lelvel tax discount charges
@@ -986,7 +987,7 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                         </table>
                                     </div>
 
-                                    <div class="inv-detail">
+                                    <div class="inv-detail mt-3">
                                         <table cellpadding="0" cellspacing="0" width="100%">
                                             <tbody class="frm-info" style="line-height: 40px;">
                                                 <tr class="mb-adrs">
@@ -1642,7 +1643,7 @@ list'); ?></span><br>
                 <br>
                 <div class="tabel-body-p-footer">
                     <div class="table1 ">
-                        <p class="f-02 mb-0"><?php echo showOtherLangText('Payment Method'); ?>:</p>
+                        <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method'); ?>:</p>
                         <!-- <p class="f-03 mb-0">Cash</p>
                                     <p class="f-03 mb-0">Main Safe USD</p> -->
                     </div>

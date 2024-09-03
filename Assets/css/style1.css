@@ -38,9 +38,6 @@ html[dir=rtl] .brdLft {
   border-right: none;
 }
 
-html[dir=rtl] .newOrder {
-  padding: 0 25px !important;
-}
 html[dir=rtl] .lgOut{
   padding-right: 0 !important;
 }
@@ -220,7 +217,9 @@ html[dir=rtl] #convrtProId{
 html[dir=rtl] #password {
   padding-right: 2rem;
 }
-
+html[dir=rtl] #password.acntStp-Row  {
+  padding-right: 0;
+}
 
 
 @media (min-width: 576px) {
@@ -258,4 +257,22 @@ html[dir=rtl] .order-md-3 {
 html[dir=rtl] .fa-credit-card.pe-2 {
   padding-right: 0 !important;
   padding-left: 0.5rem;
+}
+
+html[dir=rtl] .mbrRuntsk p {
+  direction: ltr;
+  text-align: end;
+}
+html[dir=rtl] .form-select {
+  background-size: 30px;
+  border-radius: 7px;
+}
+html[dir=rtl] #currencyId {
+  background-size: 36px !important;
+}
+html[dir=rtl] .stkView .container {
+  padding: 28px 11px 0;
+}
+html[dir=rtl] .newOrder {
+  padding: 0 5px 0 25px;
 }

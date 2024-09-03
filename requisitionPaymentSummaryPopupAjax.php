@@ -105,17 +105,17 @@ $content .= '<div class="modal-header pb-3">
                                                 <td class="font-wt">
                                                     '. showOtherLangText('Invoice').' #
                                                 </td>
-                                                <td>'. getinvoiceNumber($paymentInfoRow['invoiceNumber']).'</td>
+                                                <td class="in-val-p">'. getinvoiceNumber($paymentInfoRow['invoiceNumber']).'</td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt">'. showOtherLangText('Task').' #</td>
-                                                <td>'. $ordersRow['ordNumber'] .'</td>
+                                                <td class="in-val-p">'. $ordersRow['ordNumber'] .'</td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt">'. showOtherLangText('Date').' #
-                                                </td><td>';
+                                                </td><td class="in-val-p">';
                                                 if ($paymentRow['paymentStatus'] ==1 ) { 
                                                     $content .=   $paymentRow['paymentDateTime']; 
                                                 }else{ 
@@ -154,12 +154,12 @@ $content .= '<div class="modal-header pb-3">
                             </div>
 
                             <br>
-                            <div class="">
-                                <p class="f-02 mb-0">'. showOtherLangText('Invoice To').': </p>
-                                <p class="f-03 mb-0">'. $paymentInfoRow['invoiceName'].'</p>
-                                <p class="f-03 mb-0">'. nl2br($paymentInfoRow['invoiceAddress']).'</p>
-                                <p class="f-03 mb-0">'. $paymentInfoRow['invoiceEmail'].'</p>
-                                <p class="f-03 mb-0">'. $paymentInfoRow['invoicePhone'].'</p>
+                            <div class="mt-3 invoiceto-p">
+                                <p class="f-02 mb-2">'. showOtherLangText('Invoice To').': </p>
+                                <p class="f-03 in-val-p mb-1">'. $paymentInfoRow['invoiceName'].'</p>
+                                <p class="f-03 in-val-p mb-1">'. nl2br($paymentInfoRow['invoiceAddress']).'</p>
+                                <p class="f-03 in-val-p mb-1">'. $paymentInfoRow['invoiceEmail'].'</p>
+                                <p class="f-03 in-val-p mb-1">'. $paymentInfoRow['invoicePhone'].'</p>
                             </div>
                             <br>
 
@@ -220,12 +220,12 @@ $content .= '<div class="modal-header pb-3">
                             <br>
                             <div class="tabel-body-p-footer row g-3">
                                 <div class="table1 col-md-4">
-                                    <p class="f-02 mb-0">'. showOtherLangText('Payment Method') .':</p>';
+                                    <p class="f-02 mb-1">'. showOtherLangText('Payment Method') .':</p>';
                             $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
                                     $resultSet = mysqli_query($con, $sqlSet);
                                     $accDet = mysqli_fetch_array($resultSet);
-                            $content .= '<p class="f-03 mb-0">'.$payModeRow['modeName'].'</p>
-                                    <p class="f-03 mb-0">'.$accDet['accountName'].'</p>';
+                            $content .= '<p class="f-03 mb-1 in-val-p">'.$payModeRow['modeName'].'</p>
+                                    <p class="f-03 mb-1 in-val-p">'.$accDet['accountName'].'</p>';
                              $content .= '</div>
 
                                <div class="col-md-7 d-flex justify-content-end"> 
