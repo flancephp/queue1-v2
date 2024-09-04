@@ -293,7 +293,7 @@ foreach($resItemHistory['resRows'] as $item){
                                     </div>
 
                                 </div>
-                                <div class="col-md-4 expStrdt d-flex justify-content-end align-items-end">
+                                <!--<div class="col-md-4 expStrdt d-flex justify-content-end align-items-end">
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div class="chkStore">
                                             <a href="javascript:void(0)">
@@ -316,7 +316,7 @@ foreach($resItemHistory['resRows'] as $item){
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                         <!-- Mobile Date Box Start -->
@@ -364,8 +364,8 @@ foreach($resItemHistory['resRows'] as $item){
                                         <div style="min-width: fit-content;" class="itmVw-varPtive">
                                             <p class="Vw-varHead"><?php echo showOtherLangText('Variances'); ?></p>
                                             <div style="display: flex; gap:5px; justify-content: space-evenly">
-                                                <p class="viewItm-varPlus varDif"><?php echo $minusvariance!=''?number_format($minusvariance,4):'0';?></p>
-                                                <p class="varPlus-countUnt"><?php echo $plusvariance!=''?number_format($plusvariance,4):'0';?></p>
+                                                <p class="viewItm-varPlus varDif"><?php echo $minusvariance!=''? showPrice($minusvariance,$getDefCurDet['curCode']):'0';?></p>
+                                                <p class="varPlus-countUnt"><?php echo $plusvariance!=''? showPrice($plusvariance,$getDefCurDet['curCode']):'0';?></p>
                                             </div>
                                             <div style="display: flex; gap:5px; justify-content: space-evenly">
                                                 <p class="viewItm-varPlus varDif"><?php echo $minusqtytot!=''?$minusqtytot.' '.$res['countingUnit']:'0';?></p>
@@ -447,19 +447,21 @@ Quantity'); ?></p>
                                 foreach($resItemHistory['resRows'] as $row)
                                 { 
 
-                                   $suppMemStoreName = '';
-    if($row['deptUserName'] =='' && $row['storeName'] =='')
-    {
-        $suppMemStoreName = '<p class="isuIn-Mem">'.$row['suppName'].'</p>'; 
-    }
-    if($row['suppName'] =='' && $row['storeName'] =='')
-    {
-        $suppMemStoreName = '<p class="isuOut-Mem">'.$row['deptUserName'].'</p>'; 
-    }
-    if($row['suppName'] =='' && $row['deptUserName'] =='')
-    {
-        $suppMemStoreName = '<p class="varStk-Mem">'.$row['storeName'].'</p>'; 
-    }   ?>
+                                    $suppMemStoreName = '';
+                                    if($row['deptUserName'] =='' && $row['storeName'] =='')
+                                    {
+                                        $suppMemStoreName = '<p class="isuIn-Mem">'.$row['suppName'].'</p>'; 
+                                    }
+                                    if($row['suppName'] =='' && $row['storeName'] =='')
+                                    {
+                                        $suppMemStoreName = '<p class="isuOut-Mem">'.$row['deptUserName'].'</p>'; 
+                                    }
+                                    if($row['suppName'] =='' && $row['deptUserName'] =='')
+                                    {
+                                        $suppMemStoreName = '<p class="varStk-Mem">'.$row['storeName'].'</p>'; 
+                                    }   
+    
+         ?>
                                 <div class="itmVw-Task border-bottom">
                                     <div class="mb-itmVwbarOut"></div>
                                     <div class="align-items-center itmBody">

@@ -586,19 +586,19 @@ $tr = '';
                                                             <div class="otltBd-Avr">
                                                                 <p class="mbSale-Head">Avr Usage</p>
                                                                 <p class="mblAvg-Dtl">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
-                                                                <p class="mblAvr-Usg">24.76 $</p>
+                                                                <p class="mblAvr-Usg">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
                                                             <div class="otltBd-Min">
                                                                 <p class="mbSale-Head">Min</p>
-                                                                <p class="mblAvg-Dtl">'. $row['outletMinQty'].'</p>
+                                                                <p class="mblMinQty">'. $row['outletMinQty'].'</p>
                                                             </div>
                                                             <div class="otltBd-Max">
                                                                 <p class="mbSale-Head">Max</p>
-                                                                <p class="mblAvg-Dtl">'. $row['outletMaxQty'].'</p>
+                                                                <p class="mblMaxQty">'. $row['outletMaxQty'].'</p>
                                                             </div>
                                                             <div class="otltBd-Req">
                                                                 <p class="mbSale-Head">Requisition</p>
-                                                                <p class="mblAvg-Dtl fw-bold">'. $requisition.'</p>
+                                                                <p class="mblReq fw-bold">100'. $requisition.'</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1046,25 +1046,40 @@ $(document).ready(function () {
             $('.hideVariance').show();
         }
 
+
+        if ($(".hideBtn-Info").hasClass("actvSale-Cst")) {
+            $(".otlt-stkPrc").hide();
+            $(".otltBd-stkPrc").hide();
+
+            $(".otltBd-Avr").hide();
+            $(".otlt-avgUsg").hide();
+            
+        } else {
+            $(".otltBd-Avr").show();
+            $(".otlt-avgUsg").show();
+        }
+
   });
 });
 
 $(document).ready(function () {
 
-$(".cstBtn-Qty").on("click", function () {
+    $(".cstBtn-Qty").on("click", function () {
 
-     
-      
+        
+        
 
-          $('.mblStock-Sale').toggle();
+            $('.mblStock-Sale').toggle();
 
-          
+            
 
-          $(".cstBtn-Qty").toggleClass('actvSale-Cst');
-          
-      
+            $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+            
+        
 
-});
+    });
+
+    
 });
 
 </script>
