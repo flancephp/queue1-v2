@@ -598,7 +598,7 @@ $tr = '';
                                                             </div>
                                                             <div class="otltBd-Req">
                                                                 <p class="mbSale-Head">Requisition</p>
-                                                                <p class="mblReq fw-bold">100'. $requisition.'</p>
+                                                                <p class="mblReq fw-bold">'. $requisition.'</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1066,16 +1066,9 @@ $(document).ready(function () {
 
     $(".cstBtn-Qty").on("click", function () {
 
-        
-        
-
             $('.mblStock-Sale').toggle();
 
-            
-
             $(".cstBtn-Qty").toggleClass('actvSale-Cst');
-            
-        
 
     });
 

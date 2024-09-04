@@ -778,7 +778,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    <div class="tb-head lstPrcol">
+                                    <div class="tb-head stockPriceCol lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
                                             <?php } else { ?> <p><?php echo showOtherLangText('Stock  Price'); ?></p>
@@ -789,6 +789,25 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <?php } ?>
                                         </div>
                                     </div>
+
+                                    
+
+                                </div>
+
+                                <div class="stkPrcol d-flex align-items-center">
+                                    <div class="tb-head stockValDefault lstPrcol">
+                                        <div class="d-flex align-items-center">
+                                        <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
+                                        <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
+                                        <?php } ?>
+                                        </div>
+                                    </div>
+                                    
+                                    
 
                                 </div>
                             </div>
@@ -890,7 +909,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     </div>
                                 </div>
                                 <div class="stkPrcol d-flex align-items-center">
-                                    <div class="tb-head lstPrcol">
+                                    <div class="tb-head tmp_qty lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                             <?php } else { ?><p><?php echo showOtherLangText('Tmp qty'); ?></p>
@@ -937,7 +956,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         <?php } ?>
                                     </div>
                                 </div>
-                                <div class="tb-head supStkclm">
+                                <div class="tb-head stk_val supStkclm">
                                     <div class="d-flex align-items-center">
                                         <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                         <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
@@ -1042,6 +1061,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                         </p>
                                                     <?php } ?>
                                                 </div>
+
+                                            </div>
+
+                                            <div class="stkPrcol d-md-flex align-items-center">
+                                                <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
+                                                    <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
+                                                    <?php } else { ?>
+                                                        <p><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        </p>
+                                                    <?php } ?>
+                                                </div>
+
+                                                
 
                                             </div>
                                         </div>
@@ -1732,6 +1764,24 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             } else {
                 $('#CheckAllOptions').prop('checked', false);
             }
+
+
+            //show/hide extra details on info
+            $(".cstBtn-Sale").on("click", function () 
+            {       
+                if ($(".hideBtn-Info").hasClass("actvSale-Cst")) 
+                {
+                    $(".tmp_qty").hide();
+                    $(".stk_val").hide();
+                    
+                } else 
+                {
+                    $(".tmp_qty").show();
+                    $(".stk_val").show();
+                }
+                 
+            });//end show/hide extra details
+
         });
 
         $("#CheckAllOptions").on('click', function() {
@@ -1761,7 +1811,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         }
     </script>
 
-    }
+    
 </body>
 
 </html>
