@@ -308,9 +308,10 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .stkTblhead .stkItmclm,
         .stkTblhead .stkbarclm { width: 61%;  } 
         .stkTblhead .stkNamcol,
-        .cntTable .stkNamcol { width: calc(60% - 55px); } 
+        .cntTable .stkNamcol { width: 50%; } 
         .page2bdy .stkTblhead .stkNamcol{width: 65% !important;}
-        .page2bdy .cntTable .stkNamcol { width: calc(60% - 55px) !important;}
+        #page2bdy   .stkTblhead .stkNamcol { width: 63%; } 
+        .page2bdy .cntTable .stkNamcol { width: 63% !important;}
 
 
         .cntTable1 .stkNamcol {
@@ -318,9 +319,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             justify-content: space-evenly;
         }
 
-        .stockView .lstPrcol { width: 50% !important;}
-   
-
+ 
 
         .stkTblhead .stkPrcol {
             width: 25%;
@@ -336,7 +335,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
         @media (min-width:767px) {
             .mbShw .stkPrcol {
-                width: 30% !important;
+                width: 35% !important;
             }
 
             .stockView .cntTable {
@@ -357,22 +356,22 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                 width: 20%;
             }
 
-            .cntTable .stkNamcol>div:nth-child(1),.stkTblhead .stkNamcol>div:nth-child(1) {width: 35%;}
+            .cntTable .stkNamcol>div:nth-child(1),.stkTblhead .stkNamcol>div:nth-child(1) {width: 40%;}
             .cntTable .stkNamcol>div:nth-child(2),.stkTblhead .stkNamcol>div:nth-child(2) {width: 25%;}
             .cntTable .stkNamcol>div:nth-child(3),.stkTblhead .stkNamcol>div:nth-child(3) {width: 15%;}
-            .cntTable .stkNamcol>div:nth-child(4),.stkTblhead .stkNamcol>div:nth-child(4) {width: 14.5%;}
-            .cntTable .stkNamcol>div:nth-child(5),.stkTblhead .stkNamcol>div:nth-child(5) {width: 11.5%;}
+            .cntTable .stkNamcol>div:nth-child(4),.stkTblhead .stkNamcol>div:nth-child(4) {width: 15%;}
+            .cntTable .stkNamcol>div:nth-child(5),.stkTblhead .stkNamcol>div:nth-child(5) {width: 15%;}
 
-            #page1head .stkNamcol>div:nth-child(2) { width: 21.5%;}
-            #page1head .stkNamcol>div:nth-child(3) { width: 21.5%;}
-            #page1head .stkNamcol>div:nth-child(4) { width: 21.5%;}
-            #page1head .mbShw .stkPrcol .lstPrcol {width: 50% !important;}
+            #page1head .stkNamcol>div:nth-child(2),
+            #page1head .stkNamcol>div:nth-child(3),
+            #page1head .stkNamcol>div:nth-child(4),
+            .page1bdy .cntTable .stkNamcol>div:nth-child(2),
+            .page1bdy .cntTable .stkNamcol>div:nth-child(3),
+            .page1bdy .cntTable .stkNamcol>div:nth-child(4){
+                width: 20% !important;
+            }
+            #page1head .mbShw .stkPrcol .lstPrcol {width: 33% !important;}
             #page1bdy .mbShw .stkPrcol .lstPrcol {width: 50% !important;}
-
-            .page1bdy .cntTable .stkNamcol>div:nth-child(2) {width: 21.5% !important;}
-            .page1bdy .cntTable .stkNamcol>div:nth-child(3) {width: 21.5% !important;}
-            .page1bdy .cntTable .stkNamcol>div:nth-child(4) {width: 21.5% !important;} 
- 
         }
         #upload_form .dropStk ul{ opacity: 1 !important;     inset: 13px 0px auto auto !important;}
         .md__33 { width: 33%; }
@@ -444,7 +443,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
         }
 
-        #page2head .mbShw .stkPrcol .lstPrcol {width: 33% !important;} 
+        #page2head .mbShw .stkPrcol .lstPrcol {width: 33%;} 
         .storeCont .h2 {
             overflow: visible !important;
         }
@@ -490,6 +489,66 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   }
 }
       */   
+
+      /* 04-09-24 sudarshan */
+      @media (min-width: 767px) {
+    #page2head .stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
+        width: 85% !important;
+    }
+    #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
+        width: 85% !important;
+}
+    #page2head .stkTblhead .mbHde, .page2bdy .cntTable .mbHde {
+        width: 15%;
+    }
+    #page2head.stkTblhead .mbHde, .page2bdy .cntTable .mbHde {
+        width: 15%;
+    }
+    
+}
+
+@media (max-width:767px) {
+    .counter__col {
+        display: none;
+    }
+    .stockView .lstPrcol.lstPrcol {
+    width: 100% !important;
+    }
+    .tb-bdy.stkImgcol {
+    width: 20%;
+    max-width: 90px;
+    }
+    .mb-srcBox > div {
+    gap: .5rem;
+    }
+    .mbClone-src {
+    flex-grow: 1;
+    }
+    .supStkclm .dropdown-toggle {
+        width: 100%;
+    }
+}
+
+
+#page2head .stkPrcol:has(.tb-head[style*="display: none"]) .tb-head:not([style*="display: none"]) {
+    width: 50% !important;
+}
+
+.stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
+    width: 50% !important;
+}
+
+.stkNamcol01, .page2head .cntTable .stkNamcol {
+    width: 63% !important;
+}
+.stockView .lstPrcol {
+    width: 33.33% !important;
+}
+
+
+
+
+      
     </style>
 </head>
 
@@ -778,7 +837,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    <div class="tb-head stockPriceCol lstPrcol">
+                                    <div class="tb-head stockPriceCol stockPriceCol lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
                                             <?php } else { ?> <p><?php echo showOtherLangText('Stock  Price'); ?></p>
@@ -790,11 +849,6 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         </div>
                                     </div>
 
-                                    
-
-                                </div>
-
-                                <div class="stkPrcol d-flex align-items-center">
                                     <div class="tb-head stockValDefault lstPrcol">
                                         <div class="d-flex align-items-center">
                                         <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
@@ -807,9 +861,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         </div>
                                     </div>
                                     
-                                    
 
                                 </div>
+
                             </div>
                             <div class="mbHde align-items-center supData-Head">
                                 <div class="tb-head supStkclm">
@@ -844,7 +898,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         </div>
                         <!-- Item Table Head End -->
                     </div>
-                    <div class="container  stkTblhead position-relative tbl-head-page-1" id="page2head" style="display: none;">
+                    <div class="container  stkTblhead position-relative tbl-head-page-1 page2head1" id="page2head" style="display: none;">
                         <!-- Item Table Head Start -->
                         <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
@@ -852,7 +906,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="tb-bdy stkImgcol">
                                     <p><?php echo showOtherLangText('Photo'); ?></p>
                                 </div>
-                                <div class="stkNamcol d-flex align-items-center">
+                                <div class="stkNamcol stkNamcol01 d-flex align-items-center">
                                     <div class="tb-head stkItmclm">
                                         <div class="d-inline-flex align-items-center" style="color:#1c2047 !important;">
                                             <p><?php echo showOtherLangText('Item'); ?></p>
@@ -909,7 +963,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     </div>
                                 </div>
                                 <div class="stkPrcol d-flex align-items-center">
-                                    <div class="tb-head tmp_qty lstPrcol">
+                                    <div class="tb-head tmp_qty tmp_qty lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                             <?php } else { ?><p><?php echo showOtherLangText('Tmp qty'); ?></p>
@@ -956,7 +1010,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         <?php } ?>
                                     </div>
                                 </div>
-                                <div class="tb-head stk_val supStkclm">
+                                <div class="tb-head stk_val stk_val supStkclm">
                                     <div class="d-flex align-items-center">
                                         <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                         <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
@@ -1062,9 +1116,6 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <?php } ?>
                                                 </div>
 
-                                            </div>
-
-                                            <div class="stkPrcol d-md-flex align-items-center">
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
@@ -1073,9 +1124,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <?php } ?>
                                                 </div>
 
-                                                
-
                                             </div>
+
+                                          
                                         </div>
                                         <div class="mbHde align-items-center suppData-stk">
                                             <div class="tb-bdy supStkclm">
@@ -1181,7 +1232,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <div class="stkPrcol d-flex align-items-center">
+                                            <div class="stkPrcol stkPrcol11 d-flex align-items-center">
                                                 <div class="tmp_qty tb-bdy lstPrco stkPrcbdy mb-Last md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
