@@ -24,6 +24,32 @@ $res = mysqli_fetch_array($result);
 
 $resItemHistory = getItemHistory($_GET['id'], $_GET);
 
+$typeArr = [
+    1 => ['lable' => ''.showOtherLangText('Issued In').'', 'style'=> 'color:Green !important;font-weight:bold;' ],
+    2 => ['lable' => ''.showOtherLangText('Issued Out').'', 'style'=> 'color:red !important;font-weight:bold;' ],
+    3 => ['lable' => ''.showOtherLangText('Stock Take').'', 'style'=> 'color:blue !important;font-weight:bold;' ],
+    4 => ['lable' => ''.showOtherLangText('Raw Item Convert').'', 'style'=> 'color:Maroon !important;font-weight:bold;' ],
+
+];
+
+
+
+$typeOptions =  '<ul class="dropdown-menu ordertype" >';
+$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
+
+													foreach($typeArr as $typeKey => $typeVal)
+													{
+
+                                                        $style = isset($typeVal['style']) ? $typeVal['style'] : '';
+
+                                                        $sel = isset($_GET['ordType']) && $_GET['ordType'] == $typeKey  ? 'selected' : '';
+
+                                                        $typeOptions .= '<li data-id="'.$typeKey.'" data-value="'.$typeKey.'"><a class="dropdown-item '.$sel.'" style="'.$style.'"   href="javascript:void(0)">'.$typeVal['lable'].'</a>
+                                                        </li>';
+													}
+													$typeOptions .= '</ul>';
+
+
 $sqlQry = " SELECT s.*, od.pId AS pId FROM  tbl_suppliers s 
                                                     INNER JOIN tbl_orders o ON (s.id=o.supplierId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
@@ -32,14 +58,15 @@ $sqlQry = " SELECT s.*, od.pId AS pId FROM  tbl_suppliers s
                                                     $resultStore = mysqli_query($con, $sqlQry);
 
 $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
+$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
 
                                 while($suppRow = mysqli_fetch_array($resultStore))
                                                     {
 
-                                    $sel = isset($_GET['suppMemStoreId']) && $_GET['suppMemStoreId'] == 'suppId_' . $suppRow['id'] ? 'selected' : '';
+                                                        $sel = isset($_GET['suppMemStoreId']) && $_GET['suppMemStoreId'] == 'suppId_' . $suppRow['id'] ? 'selected' : '';
 
                                                      
-                                                      $suppMemStoreOptions .= '<li data-id="suppId_'.$suppRow['id'].'" data-value="'.trim($suppRow['name']).'"><a class="dropdown-item isuIn-grReq '.$sel.'"   href="javascript:void(0)">'.trim($suppRow['name']).'</a>
+                                                        $suppMemStoreOptions .= '<li data-id="suppId_'.$suppRow['id'].'" data-value="'.trim($suppRow['name']).'"><a class="dropdown-item isuIn-grReq '.$sel.'"   href="javascript:void(0)">'.trim($suppRow['name']).'</a>
                                                           </li>';
                                                     }
     $sqlSet = " SELECT du.*, od.pId AS pId FROM  tbl_deptusers du
@@ -62,6 +89,7 @@ $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
                                                     WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']."  AND st.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY st.name ";
                                                     $resultSet = mysqli_query($con, $sqlSet);
+
 
                                                     while($storeRow = mysqli_fetch_array($resultSet) )
                                                     {
@@ -328,11 +356,11 @@ foreach($resItemHistory['resRows'] as $item){
                         <div class="container mb-hisDtl tb-itmVwdtl">
                             <div class="row">
                                 <div class="col-md-5 is-Incol">
-                                    <p class="rd-In"><?php echo showOtherLangText('Issued In'); ?></p>
+                                    <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
                                     <p class="ttlAmount"><?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-5 is-Outcol">
-                                    <p class="gr-Out"><?php echo showOtherLangText('Issue Out'); ?></p>
+                                    <p class="rd-In"><?php echo showOtherLangText('Issue Out'); ?></p>
                                     <p class="ttlAmount-rec"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-2 maxBtn">
@@ -352,12 +380,12 @@ foreach($resItemHistory['resRows'] as $item){
                                 <div class="issueDtl itmHis-Dtlview">
                                     <div class="itmView-isuTbl d-flex justify-content-center text-center">
                                         <div class="itmVw-isuIn">
-                                            <p class="rd-In"><?php echo showOtherLangText('Issued In'); ?></p>
+                                            <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
                                             <p class="viewItm-isuIn"><?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
                                             <p class="isuIn-countUnt"><?php echo $resItemHistory['issuedInQtyTot'];?> <?php echo $res['countingUnit'];?></p>
                                         </div>
                                         <div class="itmVw-isuOut">
-                                            <p class="gr-Out"><?php echo showOtherLangText('Issued Out'); ?></p>
+                                            <p class="rd-In"><?php echo showOtherLangText('Issued Out'); ?></p>
                                             <p class="viewItm-isuOut"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
                                             <p class="isuOut-countUnt"><?php echo $resItemHistory['issuedOutQtyTot'];?> <?php echo $res['countingUnit'];?></p>
                                         </div>
@@ -406,6 +434,16 @@ foreach($resItemHistory['resRows'] as $item){
                                         <div class="dropdown d-flex position-relative">
                                             <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
+                                                <span id="ordertypetext"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                            <?php echo $typeOptions;?>
+                                        </div>
+                                    </div>
+
+                                    <div class="itmVw-memberClm">
+                                        <div class="dropdown d-flex position-relative">
+                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
                                                 <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                             </a>
                                             <?php echo $suppMemStoreOptions;?>
@@ -433,7 +471,7 @@ foreach($resItemHistory['resRows'] as $item){
                                 </div>
                                 <div class="tb-head itmVw-qtyClm">
                                     <p><?php echo showOtherLangText('Stock
-Quantity'); ?></p>
+Qty'); ?></p>
                                 </div>
                             </div>
                             <!-- Item Table Head End -->
@@ -446,6 +484,24 @@ Quantity'); ?></p>
                                         
                                 foreach($resItemHistory['resRows'] as $row)
                                 { 
+
+                                    $assignTo = '';
+                                    if($row['ordType'] == 1)//order
+                                   {
+                                       $assignTo = '<span style="color:Green;font-weight:bold;">'.showOtherLangText('Issued In').'</span>'; 
+                                   }
+                                   elseif($row['ordType'] == 2)//requisition
+                                   {
+                                       $assignTo = '<span style="color:Red;font-weight:bold;">'.showOtherLangText('Issued Out').'</span>'; 
+                                   }
+                                   elseif($row['ordType'] == 3)//Stock Take
+                                   {
+                                       $assignTo = '<span style="color:Blue;font-weight:bold;">'.showOtherLangText('Stock Take').'</span>'; 
+                                   }
+                                   else
+                                   {
+                                       $assignTo = '<span style="color:Maroon;font-weight:bold;">'.showOtherLangText('Raw Item Convert').'</span>'; 
+                                   }
 
                                     $suppMemStoreName = '';
                                     if($row['deptUserName'] =='' && $row['storeName'] =='')
@@ -470,10 +526,10 @@ Quantity'); ?></p>
                                                 <p><?php echo date('d/m/y', strtotime($row['actDate']));?></p>
                                             </div>
                                             <div class="itmVw-memberbdClm">
-                                                <?php echo $suppMemStoreName;?>
+                                                <?php echo $assignTo;?>
                                             </div>
-                                            <div class="itmVw-stkQtyOut">
-
+                                            <div class="itmVw-referto">
+                                                <?php echo $suppMemStoreName;?>
                                             </div>
                                         </div>
                                         <div class="tb-bdy d-flex align-items-center tbdy-isuVar">
@@ -541,6 +597,14 @@ $(function() {
          var fromDate = $('#fromDate').val();
         var toDate = $('#toDate').val();
         window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate="+fromDate+ "&toDate="+toDate+ "&suppMemStoreId="+$this.data("id");
+      });
+
+      $(".ordertype").on("click", "a", function(e){
+        var $this = $(this).parent();
+         $("#ordertypetext").text($this.data("value"));
+         var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate="+fromDate+ "&toDate="+toDate+ "&ordType="+$this.data("id");
       });
 
       var urlParams = new URLSearchParams(window.location.search);
