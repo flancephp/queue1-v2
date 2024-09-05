@@ -144,9 +144,17 @@ foreach($resItemHistory['resRows'] as $item){
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style1.css">
     <style type="text/css">
-     .isuIn-mrReq {
-     color: #800000 !important;
+    .isuIn-mrReq {color: #800000 !important;}
+    .itm-profileDtl {height: fit-content;}
+    .itmVw-qtyClm, .itmVw-qtybdClm {width: 10%;}
+    .dt-Member, .tbdy-dtMbr {width: 40%;}
+    .isu-Varance, .tbdy-isuVar {width: 30%;}
+    .last-Stock, .tbdy-lstStk {width: 20%;}
+    .dt-Member >div ,
+    .tbdy-dtMbr >div {
+        width: 33.33% !important;
     }
     </style>
     <!-- Links for datePicker and dialog popup -->
@@ -414,7 +422,7 @@ foreach($resItemHistory['resRows'] as $item){
                         <div class="container position-relative itmView-Table">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable">
-                                <div class="tb-head d-flex align-items-center dt-Member">
+                                <div class="tb-head d-flex align-items-center dt-Member gap-1">
                                     <div class="fltVw-itm">
                                         <div class="tab-mbFltr">
                                             <a href="javascript:void(0)" class="tab-lnkFltr"><i
@@ -521,7 +529,7 @@ Qty'); ?></p>
                                 <div class="itmVw-Task border-bottom">
                                     <div class="mb-itmVwbarOut"></div>
                                     <div class="align-items-center itmBody">
-                                        <div class="tb-bdy d-flex align-items-center tbdy-dtMbr">
+                                        <div class="tb-bdy d-flex align-items-center tbdy-dtMbr gap-1">
                                             <div class="itmVw-datebdClm">
                                                 <p><?php echo date('d/m/y', strtotime($row['actDate']));?></p>
                                             </div>

@@ -66,6 +66,9 @@ include_once('script/outlet_report_saleCenter_script.php');
 .untFtr {width: 33.33% !important ;text-align: start;}
 .untSub {width: 33.33% !important;}
 .untCount {width: 33.33% !important;}
+.untFtr::after , .untFtr::before {
+    display: none;
+}
     </style>
 
 </head>
