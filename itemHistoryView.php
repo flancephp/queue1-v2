@@ -152,10 +152,9 @@ foreach($resItemHistory['resRows'] as $item){
     .dt-Member, .tbdy-dtMbr {width: 40%;}
     .isu-Varance, .tbdy-isuVar {width: 30%;}
     .last-Stock, .tbdy-lstStk {width: 20%;}
-    .dt-Member >div ,
-    .tbdy-dtMbr >div {
-        width: 33.33% !important;
-    }
+    .dt-Member >div, .tbdy-dtMbr >div {width: 33.33% !important;}
+    .view-tblBody > div {display: flex; width: 100%; }
+
     </style>
     <!-- Links for datePicker and dialog popup -->
 
@@ -231,32 +230,80 @@ foreach($resItemHistory['resRows'] as $item){
                             </div>
                         </div>
 
-                        <div class="view-tblBody d-flex align-items-center mt-2">
-                            <div class="vw-clm-8">
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Bar Code'); ?></p>
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Last Purchase Price'); ?></p>
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Stock Price'); ?></p>
+                        <div class="view-tblBody mt-2">
+                           <div>
+                           <div class="vw-clm-8">
+                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Bar Code'); ?></p>       
                             </div>
                             <div class="vw-clm-4">
                                 <p class="viewBarcode"><?php echo $res['barCode'];?></p>
+                            </div>
+                           </div>
+
+                            <div>
+                            <div class="vw-clm-8">
+                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Last Purchase Price'); ?></p>
+                             </div>
+                            <div class="vw-clm-4">
                                 <p class="viewLst-prc"><?php showPrice($res['price'],$getDefCurDet['curCode']);?></p>
+                               </div>
+                            </div>
+                              <div>
+                              <div class="vw-clm-8">
+                               <p class="vwBdy-ttl"><?php echo showOtherLangText('Stock Price'); ?></p>
+                            </div>
+                            <div class="vw-clm-4">
                                 <p class="viewStock-prc"><?php showPrice($res['stockPrice'],$getDefCurDet['curCode']);?></p>
+                            </div>
+                              </div>
+
+                            <div>
+                            <div class="vw-clm-8">
+                                 <p class="vwBdy-ttl">stock Value</p>
+                            </div>
+                            <div class="vw-clm-4">
+                                 <p class="viewStock-prc">57.60 $</p>
+                            </div>
                             </div>
                         </div>
 
-                        <div class="view-tblBody d-flex align-items-center mt-3">
-                            <div class="vw-clm-8">
+                       
+
+                        <div class="view-tblBody  mt-3">
+                           <div>
+                           <div class="vw-clm-8">
                                 <p class="vwBdy-ttl"><?php echo showOtherLangText('Category'); ?></p>
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Sub Category'); ?></p>
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Department'); ?></p>
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Supplier'); ?></p>
                             </div>
                             <div class="vw-clm-4">
                                 <p class="viewCategory"><?php echo $res['parentCatName'];?></p>
-                                <p class="viewSub-category"><?php echo $res['childCatName'];?></p>
+                            </div>
+                           </div>
+
+                           <div>
+                           <div class="vw-clm-8">
+                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Sub Category'); ?></p>
+                            </div>
+                            <div class="vw-clm-4">
+                               <p class="viewSub-category"><?php echo $res['childCatName'];?></p>
+                            </div>
+                           </div>
+
+                           <div>
+                           <div class="vw-clm-8">
+                                 <p class="vwBdy-ttl"><?php echo showOtherLangText('Department'); ?></p>
+                                </div>
+                            <div class="vw-clm-4"> 
                                 <p class="viewDepartment"><?php echo  getProdcutDepartments($res['id']);?></p>
+                                </div>
+                           </div>
+                              <div>
+                              <div class="vw-clm-8">
+                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Supplier'); ?></p>
+                            </div>
+                            <div class="vw-clm-4">
                                 <p class="viewSupplier"><?php echo getProdcutSuppls($res['id']);?></p>
                             </div>
+                              </div>
                         </div>
 
                         <div class="itmUnit-tbl">
