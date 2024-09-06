@@ -432,6 +432,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/module-A.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
 
 
     <style>
@@ -570,6 +571,9 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
         .Payment-to p{
             margin:3px 0px;
         }
+        .payment__table th:nth-child(5), .payment__table td:nth-child(5) {
+            width: 14%;
+        }
     </style>
 
 </head>
@@ -637,38 +641,38 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             </div>
 
                             <div class="mt-4 row g-0 payment-tabel-header">
-                                <div class="col-sm-6">
+                                <div class="col-sm-7">
                                     <table class="table1 table01">
                                         <tbody>
                                             <tr>
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('Supplier Invoice'); ?> #
                                                 </td>
-                                                <td id="supInv"><?php echo $supplierInvoice;?></td>
+                                                <td class="in-val-p" id="supInv"><?php echo $supplierInvoice;?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('PAYMENT') ?> #
                                                 </td>
-                                                <td><?php echo setPaymentId($paymentId);?></td>
+                                                <td class="in-val-p"><?php echo setPaymentId($paymentId);?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
-                                                <td><?php echo $orderRow['ordNumber'] ?></td>
+                                                <td class="in-val-p"><?php echo $orderRow['ordNumber'] ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td><?php echo $orderRow['ordDateTime']?></td>
+                                                <td class="in-val-p"><?php echo $orderRow['ordDateTime']?></td>
                                             </tr>
     
                                         </tbody>
                                     </table> 
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-5">
 
                                     <?php 
                                     $sql = " SELECT * FROM tbl_country WHERE id = '".$clientResultRow['country']."' ";
@@ -699,12 +703,12 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             </div>
 
                             <br>
-                            <div class="Payment-to">
-                                <p class="f-02 mb-0"><?php echo showOtherLangText('PAYMENT To') ?></p>
-                                <p id="name" class="f-03 mb-0"><?php echo $supName; ?></p>
-                                <p id="address" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierAddress']) ? nl2br($payInfoRow['supplierAddress']) : nl2br($address);?></p>
-                                <p id="email" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierEmail']) ? $payInfoRow['supplierEmail'] : $email;?></p>
-                                <p id="phone" class="f-03 mb-0"><?php echo isset($payInfoRow['supplierPhone']) ? $payInfoRow['supplierPhone'] : $phone;?></p>
+                            <div class="Payment-to paymentto-p mt-3">
+                                <p class="f-02 mb-2"><?php echo showOtherLangText('PAYMENT To') ?></p>
+                                <p id="name" class="f-03 in-val-p mb-1"><?php echo $supName; ?></p>
+                                <p id="address" class="f-03 in-val-p mb-1"><?php echo isset($payInfoRow['supplierAddress']) ? nl2br($payInfoRow['supplierAddress']) : nl2br($address);?></p>
+                                <p id="email" class="f-03 in-val-p mb-1"><?php echo isset($payInfoRow['supplierEmail']) ? $payInfoRow['supplierEmail'] : $email;?></p>
+                                <p id="phone" class="f-03 in-val-p mb-1"><?php echo isset($payInfoRow['supplierPhone']) ? $payInfoRow['supplierPhone'] : $phone;?></p>
                             </div>
                             <br>
 
@@ -823,7 +827,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             <br>
                             <div class="tabel-body-p-footer gap-3 flex-wrap">
                                 <div class="table1 col-md-4">
-                                    <p class="f-02 mb-0"><?php echo showOtherLangText('Payment Method') ?>:</p> 
+                                    <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method') ?>:</p> 
                                 </div>
                                 <table class="grand-total-tabel col">
                                 <?php 

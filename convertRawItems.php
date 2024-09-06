@@ -15,9 +15,8 @@ $getLangType = getLangType($_SESSION['language_id']);
 
     <input type="hidden" name="barCode" id="barCode" value="<?php echo $_GET['barCode'];?>" />
     <input type="hidden" name="returnUrl" value="<?php echo $_GET['returnUrl'];?>" />
-    <div class="modal-body">
-		<div class="">
-			<div class="w-100 mb-3">
+    <div class="modal-body d-flex flex-column gap-3">
+			<div class="d-flex align-items-center">
 				<div class="col">
 					<select name="rawItem" id="rawItem" class="form-select mt-0 w-100"
 						oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
@@ -39,7 +38,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 					<div id="rawProId"></div>
 				</div>
 			</div>
-			<div class="w-100 mb-3">
+			<div class="d-flex align-items-center">
 				<div class="col">
 					<div id="convertItemTxt">
 						<select name="convertItem" class="form-select mt-0 w-100"
@@ -53,7 +52,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 					<div id="convrtProId"></div>
 				</div>
 			</div> 
-			<div class="w-100 mb-3"> 
+			<div class="d-flex align-items-center"> 
 				<div class="col"> 
 					<input 
 						type="text" name="qtyToConvert" class="form-control mt-0 w-100" onChange="showUnitPrice()"
@@ -62,7 +61,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 				</div>
 				<div style="width:6rem;"></div>
 			</div>
-			<div class="w-100 mb-3"> 
+			<div class="d-flex align-items-center"> 
 				<div class="col"> 
 					<input 
 						type="text" name="convertedQty" class="form-control mt-0 w-100" id="convertedQty"
@@ -71,7 +70,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 				</div>
 				<div style="width:6rem;" class="ps-4"></div>
 			</div>
-			<div class="w-100 mb-0"> 
+			<div class="d-flex align-items-center"> 
 				<div class="col"> 
 					<input 
 						type="text" name="unitPrice" id="unitPrice" class="form-control mt-0 w-100"
@@ -80,7 +79,6 @@ $getLangType = getLangType($_SESSION['language_id']);
 				</div>
 				<div style="width:6rem;"></div>
 			</div>
-		</div>
     </div><!--./modal-body -->
     <div class="modal-footer">
         <div class="btnBg">
