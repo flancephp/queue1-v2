@@ -59,10 +59,13 @@ include_once('script/outlet_report_saleCenter_script.php');
   .otltBd-Unit {display: flex;width: 72%;padding: 4px 8px;}
   .otltBd-Avr {width: 15%;}
   .otltBd-Min, .otltBd-Max {width: 13%;}
-  .mbStk-Detail {
-     height: auto;
-     min-height: 40px;
-}
+  .mbStk-Detail {height: auto;min-height: 40px;}
+.otlt-Unit {width: 50%;}
+.unitBd-div {width: 50%;}
+.otltBd-Unit {width: 100%;}
+.untFtr {width: 33.33% !important ;text-align: start;}
+.untSub {width: 33.33% !important;}
+.untCount {width: 33.33% !important;}
     </style>
 
 </head>
@@ -1066,9 +1069,16 @@ $(document).ready(function () {
 
     $(".cstBtn-Qty").on("click", function () {
 
+        
+        
+
             $('.mblStock-Sale').toggle();
 
+            
+
             $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+            
+        
 
     });
 

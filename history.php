@@ -1390,7 +1390,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 
                     <div class="alrtMessage">
                         <div class="container">
-
+                        <a name="del"></a>
                             <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <p><?php
@@ -1407,6 +1407,20 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php } ?>
+
+                            <?php if ( isset($_GET['deleteerror']) ) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p><?php
+
+                                        echo showOtherLangText('Invalid Password') ;
+
+                                        ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php } ?>
+
+                           
 
 
                         </div>
@@ -1561,6 +1575,30 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                             </div>
                         </div>
                     </div>
+
+
+                    <?php
+                            if (isset($_GET['delOrderId'])) {
+                            ?><br>
+
+                                <div class="hbrw-DelHstry">
+                                    
+
+                                    <form method="post" action="" autocomplete="off">
+                                        <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
+
+                                        <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
+                                            <input type="password" value="" placeholder="" class="form-control" name="password">&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
+                                            &nbsp;&nbsp;
+
+                                            <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button>
+                                            
+
+                                        </div>
+                                    </form>
+                                </div>
+                            <?php } ?>
 
                     <div class="container detailPrice">
                         <div class="tab-mbDtl">
@@ -2386,25 +2424,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     </div>
                                 </div>
                             <?php  } ?>
-                            <?php
-                            if (isset($_GET['delOrderId'])) {
-                            ?><br>
-
-                                <div class="hbrw-DelHstry">
-                                    <form method="post" action="" autocomplete="off">
-                                        <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
-
-                                        <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
-                                            <input type="password" value="" placeholder="" class="form-control" name="password">&nbsp;&nbsp;
-                                            <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
-                                            &nbsp;&nbsp;
-
-                                            <a href="history.php" class="class=" btn-primary><?php echo showOtherLangText('Cancel') ?></a>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            <?php } ?>
+                            
 
                         </div>
                     </div>
@@ -2532,7 +2552,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
     });
 
     function getDelNumb(delOrderId) {
-        var newOnClick = "window.location.href='history.php?delOrderId=" + delOrderId + "'";
+        var newOnClick = "window.location.href='history.php?delOrderId=" + delOrderId + "#del'";
         $('.deletelink').attr('onclick', newOnClick);
         $('#delete-popup').modal('show');
 
