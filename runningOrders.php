@@ -346,6 +346,23 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
   outline: 3px solid var(--color-white) !important;
   outline-offset: -6px !important;
 }
+@media (max-width: 767px) {
+    .new__layout {
+        display: block !important;
+        flex-wrap: wrap;
+    }.new__layout .payOptnreq {
+        width: 100%;
+    }
+    .new__layout .dleOptnreq {
+        width: 100% !important;
+    }
+    .ordeReq {
+        width: 52%;
+        display: flex !important;
+        flex-direction: column-reverse;
+        align-items: start !important;
+    }
+}
 </style>
 </head>
 
