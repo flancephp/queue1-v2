@@ -266,7 +266,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <div class="table-cell medium"><span  class="taskNo smryHead">'.showOtherLangText('Task No.').'</span></div>
                                         <div class="table-cell medium"><span  class="department smryHead">'.showOtherLangText('Department').'</span></div>
                                         <div class="table-cell medium"><span  class="member smryHead">'.showOtherLangText('Member').'</span></div>
-                                        <div class="table-cell medium"><span  class="total amountSections smryHead">'.showOtherLangText('Total').'</span></div>
+                                        <div class="table-cell medium order-req-dtl-total-head"><span  class="total amountSections smryHead">'.showOtherLangText('Total').'</span></div>
                                     </div>
                                     <div class="table-row thead">
                                         <div class="table-cell"><span class="taskNo smryHead">'.$ordDet['ordNumber'].'</span></div>
@@ -469,7 +469,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                               $content .= '<div class="table-cell"><span   class="itmPurqty">'.showOtherLangText('Qty').'</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmTotal">'.showOtherLangText('Total').'('.$getDefCurDet['curCode'].')</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmNote">'.showOtherLangText('Note').'</span></div>';
-                              $content .= '</div></div>';
+                              $content .= '</div>';
                               while($row = mysqli_fetch_array($proresultSet) )
                         {
                           $i++;

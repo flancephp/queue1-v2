@@ -362,6 +362,19 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         flex-direction: column-reverse;
         align-items: start !important;
     }
+    .new__layout .task-status {
+        width: 100% !important;
+        text-align: end;
+    }
+}
+.status-ordered, {
+    color: #232859;
+}
+.status-tmp-req, .status-tmp-order {
+    color: #939393;
+}
+.status-req{
+color:#232859;
 }
 </style>
 </head>
@@ -623,7 +636,7 @@ while($orderRow = mysqli_fetch_array($result))
                                     </div>
 
                                 </div>
-                                <div class="align-items-center tmpStatus togleOrder">
+                                <div class="align-items-center tmpStatus togleOrder task-list-status-col-p">
                                     <div class="py-1 px-1 d-flex align-items-center stsBar new__layout">
                                         <div
                                             class="task-status <?php echo $orderRow['status'].'---'.$orderRow['ordType']; if($orderRow['status']=='1' && $orderRow['ordType'] == 1) { echo 'status-done'; } ?> <?php  if($orderRow['status']=='0' || $orderRow['status']==null) { echo 'status-pending'; } ?><?php  if($orderRow['status']=='3' && $orderRow['ordType'] == 1) { echo 'status-req'; } ?><?php  if($orderRow['status']=='3' && $orderRow['ordType'] == 2) { echo 'status-assigned'; } ?>">
@@ -765,7 +778,7 @@ while($orderRow = mysqli_fetch_array($result))
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h1 class="modal-title h1"><?php echo showOtherLangText('Assign Order to User') ?></h1>
+                <h1 class="modal-title h1 mt-3"><?php echo showOtherLangText('Assign Order to User') ?></h1>
             </div>
             <div class="modal-body">
 
@@ -845,7 +858,7 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?>
+            <h1 class="modal-title h1 mt-3"><?php echo showOtherLangText('Are you sure to delete this record?') ?>
             </h1>
         </div>
 

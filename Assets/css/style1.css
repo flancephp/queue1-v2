@@ -276,3 +276,24 @@ html[dir=rtl] .stkView .container {
 html[dir=rtl] .newOrder {
   padding: 0 5px 0 25px;
 }
+html[dir=rtl] .issueDtl .Variance {
+   padding-right: 15px !important; 
+  padding-left: 0px !important;
+}
+#delete-popup .modal-dialog-centered {
+  align-items: center;
+}
+@media (min-width: 300px) and (max-width: 575px){
+  html[dir=rtl] .rcvOrder .sltSupp {
+    width: 100%;
+}
+html[dir=rtl] .ord-Box.ms-0.position {
+  width: 100%;
+}
+.rcvOrder .btnBg {
+  width: auto;
+} 
+html[dir=rtl] .col-md-2.text-end.smBtn.nwNxt-Btn{
+  width: 100%;
+}
+}

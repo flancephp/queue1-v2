@@ -10663,7 +10663,7 @@ a.tabFet:focus .sampleFile {
 }
 
 .itm-Unit {
-  width: 24%;
+  width: 30%;
 }
 
 .crncy-Type {
@@ -20671,3 +20671,9 @@ td.text-right{
   text-align: right;
 }
 
+#delete-popup .modal-dialog-centered, #issue-out .modal-dialog-centered {
+  align-items: center;
+}
+.modal-dialog-centered {
+  align-items: center;
+}
