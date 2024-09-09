@@ -10663,7 +10663,7 @@ a.tabFet:focus .sampleFile {
 }
 
 .itm-Unit {
-  width: 24%;
+  width: 30%;
 }
 
 .crncy-Type {
@@ -11921,7 +11921,10 @@ a.tabFet:focus .sampleFile {
 .hisValclm,
 .numItmclm a,
 .hisDateclm a,
-.hisValclm a {
+.hisValclm a,
+.hisStatusclm p, 
+.numItmclm p, 
+.action-column-p p{
   color: #666c85;
   font-weight: 700;
 }
@@ -20632,9 +20635,9 @@ text-align: center;
   width: 12.5%;
   padding-left: 0;
 }
-.modal-table .table-cell {
+/* .modal-table .table-cell {
   font-size: 1rem;
-}
+} */
 .modal-dialog tbody.table1.table01.fl-right.cmp-dtl.text-start.text-md-end td {
   padding-top: 2px;
   padding-bottom: 2px;
@@ -20645,7 +20648,7 @@ text-align: center;
   align-items: center;
 }
 .modal-dialog #modalfiltertop {
-  top: 19px;
+  top: 0.5rem;
 }
 
 @media (min-width: 300px) and (max-width: 991px){
@@ -20657,10 +20660,20 @@ text-align: center;
   }
 }
  .modal-table .table-cell {
-  max-width: 150px;
+  /* max-width: 150px; */
   line-height: 20px;
 }
-.tble-design-fix-p .fs-13 p{
+/* .tble-design-fix-p .fs-13 p{
   font-size: 15px;
   line-height: 20px;
+} */
+td.text-right{
+  text-align: right;
+}
+
+#delete-popup .modal-dialog-centered, #issue-out .modal-dialog-centered {
+  align-items: center;
+}
+.modal-dialog-centered {
+  align-items: center;
 }

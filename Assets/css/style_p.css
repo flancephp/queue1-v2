@@ -29,13 +29,13 @@
     line-height: 19px !important;
 }
 .payment__table th{
-    font-size: 14px;
+    /* font-size: 14px; */
     font-weight: 700;
 }
 
-.payment-tabel-header .table1 tr td {
+/* .payment-tabel-header .table1 tr td {
     font-size: 16px;   
-}
+} */
 .grand-total th{
     font-size: 18px;
 }
@@ -61,6 +61,32 @@ tr.grand-total th:last-child {
 .mt-2.flex-wrap.modal-head-row {
     margin-top: 1px !important;
 }
+.task-list-status-col-p .new__layout .payOptnreq {
+    width: 21.8% !important;
+    min-width: 21.8% !important;
+}
+.task-list-status-col-p .d-flex.align-items-center.dleOptnreq{
+    width: 28.2% !important;
+    min-width: 28.2% !important;
+}
+.task-list-status-col-p .new__layout .task-status {
+    width: 50%;
+    min-width: 50%;
+}
+.order-req-dtl-total-head{
+    text-align: right;
+    padding-right: 32px !important;
+}
+.order-dtl-total-head {
+    text-align: right;
+    padding-right: 100px !important;
+}
+#delete-popup .modal-dialog-centered, #issue-out .modal-dialog-centered {
+    align-items: center;
+  }
+  .modal .table-cell {
+    vertical-align: middle;
+}
 @media (min-width: 300px) and (max-width: 575px){
     .tabel-body-p-footer table:last-child {
         max-width: 100%;
@@ -72,10 +98,80 @@ tr.grand-total th:last-child {
     tr.grand-total th {
         font-size: 16px;
     }
+    /* .recOrd-TblBody .recItm-Name.tb-bdy {
+        width: 150px;
+    }
+    .recPrc-Unit, .recTtlPrc-Type, .recItm-brCode, .qty-Ordred {
+        width: 100%;
+        align-items: center;
+    }
+   .recOrd-TblBody .recPrc-Unit.d-flex {
+        flex-wrap: nowrap;
+    }
+    .recOrd-TblBody .recPrc-Unit.d-flex {
+        min-width: 70%;
+        width: 70%;
+    }
+    .recTtlPrc-Type.d-flex.align-items-center {
+        min-width: 30%;
+        width: 30%;
+    }
+    .recOrd-TblBody .prdtImg {
+        width: auto;
+    } */
+    .nwNxt-Btn1.btn__box {
+        align-items: center;
+    }
+    .task-list-status-col-p .new__layout .payOptnreq {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    #assign-order .modal-content, #delete-popup .modal-content, #issue-out .modal-content {
+        border-radius: 10px 10px 10px 10px;
+    }
+    .order-req-dtl-total-head{
+        padding-right: 18px !important;
+    }
+    .order-dtl-total-head {
+        text-align: right;
+        padding-right: 50px !important;
+    }
 }
+
+
+@media (min-width: 300px) and (max-width: 991px) {
+    .modal-header #modalfiltertop {
+        position: relative !important;
+        top: 0 !important;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1365px) { 
+    .task-list-status-col-p .new__layout .task-status {
+        width: 46% !important;
+        min-width: 46% !important;
+    }
+    .task-list-status-col-p .new__layout .payOptnreq {
+        width: 21.8%;
+        min-width: 21.8% !important;
+    }
+    .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
+        width: 32.2% !important;
+        min-width: 32.2% !important;
+    }
+    .cnfrm {
+        width: 48px;
+    }
+}
+
 @media (min-width: 1700px) and (max-width: 1825px) {
     .cnfrm {
-        width: 65px;
+        width: 74px;
     }
     .doc__btn.edit, .doc__btn.delete {
         width: 40px;
@@ -86,15 +182,50 @@ tr.grand-total th:last-child {
         width: 50%;
     }
     .cnfrm {
-        width: 60px;
+        width: 66px;
     }
     .new__layout .payOptnreq {
         width: 17%;
     }
     .doc__btn.edit, .doc__btn.delete {
-        width: 40px;
+        width: 46px;
     }
     .hisTask .doc-bx {
         width: 96px;
     }
+    .task-list-status-col-p .new__layout .task-status {
+        width: 53%;
+        min-width: 53%;
+    }
+    .task-list-status-col-p .new__layout .payOptnreq {
+        width: 16.8%;
+        min-width: 16.8% !important;
+    }
+}
+.table-amount-same-alignment .table-row div {
+    text-align: end;
+}
+.table-amount-same-alignment .table-row {
+    display: flex;
+}
+.btn.btn-primary.dwnBtn {
+    padding: 4.5px 18px !important;
+    display: flex;
+    align-items: center;
+    border-radius: 6px !important;
+  }
+  .modal-header button.btn[data-bs-toggle="collapse"] {
+    padding: 0.375rem 0.75rem;
+}
+.modal-header button.dropdown-toggle {
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+.modal-dialog #modalfiltertop {
+    top: 0.5rem;
+}
+
+.modal-header.pb-2.pb-lg-3 {
+    padding-top: 0;
 }
