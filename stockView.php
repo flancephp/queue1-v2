@@ -21,6 +21,7 @@ if (isset($_SESSION['checkDublicateClick']) && $_SESSION['checkDublicateClick'] 
     unset($_SESSION['checkDublicateClick']);
 }
 
+//test
 //get access of Xcel and pdf file
 $showExcelPdfFile = access_stock_xcl_pdf_file($_SESSION['designation_id'], $_SESSION['accountId']);
 
