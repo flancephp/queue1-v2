@@ -317,6 +317,7 @@ $cond = '';
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
     .fa-angle-right, .fa-angles-left {
     background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
@@ -376,7 +377,7 @@ $sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."'  AND acco
 $resultSet = mysqli_query($con, $sqlSet);
 $ordRow = mysqli_fetch_array($resultSet);
 ?>
-                <section class="ordDetail">
+                <section class="ordDetail edit-order-section">
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <div class="stcPart position-relative">
@@ -492,15 +493,15 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         </div>
                                     </div>
                                     <!-- <div class="smBtn nwNxt-Btn"> -->
-                                    <div class="col-lg-3 col-xl-2 nwNxt-Btn d-flex justify-content-between d-lg-block">
+                                    <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg">
                                                 <a href="javascript:void(0)" class="btn btn-primary form-submit-btn ">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
-                                            <div class="btnBg">
-                                                <a href="runningOrders.php" class="w-lg-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
+                                            <div class="btnBg w-100">
+                                                <a href="runningOrders.php" class="w-lg-100 w-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)">
@@ -1245,7 +1246,7 @@ $ordRow = mysqli_fetch_array($resultSet);
             <div class="container pb-4 topOrder">
                 <div class="btnBg my-3">
                     <a href="javascript:void(0);"
-                        class="add_new_items_in_req btn btn-primar"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
+                        class="add_new_items_in_req btn btn-primary"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                 </div>
             </div>
         </div>
@@ -1301,7 +1302,7 @@ list'); ?></span><br>
                     <div class="modal-footer">
                         <div class="btnBg">
                             <button type="submit" id="feesave_add" name="feesave_add"
-                                class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                                class="btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
                         </div>
                     </div>
                 </div>
@@ -1342,7 +1343,7 @@ list'); ?></span><br>
                     <div class="modal-footer">
                         <div class="btnBg">
                             <button type="submit" id="addFee" name="addFee"
-                                class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                                class="btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
                         </div>
                     </div>
                 </div>
@@ -1371,11 +1372,11 @@ list'); ?></span><br>
                     <div class="modal-footer">
                         <div class="btnBg">
                             <button type="button" data-bs-dismiss="modal"
-                                class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                                class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
                         </div>
                         <div class="btnBg">
                             <button type="button" onclick=""
-                                class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                                class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                         </div>
                     </div>
                 </div>

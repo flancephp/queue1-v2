@@ -256,7 +256,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                         </div>';
 
                  $content .=   '
-                 <div class="show-smry-cls remove__parent__padding">
+                 <div class="show-smry-cls remove__parent__padding px-2">
     <div class="modal-table fs-12 w-100">
         <div class="table-row header-row">
             <div class="table-cell medium">'.showOtherLangText('Task No.').'</div>
@@ -441,10 +441,10 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                      
                
 
-                 $content .=     '<div id="itemDiv"><div class="modal-table fs-12 w-100 mt-">
+                 $content .=     '<div id="itemDiv" class="px-2"><div class="modal-table fs-12 w-100 mt-">
                             <div class="table-row thead">';
                    $content .=    '<div class="table-cell">#</div>';
-                   $content .=    '<div class="table-cell"><span style="display:none;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
+                   $content .=    '<div class="table-cell"><span style="display:nid="taskDiv"one;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
                    $content .=   '<div class="table-cell"><span   class="itmProd">'.showOtherLangText('Item').'</span></div>';
                    $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmCode">'.showOtherLangText('Barcode').'</span></div>';
                    $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmPrc">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</div>';
@@ -528,7 +528,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             
                      $content .= '</div></div>';
 
-                     $content .=  '<div id="taskDiv" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">
+                     $content .=  '<div id="taskDiv" class="px-2" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">
                            <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">
                                 <div class="table-cell">'.showOtherLangText('Status').'</div>

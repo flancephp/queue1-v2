@@ -81,11 +81,39 @@ tr.grand-total th:last-child {
     text-align: right;
     padding-right: 100px !important;
 }
-#delete-popup .modal-dialog-centered, #issue-out .modal-dialog-centered {
+html[dir=rtl] .order-req-dtl-total-head {
+    text-align: left;
+    padding-right: 5px !important;
+    padding-left: 30px !important;
+}
+html[dir=rtl] .order-dtl-total-head {
+    text-align: left;
+    padding-right: 5px !important;
+    padding-left: 100px !important;
+}
+#delete-popup #issue-out .modal-dialog-centered {
     align-items: center;
   }
   .modal .table-cell {
     vertical-align: middle;
+}
+.smBtn.nwNxt-Btn {
+    align-items: center;
+}
+.modal-address p {
+    padding-bottom: 4px;
+}
+.edit-order-section .ttlCr-Type {
+    text-align: right;
+}
+.edit-order-section .ttlCr-Type .ttlDft-Crcy {
+    text-align: right !important;
+}
+.ttlCr-Type .ttlOtr-Crcy {
+    text-align: right !important;
+}
+.modal .modal-table.fs-12 .table-row.thead {
+    white-space: nowrap;
 }
 @media (min-width: 300px) and (max-width: 575px){
     .tabel-body-p-footer table:last-child {
@@ -98,27 +126,7 @@ tr.grand-total th:last-child {
     tr.grand-total th {
         font-size: 16px;
     }
-    /* .recOrd-TblBody .recItm-Name.tb-bdy {
-        width: 150px;
-    }
-    .recPrc-Unit, .recTtlPrc-Type, .recItm-brCode, .qty-Ordred {
-        width: 100%;
-        align-items: center;
-    }
-   .recOrd-TblBody .recPrc-Unit.d-flex {
-        flex-wrap: nowrap;
-    }
-    .recOrd-TblBody .recPrc-Unit.d-flex {
-        min-width: 70%;
-        width: 70%;
-    }
-    .recTtlPrc-Type.d-flex.align-items-center {
-        min-width: 30%;
-        width: 30%;
-    }
-    .recOrd-TblBody .prdtImg {
-        width: auto;
-    } */
+    
     .nwNxt-Btn1.btn__box {
         align-items: center;
     }
@@ -130,8 +138,8 @@ tr.grand-total th:last-child {
         width: 100% !important;
         min-width: 100% !important;
     }
-    #assign-order .modal-content, #delete-popup .modal-content, #issue-out .modal-content {
-        border-radius: 10px 10px 10px 10px;
+    .modal-content {
+        border-radius: 10px !important;
     }
     .order-req-dtl-total-head{
         padding-right: 18px !important;
@@ -139,6 +147,101 @@ tr.grand-total th:last-child {
     .order-dtl-total-head {
         text-align: right;
         padding-right: 50px !important;
+    }
+    .recItm-Name.tb-bdy {
+        min-width: 100%;
+    }
+    html[dir=rtl] .order-req-dtl-total-head {
+        padding-left: 17px !important;
+    }
+    html[dir=rtl] .order-dtl-total-head {
+        padding-left: 43px !important;
+    }
+    .edit-order-section .Itm-Name.tb-bdy {
+        width: auto !important;
+    }
+    .edit-order-section .prdtCnt-Fst.d-flex.align-items-center {
+        align-items: start !important;
+        margin-top: 10px;
+    }
+    .edit-order-section .prdtCnt-Scnd.d-flex.align-items-center {
+        width: 100% !important;
+        align-items: start !important;
+    }
+    .edit-order-section .itm-Quantity.tb-bdy {
+        width: 20% !important;
+    }
+    .edit-order-section .prdtCnt-Scnd.d-flex.align-items-center {
+        width: 100% !important;
+        align-items: center !important;
+        margin-top: 10px;
+    }
+    .edit-order-section .ttlCr-Type.d-flex.align-items-center {
+        width: 80% !important;
+        flex-wrap: nowrap !important;
+        max-width: 100%;
+    }
+    /* .edit-order-section .prdtCr-Unit.d-flex {
+        width: 72% !important;
+    } */
+    .edit-order-section .prdtCnt-Scnd .ttlCr-Type {
+        width: auto !important;
+        min-width: 25%;
+        text-align: left !important;
+    }
+
+    .edit-order-section .itm-Unit.tb-bdy {
+        width: 20%;
+    }
+    .edit-order-section .crncy-Type.d-flex.align-items-center {
+        width: 80%;
+        flex-wrap: nowrap;
+    }
+    .btnBg.w-100 {
+        width: auto !important;
+    }
+    .recieved-order-section .recItm-Name.tb-bdy {
+        width: 100%;
+    }
+    .recieved-order-section .recPrc-Unit {
+        width: 100% !important;
+        align-items: center;
+    }   
+    .recieved-order-section .recCr-Type {
+        width: 100%;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+    }
+    .recieved-order-section .recTtlPrc-Type.d-flex.align-items-center {
+        width: 100% !important;
+        text-align: left;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        margin-top: 10px;
+    }
+    .recieved-order-section .smBtn.nwNxt-Btn {
+        align-items: baseline;
+        justify-content: end;
+        gap: 20px;
+    }
+    html[dir=rtl] .recieved-order-section .smBtn.nwNxt-Btn{
+        justify-content: start;
+    }
+    .edit-order-section .w-100.update {
+        width: auto !important;
+    }
+    .edit-order-section .btnBg.w-100 {
+        width: auto !important;
+    }
+    .edit-order-section .orderupdate.w-100 {
+        width: auto !important;
+    }
+    html[dir=rtl] .edit-order-section .nwNxt-Btn1 .btn__box {
+        align-items: baseline;
+        max-width: 100% !important;
+        justify-content: start !important;
     }
 }
 
