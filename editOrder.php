@@ -416,16 +416,23 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .prdtCr-Unit .itm-Unit, .prdtCr-Unit .crncy-Type { width: 50%; }
         .itmBody { font-size: 12px; }
         .mb-brCode .ord-StockQty { width: 50%; }
+        .btn__box .btn { height:40px;padding: 0 16px;display: inline-flex;align-items: center; }
+        .fetBtn img { height:40px; }
     }
     @media screen and (max-width: 767px) {
         .ordFeature { width: 49.3%; }
         /* .prdtCnt-Scnd { width: calc(84% - 55px); } */
         .ordDetail { padding-bottom: 3rem; }
     }
-    .ttlDft-Crcy {
-        margin: auto;
+    @media screen and (max-width: 575px) {
+        .btn__box{max-width:100%;flex:none;}
+        .update .topOrder { padding: 8px 10px 0 10px !important; }
+        .update .add-new-items.btn-primary{width: 100%;}
     }
-    </style>
+    .ttlDft-Crcy { margin: auto; }
+    .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
+    .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
+</style>
 </head>
 
 <body>
@@ -466,7 +473,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                         </div>
                     </section>
 
-                    <section class="ordDetail edit-order-section">
+                    <section class="ordDetail edit-order-section update">
                         <div class="tpBar-grn"></div>
                         <div class="stcPart position-relative">
                             <div class="container erdOrder" style="padding: 1rem 24px 0 24px;">
@@ -1183,7 +1190,7 @@ $ordQry = mysqli_query($con, $sql);
                                                     </p>
                                                 </div>
                                                 <?php if($ordRow['ordCurId'] > 0){?>
-                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy res__label__item text-start" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                     <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);?></p>
                                                 </div>
                                                 <?php } ?>
@@ -1219,7 +1226,7 @@ $ordQry = mysqli_query($con, $sql);
                         <div>
 
                             <div class="container pt-5 topOrder ">
-                                <div class="row g-4 align-items-end">
+                                <div class="row g-3 g-md-4 align-items-end">
                                     <div class="col-md-5">
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
                                         <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">
@@ -1440,7 +1447,7 @@ $stockQty = $stockQty - $totalProQty;
                                                             value="" size="5">
                                                     </div>
                                                     <div class="ttlCr-Type w-50 ps-xl-4">
-                                                        <div class=" tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                        <div class=" tb-bdy res__label__item text-start" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                             <p id="totalPrice<?php echo $x;?>">0</p>
                                                         </div>
 
@@ -1480,7 +1487,7 @@ if($i > 0)
 
                                         <?php }else{
 echo '<div class="newOrdTask">
-    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">'.showOtherLangText('No Product Found').'</div> </div>';
+    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt p-3 justify-content-center">'.showOtherLangText('No Product Found').'</div> </div>';
 } ?>
 
                                     </div>

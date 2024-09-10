@@ -329,53 +329,50 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         color: #8C8FA7;
     }
     a.active {
-    color: #fff !important;
-}
-.btn-primary {
-    background-color: var(--color-primary) !important;
-    padding: .625rem 1.625rem !important;
-    box-shadow: 0px 4px 20px 0px #7F7FA514;
-    font-size: 1.125rem;
-    font-weight: 600;
-    border-radius: .937rem !important;
-    border-color: var(--color-primary) !important;
-    transition: all .3s ease-in-out;
-    border-width: 2px;
-}
-.btn-primary:focus {
-  outline: 3px solid var(--color-white) !important;
-  outline-offset: -6px !important;
-}
-@media (max-width: 767px) {
-    .new__layout {
-        display: block !important;
-        flex-wrap: wrap;
-    }.new__layout .payOptnreq {
-        width: 100%;
+        color: #fff !important;
     }
-    .new__layout .dleOptnreq {
-        width: 100% !important;
+    .btn-primary {
+        background-color: var(--color-primary) !important;
+        padding: .625rem 1.625rem !important;
+        box-shadow: 0px 4px 20px 0px #7F7FA514;
+        font-size: 1.125rem;
+        font-weight: 600;
+        border-radius: .937rem !important;
+        border-color: var(--color-primary) !important;
+        transition: all .3s ease-in-out;
+        border-width: 2px;
     }
-    .ordeReq {
-        width: 52%;
-        display: flex !important;
-        flex-direction: column-reverse;
-        align-items: start !important;
+    .btn-primary:focus { outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;}
+    @media (max-width: 767px) {
+        .new__layout {
+            /* display: block !important; */
+            flex-wrap: wrap;
+        }.new__layout .payOptnreq {
+            width: 100%;
+        }
+        .new__layout .dleOptnreq {
+            width: 100% !important;
+        }
+        .ordeReq {
+            width: 52%;
+            display: flex !important;
+            flex-direction: column-reverse;
+            align-items: start !important;
+        }
+        .new__layout .task-status {
+            width: 100% !important;
+            text-align: end;
+        }
     }
-    .new__layout .task-status {
-        width: 100% !important;
-        text-align: end;
+    .status-ordered, { color: #232859; }
+    .status-tmp-req, .status-tmp-order { color: #939393; }
+    .status-req{ color:#232859; }
+    .task-list-status-col-p .new__layout .payOptnreq{justify-content: flex-end;}
+    @media (max-width: 767px) {
+        .update .task-list-status-col-p .new__layout .payOptnreq, .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
+            justify-content:flex-start;
+        }
     }
-}
-.status-ordered, {
-    color: #232859;
-}
-.status-tmp-req, .status-tmp-order {
-    color: #939393;
-}
-.status-req{
-color:#232859;
-}
 </style>
 </head>
 
@@ -553,7 +550,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
             </div>
         </section>
 
-        <section class="runTask">
+        <section class="runTask pb-5">
 
             <div class="container">
                 <?php
@@ -594,7 +591,7 @@ while($orderRow = mysqli_fetch_array($result))
                 $deprtName = '';
         
             ?>
-                <div class="task">
+                <div class="task update">
                     <!-- Confirmed Member Part Start -->
                     <div
                         class="d-flex align-items-center <?php if($x==1) { echo 'mt-0'; }  else  {?> mt-3 <?php } ?> mainRuntsk">
@@ -835,11 +832,11 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 
 
         <?php 
-	if( isset($_SESSION['errorQty']) && $_SESSION['errorQty'] == 1)
-	{
-		checkStockQtyRequisition($_SESSION['errorQtyOrderId'], $_SESSION['accountId']);
-	}
-	?>
+        if( isset($_SESSION['errorQty']) && $_SESSION['errorQty'] == 1)
+        {
+            checkStockQtyRequisition($_SESSION['errorQtyOrderId'], $_SESSION['accountId']);
+        }
+        ?>
 
     </div>
 </div>

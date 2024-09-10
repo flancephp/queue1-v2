@@ -319,19 +319,21 @@ $cond = '';
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
-    .fa-angle-right, .fa-angles-left {
-    background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
-    box-shadow: inset 1px 4px 4px #596bf3;
-    filter: blur(0.2px);
-    padding: 5px;
-    border-radius: 50%;
-    border: 0.5px solid;
-    border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
-    margin-left: 10px;
-    font-size: 10px;
-    vertical-align: middle;
-    width: 22px;
-}
+        .fa-angle-right, .fa-angles-left {background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);box-shadow: inset 1px 4px 4px #596bf3;filter: blur(0.2px);padding: 5px;border-radius: 50%;border: 0.5px solid;border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);margin-left: 10px;font-size: 10px;vertical-align: middle;width: 22px;}
+        .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
+        .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
+        @media(max-width:1024px){
+            .topOrder { padding: 8px 0 0 0 !important; }
+        }
+        @media(max-width:1024px){
+            .btn__box .btnBg { max-width:120px; }
+            .btn__box .btnBg .btn { height:40px;padding: 0 16px;display: inline-flex;align-items: center; }
+            .btn__box .fetBtn img { height:40px; }
+
+        }
+        @media(max-width:575px){
+            .add_new_items_in_req { width: 100%;}
+        }
     </style>
 
 </head>
@@ -377,14 +379,14 @@ $sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."'  AND acco
 $resultSet = mysqli_query($con, $sqlSet);
 $ordRow = mysqli_fetch_array($resultSet);
 ?>
-                <section class="ordDetail edit-order-section">
+                <section class="ordDetail edit-order-section update">
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <div class="stcPart position-relative">
                             <div class="container cntTable" style="padding: 1rem 24px 0 24px;"> 
                                 <!-- topOrder edtReq nwOrder-Div-->
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
-                                    <div class="ord-Box w-100 d-flex gap-2 ms-0" style="border-color: #F05D53;">
+                                    <div class="ord-Box w-100 d-flex flex-wrap gap-2 ms-0" style="border-color: #F05D53;">
                                         <div class="ordNum m-0">
                                             <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
                                                 <span><?php echo $ordRow['ordNumber'];?></span>
@@ -495,8 +497,8 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <!-- <div class="smBtn nwNxt-Btn"> -->
                                     <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
-                                            <div class="btnBg">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn ">
+                                            <div class="btnBg w-100">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
@@ -504,7 +506,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                 <a href="runningOrders.php" class="w-lg-100 w-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             <div class="fetBtn">
-                                                <a href="javascript:void(0)">
+                                                <a href="javascript:void(0)" class="d-inline-block">
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
                                             </div>
@@ -1018,8 +1020,8 @@ $ordRow = mysqli_fetch_array($resultSet);
 
                         <div>
 
-                            <div class="container pt-5 topOrder ">
-                                <div class="row g-4 align-items-end">
+                            <div class="container pt-5 topOrder">
+                                <div class="row g-3 g-lg-4 align-items-end">
                                     <div class="col-md-5">
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
                                         <div class="input-group srchBx"> 
@@ -1040,7 +1042,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                    
                                     <div class="col-md-7">
     <form action="editRecusationAddNewItem.php?orderId=<?php echo $_GET['orderId'];?>&deptId=<?php echo $ordRow['deptId'];?>"
-                        method="post" id="frm_add_new_items" autocomplete="off" class="container">
+                        method="post" id="frm_add_new_items" autocomplete="off" class="containe">
   <?php 
         if($_GET['orderId'] != '')
         {
