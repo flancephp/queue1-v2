@@ -227,7 +227,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                 
                                 </div>
                             </div></form>'; 
-                      $content  .= '<div class="modal-body px- py-3">
+                      $content  .= '<div class="modal-body px-2 py-3">
                                 <div class="row pb-3">
                                     <div class="col-md-4">
                                         <div id="adrsClm"  style="display:none;" class="headerTxt modal-address">
@@ -255,7 +255,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                     $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 50px; width: auto;">';
                                 }
                                    $content  .=     '</div></div>
-                                        <div class="modal-date pt-1">
+                                        <div class="modal-date pt-2">
                                             <p style="display:none;" class="headerTxt currentDate" id="currentDate">'.date('d/m/Y').'</p>
                                         </div>
                                     </div>

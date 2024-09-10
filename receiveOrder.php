@@ -403,6 +403,7 @@ $otherChrgQry=mysqli_query($con, $sql);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style_new.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
 .btn-primary:focus {
   outline: 3px solid var(--color-white) !important;
@@ -455,7 +456,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                         </div>
                     </section>
 
-                    <section class="ordDetail">
+                    <section class="ordDetail recieved-order-section">
                         <div class="tpBar-grn"></div>
                         <div class="container nordPrice mt-0">
                             <?php if(isset($_GET['tempDataCleared']) || isset($success_file_upload) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>

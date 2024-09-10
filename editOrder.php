@@ -381,6 +381,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
+    <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
     .fa-angle-right,
     .fa-angles-left {
@@ -465,7 +466,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                         </div>
                     </section>
 
-                    <section class="ordDetail">
+                    <section class="ordDetail edit-order-section">
                         <div class="tpBar-grn"></div>
                         <div class="stcPart position-relative">
                             <div class="container erdOrder" style="padding: 1rem 24px 0 24px;">
@@ -629,18 +630,18 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 ?>
                                         <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
-                                            <div class="fetBtn">
+                                            <div class="fetBtn me-3 ms-3">
                                                 <a href="javascript:void(0)">
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
                                             </div>
                                             <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
-                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate">
+                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
                                                     <i class="fa-solid fa-angle-right d-none d-lg-inline-block"></i>
                                                 </a> 
                                                 <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" /> 
-                                                <a href="runningOrders.php" class=" btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
+                                                <a href="runningOrders.php" class=" btn  btn-primary update w-100"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             
                                         </div>
@@ -1438,14 +1439,14 @@ $stockQty = $stockQty - $totalProQty;
                                                             onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_POST['supplierId'];?>', '1')"
                                                             value="" size="5">
                                                     </div>
-                                                    <div class="ttlCr-Type w-50 ps-xl-5">
+                                                    <div class="ttlCr-Type w-50 ps-xl-4">
                                                         <div class=" tb-bdy res__label__item text-start text-lg-end" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                             <p id="totalPrice<?php echo $x;?>">0</p>
                                                         </div>
 
                                                     </div>
                                                     <?php if($ordRow['ordCurId'] > 0){?>
-                                                    <div class="ttlCr-Type w-50 ps-xl-5">
+                                                    <div class="ttlCr-Type w-50 ps-xl-4">
                                                         <div class=" tb-bdy">
                                                             <p id="totalPriceOther<?php echo $x;?>">0</p>
                                                         </div>
