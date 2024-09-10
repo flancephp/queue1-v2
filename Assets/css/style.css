@@ -76,7 +76,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 }
 
 h1, .h1 {
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(1.375rem + 1.5vw); 
 }
 @media (min-width: 1200px) {
   h1, .h1 {
@@ -603,17 +603,23 @@ progress {
 
 @media (min-width: 576px) {
   .container-sm, .container {
-    max-width: 540px;
+    /*max-width: 540px;*/
+    max-width: 100%;
   }
 }
 @media (min-width: 768px) {
   .container-md, .container-sm, .container {
-    max-width: 720px;
+    /* max-width: 720px;*/
+    max-width: 100%;
+    width:100%;
   }
 }
+
 @media (min-width: 992px) {
   .container-lg, .container-md, .container-sm, .container {
-    max-width: 960px;
+    /* max-width: 960px; */
+    max-width: 100%;
+    width:100%;
   }
 }
 @media (min-width: 1200px) {
@@ -1878,12 +1884,17 @@ progress {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+  .modal-content {
+    width: 80%;
+    margin: 0px auto;
+  }
 }
 @media (max-width: 767.98px) {
   .table-responsive-md {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+ 
 }
 @media (max-width: 991.98px) {
   .table-responsive-lg {
@@ -6874,6 +6885,12 @@ textarea.form-control-lg {
 .pb-3 {
   padding-bottom: 1rem !important;
 }
+.pb-3 .h2 {
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 25px;
+  text-align: center;
+}
 
 .pb-4 {
   padding-bottom: 1.5rem !important;
@@ -11343,7 +11360,7 @@ a.tabFet:focus .sampleFile {
 }
 
 .stkView .container {
-  padding: 25px 40px 0;
+  padding: 25px 30px 0;
 }
 
 .stkView .row {
@@ -12180,6 +12197,10 @@ a.tabFet:focus .sampleFile {
   display: none;
 }
 
+.container.mb-hisDtl.tb-itmVwdtl {
+  font-size: 16px;
+}
+
 .usdCurr .paidIsue .col-md-3,
 .otrCurr .paidIsue .col-md-3 {
   display: none;
@@ -12643,14 +12664,16 @@ a.tabFet:focus .sampleFile {
   display: inline-block;
   padding: 10px;
   margin-top: 25px;
+  margin-bottom: 25px;;
 }
 
 .view-tblHead {
   color: #7a89ff;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 15px;
-  margin-top: 25px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  line-height: 21px;
 }
 
 .vw-clm-8 {
@@ -12662,13 +12685,13 @@ a.tabFet:focus .sampleFile {
 }
 
 .view-tblBody {
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 .view-tblBody .vw-clm-8 {
   color: #666c85;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .view-tblBody .vw-clm-4 {
@@ -12678,7 +12701,7 @@ a.tabFet:focus .sampleFile {
 
 .view-tblBody .vw-clm-8 p,
 .view-tblBody .vw-clm-4 p {
-  padding: 4px 0;
+  padding: 6px 0;
 }
 
 .itmUnit-tbl {
@@ -12692,8 +12715,8 @@ a.tabFet:focus .sampleFile {
 
 .heading-Unt {
   border-bottom: 2px solid #dfe0e8;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 13px;
   font-weight: 700;
   color: #666c85;
   padding-bottom: 10px;
@@ -15946,7 +15969,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .mbPage {
     display: flex;
-    align-items: flex-end;
+    /* align-items: flex-end; */
+    align-items: center;
   }
   .mbpg-name .h1 {
     color: #232859;
@@ -15964,7 +15988,13 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 8px 0px;
   }
   .navbar {
-    width: 40%;
+    width: 210px;
+    padding-right: 30px;
+  }
+  .clsBar {
+    position: absolute;
+    top: 24px;
+    right: 5px;
   }
   .cntArea {
     padding: 0 12px;
@@ -16535,7 +16565,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .mb-srcBox {
     display: block;
-    padding: 0;
+    padding: 0 10px;
     margin-top: 15px;
   }
   .filtBtn img {
@@ -16551,6 +16581,13 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .suppData-stk {
     display: none;
+  }
+  .stkTblhead .mbShw, .cntTable .mbShw {
+    width: 100%;
+  }
+  .store {
+    padding: 3px 10px;
+    border-radius: 10px;
   }
   .mbShw {
     width: 100%;
@@ -17954,6 +17991,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .mb-srcBox {
     margin-top: 20px;
+    padding: 0px;
   }
   .chkStore img {
     width: 35px;
@@ -18364,8 +18402,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 0;
   }
   .modal-dialog {
-    margin: 0;
-    max-width: 100%;
+    margin: 0px auto;
+    /* max-width: 100%; */
   }
   .modal-content {
     margin-top: auto; 
@@ -19962,13 +20000,20 @@ body .ui-widget-content {
 }
 
 /* Responsive for modal  */
-
-
+@media screen and (max-width: 850px) {
+  .modal-content {
+    margin-top: 0;
+    margin-inline: auto;
+    height: auto;
+    width: 85%;
+  }
+}
 @media screen and (max-width: 767px) {
   .modal-content {
     margin-top: 0;
-    margin-inline: 20px;
+    margin-inline: auto;
     height: auto;
+    width: 90%;
   }
   .model-title-with-date .fs-15 {
     font-size: 14px;
@@ -19991,12 +20036,33 @@ body .ui-widget-content {
   .summery-row .row {
     width: 800px;
   }
+  .modal-dialog.modal-dialog-centered {
+    min-height: 80%;
+  }
+  .cntTable .stkPrcol {
+    width: 50%;
+  }
+  
+  .view-tblBody .vw-clm-8 {
+    font-weight: 600;
+  }
+
+
 }
 @media screen and (max-width: 480px) {
   .model-title-with-date, 
   .model-title-with-date .semibold.text-center,
   .model-title-with-date .fs-15 {
     text-align: left !important;
+  }
+  .modal-dialog.modal-dialog-centered {
+    min-height: 90%;
+  }
+  .modal-content {
+    margin-top: 0;
+    margin-inline: auto;
+    height: auto;
+    width: 90%;
   }
 }
 
@@ -20446,6 +20512,7 @@ html[dir=rtl] body {
 
 .modal-content {
   overflow: auto !important;
+  
 }
 
 
@@ -20504,6 +20571,10 @@ text-align: center;
   .prdtCr-Unit {
       flex-wrap: nowrap !important;
   }
+  .hdfetCol {
+    margin-left: 10px;
+  }
+
 }
 
 @media (max-width: 991px) {

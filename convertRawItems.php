@@ -17,7 +17,7 @@ $getLangType = getLangType($_SESSION['language_id']);
     <input type="hidden" name="returnUrl" value="<?php echo $_GET['returnUrl'];?>" />
     <div class="modal-body d-flex flex-column gap-3">
 			<div class="d-flex align-items-center">
-				<div class="col">
+				<div class="col-12">
 					<select name="rawItem" id="rawItem" class="form-select mt-0 w-100"
 						oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
 						onchange="this.setCustomValidity('')" required>
@@ -39,7 +39,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 				</div>
 			</div>
 			<div class="d-flex align-items-center">
-				<div class="col">
+				<div class="col-12">
 					<div id="convertItemTxt">
 						<select name="convertItem" class="form-select mt-0 w-100"
 							oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
@@ -53,7 +53,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 				</div>
 			</div> 
 			<div class="d-flex align-items-center"> 
-				<div class="col"> 
+				<div class="col-12"> 
 					<input 
 						type="text" name="qtyToConvert" class="form-control mt-0 w-100" onChange="showUnitPrice()"
 						placeholder="<?php echo showOtherLangText('Quantity to Convert');?>" id="qtyToConvert" 
@@ -62,7 +62,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 				<div style="width:6rem;"></div>
 			</div>
 			<div class="d-flex align-items-center"> 
-				<div class="col"> 
+				<div class="col-12"> 
 					<input 
 						type="text" name="convertedQty" class="form-control mt-0 w-100" id="convertedQty"
 						placeholder="<?php echo showOtherLangText('Converted Quantity');?>" onChange="showUnitPrice()" 
@@ -71,7 +71,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 				<div style="width:6rem;" class="ps-4"></div>
 			</div>
 			<div class="d-flex align-items-center"> 
-				<div class="col"> 
+				<div class="col-12"> 
 					<input 
 						type="text" name="unitPrice" id="unitPrice" class="form-control mt-0 w-100"
 						placeholder="<?php echo showOtherLangText('Unit Price'); ?>" 
