@@ -21,12 +21,12 @@ $accountName = $qryRow['accountName'];
 
 ?>
 
+
 <div class="user-info d-inline-flex gap-2 align-items-center">
       <div class="col text-capitalize"> 
-            <span class="user-name"><?php echo $_SESSION['name'] ?> | </span><span class="d-none d-sm-inline-block">|</span>
+            <span class="user-name"><?php echo $_SESSION['name'] ?></span><span class="d-none d-sm-inline-block">|</span>
             <span class="account-name d-block d-sm-inline-block"><?php echo $accountName ?></span>
       </div> 
-=
       <?php
 					if( $qryRow['logo'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/clientLogo/'.$qryRow['logo'] ) )
 					{
