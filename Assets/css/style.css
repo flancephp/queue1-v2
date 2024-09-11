@@ -10465,7 +10465,7 @@ a.sbActive .mb_nvSubIcn {
 }
 
 .itmTable {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 15px;
   position: relative;
   font-weight: 500;
@@ -10476,8 +10476,8 @@ a.sbActive .mb_nvSubIcn {
 .itmBody {
   font-size: 15px;
     line-height: 22px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    /* padding-top: 16px;
+    padding-bottom: 16px; */
 }
 
 .imgItm {
@@ -13131,6 +13131,7 @@ a.tabFet:focus .sampleFile {
   align-items: center;
   flex-wrap: wrap;
   align-self: stretch;
+  min-width: 24px;
 }
 
 .userDetail .container {
@@ -13162,6 +13163,7 @@ a.tabFet:focus .sampleFile {
   border-radius: 10px;
   padding: 10px;
   margin-top: 15px;
+  font-size: 16px;
 }
 
 .addUser-Form .form-control:focus {
@@ -13720,7 +13722,7 @@ img[alt=LOGO] {
   text-align: center;
   color: #232859;
   padding-top: 2px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .dsk-HdCtgry {
