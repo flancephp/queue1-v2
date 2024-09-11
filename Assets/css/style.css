@@ -15985,17 +15985,18 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 }
 @media screen and (max-width: 993px) {
 
-.mb-modal-close-icon {
+/* .mb-modal-close-icon {
   padding: 0rem 0rem;
-}
+} */
+
 }
 @media screen and (max-width: 992px) {
   .usr-info .col-md-4 {
     display: none !important;
   }
-  .mb-modal-close-icon {
+  /* .mb-modal-close-icon {
     padding: 0 .5rem .5rem;
-  }
+  } */
   .mbpg-name {
     display: inline-block;
   }
