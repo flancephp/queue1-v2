@@ -262,6 +262,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                 width: 100% !important;
             }
         }
+        
 
         @media (max-width: 767px) {
             .storeCol .col-4.stockFeat {
@@ -289,7 +290,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .container-sm,
             .container-xl,
             .container-xxl {
-                max-width: 1550px;
+                max-width: 1640px;
             }
         }
 
@@ -336,18 +337,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             width: 33%;
         }
 
-
+        .small-font{font-size:9px;}
         @media (min-width:767px) {
+            
             .mbShw .stkPrcol {
                 width: 35% !important;
             }
 
             .stockView .cntTable {
-                padding: 0 30px !important;
+                padding: 0 54px !important;
             }
 
             .stkTblhead {
-                padding: 0 30px !important;
+                padding: 0 54px !important;
             }
 
             #page2head.stkTblhead .mbShw,
@@ -391,7 +393,10 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .cntTable .stkNamcol { width: 50%; }
             .stockView .lstPrcol { width: 100% !important;} 
             .mbShw { width: 100% !important; }
-            .tb-bdy.stkQtyclm.stkQtybdy, .tb-bdy.stkQtyclm.stkreqbdy, .tb-bdy.stkQtyclm.stkavabdy{ padding-top: 0;padding-bottom: 0; }
+            .tb-bdy.stkQtyclm.stkQtybdy, .tb-bdy.stkQtyclm.stkreqbdy, .tb-bdy.stkQtyclm.stkavabdy{ padding-top: 5px;padding-bottom: 5px; }
+            .stkNamcol .tb-bdy .itm-Profile{
+                line-height:28px;
+            }
             .mbLst-value { padding-right: 6px; }
             #upload_form { max-width:225px; }
         }
@@ -510,13 +515,16 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     }
     
 }
-
+.stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
+    width: 50% !important;
+}
 @media (max-width:767px) {
+    .small-font{font-size:12px;}
     .counter__col {
         display: none;
     }
     .stockView .lstPrcol.lstPrcol {
-    width: 100% !important;
+    width: 100% !important;padding-bottom: 6px;
     }
     .tb-bdy.stkImgcol {
     width: 20%;
@@ -531,6 +539,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     .supStkclm .dropdown-toggle {
         width: 100%;
     }
+    .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
+    width: 100% !important; line-height:20px;
+}
 }
 
 
@@ -538,9 +549,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     width: 50% !important;
 }
 
-.stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
-    width: 50% !important;
-}
+
 
 .stkNamcol01, .page2head .cntTable .stkNamcol {
     width: 63% !important;
@@ -1082,21 +1091,21 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkQtybdy">
-                                                    <span class="d-md-none" style="font-size:9px;">Qty:</span>
+                                                    <span class="d-md-none small-font" >Qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <span><?php echo $row['stockQty']; ?></span>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkreqbdy">
-                                                    <span class="d-md-none" style="font-size:9px;">Req qty:</span>
+                                                    <span class="d-md-none small-font">Req qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <span><?php echo $totalTempProQty; ?></span>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkavabdy">
-                                                    <span class="d-md-none" style="font-size:9px;"><?php echo showOtherLangText('Avail Qty'); ?>:</span>
+                                                    <span class="d-md-none small-font"><?php echo showOtherLangText('Avail Qty'); ?>:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <span><?php echo ($row['stockQty'] - $totalTempProQty); ?></span>

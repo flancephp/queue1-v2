@@ -19446,7 +19446,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .sl-Num,
   .ttlCost,
   .sale-Variance {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 20px;
   }
   .salesDtl {
@@ -19477,6 +19477,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itm-viewDtl {
     margin-top: 0;
     margin-bottom: 0;
+  }
+  .gst-Var, .sale-Amunt{
+    font-size: 16px;
+    font-weight: 600;
   }
   .view-tblBody,
   .view-tblHead,
