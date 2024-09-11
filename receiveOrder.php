@@ -956,8 +956,13 @@ $otherChrgQry=mysqli_query($con, $sql);
                                 
                      <div class="newOrdTask recOrdTask">
                                     <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
-                                        <div class="prdtImg tb-bdy">
+
+                                    <div class="prdtImg tb-bdy">
                                             <p><?php echo $y; ?></p>
+                                        </div>
+                                        
+                                        <div class="prdtImg tb-bdy">
+                                            <p></p>
                                         </div>
                                        
                                         <div class="recItm-Name tb-bdy">
