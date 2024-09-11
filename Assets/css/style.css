@@ -20097,6 +20097,11 @@ body .ui-widget-content {
 .summery-row {
   overflow: auto;
 }
+.overflowTable .modal-table {
+  width: 800px !important;
+}
+
+
 }
 @media screen and (max-width: 580px) {
   .overflowTable {
