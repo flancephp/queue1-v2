@@ -12717,10 +12717,10 @@ a.tabFet:focus .sampleFile {
   padding: 14px;
   margin-top: 25px;
 }
-
+.purchase-Unit, .count-Unit {font-size: 15px;}
 .heading-Unt {
   border-bottom: 2px solid #dfe0e8;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 13px;
   font-weight: 700;
   color: #666c85;
