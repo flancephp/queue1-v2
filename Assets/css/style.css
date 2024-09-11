@@ -4983,6 +4983,7 @@ textarea.form-control-lg {
 }
 .modal.show .modal-dialog {
   transform: none;
+  width:95%
 }
 .modal.modal-static .modal-dialog {
   transform: scale(1.02);
@@ -9889,7 +9890,10 @@ img {
 .logo {
   padding-left: 8px;
 }
-
+.logo-section{
+  display: flex;
+  justify-content: end;
+}
 .navbar {
   height: 100vh;
 }
@@ -15983,20 +15987,21 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 
 }
-@media screen and (max-width: 993px) {
+@media screen and (min-width: 993px) {
 
-/* .mb-modal-close-icon {
+.mb-modal-close-icon {
   padding: 0rem 0rem;
-} */
+}
 
 }
 @media screen and (max-width: 992px) {
+  
   .usr-info .col-md-4 {
     display: none !important;
   }
-  /* .mb-modal-close-icon {
+  .mb-modal-close-icon {
     padding: 0 .5rem .5rem;
-  } */
+  }
   .mbpg-name {
     display: inline-block;
   }
@@ -20077,6 +20082,9 @@ body .ui-widget-content {
     margin-inline: auto;
     height: auto;
     width: 85%;
+  }
+  .overflowTable {
+    overflow-x: auto;
   }
 }
 @media screen and (max-width: 767px) {
