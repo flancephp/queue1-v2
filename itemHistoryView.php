@@ -34,7 +34,7 @@ $typeArr = [
 
 
 
-$typeOptions =  '<ul class="dropdown-menu ordertype" >';
+$typeOptions =  '<ul class="dropdown-menu ordertype" dt-ft-size >';
 $typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
 
 													foreach($typeArr as $typeKey => $typeVal)
@@ -154,6 +154,31 @@ foreach($resItemHistory['resRows'] as $item){
     .last-Stock, .tbdy-lstStk {width: 20%;}
     .dt-Member >div, .tbdy-dtMbr >div {width: 33.33% !important;}
     .view-tblBody > div {display: flex; width: 100%; }
+    ..dt-Member select{font-size:16px;}
+    .ct-width01{
+        max-width: 650px;
+        width: 95%;
+    }
+    .dt-Member, .tbdy-dtMbr {
+        width: 100%;
+        }
+        .dt-Member > div, .tbdy-dtMbr > div {
+            width: 100% !important;
+            }
+            .itmVw-memberClm .dropdown-toggle {
+                padding: 12px 12px;
+                font-size: 16px;
+                }
+    @media (max-width: 767px) {
+        .dt-Member, .tbdy-dtMbr {
+        width: 100%;
+        }
+        .dt-Member > div, .tbdy-dtMbr > div {
+            width: 100% !important;
+            }
+           
+        
+    }    
 
     </style>
     <!-- Links for datePicker and dialog popup -->
@@ -468,7 +493,7 @@ foreach($resItemHistory['resRows'] as $item){
 
                         <div class="container position-relative itmView-Table">
                             <!-- Item Table Head Start -->
-                            <div class="d-flex align-items-center itmTable">
+                            <div class="d-flex align-items-center itmTable ct-width01">
                                 <div class="tb-head d-flex align-items-center dt-Member gap-1">
                                     <div class="fltVw-itm">
                                         <div class="tab-mbFltr">
