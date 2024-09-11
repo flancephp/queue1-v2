@@ -524,7 +524,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         display: none;
     }
     .stockView .lstPrcol.lstPrcol {
-    width: 100% !important;
+    width: 100% !important;padding-bottom: 6px;
     }
     .tb-bdy.stkImgcol {
     width: 20%;
