@@ -4983,6 +4983,7 @@ textarea.form-control-lg {
 }
 .modal.show .modal-dialog {
   transform: none;
+  width:95%
 }
 .modal.modal-static .modal-dialog {
   transform: scale(1.02);
@@ -9889,7 +9890,10 @@ img {
 .logo {
   padding-left: 8px;
 }
-
+.logo-section{
+  display: flex;
+  justify-content: end;
+}
 .navbar {
   height: 100vh;
 }
@@ -10063,7 +10067,7 @@ a.sbActive .mb_nvSubIcn {
 } */
 
 .lg-Img {
-  width: 76%;
+  width: 85%;
   margin-top: 7px;
 }
 
@@ -10137,7 +10141,7 @@ a.sbActive .mb_nvSubIcn {
 }
 
 .dropdown-item {
-  font: 500 12px/15px "Inter", sans-serif;
+  font: 500 14px/15px "Inter", sans-serif;
   color: #7c8297 !important;
   padding: 5px 16px;
   text-align: start;
@@ -10465,7 +10469,7 @@ a.sbActive .mb_nvSubIcn {
 }
 
 .itmTable {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 15px;
   position: relative;
   font-weight: 500;
@@ -10474,9 +10478,10 @@ a.sbActive .mb_nvSubIcn {
 }
 
 .itmBody {
-  font-size: 11px;
-  line-height: 14px;
-  font-weight: 500;
+  font-size: 15px;
+    line-height: 22px;
+    /* padding-top: 16px;
+    padding-bottom: 16px; */
 }
 
 .imgItm {
@@ -11589,8 +11594,8 @@ a.tabFet:focus .sampleFile {
   border: 1px solid #dfe0e8;
   border-radius: 10px;
   padding: 7px 12px;
+  font-size: 16px;
 }
-
 .stkTblhead .itmTable {
   border-bottom: 1px solid #dfe0e8;
 }
@@ -11711,7 +11716,7 @@ a.tabFet:focus .sampleFile {
 .hstDate .datepicker {
   background: transparent;
   border: none;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 15px;
   width: 50%;
   text-align: center;
@@ -12669,7 +12674,7 @@ a.tabFet:focus .sampleFile {
 
 .view-tblHead {
   color: #7a89ff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 16px;
   letter-spacing: 0.4px;
@@ -12685,7 +12690,7 @@ a.tabFet:focus .sampleFile {
 }
 
 .view-tblBody {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 18px;
 }
 
@@ -12712,10 +12717,10 @@ a.tabFet:focus .sampleFile {
   padding: 14px;
   margin-top: 25px;
 }
-
+.purchase-Unit, .count-Unit {font-size: 15px;}
 .heading-Unt {
   border-bottom: 2px solid #dfe0e8;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 13px;
   font-weight: 700;
   color: #666c85;
@@ -12749,8 +12754,8 @@ a.tabFet:focus .sampleFile {
 }
 
 .itmView-isuTbl {
-  font-size: 13px;
-  line-height: 15px;
+  font-size: 18px;
+  line-height: 24px;
   color: #666c85;
   font-weight: 400;
   width: 100%;
@@ -12796,6 +12801,7 @@ a.tabFet:focus .sampleFile {
   padding: 7px 12px;
   font-weight: 600;
   width: 100%;
+  font-size: 13px;
 }
 
 .isuIn-grReq {
@@ -13112,7 +13118,7 @@ a.tabFet:focus .sampleFile {
 }
 
 .usrLnk-Img {
-  width: 20px;
+  width: 24px;
   height: auto;
 }
 
@@ -13121,7 +13127,7 @@ a.tabFet:focus .sampleFile {
   border: 1px solid #ffffff;
   box-shadow: 1px 2px 4px rgba(70, 79, 146, 0.15);
   border-radius: 2px;
-  padding: 3px;
+  padding: 6px 4px;
   margin: 0 3px;
   min-height: 40px;
   display: flex;
@@ -13129,6 +13135,7 @@ a.tabFet:focus .sampleFile {
   align-items: center;
   flex-wrap: wrap;
   align-self: stretch;
+  min-width: 24px;
 }
 
 .userDetail .container {
@@ -13160,6 +13167,7 @@ a.tabFet:focus .sampleFile {
   border-radius: 10px;
   padding: 10px;
   margin-top: 15px;
+  font-size: 16px;
 }
 
 .addUser-Form .form-control:focus {
@@ -13599,6 +13607,7 @@ img[alt=LOGO] {
   width: 100%;
   text-align: center;
   color: #1c2047;
+  font-size: 21px;
 }
 
 .modal-body .addUser-Form .form-control {
@@ -13606,13 +13615,13 @@ img[alt=LOGO] {
 }
 
 .modal-footer {
-  justify-content: start;
+  justify-content: space-evenly;
 }
 
 .modal-header,
 .modal-footer,
 .modal-body {
-  padding: 12px 0;
+  padding: 12px 0 18px 0;
 }
 
 .modal-dialog {
@@ -13623,6 +13632,11 @@ img[alt=LOGO] {
   padding: 12px 30px;
   border: none;
   border-radius: 10px;
+}
+.shortList-ChkAll{
+
+  padding-bottom: 12px;
+  padding-top: 5px;
 }
 
 .btn-close:focus {
@@ -13712,7 +13726,7 @@ img[alt=LOGO] {
   text-align: center;
   color: #232859;
   padding-top: 2px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .dsk-HdCtgry {
@@ -15076,8 +15090,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .showNav .nav-col::after { opacity: 1;visibility: visible; }
   .navbar {
     background-color: #fff;
-    width: 30%;
-    padding: 10px 25px 0;
+    width: 250px;
+    padding: 10px 50px 0px 25px;
     flex-direction: column;
   }
   .lgOut {
@@ -15115,8 +15129,14 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 0 30px;
   }
   .itmTable {
-    font-size: 11.5px;
+    font-size: 15px;
   }
+  .itmBody > div:first-child {
+    font-size: 15px;
+  }
+  .itmBody {
+    font-size: 15px; font-weight: 400;
+    }
   .tb-head {
     padding: 8px 6px 16px;
   }
@@ -15959,10 +15979,28 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     margin-left: 0%;
     margin-right: 15%;
   }
+
+  .supStkclm .dropdown-toggle {
+    width: 80px;
+    font-size: 13px;
+    overflow: hidden;
+  }
+
+}
+@media screen and (min-width: 993px) {
+
+.mb-modal-close-icon {
+  padding: 0rem 0rem;
+}
+
 }
 @media screen and (max-width: 992px) {
+  
   .usr-info .col-md-4 {
     display: none !important;
+  }
+  .mb-modal-close-icon {
+    padding: 0 .5rem .5rem;
   }
   .mbpg-name {
     display: inline-block;
@@ -17721,19 +17759,40 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     border-radius: 10px 0px 0px 10px;
   }
 }
+
+@media screen and (min-device-width: 993px) and (max-device-width: 1024px) { 
+.navbar-toggler{
+  position: relative;
+  left: -336px;
+}
+.navbar-toggler .h1{
+  position: relative;
+  left: 32px;
+}
+}
+
 @media screen and (max-width: 767px) {
+
+  .modal-header, .modal-footer, .modal-body {
+    padding: 12px 0 12px 0;
+  }
+  .itmBody {
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: 500;
+  }
   .mb-Bgbdy {
     background: #ccd2d8;
   }
   .navbar {
-    width: 58%;
+    width: 210px;
     padding: 10px 25px 0 15px;
   }
   .lgOut {
     margin-bottom: 15%;
   }
   .lg-Img {
-    width: 60%;
+    width: 80%;
   }
   .std-btn {
     line-height: 1.375;
@@ -18143,6 +18202,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Revenue Center Page CSS End */
   /* Item History View Page CSS Start */
+
   .itm-viewDtl .expStrdt,
   .itmVw-fetBtnClm {
     width: 50%;
@@ -18173,7 +18233,14 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itemImage-bg {
     width: 100%;
   }
-  .itm-profileDtl,
+  .itm-profileDtl{
+     background: #ffffff;
+    box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
+ 
+  }
+  .itmhstDetail {
+    margin: 18px 20px;
+  }
   .itm-viewDtl {
     background: #ffffff;
     box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
@@ -18584,7 +18651,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   /* Manage Account Page CSS End */
   .addUser-Form .form-control,
   .addUser-Form .form-select {
-    font-size: 12px;
+    font-size: 16px;
   }
   .addUser-Form .form-control:disabled {
     background: rgba(255, 255, 255, 0.6);
@@ -18831,6 +18898,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 @media screen and (max-width: 767px) and (orientation: landscape) {
+  
   .ordDetail,
   .runTask {
     display: none;
@@ -18989,7 +19057,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     margin-left: 30px;
   }
   .itmTable {
-    font-size: 13px; 
+    font-size: 16px; 
   }
   th {
     font-size: 16px;
@@ -19020,8 +19088,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     height: 24px;
   }
   .itmBody {
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 15px;
+    line-height: 22px;
+    padding-top:16px;
+    padding-bottom:16px;
   }
   /* .drpCurr .dropdown-menu.show {
     transform: translate3d(0px, 80px, 0px) !important;
@@ -19225,7 +19295,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Stock Page CSS Start */
   .stkView .container {
-    padding: 40px 54px 0;
+    padding: 54px 54px 0;
   }
   .stkSrcicn .container {
     padding: 0 54px;
@@ -19415,6 +19485,11 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     font-size: 15px;
     line-height: 20px;
   }
+  .view-tblHead .productName, .productQty {
+    font-size: 18px;
+  }
+  .prhead-Unit{ font-size: 16px;}
+
   .itmVw-Task .tb-bdy {
     padding: 10px 8px;
   }
@@ -19678,6 +19753,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
  }
  .nav-bar .nav-link:hover  .sm__text  {
   color: white !important;
+  
  }
  .nav-bar .nav-link:focus  .sm__text  {
   color: white !important;
@@ -19986,6 +20062,8 @@ body .ui-widget-content {
 }
 .model-title-with-date .fs-15 {
   font-size: 15px;
+  display: flex;
+  justify-content: end;
 }
 .dividerTwoRows .table-cell {
   border-block-start: 1px solid #fff;
@@ -20000,6 +20078,14 @@ body .ui-widget-content {
 }
 
 /* Responsive for modal  */
+
+@media screen and (max-width: 992px) {
+  .overflowTable {
+    overflow-x: auto;
+  }
+  
+  }
+
 @media screen and (max-width: 850px) {
   .modal-content {
     margin-top: 0;
@@ -20007,7 +20093,9 @@ body .ui-widget-content {
     height: auto;
     width: 85%;
   }
+  
 }
+
 @media screen and (max-width: 767px) {
   .modal-content {
     margin-top: 0;
@@ -20021,7 +20109,21 @@ body .ui-widget-content {
   .modal-header .d-md-flex.align-items-center.justify-content-between.w-100 {
     display: flex;
     flex-wrap: wrap;
+    align-items: start !important;
 }
+.overflowTable {
+  overflow-x: auto;
+}
+.summery-row {
+  overflow: auto;
+}
+.overflowTable .modal-table {
+  width: 800px !important;
+}
+
+
+
+
 }
 @media screen and (max-width: 580px) {
   .overflowTable {
@@ -20155,6 +20257,7 @@ body .ui-widget-content {
 .modal-content {
   max-height: calc(100vh - 100px);
   overflow: auto;
+  box-shadow: 0 .35rem 1rem rgba(0,0,0,.075) !important;
 }
 
 
@@ -20308,6 +20411,8 @@ img.previewImg {
   .innerDrop .submenu { right: -4.8rem; }
   .innerDrop .submenu.large { right: -11rem;width: 11rem; }
   .innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
+  
+
 }
 .dropdown-menu.show { z-index: 99; }
 .new__layout .task-status {width: 42%; } 
@@ -20367,12 +20472,16 @@ img.previewImg {
 .logout__icon img { width:32px !important;height: 32px !important; }
 .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
 
-
+.nav-bar > ul > li > a.nav-link {
+  height: 84PX;
+  width: 96px;
+  font-size: 14px;
+}
 @media (max-width: 1599px) {
   .nav-bar > ul > li > a.nav-link {
-      height: 66px;
-      width: 80px;
-      font-size: 12px;
+    height: 84PX;
+    width: 96px;
+    font-size: 14px;
   }
   .new_task__icon img {
     width: 28px !important;
@@ -20402,7 +20511,11 @@ img.previewImg {
     width: 32px !important;
     height: 32px !important;
   }
-  .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;}
+  .nav-bar > ul > li > a.nav-link { 
+    height: 84PX;
+    width: 96px;
+    font-size: 14px;
+  }
 
 }
 
@@ -20524,18 +20637,18 @@ html[dir=rtl] body {
 
 
 .srHisclm p {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 
 .itmBody > div:first-child p {
-  font-size: 13px;
+  font-size: 15px;
 }
 .itmBody >  div:first-child .counter__col {
-  font-size: 13px;
+  font-size: 15px;
 }
 .itmBody >  div:first-child {
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .prdtImg.tb-head {
@@ -20556,7 +20669,10 @@ text-align: center;
   display: flex;
   justify-content: end;
   padding: 0 .5rem .5rem;
-  width: 100%;
+  width: 15px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 /* 23-8-24 client issues */
@@ -20574,6 +20690,7 @@ text-align: center;
   .hdfetCol {
     margin-left: 10px;
   }
+  
 
 }
 

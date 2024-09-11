@@ -322,9 +322,11 @@ $cond = '';
         .fa-angle-right, .fa-angles-left {background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);box-shadow: inset 1px 4px 4px #596bf3;filter: blur(0.2px);padding: 5px;border-radius: 50%;border: 0.5px solid;border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);margin-left: 10px;font-size: 10px;vertical-align: middle;width: 22px;}
         .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
         .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
+        .container.cntTable{padding: 1rem 10px 0 10px;} 
+        @media(min-width:576px){ .container.cntTable{padding: 1rem 24px 0 24px;} }
         @media(max-width:1024px){
             .topOrder { padding: 8px 0 0 0 !important; }
-        }
+        }  
         @media(max-width:1024px){
             .btn__box .btnBg { max-width:120px; }
             .btn__box .btnBg .btn { height:40px;padding: 0 16px;display: inline-flex;align-items: center; }
@@ -334,6 +336,32 @@ $cond = '';
         @media(max-width:575px){
             .add_new_items_in_req { width: 100%;}
         }
+        @media screen and (min-width: 1600px) {
+            .itmBody { padding-top: 0; padding-bottom: 0; }
+        }
+        
+        @media (max-width: 991px) {
+            .fetBtn { margin-left: auto; } 
+            .prdtImg{text-align: center;}
+            html[dir="rtl"] .fetBtn { margin-left: 0;margin-right: auto; } 
+            html[dir="rtl"] .sltSupp.nwOrd-Num.position .ord-Box{border-radius:10px !important;border-right: 1px solid #f05d53;}
+            html[dir="rtl"] .update .ordInfo { padding: 0; }
+
+            .newOrd-CntPrt{ position: relative; }
+            .itmBody > div:first-child{ position: absolute;top:0.5rem;left:0;font-size: 12px;width: 25% !important;text-align: center; }
+            .itmBody > div:first-child p { font-size: 12px; }
+            .prdtImg { width: 25%; }
+            .prdtCnt-Fst { width: 50% !important; }
+            .edit-order-section.update .prdtCnt-Scnd.d-flex.align-items-center { width: 25% !important; }
+            .edit-order-section.update .prdtCnt-Scnd .itm-Quantity,.edit-order-section.update .prdtCnt-Scnd .ttlCr-Type { width: 100% !important; }  
+            .edit-order-section .itm-Unit.tb-bdy { width: 40%; }
+            .prdtCr-Unit .crncy-Type.w-50 { width: 60% !important; }
+            .edit-order-section .Itm-Name.tb-bdy p{ overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
+            html[dir="rtl"] .itmBody > div:first-child { left: auto; right: 0; }
+        }
+        html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, 
+        html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .text-start { text-align: right !important; }
+
     </style>
 
 </head>
@@ -383,7 +411,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <div class="stcPart position-relative">
-                            <div class="container cntTable" style="padding: 1rem 24px 0 24px;"> 
+                            <div class="container cntTable"> 
                                 <!-- topOrder edtReq nwOrder-Div-->
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
                                     <div class="ord-Box w-100 d-flex flex-wrap gap-2 ms-0" style="border-color: #F05D53;">
@@ -417,7 +445,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     
                                 </div>
 
-                                <div class="row gy-2 gx-0 gx-lg-4 pb-md-4">
+                                <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->
                                     <div class="col-lg-9 col-xl-10 newFeatures">
                                         <div class="mbFeature container">
@@ -498,12 +526,12 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg w-100">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-center">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
                                             <div class="btnBg w-100">
-                                                <a href="runningOrders.php" class="w-lg-100 w-100 btn  btn-primary update"><?php echo showOtherLangText('Back'); ?></a>
+                                                <a href="runningOrders.php" class="w-lg-100 w-100 btn  btn-primary update justify-content-center"><?php echo showOtherLangText('Back'); ?></a>
                                             </div>
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)" class="d-inline-block">
@@ -515,7 +543,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 </div>
                             </div>
                             <div class="container cntTable pb-md-4" style="padding-top: 8px;">
-                                <div class="row g-4">
+                                <div class="row g-0 g-lg-4">
                                     <div class="sltSupp">
                                         <!-- Select Supplier -->
                                         <!-- <div class="btn-group glb-btn">
