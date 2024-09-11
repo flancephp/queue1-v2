@@ -20089,6 +20089,13 @@ body .ui-widget-content {
   .modal-header .d-md-flex.align-items-center.justify-content-between.w-100 {
     display: flex;
     flex-wrap: wrap;
+    align-items: start !important;
+}
+.overflowTable {
+  overflow-x: auto;
+}
+.summery-row {
+  overflow: auto;
 }
 }
 @media screen and (max-width: 580px) {
