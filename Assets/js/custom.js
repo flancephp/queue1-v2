@@ -30,7 +30,7 @@ $("#srch").focusin(function () {
   $(".input-group-append .btn").css("backgroundColor", "#5060DF");
 });
 $("#srch").focusout(function () {
-  $(".srchBx").css("borderColor", "#D5D6DD");
+  $(".srchBx").css("borderColor", "#ff0000");
   $(".input-group-append .btn").css("backgroundColor", "#7A89FF");
 });
 // Order & Requisition Pages Search Bar End
@@ -277,7 +277,7 @@ $(document).ready(function () {
 
   $(".dskAll-str").click(function () {
     $(".allStore").css("display", "flex");
-    $(".storeCol").css("background", "#7A89FE");
+    $(".storeCol").css("background", "transparent");
     $(".dskAll-str").hide();
   });
 

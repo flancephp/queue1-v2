@@ -606,7 +606,7 @@ list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="btnBg">
+                    <div class="btnBg extra-mrg ">
                         <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
@@ -647,7 +647,7 @@ list'); ?></span><br>
                    
                 </div>
                 <div class="modal-footer">
-                    <div class="btnBg">
+                    <div class="btnBg extra-mrg">
                         <button type="submit" name="btnSbt" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
                     </div>
                     <div class="btnBg">
