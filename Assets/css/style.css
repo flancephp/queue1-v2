@@ -12277,7 +12277,7 @@ a.tabFet:focus .sampleFile {
 .ttlCost,
 .sale-Variance {
   color: #666c85;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 15px;
 }
 
@@ -12427,8 +12427,7 @@ a.tabFet:focus .sampleFile {
   text-align: end;
 }
 
-.rev-Cntrgst .dropdown-toggle,
-.out-Let .dropdown-toggle {
+.rev-Cntrgst .dropdown-toggle, .out-Let .dropdown-toggle {
   color: #232859;
   text-decoration: none;
   cursor: pointer;
@@ -12438,10 +12437,14 @@ a.tabFet:focus .sampleFile {
   background: #ffffff;
   border: 1px solid #dfe0e8;
   border-radius: 10px;
-  padding: 7px 12px;
+  padding: 11px 12px;
   font-weight: 500;
   width: 100%;
+  font-size: 14px;
+  min-width: 154px;
 }
+.revCenter-Name{}
+.revCenter-Name p{ font-size:16px;}
 
 .rev-List {
   width: 65%;
