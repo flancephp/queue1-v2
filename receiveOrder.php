@@ -405,11 +405,19 @@ $otherChrgQry=mysqli_query($con, $sql);
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
+        /* .dropdown-toggle.tabFet:hover, .dropdown-toggle.tabFet:focus { border-color: var(--color-primary) !important;background-color: var(--color-primary);box-shadow: none; } */
         .btn-primary:focus {outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;} 
         .btn-check:focus + .btn, .btn:focus {box-shadow: none !important; }
-        .dropdown-toggle.tabFet{padding:25px 10px;max-width: 120px;}
-        .update .newFeatures { padding: 0 32px 0 65px; }
+        .dropdown-toggle.tabFet{padding:25px 10px;max-width: 120px;} 
         .update .rcvOrder .smBtn { padding: 0 12px 0 12px;}
+        .featRow::after { display:none;}
+        .featRow .stockFeat .dropdown-menu {overflow: hidden;}
+        .featRow .stockFeat .dropdown-menu a { display: flex;gap:.5rem;font-size:12px; padding: 5px 16px;}
+        .featRow .stockFeat .dropdown-menu a:hover { background-color: #e9ecef;}
+        .featRow .stockFeat .dropdown-menu a svg {width: 18px;height: 18px;}
+        .featRow .stockFeat .dropdown-menu.show {transform: translate(0, 70px) !important;}
+        .stkRow .stockFeat:hover  .dropdown-menu a{ color: #666c85 !important; }
+        
         @media screen and (min-width: 1600px) {
          .update .newFeatures { padding: 0 37px 0 88px; }
         }
@@ -420,15 +428,51 @@ $otherChrgQry=mysqli_query($con, $sql);
             .update .rcvOrder .smBtn .btn { height:40px;padding:0 16px;}
             .update .rcvOrder .smBtn .fetBtn img { height:40px; }
             .update .rcvOrder .btnBg{width: auto;}
-            .update .rcvOrder .smBtn { max-width: 250px;margin-left: auto;gap:10px;} 
+            .update .rcvOrder .smBtn { gap:10px;justify-content:flex-end;} 
+            .update .smBtn .fetBtn { margin-right: auto;} 
+            html[dir="rtl"] .update .smBtn .fetBtn { margin-right: 0;margin-left: auto; }
+            .subTittle1{ justify-content: space-between;width:100% !important;}
+            .dropdown-toggle.tabFet:hover, .dropdown-toggle.tabFet:focus, .dropdown-toggle.tabFet:active { border-color: var(--color-primary) !important;background-color: var(--color-primary);box-shadow: none;color:var(--color-white); }
+            html[dir="rtl"] .rcvOrder .sltSupp {flex: 0 0 100%;width: 100%; }
+            html[dir="rtl"] .ord-Box.ms-0.position { width: 100%; }
+            html[dir="rtl"] .update .rcvOrder .smBtn {padding: 0 !important;width: 100%; }
+            html[dir="rtl"] .ordInfo, html[dir="rtl"] .suppDetl { padding: 0; }
+            html[dir="rtl"] .rcvOrder { padding: 1rem 10px 0 10px; }
+
+            .recOrd-TblBody{position: relative;}
+            .update .itmBody > div:first-child{width: 17%;position: absolute;top:.5rem;left:1rem;}
+            html[dir="rtl"] .update .itmBody > div:first-child{left:auto;right:1rem;}
+            .update .prdtImg{width: 20%;text-align: center;}
+            .update .prdtImg img{position: relative;top:1rem;}
+            .update.recieved-order-section .recItm-Name.tb-bdy { width: 80%; }
+            .update.recieved-order-section .recPrc-Unit, .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { width: 80% !important; margin-left: auto; }
+            html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,.update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-left: 0;margin-right: auto; }
+            .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc  { width: 50%;text-align: left; }
+            .update .recCr-Type { width: 100%; } 
+            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:1.75rem;right:1rem;max-width:35%;}
+            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price .form-control { width:100%;}
+            html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { right:auto;left:1rem;}
+            html[dir="rtl"] .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc { text-align: right; }
+            
+        }
+        @media(min-width:992px){
+            .update .newFeatures { padding: 0 32px 0 65px; }
+            .date__gap{margin-left: 3rem;}
+            html[dir="rtl"] .date__gap{margin-left: 0;margin-right: 3rem;}
         }
         @media(min-width:767px){
             .md-max-fit-content{max-width:fit-content;}
         }
-        @media(max-width:575px){
-            .update .topOrder { padding: 8px 12px 0 12px !important; }
+        @media(max-width:575px){ 
+            .dropdown-toggle.tabFet { padding: 14px 10px; }
+            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { max-width:33%;}
+        }
+        @media(max-width:1024px){
+            .update .topOrder { padding: 8px 10px 0 10px !important; }
             .dropdown-toggle.tabFet { padding: 14px 10px; }
         }
+
+        
     </style>
 </head>
 
@@ -521,9 +565,10 @@ $otherChrgQry=mysqli_query($con, $sql);
                                 <div class="row g-3 justify-content-between">
                                     <div class="sltSupp nwOrd-Num">
                                         <div class="ord-Box update position start-0 ms-0" style="top:1rem;">
-                                            <div class="ordNum m-0">
-                                                <h4 class="subTittle1"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span>
-                                                <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
+                                            <div class="ordNum m-0 w-100">
+                                                <h4 class="subTittle1">
+                                                    <span class="d-inline-flex"><span>Order#:</span> <span><?php echo $ordRow['ordNumber'];?></span></span>
+                                                    <span class="date__gap"><?php echo date("d-m-Y"); ?></span>
                                                 </h4>
                                             </div>
                                         </div>
@@ -532,38 +577,10 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     <div class="ordInfo rcvInfo newFeatures">
                                         
                                         <div class="container">
-                                            <div class="mbFeature">
-                                                <div class="row gx-0 justify-content-end">
+                                            <div class="mbFeature mb-2 mb-lg-0">
+                                                <div class="row gx-0 justify-content-center justify-content-lg-end">
                                        
-                                                    <div class="text-center w-100 md-max-fit-content">
-                                                          <style>
-                                                            .featRow::after {
-                                                                display:none;
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu {
-                                                                overflow: hidden;
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu a {
-                                                                display: flex;
-                                                                gap:.5rem;font-size:12px;
-                                                                padding: 5px 16px;
-                                                                
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu a:hover {
-                                                                background-color: #e9ecef;
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu a svg {
-                                                                width: 18px;
-                                                                height: 18px;
-                                                            }
-                                                            .featRow .stockFeat .dropdown-menu.show {
-                                                                transform: translate(0, 70px) !important;
-                                                            }
-                                                            .stkRow .stockFeat:hover  .dropdown-menu a{
-                                                               color: #666c85 !important;
-                                                            }
-                                                         
-                                                          </style>
+                                                    <div class="text-center w-100 md-max-fit-content"> 
                                                         <div class="row featRow stkRow divider p-0 position-relative"> 
                                                             <div class="stockFeat p-0   d-flex">
                                                             <a  href="javascript:void(0)" class="dropdown-toggle tabFet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -597,13 +614,13 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     </div>
 
                                     <div class="col-md-2 text-end smBtn nwNxt-Btn">
-                                        <div class="btnBg">
+                                        <div class="btnBg order-2">
                                             <a href="javascript:void(0)" class="btn btn-primary w-100 receive-btn d-inline-flex align-items-center justify-content-center"><?php echo showOtherLangText('Receive');?></a>
                                         </div>
-                                        <div class="btnBg mt-3">
+                                        <div class="btnBg mt-3 order-3">
                                             <a href="runningOrders.php" class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center"><?php echo showOtherLangText('Back');?></a>
                                         </div>
-                                        <div class="fetBtn">
+                                        <div class="fetBtn order-1">
                                             <a href="javascript:void(0)">
                                                 <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                             </a>
@@ -639,8 +656,8 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                 autocomplete="off" value="<?php echo $ordRow['invNo'] ?>"
                                                 oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                                                 onChange="getInvNo(),this.setCustomValidity('')" required />
-                                                <div class="error" id="invError"></div>
                                             </div>
+                                            <div class="error" id="invError"></div>
                                         </div>
                                     </div>
 

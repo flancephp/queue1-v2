@@ -398,26 +398,41 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         width: 22px;
     }
 
-    .newOrde {
-        padding: 0 25px 0 5px;
-    }
-    @media (max-width:991px) {
+    .newOrde { padding: 0 25px 0 5px; }
+    .container.erdOrder{padding: 1rem 10px 0 10px;} 
+    @media(min-width:576px){ .container.erdOrder{padding: 1rem 24px 0 24px;} }
+    @media (max-width:992px) {
         .newFeatures { padding: 1rem 0 0 0; }
         .newFeatures .ms-auto { margin: 0 auto !important; }
         .btn__box { max-width: 14rem;}
         .fetBtn img { height:3rem; }
         .newOrdTask1 {background: rgba(255, 255, 255, 0.8);box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);padding: 0;margin-bottom: 5px;border-radius:.5rem;display:flex;}
+        .newOrd-CntPrt{ position: relative; }
+        .itmBody > div:first-child{ position: absolute;top:0.5rem;left:0;font-size: 12px;width: 25% !important;text-align: center; }
+        .itmBody > div:first-child p { font-size: 12px; }
         .prdtImg { width: 25%; }
-        .prdtCnt-Fst { width: calc(75% - 44px); }
-        .prdtCnt-Scnd { width: calc(75% - 44px);margin-left:auto;}
-        .prdtCnt-Scnd .itm-Quantity,.prdtCnt-Scnd .ttlCr-Type { width: 50%; }
-        .res__label__item::before {content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4; }
-        .res__label__item.stock::after {content: attr(data-text-stock);display: block;font-size: 9px;color: #777;line-height: 1.4;position:absolute;top:0;right:0; }
-        .prdtCr-Unit .itm-Unit, .prdtCr-Unit .crncy-Type { width: 50%; }
+        .prdtCnt-Fst { width: 50% !important; }
+        .edit-order-section.update .prdtCnt-Scnd { width: 25% !important; }
+        .edit-order-section.update .prdtCnt-Scnd .itm-Quantity,.edit-order-section.update .prdtCnt-Scnd .ttlCr-Type { width: 100% !important; }  
+        .edit-order-section .itm-Unit.tb-bdy { width: 40%; }
+        .prdtCr-Unit .crncy-Type.w-50 { width: 60% !important; }
         .itmBody { font-size: 12px; }
         .mb-brCode .ord-StockQty { width: 50%; }
-        .btn__box .btn { height:40px;padding: 0 16px;display: inline-flex;align-items: center; }
+        .btn__box .btn { height:40px;padding: 0 16px;display: inline-flex;align-items: center;justify-content:center; }
         .fetBtn img { height:40px; }
+        .ttlDft-Crcy, .ttlOtr-Crcy{ min-width: 100%; }
+        .edit-order-section .Itm-Name.tb-bdy p{ overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
+        .update .prdtImg img { position: relative;top:1rem; }   
+
+        html[dir="rtl"] .sltSupp.nwOrd-Num.position .ord-Box{border-radius:10px !important;border-right: 1px solid #94ebc6;}
+        html[dir="rtl"] .itmBody > div:first-child { left: auto; right: 0; }
+        .update .sltSupp.nwOrd-Num { width: 100% !important; }
+        .update .nwNxt-Btn { flex-direction: row-reverse; } 
+        html[dir="rtl"] .update .ordInfo { padding: 0; }
+    }
+    @media screen and (max-width: 1024px) {
+        .update .sltSupp.nwOrd-Num { width: 35%; }
+        .ordNum { margin: 0; }
     }
     @media screen and (max-width: 767px) {
         .ordFeature { width: 49.3%; }
@@ -428,10 +443,14 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .btn__box{max-width:100%;flex:none;}
         .update .topOrder { padding: 8px 10px 0 10px !important; }
         .update .add-new-items.btn-primary{width: 100%;}
+        .edit-order-section .ttlCr-Type.d-flex.align-items-center { flex-wrap: wrap !important; }
     }
     .ttlDft-Crcy { margin: auto; }
     .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
     .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
+     
+    html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, 
+    html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .text-start { text-align: right !important; }
 </style>
 </head>
 
@@ -476,11 +495,11 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                     <section class="ordDetail edit-order-section update">
                         <div class="tpBar-grn"></div>
                         <div class="stcPart position-relative">
-                            <div class="container erdOrder" style="padding: 1rem 24px 0 24px;">
+                            <div class="container erdOrder">
                                 <form name="frmupdateOrder" id="frmupdateOrder"
                                     action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
                                     autocomplete="off">
-                                    <div class="row pb-md-4">
+                                    <div class="row g-0 pb-md-4">
                                         <div class="sltSupp nwOrd-Num position start-0 p-0"
                                             style="top:1rem; min-width:fit-content;">
                                             <div class="ord-Box w-100 ms-0 d-flex flex-wrap gap-2">
@@ -636,8 +655,8 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
-                                            <div class="fetBtn me-3 ms-3">
+                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-between">
+                                            <div class="fetBtn">
                                                 <a href="javascript:void(0)">
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
@@ -952,7 +971,7 @@ $ordQry = mysqli_query($con, $sql);
                                         <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                     </div>
                                     <div class="prdtCr-Unit d-flex align-items-center">
-                                        <div class="crncy-Type d-flex align-items-center">
+                                        <div class="crncy-Type d-flex flex-wrap align-items-center">
                                             <?php if($ordRow['ordCurId'] > 0)
 {   ?>
                                             <div class="dflt-Currency tb-head">
@@ -978,11 +997,11 @@ $ordQry = mysqli_query($con, $sql);
                                 <div class="prdtStk-Qty tb-head">
                                     <p><?php echo showOtherLangText('S.Qty'); ?></p>
                                 </div>
-                                <div class="prdtCnt-Scnd d-flex align-items-center">
+                                <div class="prdtCnt-Scnd d-lg-flex align-items-center">
                                     <div class="itm-Quantity tb-head">
                                         <p><?php echo showOtherLangText('Qty'); ?></p>
                                     </div>
-                                    <div class="ttlCr-Type d-flex align-items-center">
+                                    <div class="ttlCr-Type d-flex flex-wrap align-items-center">
                                         <?php if($ordRow['ordCurId'] > 0)
      {?>
                                         <div class="ttlDft-Crcy tb-head">
@@ -1027,7 +1046,7 @@ $ordQry = mysqli_query($con, $sql);
                                     $y++;
                                 ?>
                                 <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                    <div class="d-flex align-items-lg-center border-bottom itmBody newOrd-CntPrt">
                                         <div class="counter__box tb-bdy" style="width:44px;">
                                             <p><?php echo $y; ?></p>
                                         </div>
@@ -1046,7 +1065,7 @@ $ordQry = mysqli_query($con, $sql);
                                                 <p class="ord-brCode"></p>
                                             </div>
                                             <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
+                                                <div class="crncy-Type d-flex flex-wrap align-items-center">
                                                     <div class="dflt-Currency tb-bdy">
                                                         <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?>
                                                         </p>
@@ -1065,11 +1084,11 @@ $ordQry = mysqli_query($con, $sql);
                                         <div class="prdtStk-Qty tb-bdy">
                                             <p class="ord-StockQty"><span class="tabOn-Stk">On stock</span></p>
                                         </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
+                                        <div class="prdtCnt-Scnd d-lg-flex align-items-center">
                                             <div class="itm-Quantity tb-bdy">
                                                 1
                                             </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
+                                            <div class="ttlCr-Type d-flex flex-wrap align-items-center">
                                                 <div class="ttlDft-Crcy tb-bdy">
                                                     <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?></p>
                                                 </div>
@@ -1131,7 +1150,7 @@ $ordQry = mysqli_query($con, $sql);
                                 <input type="hidden" name="totalPriceShowTop[]" id="totalPriceShowTop<?php echo $x;?>"
                                     value="<?php showPrice($row['ordPrice'], $getDefCurDet['curCode']);?>" />
                                 <div class="newOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                    <div class="d-flex align-items-lg-center border-bottom itmBody newOrd-CntPrt">
                                         <div class="tb-bdy" style="width:44px;">
                                             <p><?php echo $y; ?></p>
                                         </div>
@@ -1145,15 +1164,15 @@ $ordQry = mysqli_query($con, $sql);
                                             ?>
                                         </div>
                                         <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Item'); ?>">
+                                            <div class="Itm-Name tb-bdy " data-text="<?php echo showOtherLangText('Item'); ?>">
                                                 <p><?php echo $row['itemName'];?></p>
                                             </div>
                                             <div class="Itm-brCode tb-bdy">
                                                 <p class="ord-brCode"><?php echo $row['barCode'];?></p>
                                             </div>
                                             <div class="prdtCr-Unit d-flex">
-                                                <div class="crncy-Type d-flex align-items-center">
-                                                    <div class="dflt-Currency tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
+                                                <div class="crncy-Type d-flex flex-wrap align-items-center">
+                                                    <div class="dflt-Currency tb-bdy " data-text="<?php echo showOtherLangText('P.Price'); ?>">
                                                         <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
                                                                 type="hidden" name="price[<?php echo $row['id'];?>]"
                                                                 id="<?php echo $x;?>"
@@ -1169,7 +1188,7 @@ $ordQry = mysqli_query($con, $sql);
                                                     </div>
                                                     <?php } ?>
                                                 </div>
-                                                <div class="itm-Unit tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
+                                                <div class="itm-Unit tb-bdy " data-text="<?php echo showOtherLangText('P.Unit'); ?>">
                                                     <p><?php echo $row['purchaseUnit'];?></p>
                                                 </div>
                                             </div>
@@ -1177,20 +1196,20 @@ $ordQry = mysqli_query($con, $sql);
                                         <div class="prdtStk-Qty tb-bdy">
                                             <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
-                                            <div class="itm-Quantity tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Qty'); ?>">
+                                        <div class="prdtCnt-Scnd d-lg-flex align-items-center">
+                                            <div class="itm-Quantity tb-bdy " data-text="<?php echo showOtherLangText('Qty'); ?>">
                                                 <input type="text" class="form-control qty-itm"
                                                     name="qty[<?php echo $row['id'];?>]" autocomplete="off"
                                                     onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>')"
                                                     value="<?php echo $row['ordQty'];?>" size="5">
                                             </div>
-                                            <div class="ttlCr-Type d-flex align-items-center">
-                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy res__label__item text-start " data-text="<?php echo showOtherLangText('Total'); ?>">
+                                            <div class="ttlCr-Type d-flex flex-wrap align-items-center">
+                                                <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy  text-start " data-text="<?php echo showOtherLangText('Total'); ?>">
                                                     <p><?php showPrice($row['ordPrice'], $getDefCurDet['curCode']) ?>
                                                     </p>
                                                 </div>
                                                 <?php if($ordRow['ordCurId'] > 0){?>
-                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy res__label__item text-start" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                <div id="totalPriceOther<?php echo $x;?>" class="ttlOtr-Crcy tb-bdy  text-start" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                     <p><?php  echo showOtherCur( ($row['ordPrice']*$curAmtVal), $ordRow['ordCurId']);?></p>
                                                 </div>
                                                 <?php } ?>
@@ -1198,10 +1217,10 @@ $ordQry = mysqli_query($con, $sql);
                                         </div>
                                         <div class="prdt-Hide">
                                             <div class="prdt-Note tb-bdy">
-                                                <div class="res__label__item stock position-relative" data-text="<?php echo showOtherLangText('Bar code'); ?>" data-text-stock="<?php echo showOtherLangText('S.qty'); ?>"> 
+                                                <div class=" stock position-relative" data-text="<?php echo showOtherLangText('Bar code'); ?>" data-text-stock="<?php echo showOtherLangText('S.qty'); ?>"> 
                                                     <div class="mb-brCode" ></div>
                                                 </div>
-                                                <div class=" res__label__item" data-text="<?php echo showOtherLangText('Note'); ?>"> 
+                                                <div class=" " data-text="<?php echo showOtherLangText('Note'); ?>"> 
                                                     <input type="text" class="form-control note-itm" autocomplete="off"
                                                         id="notes<?php echo $row['id'];?>"
                                                         onChange="getnotesVal('<?php echo $row['id'] ?>');"
@@ -1329,7 +1348,7 @@ $ordQry = mysqli_query($con, $sql);
                                         <div class="prdtStk-Qty tb-head">
                                             <p><?php echo showOtherLangText('S.Qty'); ?></p>
                                         </div>
-                                        <div class="prdtCnt-Scnd d-flex align-items-center">
+                                        <div class="prdtCnt-Scnd d-lg-flex align-items-center">
                                             <div class="itm-Quantity tb-head">
                                                 <p><?php echo showOtherLangText('Qty'); ?></p>
                                             </div>
@@ -1393,7 +1412,7 @@ $stockQty = $stockQty - $totalProQty;
                                         <input type="hidden" name="totalPriceShowTop[]"
                                             id="totalPriceShowTop<?php echo $x;?>" value="" />
                                         <div class="newOrdTask1">
-                                            <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
+                                            <div class="d-flex align-items-lg-center border-bottom itmBody newOrd-CntPrt">
                                                 <div class="tb-bdy" style="width:44px;">
                                                     <?php echo $y;?>
                                                 </div>
@@ -1406,7 +1425,7 @@ $stockQty = $stockQty - $totalProQty;
                                                     ?>
                                                 </div>
                                                 <div class="prdtCnt-Fst d-flex align-items-center">
-                                                    <div class="Itm-Name tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Item'); ?>">
+                                                    <div class="Itm-Name tb-bdy " data-text="<?php echo showOtherLangText('Item'); ?>">
                                                         <p><?php echo $row['itemName'];?></p>
                                                     </div>
                                                     <div class="Itm-brCode tb-bdy">
@@ -1414,7 +1433,7 @@ $stockQty = $stockQty - $totalProQty;
                                                     </div>
                                                     <div class="prdtCr-Unit d-flex">
                                                         <div class="crncy-Type w-50 ">
-                                                            <div class=" tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
+                                                            <div class=" tb-bdy " data-text="<?php echo showOtherLangText('P.Price'); ?>">
                                                                 <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?><input
                                                                         type="hidden"
                                                                         name="price[<?php echo $row['id'];?>]"
@@ -1429,7 +1448,7 @@ $stockQty = $stockQty - $totalProQty;
                                                             </div>
 
                                                         </div>
-                                                        <div class="itm-Unit tb-bdy res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
+                                                        <div class="itm-Unit tb-bdy " data-text="<?php echo showOtherLangText('P.Unit'); ?>">
                                                             <p><?php echo $row['purchaseUnit'];?></p>
                                                         </div>
                                                     </div>
@@ -1439,15 +1458,15 @@ $stockQty = $stockQty - $totalProQty;
                                                         <?php echo round(($stockQty/$row['factor']), 1);?> <span
                                                             class="tabOn-Stk">On stock</span></p>
                                                 </div>
-                                                <div class="prdtCnt-Scnd d-flex align-items-center">
-                                                    <div class="itm-Quantity tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Qty'); ?>">
+                                                <div class="prdtCnt-Scnd d-lg-flex align-items-center">
+                                                    <div class="itm-Quantity tb-bdy " data-text="<?php echo showOtherLangText('Qty'); ?>">
                                                         <input type="text" class="form-control qty-itm editQty-Rec"
                                                             name="qty[<?php echo $row['id'];?>]" autocomplete="off"
                                                             onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $row['id'];?>', '<?php echo $_POST['supplierId'];?>', '1')"
                                                             value="" size="5">
                                                     </div>
                                                     <div class="ttlCr-Type w-50 ps-xl-4">
-                                                        <div class=" tb-bdy res__label__item text-start" data-text="<?php echo showOtherLangText('Total'); ?>">
+                                                        <div class=" tb-bdy  text-start" data-text="<?php echo showOtherLangText('Total'); ?>">
                                                             <p id="totalPrice<?php echo $x;?>">0</p>
                                                         </div>
 
@@ -1461,7 +1480,7 @@ $stockQty = $stockQty - $totalProQty;
                                                     <?php } ?>
                                                 </div>
                                                 <div class="prdt-Hide">
-                                                    <div class="prdt-Note tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Note'); ?>">
+                                                    <div class="prdt-Note tb-bdy " data-text="<?php echo showOtherLangText('Note'); ?>">
                                                         <div class="mb-brCode" style="display: none;"></div>
 
                                                         <input type="text" class="form-control  note-itm"
@@ -1487,7 +1506,7 @@ if($i > 0)
 
                                         <?php }else{
 echo '<div class="newOrdTask">
-    <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt p-3 justify-content-center">'.showOtherLangText('No Product Found').'</div> </div>';
+    <div class="d-flex align-items-lg-center border-bottom itmBody newOrd-CntPrt p-3 justify-content-center">'.showOtherLangText('No Product Found').'</div> </div>';
 } ?>
 
                                     </div>
