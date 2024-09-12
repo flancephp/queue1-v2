@@ -1891,6 +1891,8 @@ progress {
     margin: 0px auto;
   }
 }
+
+
 @media (max-width: 767.98px) {
   .table-responsive-md {
     overflow-x: auto;
@@ -1903,6 +1905,16 @@ progress {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+  .fs-6{
+    font-size: 16px;
+
+  }
+  .fw-bold{font-weight: 500;}
+  .itmBody > div:first-child p {
+    font-size: 16px;
+    font-weight: 400;
+  }
+ 
 }
 @media (max-width: 1199.98px) {
   .table-responsive-xl {
@@ -10264,7 +10276,7 @@ a.sbActive .mb_nvSubIcn {
 }
 
 .form-select {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 16px;
   color: #666c85;
@@ -15152,6 +15164,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itmBody {
     font-size: 15px; font-weight: 400;
     }
+    .res__label__item p{font-size: 15px; font-weight: 400;}
+    
   .tb-head {
     padding: 8px 6px 16px;
   }
@@ -16040,8 +16054,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .mbPage {
     display: flex;
-    /* align-items: flex-end; */
-    align-items: center;
+    align-items: flex-end;
+    /* align-items: center; */
   }
   .mbpg-name .h1 {
     color: #232859;
@@ -20162,11 +20176,20 @@ body .ui-widget-content {
   .gst-Head, .gst-Var, .sale-Name, .sale-Amunt, .tl-Cst, .sl-Cost, .sl-Usage, .sl-Variance, .sale-Amount, .usage-Amount, .var-Amount, .sl-varDtl, .sl-varDif, .sl-varValue, .sl-varTtl {
     padding: 9px 0px;
   }
-  .revnueParent-sec .itmBody > div:first-child {
+  .revnueParent-sec .ttlCost-Amt .mbhead-revCntr{
     font-size: 14px;
     font-weight: 500;
   }
-  .revnueParent-sec .mbguest-Head{font-weight: 400;font-size: 16px;}
+  .revnueParent-sec .outlet-Name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .revnueParent-sec .outlet-Salecst .mbhead-revCntr{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .revnueParent-sec .num-List .mbguest-Head{font-weight: 400;font-size: 16px;}
+  
   .center-List{font-weight:600 ; font-size: 16px;}
   .modal-content {
     margin-top: 0;
@@ -20223,6 +20246,12 @@ body .ui-widget-content {
 
 }
 @media screen and (max-width: 480px) {
+
+  .revnueParent-sec .outlet-Name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+  }
   .model-title-with-date, 
   .model-title-with-date .semibold.text-center,
   .model-title-with-date .fs-15 {
@@ -20407,7 +20436,7 @@ img.previewImg {
 } 
 .sub-btn { 
   border-radius: 5px;
-  padding: 3px 4px;
+  /* padding: 3px 4px; */
 } 
 .skt-font{}
 .skt-font{} .tb-head { 
@@ -20740,6 +20769,18 @@ font-weight: 500;
 text-align: center;
 }
 
+
+@media (max-width: 991.98px) {
+  .itmBody > div:first-child p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .itmBody {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+  }
+}
 
 .mb-modal-close-icon {
   display: flex;

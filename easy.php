@@ -149,6 +149,12 @@ if (isset($_GET['hotelId'])) {
         }
 
         @media (max-width: 767px) {
+
+            .right__box {
+    width: 100%;
+    margin-top: 4px;
+    .outlet__box{margin-bottom: 9px;}
+  }
             .outlet__box {
                 width: 50%;
             }
@@ -164,11 +170,11 @@ if (isset($_GET['hotelId'])) {
             }
 
             .middle__info .product__box {
-                width: 100%;
-                position: absolute;
-                bottom: -4px;
-                left: -100%;
-            }
+    width: 100%;
+    position: absolute;
+    bottom: -5px;
+    left: -100%;
+  }
 
             .middle__info .cate__box {
                 width: 100%;
@@ -180,6 +186,35 @@ if (isset($_GET['hotelId'])) {
             .category__table .middle__info {
                 min-height: auto;
             }
+        }
+
+        @media (max-width: 420px) {
+            .middle__info .product__box {
+    width: 100%;
+    position: absolute;
+    bottom: -28px;
+    left: -100%;
+  }
+  .itmBody > div:first-child p {
+    font-size: 13px;
+  }
+  .right__box {
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    bottom: -10px;
+  }
+  .newOrd-CntPrt {
+    border-bottom: none !important;
+    width: 90%;
+    padding: 10px 10px 35px 10px;
+    flex-wrap: wrap;
+  }
+  .res__label__item p {
+    font-size: 13px;
+    font-weight: 400;
+  }
+
         }
     </style>
 </head>
