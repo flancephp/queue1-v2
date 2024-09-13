@@ -478,6 +478,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             color: #fff;
         }
 
+        html[dir=rtl] .mblCnt {
+            border-radius: 20px !important;
+            border: 2px solid #FFF;
+            background: #7A89FE !important;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+            font-size: 18px;
+            top: -10%;
+            left: -10%;
+            position: absolute !important;
+            padding: 4px 11px;
+            color: #fff;font-weight: 600;
+        }
+
     /*     @media (min-width: 768px) {
             .stkView .container:not(.large) { max-width: 720px; }
         } 
@@ -569,11 +582,14 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
 .dskAll-str{width: 45px;}
 
+
 .modal-footer .btnBg{
     padding-right:16px;
 }
-.modal-footer .btnBg{
-    padding-right:16px;
+html[dir=rtl] .modal-footer .btnBg{
+    padding-left: 16px;
+  padding-right: 0px;
+  margin: 0px;
 }
 .justify-content-start{}
 

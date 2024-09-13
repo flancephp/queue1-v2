@@ -181,8 +181,8 @@ foreach($resItemHistory['resRows'] as $item){
             width: 100% !important;
             }
             .itmVw-memberClm .dropdown-toggle {
-                padding: 12px 12px;
-                font-size: 16px;
+                padding: 10px 12px;
+                font-size: 14px;
                 }
     @media (max-width: 767px) {
         

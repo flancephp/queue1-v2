@@ -13466,6 +13466,7 @@ img[alt=LOGO] {
   font-weight: 700;
 }
 
+
 /* Manage Supplier Page CSS End */
 /* Edit Supplier Page CSS Start */
 .edtSup-Div {
@@ -13643,7 +13644,6 @@ img[alt=LOGO] {
 .modal-footer {
   justify-content: flex-start;
 }
-
 .modal-header,
 .modal-footer,
 .modal-body {
@@ -14803,7 +14803,7 @@ html[dir=rtl] .logo {
 
 html[dir=rtl] .form-select {
   background-image: url("../icons/select-rtl.svg");
-  background-position: left;
+  background-position: 3px;
 }
 
 html[dir=rtl] .form-select:focus {
@@ -17833,7 +17833,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   left: 32px;
 }
 }
+
+html[dir=rtl] .modal-footer .btnBg{margin-left:20px;}
 .modal-footer .btnBg{margin-right:20px;}
+
+
+
 @media screen and (max-width: 767px) {
   .dt-Members1{flex-wrap: wrap;
     width: 100%;}
@@ -18863,8 +18868,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     box-shadow: none;
   }
   .mb-hisDtl .col-md-5 {
-    padding: 0 8px;
+    padding: 0 8px 0 20px;
   }
+  
   .oltReport .mb-hisDtl .col-md-5 {
     font-size: 14px;
   }
@@ -18999,6 +19005,20 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     font-weight: bold;
   }
 }
+.conFirm,
+  .docMent,
+  .edIt,
+  .dlTe,
+  .isuOut,
+  .assIgn,
+  .receIve,
+  .prdItm,
+  .vwDtl,
+  .add-Itm,
+  .impItem {
+    width: 35px;
+    height: 35px;
+  }
 @media screen and (min-width: 1800px) {
   .nav-bar a { font-size: 1rem;  }
   .nav-bar { margin-top: 1.5rem; } 
@@ -19375,8 +19395,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .vwDtl,
   .add-Itm,
   .impItem {
-    width: 22px;
-    height: 22px;
+    width: 35px;
+    height: 35px;
   }
   
   .payOptnreq,
@@ -19828,9 +19848,26 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 
-
+.ct-width01 .dt-Member, .tbdy-dtMbr {
+  width: 100%;
+}
 
 @media screen and (max-width: 1368px) {
+
+  .conFirm,
+  .docMent,
+  .edIt,
+  .dlTe,
+  .isuOut,
+  .assIgn,
+  .receIve,
+  .prdItm,
+  .vwDtl,
+  .add-Itm,
+  .impItem {
+    width: 28px;
+    height: 28px;
+  }
   .ac-setup{}
   .ac-setup .acnt-Div {width: 75%;}
   .ac-setup .acntLg-Upld{width: 25%;}
@@ -20100,6 +20137,21 @@ form.login-form input:focus{
     width: 60%;
     margin-right: 15px;
   }
+  .adUsr-Div-Left .semibold {
+    font-weight: 600;
+    padding-bottom: 7px;
+  }
+.acntSetup-Form .col-md-2, .col-md-10{padding-left:0px;}
+.desableRevenueCenter{padding-left: 17px;}
+.desableNewStockTake{padding-left: 17px;}
+.desableHistory{padding-left: 17px;}
+.desableRunningtask {padding-left: 0px;}
+.desableStock{padding-left: 17px;}
+.desableSetup{padding-left: 17px;}
+.desableRunningtask{padding-left: 17px;}
+.desableRequisition{padding-left: 17px;}
+.desableOrder{padding-left: 17px;}
+
 
 }
 
@@ -20209,6 +20261,11 @@ body .ui-widget-content {
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
+
+  .itmBody > div:first-child p{
+    padding: 0px 3px;
+    border-radius: 8px;
+  }
   .overflowTable {
     overflow-x: auto;
   }
@@ -20319,6 +20376,15 @@ body .ui-widget-content {
 
 }
 @media screen and (max-width: 480px) {
+
+  .ac-setup .acnt-Div {
+    width: 100%;
+    margin-right: 15px;
+  }
+  .ac-setup .acntLg-Upld {
+    width: auto;
+    padding-left: 10px;
+  }
 
   .sd-row .acntStp-Row {width: 50%;}
 
@@ -20850,6 +20916,8 @@ text-align: center;
   .itmBody > div:first-child p {
     font-size: 14px;
     font-weight: 400;
+    padding: 0px 3px;
+    border-radius: 8px;
   }
   .itmBody {
     font-size: 14px;
