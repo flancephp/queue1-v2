@@ -13219,6 +13219,8 @@ a.tabFet:focus .sampleFile {
   width: 50%;
   padding-left: 50px;
   padding-top: 15px;
+  align-items: start;
+  display: flex;
 }
 
 .acntSetup-Form .form-control,
@@ -19829,6 +19831,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 
 @media screen and (max-width: 1368px) {
+  .ac-setup{}
+  .ac-setup .acnt-Div {width: 75%;}
+  .ac-setup .acntLg-Upld{width: 25%;}
 .edit-product{width: 90%;}
 .stupImg {
   width: 52px;
@@ -19850,7 +19855,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 @media screen and (max-width: 1280px) {
   .edit-product{width: 100%;}
-
+}
 /******* CUSTOM CSS **********/
 
 .nav-bar > ul > li > a.nav-link{
@@ -20091,6 +20096,11 @@ form.login-form input:focus{
     min-height: auto;
     padding: 60px 30px;
   }
+  .ac-setup .acnt-Div {
+    width: 60%;
+    margin-right: 15px;
+  }
+
 }
 
 body .ui-widget-content {

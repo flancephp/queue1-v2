@@ -150,7 +150,7 @@ echo isset($_GET['updated']) ? ' '.showOtherLangText('Account Updated Successful
                         </div>
 
                         <div class="acntStp">
-                            <div class="addUser-Form acntSetup-Form row">
+                            <div class="addUser-Form acntSetup-Form row ac-setup">
                                 <div class="acnt-Div">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
