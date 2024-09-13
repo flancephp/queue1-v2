@@ -19565,10 +19565,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     min-height: 250px;
   }
   .stupImg {
-    width: 52px;
+    width: 68px;
   }
   .stup-clm-2 p {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 20px;
   }
   .triangle-down {
@@ -19793,7 +19793,24 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 
- 
+@media screen and (max-width: 1368px) {
+.stupImg {
+  width: 52px;
+}
+.stup-clm-2 p {
+  font-size: 16px;
+}
+.sub-Icns img {
+  height: 44px;
+  width: 35px;
+}
+.stup-clm-2 p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 18px;
+}
+
+} 
 
 /******* CUSTOM CSS **********/
 
