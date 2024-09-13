@@ -286,7 +286,7 @@ if( $res['proType'] == 3)
                         <div class="row">
                             <div class="col-md-12 oltCol-8">
                                 <div class="">
-                                    <div class="addUser-Form acntSetup-Form row">
+                                    <div class="addUser-Form acntSetup-Form row edit-product">
                                         <div class="col-md-6 nmOutlet">
                                             <div class="row align-items-center acntStp-Row1">
                                                 <div class="col-md-4">
@@ -408,7 +408,7 @@ if( $res['proType'] == 3)
                                                 <button type="button" id="upload-img-btn" class="sub-btn"
                                                     onclick="document.getElementById('logo').click();"><?php echo showOtherLangText('Click to upload your Image') ?></button>
                                             </div> 
-                                            <div>
+                                            <div class="sd-row">
                                             <?php 
              if( $res['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath.'/products/'.$res['imgName'] ) )
              {  
@@ -660,7 +660,7 @@ if( $res['proType'] == 3)
                                             onclick="showRevCenterAddress();">
                                                 </div> -->
                                             </div>
-                                            <div>
+                                            <div class="sd-row">
                                                 <div class="row acntStp-Row">
                                                     <div class="col-md-3">
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?><span class="requiredsign">*</span></label>

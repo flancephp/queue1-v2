@@ -269,7 +269,18 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                 width: 33.333% !important;
             }
         }
+        @media screen and (max-width: 1599px) {
 
+            .container,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl,
+            .container-xxl {
+                max-width: 1599px;
+            }
+            }
+        
         @media screen and (min-width: 1600px) {
 
             .container,
@@ -278,7 +289,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .container-sm,
             .container-xl,
             .container-xxl {
-                max-width: 1320px;
+                max-width: 1920px;
             }
         }
 
@@ -478,6 +489,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             color: #fff;
         }
 
+        html[dir=rtl] .mblCnt {
+            border-radius: 20px !important;
+            border: 2px solid #FFF;
+            background: #7A89FE !important;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+            font-size: 18px;
+            top: -10%;
+            left: -10%;
+            position: absolute !important;
+            padding: 4px 11px;
+            color: #fff;font-weight: 600;
+        }
+
     /*     @media (min-width: 768px) {
             .stkView .container:not(.large) { max-width: 720px; }
         } 
@@ -569,11 +593,14 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
 .dskAll-str{width: 45px;}
 
+
 .modal-footer .btnBg{
     padding-right:16px;
 }
-.modal-footer .btnBg{
-    padding-right:16px;
+html[dir=rtl] .modal-footer .btnBg{
+    padding-left: 16px;
+  padding-right: 0px;
+  margin: 0px;
 }
 .justify-content-start{}
 
@@ -810,7 +837,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         <div class="d-flex align-items-center w-20">
                                             <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
                                             <?php } else { ?>
-                                                <p style="color:#1c2047 !important; font-weight: 500;"><?php echo showOtherLangText('Item'); ?></p>
+                                                <p style="color:#1c2047 !important; font-weight: 400;"><?php echo showOtherLangText('Item'); ?></p>
                                                 <span class="dblArrow">
                                                     <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
                                                     <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
@@ -1120,14 +1147,14 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                     <span class="d-md-none small-font">Req qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <span><?php echo $totalTempProQty; ?></span>
+                                                        <span style="font-weight:600;"><?php echo $totalTempProQty; ?></span>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkavabdy">
                                                     <span class="d-md-none small-font"><?php echo showOtherLangText('Avail Qty'); ?>:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <span><?php echo ($row['stockQty'] - $totalTempProQty); ?></span>
+                                                        <span style="font-weight:600;"><?php echo ($row['stockQty'] - $totalTempProQty); ?></span>
                                                     <?php } ?>
                                                 </div>
 

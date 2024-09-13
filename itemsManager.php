@@ -419,7 +419,7 @@ $deprtOptions .= '</ul>';
         @media screen and (max-width: 992px) {
             .bkItm-MngBtn, .fetItm-Mng { width: 50%; }
             .bkItm-MngBtn { display: flex;justify-content: space-between;align-items: center; }
-            .bkItm-MngBtn .btn-primary { width: 52px;height:52px; }
+             .bkItm-MngBtn .btn-primary { /*width: 52px;height:52px;*/row acntStp-Row } 
             .imgItm-MngClm:first-child { width: 10%; }
         }
     </style>
@@ -634,7 +634,7 @@ $deprtOptions .= '</ul>';
                                     <!-- Search Box End -->
                                 </div>
                                 <!-- Filter Btn Start -->
-                                <div class="itmMng-filtBtn">
+                                <div class="itmMng-filtBtn itfilter1">
                                     <div class="itmFilt-Mng">
                                         <a href="javascript:void(0)" class="head-Filter itmMng-FilterBtn">
                                             <img src="Assets/icons/filter.svg" alt="Filter">
@@ -673,13 +673,13 @@ $deprtOptions .= '</ul>';
                             <div class="d-flex align-items-center itmTable">
                             	<div class="tb-head imgItm-MngClm">
                                     <div class="d-flex align-items-center">
-                                        <p><?php echo mysqli_num_rows($mainQry) > 0 ? mysqli_num_rows($mainQry) : ''; ?></p>
+                                        <p class="ft-light1"><?php echo mysqli_num_rows($mainQry) > 0 ? mysqli_num_rows($mainQry) : ''; ?></p>
                                         
                                     </div>
                                 </div>
                                 <div class="tb-head imgItm-MngClm">
                                     <div class="d-flex align-items-center">
-                                        <p><?php echo showOtherLangText('Photo') ?></p>
+                                        <p class="ft-light"><?php echo showOtherLangText('Photo') ?></p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
@@ -690,7 +690,7 @@ $deprtOptions .= '</ul>';
                                 </div>
                                 <div class="align-items-center brItm-MngClm">
                                     <div class="tb-head d-flex align-items-center item-MngClm">
-                                        <p><?php echo showOtherLangText('Item') ?></p>
+                                        <p class="ft-light"><?php echo showOtherLangText('Item') ?></p>
                                         <span class="dblArrow">
                                             <a href="javascript:void(0)" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>

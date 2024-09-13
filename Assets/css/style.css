@@ -18868,8 +18868,9 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px;}
     box-shadow: none;
   }
   .mb-hisDtl .col-md-5 {
-    padding: 0 8px;
+    padding: 0 8px 0 20px;
   }
+  
   .oltReport .mb-hisDtl .col-md-5 {
     font-size: 14px;
   }
@@ -19847,7 +19848,9 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px;}
   }
 }
 
-
+.ct-width01 .dt-Member, .tbdy-dtMbr {
+  width: 100%;
+}
 
 @media screen and (max-width: 1368px) {
 
@@ -20258,6 +20261,11 @@ body .ui-widget-content {
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
+
+  .itmBody > div:first-child p{
+    padding: 0px 3px;
+    border-radius: 8px;
+  }
   .overflowTable {
     overflow-x: auto;
   }
@@ -20908,6 +20916,8 @@ text-align: center;
   .itmBody > div:first-child p {
     font-size: 14px;
     font-weight: 400;
+    padding: 0px 3px;
+    border-radius: 8px;
   }
   .itmBody {
     font-size: 14px;
