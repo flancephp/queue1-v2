@@ -347,37 +347,83 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style1.css">
 
 <style>
-.prdtCnt-Fst { width: 64%; }
-.prdt-Hide { width: 30%; }
+.d-flex.align-items-center.itmTable > div:first-child, .itmBody.newOrd-CntPrt > div:first-child { width: 4rem; }
+.prdtImg { width: 6rem; }
+.prdtCnt-Fst { width: calc(85% - 10rem); }
+.prdt-Hide { width: 15%; }
 /* .prdtCr-Unit { width: 38%; } */
 .prdtCnt-Scnd { width: 10%; }
-@media(max-width:991px) {
-.prdtCnt-Fst { width: 84%; }
-.Itm-Name, .prdtCr-Unit { width: 50%; }
-.prdt-Hide { width: 84%;margin-left: auto; }
-.res__label__item::before {
+@media(max-width:991px) { 
+/* .Itm-Name, .prdtCr-Unit { width: 50%; } */
+.prdt-Hide { width: 100%; }
+/* .res__label__item::before {
 content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4;
-}
+} */
 .mb-brCode .ord-brCode, .mb-brCode .ord-StockQty { width: 100% !important; }
 }
-@media(max-width:575px) {
-.prdtCnt-Fst { width: 84%; }
+@media(max-width:575px) { 
 .Itm-Name{ width: 100%; } .prdtCr-Unit { width: 70%; }
 .prdtCnt-Scnd { width: 30%; } 
 .col-7 .form-control { font-size:12px; }
-}
-.dflt-Currency, .othr-Currency {width:72%;}
-.Itm-brCode {
-    width: 18%;
-}
-.Itm-Name {
-    width: 25%;
-}
+} 
+.Itm-brCode { width: 16%; }
+.prdtCr-Unit { width: 30%; }
+.Itm-Name { width: 20%; }
 .ttlCr-Type {
-    width: 100% !important;
+    width: 15% !important;
 }
 .prdtStk-Qty {
     width: 9%;
+}
+.ttlDft-Crcy.tb-bdy { font-weight:600;text-align: left; }
+html[dir='rtl'] .ttlDft-Crcy.tb-bdy { text-align: right; }
+.form-control.qty-itm { font-size:.875rem;font-weight:700; }
+.Itm-Name { font-weight:500; }
+.tb-head, .prdtImg.tb-head { font-weight: 500; }
+.cntTable { color: #232859;font-weight: 400; }
+.filder__btns.col-md-7 { max-width:472px; }
+/* .ttlDft-Crcy.tb-head { width: 100%; } */
+.nwNxt-Btn .btnBg { max-width:10.875rem; } 
+@media screen and (min-width: 1600px) {
+  .itmBody { font-size: 1rem;line-height: 1.3; } 
+  .tb-head { padding: 8px 8px 10px; } 
+}
+@media screen and (min-width: 992px) {
+    .nwNxt-Btn .btnBg { margin-left: auto; }
+    html[dir='rtl'] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
+}
+@media screen and (max-width: 1599px) {
+  .itmBody, .itmTable { font-size: .875rem; } 
+}
+
+@media (max-width:991px) {
+    .smBtn .btn { height:40px;padding:0 16px;}
+    .smBtn .fetBtn img { height:40px; }
+    .topOrder { padding: 8px 10px 0 10px !important; }
+    .prdtCnt-Fst { width: 76% !important;position: relative; }
+    .prdtCnt-Scnd { position: absolute;top: -.5rem;right: 0;width: 35% !important;padding-right: 0;}
+    html[dir='rtl'] .prdtCnt-Scnd { right: auto;left:0;}
+    .Itm-Name { width: 70% !important; }
+    .Itm-Name p { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical; white-space: normal; }
+    .prdtCr-Unit { width: 65% !important;margin-top: .5rem;flex-direction: row-reverse;justify-content: flex-end; }
+    .prdtCr-Unit > div { width: auto !important; }
+    .mb-brCode.d-block { display:flex !important; }
+    .itmBody { position: relative; }
+    .ttlCr-Type { width: 35% !important; }
+    .dflt-Currency, .othr-Currency { width: auto; }
+    html[dir=rtl] .ordInfo { padding: 0; }
+}
+@media (max-width:767px) {
+    .newOrd-CntPrt > div:first-child { position: absolute;top: 0.25rem;left: .2rem;text-align: center;background: rgba(255, 255, 255, 0.8); }
+    .filder__btns.col-md-7 { margin-top: .5rem; }
+    .ordFeature { width: 24.33%; padding: 0 5px; }
+    .mbFeature .ordFeature > a { padding: 13px 0; }
+    .mbFeature .ordFeature::before { height: 26px; }
+    .prdtImg { width: 4rem;padding-left: 0 !important; }
+    .prdtCnt-Fst { width: calc(100% - 4rem) !important;position: relative; } 
+    .res__label__item p { font-size: .875rem; }
+}
+@media (max-width:575px) {
 }
 </style>
 </head>
@@ -474,8 +520,8 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
 <div class="ordInfo newFeatures">
 <div class="container">
     <div class="mbFeature">
-        <div class="row gx-3 justify-content-end">
-            <div class="col-md-7 text-center">
+        <div class="row gx-3 justify-content-center justify-content-lg-end">
+            <div class="col-md-7 text-center filder__btns w-100">
                 <div class="row featRow">
                     <div class="col-md-3 ordFeature">
 <?php
@@ -602,7 +648,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 <div class="smBtn nwNxt-Btn">
 <div class="btnBg">
 
-    <a href="javascript:void(0)" class="btn btn-primary submit_new_order"><span
+    <a href="javascript:void(0)" class="btn btn-primary submit_new_order d-inline-flex px-3 w-100 align-items-center justify-content-center"><span
             class="align-middle"><?php echo showOtherLangText('Submit'); ?></span> <i
             class="fa-solid fa-angle-right"></i></a>
 </div>
@@ -616,7 +662,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 </div>
 
 
-<div class="container topOrder">
+<div class="container topOrder mt-1">
 <div class="row">
 <div class="sltSupp">
 <!-- Select Supplier -->
@@ -917,19 +963,19 @@ $resRows = mysqli_query($con, $sqlSet);
 
     <div class="dflt-Currency tb-head w-100">
         <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+        <?php 
+        $curAmt = 1;
+        if( !empty($curDet) )
+        {
+        ?>
+        <!-- <div class="othr-Currency tb-head w-100"> -->
+            <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'] ?>)</p>
+        <!-- </div> -->
+        <?php
+        $curAmt = $curDet['amt'];
+        }
+        ?>
     </div>
-     <?php 
-    $curAmt = 1;
-    if( !empty($curDet) )
-    {
-    ?>
-    <div class="othr-Currency tb-head w-100">
-        <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $curDet['curCode'] ?>)</p>
-    </div>
-    <?php
-    $curAmt = $curDet['amt'];
-    }
-    ?>
   
 <div class="itm-Uni tb-head col-5">
     <p><?php echo showOtherLangText('P.Unit'); ?></p>
@@ -949,30 +995,28 @@ $resRows = mysqli_query($con, $sqlSet);
         </div>
 </div> 
 </div>
+<div class="ttlCr-Type d-flex align-items-center">
+            <div class="ttlDft-Crcy tb-head w-100">
+                <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
+                <?php 
+                $curAmt = 1;
+                if( !empty($curDet) )
+                {
+                ?>
+                <div class="ttlOtr-Crcy tb-head p-0">
+                <p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
+                </div>
+                <?php
+                $curAmt = $curDet['amt'];
+                }
+                ?>
+            </div>
+        </div>
 </div>
 <div class="prdt-Hide">
 <div class="prdt-Note tb-bdy">
-<div class="row g-2 align-items-baseline">
-    <div class="col-7">
-        <div class="ttlCr-Type d-flex align-items-center">
-<div class="ttlDft-Crcy tb-head">
-<p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
-</div>
-<?php 
-$curAmt = 1;
-if( !empty($curDet) )
-{
-?>
-<div class="ttlOtr-Crcy tb-head">
-<p><?php echo showOtherLangText('Total'); ?>(<?php echo $curDet['curCode'] ?>)</p>
-</div>
-<?php
-$curAmt = $curDet['amt'];
-}
-?>
-</div>
-    </div>
-    <div class="col-5"> 
+<div class="row g-0 align-items-baseline"> 
+    <div class="col-12"> 
         <div class="mb-brCode"></div>
         <p><?php echo showOtherLangText('Note'); ?></p>
     </div>
@@ -1013,19 +1057,19 @@ $totalCustomCharges += $row['amt'];
     </div>
     <div class="prdtCr-Unit d-flex">
         <!-- <div class=" crncy-Type col-7"> -->
-        <div class=" d-flex col-7">
+        <div class=" ">
             <div class="dflt-Currency tb-bdy">
                 <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
+                <?php 
+                if( !empty($curDet) )
+                {
+                $newCurAmt = ($row['amt']*$curDet['amt']);
+                $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+                echo '<div class="othr-Currenc tb-bd"><p>'.$newCurAmt.'</p></div>';
+                } ?>
             </div>
-             <?php 
-            if( !empty($curDet) )
-            {
-            $newCurAmt = ($row['amt']*$curDet['amt']);
-            $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
-            echo '<div class="othr-Currency tb-bdy"><p>'.$newCurAmt.'</p></div>';
-            } ?>
         </div>
-        <div class="itm-Uni tb-bdy col-5">
+        <div class="itm-Uni tb-bdy">
             <p><?php echo $row['unit'];?></p>
         </div>
     </div>
@@ -1037,34 +1081,31 @@ $totalCustomCharges += $row['amt'];
     <div  class="prdtCnt-Scnd d-flex align-items-center">
         <div class="itm-Quantity tb-bdy w-100">
             1
+        </div> 
+    </div>
+    <div class="ttlCr-Type d-flex align-items-center">
+        <div class="ttlDft-Crcy tb-bdy w-100">
+            <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
         </div>
-        
+        <?php 
+
+        if( !empty($curDet) )
+        {
+
+        $newCurAmt = ($row['amt']*$curDet['amt']);
+        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+        echo '<div class="ttlDft-Crcy tb-bdy w-100">
+                    <p>'.$newCurAmt.'</p>
+                </div>';
+        }
+
+        ?>
     </div>
 </div>
 <div class="prdt-Hide">
     <div class="prdt-Note tb-bdy">
-        <div class="row g-2">
-            <div class="col-7">
-                <div class="ttlCr-Type d-flex align-items-center">
-                    <div class="ttlDft-Crcy tb-bdy">
-                        <p><?php  showPrice($row['amt'], $getDefCurDet['curCode']);?></p>
-                    </div>
-                    <?php 
-
-                    if( !empty($curDet) )
-                    {
-
-                    $newCurAmt = ($row['amt']*$curDet['amt']);
-                    $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
-                    echo '<div class="ttlDft-Crcy tb-bdy">
-                                <p>'.$newCurAmt.'</p>
-                            </div>';
-                    }
-
-                    ?>
-                </div>
-            </div>
-            <div class="col-5"> 
+        <div class="row g-0 align-items-center"> 
+            <div class="col-12"> 
                 <div class="mb-brCode"></div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes" 
@@ -1158,18 +1199,18 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
        
             <div class="dflt-Currency tb-bdy w-100 res__label__item" data-text="<?php echo showOtherLangText('P.Price'); ?>">
                 <p><?php showPrice($row['price']*$row['factor'], $getDefCurDet['curCode']);?></p>
-            </div>
-            <div class="othr-Currency tb-bdy">
-                <p>
-                    <?php 
-                    if( !empty($curDet) )
-                    {
-                        $newCurAmt = ($row['price']*$row['factor']*$curDet['amt']);
-                        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
-                        echo $newCurAmt;
-                    }
-                    ?>
-                </p>
+                <div class="othr-Currency tb-bdy px-0 w-100">
+                    <p>
+                        <?php 
+                        if( !empty($curDet) )
+                        {
+                            $newCurAmt = ($row['price']*$row['factor']*$curDet['amt']);
+                            $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
+                            echo $newCurAmt;
+                        }
+                        ?>
+                    </p>
+                </div>
             </div>
         
         <div class="itm-Uni tb-bdy col-5 res__label__item" data-text="<?php echo showOtherLangText('P.Unit'); ?>">
@@ -1188,25 +1229,23 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
                 autocomplete="off"></strong>
         </div> 
     </div>
+    <div class="ttlCr-Type " data-text="<?php echo showOtherLangText('Total'); ?>">
+        <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy w-100">
+            <p><?php $totalPriceVal = isset($_SESSION['productIds'][$row['id']]['qty'])  ? ($_SESSION['productIds'][$row['id']]['qty'] * $_SESSION['productIds'][$row['id']]['price']) : ($showQtyMinValue*$row['price']*$row['factor']); showPrice($totalPriceVal, $getDefCurDet['curCode']);?></p>
+        </div>
+        <?php 
+            if( !empty($curDet) )
+            { 
+            $newCurAmt = ($totalPriceVal*$curDet['amt']);
+            echo '<div id="totalPriceOther'.$x.'" class="ttlOtr-Crcy tb-bdy w-100"><p>'.showOtherCur($newCurAmt, $curDet['id'], 1).'</p></div>';
+            } 
+        ?>
+    </div>
 </div>
 <div class="prdt-Hide">
     <div class="prdt-Note tb-bdy">
-        <div class="row g-2">
-            <div class="col-7">
-                <div class="ttlCr-Type d-flex align-items-center text-start res__label__item" data-text="<?php echo showOtherLangText('Total'); ?>">
-                    <div id="totalPrice<?php echo $x;?>" class="ttlDft-Crcy tb-bdy">
-                        <p><?php $totalPriceVal = isset($_SESSION['productIds'][$row['id']]['qty'])  ? ($_SESSION['productIds'][$row['id']]['qty'] * $_SESSION['productIds'][$row['id']]['price']) : ($showQtyMinValue*$row['price']*$row['factor']); showPrice($totalPriceVal, $getDefCurDet['curCode']);?></p>
-                    </div>
-                    <?php 
-                        if( !empty($curDet) )
-                        { 
-                        $newCurAmt = ($totalPriceVal*$curDet['amt']);
-                        echo '<div id="totalPriceOther'.$x.'" class="ttlOtr-Crcy tb-bdy"><p>'.showOtherCur($newCurAmt, $curDet['id'], 1).'</p></div>';
-                        } 
-                    ?>
-                </div>
-            </div>
-            <div class="col-5">  
+        <div class="row g-0 align-items-center"> 
+            <div class="col-12">  
                 <div class="mb-brCode d-block"></div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes"

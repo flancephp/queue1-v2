@@ -13219,6 +13219,8 @@ a.tabFet:focus .sampleFile {
   width: 50%;
   padding-left: 50px;
   padding-top: 15px;
+  align-items: start;
+  display: flex;
 }
 
 .acntSetup-Form .form-control,
@@ -13464,6 +13466,7 @@ img[alt=LOGO] {
   font-weight: 700;
 }
 
+
 /* Manage Supplier Page CSS End */
 /* Edit Supplier Page CSS Start */
 .edtSup-Div {
@@ -13641,7 +13644,6 @@ img[alt=LOGO] {
 .modal-footer {
   justify-content: flex-start;
 }
-
 .modal-header,
 .modal-footer,
 .modal-body {
@@ -14094,10 +14096,16 @@ img[alt=LOGO] {
 .itmMng-Tblhead .itmTable {
   border-bottom: 1px solid #dfe0e8;
 }
-
+.ft-light{font-weight: 400;}
+.ft-light1{font-weight: 400;}
 .itmMng-Tblhead .tb-head {
   padding: 8px 8px 10px;
+  font-size: 16px;
 }
+.itmMng-Tblhead .tb-head .brCode-MngClm{font-weight: 700;}
+.itmMng-Tblhead .tb-head .unit-MngClm{font-weight: 700;}
+.itmMng-Tblhead .lastItm-PrcCol{font-weight: 700;}
+.itmMng-Tblhead  .stockItm-PrcCol{font-weight: 700;}
 
 .item-MngClm {
   width: 39%;
@@ -14137,7 +14145,7 @@ img[alt=LOGO] {
 .brCode-MngClm,
 .unit-MngClm,
 .prcItm-MngClm {
-  color: #7a89fe;
+  color: #7a89fe; font-weight: 700;
 }
 
 .lastItm-PrcCol,
@@ -14795,7 +14803,7 @@ html[dir=rtl] .logo {
 
 html[dir=rtl] .form-select {
   background-image: url("../icons/select-rtl.svg");
-  background-position: left;
+  background-position: 3px;
 }
 
 html[dir=rtl] .form-select:focus {
@@ -15085,6 +15093,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 .gst-Head{font-size: 18px; font-weight: 600;}
 .sl-varDtl{font-weight: 400;}
+
+
+.edit-product{font-weight: 400; font-size: 16px; width: 80%;}
+
 
 @media screen and (max-width: 1024px) {
   .mb-nav,
@@ -16024,6 +16036,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 }
 @media screen and (max-width: 992px) {
+
+  .brItm-MngClm {
+    width: 54%;
+  }
 
   .revnueParent-sec {
     margin-top: 20px;
@@ -17737,12 +17753,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   html[dir=rtl] .ordDate .subTittle1 {
     padding: 10px 0;
   }
-  html[dir=rtl] .drpFee .dropdown-menu.show {
+  /* html[dir=rtl] .drpFee .dropdown-menu.show {
     transform: translate3d(-3px, 64px, 0px) !important;
   }
   html[dir=rtl] .drpCurr .dropdown-menu.show {
     transform: translate3d(-6px, 64px, 0px) !important;
-  }
+  } */
   html[dir=rtl] .sub-btn {
     padding: 3px 10px;
   }
@@ -17817,7 +17833,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   left: 32px;
 }
 }
+
+html[dir=rtl] .modal-footer .btnBg{margin-left:20px;}
 .modal-footer .btnBg{margin-right:20px;}
+
+
+
 @media screen and (max-width: 767px) {
   .dt-Members1{flex-wrap: wrap;
     width: 100%;}
@@ -18452,8 +18473,13 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
   }
   .acntSetup-Form .form-label {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
+  .sd-row{width: 100%;
+    align-items: start;
+    display: flex;}
+  .sd-row .acntStp-Row {width: 40%;}
+
   /* Edit Supplier Page CSS End */
   /* Revnue Center Setup Page CSS Start */
   .revStpTable .container {
@@ -18769,11 +18795,18 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 13px;
   }
   .itmMng-Src .col-md-6 {
-    width: 80%;
+    width: 100%;
+  }
+  .edit-product .col-md-6 {
+    width: 100%;
   }
   .itmMng-filtBtn {
     width: 20%;
   }
+  .imgItm-MngClm img{height: auto;}
+  .itfilter1 {display: flex;
+    justify-content: start;
+    margin-top: 12px;}
   .bkItm-MngBtn {
     width: 15%;
   }
@@ -18971,6 +19004,20 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     font-weight: bold;
   }
 }
+.conFirm,
+  .docMent,
+  .edIt,
+  .dlTe,
+  .isuOut,
+  .assIgn,
+  .receIve,
+  .prdItm,
+  .vwDtl,
+  .add-Itm,
+  .impItem {
+    width: 35px;
+    height: 35px;
+  }
 @media screen and (min-width: 1800px) {
   .nav-bar a { font-size: 1rem;  }
   .nav-bar { margin-top: 1.5rem; } 
@@ -18986,6 +19033,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     height: 32px !important;
   }
 }
+
+.acntSetup-Form .form-label {
+  font-size: 16px;
+  font-weight: 400;
+}
+
 @media screen and (min-width: 1600px) {
   .body1 {
     font-size: 16px;
@@ -19148,8 +19201,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itmBody {
     font-size: 15px;
     line-height: 22px;
-    padding-top:16px;
-    padding-bottom:16px;
+    padding-top:12px;
+    padding-bottom:12px;
   }
   /* .drpCurr .dropdown-menu.show {
     transform: translate3d(0px, 80px, 0px) !important;
@@ -19341,8 +19394,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .vwDtl,
   .add-Itm,
   .impItem {
-    width: 22px;
-    height: 22px;
+    width: 35px;
+    height: 35px;
   }
   
   .payOptnreq,
@@ -19565,10 +19618,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     min-height: 250px;
   }
   .stupImg {
-    width: 52px;
+    width: 68px;
   }
   .stup-clm-2 p {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 20px;
   }
   .triangle-down {
@@ -19589,7 +19642,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Account Setup Page CSS Start */
   .acntSetup-Form .form-label {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 400;
   }
   .imgUploadCss {
     font-size: 14px;
@@ -19793,8 +19847,49 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 
- 
 
+
+@media screen and (max-width: 1368px) {
+
+  .conFirm,
+  .docMent,
+  .edIt,
+  .dlTe,
+  .isuOut,
+  .assIgn,
+  .receIve,
+  .prdItm,
+  .vwDtl,
+  .add-Itm,
+  .impItem {
+    width: 28px;
+    height: 28px;
+  }
+  .ac-setup{}
+  .ac-setup .acnt-Div {width: 75%;}
+  .ac-setup .acntLg-Upld{width: 25%;}
+.edit-product{width: 90%;}
+.stupImg {
+  width: 52px;
+}
+.stup-clm-2 p {
+  font-size: 16px;
+}
+.sub-Icns img {
+  height: 44px;
+  width: 35px;
+}
+.stup-clm-2 p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 18px;
+}
+
+} 
+
+@media screen and (max-width: 1280px) {
+  .edit-product{width: 100%;}
+}
 /******* CUSTOM CSS **********/
 
 .nav-bar > ul > li > a.nav-link{
@@ -20035,6 +20130,26 @@ form.login-form input:focus{
     min-height: auto;
     padding: 60px 30px;
   }
+  .ac-setup .acnt-Div {
+    width: 60%;
+    margin-right: 15px;
+  }
+  .adUsr-Div-Left .semibold {
+    font-weight: 600;
+    padding-bottom: 7px;
+  }
+.acntSetup-Form .col-md-2, .col-md-10{padding-left:0px;}
+.desableRevenueCenter{padding-left: 17px;}
+.desableNewStockTake{padding-left: 17px;}
+.desableHistory{padding-left: 17px;}
+.desableRunningtask {padding-left: 0px;}
+.desableStock{padding-left: 17px;}
+.desableSetup{padding-left: 17px;}
+.desableRunningtask{padding-left: 17px;}
+.desableRequisition{padding-left: 17px;}
+.desableOrder{padding-left: 17px;}
+
+
 }
 
 body .ui-widget-content {
@@ -20146,6 +20261,13 @@ body .ui-widget-content {
   .overflowTable {
     overflow-x: auto;
   }
+  .acntSetup-Form .form-label {
+    font-size: 14px;
+  }
+  .addUser-Form .form-control {
+    font-size: 14px;
+  }
+
   
   }
 
@@ -20246,6 +20368,18 @@ body .ui-widget-content {
 
 }
 @media screen and (max-width: 480px) {
+
+  .ac-setup .acnt-Div {
+    width: 100%;
+    margin-right: 15px;
+  }
+  .ac-setup .acntLg-Upld {
+    width: auto;
+    padding-left: 10px;
+  }
+
+  .sd-row .acntStp-Row {width: 50%;}
+
 
   .revnueParent-sec .outlet-Name {
     font-size: 14px;

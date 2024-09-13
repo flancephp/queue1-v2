@@ -315,15 +315,34 @@ $cond = '';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="Assets/css/style.css">
-    <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/style_p.css">
+    <link rel="stylesheet" href="Assets/css/style.css"> 
     <style>
         .fa-angle-right, .fa-angles-left {background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);box-shadow: inset 1px 4px 4px #596bf3;filter: blur(0.2px);padding: 5px;border-radius: 50%;border: 0.5px solid;border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);margin-left: 10px;font-size: 10px;vertical-align: middle;width: 22px;}
         .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
         .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
-        .container.cntTable{padding: 1rem 10px 0 10px;} 
-        @media(min-width:576px){ .container.cntTable{padding: 1rem 24px 0 24px;} }
+        .container.cntTable{padding: .5rem .625rem 0 .625rem;} 
+        .prdtImg.tb-head, .tb-head, .fw-medium { font-weight: 500; }
+        .cntTable { color: #232859;font-weight: 400; } 
+        @media(min-width:992px){  
+            .container.cntTable.pb-md-4{margin-top: -1.5rem; }
+            html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 10rem !important; }
+            html[dir="rtl"] .sltSupp.nwOrd-Num.position { position: absolute;left: auto !important;right: 0; } 
+            html[dir="rtl"] .sltSupp.nwOrd-Num.position { left:auto !important;right:0; }
+            html[dir="rtl"] .ord-Box { padding: 15px 32px 15px 15px;border-radius: 15px 0px 0 15px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }
+            html[dir="rtl"] .featRow.ms-auto.w-100{margin-left: 0 !important;margin-right: auto;}
+        }
+        @media(min-width:768px){  
+            html[dir="rtl"] .btnBg.text-center.text-md-end { text-align: left !important; } 
+        }
+        @media(min-width:1200px){ 
+            .container.cntTable.pb-md-4{margin-top: -2.5rem; }  
+        }
+        @media(min-width:576px){ .container.cntTable{padding: 0 1.5rem;} }
+        .container.cntTable.header{padding-top: 1rem;}
+        @media (min-width:992px) and (max-width:1199px){ 
+            .ordInfo { width: 51.75%; }
+           
+        }
         @media(max-width:1024px){
             .topOrder { padding: 8px 0 0 0 !important; }
         }  
@@ -338,14 +357,20 @@ $cond = '';
         }
         @media screen and (min-width: 1600px) {
             .itmBody { padding-top: 0; padding-bottom: 0; }
+            .tb-bdy { padding: .625rem .5rem; }
+            .curRow { font-size: 1.125rem; } 
+            
         }
         
+        
         @media (max-width: 991px) {
+            .container.cntTable.pb-md-4{margin-top: .875rem; } 
             .fetBtn { margin-left: auto; } 
             .prdtImg{text-align: center;}
             html[dir="rtl"] .fetBtn { margin-left: 0;margin-right: auto; } 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position .ord-Box{border-radius:10px !important;border-right: 1px solid #f05d53;}
             html[dir="rtl"] .update .ordInfo { padding: 0; }
+            html[dir="rtl"] .featRow.ms-auto.w-100 { margin-right: auto; }
 
             .newOrd-CntPrt{ position: relative; }
             .itmBody > div:first-child{ position: absolute;top:0.5rem;left:0;font-size: 12px;width: 25% !important;text-align: center; }
@@ -358,9 +383,14 @@ $cond = '';
             .prdtCr-Unit .crncy-Type.w-50 { width: 60% !important; }
             .edit-order-section .Itm-Name.tb-bdy p{ overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
             html[dir="rtl"] .itmBody > div:first-child { left: auto; right: 0; }
+            .col-lg-9.col-xl-10.newFeature { order:3; }
+        }
+        @media(max-width:1399px) {
+            .itmBody, .itmTable { font-size: 13px; }
         }
         html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, 
         html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .text-start { text-align: right !important; }
+        .fw-semibold { font-weight:600; }
 
     </style>
 
@@ -411,7 +441,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <div class="stcPart position-relative">
-                            <div class="container cntTable"> 
+                            <div class="container cntTable header"> 
                                 <!-- topOrder edtReq nwOrder-Div-->
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
                                     <div class="ord-Box w-100 d-flex flex-wrap gap-2 ms-0" style="border-color: #F05D53;">
@@ -447,8 +477,8 @@ $ordRow = mysqli_fetch_array($resultSet);
 
                                 <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->
-                                    <div class="col-lg-9 col-xl-10 newFeatures">
-                                        <div class="mbFeature container">
+                                    <div class="col-lg-9 col-xl-10 newFeature">
+                                        <div class="mbFeature">
                                             <div class="">
                                                 <div class="text-center">
                                                     <div class="featRow ms-auto w-100" style="max-width:118px;">
@@ -526,7 +556,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg w-100">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-center">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-center gap-2">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right"></i>
                                                 </a>
                                             </div>
@@ -542,8 +572,8 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     </div>
                                 </div>
                             </div>
-                            <div class="container cntTable pb-md-4" style="padding-top: 8px;">
-                                <div class="row g-0 g-lg-4">
+                            <div class="container cntTable pt-0 pb-md-4">
+                                <div class="row g-0 gx-lg-4">
                                     <div class="sltSupp">
                                         <!-- Select Supplier -->
                                         <!-- <div class="btn-group glb-btn">
@@ -867,7 +897,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                     class="fa-solid fa-trash-can"></i></a>
                                         </div>
                                         <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
+                                            <div class="Itm-Name tb-bdy fw-medium">
                                                 <p><?php echo $row['itemName'];?></p>
                                             </div>
                                             <div class="Itm-brCode tb-bdy">
@@ -908,7 +938,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                             <div class="itm-Quantity tb-bdy">
                                                 1<span class="mbl-ReqStk">On stock</span>
                                             </div>
-                                            <div class="ttlCr-Type w-50 ps-xl-5">
+                                            <div class="ttlCr-Type w-50 ps-xl-5 fw-semibold">
                                                 <?php echo getPriceWithCur($row['price'],$getDefCurDet['curCode']); ?>
 
                                             </div>
@@ -969,7 +999,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                         ?>
                                         </div>
                                         <div class="prdtCnt-Fst d-flex align-items-center">
-                                            <div class="Itm-Name tb-bdy">
+                                            <div class="Itm-Name tb-bdy fw-medium">
                                                 <p><?php echo $row['itemName'];?></p>
                                             </div>
                                             <div class="Itm-brCode tb-bdy">
@@ -1013,7 +1043,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                     onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $availableQty > 0 ? $availableQty : 0 ;?>', '<?php echo $row['id'];?>')"
                                                     value="<?php echo $row['ordQty'];?>">
                                             </div>
-                                            <div class="ttlCr-Type w-50 ps-xl-5">
+                                            <div class="ttlCr-Type w-50 ps-xl-5 fw-semibold">
                                                 <?php echo $getColumnPermission['item_price'] == 1 ? '<span id="totalPrice'.$x.'">'.getPriceWithCur($row['ordPrice'],$getDefCurDet['curCode']).'</span>' : ''; ?>
 
                                             </div>
@@ -1112,7 +1142,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                         <p><?php echo showOtherLangText('Image'); ?></p>
                     </div>
                     <div class="prdtCnt-Fst d-flex align-items-center">
-                        <div class="Itm-Name tb-head">
+                        <div class="Itm-Name tb-head fw-medium">
                             <p><?php echo showOtherLangText('Item'); ?></p>
                         </div>
                         <div class="Itm-brCode tb-head">
@@ -1199,7 +1229,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                         ?>
                             </div>
                             <div class="prdtCnt-Fst d-flex align-items-center">
-                                <div class="Itm-Name tb-bdy">
+                                <div class="Itm-Name tb-bdy fw-medium">
                                     <p><?php echo $row['itemName'];?></p>
                                 </div>
                                 <div class="Itm-brCode tb-bdy">
@@ -1243,7 +1273,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         onChange="showTotal(this.value, '<?php echo $x;?>', '<?php echo $availableQty > 0 ? $availableQty : 0 ;?>', '<?php echo $row['id'];?>')"
                                         value="">
                                 </div>
-                                <div class="ttlCr-Type w-50 ps-xl-5">
+                                <div class="ttlCr-Type w-50 ps-xl-5 fw-semibold">
                                     <?php echo $getColumnPermission['item_price'] == 1 ? '<div class=" tb-bdy"><p id="totalPrice'.$x.'">0</p></div>' : ''; ?>
 
                                 </div>
