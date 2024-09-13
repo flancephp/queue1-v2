@@ -961,9 +961,9 @@ $colsArr = [
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style.css">
-<link rel="stylesheet" href="Assets/css/style1.css">
-<link rel="stylesheet" href="Assets/css/module-A.css">
-<link rel="stylesheet" href="Assets/css/style_p.css">
+<!-- <link rel="stylesheet" href="Assets/css/style1.css"> -->
+<!-- <link rel="stylesheet" href="Assets/css/module-A.css"> -->
+<!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
 <style>
     .modal-md { max-width: 800px; } 
@@ -1015,7 +1015,7 @@ $colsArr = [
         max-height: 160px !important;
         overflow-y: scroll;
     }
-
+    .itmBody > div:first-child p { font-size: 15px; }
     @media (min-width:1137px) {
         /* 29 date tabel css */
         .hisTypclm .dropdown-toggle,
@@ -1027,17 +1027,16 @@ $colsArr = [
             width: 100% !important;
         }
 
-        .hisStatusclm .dropdown-toggle,
-        .hisAcntclm .dropdown-toggle {
+        .hisStatusclm .dropdown-toggle {
             width: auto !important;
             max-width: 85px !important;
         }
 
-        .hisStatusclm,
+        /* .hisStatusclm,
         .hisAcntclm {
             width: 25% !important;
             padding-left:0px;
-        }
+        } */
 
 
         .hisValclm {
@@ -1049,10 +1048,10 @@ $colsArr = [
          padding-left: 0;
         }
          /* spacing css */
-        .hisRefrclm {min-width:150px;}
-        .hisDateclm {min-width: 65px;}
-        .numItmclm {min-width: 70px;}
-        .srHisclm {min-width: 35px !important;}
+        /* .hisRefrclm {min-width:150px;} */
+        /* .hisDateclm {min-width: 65px;} */
+        /* .numItmclm {min-width: 70px;}
+        .srHisclm {min-width: 35px !important;} */
         .stsHiscol, .numRe {flex-grow: 1; justify-content:space-between;}
 
         .itmTable1 .numRef,
@@ -1068,11 +1067,10 @@ $colsArr = [
         .hisTblbody1   .hisStatusclm  ,  .itmTable1  .hisStatusclm {
             max-width:75px;
         }
-        .date-dpd {width: 15%; min-width: 70px;}
-        .user-dpd {width: 15%; min-width: 65px;}
-        .type-dpd {width: 30%; min-width: 105px;}
-        .refer-to-dpd {width: 30%; min-width: 155px;}
-        .type-dpd .dropdown-toggle {max-width:130px;}
+        .date-dpd {width: 15%; }
+        .user-dpd {width: 15%; }
+        .type-dpd {width: 20%; }
+        .refer-to-dpd {width: 25%; } 
         .usdCurr {display: none;}
         /* .srHisclm {
             min-width: fit-content;
@@ -1127,7 +1125,7 @@ $colsArr = [
         text-align:start !important;
     }
     .stsHiscol {
-        padding:0 .5rem;
+        padding:0 8px;
     }
     .tb-bdy.hisStatusclm p {
         text-align:start !important;
@@ -1141,18 +1139,18 @@ $colsArr = [
 
   }
   .toggle-currency-btn {
-width: 40px;
-height: 30px;
-display: flex;
-color: #666C85;
-font-size: 14px;
-font-weight: 600;
-line-height: 19.36px;
-border: 1px solid #A9B0C0;
-align-items: center;
-justify-content: center;
-border-radius: 10px;
-cursor: pointer;
+    width: 40px;
+    height: 30px;
+    display: flex;
+    color: #666C85;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.36px;
+    border: 1px solid #A9B0C0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
   }
   .toggle-currency-btn:hover {
     color: #fff !important;
@@ -1180,15 +1178,18 @@ cursor: pointer;
 
 #itemDiv, #taskDiv{ background-color: #fff !important;}
 
-.issueDtl {padding: 9px 10px !important;}
+.issueDtl {padding: 9px 10px;}
 .issueDtl .Variance {padding-right:  0px !important; width: 14% !important;}
 .issueOut {width: 31% !important;} 
 .issueIn { width: 55% !important; }
 .detailPrice {padding: 11px 11px 0 !important;}
+.fa-filter::after { margin: -.5rem -.1rem; }
 
 @media(max-width:991px) {
     .account-name-section { position: absolute;top:1rem;right:9rem; }
     .issueIn { padding-right: 2rem; }
+    .modal-header { padding-right: 2rem !important; }
+    html[dir="rtl"] .modal-header { padding-right: 0 !important;padding-left: 2rem !important; }
 }
 @media(max-width:575px) {
     .account-name-section { top:4rem;right: 0;text-align: center;width: 100%; }
@@ -1199,27 +1200,62 @@ cursor: pointer;
 }
 
 /* ---- Responsive Filterbox styles start -------- */
-.res__filter__box .itmTable { border: none;box-shadow: none;  border-radius: 10px 10px 0 0;padding: 3px 12px; }
+.res__filter__box .itmTable { border: none;box-shadow: none;  border-radius: 10px 10px 0 0;padding: 0 16px; }
 .res__filter__box .his-Paybtn { width:17%; }
+
 @media (min-width: 992px) {
+    
     .res__filter__box .label__box { width:155px; }
     .res__filter__box .lg__70 { max-width:70%; }
+    .lg_pr_8 { padding-left:8px; }
+}
+.update .hisTask { padding: 0; }
+@media(min-width:1024px) {
+    /* .lg_max_w_100 { width:100px; } */
+    .lg_w_35 { width: 35% !important; }
+    .lg_pl_0 { padding-left: 0; }
+    .update .hisTask { padding: 3px 16px !important; }
 }
 @media (max-width: 1024px) {
   .hstTable-show{ top: 3rem;padding-top: 0 !important;background: transparent; }
-  .detailPrice.detailPrc-show { padding: 0% !important;top: 3.5rem;background-color: #fff;display: block; } 
+  .detailPrice.detailPrc-show { padding: 0% !important;top: 3.5rem;background-color: #fff;display: block;border-radius:1rem 1rem 0 0; } 
+  .issueIn .ttlAmount { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp:1;display:-webkit-box;-webkit-box-orient:vertical;white-space: nowrap;}
   .detailPrice.detailPrc-show .tab-mbDtl { padding: 10px;margin-bottom: 0; } 
   .detailPrice.detailPrc-show .scroller { max-height: calc(100vh - 7rem);overflow-y: auto; } 
+  .update .newHistoryTask .itmBody{ padding-top:5px;padding-bottom:5px;position: relative; }
+  .update .newHistoryTask .itmBody .price__box { position: absolute;top:.5rem;right:0; }
+  .update .newHistoryTask .itmBody .price__box.refer { top:1.75rem;left:0;width: 50%; }
+  .update .newHistoryTask .itmBody .inv__box { position: absolute;top: 2.75rem;right: 0; }
+   
+  html[dir="rtl"] .update .newHistoryTask .itmBody .price__box { right:auto;left:0; }
+  html[dir="rtl"] .update .newHistoryTask .itmBody .price__box.refer { left:auto;right:0; }
+  html[dir="rtl"] .update .newHistoryTask .itmBody .inv__box { right: auto;left:0; }
+ 
+
+  .update .d-flex.align-items-center.justify-content-end.his-Paybtn{padding-bottom: 4px;}
+  .mb-Acntdetail .tb-bdy{padding-left: 0;padding-bottom: 0 !important;display:flex;justify-content:between;}
+  .hstDate .datepicker { font-size: 14px; }
 }
-@media (max-width:991px) {
+@media(min-width:768px) and (max-width:1024px) {
+    .update .newHistoryTask .itmBody .price__box.refer { padding-left: 16px; }
+    html[dir="rtl"] .update .newHistoryTask .itmBody .price__box.refer { padding-right: 16px;padding-left: 8px; }
+}
+@media(min-width:992px) and (max-width:1200px) {
+    .issueIn{width: 100% !important;margin-bottom: 1rem;}
+    .issueOut, .issueDtl .Variance { width: 50% !important; }
+}
+@media (max-width:1024px) {
     .res__filter__box .itmTable { min-height: calc(100vh - 3rem);padding: .75rem .75rem .5rem .75rem; }
     .res__filter__box .back__btn { width: 2.5rem;height: 2.5rem;}
     .res__filter__box .his-Paybtn { width:50%;position: absolute;top:0;right:0;flex-direction: row;padding-top: .875rem;padding-right: 1rem; }
     .hstTbl-head .numRef, .hstTbl-head .stsHiscol { width: 100%;justify-content: space-between; }
     .res__filter__box .itmTable .tb-bdy { width: 49%;padding-top: .45rem;padding-bottom: .45rem; }
     .res__filter__box .itmTable .tb-bdy .dropdown, .res__filter__box .itmTable .dropdown-toggle { width: 100%; } 
-    .res__filter__box .itmTable .dropdown-toggle { min-height: 3.25rem; } 
+    .res__filter__box .itmTable .dropdown-toggle { min-height: 3.25rem;padding: 7px 10px !important; } 
     .res__filter__box .dropdnbtns { margin-top: 1rem; }
+    .update .itemBody .shrtHisclm.tb-bdy { padding: 4px 4px 0 !important; }
+    .hisTask p { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp:1;display:-webkit-box;-moz-box;white-space: nowrap;}
+    .update .itmBody .stsHiscol { padding-top: 17px; }
 }
 @media (max-width:575px) { 
     .res__filter__box .itmTable .tb-bdy, .res__filter__box .itmTable .tb-bdy { width: 100%; } 
@@ -1259,35 +1295,31 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 /* 23-8-23 sudarshan changes */
 
 @media (min-width: 1137px) {
+    
+    .dspBlk  {width: 90%;}
+    .issueIn  {width: 34% !important;}
+    .issueDtl .Variance { width: 33% !important;}
+    .issueDtl1 .dspBlk  {width: 47%;}
+    .issueDtl1 .issueIn  {width: 55% !important;}
+    .issueDtl.issueDtl1 .Variance { width: 14% !important;}
+
+
+    .paidIsue .col-md-3 {
+        width: fit-content !important;
+    }
  
-.dspBlk  {width: 90%;}
-.issueIn  {width: 34% !important;}
-.issueDtl .Variance { width: 33% !important;}
-.issueDtl1 .dspBlk  {width: 47%;}
-.issueDtl1 .issueIn  {width: 55% !important;}
-.issueDtl.issueDtl1 .Variance { width: 14% !important;}
+    .dropdnbtns .stsHiscol,
+    .cntTableData .stsHiscol {
+        width: 25% !important;
+    }
+    .numItmclm {
+        width: 15% !important;
+    }
 
-
-.paidIsue .col-md-3 {
-    width: fit-content !important;
-}
-
-.dropdnbtns .numRef,
-.cntTableData .numRef {
-   width: 45% !important;
-}
-.dropdnbtns .stsHiscol,
-.cntTableData .stsHiscol {
-    width: 25% !important;
-}
-.numItmclm {
-    width: 15% !important;
-}
-
-    .hisStatusclm, .hisAcntclm {
+    /* .hisStatusclm, .hisAcntclm {
         width: 30% !important;
         padding-left: 0px;
-    }
+    } */
     .numRef3.numRef3 {
         width: 15% !important;
         flex-grow: 0  !important;
@@ -1301,11 +1333,11 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
         width: initial;
     }
 }
-@media (min-width:1600px) {
+/* @media (min-width:1600px) {
     .res__filter__box .itmTable {
         padding: 3px 24px;
     }
-}
+} */
 
 .SummaryItems > div:nth-child(1) {width: 35% !important;}
 .SummaryItems > div:nth-child(2) {width: 30% !important;}
@@ -1342,6 +1374,48 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 .grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
 .invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
 
+
+.mb-modal-close-icon { right:-10px;top:3px;width: auto; }
+html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
+#view_payment_paid_content .mb-modal-close-icon { right:0px;top:10px; }
+.update .tb-bdy { padding-top: 6px;padding-bottom: 6px; }
+.update .ordDetail { box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1); }
+.update .hisParent-sec { box-shadow: none !important; }
+.update .itmBody { padding-top: 0;padding-bottom: 0;line-height: 1.2; }
+.update .dropdown-toggle.runLink .fa-solid { right:0; }
+.update .doc-bx:hover .dropdown-toggle.runLink svg path, .update .doc-bx:hover .dropdown-toggle.runLink svg rect { stroke: var(--color-white); }
+.update .itmTable, .update .srHisclm p { font-size: 14px; }
+.update .hisStk-typ, .update .hisReq-typ, .update .hisOrd-typ { width: 100%;max-width:105px; }
+ 
+.update .itmTable .dropdown-toggle{ height:43px; }
+@media(max-width:1599px){
+    .update .itmBody > div:first-child p, .update .hisTask .tb-bdy { font-size: 12px; }
+    .update .itmTable .dropdown-toggle{ padding:7px 5px; height:34px; }
+    .update .itmTable, .update .srHisclm p { font-size:12px; }
+}
+@media(max-width:1024px){
+    .update  .hisTory { margin-top: 0;padding: 0 10px; }
+}
+@media screen and (min-width: 1600px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 100%; }
+}
+@media screen and (min-width: 2000px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1600px; }
+}
+@media(min-width: 1024px) {
+    .dropdnbtns .numRef, .cntTableData .numRef { width: calc(61% - 185px) !important; }
+    .update .res__filter__box .his-Paybtn, .update .shrtHisclm { width: 185px;padding-right: 0 !important; }
+    .update .hisTask .hisTypclm { width: 20%; }
+    .update .hisTask .hisRefrclm { width: 25%; }
+    .update .stsHiscol .hisStatusclm, .update .stsHiscol .hisAcntclm { width:25%; }
+    
+}
+
+
+
+
+
+
 </style>
 
 
@@ -1349,7 +1423,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 
 <body>
 
-<div class="container-fluid newOrder">
+<div class="container-fluid newOrder update">
     <div class="row">
         <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
             <?php require_once('nav.php'); ?>
@@ -1606,7 +1680,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                         </div>
                         <div class="scroller"> 
                             <div class="row align-items-start issueDtl_accntDtl_main">
-                                <div class="issueDtl">
+                                <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap">
                                     <div class="issueIn">
                                         <div class="dspBlk">
                                             <div class="paidIsue d-flex">
@@ -1873,9 +1947,10 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                             <?php } else { ?>
-                                                <div class="tb-bdy refer-to-dpd" style="width:100px;min-width:100px">
-                                        <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100 lg__70">
-                                                    <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false" style="max-width: 90px !important;">
+                                                <div class="tb-bdy refer-to-dpd">
+                                                    <!--  style="width:100px;min-width:100px" -->
+                                        <div class="d-flex align-items-center"><div class="dropdown d-flex position-relative w-100 lg__7">
+                                                    <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
                                                     <?php echo $suppMemStoreOptions; ?>
@@ -1906,7 +1981,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                     
 
 
-                                <div class="stsHiscol d-flex align-items-center" style="width: 35% !important;">
+                                <div class="stsHiscol d-flex align-items-center">
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14]) ) { ?>
                                             <?php } else { ?>
@@ -1934,7 +2009,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                         <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !isset($colsArr[15]) ) { ?>
                                         <?php } else { ?>
                                             <div class="tb-bdy hisStatusclm d-none d-lg-block"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                <p style="color: #666c85; font-size: 12px; font-weight:600;"><?php echo showOtherLangText('Payment No.'); ?></p>
+                                                <p><?php echo showOtherLangText('Payment No.'); ?></p>
                                             </div></div>
                                         <?php } ?>
                                     
@@ -1970,7 +2045,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                 
 
                                 <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
-                                    <div class="label__box">
+                                    <div class="label__box action-column-p">
                                         <div class="d-flex align-items-center">
                                             <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
                                             <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
@@ -2281,39 +2356,39 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                            
                                             <?php if (isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy hisRefrclm" style="width:100px;min-width:100px;"><p class="refTomember"><?php echo $suppMemStoreId; ?></p></div>
+                                                    <div class="tb-bdy hisRefrclm price__box refer"><p class="refTomember"><?php echo $suppMemStoreId; ?></p></div>
                                                 <?php } ?>
                                             
                                         </div>
                                       
 <?php if (isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) || !isset($colsArr[8]) ) { ?>
-<?php } else { ?>  <div class="tb-bdy hisValclm"><p class="dolValcurr"><?php echo $InvoiceNumber; ?></p></div>
+<?php } else { ?>  <div class="tb-bdy hisValclm inv__box"><p class="dolValcurr"><?php echo $InvoiceNumber; ?></p></div>
                                        <?php } ?>
                                         
 
                                        
                                             <?php if (isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields)) { ?>
-                                        <?php } else { ?>  <div class="tb-bdy hisValclm"><p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+                                        <?php } else { ?>  <div class="tb-bdy hisValclm price__box"><p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? getNumFormtPrice($variancesTotAmt, $getDefCurDet['curCode']) : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
                                         . '<br>' .
                                         ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p> </div>
                                         <?php } ?>
                                        
-                                        <div class="stsHiscol d-flex align-items-center" style="width: 35% !important;">
+                                        <div class="stsHiscol d-flex align-items-center lg_w_35">
                                            
                                                 <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
-                                                <?php } else { ?> <div class="tb-bdy hisStatusclm" style=" padding-left:8px;"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
+                                                <?php } else { ?> <div class="tb-bdy hisStatusclm ps-0 lg_pr_8"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
                                                 <?php } ?>
                                             
                                             
                                                 <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !$colsArr[15]) { ?>
-                                                <?php } else { ?><div class="tb-bdy hisStatusclm" slot="padding-left:0px;"><p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p></div>
+                                                <?php } else { ?><div class="tb-bdy hisStatusclm lg_pl_0"><p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p></div>
                                                 <?php } ?>
                                             
 
                                            
                                                 <?php if (isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) || !$colsArr[16]) { ?>
                                                 <?php } else { ?>
-                                                     <div class="tb-bdy hisStatusclm" slot="padding-left:0px;"><p class="his-pendStatus"><?php echo ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' '; ?></p></div> <?php } ?>
+                                                     <div class="tb-bdy hisStatusclm lg_pl_0"><p class="his-pendStatus"><?php echo ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' '; ?></p></div> <?php } ?>
                                             
 
                                             
@@ -2369,7 +2444,14 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                                 <div class="d-flex align-items-center">
                                                     <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span class="docMent"></span>
+                                                            <!-- <span class="docMent"></span> -->
+                                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect x="5.04102" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2"/>
+                                                            <path d="M9.04102 9H15.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
+                                                            <path d="M9.04102 13H15.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
+                                                            <path d="M9.04102 17H13.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round"/>
+                                                            </svg>
+
                                                             <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i class="fa-solid fa-angle-down"></i>
                                                             </p>
                                                         </a>
@@ -2377,38 +2459,35 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                                         <ul class="dropdown-menu">
                                                             <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Details'); ?></a>
                                                             </li>
-                <?php
-                if ($orderRow['ordType'] == 1) {
+                                                                <?php
+                                                                if ($orderRow['ordType'] == 1) {
 
-                ?>
-                    <li>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id']; ?>','<?php echo $orderRow['ordType']; ?>', '1');"><i class="far fa-share-square"></i>&nbsp;<?php echo showOtherLangText('Details(Supplier)') ?></a>
-                    </li>
-                <?php
-                }
-                if ($orderRow['ordType'] == 1) //order
-                {
+                                                                ?>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id']; ?>','<?php echo $orderRow['ordType']; ?>', '1');"><i class="far fa-share-square"></i>&nbsp;<?php echo showOtherLangText('Details(Supplier)') ?></a>
+                                                                    </li>
+                                                                <?php
+                                                                }
+                                                                if ($orderRow['ordType'] == 1) //order
+                                                                {
 
-                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                        if ($accessPaymentPermission['type_id'] == 1) {
+                                                                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                                                        if ($accessPaymentPermission['type_id'] == 1) {
 
-                            getPayPopup($orderRow['id']);
-                        }
-                    }
-                }
+                                                                            getPayPopup($orderRow['id']);
+                                                                        }
+                                                                    }
+                                                                }
 
-                if ($orderRow['ordType'] == 2) {
-                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                        if ($accessInvoicePermission['type_id'] == 1) {
+                                                                if ($orderRow['ordType'] == 2) {
+                                                                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                                                        if ($accessInvoicePermission['type_id'] == 1) {
 
-                            getrequisitionPopup($orderRow['id']);
-                        }
-                    }
-                } 
-                                                            ?>
-
-
-
+                                                                            getrequisitionPopup($orderRow['id']);
+                                                                        }
+                                                                    }
+                                                                } 
+                                                            ?> 
                                                         </ul>
                                                     </div>
                                                     <?php

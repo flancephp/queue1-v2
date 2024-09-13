@@ -446,13 +446,13 @@ $otherChrgQry=mysqli_query($con, $sql);
             .update .prdtImg img{position: relative;top:1rem;}
             .update.recieved-order-section .recItm-Name.tb-bdy { width: 80%; }
             .update.recieved-order-section .recPrc-Unit, .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { width: 80% !important; margin-left: auto; }
-            html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,.update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-left: 0;margin-right: auto; }
+            html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-left: 0;margin-right: auto; }
             .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc  { width: 50%;text-align: left; }
             .update .recCr-Type { width: 100%; } 
             .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:1.75rem;right:1rem;max-width:35%;}
             .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price .form-control { width:100%;}
             html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { right:auto;left:1rem;}
-            html[dir="rtl"] .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc { text-align: right; }
+            html[dir="rtl"] .update .recItm-Unit, html[dir="rtl"] .update .recCr-Type .tb-bdy, html[dir="rtl"] .update .ttlDft-RecPrc, html[dir="rtl"] .update .ttlOtr-RecPrc { text-align: right; }
             
         }
         @media(min-width:992px){
