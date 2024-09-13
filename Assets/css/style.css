@@ -14094,10 +14094,16 @@ img[alt=LOGO] {
 .itmMng-Tblhead .itmTable {
   border-bottom: 1px solid #dfe0e8;
 }
-
+.ft-light{font-weight: 400;}
+.ft-light1{font-weight: 400;}
 .itmMng-Tblhead .tb-head {
   padding: 8px 8px 10px;
+  font-size: 16px;
 }
+.itmMng-Tblhead .tb-head .brCode-MngClm{font-weight: 700;}
+.itmMng-Tblhead .tb-head .unit-MngClm{font-weight: 700;}
+.itmMng-Tblhead .lastItm-PrcCol{font-weight: 700;}
+.itmMng-Tblhead  .stockItm-PrcCol{font-weight: 700;}
 
 .item-MngClm {
   width: 39%;
@@ -14137,7 +14143,7 @@ img[alt=LOGO] {
 .brCode-MngClm,
 .unit-MngClm,
 .prcItm-MngClm {
-  color: #7a89fe;
+  color: #7a89fe; font-weight: 700;
 }
 
 .lastItm-PrcCol,
@@ -15086,6 +15092,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 .gst-Head{font-size: 18px; font-weight: 600;}
 .sl-varDtl{font-weight: 400;}
 
+
+.edit-product{font-weight: 400; font-size: 16px; width: 80%;}
+
+
 @media screen and (max-width: 1024px) {
   .mb-nav,
   .clsBar,
@@ -16024,6 +16034,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 }
 @media screen and (max-width: 992px) {
+
+  .brItm-MngClm {
+    width: 54%;
+  }
 
   .revnueParent-sec {
     margin-top: 20px;
@@ -18452,8 +18466,13 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
   }
   .acntSetup-Form .form-label {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
+  .sd-row{width: 100%;
+    align-items: start;
+    display: flex;}
+  .sd-row .acntStp-Row {width: 40%;}
+
   /* Edit Supplier Page CSS End */
   /* Revnue Center Setup Page CSS Start */
   .revStpTable .container {
@@ -18769,11 +18788,18 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 13px;
   }
   .itmMng-Src .col-md-6 {
-    width: 80%;
+    width: 100%;
+  }
+  .edit-product .col-md-6 {
+    width: 100%;
   }
   .itmMng-filtBtn {
     width: 20%;
   }
+  .imgItm-MngClm img{height: auto;}
+  .itfilter1 {display: flex;
+    justify-content: start;
+    margin-top: 12px;}
   .bkItm-MngBtn {
     width: 15%;
   }
@@ -18986,6 +19012,12 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     height: 32px !important;
   }
 }
+
+.acntSetup-Form .form-label {
+  font-size: 16px;
+  font-weight: 400;
+}
+
 @media screen and (min-width: 1600px) {
   .body1 {
     font-size: 16px;
@@ -19589,7 +19621,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Account Setup Page CSS Start */
   .acntSetup-Form .form-label {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 400;
   }
   .imgUploadCss {
     font-size: 14px;
@@ -19793,7 +19826,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 
+
+
 @media screen and (max-width: 1368px) {
+.edit-product{width: 90%;}
 .stupImg {
   width: 52px;
 }
@@ -19811,6 +19847,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 }
 
 } 
+
+@media screen and (max-width: 1280px) {
+  .edit-product{width: 100%;}
 
 /******* CUSTOM CSS **********/
 
@@ -20163,6 +20202,13 @@ body .ui-widget-content {
   .overflowTable {
     overflow-x: auto;
   }
+  .acntSetup-Form .form-label {
+    font-size: 14px;
+  }
+  .addUser-Form .form-control {
+    font-size: 14px;
+  }
+
   
   }
 
@@ -20263,6 +20309,9 @@ body .ui-widget-content {
 
 }
 @media screen and (max-width: 480px) {
+
+  .sd-row .acntStp-Row {width: 50%;}
+
 
   .revnueParent-sec .outlet-Name {
     font-size: 14px;
