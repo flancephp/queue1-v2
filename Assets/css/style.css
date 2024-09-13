@@ -601,6 +601,8 @@ progress {
   margin-left: auto;
 }
 
+.dskAll-str{width:45px;}
+
 @media (min-width: 576px) {
   .container-sm, .container {
     /*max-width: 540px;*/
@@ -1889,6 +1891,8 @@ progress {
     margin: 0px auto;
   }
 }
+
+
 @media (max-width: 767.98px) {
   .table-responsive-md {
     overflow-x: auto;
@@ -1901,6 +1905,16 @@ progress {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+  .fs-6{
+    font-size: 16px;
+
+  }
+  .fw-bold{font-weight: 500;}
+  .itmBody > div:first-child p {
+    font-size: 16px;
+    font-weight: 400;
+  }
+ 
 }
 @media (max-width: 1199.98px) {
   .table-responsive-xl {
@@ -7228,6 +7242,7 @@ textarea.form-control-lg {
   visibility: hidden !important;
 }
 
+
 @media (min-width: 576px) {
   .float-sm-start {
     float: left !important;
@@ -10261,7 +10276,7 @@ a.sbActive .mb_nvSubIcn {
 }
 
 .form-select {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 16px;
   color: #666c85;
@@ -11618,6 +11633,7 @@ a.tabFet:focus .sampleFile {
 
 .itm-Profile {
   color: #232859;
+  font-weight: 500;
 }
 
 .itm-Profile:hover,
@@ -12260,6 +12276,9 @@ a.tabFet:focus .sampleFile {
 .revnueParent-sec {
   margin-top: 20px;
 }
+.gst-Head, .gst-Var, .sale-Name, .sale-Amunt, .tl-Cst, .sl-Cost, .sl-Usage, .sl-Variance, .sale-Amount, .usage-Amount, .var-Amount, .sl-varDtl, .sl-varDif, .sl-varValue, .sl-varTtl, .cst-Value .col-md-7 {
+  padding: 9px 6px;
+}
 
 .salesDtl {
   width: 89.5%;
@@ -12277,7 +12296,7 @@ a.tabFet:focus .sampleFile {
 .ttlCost,
 .sale-Variance {
   color: #666c85;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 15px;
 }
 
@@ -12411,7 +12430,9 @@ a.tabFet:focus .sampleFile {
   display: flex;
   width: 75%;
 }
-
+.otRev-head .tb-head {
+  font-weight: 500;
+}
 .out-Let {
   display: flex;
   width: 45%;
@@ -12427,8 +12448,7 @@ a.tabFet:focus .sampleFile {
   text-align: end;
 }
 
-.rev-Cntrgst .dropdown-toggle,
-.out-Let .dropdown-toggle {
+.rev-Cntrgst .dropdown-toggle, .out-Let .dropdown-toggle {
   color: #232859;
   text-decoration: none;
   cursor: pointer;
@@ -12438,10 +12458,14 @@ a.tabFet:focus .sampleFile {
   background: #ffffff;
   border: 1px solid #dfe0e8;
   border-radius: 10px;
-  padding: 7px 12px;
+  padding: 11px 12px;
   font-weight: 500;
   width: 100%;
+  font-size: 14px;
+  min-width: 154px;
 }
+.revCenter-Name{}
+.revCenter-Name p{ font-size:16px;}
 
 .rev-List {
   width: 65%;
@@ -12701,7 +12725,7 @@ a.tabFet:focus .sampleFile {
 
 .view-tblBody .vw-clm-4 {
   color: #232859;
-  font-weight: 500;
+  font-weight: 400; font-size: 16px;
 }
 
 .view-tblBody .vw-clm-8 p,
@@ -12755,7 +12779,7 @@ a.tabFet:focus .sampleFile {
 
 .itmView-isuTbl {
   font-size: 18px;
-  line-height: 24px;
+  line-height: 28px;
   color: #666c85;
   font-weight: 400;
   width: 100%;
@@ -13615,7 +13639,7 @@ img[alt=LOGO] {
 }
 
 .modal-footer {
-  justify-content: space-evenly;
+  justify-content: flex-start;
 }
 
 .modal-header,
@@ -15059,6 +15083,9 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   margin-left: 8px;
 }
 
+.gst-Head{font-size: 18px; font-weight: 600;}
+.sl-varDtl{font-weight: 400;}
+
 @media screen and (max-width: 1024px) {
   .mb-nav,
   .clsBar,
@@ -15137,6 +15164,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .itmBody {
     font-size: 15px; font-weight: 400;
     }
+    .res__label__item p{font-size: 15px; font-weight: 400;}
+    
   .tb-head {
     padding: 8px 6px 16px;
   }
@@ -15995,7 +16024,25 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 }
 @media screen and (max-width: 992px) {
-  
+
+  .revnueParent-sec {
+    margin-top: 20px;
+    border: 1px solid #fff;
+    background: #ffffff8a;
+    border-radius: 10px;
+    padding: 20px 20px 20px 20px;
+  }
+   
+  .revnueParent-sec  .header__area {
+    padding: 0px 20px;
+  }
+  .header__area {
+    background-color: #ffffff8a;
+    box-shadow: 0px 8px 30px 0px #6973BE21;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #fff;
+  }
   .usr-info .col-md-4 {
     display: none !important;
   }
@@ -16007,8 +16054,8 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .mbPage {
     display: flex;
-    /* align-items: flex-end; */
-    align-items: center;
+    align-items: flex-end;
+    /* align-items: center; */
   }
   .mbpg-name .h1 {
     color: #232859;
@@ -17770,8 +17817,19 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   left: 32px;
 }
 }
-
+.modal-footer .btnBg{margin-right:20px;}
 @media screen and (max-width: 767px) {
+  .dt-Members1{flex-wrap: wrap;
+    width: 100%;}
+
+  .view-tblBody {
+    font-size: 14px;
+  }
+  .view-tblBody .vw-clm-4 {
+    color: #232859;
+    font-weight: 400;
+    font-size: 14px;
+  }
 
   .modal-header, .modal-footer, .modal-body {
     padding: 12px 0 12px 0;
@@ -18198,7 +18256,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
   }
   .revnueParent-sec {
-    padding: 0 10px;padding-bottom: 3rem;
+    padding: 10px 10px; padding-bottom: 3rem;
   }
   /* Revenue Center Page CSS End */
   /* Item History View Page CSS Start */
@@ -18985,7 +19043,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .container-sm,
   .container-xl,
   .container-xxl {
-    max-width: 1550px;
+    max-width: 1920px;
   }
   /* .drpFee .dropdown-menu.show {
     transform: translate(4px, 88px) !important;
@@ -19119,9 +19177,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 8px 10px;
   }
   .input-group .btn {
-    padding: 10px 13px;
+    padding: 10px 11px;
     border-radius: 10px;
   }
+  .input-group .btn .fa-search {font-size: 20px;}
   .drp-btn .fa-solid {
     padding: 13px 14px;
   }
@@ -19468,7 +19527,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .sl-varValue,
   .sl-varTtl,
   .cst-Value .col-md-7 {
-    padding: 8px 6px;
+    padding: 9px 6px;
   }
   /* Item History View Page CSS Start */
   .itmhstDetail {
@@ -20101,6 +20160,37 @@ body .ui-widget-content {
 }
 
 @media screen and (max-width: 767px) {
+
+  .mb-hisDtl .sale-Name, .mb-hisDtl .tl-Cst {
+    border: 0;
+    padding: 3px 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  /* .sale-Variance, .tl-Cst {
+    padding: 9px 0px;
+  }
+  .sale-Name {
+    padding: 9px 0px;
+  } */
+  .gst-Head, .gst-Var, .sale-Name, .sale-Amunt, .tl-Cst, .sl-Cost, .sl-Usage, .sl-Variance, .sale-Amount, .usage-Amount, .var-Amount, .sl-varDtl, .sl-varDif, .sl-varValue, .sl-varTtl {
+    padding: 9px 0px;
+  }
+  .revnueParent-sec .ttlCost-Amt .mbhead-revCntr{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .revnueParent-sec .outlet-Name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .revnueParent-sec .outlet-Salecst .mbhead-revCntr{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .revnueParent-sec .num-List .mbguest-Head{font-weight: 400;font-size: 16px;}
+  
+  .center-List{font-weight:600 ; font-size: 16px;}
   .modal-content {
     margin-top: 0;
     margin-inline: auto;
@@ -20156,6 +20246,12 @@ body .ui-widget-content {
 
 }
 @media screen and (max-width: 480px) {
+
+  .revnueParent-sec .outlet-Name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+  }
   .model-title-with-date, 
   .model-title-with-date .semibold.text-center,
   .model-title-with-date .fs-15 {
@@ -20340,8 +20436,12 @@ img.previewImg {
 } 
 .sub-btn { 
   border-radius: 5px;
-  padding: 3px 4px;
+  /* padding: 3px 4px; */
 } 
+.skt-font{}
+.skt-font{} .tb-head { 
+  font-weight: 500;
+}
 .tb-head { 
   font-weight: 600;
 }
@@ -20646,7 +20746,8 @@ html[dir=rtl] body {
 }
 
 .itmBody > div:first-child p {
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 400;
 }
 .itmBody >  div:first-child .counter__col {
   font-size: 15px;
@@ -20668,6 +20769,18 @@ font-weight: 500;
 text-align: center;
 }
 
+
+@media (max-width: 991.98px) {
+  .itmBody > div:first-child p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .itmBody {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+  }
+}
 
 .mb-modal-close-icon {
   display: flex;

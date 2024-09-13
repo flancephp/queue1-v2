@@ -390,6 +390,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             #upload_form .dropStk p span { white-space: break-spaces; }
         }
         @media (max-width: 767px) { 
+            .md__33{ line-height: 20px; }
             .cntTable .stkNamcol { width: 50%; }
             .stockView .lstPrcol { width: 100% !important;} 
             .mbShw { width: 100% !important; }
@@ -399,6 +400,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
             .mbLst-value { padding-right: 6px; }
             #upload_form { max-width:225px; }
+
+            
         }
 
         .cntTable1 .stkPrcol {
@@ -445,6 +448,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .tb-bdy {
             padding: 5px 8px;
         }
+        .tb-bdy {
+                font-size: 16px;
+                font-weight: 400;
+            }
+            .stkQtybdy{}
+         .stkQtybdy span{font-weight: 600;}
 
         @media screen and (min-width: 1600px) {
             .tb-bdy {
@@ -454,18 +463,18 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
         #page2head .mbShw .stkPrcol .lstPrcol {width: 33%;} 
         .storeCont .h2 {
-            overflow: visible !important;
+            overflow: hidden !important;
         }
         .mblCnt {
             border-radius: 20px !important;
             border: 2px solid #FFF;
             background: #7A89FE !important;
             box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
-            font-size: 14px;
+            font-size: 18px;
             top: -10%;
             left: -10%;
             position: absolute !important;
-            padding: 2px 7px;
+            padding: 4px 8px;
             color: #fff;
         }
 
@@ -558,7 +567,17 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     width: 33.33% !important;
 }
 
+.dskAll-str{width: 45px;}
 
+.modal-footer .btnBg{
+    padding-right:16px;
+}
+.modal-footer .btnBg{
+    padding-right:16px;
+}
+.justify-content-start{}
+
+.justify-content-start .btn{margin-right:20px;}
 
 
       
@@ -625,7 +644,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 </div>
                             <?php } ?>
                             <div class="row g-0">
-                                <div class="storeCol">
+                                <div class="storeCol" style="background:transparent !important;">
                                     <div class="store text-center d-flex">
 
                                         <a href="javascript:void(0)" class="dskAll-str">
@@ -787,11 +806,11 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     <div class="tb-bdy stkImgcol"><?php echo showOtherLangText('Photo'); ?></div>
                                 <?php } ?>
                                 <div class="stkNamcol d-flex align-items-center">
-                                    <div class="tb-head stkItmclm">
+                                    <div class="tb-head stkItmclm skt-font">
                                         <div class="d-flex align-items-center w-20">
                                             <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
                                             <?php } else { ?>
-                                                <p style="color:#1c2047 !important;"><?php echo showOtherLangText('Item'); ?></p>
+                                                <p style="color:#1c2047 !important; font-weight: 500;"><?php echo showOtherLangText('Item'); ?></p>
                                                 <span class="dblArrow">
                                                     <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
                                                     <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
@@ -1409,7 +1428,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     </div>
 
     <div class="modal addUser-Form row glbFrm-Cont" id="convert_raw_items" tabindex="-1" aria-labelledby="issueout2label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width:800px;">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:950px;">
             <div class="modal-content">
                 <form method="post" id="frmconvert" name="frmconvert" action="convertRawItemsConfirmSubmit.php">
 
@@ -1475,7 +1494,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                             </table>
                         </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-between">
+                    <div class="modal-footer d-flex justify-content-start">
                         <button type="button" class="btn btn-primary" onClick="approveConvert();">Approve</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                     </div>

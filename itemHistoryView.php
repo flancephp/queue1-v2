@@ -25,10 +25,10 @@ $res = mysqli_fetch_array($result);
 $resItemHistory = getItemHistory($_GET['id'], $_GET);
 
 $typeArr = [
-    1 => ['lable' => ''.showOtherLangText('Issued In').'', 'style'=> 'color:Green !important;font-weight:bold;' ],
-    2 => ['lable' => ''.showOtherLangText('Issued Out').'', 'style'=> 'color:red !important;font-weight:bold;' ],
-    3 => ['lable' => ''.showOtherLangText('Stock Take').'', 'style'=> 'color:blue !important;font-weight:bold;' ],
-    4 => ['lable' => ''.showOtherLangText('Raw Item Convert').'', 'style'=> 'color:Maroon !important;font-weight:bold;' ],
+    1 => ['lable' => ''.showOtherLangText('Issued In').'', 'style'=> 'color:#42ad7f !important;font-weight:bold;' ],
+    2 => ['lable' => ''.showOtherLangText('Issued Out').'', 'style'=> 'color:#f37870 !important;font-weight:bold;' ],
+    3 => ['lable' => ''.showOtherLangText('Stock Take').'', 'style'=> 'color:#7a89fe !important;font-weight:bold;' ],
+    4 => ['lable' => ''.showOtherLangText('Raw Item Convert').'', 'style'=> 'color:#ee6464 !important;font-weight:bold;' ],
 
 ];
 
@@ -156,12 +156,27 @@ foreach($resItemHistory['resRows'] as $item){
     .view-tblBody > div {display: flex; width: 100%; }
     ..dt-Member select{font-size:16px;}
     .ct-width01{
-        max-width: 650px;
-        width: 95%;
+        /* max-width: 650px; */
+        /* width: 95%; */
     }
-    .dt-Member, .tbdy-dtMbr {
-        width: 100%;
-        }
+    @media screen and (max-width: 767px) {
+
+        .last-Stock, .tbdy-lstStk {
+  width: 40%;margin-left: 15px;
+}
+.isu-Varance, .tbdy-isuVar {
+  width: 33%;
+}
+    }
+
+    .itmBody {
+    font-size: 15px;
+    line-height: 22px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+    
         .dt-Member > div, .tbdy-dtMbr > div {
             width: 100% !important;
             }
@@ -170,12 +185,13 @@ foreach($resItemHistory['resRows'] as $item){
                 font-size: 16px;
                 }
     @media (max-width: 767px) {
-        .dt-Member, .tbdy-dtMbr {
-        width: 100%;
-        }
-        .dt-Member > div, .tbdy-dtMbr > div {
-            width: 100% !important;
-            }
+        
+        
+
+            .view-tblBody .vw-clm-4 {
+  color: #232859;
+  font-weight: 400;font-size: 14px;
+}
            
         
     }    
