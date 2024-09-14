@@ -303,10 +303,11 @@ die();
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
 integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="Assets/css/style_new.css">
+<link rel="stylesheet" href="Assets/css/style_new.css?v=1">
  <link rel="stylesheet" href="Assets/css/style1.css">
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 <style>
+    .srNum { color: #666C85; }
     .container { max-width: 100% !important;}
     .supMem-Name { color: #3fb180; }
     /* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
@@ -367,7 +368,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .status-ordered, { color: #232859; }
     .status-tmp-req, .status-tmp-order { color: #939393; }
     .status-req{ color:#232859; }
-    .task-list-status-col-p .new__layout .payOptnreq{justify-content: flex-end;}
+   
     @media (max-width: 767px) {
         .update .task-list-status-col-p .new__layout .payOptnreq, .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
             justify-content:flex-start;
@@ -379,11 +380,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .srNum p { font-size:1.25rem; }
         .rntskHead .taskHead > div:first-child { font-size: 1rem; }
     }
+    @media(min-width:1600px) { 
+        .srNum p { font-size:1.375rem; } 
+    }
     .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq { width: 11.75rem !important;min-width: auto !important;gap: 0.5rem; }
     .update .new__layout .payOptnreq { gap:0.5rem; }
-    .update .new__layout .task-status { width: calc(74% - 11.75rem); }
+    .task-list-status-col-p .new__layout .payOptnreq{width: 118px;}
+    .update .new__layout .task-status { width: calc(100% - 19.12rem); }
     .cn-btn { color: #232859; }
-    .cnfrm, .doc-bx, .dlt-bx { margin:0; }
+    .cnfrm, .doc-bx, .dlt-bx { margin:0; } 
 </style>
 </head>
 
@@ -545,7 +550,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 
                         </div>
                         <div class="d-flex align-items-center" style="width: 55%;">
-                            <div class="p-1 text-center" style="width: calc(74% - 11.75rem);">
+                            <div class="p-1 text-center" style="width: calc(100% - 19.12rem);">
                                 <p><?php echo showOtherLangText('Status') ?></p>
                             </div>
                         </div>

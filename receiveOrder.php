@@ -405,6 +405,10 @@ $otherChrgQry=mysqli_query($con, $sql);
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
+        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
+        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
+        .container{max-width:100%;}
         /* .dropdown-toggle.tabFet:hover, .dropdown-toggle.tabFet:focus { border-color: var(--color-primary) !important;background-color: var(--color-primary);box-shadow: none; } */
         .btn-primary:focus {outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;} 
         .btn-check:focus + .btn, .btn:focus {box-shadow: none !important; }
@@ -428,6 +432,8 @@ $otherChrgQry=mysqli_query($con, $sql);
             .itmTable { font-size: 1rem; }
             .update .newFeatures { padding: 0 37px 0 88px; }
             html[dir='rtl'] .container.topOrder.rcvOrder { margin-top: -1rem; }
+            .rcvInfo { padding: 0 49px 0 50px; }
+            .fees__row .tb-bdy { line-height: 3; }
         }
         @media screen and (min-width: 1200px) {
             html[dir='rtl'] .container.topOrder.rcvOrder { margin-top: -1.5rem; }
@@ -464,7 +470,7 @@ $otherChrgQry=mysqli_query($con, $sql);
             html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-left: 0;margin-right: auto; }
             .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc  { width: 50%;text-align: left; }
             .update .recCr-Type { width: 100%;margin-top: .35rem; } 
-            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:2rem;right:1rem;max-width:35%;}
+            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:1.5rem;right:1rem;max-width:36.5%;}
             .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price .form-control { width:100%;}
             html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { right:auto;left:1rem;}
             html[dir="rtl"] .update .recItm-Unit, html[dir="rtl"] .update .recCr-Type .tb-bdy, html[dir="rtl"] .update .ttlDft-RecPrc, html[dir="rtl"] .update .ttlOtr-RecPrc { text-align: right; }
@@ -489,7 +495,12 @@ $otherChrgQry=mysqli_query($con, $sql);
             .container.topOrder.rcvOrder { padding-top: 0 !important; }
             .dropdown-toggle.tabFet { padding: 14px 10px; }
         } 
-        
+        @media(min-width:1400px) {
+            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 50px; }
+        }
+        @media(min-width:992px) and (max-width:1399px) {
+            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 44px; }
+        }
     </style>
 </head>
 
@@ -630,7 +641,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2 text-end smBtn nwNxt-Btn">
+                                    <div class="col-md-2 text-end smBtn nwNxt-Btn pe-0">
                                         <div class="btnBg order-2">
                                             <a href="javascript:void(0)" class="btn btn-primary w-100 receive-btn d-inline-flex align-items-center justify-content-center"><?php echo showOtherLangText('Receive');?></a>
                                         </div>
@@ -989,7 +1000,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                 ?>
                                 
                      <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
+                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody fees__row">
 
                                     <div class="prdtImg tb-bdy">
                                             <p><?php echo $y; ?></p>

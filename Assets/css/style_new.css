@@ -14148,6 +14148,10 @@ img[alt=LOGO] {
   border-color: #f64646;
 }
 
+@media(min-width:1200px) {
+  .alert, .alert-dismissible .btn-close { font-size: 1rem; }
+}
+
 .oltReport .btnBg {
   margin-bottom: 20px;
 }
@@ -19727,7 +19731,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
         .modal-head-row .btn{
             font-size: 13px;
-            height: 34px;
+            height: 34px;padding-top: 5px !important;
         }
 
         .modal-head-row ul.dropdown-menu {

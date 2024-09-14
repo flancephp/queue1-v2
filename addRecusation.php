@@ -329,7 +329,7 @@ if($_SESSION['deptId'] != '')
 
     <style>
         .ord-Box.position { border-color: #f05d53; }
-        
+        .fa-angle-right, .fa-angles-left {padding: 0; font-size: 1rem; width: 30px;height:30px; }
         .d-flex.align-items-center.itmTable > div:first-child, .itmBody > div:first-child { width: 4rem; }
         .reqImg { width: 6rem; }
         .tb-head, .reqClm-Itm { font-weight:500; }
@@ -350,7 +350,7 @@ if($_SESSION['deptId'] != '')
         }
         @media screen and (max-width: 1024px) {
             .newFeatures {
-                padding-right: 40px !important;
+                padding-right: 0px !important;
             }
         }
         @media screen and (max-width: 991px) {
@@ -375,7 +375,22 @@ if($_SESSION['deptId'] != '')
             .reqCnt-Fst { width: calc(70% - 4rem); }
             .reqClm-Itm p { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical; white-space: normal; }
             .reqImg.tb-bdy { padding-left: 0; }
+            .ordFeature.margin { margin-left: auto;margin-right: auto; }
+            .featRow { justify-content:center; }
         }
+        .form-control.qty-itm { font-weight:700;font-size:.875rem; }
+        .curRow .p-2 { text-align: left;width: 100%;flex:none;}
+        html[dir="rtl"] .curRow .p-2 { text-align: right; }
+        @media(min-width: 1200px) {
+            .curRow { font-size:1.125rem; }
+            .curRow .p-2 { padding-left: 15% !important; } 
+        }
+        .txnmRow { width: 40%; }
+        .curRow { width: 50%; }
+        @media screen and (min-width: 1600px) { .prcTable { font-size: 1rem; } }
+        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
+        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
     </style>
 </head>
 
@@ -470,7 +485,7 @@ if($_SESSION['deptId'] != '')
                                                     <div class="row g-3"> 
                                                         <div class="col-md-4">
                                                             <div class="featRow">
-                                                                <div class="ordFeature"> 
+                                                                <div class="ordFeature margin"> 
                                                                     <?php if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) { ?>
         
                                                                     <a href="addRecusation.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>"
@@ -573,7 +588,7 @@ if($_SESSION['deptId'] != '')
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
                                         <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center gap-1 px-3"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
-                                            <i class="fa-solid fa-angle-right"></i></a>
+                                            <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i></a>
                                     </div>
                                     <div class="fetBtn">
                                         <a href="javascript:void(0)">

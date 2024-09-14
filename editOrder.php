@@ -383,19 +383,12 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
+        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
+        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
     .fa-angle-right,
-    .fa-angles-left {
-        background: linear-gradient(180deg, #7a89ff 35%, #8795ff 115%);
-        box-shadow: inset 1px 4px 4px #596bf3;
-        filter: blur(0.2px);
-        padding: 5px;
-        border-radius: 50%;
-        border: 0.5px solid;
-        border-image-source: linear-gradient(175.52deg, #7a89ff 26.99%, #c2c9ff 106.12%);
-        margin-left: 10px;
-        font-size: 10px;
-        vertical-align: middle;
-        width: 22px;
+    .fa-angles-left { 
+        padding: 0; font-size: 1rem;vertical-align: middle;width: 30px;height:30px;
     }
     .tb-head, .prdtImg.tb-head { font-weight: 500;color: #232859; }
     .cntTable { color: #232859;font-weight: 400; }
@@ -403,7 +396,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     .container.erdOrder{padding: 1rem 10px 0 10px;} 
     .fw-medium{ font-weight:500; }
     .fw-semibold{ font-weight:600; }
-    @media(min-width:576px){ .container.erdOrder{padding: 1rem 24px 0 24px;} }
+    /* @media(min-width:576px){ .container.erdOrder{padding: 1rem 24px 0 24px;} } */
     @media(min-width:992px){ 
         html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 50px 0 0; }
         .nwNxt-Btn1 .btn__box { max-width: 174px !important;margin-left: auto; }
@@ -460,7 +453,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .ordInfo { padding: 0 0 0 64px; }
         .prcTable { font-size: 1rem; }
         .curRow { font-size: 1.125rem; }
-        .container.topOrder.erdOrder { margin-top: -1.5rem; }
+        .container.topOrder.erdOrder { margin-top: -1.5rem; } 
     }
     @media screen and (min-width: 1400px) { 
         .container.topOrder.erdOrder { margin-top: -1.5rem; }
@@ -475,7 +468,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
 
     }
     .edit-order-section .ttlCr-Type { text-align: right; }
-    .qty-itm, .note-itm { font-weight: 700;font-size: .875rem; }
+    .qty-itm, .note-itm { font-size: .875rem; }
+    .form-control.qty-itm { font-weight: 700; }
     .ttlCr-Type { font-weight: 600; }
     .ordInfo { padding:0; }
     .ttlDft-Crcy { margin: auto; }
@@ -484,6 +478,16 @@ if( isset($_GET['delId']) && $_GET['orderId'])
      
     html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, 
     html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type, html[dir="rtl"] .edit-order-section.update .ttlCr-Type .text-start { text-align: right !important; }
+
+    .curRow .p-2 { text-align: left; }
+    .curRow.padding { padding-left: 5%; }
+    html[dir="rtl"] .curRow.padding { padding-left: 5%; }
+    html[dir="rtl"] .curRow .p-2 { text-align: left; }
+
+    @media screen and (min-width: 1600px) { 
+        .curRow.padding { padding-left: 20%; }
+        html[dir="rtl"] .curRow.padding { padding-left: 5%; }
+    }
 </style>
 </head>
 
@@ -697,7 +701,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                             <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
                                                 <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
-                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-block"></i>
+                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i>
                                                 </a> 
                                                 <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" /> 
                                                 <a href="runningOrders.php" class=" btn  btn-primary update w-100"><?php echo showOtherLangText('Back'); ?></a>
@@ -748,7 +752,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                         <div class="p-2 txnmRow">
                                                             <p><?php echo showOtherLangText('Sub Total'); ?></p>
                                                         </div>
-                                                        <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="d-flex align-items-center justify-content-end curRow padding">
                                                             <div class="p-2">
                                                                 <p><?php showPrice($chargePrice, $getDefCurDet['curCode']); ?>
                                                                 </p>
@@ -788,7 +792,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                         <div class="p-2 txnmRow">
                                                             <p><?php echo $row['feeName'];?></p>
                                                         </div>
-                                                        <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="d-flex align-items-center justify-content-end curRow padding">
                                                             <div class="p-2">
                                                                 <p><?php showPrice($row['price'], $getDefCurDet['curCode']);?>
                                                                 </p>
@@ -831,7 +835,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                             <p><?php echo $row['feeName'];?><?php echo  $row['price'];?> %
                                                             </p>
                                                         </div>
-                                                        <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="d-flex align-items-center justify-content-end curRow padding">
                                                             <div class="p-2">
                                                                 <p><?php showPrice($calDiscount, $getDefCurDet['curCode']);?>
                                                                 </p>
@@ -882,7 +886,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                             <p><?php echo $row['feeName'];?><?php echo $row['price'];?> %
                                                             </p>
                                                         </div>
-                                                        <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="d-flex align-items-center justify-content-end curRow padding">
                                                             <div class="p-2">
                                                                 <p><?php showPrice($calTax, $getDefCurDet['curCode']);?></p>
                                                             </div>
@@ -918,7 +922,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                         <div class="p-2 txnmRow">
                                                             <p><?php echo showOtherLangText('Grand Total'); ?></p>
                                                         </div>
-                                                        <div class="d-flex align-items-center justify-content-end curRow">
+                                                        <div class="d-flex align-items-center justify-content-end curRow padding">
                                                             <div class="p-2">
                                                                 <p><?php showPrice($netTotalAmt, $getDefCurDet['curCode']) ?>
                                                                 </p>
@@ -1279,7 +1283,7 @@ $ordQry = mysqli_query($con, $sql);
 
                         <div>
 
-                            <div class="container pt-5 topOrder ">
+                            <div class="container mt-lg-5 topOrder">
                                 <div class="row g-3 g-md-4 align-items-end">
                                     <div class="col-md-5">
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
@@ -1403,7 +1407,7 @@ $ordQry = mysqli_query($con, $sql);
                                             </div>
                                             <?php }else{ ?>
                                             <div class="ttlCr-Type w-50">
-                                                <div class="ps-xl-5 tb-head">
+                                                <div class="ps-xl-4 tb-head">
                                                     <p><?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
                                                     </p>
                                                 </div>
