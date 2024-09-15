@@ -19281,8 +19281,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .itmBody {
     font-size: 15px;
     line-height: 22px;
-    padding-top:16px;
-    padding-bottom:16px;
+    padding-top:12px;
+    padding-bottom:12px;
   }
   /* .drpCurr .dropdown-menu.show {
     transform: translate3d(0px, 80px, 0px) !important;

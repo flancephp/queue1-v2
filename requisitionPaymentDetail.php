@@ -507,7 +507,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
     }
 
     .site-modal tbody tr td {
-        padding: 5px 5px;
+        padding: 1.125rem;
     }
 
     .modal-header .btn {
@@ -547,9 +547,9 @@ if(isset($_GET['delId']) && $_GET['orderId'])
         overflow-y: scroll;
     }
 
-    .paySelect tr {
+    /* .paySelect tr {
         height: 35px;
-    }
+    } */
 
     @media (min-width:1137px) {
         /* 29 date tabel css */
@@ -586,6 +586,11 @@ if(isset($_GET['delId']) && $_GET['orderId'])
         .srHisclm {
             min-width: fit-content;
         }
+    }
+    .table__col { width: 50%;flex: 0 0 50%;}
+    @media(max-width:767px) {
+        .table__col { width: 100%;flex: 0 0 100%;}
+
     }
     </style>
 
@@ -636,9 +641,8 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                         <div class="modal-body p-4 p-xl-5">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="f-01 mb-0 payment-status-text"><?php echo showOtherLangText('PENDING'); ?>
-                                    </p>
-                                    <p class="f-01"><?php echo showOtherLangText('INVOICE'); ?></p>
+                                    <p class="f-01 mb-0 payment-status-text text-uppercase"><?php echo showOtherLangText('PENDING'); ?></p>
+                                    <p class="f-01 text-uppercase"><?php echo showOtherLangText('INVOICE'); ?></p>
                                 </div>
                                 <div>
                                     <?php
@@ -659,24 +663,24 @@ if(isset($_GET['delId']) && $_GET['orderId'])
 
                             <div class="mt-4 row g-0 payment-tabel-header">
                                 <div class="col-sm-7">
-                                    <table class="table1 table01">
+                                    <table class="table1 table01 task__info">
                                         <tbody>
                                             <tr>
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('Invoice'); ?> #
                                                 </td>
-                                                <td class="in-val-p" id="leftInvoiceNum"><?php echo getinvoiceNumber($invoiceNumber);?></td>
+                                                <td class="in-val-p text-1c" id="leftInvoiceNum"><?php echo getinvoiceNumber($invoiceNumber);?></td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
-                                                <td class="in-val-p"><?php echo $orderRow['ordNumber'] ?></td>
+                                                <td class="in-val-p text-1c"><?php echo $orderRow['ordNumber'] ?></td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td class="in-val-p"><?php echo $orderRow['ordDateTime']?></td>
+                                                <td class="in-val-p text-1c"><?php echo $orderRow['ordDateTime']?></td>
                                             </tr>
 
                                         </tbody>
@@ -712,7 +716,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                             </div>
 
                             <br>
-                            <div class="mt-4 invoiceto-p">
+                            <div class="invoiceto-p">
                                 <p class="f-02 mb-2"><?php echo showOtherLangText('Invoice To'); ?>: </p>
                                 <p id="name" class="f-03 in-val-p mb-1">
                                     <?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?>
@@ -732,9 +736,9 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                             <br>
 
                             <div class="table-responsive mt-4 mt-md-4">
-                                <table class="modal-table fs-12 w-100 payment__table">
-                                    <thead style="background: #A9B0C0 !important;">
-                                        <tr class="tr-bg-1">
+                                <table class="modal-table table fs-12 w-100 payment__table">
+                                    <thead>
+                                        <tr>
                                             <th>#</th>
                                             <th style="width: 30%;"><?php echo showOtherLangText('Item'); ?></th>
                                             <th><?php echo showOtherLangText('Unit'); ?></th>
@@ -789,17 +793,20 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="divider-blue"></div>
+                            
                              
-                            <div class="tabel-body-p-footer  gap-3 flex-wrap mt-3 mt-md-4">
-                                <div class="table1 col-md-4">
-                                    <p class="f-02 mb-2 mb-lg-0"><?php echo showOtherLangText('Payment Method'); ?>:</p>
-                                    <!-- <p class="f-03 mb-0">Cash</p>
-                                    <p class="f-03 mb-0">Main Safe USD</p> -->
+                            <div class="row g-4 justify-content-between total__table__res__row__reverse">
+                                <div class=" col-md-4 data__col">
+                                    <div class="table1"> 
+                                        <p class="f-02 mb-2 mb-lg-0"><?php echo showOtherLangText('Payment Method'); ?>:</p>
+                                        <!-- <p class="f-03 mb-0">Cash</p>
+                                        <p class="f-03 mb-0">Main Safe USD</p> -->
+                                    </div>
                                 </div>
 
                                 <!-- grand totale  here -->
-                                <table class="grand-total-tabel col">
+                                <div class="table__col">
+                                <table class="grand-total-tabel pending__inv w-100">
                                     <?php 
                                     //get the sum of all product and item level charges  
                                         $sqlSet="SELECT SUM(totalAmt) as sum1 from tbl_order_details where ordId='".$_GET['orderId']."'   AND account_id = '".$_SESSION['accountId']."' AND (customChargeType='1' OR customChargeType='0')";
@@ -845,13 +852,14 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                     {
                                     ?>
                                     <tr>
-                                        <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>"
-                                                href="javascript:void(0)"
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)"
                                                 onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');"
-                                                style="color:#808080" class="glyphicon glyphicon-trash"><span
-                                                    class="dlTe"></span></a>
-
-                                            &nbsp;<?php echo $row['feeName'];?></td>
+                                                style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a> 
+                                                &nbsp;<?php echo $row['feeName'];?>
+                                            </div>
+                                        </td>
                                         <td style="text-align: right;"><?php showprice($fixedCharges,$getDefCurDet['curCode']);?></td>
                                     </tr>
                                     <?php
@@ -882,14 +890,18 @@ if($row)
 {
     ?>
                                     <tr>
-                                        <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>"
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                            <a title="<?php echo showOtherLangText('Delete') ?>"
                                                 href="javascript:void(0)"
                                                 onClick="getDelNumb('<?php echo $showCif['id'];?>', '<?php echo $_GET['orderId'];?>');"
                                                 style="color:#808080" class="glyphicon glyphicon-trash"><span
                                                     class="dlTe"></span></a>
 
                                             &nbsp;<?php echo $row['feeName'];?>
-                                            <?php echo $row['totalAmt'] ?> %</td>
+                                            <?php echo $row['totalAmt'] ?> %
+                                            </div>
+                                        </td>
                                         <td style="text-align:right;"><?php showprice($discountPercent,$getDefCurDet['curCode']); ?>
                                         </td>
                                     </tr>
@@ -913,14 +925,18 @@ $taxCharges=(($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
 $totalTaxCharges += (($chargePrice+$totalFixedCharges+$totalDiscountPercent)*$tax/100);
 ?>
                                     <tr>
-                                        <td class="d-flex gap-1"><a title="<?php echo showOtherLangText('Delete') ?>"
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                            <a title="<?php echo showOtherLangText('Delete') ?>"
                                                 href="javascript:void(0)"
                                                 onClick="getDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');"
                                                 style="color:#808080" class="glyphicon glyphicon-trash"><span
                                                     class="dlTe"></span></a>
 
                                             &nbsp;<?php echo $row['feeName'];?>
-                                            <?php echo $row['price'] ?> %</td>
+                                            <?php echo $row['price'] ?> %
+                                            </div>
+                                        </td>
                                         <td style="text-align:right;"><?php showprice($taxCharges,$getDefCurDet['curCode']) ?></td>
                                     </tr>
                                     <?php
@@ -943,7 +959,7 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                         <th class="px-3"><?php showprice($netTotalAmt,$getDefCurDet['curCode']); ?></th>
                                     </tr> 
                                 </table>
-
+                                </div>
                             </div>
 
                             <br>
@@ -958,7 +974,7 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                             <div class="bill-form-brd">
                                 <form action="" method="post" id="frm" name="frm" class="mtop"
                                     enctype="multipart/form-data">
-                                    <div class="row table-responsive">
+                                    <div class="">
                                         <h6 class="bill-head">
                                             <img src="https://queue1.net/qa1/uploads/hand.png" alt="Payment-hand">
                                             <?php echo showOtherLangText('Payment'); ?>
@@ -1039,8 +1055,8 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                     <div class="divider-1"></div>
 
 
-                                    <div class="invTotal">
-                                        <table>
+                                    <div class="invTotal my-3">
+                                        <table class="w-100">
                                             <tbody>
                                                 <tr class="payDetail">
                                                     <td><?php echo showOtherLangText('Total Amount'); ?></td>
@@ -1064,12 +1080,12 @@ $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedD
                                         autocomplete="off" />
 
                                     <div class="issueInvoice">
-                                        <a class="btn splitBtn-button" href="javascript:void(0)"
+                                        <a class="btn splitBtn-button w__8rem" href="javascript:void(0)"
                                             onClick="openPopup1('<?php echo $_GET['orderId'];?>'); getOnClickVal();"><?php echo showOtherLangText('Issue Invoice'); ?></a>
                                     </div>
                                     <!-- Dropdown menu -->
                                     <div class="dropdown mt-2">
-                                        <button class="btn btn-2 dropdown-toggle  d-j-b" type="button"
+                                        <button class="btn btn-2 dropdown-toggle  d-j-b w__8rem" type="button"
                                             data-bs-toggle="dropdown" data-bs-auto-close="outside"
                                             aria-expanded="false">
                                             <?php echo showOtherLangText('Add Fee'); ?> <i
@@ -1933,14 +1949,14 @@ invoicePhone: invoicePhone
 }
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
     // Find all elements with the class 'grand-total'
-    const grandTotalElements = document.querySelectorAll('.grand-total');
+    //const grandTotalElements = document.querySelectorAll('.grand-total');
 
-    if (grandTotalElements.length > 0) {
-        grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
-    }
-});
+    //if (grandTotalElements.length > 0) {
+    //    grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
+    //}
+//});
 </script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>

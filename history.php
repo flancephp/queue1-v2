@@ -961,8 +961,8 @@ $colsArr = [
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style.css">
+<link rel="stylesheet" href="Assets/css/module-A.css">
 <!-- <link rel="stylesheet" href="Assets/css/style1.css"> -->
-<!-- <link rel="stylesheet" href="Assets/css/module-A.css"> -->
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
 <style>
@@ -1329,6 +1329,7 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 @media(min-width:992px) {
     #modalfiltertop { position: absolute;  top:1.7rem;left:4rem; }
+    html[dir="rtl"] #modalfiltertop { left:auto;right:4rem; }
 }
 .info__table td:nth-child(1){width:55%}
 
@@ -1377,8 +1378,8 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 
 
-.grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
-.invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
+/* .grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
+.invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;} */
 
 
 .mb-modal-close-icon { right:-10px;top:3px;width: auto; }
@@ -1429,8 +1430,9 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .fw-normal p { font-weight:400 !important; }
 
 .modal-table .table-cell { line-height: 1.3;}
-
-
+.cnfrm:hover .h3, .doc-bx:hover .h3, .dlt-bx:hover .h3 { color: var(--color-white); }
+.hisTask .cnfrm:hover a .h3, .hisTask .doc-bx:hover a .h3, .hisTask .dlt-bx:hover a .h3 { color: var(--color-white); }
+.hisTask .cnfrm:hover, .hisTask .doc-bx:hover, .hisTask .dlt-bx:hover { background: var(--color-primary) !important; }
 
 </style>
 
@@ -2453,7 +2455,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                     }
                                 } else {
 
-                    echo '<div class="cnfrm" style=" border: none; background: transparent; box-shadow: none;"></div>';
+                    echo '<div class="cnfrm" style=" border: none; background: transparent !important; box-shadow: none;"></div>';
                 }
 
                                         ?>

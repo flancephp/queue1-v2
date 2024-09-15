@@ -266,17 +266,17 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
     /* input select custon css for theis page  */
     .form-control {
         background-color: white;
-        padding: .5rem;
+        padding: 0 .5rem;
     }
 
-    .form-info tr,
+    /* .form-info tr,
     .payDetail tr {
         height: 38px !important;
     }
 
     .inv-detail tr {
         min-height: 38px !important;
-    }
+    } */
 
     .wht-btn:hover,
     .wht-btn:focus,
@@ -314,6 +314,9 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
         transition: all .1s ease-in-out;
         color: white;
     }
+    .form-info td { padding-top: 1px;padding-bottom: 1px; }
+    .invTotal td { font-weight:700; }
+    .payDetail td input { color: #232859; }
     </style>
 
 </head>
@@ -362,7 +365,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                         <div class="border-line"></div>
                         <div class="modal-body p-4 p-xl-5">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div>
+                                <div class=" text-uppercase">
                                     <p class="f-01 mb-0 payment-status-text"><?php echo showOtherLangText('PAID'); ?>
                                     </p>
                                     <p class="f-01"><?php echo showOtherLangText('PENDING'); ?></p>
@@ -382,7 +385,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                 </div>
                             </div>
 
-                            <div class="mt-4 row g-0 payment-tabel-header">
+                            <div class="row gy-4 gx-0 payment-tabel-header mt-1">
                                 <div class="col-md-7">
                                     <table class="table1 table01">
                                         <tbody>
@@ -390,25 +393,25 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                                 <td class="font-wt" style="white-space:nowrap">
                                                     <?php echo showOtherLangText('Supplier Invoice'); ?> #
                                                 </td>
-                                                <td class="in-val-p"><?php echo $payInfoRow['supplierInvoice'] ?></td>
+                                                <td class="in-val-p dark__td__color"><?php echo $payInfoRow['supplierInvoice'] ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt" style="white-space:nowrap">
                                                     <?php echo showOtherLangText('Payment'); ?> #
                                                 </td>
-                                                <td class="in-val-p"><?php echo setPaymentId($paymentRow['id']); ?></td>
+                                                <td class="in-val-p dark__td__color"><?php echo setPaymentId($paymentRow['id']); ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt" style="white-space:nowrap"><?php echo showOtherLangText('Task') ?> #</td>
-                                                <td class="in-val-p"><?php echo $orderRow['ordNumber'] ?></td>
+                                                <td class="in-val-p dark__td__color"><?php echo $orderRow['ordNumber'] ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt" style="white-space:nowrap"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td class="in-val-p">
+                                                <td class="in-val-p dark__td__color">
                                                     <?php 
                                         if ($paymentRow['paymentStatus'] ==1 ) {
     
@@ -467,7 +470,7 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                             <div class="table-responsive mt-4">
 
                                 <table class="modal-table fs-12 w-100 payment__table">
-                                    <thead style="background: #A9B0C0 !important;">
+                                    <thead>
                                         <tr class="tr-bg-1">
                                             <th>#</th>
                                             <th style="width: 22%;"><?php echo showOtherLangText('Item'); ?></th>
@@ -597,22 +600,25 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="divider-blue"></div>
+                            <!-- <div class="divider-blue"></div> -->
                             <br>
-                            <div class="tabel-body-p-footer gap-3 flex-wrap">
-                                <div class="table1 col-md-4">
-                                    <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method'); ?></p>
-                                    <?php 
-                    $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
-                    $resultSet = mysqli_query($con, $sqlSet);
-                    $accDet = mysqli_fetch_array($resultSet);
-                    ?>
-                                    <p class="f-03 mb-1 in-val-p"><?php echo $payModeRow['modeName'];?></p>
-                                    <p class="f-03 mb-0 in-val-p"><?php echo $accDet['accountName'];?></p>
+                            <div class="row gy-4 gx-0 justify-content-between total__table__res__row__reverse">
+                                <div class=" col-md-4 data__col">
+                                    <div class="table1">
+                                        <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method'); ?></p>
+                                        <?php 
+                        $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+                        $resultSet = mysqli_query($con, $sqlSet);
+                        $accDet = mysqli_fetch_array($resultSet);
+                        ?>
+                                        <p class="f-03 mb-1 in-val-p"><?php echo $payModeRow['modeName'];?></p>
+                                        <p class="f-03 mb-0 in-val-p"><?php echo $accDet['accountName'];?></p>
+                                    </div>
                                 </div>
 
                                 <!-- grand totale  here -->
-                                <table class="grand-total-tabel col">
+                                <div class="table__col">
+                                <table class="grand-total-tabel w-100">
                                     <?php 
                 $sqlSet="SELECT SUM(totalAmt) as sum1, SUM(curAmt) AS sum2 from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                 $resultSet = mysqli_query($con, $sqlSet);
@@ -815,7 +821,7 @@ if ($orderRow['ordCurId'] > 0)
 
                                     <?php } ?>
                                 </table>
-
+                                </div>
                             </div>
 
                             <br>
@@ -830,7 +836,7 @@ if ($orderRow['ordCurId'] > 0)
                             <div class="bill-form-brd">
                                 <form action="" method="post" id="frm" name="frm" class="mtop"
                                     enctype="multipart/form-data">
-                                    <div class="row table-responsive">
+                                    <div class="">
                                         <h6 class="bill-head">
                                             <img src="https://queue1.net/qa1/uploads/hand.png" alt="Payment-hand">
                                             <?php echo showOtherLangText('Payment'); ?>
@@ -891,7 +897,7 @@ if ($orderRow['ordCurId'] > 0)
                                                 <tr>
                                                     <td><?php echo showOtherLangText('Payment To'); ?></td>
                                                     <td>
-                                                        <p class="mt-2"><?php echo $payInfoRow['supplierName'] ?></p>
+                                                        <p><?php echo $payInfoRow['supplierName'] ?></p>
                                                     </td>
                                                 </tr>
 
@@ -961,7 +967,7 @@ if ($orderRow['ordCurId'] > 0)
                                     <div class="paySelect">
                                         <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                                             <tbody class="form-info">
-                                                <tr class="" style="height: 48px;">
+                                                <tr>
                                                     <td><?php echo showOtherLangText('Payment type'); ?></td>
                                                     <td><?php echo $payModeRow['modeName'] ?></td>
                                                 </tr>
@@ -1273,30 +1279,22 @@ if ($paymentRow['paymentStatus']==1)
                     <div>
                         <div class="mdlHead-Popup d-flex justify-content-between align-items-center">
                             <span>
-                                <strong><?php echo showOtherLangText('Please select one of the following to refund'); ?>:</strong>
+                                <strong class="h1"><?php echo showOtherLangText('Please select one of the following to refund'); ?>:</strong>
                             </span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <br>
 
-                        <div class="form-group  d-flex payModal-Flex">
-                            <input type="radio" name="refund" value="refundAmt" id="refundAmt">
-                            <div style="color: #000; width: 94%;">
-                                <p><?php echo showOtherLangText('Refund the amount of ') . $paymentRow['amount'] . showOtherLangText(' to account only.'); ?>
-                                </p>
-                            </div>
+                        <div class="form-check payModal-Flex">
+                            <input type="radio" name="refund" value="refundAmt" id="refundAmt" class="form-check-input">
+                            <label for="refundAmt" class="form-check-label"><?php echo showOtherLangText('Refund the amount of ') . $paymentRow['amount'] . showOtherLangText(' to account only.'); ?></label>
+                             
                         </div>
                         <br> <br>
-                        <p>
-                            <button type="submit" name="approveBtn" id="approveBtn"
-                                class="btn btn-secondary dropdown-toggle fs-13 py-2"
-                                style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Approve'); ?></button>
-
-                            <a class="btn btn-secondary dropdown-toggle fs-13 py-2" id="cancelBtn"
-                                style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Cancel'); ?></a>
-
-
-                        </p>
+                        <div class="d-flex gap-3">
+                            <button type="submit" name="approveBtn" id="approveBtn" class="btn btn-primary" ><?php echo showOtherLangText('Approve'); ?></button> 
+                            <a class="btn btn-primary" id="cancelBtn" ><?php echo showOtherLangText('Cancel'); ?></a> 
+                        </div>
 
                     </div>
 
@@ -1437,14 +1435,14 @@ if ($paymentRow['paymentStatus']==1)
     }
     </script>
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Find all elements with the class 'grand-total'
-    const grandTotalElements = document.querySelectorAll('.grand-total');
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Find all elements with the class 'grand-total'
+//     const grandTotalElements = document.querySelectorAll('.grand-total');
 
-    if (grandTotalElements.length > 0) {
-        grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
-    }
-});
+//     if (grandTotalElements.length > 0) {
+//         grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
+//     }
+// });
 </script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>

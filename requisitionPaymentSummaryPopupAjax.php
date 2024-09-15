@@ -55,7 +55,7 @@ if($paymentRow['paymentStatus']==1)
 
 
 $content .= '<div class="modal-header pb-3"> 
-                      <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
+                      <div class="mb-modal-close-icon position-static w-100">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                     <div class="d-flex align-items-center justify-content-end w-100">
                         <a href="inv_pdf_download.php?orderId='.$_POST['orderId'].'"" class="btn btn-primary" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
                         
@@ -72,18 +72,18 @@ $content .= '<div class="modal-header pb-3">
                             { 
 
                                
-                                $content .= '<p class="f-01 mb-0 payment-status-text">'. showOtherLangText('RECEIVED').'</p>';
+                                $content .= '<p class="f-01 mb-0 payment-status-text text-uppercase">'. showOtherLangText('RECEIVED').'</p>';
                         
                             }
                             elseif($_GET['paymentStatus']==2) 
                             { 
-                               $content .= '<p class="f-01 mb-0 payment-status-text">'. showOtherLangText('REFUNDED').'</p>';
+                               $content .= '<p class="f-01 mb-0 payment-status-text text-uppercase">'. showOtherLangText('REFUNDED').'</p>';
                           }else{ 
 
-                              $content .= '<p class="f-01 mb-0 payment-status-text">'. showOtherLangText('PENDING'). '</p>';
+                              $content .= '<p class="f-01 mb-0 payment-status-text text-uppercase">'. showOtherLangText('PENDING'). '</p>';
                              }
        
-        $content .= '<p class="f-01">'. showOtherLangText('INVOICE').'</p>';
+        $content .= '<p class="f-01 text-uppercase">'. showOtherLangText('INVOICE').'</p>';
         $content .= '</div><div>';
                     $clientQry = " SELECT * FROM tbl_client WHERE id = '".$_SESSION['accountId']."' ";
                     $clientResult = mysqli_query($con, $clientQry);
@@ -105,17 +105,17 @@ $content .= '<div class="modal-header pb-3">
                                                 <td class="font-wt">
                                                     '. showOtherLangText('Invoice').' #
                                                 </td>
-                                                <td class="in-val-p">'. getinvoiceNumber($paymentInfoRow['invoiceNumber']).'</td>
+                                                <td class="in-val-p dark__td__color">'. getinvoiceNumber($paymentInfoRow['invoiceNumber']).'</td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt">'. showOtherLangText('Task').' #</td>
-                                                <td class="in-val-p">'. $ordersRow['ordNumber'] .'</td>
+                                                <td class="in-val-p dark__td__color">'. $ordersRow['ordNumber'] .'</td>
                                             </tr>
 
                                             <tr>
                                                 <td class="font-wt">'. showOtherLangText('Date').' #
-                                                </td><td class="in-val-p">';
+                                                </td><td class="in-val-p dark__td__color">';
                                                 if ($paymentRow['paymentStatus'] ==1 ) { 
                                                     $content .=   $paymentRow['paymentDateTime']; 
                                                 }else{ 
@@ -154,7 +154,7 @@ $content .= '<div class="modal-header pb-3">
                             </div>
 
                             <br>
-                            <div class="mt-3 invoiceto-p">
+                            <div class="invoiceto-p">
                                 <p class="f-02 mb-2">'. showOtherLangText('Invoice To').': </p>
                                 <p class="f-03 in-val-p mb-1">'. $paymentInfoRow['invoiceName'].'</p>
                                 <p class="f-03 in-val-p mb-1">'. nl2br($paymentInfoRow['invoiceAddress']).'</p>
@@ -162,9 +162,9 @@ $content .= '<div class="modal-header pb-3">
                                 <p class="f-03 in-val-p mb-1">'. $paymentInfoRow['invoicePhone'].'</p>
                             </div>
                             <br>
-
-                            <table class="modal-table fs-12 w-100 mt-2 mt-sm-3 mt-lg-4">
-                                <thead style="background: #A9B0C0 !important;">
+                            <div class="table-responsive"> 
+                            <table class="modal-table payment__table fs-12 w-100 mt-2 mt-sm-3 mt-lg-4">
+                                <thead>
                                     <tr class="tr-bg-1">
                                         <th>#</th>
                                         <th style="width: 30%;">'. showOtherLangText('Item').'</th>
@@ -216,10 +216,10 @@ $content .= '<div class="modal-header pb-3">
                                     
                                 $content .= '</tbody>
                             </table>
-                            <div class="divider-blue"></div>
+                            </div>
                             <br>
-                            <div class="tabel-body-p-footer row g-3">
-                                <div class="table1 col-md-4">
+                            <div class="tabel-body-p-footer row g-3 total__table__res__row__reverse">
+                                <div class="table1 col-md-4 data__col">
                                     <p class="f-02 mb-1">'. showOtherLangText('Payment Method') .':</p>';
                             $sqlSet = " SELECT * FROM  tbl_accounts WHERE id='".$paymentRow['bankAccountId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
                                     $resultSet = mysqli_query($con, $sqlSet);
@@ -228,8 +228,8 @@ $content .= '<div class="modal-header pb-3">
                                     <p class="f-03 mb-1 in-val-p">'.$accDet['accountName'].'</p>';
                              $content .= '</div>
 
-                               <div class="col-md-7 d-flex justify-content-end"> 
-                                <table class="grand-total-tabel m-0"><tbody>';
+                               <div class="table__col large"> 
+                                <table class="grand-total-tabel m-0 w-100"><tbody>';
                             $sqlSet="SELECT SUM(totalAmt) as sum1 from tbl_order_details where ordId='".$_POST['orderId']."'   AND account_id = '".$_SESSION['accountId']."' AND (customChargeType='1' OR customChargeType='0')";
                             $resultSet = mysqli_query($con, $sqlSet);
                             $chargeRow = mysqli_fetch_array($resultSet);    

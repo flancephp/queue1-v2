@@ -387,7 +387,11 @@ if($_SESSION['deptId'] != '')
         }
         .txnmRow { width: 40%; }
         .curRow { width: 50%; }
-        @media screen and (min-width: 1600px) { .prcTable { font-size: 1rem; } }
+        @media screen and (min-width: 1600px) { 
+            .prcTable { font-size: 1rem; } 
+            .nwNxt-Btn .btnBg { max-width:10.875rem;margin-left: auto; }
+            .nwNxt-Btn .btnBg .btn { width: 100%; }
+        }
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
         @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
         @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }

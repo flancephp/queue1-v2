@@ -518,14 +518,14 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
             padding: .5rem;
         }
 
-        .form-info tr,
+        /* .form-info tr,
         .payDetail tr {
             height: 38px !important;
         }
 
         .inv-detail tr {
             min-height: 38px !important;
-        }
+        } */
 
         .wht-btn:hover,
         .wht-btn:focus,
@@ -574,6 +574,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
         .payment__table th:nth-child(5), .payment__table td:nth-child(5) {
             width: 14%;
         }
+        .remove__input__padding .form-control { padding: 0 .5rem;line-height: 1;color: #232859; }
     </style>
 
 </head>
@@ -648,25 +649,25 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('Supplier Invoice'); ?> #
                                                 </td>
-                                                <td class="in-val-p" id="supInv"><?php echo $supplierInvoice;?></td>
+                                                <td class="in-val-p dark__td__color" id="supInv"><?php echo $supplierInvoice;?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt">
                                                     <?php echo showOtherLangText('PAYMENT') ?> #
                                                 </td>
-                                                <td class="in-val-p"><?php echo setPaymentId($paymentId);?></td>
+                                                <td class="in-val-p dark__td__color"><?php echo setPaymentId($paymentId);?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Task'); ?> #</td>
-                                                <td class="in-val-p"><?php echo $orderRow['ordNumber'] ?></td>
+                                                <td class="in-val-p dark__td__color"><?php echo $orderRow['ordNumber'] ?></td>
                                             </tr>
     
                                             <tr>
                                                 <td class="font-wt"><?php echo showOtherLangText('Date'); ?> #
                                                 </td>
-                                                <td class="in-val-p"><?php echo $orderRow['ordDateTime']?></td>
+                                                <td class="in-val-p dark__td__color"><?php echo $orderRow['ordDateTime']?></td>
                                             </tr>
     
                                         </tbody>
@@ -703,7 +704,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             </div>
 
                             <br>
-                            <div class="Payment-to paymentto-p mt-3">
+                            <div class="Payment-to paymentto-p">
                                 <p class="f-02 mb-2"><?php echo showOtherLangText('PAYMENT To') ?></p>
                                 <p id="name" class="f-03 in-val-p mb-1"><?php echo $supName; ?></p>
                                 <p id="address" class="f-03 in-val-p mb-1"><?php echo isset($payInfoRow['supplierAddress']) ? nl2br($payInfoRow['supplierAddress']) : nl2br($address);?></p>
@@ -715,7 +716,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                             <div class="table-responsive mt-4">
 
                                 <table class="modal-table fs-12 w-100 payment__table">
-                                    <thead style="background: #A9B0C0 !important;">
+                                    <thead>
                                         <tr class="tr-bg-1">
                                             <th>#</th>
                                             <th><?php echo showOtherLangText('Item'); ?></th>
@@ -823,13 +824,16 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="divider-blue"></div>
+                            <!-- <div class="divider-blue"></div> -->
                             <br>
-                            <div class="tabel-body-p-footer gap-3 flex-wrap">
-                                <div class="table1 col-md-4">
-                                    <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method') ?>:</p> 
+                            <div class="row g-4 justify-content-between total__table__res__row__reverse">
+                                <div class="data__col col-md-4">
+                                    <div class="table1"> 
+                                        <p class="f-02 mb-1"><?php echo showOtherLangText('Payment Method') ?>:</p> 
+                                    </div>
                                 </div>
-                                <table class="grand-total-tabel col">
+                                <div class="table__col">
+                                <table class="grand-total-tabel w-100">
                                 <?php 
                                 //get the sum of all product and item level charges  
                                 $sqlSet="SELECT SUM(totalAmt) as sum1, SUM(curAmt) AS sum2 from tbl_order_details where ordId='".$_GET['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
@@ -896,7 +900,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
     { ?>
      <tr>
                                     <td> 
-                                        <div class="d-flex gap-1"> 
+                                        <div class="d-flex gap-1 align-items-center"> 
                                             <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a> 
                                             &nbsp;<?php echo $row['feeName'];?>
                                         </div>
@@ -908,7 +912,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
     <?php }else{ ?>
      <tr>
                                     <td>
-                                        <div class="d-flex gap-1">
+                                        <div class="d-flex gap-1 align-items-center">
                                             <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
     
                                             <?php echo $row['feeName'];?> 
@@ -953,7 +957,7 @@ if ($orderRow['ordCurId'] > 0)
 { ?>
 <tr>
                                     <td>
-                                        <div class="d-flex gap-1"> 
+                                        <div class="d-flex gap-1 align-items-center"> 
                                             <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
                                             &nbsp;<?php echo $row['feeName'];?>
                                         </div>
@@ -966,7 +970,7 @@ if ($orderRow['ordCurId'] > 0)
 
 <tr>
                                     <td> 
-                                        <div class="d-flex gap-1"> 
+                                        <div class="d-flex gap-1 align-items-center"> 
                                             <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a> 
                                             &nbsp;<?php echo $row['feeName'];?>
                                         </div>
@@ -998,7 +1002,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
     if ($orderRow['ordCurId'] > 0){ ?>
                <tr>
                                     <td>  
-                                        <div class="d-flex gap-1"> 
+                                        <div class="d-flex gap-1 align-items-center"> 
                                             <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a> 
                                             &nbsp;<?php echo $row['feeName'];?>
                                         </div>
@@ -1011,7 +1015,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
                <tr>
                                     <td>
-                                        <div class="d-flex gap-1"> 
+                                        <div class="d-flex gap-1 align-items-center"> 
                                             <a title="<?php echo showOtherLangText('Delete') ?>" href="javascript:void(0)" onClick="getItemDelNumb('<?php echo $row['id'];?>', '<?php echo $_GET['orderId'];?>');" style="color:#808080" class="glyphicon glyphicon-trash"><span class="dlTe"></span></a>
                                             &nbsp;<?php echo $row['feeName'];?>
                                         </div>
@@ -1049,7 +1053,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                 </tr>
                                 <?php } ?>
                                 </table>
-
+                                </div>
                             </div>
 
                             <br>
@@ -1070,8 +1074,8 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                         </h6>
                                     </div>
 
-                                    <div class="inv-top">
-                                        <table class="mr-btm">
+                                    <div class="inv-top mb-3">
+                                        <table class="mr-btm remove__input__padding">
                                             <tbody class="payDetail">
                                                 <tr>
                                                     <td><?php echo showOtherLangText('PAYMENT') ?> #</td>
@@ -1096,7 +1100,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                         </table>
                                     </div>
 
-                                    <div class="inv-detail">
+                                    <div class="inv-detail mb-3">
                                         <table cellpadding="0" cellspacing="0" width="100%">
                                             <tbody class="frm-info" style="line-height: 40px;">
                                                 <tr class="mb-adrs">
@@ -1212,7 +1216,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                     <div class="paySelect">
                                         <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                                             <tbody class="form-info">
-                                                <tr class="" style="height: 48px;">
+                                                <tr class="">
                                                     <td><?php echo showOtherLangText('Payment Type') ?></td>
                                                     <td>
                                                         
@@ -1743,14 +1747,14 @@ phone.innerHTML = supplierPhone;
 }
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Find all elements with the class 'grand-total'
-    const grandTotalElements = document.querySelectorAll('.grand-total');
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Find all elements with the class 'grand-total'
+//     const grandTotalElements = document.querySelectorAll('.grand-total');
 
-    if (grandTotalElements.length > 0) {
-        grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
-    }
-});
+//     if (grandTotalElements.length > 0) {
+//         grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
+//     }
+// });
 </script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
