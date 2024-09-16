@@ -405,6 +405,10 @@ $otherChrgQry=mysqli_query($con, $sql);
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/style_p.css">
     <style>
+        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
+        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
+        .container{max-width:100%;}
         /* .dropdown-toggle.tabFet:hover, .dropdown-toggle.tabFet:focus { border-color: var(--color-primary) !important;background-color: var(--color-primary);box-shadow: none; } */
         .btn-primary:focus {outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;} 
         .btn-check:focus + .btn, .btn:focus {box-shadow: none !important; }
@@ -414,17 +418,34 @@ $otherChrgQry=mysqli_query($con, $sql);
         .featRow .stockFeat .dropdown-menu {overflow: hidden;}
         .featRow .stockFeat .dropdown-menu a { display: flex;gap:.5rem;font-size:12px; padding: 5px 16px;}
         .featRow .stockFeat .dropdown-menu a:hover { background-color: #e9ecef;}
-        .featRow .stockFeat .dropdown-menu a svg {width: 18px;height: 18px;}
-        .featRow .stockFeat .dropdown-menu.show {transform: translate(0, 70px) !important;}
+        .featRow .stockFeat .dropdown-menu a svg {width: 1.125rem;height: 1.125rem;} 
         .stkRow .stockFeat:hover  .dropdown-menu a{ color: #666c85 !important; }
+        .curRow { font-size:1.125rem; }
+        .txnmRow { font-size:1rem;}
         
+        .recive-Item { font-weight:500; }
+        .compact__tb__bdy .tb-bdy, .itmBody { font-weight:400;font-size:.875rem; }
+        html[dir='rtl'] .ordInfo.rcvInfo.newFeatures { padding-left: 0;position: relative; }
         @media screen and (min-width: 1600px) {
-         .update .newFeatures { padding: 0 37px 0 88px; }
+            html[dir='rtl'] .ordInfo.rcvInfo.newFeatures { left:-10px; }
+            .compact__tb__bdy .tb-bdy { padding: .75rem .5rem;font-size:1rem;font-weight:400;color: #232859;line-height: 1.3; }
+            .itmTable { font-size: 1rem; }
+            .update .newFeatures { padding: 0 37px 0 88px; }
+            html[dir='rtl'] .container.topOrder.rcvOrder { margin-top: -1rem; }
+            .rcvInfo { padding: 0 49px 0 50px; }
+            .fees__row .tb-bdy { line-height: 3; }
         }
+        @media screen and (min-width: 1200px) {
+            html[dir='rtl'] .container.topOrder.rcvOrder { margin-top: -1.5rem; }
+        }
+        .ttlOtr-RecPrc.tb-bdy, .ttlDft-RecPrc.tb-bdy { color:var(--color-primary);font-weight:600; }
+        .ttlDft-RecPrc.tb-bdy.input {color: #232859;font-weight:400;  }
         @media(max-width:1200px){
             .update .rcvOrder .smBtn { padding: 0;}
         }
         @media(max-width:991px){ 
+            .curRow { font-size:.875rem; }
+            .txnmRow { font-size:.75rem;}
             .update .rcvOrder .smBtn .btn { height:40px;padding:0 16px;}
             .update .rcvOrder .smBtn .fetBtn img { height:40px; }
             .update .rcvOrder .btnBg{width: auto;}
@@ -448,14 +469,16 @@ $otherChrgQry=mysqli_query($con, $sql);
             .update.recieved-order-section .recPrc-Unit, .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { width: 80% !important; margin-left: auto; }
             html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-left: 0;margin-right: auto; }
             .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc  { width: 50%;text-align: left; }
-            .update .recCr-Type { width: 100%; } 
-            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:1.75rem;right:1rem;max-width:35%;}
+            .update .recCr-Type { width: 100%;margin-top: .35rem; } 
+            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:1.5rem;right:1rem;max-width:36.5%;}
             .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price .form-control { width:100%;}
             html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { right:auto;left:1rem;}
             html[dir="rtl"] .update .recItm-Unit, html[dir="rtl"] .update .recCr-Type .tb-bdy, html[dir="rtl"] .update .ttlDft-RecPrc, html[dir="rtl"] .update .ttlOtr-RecPrc { text-align: right; }
             
         }
         @media(min-width:992px){
+            .nwNxt-Btn .btnBg { max-width:174px;margin-left:auto;}
+            html[dir="rtl"] .nwNxt-Btn .btnBg { margin-left:0;margin-right: auto;}
             .update .newFeatures { padding: 0 32px 0 65px; }
             .date__gap{margin-left: 3rem;}
             html[dir="rtl"] .date__gap{margin-left: 0;margin-right: 3rem;}
@@ -469,10 +492,15 @@ $otherChrgQry=mysqli_query($con, $sql);
         }
         @media(max-width:1024px){
             .update .topOrder { padding: 8px 10px 0 10px !important; }
+            .container.topOrder.rcvOrder { padding-top: 0 !important; }
             .dropdown-toggle.tabFet { padding: 14px 10px; }
+        } 
+        @media(min-width:1400px) {
+            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 50px; }
         }
-
-        
+        @media(min-width:992px) and (max-width:1399px) {
+            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 44px; }
+        }
     </style>
 </head>
 
@@ -613,7 +641,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2 text-end smBtn nwNxt-Btn">
+                                    <div class="col-md-2 text-end smBtn nwNxt-Btn pe-0">
                                         <div class="btnBg order-2">
                                             <a href="javascript:void(0)" class="btn btn-primary w-100 receive-btn d-inline-flex align-items-center justify-content-center"><?php echo showOtherLangText('Receive');?></a>
                                         </div>
@@ -972,7 +1000,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                 ?>
                                 
                      <div class="newOrdTask recOrdTask">
-                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody">
+                                    <div class="d-flex align-items-center border-bottom itmBody recOrd-TblBody fees__row">
 
                                     <div class="prdtImg tb-bdy">
                                             <p><?php echo $y; ?></p>
@@ -1147,7 +1175,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                     $showOtherCurrency = showOtherCur($boxPriceOther, $curDet['id']);
                     $showOtherCurrency = trim($showOtherCurrency, $curDet['curCode']);
 
-                ?><div class="ttlDft-RecPrc tb-bdy">
+                ?><div class="ttlDft-RecPrc tb-bdy input">
                                                     <p><input type="text" id="priceIdOther<?php echo $x;?>" name="priceOther[<?php echo $row['id'];?>]"
                                                     autocomplete="off" value="<?php echo $showOtherCurrency; ?>"
                                                     size="5" class="form-control qty-itm recQty-Receive" onChange="showTotalOther('<?php echo $x;?>')">

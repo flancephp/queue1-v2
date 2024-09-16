@@ -961,8 +961,8 @@ $colsArr = [
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="Assets/css/style.css">
+<link rel="stylesheet" href="Assets/css/module-A.css">
 <!-- <link rel="stylesheet" href="Assets/css/style1.css"> -->
-<!-- <link rel="stylesheet" href="Assets/css/module-A.css"> -->
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
 <style>
@@ -1010,12 +1010,15 @@ $colsArr = [
     .issueDtl {
         min-height: 160px !important;
     }
-
+    @media screen and (min-width: 1600px) {
+    .paidIsue, .usdCurr, .otrCurr, .recIsue, .Variance, .accntDtl p:last-child {
+        font-size: 1.125rem; 
+    }
+    }
     .accntDtl {
         max-height: 160px !important;
         overflow-y: scroll;
-    }
-    .itmBody > div:first-child p { font-size: 15px; }
+    } 
     @media (min-width:1137px) {
         /* 29 date tabel css */
         .hisTypclm .dropdown-toggle,
@@ -1039,11 +1042,7 @@ $colsArr = [
         } */
 
 
-        .hisValclm {
-            width: 7% !important;
-            padding-left: 0;
-            flex-grow: 0.5;
-        } 
+        
         .hisTask .tb-bdy  {
          padding-left: 0;
         }
@@ -1067,14 +1066,52 @@ $colsArr = [
         .hisTblbody1   .hisStatusclm  ,  .itmTable1  .hisStatusclm {
             max-width:75px;
         }
-        .date-dpd {width: 15%; }
-        .user-dpd {width: 15%; }
-        .type-dpd {width: 20%; }
-        .refer-to-dpd {width: 25%; } 
+        .numItmclm { width: 15% !important; }
+        .hisValclm { width: 8% !important;padding-left: 0;flex-grow: 0.5; } 
+        .hisDateclm, .user-dpd { width: 18%; } 
+        .date-dpd, .hisDateclm.date { width: 15%; } 
+        .type-dpd, .update .hisTask .hisTypclm {width: 20%; }
+        .refer-to-dpd, .update .hisTask .hisRefrclm {width: 32% ; } 
+        .dropdnbtns .stsHiscol,
+        .cntTableData .stsHiscol {
+            width: 30% !important;
+        }
+
+
         .usdCurr {display: none;}
-        /* .srHisclm {
-            min-width: fit-content;
+        .dspBlk  {width: 90%;}
+        .issueIn  {width: 34% !important;}
+        .issueDtl .Variance { width: 33% !important;}
+        .issueDtl1 .dspBlk  {width: 47%;}
+        .issueDtl1 .issueIn  {width: 55% !important;}
+        .issueDtl.issueDtl1 .Variance { width: 14% !important;}
+
+
+        .paidIsue .col-md-3 {
+            width: fit-content !important;
+        }
+    
+        
+        
+        
+
+        /* .hisStatusclm, .hisAcntclm {
+            width: 30% !important;
+            padding-left: 0px;
         } */
+        .numRef3.numRef3 {
+            width: 15% !important;
+            flex-grow: 0  !important;
+            justify-content: unset !important;
+        }
+            .numRef4.numRef4 {
+            width: 25% !important;
+            flex-grow: 0 !important;
+        }
+        .numRef4 .hisTypclm {
+            width: initial;
+        }
+         
     }
 /*       .hisTblbody1 .numRef .tb-bdy,
     .hstTbl-head1 .numRef .tb-bdy{
@@ -1110,7 +1147,10 @@ $colsArr = [
     max-height: 250px;
     overflow-y: scroll;
 }
-  
+.cn-btn { color: #232859; }
+.cnfrm, .doc-bx, .dlt-bx { margin:0; } 
+.hisTask .cnfrm, .hisTask .doc-bx, .hisTask .dlt-bx { height: 55px;border-radius:6px; }
+.hisTask .dlt-bx {  width: 35px; }
   @media (max-width:1024px) {
     .numRef {
         width: 100%;
@@ -1157,13 +1197,13 @@ $colsArr = [
     background-color: #7a89ff;
     border-color:  #7a89ff ;
   }
-
- .paidIsue .pdAmount,
+  .pdAmount, .pendAmount { font-weight:600; }
+ /* .paidIsue .pdAmount,
  .paidIsue .pendAmount,
  .recIsue .pdAmount-rec,
  .recIsue .pendAmount-rec {
     font-weight: 400 !important;
-  }
+  } */
   /* hover effects */
   .reloadBtn a:hover {
     color: #fff !important;
@@ -1175,7 +1215,8 @@ $colsArr = [
   }
 
   
-
+  .numItmclm, .hisDateclm, .hisValclm, .numItmclm a, .hisDateclm a, .hisValclm a, .hisStatusclm p, .numItmclm p, .action-column-p p{font-weight:600;}
+ 
 #itemDiv, #taskDiv{ background-color: #fff !important;}
 
 .issueDtl {padding: 9px 10px;}
@@ -1270,11 +1311,11 @@ $colsArr = [
 .input-group {align-items: center;padding: 1rem 2rem;gap: .5rem;}
 .input-group button {border-radius: 10px !important;}
 .input-group input {background-color: white;border-radius: 10px !important;max-width: 200px;height: 32px;padding: 0 .5rem;}
-.srHisclm { width: 10%; }
-html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
+.srHisclm { width: 3.5rem; }
+html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 .overflowTable { background-color: #fff; }
 .site-modal thead tr th { font-size:12px; }
-.modal-content {overflow-x:hidden; }
+.modal-content {overflow-x:hidden !important; }
 @media(max-width:767px){
     .modal .modal-table { font-size: 5px }
     .modal .table-cell { padding: 1px 5px;font-size:5px; }
@@ -1288,6 +1329,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 @media(min-width:992px) {
     #modalfiltertop { position: absolute;  top:1.7rem;left:4rem; }
+    html[dir="rtl"] #modalfiltertop { left:auto;right:4rem; }
 }
 .info__table td:nth-child(1){width:55%}
 
@@ -1296,42 +1338,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 
 @media (min-width: 1137px) {
     
-    .dspBlk  {width: 90%;}
-    .issueIn  {width: 34% !important;}
-    .issueDtl .Variance { width: 33% !important;}
-    .issueDtl1 .dspBlk  {width: 47%;}
-    .issueDtl1 .issueIn  {width: 55% !important;}
-    .issueDtl.issueDtl1 .Variance { width: 14% !important;}
-
-
-    .paidIsue .col-md-3 {
-        width: fit-content !important;
-    }
- 
-    .dropdnbtns .stsHiscol,
-    .cntTableData .stsHiscol {
-        width: 25% !important;
-    }
-    .numItmclm {
-        width: 15% !important;
-    }
-
-    /* .hisStatusclm, .hisAcntclm {
-        width: 30% !important;
-        padding-left: 0px;
-    } */
-    .numRef3.numRef3 {
-        width: 15% !important;
-        flex-grow: 0  !important;
-        justify-content: unset !important;
-    }
-        .numRef4.numRef4 {
-        width: 25% !important;
-        flex-grow: 0 !important;
-    }
-    .numRef4 .hisTypclm {
-        width: initial;
-    }
+    
 }
 /* @media (min-width:1600px) {
     .res__filter__box .itmTable {
@@ -1360,7 +1367,7 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) > div {
     width: 100% !important;
-}
+}1rem
 
 .modal-footer .btn {
     font-size: .875rem;
@@ -1371,8 +1378,8 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 
 
-.grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
-.invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
+/* .grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
+.invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;} */
 
 
 .mb-modal-close-icon { right:-10px;top:3px;width: auto; }
@@ -1384,10 +1391,14 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .update .itmBody { padding-top: 0;padding-bottom: 0;line-height: 1.2; }
 .update .dropdown-toggle.runLink .fa-solid { right:0; }
 .update .doc-bx:hover .dropdown-toggle.runLink svg path, .update .doc-bx:hover .dropdown-toggle.runLink svg rect { stroke: var(--color-white); }
-.update .itmTable, .update .srHisclm p { font-size: 14px; }
+.update .itmTable, .update .srHisclm p { font-size: 1rem; }
 .update .hisStk-typ, .update .hisReq-typ, .update .hisOrd-typ { width: 100%;max-width:105px; }
- 
+.update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p { font-weight:700 !important;font-size:1rem !important; }
 .update .itmTable .dropdown-toggle{ height:43px; }
+.newHistoryTask { position: relative; }
+.order_num.numItmclm p { color: #232859; }
+
+.srHisclm p { font-size:1.35rem !important;font-weight:600 !important; }
 @media(max-width:1599px){
     .update .itmBody > div:first-child p, .update .hisTask .tb-bdy { font-size: 12px; }
     .update .itmTable .dropdown-toggle{ padding:7px 5px; height:34px; }
@@ -1398,23 +1409,30 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 }
 @media screen and (min-width: 1600px) {
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 100%; }
+  .itmBody { font-size:1rem; }
+  
+  
 }
 @media screen and (min-width: 2000px) {
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1600px; }
+  html[dir=rtl] .newOrder { padding: 9px 12px 0 17px !important;}
 }
 @media(min-width: 1024px) {
-    .dropdnbtns .numRef, .cntTableData .numRef { width: calc(61% - 185px) !important; }
-    .update .res__filter__box .his-Paybtn, .update .shrtHisclm { width: 185px;padding-right: 0 !important; }
-    .update .hisTask .hisTypclm { width: 20%; }
-    .update .hisTask .hisRefrclm { width: 25%; }
+    .dropdnbtns .numRef, .cntTableData .numRef { width: calc(54% - 185px) !important; }
+    .update .res__filter__box .his-Paybtn, .update .shrtHisclm { width: 195px;padding-right: 0 !important; } 
     .update .stsHiscol .hisStatusclm, .update .stsHiscol .hisAcntclm { width:25%; }
+    .srHisclm { position:absolute;top:1rem;left:-3.5rem;text-align: right; }
+    html[dir="rtl"] .srHisclm { right:-3.5rem;left:auto;text-align: left;padding-left: .5rem; }
+    .update .hisParent-sec { padding-left: 4rem;margin-left: -4rem; }
+    html[dir="rtl"] .update .hisParent-sec { padding-left: 0;margin-left: 0;padding-right: 6rem;margin-right: -4rem; }  
     
 }
+.fw-normal p { font-weight:400 !important; }
 
-
-
-
-
+.modal-table .table-cell { line-height: 1.3;}
+.cnfrm:hover .h3, .doc-bx:hover .h3, .dlt-bx:hover .h3 { color: var(--color-white); }
+.hisTask .cnfrm:hover a .h3, .hisTask .doc-bx:hover a .h3, .hisTask .dlt-bx:hover a .h3 { color: var(--color-white); }
+.hisTask .cnfrm:hover, .hisTask .doc-bx:hover, .hisTask .dlt-bx:hover { background: var(--color-primary) !important; }
 
 </style>
 
@@ -1712,7 +1730,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                                         <p class="pdStatus">Paid</p>
                                                         <p class="pendStatus">Pending</p>
                                                     </div>
-                                                    <div class="col-md-9 text-center">
+                                                    <div class="col-md-9 text-center fw-normal">
                                                         <p class="usd-In">$</p>
                                                         <p class="ttlAmount"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
                                                         <p class="pdAmount"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
@@ -1767,7 +1785,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                                         <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
                                                         <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                     </div>
-                                                    <div class="col-md-9 text-center">
+                                                    <div class="col-md-9 text-center fw-normal">
                                                         <p class="usd-In"><?php echo ($otherCurrRow['curCode']); ?></p>
                                                         <p class="ttlAmount"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
                                                         <p class="pdAmount"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '&nbsp;'; ?></p>
@@ -1892,7 +1910,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                         <?php if (isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields)) { ?>
                                         <?php } else { ?>
                                             <div class="tb-bdy numItmclm"><div class="d-flex align-items-center">
-                                                <p style="font-size: 12px;"><?php echo showOtherLangText('Number'); ?></p>
+                                                <p><?php echo showOtherLangText('Number'); ?></p>
                                                 <span class="dblArrow">
                                                     <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
                                                     <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
@@ -2046,7 +2064,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 
                                 <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
                                     <div class="label__box action-column-p">
-                                        <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center justify-content-center">
                                             <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
                                             <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
                                         </div>
@@ -2315,12 +2333,12 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                             
                                                 <?php if (isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields)) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy numItmclm"><p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p> </div>
+                                                    <div class="tb-bdy numItmclm order_num"><p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p> </div>
                                                 <?php } ?>
                                            
                                             <?php if (isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields)) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy hisDateclm "><p class="fstDt"><?php echo $dateType; ?></p> </div>
+                                                    <div class="tb-bdy hisDateclm date"><p class="fstDt"><?php echo $dateType; ?></p> </div>
                                                 <?php } ?>
                                            
 
@@ -2406,7 +2424,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                                     <p class="mb-Acntnum"></p>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-end his-Paybtn">
+                                            <div class="d-flex gap-2 align-items-center justify-content-end his-Paybtn">
                 <?php
                 if ($orderRow['ordType'] == 1) //order
                 {
@@ -2437,11 +2455,11 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                                     }
                                 } else {
 
-                    echo '<div class="cnfrm" style=" border: none; background: transparent; box-shadow: none;"></div>';
+                    echo '<div class="cnfrm" style=" border: none; background: transparent !important; box-shadow: none;"></div>';
                 }
 
                                         ?>
-                                                <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-center gap-2">
                                                     <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                         <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <!-- <span class="docMent"></span> -->

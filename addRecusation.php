@@ -329,6 +329,72 @@ if($_SESSION['deptId'] != '')
 
     <style>
         .ord-Box.position { border-color: #f05d53; }
+        .fa-angle-right, .fa-angles-left {padding: 0; font-size: 1rem; width: 30px;height:30px; }
+        .d-flex.align-items-center.itmTable > div:first-child, .itmBody > div:first-child { width: 4rem; }
+        .reqImg { width: 6rem; }
+        .tb-head, .reqClm-Itm { font-weight:500; }
+        .reqCnt-Fst { width: calc(54% - 10rem); } 
+        .reqCnt-Scnd { width: 20%; }
+        .cntTable { color: #232859;font-weight: 400; }
+        .reqClm-Ttl.tb-bdy { font-weight:600; }
+        @media screen and (min-width: 1600px) {
+            .newFeatures { padding: 0 39px 0 88px; }
+        }
+        @media screen and (max-width: 1599px) {
+            .newFeatures { padding-right: 30px !important; }
+            .itmTable, .itmBody { font-size: 14px; }
+            .reqImg { width: 4rem; }
+            .reqCnt-Fst { width: calc(54% - 8rem); } 
+            .reqClm-Qty { width: 45%; }
+            .reqClm-Ttl { width: 55%; }
+        }
+        @media screen and (max-width: 1024px) {
+            .newFeatures {
+                padding-right: 0px !important;
+            }
+        }
+        @media screen and (max-width: 991px) {
+            .nwNxt-Btn .btn, .fetBtn img { height:40px; }
+            .topOrder { padding: 14px 10px 0 10px !important; }
+            .reqCnt-Scnd { width: 30%; }
+            .reqCnt-Fst { width: calc(70% - 8rem); }
+            .reqClm-Qty, .reqClm-Ttl { width: 100%;text-align: left; } 
+            html[dir='rtl'] .reqClm-Qty, html[dir='rtl'] .reqClm-Ttl { text-align: right; } 
+            .reqCnt-Scnd.d-flex.align-items-center { flex-wrap:wrap; }
+            .reqClm-Unit { width: auto; }
+            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0; }
+            html[dir=rtl] .newReq .glb-btn { margin-bottom: 10px;  }
+            html[dir=rtl] .ord-Box { padding: 0px 15px; }
+            .ordDate, .ord-Box { width: 100%; }
+            .subTittle1 { display:flex;justify-content:space-between; }
+        }
+        @media screen and (max-width: 767px) {
+            .itmBody { position: relative; }
+            .itmBody > div:first-child { position: absolute;top: 0.25rem;left: .2rem;text-align: center;background: rgba(255, 255, 255, 0.8);display:block; }
+            html[dir='rtl'] .itmBody > div:first-child { left: auto;right:0; }
+            .reqCnt-Fst { width: calc(70% - 4rem); }
+            .reqClm-Itm p { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical; white-space: normal; }
+            .reqImg.tb-bdy { padding-left: 0; }
+            .ordFeature.margin { margin-left: auto;margin-right: auto; }
+            .featRow { justify-content:center; }
+        }
+        .form-control.qty-itm { font-weight:700;font-size:.875rem; }
+        .curRow .p-2 { text-align: left;width: 100%;flex:none;}
+        html[dir="rtl"] .curRow .p-2 { text-align: right; }
+        @media(min-width: 1200px) {
+            .curRow { font-size:1.125rem; }
+            .curRow .p-2 { padding-left: 15% !important; } 
+        }
+        .txnmRow { width: 40%; }
+        .curRow { width: 50%; }
+        @media screen and (min-width: 1600px) { 
+            .prcTable { font-size: 1rem; } 
+            .nwNxt-Btn .btnBg { max-width:10.875rem;margin-left: auto; }
+            .nwNxt-Btn .btnBg .btn { width: 100%; }
+        }
+        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
+        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
     </style>
 </head>
 
@@ -418,12 +484,12 @@ if($_SESSION['deptId'] != '')
                                     <div class="container">
 
                                         <div class="mbFeature">
-                                            <div class="d-flex justify-content-end">
+                                            <div class="d-flex justify-content-center justify-content-lg-end">
                                                 <div class="w-100 text-center" style="max-width: 347px;">
                                                     <div class="row g-3"> 
                                                         <div class="col-md-4">
                                                             <div class="featRow">
-                                                                <div class="ordFeature"> 
+                                                                <div class="ordFeature margin"> 
                                                                     <?php if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) { ?>
         
                                                                     <a href="addRecusation.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>"
@@ -525,8 +591,8 @@ if($_SESSION['deptId'] != '')
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn btn-primary form-submit-btn"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
-                                            <i class="fa-solid fa-angle-right"></i></a>
+                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center gap-1 px-3"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
+                                            <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i></a>
                                     </div>
                                     <div class="fetBtn">
                                         <a href="javascript:void(0)">
@@ -813,7 +879,7 @@ if($_SESSION['deptId'] != '')
                             <div class="reqSt-Qty tb-head">
                                 <p><?php echo showOtherLangText('S.Quantity'); ?></p>
                             </div>
-                            <div class="reqCnt-Scnd d-flex align-items-center">
+                            <div class="reqCnt-Scnd d-flex align-items-center flex-wrap">
                                 <div class="reqClm-Qty tb-head">
                                     <div class="d-flex align-items-center">
                                         <p><?php echo showOtherLangText('Quantity'); ?></p>
@@ -1128,7 +1194,7 @@ if($_SESSION['deptId'] != '')
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
-                            <button type="submit" id="feesave_add" name="feesave_add" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                            <button type="submit" id="feesave_add" name="feesave_add" class="btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
                         </div>
                     </div>
                 </div>
@@ -1170,7 +1236,7 @@ list'); ?></span><br>
                     <div class="modal-footer">
                         <div class="btnBg">
                             <button type="submit" id="addFee" name="addFee"
-                                class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                                class="btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
                         </div>
                     </div>
                 </div>
@@ -1360,11 +1426,11 @@ list'); ?></span><br>
                 <div class="modal-footer">
                     <div class="btnBg">
                         <button type="button" data-bs-dismiss="modal"
-                            class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                            class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
                     </div>
                     <div class="btnBg">
                         <button type="button" onclick=""
-                            class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                            class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                     </div>
                 </div>
             </div>
@@ -1381,11 +1447,11 @@ list'); ?></span><br>
                 <div class="modal-footer">
                     <div class="btnBg">
                         <button type="button" data-bs-dismiss="modal"
-                            class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                            class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
                     </div>
                     <div class="btnBg">
                         <button type="button" onclick=""
-                            class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                            class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                     </div>
                 </div>
             </div>

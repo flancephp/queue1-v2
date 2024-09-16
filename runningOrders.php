@@ -303,10 +303,12 @@ die();
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
 integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="Assets/css/style_new.css">
-<link rel="stylesheet" href="Assets/css/style1.css">
-<link rel="stylesheet" href="Assets/css/style_p.css">
+<link rel="stylesheet" href="Assets/css/style_new.css?v=1">
+ <link rel="stylesheet" href="Assets/css/style1.css">
+<!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 <style>
+    .srNum { color: #666C85; }
+    .container { max-width: 100% !important;}
     .supMem-Name { color: #3fb180; }
     /* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
     /* .modal .modal-table { min-width: 750px; } */
@@ -323,7 +325,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .modal .modal-header { padding:0; }
     }
     @media(min-width:992px) {
-        #modalfiltertop { position: absolute;top:1rem; left:4rem; }
+        #modalfiltertop { position: absolute;top:1rem; left:4rem; } 
     }
     .nav-bar a {
         color: #8C8FA7;
@@ -360,19 +362,33 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             align-items: start !important;
         }
         .new__layout .task-status {
-            width: 100% !important;
-            text-align: end;
+            width: 100% !important; 
         }
     }
     .status-ordered, { color: #232859; }
     .status-tmp-req, .status-tmp-order { color: #939393; }
     .status-req{ color:#232859; }
-    .task-list-status-col-p .new__layout .payOptnreq{justify-content: flex-end;}
+   
     @media (max-width: 767px) {
         .update .task-list-status-col-p .new__layout .payOptnreq, .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
             justify-content:flex-start;
         }
     }
+    .task-status { font-size:13px; }
+    @media(min-width:1400px) {
+        .task-status { font-size:1rem; }
+        .srNum p { font-size:1.25rem; }
+        .rntskHead .taskHead > div:first-child { font-size: 1rem; }
+    }
+    @media(min-width:1600px) { 
+        .srNum p { font-size:1.375rem; } 
+    }
+    .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq { width: 11.75rem !important;min-width: auto !important;gap: 0.5rem; }
+    .update .new__layout .payOptnreq { gap:0.5rem; }
+    .task-list-status-col-p .new__layout .payOptnreq{width: 118px;}
+    .update .new__layout .task-status { width: calc(100% - 19.12rem); }
+    .cn-btn { color: #232859; }
+    .cnfrm, .doc-bx, .dlt-bx { margin:0; } 
 </style>
 </head>
 
@@ -459,7 +475,7 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
 $result = mysqli_query($con, $sql);
 
         ?>
-        <section class="rntskHead">
+        <section class="rntskHead px-0">
             <div class="container">
                 <?php if(isset($_GET['cancel']) || isset($_GET['added']) || isset($_GET['requisitionAdded']) || isset($_GET['storageAdded']) || isset($_GET['storageAdded']) || isset($_GET['status']) || isset($_GET['assigned']) || isset($_GET['unAssigned']) || isset($_GET['updated']) ) {?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -512,9 +528,9 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                     <div style="width: 3%;"><?php echo mysqli_num_rows($result) > 0 ? mysqli_num_rows($result) : ''; ?></div>
                     <div class="d-flex align-items-center runTable py-1" style="width: 97%;">
 
-                        <div class="d-flex align-items-center" style="width: 55%;">
+                        <div class="d-flex align-items-center" style="width: 45%;">
                             <div style="width: 3%;">&nbsp;</div>
-                            <div class="d-flex align-items-center" style="width: 58%;">
+                            <div class="d-flex align-items-center" style="width: 72%;">
                                 <div class="p-1" style="width: 39%;">
                                     <p><?php echo showOtherLangText('Refer to') ?></p>
                                 </div>
@@ -533,8 +549,8 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 
 
                         </div>
-                        <div class="d-flex align-items-center" style="width: 45%;">
-                            <div class="p-1">
+                        <div class="d-flex align-items-center" style="width: 55%;">
+                            <div class="p-1 text-center" style="width: calc(100% - 19.12rem);">
                                 <p><?php echo showOtherLangText('Status') ?></p>
                             </div>
                         </div>
@@ -550,7 +566,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
             </div>
         </section>
 
-        <section class="runTask pb-5">
+        <section class="runTask pb-5 mx-0">
 
             <div class="container">
                 <?php
@@ -634,7 +650,7 @@ while($orderRow = mysqli_fetch_array($result))
 
                                 </div>
                                 <div class="align-items-center tmpStatus togleOrder task-list-status-col-p">
-                                    <div class="py-1 px-1 d-flex align-items-center stsBar new__layout">
+                                    <div class="py-1 px-1 d-flex align-items-center stsBar new__layout gap-2">
                                         <div
                                             class="task-status <?php echo $orderRow['status'].'---'.$orderRow['ordType']; if($orderRow['status']=='1' && $orderRow['ordType'] == 1) { echo 'status-done'; } ?> <?php  if($orderRow['status']=='0' || $orderRow['status']==null) { echo 'status-pending'; } ?><?php  if($orderRow['status']=='3' && $orderRow['ordType'] == 1) { echo 'status-req'; } ?><?php  if($orderRow['status']=='3' && $orderRow['ordType'] == 2) { echo 'status-assigned'; } ?>">
                                             <p><?php
@@ -812,7 +828,7 @@ while($orderRow = mysqli_fetch_array($result))
         <div class="modal-content">
 
             <div class="modal-body text-center fs-13">
-                <p><?php echo showOtherLangText('Please approve one more time the'); ?></p>
+                <p class="modal-title h1 mt-3"><?php echo showOtherLangText('Please approve one more time the issue out'); ?></p>
                 <input type="hidden" name="orderId" class="issueOutOrdId" value="">
             </div>
             <div class="modal-footer d-flex justify-content-between">

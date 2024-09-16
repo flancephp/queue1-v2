@@ -60,7 +60,7 @@ $content .= '<div class="modal-header pb-3">
                     <div class="payment-status-left payment-paid position-relative">
                         <div class="border-line"></div>
                         <div class="modal-body p-4 p-md-5">
-                            <div class="d-flex justify-content-between align-items-center">';
+                            <div class="d-flex justify-content-between align-items-center text-uppercase">';
                             if (isset($_POST['orderId']) && $paymentRow['paymentStatus']==1 ) 
 { 
 
@@ -179,7 +179,7 @@ $resultRow = mysqli_fetch_array($resSet);
                             <br>
 
                             <table class="modal-table fs-12 w-100 mt-md-4">
-                                <thead style="background: #A9B0C0 !important;">
+                                <thead>
                                     <tr class="tr-bg-1">
                                         <th>#</th>
                                         <th style="width: 30%;">'. showOtherLangText('Item').'</th>
@@ -304,9 +304,9 @@ $resultRow = mysqli_fetch_array($resSet);
                             </table>
                             <div class="divider-blue"></div>
                             <br>
-                            <div class="tabel-body-p-footer flex-wrap">
-                                <div class="table1 col-md-4">
-                                    <p class="f-02 mb-2">'. showOtherLangText('Payment Method').'</p>';
+                            <div class="row gy-4 gx-0 justify-content-between total__table__res__row__reverse">
+                                <div class=" data__col col-md-4"><div class="table1">
+                                    <p class="f-02 mb-2 ">'. showOtherLangText('Payment Method').'</p>';
                             $sqlSet= " SELECT * FROM tbl_payment WHERE orderId='".$paymentRow['orderId']."'  AND account_id = '".$_SESSION['accountId']."' order by id limit 1 ";
 
                                 $result= mysqli_query($con, $sqlSet);
@@ -343,10 +343,11 @@ $resultRow = mysqli_fetch_array($resSet);
                             
                                     }
                               
-                             $content .= '</div>
+                             $content .= '</div></div>
 
                                 <!-- grand totale  here -->
-                                <table class="grand-total-tabel">
+                                <div class="table__col">
+                                <table class="grand-total-tabel w-100">
                                     <tbody>';
                                $sqlSet="SELECT SUM(totalAmt) as sum1, SUM(curAmt) AS sum2 from tbl_order_details where ordId='".$_POST['orderId']."'  AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                             $resultSet = mysqli_query($con, $sqlSet);
@@ -518,7 +519,7 @@ $resultRow = mysqli_fetch_array($resSet);
                                     <tr></tr>';
                       }
                      $content .= '</tbody></table>
-
+                            </div>
                             </div>
 
                             <br>
