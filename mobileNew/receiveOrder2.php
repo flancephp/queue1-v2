@@ -59,28 +59,34 @@
     $orderResult = mysqli_query($con, $orderSql);
     $orderQry = mysqli_fetch_array($orderResult);
 
-    if ($orderQry['ordCurId'] > 0) 
-    {
-        $sqlQry = " SELECT SUM(curAmt) AS totalProductAmt FROM tbl_order_details WHERE ordId='".$assignRow['orderId']."' AND account_id='".$_SESSION['accountId']."' AND pId > 0 ";
-        $sqlResult = mysqli_query($con, $sqlQry);
-        $resultRow = mysqli_fetch_array($sqlResult);
-        $totalProductAmt = $resultRow['totalProductAmt'];
-
-        $subTotal = showOtherCur($totalProductAmt,$orderQry['ordCurId']);
-        $extraCharges = showOtherCur($orderDet['ordCurAmt']-$totalProductAmt,$orderQry['ordCurId']);
-        $netTotal = showOtherCur($orderDet['ordCurAmt'],$orderQry['ordCurId']);
-    } 
-    else
-    {
+    
+   
         $sqlQry = " SELECT SUM(totalAmt) AS totalProductAmt FROM tbl_order_details WHERE ordId='".$assignRow['orderId']."' AND account_id='".$_SESSION['accountId']."' AND pId > 0 ";
         $sqlResult = mysqli_query($con, $sqlQry);
         $resultRow = mysqli_fetch_array($sqlResult);
         $totalProductAmt = $resultRow['totalProductAmt'];
 
-        $subTotal = showPrice($totalProductAmt,$getDefCurDet['curCode']);
-        $extraCharges = showPrice($orderDet['ordAmt']-$totalProductAmt,$getDefCurDet['curCode']);
-        $netTotal = showPrice($orderDet['ordAmt'],$getDefCurDet['curCode']);
-    }
+        $subTotal = getPriceWithCur($totalProductAmt,$getDefCurDet['curCode']);
+        $extraCharges = getPriceWithCur($orderDet['ordAmt']-$totalProductAmt,$getDefCurDet['curCode']);
+        $netTotal = getPriceWithCur($orderDet['ordAmt'],$getDefCurDet['curCode']);
+    
+
+        $subTotalOtherCur = '';
+        $extraChargesOtherCur = '';
+        $netTotalOtherCur = '';
+
+        if ($orderQry['ordCurId'] > 0) 
+        {
+            $sqlQry = " SELECT SUM(curAmt) AS totalProductAmt FROM tbl_order_details WHERE ordId='".$assignRow['orderId']."' AND account_id='".$_SESSION['accountId']."' AND pId > 0 ";
+            $sqlResult = mysqli_query($con, $sqlQry);
+            $resultRow = mysqli_fetch_array($sqlResult);
+            $totalProductAmt = $resultRow['totalProductAmt'];
+    
+    
+            $subTotalOtherCur = showOtherCur($totalProductAmt,$orderQry['ordCurId']);
+            $extraChargesOtherCur = showOtherCur($orderDet['ordCurAmt']-$totalProductAmt,$orderQry['ordCurId']);
+            $netTotalOtherCur = showOtherCur($orderDet['ordCurAmt'],$orderQry['ordCurId']);
+        } 
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
@@ -116,15 +122,18 @@
                     <div class="mblOrd-ttl d-flex pt-2">
                         <p class="ordCol1"><?php echo showOtherLangText('Net Total') ?>:</p>
                         <p class="ordCol2"><?php echo $netTotal;?></p>
+                        <?php echo $netTotalOtherCur ? '<p class="ordCol2">'.$netTotalOtherCur.'</p>' : '';?>
                     </div>
                     <div class="mblOrd-Subttl d-flex pt-1">
                         <p class="ordCol1"><?php echo showOtherLangText('Sub Total') ?>:</p>
                         <p class="ordCol2"><?php echo $subTotal;?></p>
+                        <?php echo $subTotalOtherCur ? '<p class="ordCol2">'.$subTotalOtherCur.'</p>' : '';?>
                         
                     </div>
                     <div class="mblOrd-extra d-flex pt-1">
                         <p class="ordCol1"><?php echo showOtherLangText('Extra charges') ?>:</p>
                         <p class="ordCol2"><?php echo $extraCharges;?></p>
+                        <?php echo $extraChargesOtherCur ? '<p class="ordCol2">'.$extraChargesOtherCur.'</p>' : '';?>
                     </div>
     
                     <div class="receiveProduct">

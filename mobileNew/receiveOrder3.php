@@ -116,7 +116,31 @@
                 <div class="inner__content bg-white"> 
                     <div class="row g-0 receiveRow">
                         <div class="col-md-6">
-                            &nbsp;
+                        <?php
+			$ordCurId = $orderDet['ordCurId'];
+			$sqlSet = " SELECT * FROM tbl_currency where id = '".$ordCurId."' AND account_id = '".$_SESSION['accountId']."'   ";
+			$resultSet = mysqli_query($con, $sqlSet);
+			$curRes = mysqli_fetch_array($resultSet);
+			//$_GET['currencyId'] = ( isset($_GET['currencyId']) && !$_GET['currencyId'] ) ? '' : $ordCurId;
+            $_GET['currencyId'] = ( isset($_GET['currencyId'])) ? ''.$_GET['currencyId'].'' : $ordCurId;
+			?>
+                        <form class="width" action="receiveOrder3.php?start=1" method="get" id="frm" name="frm">
+                            <input type="hidden" value="1" name="start" />
+                            <input type="hidden" value="<?php echo $_GET['assignId'];?>" name="assignId" />
+                            <input type="hidden" value="<?php echo $_GET['stockTakeId'];?>" name="stockTakeId" />
+
+                            <select name="currencyId" id="currencyId" onChange="this.form.submit();" class="select-box">
+                                <option value="<?php echo $getDefCurDet['id'] ?>" 
+                                    <?php  echo  $_GET['currencyId'] == $getDefCurDet['id'] ? 'selected="selected"' : '';?>
+                                >   <?php echo $getDefCurDet['curCode'] ?>
+                                </option>
+                                <?php 
+						        $sel = $_GET['currencyId'] == $curRes['id'] ? 'selected="selected"' : '';
+						        echo !empty($curRes) ? '<option value="'.$curRes['id'].'" '.$sel.'>'.$curRes['curCode'].'</option>' : '';
+					 ?>
+
+                            </select>
+                        </form>
                         </div>
                         <div class="col-md-6">
                             <p class="recDate"><?php echo date('d/m/Y', strtotime($orderDet['ordDateTime']));?></p>
@@ -127,12 +151,13 @@
                         
 
 <?php
+$_GET['currencyId'] = ( isset($_GET['currencyId'])) ? ''.$_GET['currencyId'].'' : $ordCurId;
+
 $ordCurId = $orderDet['ordCurId'];
-$sqlSet = " SELECT * FROM tbl_currency where id = '".$ordCurId."' AND account_id = '".$_SESSION['accountId']."'   ";
+$sqlSet = " SELECT * FROM tbl_currency where id = '".$_GET['currencyId']."' AND account_id = '".$_SESSION['accountId']."'   ";
 $resultSet = mysqli_query($con, $sqlSet);
 $curRes = mysqli_fetch_array($resultSet);
 //$_GET['currencyId'] = ( isset($_GET['currencyId']) && !$_GET['currencyId'] ) ? '' : $ordCurId;
-$_GET['currencyId'] = ( isset($_GET['currencyId'])) ? ''.$_GET['currencyId'].'' : $ordCurId;
 
 
                             $curRes = $_GET['currencyId'] ? $curRes : '';
@@ -140,9 +165,14 @@ $_GET['currencyId'] = ( isset($_GET['currencyId'])) ? ''.$_GET['currencyId'].'' 
                             $x=0;
                             while($row = mysqli_fetch_array($ordQry)){
                                 $x++;
-                                $curDet = getCurrencyDet($row['currencyId']);
+
+                                $currencyId = (isset($_GET['currencyId']) && $_GET['currencyId'] > 0) ? $_GET['currencyId'] : $row['currencyId'];
+
+                                $curDet = getCurrencyDet($currencyId);
                             
                                 if(isset($tempItemRows[$row['id']])){
+
+                                   
                                     $amtVal = $tempItemRows[$row['id']]['amt'];
                                     if( isset($_GET['currencyId']) && $_GET['currencyId'] == '' && ( $tempItemRows[$row['id']]['curId'] > 0 )   )
                                     {
@@ -154,10 +184,10 @@ $_GET['currencyId'] = ( isset($_GET['currencyId'])) ? ''.$_GET['currencyId'].'' 
                                     }
                                 }
                                 else{
-                                    $amtVal = $row['curPrice'] > 0 ? $row['curPrice'] : $row['ordPrice'];
+                                    $amtVal =  $row['ordPrice'];
     
-                                    if(isset($_GET['currencyId']) && $_GET['currencyId'] == ''){
-                                        $amtVal = $row['ordPrice'];
+                                    if(isset($_GET['currencyId']) && $_GET['currencyId'] > 0 && $curDet['is_default'] == 0){
+                                        $amtVal =  $row['curPrice'];
                                     }
                                 
                                     $amtVal = ($amtVal*$row['factor']);
