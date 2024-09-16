@@ -1373,10 +1373,7 @@ html[dir="rtl"] .col-md-4.col-5.order-md-3.text-end { text-align: left !importan
 .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) > div {
     width: 100% !important;
 } 
-
-.modal-footer .btn {
-    font-size: .875rem;
-}
+ 
 
 .issueDtl_accntDtl_main > div:only-child {
     width: 100%;
@@ -1385,6 +1382,8 @@ html[dir="rtl"] .col-md-4.col-5.order-md-3.text-end { text-align: left !importan
 
 /* .grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
 .invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;} */
+.grand-total-tabel .grand-total th {background-color: #7a89ff !important;color: white;}
+.invoice-Details  .grand-total th {background-color: #7a89ff !important;color: white;}
 
 
 .mb-modal-close-icon { width: 100%;padding:0;position:static;margin-bottom: .2rem; }
@@ -1444,6 +1443,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 @media(max-width:768px) {
     .modal-header #modalfiltertop { margin-top: 4px;margin-bottom: 5px; }
 }
+.modal .tr-bg-1 th { padding: 0 1rem !important;height:3rem; }
 </style>
 
 
@@ -2543,20 +2543,16 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     </div>
 </div>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h1 class="modal-title h1 mt-3"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
             </div>
 
-            <div class="modal-footer justify-content-start">
-                <div class="btnBg">
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
-                </div>
-                <div class="btnBg">
-                    <button type="button" onclick="" class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                </div>
+            <div class="modal-footer justify-content-start gap-3">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn m-0"><?php echo showOtherLangText('No'); ?></button>
+                <button type="button" onclick="" class="deletelink btn btn-primary std-btn m-0"><?php echo showOtherLangText('Yes'); ?></button> 
             </div>
         </div>
     </div>
@@ -3089,7 +3085,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>
 </div>
 <div class="modal"  tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
-    <div class="modal-dialog  modal-md site-modal modal-dialog-centered">
+    <div class="modal-dialog  modal-md site-modal">
         <div id="order_details_supplier" class="modal-content p-2">
 
         </div>
@@ -3097,11 +3093,11 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 </div>
 <!-- View ckecknox Popup Start -->
 <div class="modal" tabindex="-1" id="checkbox_module" aria-labelledby="checkbox_module" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div class="modal-content ">
             <div>
                 <div class="mdlHead-Popup d-flex justify-content-between align-items-center">
-                    <span>
+                    <span class="fs-4">
                         <strong><?php echo showOtherLangText('Check columns to show in list') ?>:</strong>
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -3144,13 +3140,13 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                     <?php } ?>
 
                     <br>
-                    <p>
+                    <div class="d-flex flex-row gap-3">
                         <button class="btn btn-primary dropdown-toggle py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
                         <?php if (isset($historyUserFilterFields)) { ?>
                             <a class="btn btn-primary dropdown-toggle py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
 
                         <?php } ?>
-                    </p>
+                    </div>
                 </form>
             </div>
 
@@ -3161,7 +3157,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 <!-- View checkbox Popup End -->
 <!-- ===== History pdf popup new in div format======= -->
 <div class="modal" tabindex="-1" id="history_pdf" aria-labelledby="history_pdfModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered site-modal" style="max-width:1000px">
+    <div class="modal-dialog site-modal" style="max-width:1000px">
         <div id="order_history_popup" class="modal-content p-2">
 
 
@@ -3170,7 +3166,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 </div>
 <!-- raw materiels Popup Start -->
 <div class="modal" tabindex="-1" id="Raw_Convert_Item_details" aria-labelledby="Raw-Convert-Item-details" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div id="Raw_Convert_Item_details_content" class="modal-content p-2">
 
 
@@ -3181,7 +3177,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 
 <!-- stock take details Popup Start -->
 <div class="modal" tabindex="-1" id="Stock_take_details" aria-labelledby="Stock-take-details" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div id="Stock_take_details_content" class="modal-content p-2">
 
 
@@ -3190,7 +3186,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 </div>
 <!-- stock take details Popup End -->
 <div class="modal" tabindex="-1" id="view_payment_paid" aria-labelledby="view-payment-paid" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div class="modal-content p-2" id="view_payment_paid_content">
 
         </div>
@@ -3287,6 +3283,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (grandTotalRows.length > 0) {
         const firstGrandTotalRow = grandTotalRows[0];
+        firstGrandTotalRow.classList.add('active__th__row');
         firstGrandTotalRow.style.backgroundColor = '#7a89ff';
         firstGrandTotalRow.style.color = 'white';
     }

@@ -621,7 +621,7 @@ if(isset($_GET['delId'])  && $_GET['orderId'])
                         <div class="border-line"></div>
                         <div class="modal-body p-4 p-xl-5">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div>
+                                <div class="text-uppercase">
                                     <p class="f-01 mb-0 payment-status-text"><?php echo showOtherLangText('PENDING') ?></p>
                                     <p class="f-01"><?php echo showOtherLangText('PAYMENT') ?></p>
                                 </div>
@@ -1747,14 +1747,15 @@ phone.innerHTML = supplierPhone;
 }
 </script>
 <script>
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Find all elements with the class 'grand-total'
-//     const grandTotalElements = document.querySelectorAll('.grand-total');
+document.addEventListener('DOMContentLoaded', function () {
+    // Find all elements with the class 'grand-total'
+    const grandTotalElements = document.querySelectorAll('.grand-total');
 
-//     if (grandTotalElements.length > 0) {
-//         grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
-//     }
-// });
+    if (grandTotalElements.length > 0) {
+        grandTotalElements[0].classList.add('active__th__row');
+        // grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
+    }
+});
 </script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>

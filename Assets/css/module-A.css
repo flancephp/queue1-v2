@@ -97,7 +97,8 @@ html[dir="rtl"] .border-line { left: auto;right: 0%;border-radius: 16px 0 0 16px
   font-weight: 600;
   line-height: 1.31;
 }
-.grand-total th { background-color: var(--color-primary);color: var(--color-white); }
+.active__th__row th { background-color: var(--color-primary);color: var(--color-white); }
+/* .grand-total th { background-color: var(--color-primary);color: var(--color-white); } */
 .pending__inv .grand-total th { background-color: #E99624; }
 .table__col table td:first-child,.table__col table th:first-child { width: 60%; }
 .table__col .grand-total-tabel tr td:last-child,.table__col .grand-total-tabel tr th:last-child { width: 40%;text-align: left !important; }
@@ -454,3 +455,10 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
 .mr-btm td, .inv-detail table td, .paySelect table td { padding-top: 3px;padding-bottom: 3px; }
 .data__col .in-val-p, .invoiceto-p .in-val-p, .paymentto-p .in-val-p { color: #666C85 !important;font-weight: 600 !important; }
  
+@media (max-width:1700px) {
+  .payment__table th { font-size: .875rem;padding: 0 1rem; }
+  .tr-bg-1 th { padding: 0 1rem !important; }
+  .payment__table td { padding: 1rem 1rem !important; }
+  .grand-total-tabel tr td:first-child, .grand-total-tabel tr td:last-child { font-size: .875rem; }
+  .grand-total th { font-size: 15px !important; }
+}

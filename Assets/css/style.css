@@ -12473,7 +12473,7 @@ a.tabFet:focus .sampleFile {
   font-size: 14px;
   min-width: 154px;
 }
- 
+.revCenter-Name{}
 .revCenter-Name p{ font-size:16px;}
 
 .rev-List {
@@ -12930,7 +12930,9 @@ a.tabFet:focus .sampleFile {
   padding: 6px 8px;
 }
 
- 
+.tbdy-isuVar p {
+  /* padding: 3px 0; */
+}
 
 .ctUnit-var {
   color: #666c85;
@@ -14213,6 +14215,10 @@ img[alt=LOGO] {
   padding: 15px 10px;
   font-size: 12px;
   top: auto;
+}
+@media(min-width:1600px) {
+  .alert { font-size: 1rem; }
+  .alert-dismissible .btn-close { font-size: 1rem; }
 }
 
 .alert-success {
