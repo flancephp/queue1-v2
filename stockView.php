@@ -387,10 +387,17 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .page1bdy .cntTable .stkNamcol>div:nth-child(4){
                 width: 20% !important;
             }
-            #page1head .mbShw .stkPrcol .lstPrcol {width: 33% !important;}
-            #page1bdy .mbShw .stkPrcol .lstPrcol {width: 50% !important;}
+            #page1head .mbSh+-w .stkPrcol .lstPrcol {width: 33% !important;}
+            #page1bdy .mbShw .
+            
+            
+            
+            
+            
+            
+            +,stkPrcol .lstPrcol {width: 50% !important;}
         }
-        #upload_form .dropStk ul{ opacity: 1 !important;     inset: 13px 0px auto auto !important;}
+        #upload_form .dropStk ul{ opacity: 1 !important;     inset: 26px 0px auto auto !important;}
         .md__33 { width: 33%; }
         @media (max-width: 991px) {
             .cntTable .stkPrcol { width: 30%; } 
@@ -595,7 +602,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
 
 .modal-footer .btnBg{
-    padding-right:16px;
+    /* padding-right:16px; */
 }
 html[dir=rtl] .modal-footer .btnBg{
     padding-left: 16px;
@@ -1466,36 +1473,36 @@ html[dir=rtl] .modal-footer .btnBg{
                         <div class="table-responsive"> 
                             <table class="issueout2-table w-100 fs-13" style="min-width:700px;">
                                 <tr class="semibold">
-                                    <th>Photo</th>
-                                    <th>Item</th>
-                                    <th>Converted Qyt</th>
-                                    <th>Unit</th>
-                                    <th>Qyt Before</th>
-                                    <th>Qyt After</th>
-                                    <th>Price</th>
-                                    <th>Converted Qyt Value</th>
+                                    <th class="criCol1">Photo</th>
+                                    <th class="criCol2">Item</th>
+                                    <th class="criCol3">Converted Qyt</th>
+                                    <th class="criCol3">Unit</th>
+                                    <th class="criCol3">Qyt Before</th>
+                                    <th class="criCol3">Qyt After</th>
+                                    <th class="criCol3">Price</th>
+                                    <th class="criCol3">Converted Qyt Value</th>
                                 </tr>
                                 <tr class="semibold">
-                                    <td><?php
+                                    <td class="criCols1"><?php
     
                                         if ($rawItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $rawItemRow['imgName'])) {
                                             echo '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $rawItemRow['imgName'] . '" width="60" height="60">';
                                         }
                                         ?></td>
-                                    <td><?php echo $rawItemRow['itemName'] !== '' ? $rawItemRow['itemName'] : ''; ?></td>
-                                    <td><?php echo $_POST['qtyToConvert']; ?></td>
-                                    <td><?php echo $rawItemRow['unitC']; ?></td>
+                                    <td class="criCols2"><?php echo $rawItemRow['itemName'] !== '' ? $rawItemRow['itemName'] : ''; ?></td>
+                                    <td class="criCols3"><?php echo $_POST['qtyToConvert']; ?></td>
+                                    <td class="criCols3"><?php echo $rawItemRow['unitC']; ?></td>
     
-                                    <td><?php echo $rawItemRow['stockQty']; ?></td>
+                                    <td class="criCols3"><?php echo $rawItemRow['stockQty']; ?></td>
     
-                                    <td><?php echo ($rawItemRow['stockQty'] - $_POST['qtyToConvert']); ?></td>
+                                    <td class="criCols3"><?php echo ($rawItemRow['stockQty'] - $_POST['qtyToConvert']); ?></td>
     
-                                    <td><?php
+                                    <td class="criCols3"><?php
                                         if ($rawItemRow['price'] !== '') {
                                             echo showPrice($rawItemRow['price'], $getDefCurDet['curCode']);
                                         } ?>
                                     </td>
-                                    <td><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
+                                    <td class="criCols3"><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
                                     </td>
                                 </tr>
                                 <tr class="semibold">

@@ -1,0 +1,402 @@
+.payment-status-main {
+  display: flex;
+  gap: 1rem;
+  overflow-y: auto;
+  margin: 1rem 0;
+  padding-right: 1rem;
+}
+.payment-status-main .paySelect .form-control{
+  font-size: 16px;
+  color: #232859;
+  background: transparent;
+ padding-left: 0;
+}
+
+.payment-status-main .payment-status-left {
+  width: 60%;
+  background: white;
+  height: fit-content !important;
+}
+
+.payment-status-main .payment-status-right {
+  width: 40%;
+  height: fit-content;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ffffff;
+  box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
+  border-radius: 10px;
+  flex: 1 0 0%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.payment-status-right tbody tr td:first-child {
+  width: 45%;
+}
+.payDetail td input {
+  width: 100%;
+}
+
+.d-j-b {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+}
+
+.border-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 9px;
+  border-radius: 0px 16px 16px 0px;
+  z-index: 1;
+}
+@media(max-width:767px) {
+  .border-line { width: 6px; }
+}
+
+.payment-pending .modal-content {
+  border-radius: 0;
+  border-left: 5px solid #E99624;
+}
+
+.payment-pending .payment-status-text {color: #E99624 !important;}
+.payment-pending .border-line {background-color: #E99624;}
+
+.recived-invoice .payment-status-text {color: #42AD7F !important;}
+.recived-invoice .modal-content {border-left: 5px solid #42AD7F;}
+.recived-invoice .border-line {background-color: #42AD7F;}
+
+.payment-paid .payment-status-text {color:  #596BF3 !important;}
+.payment-paid .modal-content {border-left: 5px solid  #596BF3;}
+.payment-paid .border-line {background-color: #596BF3;}
+
+.grand-total-tabel tbody tr td{
+  padding: 0 12px !important;
+}
+
+
+.grand-total {
+  height: 38px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.78px;
+  text-align: left;
+
+}
+.grand-total-table tbody .grand-total:first-of-type {
+  background: #7A89FF;
+  color: white;
+}
+.grand-total th {
+  padding: 0 12px !important;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.31;
+}
+@media (max-width: 768px) {
+  .grand-total th { font-size: 1rem; }
+  .grand-total-tabel tr td:first-child { font-size: .937rem !important;width: 50%; }
+  .grand-total-tabel tr td:last-child { font-size: .937rem !important;width: 50%;text-align: right !important; }
+  .grand-total th:first-child { width: 50%; }
+  .grand-total th:last-child { width: 50%;text-align: right; }
+}
+
+.payment-tabel-header tbody tr+tr {
+  border-top: none !important;
+}
+
+.payment-tabel-header tbody tr td {
+  padding: 0;
+}
+
+.payment-tabel-header .table1 tr td {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.18;
+  color: #666C85 !important;
+}
+
+.payment-tabel-header .table1 tr td.font-wt {
+  color: #1C2047 !important;
+  padding-right: 1rem;
+}
+.table01 tbody tr td { height: 30px; }
+
+@media(max-width:768px) {
+  .payment-tabel-header .table1 tr td, .grand-total-tabel tr td:last-child, .grand-total-tabel tr td:last-child { font-size: .937rem; }
+  .table01 tbody tr td { height: 22px; }
+  .payment-tabel-header .table1 tr td { line-height: 1.5; }
+}
+
+
+
+.tr-bg-1 {
+  background: #A9B0C0 !important;
+  color: white;
+  height: 48px;
+}
+
+.tr-bg-1 th {
+  padding-left: .5rem;
+  font-weight: 700 !important;
+}
+.tabel-body-p tr td:last-child {
+  font-weight: 700 !important;
+}
+.tabel-body-p tr td:first-child{
+  text-align: center !important;
+}
+
+.tr-bg-1 th:first-child,
+.grand-total th:first-child {
+  border-radius: 10px 0 0 10px !important;
+}
+
+.tr-bg-1 th:last-child,
+.grand-total th:last-child {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+.th-bg-1 {
+  background: #7A89FF;
+}
+
+.tabel-body-p tr {
+  height: 48px;
+}
+.tabel-body-p tr td {
+  padding: 0 .5rem;
+}
+@media(max-width:768px) {
+  .tabel-body-p tr,.tr-bg-1 {
+    height: 30px;
+  }
+}
+/* .tabel-body-p tr td:nth-last-child(2) {
+  text-align: center;
+} */
+
+.tabel-body-p-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tabel-body-p-footer table:last-child {
+  min-width: 289px;
+}
+
+.tabel-body-p-footer div tr th {
+  padding: .5rem;
+}
+
+.tabel-body-p-footer table tr {
+  border: none !important;
+}
+
+ .inv-detail tr {
+  height: 38px !important;
+}
+
+.divider-blue {
+  width: 100%;
+  height: 3px;
+  background: #7A89FF;
+  margin: .5rem 0;
+}
+.divider-1 {
+  width: 100%;
+  height: 2px;
+  background:#C4C4C4;
+  margin: .5rem 0;
+}
+
+.f-01 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48.41px;
+  text-align: left;
+  color: #666C85;
+}
+@media(max-width:1399px) {
+  .f-01 { font-size: 32px;line-height: 1.2; }
+}
+@media(max-width:767px) {
+  .f-01 { font-size: 24px; }
+}
+
+.f-02 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.36px;
+  text-align: left;
+}
+
+.f-03 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.18;
+  text-align: left;
+  color: #666C85;
+}
+
+.grand-total-tabel {
+  margin-top: -1rem;
+  height: fit-content;
+}
+.grand-total-tabel tr {
+  height: 38px;
+}
+
+
+.grand-total-tabel tr td:last-child {
+  font-size: 1rem;
+  font-weight: 600 !important;
+  line-height: 1.18;
+  text-align: left;
+
+}
+
+.grand-total-tabel tr td:first-child {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.18;
+  text-align: left;
+  color: #666C85;
+  margin-top: 10px;
+  align-items: center;
+}
+
+
+.payDetail input {
+  font-size: inherit !important;
+}
+
+
+/* select */
+.form-select-1 {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #666c85;
+  border: none;
+  background-image: url(../icons/drop-down-icon.svg);
+  background-size: 15px;
+  background-position: 97%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #666c85;
+}
+.form-select-1:hover{
+  background-color: #fff;
+  border: 1px solid #666c85;
+}
+
+/* input */
+.form-control-01 {
+  width: max-content;
+  border: 1px solid transparent !important;
+}
+.form-control-01:focus {
+  border: 1px solid transparent !important;
+  color: #666c85;
+}
+
+.form-control-1 {
+  border: 1px solid transparent !important;
+  border-color: transparent !important;
+  padding-left: 0px !important;
+}
+.form-control-1:hover {
+  border-color: transparent !important;
+  color: #666C85;
+}
+.form-control-1:focus {
+  border-color: transparent !important;
+  color: #666C85;
+}
+
+/* button */
+
+.btn-2 {
+  background-color: #fff;
+  color: #666C85;
+  border: 1px solid #666C85;
+}
+.btn-2:hover {
+  color: #666C85;
+}
+
+.issueInvoice a {
+  border: 1px solid #666C85;
+  color: #666C85;
+  font-size: 16px;
+  background-color: #fff;
+}
+.issueInvoice a:hover {
+  color: #666C85;
+}
+
+.wht-btn {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  color: #000;
+  background: linear-gradient(180deg, #F0EFEE 0%, #DCDCDC 100%);
+  border: 1px solid #000000;
+  border-radius: 4px;
+  padding: 7px 20px;
+}
+
+.final-btn {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 700;
+  background: #ED7D31;
+  border: 2px solid #ED7D31;
+  border-radius: 4px;
+  padding: 7px 15px;
+  transition: all .1s ease-in-out;
+  color: white;
+}
+
+.final-btn:hover {
+  background: #D86D2B !important;
+  border-color: #D86D2B !important;
+}
+.inv-detail .form-control {
+  background-color: white !important;
+  padding: .5rem !important;
+}
+
+
+@media (max-width:1137px) {
+.payment-status-main {flex-direction: column; padding: 1rem 1rem 1rem 1rem;}
+.payment-status-main .payment-status-left {width: 100%; }
+.payment-status-main .payment-status-right {width: 100%;}
+}
+
+.arrowdown-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+  background-size: 15px 15px;
+  background-position: right 0.75rem center !important;
+}
+
+/* ----- History page payment table styles ---------- */
+.payment__table { min-width: 545px; }
+.payment__table th { font-size: .875rem;line-height: 1.18; }
+.payment__table th:nth-child(1), .payment__table td:nth-child(1) { width: 5%; }
+.payment__table th:nth-child(2), .payment__table td:nth-child(2) { width: 25%; }
+.payment__table th:nth-child(3), .payment__table td:nth-child(3) { width: 10%; }
+.payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 12%; }
+.payment__table th:nth-child(5), .payment__table td:nth-child(5) { width: 12%; }
+.payment__table th:nth-child(6), .payment__table td:nth-child(6) { width: 18%; }
+.payment__table th:nth-child(7), .payment__table td:nth-child(7) { width: 18%; }

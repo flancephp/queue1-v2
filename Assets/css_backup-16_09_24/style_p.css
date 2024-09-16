@@ -1,0 +1,334 @@
+@media (max-width: 1920px) {
+    .new__layout .payOptnreq {
+        width: 19%;
+    }
+}
+.tb-bdy .fa-solid {
+    position: relative;
+    right: -4px;
+}
+.itmTable .dropdown-toggle {
+    padding: 7px 14px 7px 8px !important;
+}
+.itmTable .dropdown-menu {
+    min-width: 90px;
+}
+.itmTable .dropdown-toggle {
+    width: auto !important;
+    max-width: 80px !important;
+}
+.hisStatusclm .dropdown-toggle, .hisAcntclm .dropdown-toggle {
+    width: auto !important;
+    max-width: 80px !important;
+}
+.itmTable .dropdown a span {
+    text-overflow: ellipsis;
+}
+.in-val-p {
+    font-weight: 400 !important;
+    line-height: 19px !important;
+}
+.payment__table th{
+    /* font-size: 14px; */
+    font-weight: 700;
+}
+
+/* .payment-tabel-header .table1 tr td {
+    font-size: 16px;   
+} */
+.grand-total th{
+    font-size: 18px;
+}
+.invoiceto-p p, .paymentto-p p{
+    font-size: 16px;
+}
+.invoiceto-p .f-02, .paymentto-p .f-02{
+    line-height: 35px;
+}
+tr.grand-total th:last-child {
+    text-align: right;
+}
+.tabel-body-p-footer table:last-child {
+    max-width: 289px;
+}
+.numItmclm .dblArrow, .hisStatusclm .dblArrow  {
+    display: none !important;
+}
+.modal-header .fa.fa-filter {
+    position: relative;
+    top: -3px;
+}
+.mt-2.flex-wrap.modal-head-row {
+    margin-top: 1px !important;
+}
+.task-list-status-col-p .new__layout .payOptnreq {
+    width: 21.8% !important;
+    min-width: 21.8% !important;
+}
+.task-list-status-col-p .d-flex.align-items-center.dleOptnreq{
+    width: 28.2% !important;
+    min-width: 28.2% !important;
+}
+.task-list-status-col-p .new__layout .task-status {
+    width: 50%;
+    min-width: 50%;
+}
+.order-req-dtl-total-head{
+    text-align: right;
+    padding-right: 32px !important;
+}
+.order-dtl-total-head {
+    text-align: right;
+    padding-right: 100px !important;
+}
+html[dir=rtl] .order-req-dtl-total-head {
+    text-align: left;
+    padding-right: 5px !important;
+    padding-left: 30px !important;
+}
+html[dir=rtl] .order-dtl-total-head {
+    text-align: left;
+    padding-right: 5px !important;
+    padding-left: 100px !important;
+}
+#delete-popup #issue-out .modal-dialog-centered {
+    align-items: center;
+  }
+  .modal .table-cell {
+    vertical-align: middle;
+}
+.smBtn.nwNxt-Btn {
+    align-items: center;
+}
+.modal-address p {
+    padding-bottom: 4px;
+}
+.edit-order-section .ttlCr-Type {
+    text-align: right;
+}
+.edit-order-section .ttlCr-Type .ttlDft-Crcy {
+    text-align: right !important;
+}
+.ttlCr-Type .ttlOtr-Crcy {
+    text-align: right !important;
+}
+.modal .modal-table.fs-12 .table-row.thead {
+    white-space: nowrap;
+}
+@media (min-width: 300px) and (max-width: 575px){
+    .tabel-body-p-footer table:last-child {
+        max-width: 100%;
+        min-width: 289px;
+    }
+    table.grand-total-tabel.col {
+        margin-top: 15px;
+    }
+    tr.grand-total th {
+        font-size: 16px;
+    }
+    
+    .nwNxt-Btn1.btn__box {
+        align-items: center;
+    }
+    .task-list-status-col-p .new__layout .payOptnreq {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    .modal-content {
+        border-radius: 10px !important;
+    }
+    .order-req-dtl-total-head{
+        padding-right: 18px !important;
+    }
+    .order-dtl-total-head {
+        text-align: right;
+        padding-right: 50px !important;
+    }
+    .recItm-Name.tb-bdy {
+        min-width: 100%;
+    }
+    html[dir=rtl] .order-req-dtl-total-head {
+        padding-left: 17px !important;
+    }
+    html[dir=rtl] .order-dtl-total-head {
+        padding-left: 43px !important;
+    }
+    .edit-order-section .Itm-Name.tb-bdy {
+        width: auto !important;
+    }
+    .edit-order-section .prdtCnt-Fst.d-flex.align-items-center {
+        align-items: start !important;
+        margin-top: 10px;
+    }
+    .edit-order-section .prdtCnt-Scnd.d-flex.align-items-center {
+        width: 100% !important;
+        align-items: start !important;
+    }
+    .edit-order-section .itm-Quantity.tb-bdy {
+        width: 20% !important;
+    }
+    .edit-order-section .prdtCnt-Scnd.d-flex.align-items-center {
+        width: 100% !important;
+        align-items: center !important;
+        margin-top: 10px;
+    }
+    .edit-order-section .ttlCr-Type.d-flex.align-items-center {
+        width: 80% !important;
+        flex-wrap: nowrap !important;
+        max-width: 100%;
+    }
+    /* .edit-order-section .prdtCr-Unit.d-flex {
+        width: 72% !important;
+    } */
+    .edit-order-section .prdtCnt-Scnd .ttlCr-Type {
+        width: auto !important;
+        min-width: 25%;
+        text-align: left !important;
+    }
+
+    .edit-order-section .itm-Unit.tb-bdy {
+        width: 20%;
+    }
+    .edit-order-section .crncy-Type.d-flex.align-items-center {
+        width: 80%;
+        flex-wrap: nowrap;
+    }
+    .btnBg.w-100 {
+        width: auto !important;
+    }
+    .recieved-order-section .recItm-Name.tb-bdy {
+        width: 100%;
+    }
+    .recieved-order-section .recPrc-Unit {
+        width: 100% !important;
+        align-items: center;
+    }   
+    .recieved-order-section .recCr-Type {
+        width: 100%;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+    }
+    .recieved-order-section .recTtlPrc-Type.d-flex.align-items-center {
+        width: 100% !important;
+        text-align: left;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        margin-top: 10px;
+    }
+    .recieved-order-section .smBtn.nwNxt-Btn {
+        align-items: baseline;
+        justify-content: end;
+        gap: 20px;
+    }
+    html[dir=rtl] .recieved-order-section .smBtn.nwNxt-Btn{
+        justify-content: start;
+    }
+    .edit-order-section .w-100.update {
+        width: auto !important;
+    }
+    .edit-order-section .btnBg.w-100 {
+        width: auto !important;
+    }
+    .edit-order-section .orderupdate.w-100 {
+        width: auto !important;
+    }
+    html[dir=rtl] .edit-order-section .nwNxt-Btn1 .btn__box {
+        align-items: baseline;
+        max-width: 100% !important;
+        justify-content: start !important;
+    }
+}
+
+
+@media (min-width: 300px) and (max-width: 991px) {
+    .modal-header #modalfiltertop {
+        position: relative !important;
+        top: 0 !important;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1365px) { 
+    .task-list-status-col-p .new__layout .task-status {
+        width: 46% !important;
+        min-width: 46% !important;
+    }
+    .task-list-status-col-p .new__layout .payOptnreq {
+        width: 21.8%;
+        min-width: 21.8% !important;
+    }
+    .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
+        width: 32.2% !important;
+        min-width: 32.2% !important;
+    }
+    .cnfrm {
+        width: 48px;
+    }
+}
+
+@media (min-width: 1700px) and (max-width: 1825px) {
+    .cnfrm {
+        width: 74px;
+    }
+    .doc__btn.edit, .doc__btn.delete {
+        width: 40px;
+    }
+}
+@media (min-width: 1920px) { 
+    .new__layout .task-status {
+        width: 50%;
+    }
+    .cnfrm {
+        width: 66px;
+    }
+    .new__layout .payOptnreq {
+        width: 17%;
+    }
+    .doc__btn.edit, .doc__btn.delete {
+        width: 46px;
+    }
+    .hisTask .doc-bx {
+        width: 96px;
+    }
+    .task-list-status-col-p .new__layout .task-status {
+        width: 53%;
+        min-width: 53%;
+    }
+    .task-list-status-col-p .new__layout .payOptnreq {
+        width: 16.8%;
+        min-width: 16.8% !important;
+    }
+}
+.table-amount-same-alignment .table-row div {
+    text-align: end;
+}
+.table-amount-same-alignment .table-row {
+    display: flex;
+}
+.btn.btn-primary.dwnBtn {
+    padding: 4.5px 18px !important;
+    display: flex;
+    align-items: center;
+    border-radius: 6px !important;
+  }
+  .modal-header button.btn[data-bs-toggle="collapse"] {
+    padding: 0.375rem 0.75rem;
+}
+.modal-header button.dropdown-toggle {
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+.modal-dialog #modalfiltertop {
+    top: 0.5rem;
+}
+
+.modal-header.pb-2.pb-lg-3 {
+    padding-top: 0;
+}

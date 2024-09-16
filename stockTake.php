@@ -286,7 +286,7 @@ if( isset($_POST['btnSbt']) )
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
-
+.overwrite__btn
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -306,12 +306,14 @@ if( isset($_POST['btnSbt']) )
             .supTbl-NmCol { width: 85%; }
         }
         .res__label { font-size:.625rem; }
-        .overwrite__btn { font-size:1rem;line-height: 1.2;}
+        /* .overwrite__btn { font-size:1rem;line-height: 1.2;} */
         @media (max-width: 575px) {
             .overwrite__btn { width: 8rem; }
             .res__info__box { padding-top: 3rem; }
             .res__info__box .mid__info { position: absolute;top:-1rem;left:0;width:100%;text-align:center; }
             .res__info__box .mid__info h3 { margin-bottom: 0; }
+            .Fwt{font-weight:400;}
+            .Fwt span{font-weight:400;}
         }
     </style>
 </head>
@@ -506,10 +508,10 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                                 <div class="suplrTask">
                                     <div class="suplrTbl-body itmBody">
                                         <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm">
+                                            <div class="tb-bdy supNum-Clm sc1">
                                                 <p class="suplNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
                                             </div>
-                                            <div class="tb-bdy supName-Clm">
+                                            <div class="tb-bdy supName-Clm sc2">
                                                 <p class="suplName"><?php 
                      if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
                      {  
@@ -518,30 +520,30 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                      }
                     ?></p>
                                             </div>
-                                            <div class="tb-bdy supAdd-Clm">
+                                            <div class="tb-bdy supAdd-Clm sc3">
                                                 <span class="d-lg-none res__label">Item: </span>
                                                 <span class="suplAdrs"><?php echo $row['itemName'];?></span>
                                             </div>
-                                            <div class="tb-head supEml-Clm">
+                                            <div class="tb-head supEml-Clm sc4">
                                                 <span class="d-lg-none res__label">Bar code: </span>
                                                 <span><?php echo $row['barCode'];?></span>
                                             </div>
                                         </div>
-                                        <div class="supTbl-EmCol align-items-center">
+                                        <div class="supTbl-EmCol align-items-center dirClass">
                                             
-                                            <div class="tb-head supPhn-Clm">
+                                            <div class="tb-head supPhn-Clm Fwt dirClass2" style="font-weight: 400;">
                                                 <span class="d-lg-none res__label">Unit: </span>
                                                 <span><?php echo $row['unitC'];?></span>
                                             </div>
-                                            <div class="tb-head supPhn-Clm">
+                                            <div class="tb-head supPhn-Clm dirClass2">
                                                 <span class="d-lg-none res__label">Qty: </span>
                                                 <span><?php echo $row['stockQty'];?></span>
                                             </div>
-                                            <div class="tb-head supPhn-Clm">
+                                            <div class="tb-head supPhn-Clm dirClass2">
                                                 <span class="d-lg-none res__label">Stock take: </span>
                                                 <span><?php echo $fileDataRows[$row['barCode']];?></span>
                                             </div>
-                                            <div class="tb-head supPhn-Clm">
+                                            <div class="tb-head supPhn-Clm dirClass2">
                                                 <span class="d-lg-none res__label">Variances: </span>
                                                 <span><?php echo $fileDataRows[$row['barCode']]-$row['stockQty'];?></span>
                                             </div>

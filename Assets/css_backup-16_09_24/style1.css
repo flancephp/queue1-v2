@@ -1,0 +1,306 @@
+html[dir=rtl] body {
+  background-image: url(../images/bg-rtl.png);
+}
+
+html[dir=rtl] .acc-info .fa-angle-down {
+  margin-right: 40% !important;
+  margin-left: 0;
+}
+
+html[dir=rtl]   .dropdown-menu.date_type {
+  white-space: normal !important;
+}
+html[dir=rtl]   .form-control {
+  direction: rtl;
+}
+
+
+html[dir=rtl]   .nav-col {
+  padding-right: 0px !important;
+  padding-left: 50px !important;
+}
+
+
+html[dir=rtl] .brdLft::after {
+  content: '';
+  width: 1px;
+  height: 65%;
+  top: 50%;
+  left: 0%;
+  right: unset;
+  background-color: #a9b0c0;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+html[dir=rtl] .brdLft {
+  border-left: none !important;
+  border-right: none;
+}
+
+html[dir=rtl] .lgOut{
+  padding-right: 0 !important;
+}
+html[dir=rtl] .addUser-Form input[type=password]{
+  padding-right: 2rem !important;
+}
+html[dir=rtl] .dropend .dropdown-menu[data-bs-popper] {
+  top: 0;
+  right: 100%;
+  left: auto;
+  margin-top: 0;
+  text-align: start;
+}
+      @media (min-width: 992px) {
+        html[dir=rtl] .ord-Box.ms-0.position {
+            right: 0;
+            border-radius: 10px 0px 0px 10px;
+            border-right: 0;
+        }
+    }
+
+@media screen and (min-width: 1600px) {
+  html[dir=rtl] .ord-Box {
+      padding: 15px 32px 15px 15px;
+      border-radius: 15px 0px 0px 15px;
+  }
+}
+html[dir=rtl] .tmpStatus, html[dir=rtl] .conStatus {
+  border-radius: 10px !important;
+}
+
+html[dir=rtl] .issueInSection {
+  padding-left: 0rem;
+}
+html[dir=rtl] .varianceRow  {
+ padding-right: .2rem !important;
+}
+html[dir=rtl] .fa-angle-down.ps-1  {
+  padding: 0 .5rem !important;
+ }
+
+html[dir=rtl] .reqDtl-Bg {
+  background: linear-gradient(270deg, rgba(33, 184, 136, 0.2) -19.18%, rgba(241, 241, 241, 0.2) 44.47%), rgba(255, 255, 255, 0.54);
+}
+html[dir=rtl]  .mbrDtl-Bg {
+  background: linear-gradient(270deg, rgba(243, 120, 113, 0.2) -19.18%, rgba(241, 241, 241, 0.2) 44.47%), rgba(255, 255, 255, 0.54);
+}
+html[dir=rtl] .tmpStatus {
+  background: rgba(255, 255, 255, 0.66) !important;
+}
+.compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; object-fit: contain;min-width: 50px; }
+.compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
+@media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
+.newOrder > .row { --bs-gutter-y: 0;--bs-gutter-x: 0; }
+
+
+/* edit requsation */
+
+html[dir=rtl] .featRow  {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+html[dir=rtl] .sltSupp.nwOrd-Num.position {
+  right: 0;
+}
+html[dir=rtl] .sltSupp.nwOrd-Num.position .ord-Box {
+  border-radius:  10px 0px  0px 10px !important;
+  border-right: 0;
+}
+html[dir=rtl] .ordDetail .mbFeature > div {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+/* html[dir=rtl] .ordDetail .nwOrd-Num {
+  padding-right: 0 !important;
+
+} */
+
+/* add order req */
+
+
+html[dir=rtl] .topOrder div .btnBg {
+  text-align: end !important;
+}
+
+
+html[dir=rtl] .stcPart .cntTable .ord-Box,
+html[dir=rtl] .cntTable .ord-Box {
+  border-left: 1px solid #f05d53;;
+}
+
+html[dir=rtl] .erdOrder .ord-Box ,
+html[dir=rtl] .nwOrder-Div .ord-Box,
+html[dir=rtl] .pl-g.pl-g {
+  border-left: 1px solid #94ebc6 !important;
+}
+
+html[dir=rtl] .mbFeature .ordFeature:before {
+  right:0;
+}
+
+html[dir=rtl] .ord-Box.ms-0.position {
+  width: fit-content;
+}
+
+
+html[dir=rtl] .tr-bg-1 th:first-child, .grand-total th:first-child {
+  border-radius: 0px 10px 10px 0px !important;
+}
+
+html[dir=rtl] .tr-bg-1 th:last-child{
+  border-radius:  10px 0 0 10px  !important;
+}
+
+html[dir=rtl] .grand-total th:first-child {
+  border-radius:0 10px 10px 0 !important;
+}
+
+html[dir=rtl] .grand-total th:last-child {
+  border-radius:  10px 0 0 10px  !important;
+}
+
+
+
+/* lightbox tabel  */
+/* .modal .show-smry-cls .table-cell {
+  vertical-align: middle;
+} */
+
+/* user ui */
+html[dir=rtl] .user-info {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+
+html[dir=rtl] .fa-solid.fa-angle-right {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+
+
+html[dir=rtl] .sltSupp.nwOrd-Num.position .ord-Box .subTittle1 {
+   padding: 0 !important;
+}
+
+html[dir=rtl] .ordNum .subTittle1 {
+  padding: 0 !important;
+}
+html[dir=rtl] .stcPart .reqInfo,
+html[dir=rtl] .ordInfo {
+  padding: 0 50px 0 65px ;
+}
+
+.topOrder {
+  padding: 8px 24px 0 24px !important;
+}
+
+
+html[dir=rtl] .rcvOrder {
+padding: 1rem 24px 0 24px;
+}
+
+html[dir=rtl] .rcvOrder .smBtn {
+  padding: 0 23px 0 8px !important;
+  width: 17.5%;
+}
+html[dir=rtl] .rcvOrder .sltSupp {
+  flex: 0 0 auto;
+  width: 20%;
+}
+html[dir=rtl] #rawProId,
+html[dir=rtl] #convrtProId{
+  padding-right: 1.5rem;
+}
+html[dir=rtl] #password {
+  padding-right: 2rem;
+}
+html[dir=rtl] #password.acntStp-Row  {
+  padding-right: 0;
+}
+
+
+@media (min-width: 576px) {
+  html[dir=rtl] .text-sm-end {
+      text-align: left !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html[dir=rtl] .text-md-end {
+      text-align: left !important;
+  }
+}
+
+html[dir=rtl] .tabel-body-p-footer .table1 p {
+  text-align: right !important;
+}
+
+
+html[dir=rtl]  .fa-square.pe-2 {
+   padding-left: 0.2 !important;
+   padding-right: 0 !important;
+}
+
+@media (min-width: 992px) {
+  html[dir=rtl] #modalfiltertop {
+      right: 4rem;
+  }
+}
+
+html[dir=rtl] .order-md-3 {
+  text-align: end !important;
+}
+
+html[dir=rtl] .fa-credit-card.pe-2 {
+  padding-right: 0 !important;
+  padding-left: 0.5rem;
+}
+
+html[dir=rtl] .mbrRuntsk p {
+  direction: ltr;
+  text-align: end;
+}
+html[dir=rtl] .form-select {
+  background-size: 30px;
+  border-radius: 7px;
+}
+html[dir=rtl] #currencyId {
+  background-size: 36px !important;
+}
+html[dir=rtl] .stkView .container {
+  padding: 28px 11px 0;
+}
+html[dir=rtl] .newOrder {
+  /* padding: 0 5px 0 25px; */
+  padding: 0 5px 0 5px;
+}
+html[dir=rtl] .issueDtl .Variance {
+   padding-right: 15px !important; 
+  padding-left: 0px !important;
+}
+#delete-popup .modal-dialog-centered {
+  align-items: center;
+}
+@media (min-width: 300px) and (max-width: 575px){
+  html[dir=rtl] .rcvOrder .sltSupp {
+    width: 100%;
+}
+html[dir=rtl] .ord-Box.ms-0.position {
+  width: 100%;
+}
+.rcvOrder .btnBg {
+  width: auto;
+} 
+html[dir=rtl] .col-md-2.text-end.smBtn.nwNxt-Btn{
+  width: 100%;
+}
+}
+.nwNxt-Btn1 .btn__box {
+  align-items: center;
+}
+.modal-content {
+  border-radius: 10px !important;
+}

@@ -166,6 +166,7 @@ html[dir="rtl"] .f-02 { text-align: right; }
   font-weight: 700 !important;height: 4rem;
 }
 .modal .tr-bg-1 th, .modal .tabel-body-p tr td { padding: 1.125rem 1rem !important; }
+.modal .tr-bg-1 th, .modal .tabel-body-p tr td { padding: 1.125rem 1rem !important; }
 .tabel-body-p tr td:last-child {
   font-weight: 700 !important;
 }
@@ -191,6 +192,19 @@ html[dir="rtl"] .grand-total th:last-child {
   border-radius: 10px 0 0 10px !important;
 }
 /* .site-modal thead, .site-modal .thead { background-color: transparent !important; } */
+<<<<<<< HEAD
+html[dir="rtl"] .tr-bg-1 th:last-child,
+html[dir="rtl"] .grand-total th:last-child {
+  border-radius: 10px 0 0 10px !important;
+}
+/* .site-modal thead, .site-modal .thead { background-color: transparent !important; } */
+.th-bg-1 {
+  background: #7A89FF !important;
+} 
+.grand-total-tabel tbody tr + tr { border: 0 !important;font-size: 12px; }
+.payment__table { font-size: 12px; }
+=======
+.site-modal thead, .site-modal .thead { background-color: transparent !important; }
 .th-bg-1 {
   background: #7A89FF !important;
 } 
@@ -430,6 +444,13 @@ html[dir=rtl] .text-start { text-align: right !important; }
   html[dir=rtl] .text-start { text-align: left !important; }
 
 }
+<<<<<<< HEAD
+@media(min-width:768px) {
+  html[dir=rtl] .text-start { text-align: left !important; }
+
+}
+=======
+>>>>>>> 19d8ff5d7d880eb6c45b11abc18b48b91002c550
 
 /* ----- History page payment table styles ---------- */
 .payment__table { min-width: 666px;color: #232859; }
@@ -439,6 +460,11 @@ html[dir=rtl] .text-start { text-align: right !important; }
 .payment__table th:last-child { border-radius: 0 .625rem .625rem 0; }
 html[dir="rtl"] .payment__table th:first-child { border-radius: 0 .625rem .625rem 0; }
 html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625rem; }
+<<<<<<< HEAD
+html[dir="rtl"] .payment__table th:first-child { border-radius: 0 .625rem .625rem 0; }
+html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625rem; }
+=======
+>>>>>>> 19d8ff5d7d880eb6c45b11abc18b48b91002c550
 .payment__table td { padding: 1.125rem;border-bottom: 1px solid #DFE0E8;vertical-align: middle; }
 .payment__table tbody tr:last-child td { border-bottom: 3px solid var(--color-primary);padding-bottom: 1.5rem; }
 .payment__table th:nth-child(1), .payment__table td:nth-child(1) { width: 5%; }

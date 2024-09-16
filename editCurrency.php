@@ -126,7 +126,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" value="<?php echo $det['curCode'];?>" id="currencyCode" placeholder="€">
+                                        <input type="text" required class="form-control" name="curCode" value="<?php echo $det['curCode'];?>" id="currencyCode" placeholder="€">
                                     </div>
                                 </div>
 
@@ -135,7 +135,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against').' ('.$getDefCurDet['curCode'].'1)'; ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" value="<?php echo $det['amt'];?>" id="amountAgainst" placeholder="0.89">
+                                        <input type="text" required class="form-control" name="amt" value="<?php echo $det['amt'];?>" id="amountAgainst" placeholder="0.89">
                                     </div>
                                 </div>
 
