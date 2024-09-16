@@ -177,8 +177,8 @@ $resultRow = mysqli_fetch_array($resSet);
                                 <p class="f-03 in-val-p mb-1">'. $checkRow['supplierPhone'] .'</p>
                             </div>
                             <br>
-
-                            <table class="modal-table fs-12 w-100 mt-md-4">
+                            <div class="table-responsive">
+                            <table class="modal-table fs-12 w-100 mt-md-4 payment__table">
                                 <thead>
                                     <tr class="tr-bg-1">
                                         <th>#</th>
@@ -301,8 +301,7 @@ $resultRow = mysqli_fetch_array($resSet);
 
                         }        
                              $content .= '</tbody>
-                            </table>
-                            <div class="divider-blue"></div>
+                            </table></div> 
                             <br>
                             <div class="row gy-4 gx-0 justify-content-between total__table__res__row__reverse">
                                 <div class=" data__col col-md-4"><div class="table1">

@@ -12473,7 +12473,7 @@ a.tabFet:focus .sampleFile {
   font-size: 14px;
   min-width: 154px;
 }
-.revCenter-Name{}
+ 
 .revCenter-Name p{ font-size:16px;}
 
 .rev-List {
@@ -12930,9 +12930,7 @@ a.tabFet:focus .sampleFile {
   padding: 6px 8px;
 }
 
-.tbdy-isuVar p {
-  /* padding: 3px 0; */
-}
+ 
 
 .ctUnit-var {
   color: #666c85;

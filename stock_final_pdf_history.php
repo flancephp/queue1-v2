@@ -57,7 +57,7 @@ $content = '
 </head>
 
 <body style="font-family: \'Inter\', sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">
-  <table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
+  <table style="width: 100%; border-collapse: collapse; margin-block-end: 20px;">
     <tr>
       <td>
         <h4
@@ -73,7 +73,7 @@ $content = '
   </table>';
 
 
-   $content .=  '<table style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">
+   $content .=  '<table style="width:100%; font-size:12px; margin-block-start: 20px; border-collapse: collapse;">
     <tr style="font-weight:bold;">
       <td style="padding: 8px 5px;">'.showOtherLangText('Task No.').'</td>
       <td style="padding: 8px 5px;">'.showOtherLangText('Order By').'</td>
@@ -88,7 +88,7 @@ $content = '
         </tr>';
      $content .= '</table>';
 
-   $content .= '<table style="width:100%; font-size:12px;padding-top:50px; margin-block-start: 24px; border-collapse: collapse;">
+   $content .= '<table style="width:100%; font-size:12px;padding-top:20px; margin-block-start: 24px; border-collapse: collapse;">
     <tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">
       <td style="padding: 8px 5px;">'.showOtherLangText('#').'</td>
       <td style="padding: 8px 5px;">'.showOtherLangText('Item Name').'</td>

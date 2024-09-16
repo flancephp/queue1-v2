@@ -449,7 +449,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                 <h6 class="semibold">'.showOtherLangText('History Report').'</h6>
                             </div>
                             <div class="col-sm-6">
-                                <p class="text-end fs-15"><small>'.showOtherLangText('From') .'</small> '.$fromDate .' <small>'.showOtherLangText('To') .' </small>'.$toDate .'</p>
+                                <p class="text-end fs-15 align-items-end gap-2"><small>'.showOtherLangText('From') .'</small> '.$fromDate .' <small>'.showOtherLangText('To') .' </small>'.$toDate .'</p>
                             </div>
                         </div>
                     </div>';

@@ -60,7 +60,7 @@ $content  .=  '<tr>
                                 <td>'.getPriceWithCur($ordDet['ordAmt'],$getDefCurDet['curCode']).'</td>
                             </tr>';
  $content  .= '</tbody>
-                    </table><br>
+                    </table> 
                     <table class="modal-table fs-12 w-100 mt-lg-4">
                         <thead>
                             <tr>
