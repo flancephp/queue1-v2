@@ -150,23 +150,34 @@ foreach($resItemHistory['resRows'] as $item){
     .itm-profileDtl {height: fit-content;}
     .itmVw-qtyClm, .itmVw-qtybdClm {width: 10%;}
     .dt-Member, .tbdy-dtMbr {width: 40%;}
-    .isu-Varance, .tbdy-isuVar {width: 30%;}
+    /* .isu-Varance, .tbdy-isuVar {width: 30%;} */
     .last-Stock, .tbdy-lstStk {width: 20%;}
     .dt-Member >div, .tbdy-dtMbr >div {width: 33.33% !important;}
     .view-tblBody > div {display: flex; width: 100%; }
-    ..dt-Member select{font-size:16px;}
+    .dt-Member select{font-size:16px;}
     .ct-width01{
         /* max-width: 650px; */
         /* width: 95%; */
     }
+    
+    .dt-Member1, .tbdy-dtMbr {width: 40%;}
+    .dt-Member1 >div, .tbdy-dtMbr >div {width: 33.33% !important;}
+    .dt-Member1 select{font-size:16px;}
+
+    @media screen and (max-width: 992px) {
+    .dt-Member1, .tbdy-dtMbr {width: 50%;flex-direction: column;}
+    .dt-Member1 >div, .tbdy-dtMbr >div {width: 100% !important;}
+    .dt-Member1 select{font-size:16px;}
+    
+    }
     @media screen and (max-width: 767px) {
 
         .last-Stock, .tbdy-lstStk {
-  width: 40%;margin-left: 15px;
+   width: 100%;/*margin-left: 15px; */
 }
-.isu-Varance, .tbdy-isuVar {
+/* .isu-Varance, .tbdy-isuVar {
   width: 33%;
-}
+} */
     }
 
     .itmBody {
@@ -510,7 +521,7 @@ foreach($resItemHistory['resRows'] as $item){
                         <div class="container position-relative itmView-Table">
                             <!-- Item Table Head Start -->
                             <div class="d-flex align-items-center itmTable ct-width01">
-                                <div class="tb-head d-flex align-items-center dt-Member gap-1">
+                                <div class="tb-head d-flex align-items-center dt-Member1 gap-1" style="width:100;">
                                     <div class="fltVw-itm">
                                         <div class="tab-mbFltr">
                                             <a href="javascript:void(0)" class="tab-lnkFltr"><i
@@ -616,7 +627,7 @@ Qty'); ?></p>
          ?>
                                 <div class="itmVw-Task border-bottom">
                                     <div class="mb-itmVwbarOut"></div>
-                                    <div class="align-items-center itmBody">
+                                    <div class="align-items-center itmBody itmBodyMs">
                                         <div class="tb-bdy d-flex align-items-center tbdy-dtMbr gap-1">
                                             <div class="itmVw-datebdClm">
                                                 <p><?php echo date('d/m/y', strtotime($row['actDate']));?></p>
@@ -644,12 +655,12 @@ Qty'); ?></p>
                                         </div>
                                         </div>
                                         <div class="tb-bdy align-items-center tbdy-lstStk">
-                                            <div class="d-flex align-items-center tabDiv-prc">
+                                            <div class="d-flex align-items-center tabDiv-prc flxDir">
                                                 <div class="itmVw-lstbdClm">
                                                     <p class="mb-isuHead">Last Price</p>
                                                     <p><?php showPrice($row['lastPrice'],$getDefCurDet['curCode']);?></p>
                                                 </div>
-                                                <div class="itmVw-stkbdClm">
+                                                <div class="itmVw-stkbdClm txtDir1">
                                                     <p class="mb-isuHead">Stock Price</p>
                                                     <p><?php showPrice($row['stockPrice'],$getDefCurDet['curCode']);?></p>
                                                 </div>

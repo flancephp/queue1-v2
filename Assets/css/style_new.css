@@ -14148,6 +14148,10 @@ img[alt=LOGO] {
   border-color: #f64646;
 }
 
+@media(min-width:1200px) {
+  .alert, .alert-dismissible .btn-close { font-size: 1rem; }
+}
+
 .oltReport .btnBg {
   margin-bottom: 20px;
 }
@@ -19727,7 +19731,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
         .modal-head-row .btn{
             font-size: 13px;
-            height: 34px;
+            height: 34px;padding-top: 5px !important;
         }
 
         .modal-head-row ul.dropdown-menu {
@@ -19891,7 +19895,7 @@ border-radius:3px;
 :root { 
 --color-primary: #7a89fe;--color-white: #fff;--radius: .625rem;
 } 
-.cnfrm, .doc-bx, .dlt-bx { transition: all .1s ease-in-out; }
+.cnfrm, .doc-bx, .dlt-bx { transition: all .1s ease-in-out;border-radius: .375rem; }
 .cnfrm:hover, .doc-bx:hover, .dlt-bx:hover { background-color:var(--color-primary);border-color: var(--color-primary); }
 .cnfrm:hover svg path, .doc-bx:hover svg path, .dlt-bx:hover svg path { fill: var(--color-white); }
 .cnfrm:hover .cn-btn, .doc-bx:hover .cn-btn, .dlt-bx:hover .cn-btn { color: var(--color-white); }
@@ -19902,7 +19906,7 @@ border-radius:3px;
 .btn-white:hover, .btn-white:focus, .btn-white:active {color:var(--color-white);background-color: var(--color-primary);}
 .btn-white:hover svg path, .btn-white:focus svg path, .btn-white:active svg path {stroke: var(--color-white);}
 .doc__btn.edit, .doc__btn.delete { width: 35px;min-width: 35px; }
-.doc__btn.document { min-width: auto; }
+.doc__btn.document { min-width: auto;border-radius: 6px; }
 .doc__btn svg { width: 1.5rem;height: 1.5rem; } 
 .doc__btn.edit svg { width: 17px;height: 19px; } 
 .doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}

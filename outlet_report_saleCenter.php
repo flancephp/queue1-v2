@@ -49,7 +49,7 @@ include_once('script/outlet_report_saleCenter_script.php');
     border-color:  #7a89ff ;
   }
   .chkStore a:hover img {scale:1.1;}
-  .otltBd-usg, .otltBd-var {width: 12.5% !important;}
+  .otltBd-usg, .otltBd-var {width: 100% !important;}
   .mbStock,   .mbStk-Detail {width: 90% !important;}
   .otlt-itm, .otltBd-itm {width: 15% !important;}
   .flipClm-Hide .mbStock { width: 100% !important;}
@@ -112,7 +112,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                 </section>
 
                 <section class="hisParent-sec revnueParent-sec">
-                    <section class="ordDetail revCenter oltReport">
+                    <section class="ordDetail revCenter oltReport oltMs1 ">
                         <div class="container hisData">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -674,8 +674,8 @@ $tr = '';
                         </div>
 
                         <div class="container saleSrch-Cst px-3">
-                            <div class="row">
-                                <div class="col-md-6 slCst-Srch gap-2">
+                            <div class="row sp-pad1">
+                                <div class="col-md-6 slCst-Srch gap-3">
                                     <div class="input-group srchBx">
                                         <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search"
                                             aria-label="Search">
@@ -880,7 +880,7 @@ $tr = '';
 
      
                 </div>
-                <div class="modal-footer justify-content-between">
+                <div class="modal-footer justify-content-start">
                     <div class="btnBg">
                         <button type="submit" name="saveBtn" class="btn btn-primary">Save</button>
                     </div>

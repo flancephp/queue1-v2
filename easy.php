@@ -274,14 +274,14 @@ if (isset($_GET['hotelId'])) {
 
 
                                             <?php if($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4){?>
-                                                <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 3.25rem 0.375rem 0.75rem;" aria-label="Default select example">
+                                                <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 1.25rem 0.375rem 0.75rem;" aria-label="Default select example">
 
     												<option value="21866" <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>Fun Beach Hotel(21866)</option>
     												<option value="21930" <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : '';?>>Casa Del Mar Hotel(21930)</option>
     											</select>
 										<?php }elseif($_SESSION['accountId'] == 3){?>	
 												
-                                            <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 3.25rem 0.375rem 0.75rem;" aria-label="Default select example">
+                                            <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 1.25rem 0.375rem 0.75rem;" aria-label="Default select example">
 
     												<option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>Mnarani Beach Hotel(29624)</option>
     											</select>
