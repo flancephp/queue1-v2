@@ -70,6 +70,12 @@ include_once('script/outlet_report_saleCenter_script.php');
 .untFtr::after , .untFtr::before {
     display: none;
 }
+
+@media screen and (max-width: 992px) {
+.mbStock,   .mbStk-Detail {width: 100% !important;}
+
+}
+
     </style>
 
 </head>
