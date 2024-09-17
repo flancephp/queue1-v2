@@ -58,7 +58,7 @@
     <section class="homeList">
         <div class="container homeCont d-flex justify-content-between flex-wrap">
             <?php
-                if ($mobUserPermission['storage_stocktaking'] == 1){?>
+                if ($mobUserPermission['storage_stocktaking'] == 1 || $test =1){?>
                     <a href="<?php echo $mobileSiteUrl;?>storageStocktaking1.php" class="mblBx-Lnk text-center">
                         <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Stoctaking.svg" alt="Storage" class="fieldIcns">
                         <p class="mblFnt1">
@@ -68,8 +68,8 @@
                     <?php
                 }
                 
-                if ($_SESSION['accountId'] != 4){
-                    if ($mobUserPermission['outlet_stocktaking'] == 1){?>
+                if ($_SESSION['accountId'] != 4 || $test =1){
+                    if ($mobUserPermission['outlet_stocktaking'] == 1 || $test =1){?>
                         <a href="<?php echo $mobileSiteUrl;?>outletStocktaking1.php" class="mblBx-Lnk text-center">
                             <img src="<?php echo $mobileSiteUrl;?>Assets/icons/outlet_Stoctaking.svg" alt="Outlet" class="fieldIcns">
                             <p class="mblFnt1">
@@ -80,7 +80,7 @@
                     }
                 }
 
-                if ($mobUserPermission['receiving_order'] == 1){?>
+                if ($mobUserPermission['receiving_order'] == 1 || $test =1){?>
                     <a href="<?php echo $mobileSiteUrl;?>receiveOrder1.php" class="mblBx-Lnk text-center">
                         <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Receving.svg" alt="Receving" class="fieldIcns">
                         <p class="mblFnt1"><?php echo showOtherLangText('Receiving Order') ?></p>
@@ -91,7 +91,7 @@
                     <?php
                 }
 
-                if ($mobUserPermission['issuing_out'] == 1){?>
+                if ($mobUserPermission['issuing_out'] == 1 || $test =1){?>
                     <a href="<?php echo $mobileSiteUrl;?>issueOut1.php" class="mblBx-Lnk text-center">
                         <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Issue_Out.svg" alt="Issue Out" class="fieldIcns">
                         <p class="mblFnt1"><?php echo showOtherLangText('Issuing Out') ?></p>
@@ -107,7 +107,7 @@
                 <p class="mblFnt1">Production</p>
             </a>
             <?php
-                if ($_SESSION['accountId'] != 4){
+                if ($_SESSION['accountId'] != 4 || $test =1){
                     if ($mobUserPermission['bar_control_sales'] == 1){?>
                         <a href="<?php echo $mobileSiteUrl;?>barControl1.php" class="mblBx-Lnk text-center">
                             <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Bar_Control.svg" alt="Bar Control" class="fieldIcns">
