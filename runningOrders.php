@@ -320,12 +320,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .modal .modal-table { font-size: 5px }
         .modal .table-cell { padding: 1px 5px;font-size:5px; }
         .modal .fs-13 {font-size: 8px;line-height: 1.2; }
+        .dropdown-toggle.fs-13 { font-size:12px; }
         .modal .headerTxt.modal-date {font-size: 9px; }
         .modal .headerTxt {font-size: 12px; }
         .modal .modal-header { padding:0; }
     }
     @media(min-width:992px) {
-        #modalfiltertop { position: absolute;top:1rem; left:4rem; } 
+        #modalfiltertop { position: absolute;top:.75rem; left:4rem; } 
     }
     .nav-bar a {
         color: #8C8FA7;
@@ -389,6 +390,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .update .new__layout .task-status { width: calc(100% - 19.12rem); }
     .cn-btn { color: #232859; }
     .cnfrm, .doc-bx, .dlt-bx { margin:0; } 
+    #order_details_supplier .modal-header .btn-primary.dwnBtn { padding: 4.5px 18px !important;display:inline-flex;border-radius: 6px !important;align-items: center;gap: .25rem; }
+    .modal-header .btn[data-bs-toggle="collapse"] { padding:5px 14px; }
 </style>
 </head>
 

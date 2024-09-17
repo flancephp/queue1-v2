@@ -97,7 +97,8 @@ html[dir="rtl"] .border-line { left: auto;right: 0%;border-radius: 16px 0 0 16px
   font-weight: 600;
   line-height: 1.31;
 }
-.grand-total th { background-color: var(--color-primary);color: var(--color-white); }
+.active__th__row th { background-color: var(--color-primary);color: var(--color-white); }
+/* .grand-total th { background-color: var(--color-primary);color: var(--color-white); } */
 .pending__inv .grand-total th { background-color: #E99624; }
 .table__col table td:first-child,.table__col table th:first-child { width: 60%; }
 .table__col .grand-total-tabel tr td:last-child,.table__col .grand-total-tabel tr th:last-child { width: 40%;text-align: left !important; }
@@ -161,8 +162,8 @@ html[dir="rtl"] .f-02 { text-align: right; }
 } */
 
 .tr-bg-1 th {
-  padding: 1.125rem !important;background: #A9B0C0;color: white;
-  font-weight: 700 !important;
+  padding: 0 1.125rem !important;background: #A9B0C0;color: white;
+  font-weight: 700 !important;height: 4rem;
 }
 .modal .tr-bg-1 th, .modal .tabel-body-p tr td { padding: 1.125rem 1rem !important; }
 .tabel-body-p tr td:last-child {
@@ -185,7 +186,6 @@ html[dir="rtl"]  .grand-total th:first-child {
 .grand-total th:last-child {
   border-radius: 0 10px 10px 0 !important;
 }
-<<<<<<< HEAD
 html[dir="rtl"] .tr-bg-1 th:last-child,
 html[dir="rtl"] .grand-total th:last-child {
   border-radius: 10px 0 0 10px !important;
@@ -196,12 +196,6 @@ html[dir="rtl"] .grand-total th:last-child {
 } 
 .grand-total-tabel tbody tr + tr { border: 0 !important;font-size: 12px; }
 .payment__table { font-size: 12px; }
-=======
-.site-modal thead, .site-modal .thead { background-color: transparent !important; }
-.th-bg-1 {
-  background: #7A89FF !important;
-} 
->>>>>>> 19d8ff5d7d880eb6c45b11abc18b48b91002c550
 /* .tabel-body-p tr {
   height: 48px;
 } */
@@ -258,6 +252,7 @@ html[dir="rtl"] .grand-total th:last-child {
   text-align: left;
   color: #666C85;
 }
+html[dir="rtl"] .f-01 { text-align: right; }
 @media(max-width:1399px) {
   .f-01 { font-size: 32px;line-height: 1.2; }
 }
@@ -431,13 +426,10 @@ html[dir="rtl"] .grand-total th:last-child {
 html[dir="rtl"] .arrowdown-icon { background-position: left 0.75rem center !important; }
 html[dir=rtl] .grand-total th:first-child { text-align: right; }
 html[dir=rtl] .text-start { text-align: right !important; }
-<<<<<<< HEAD
 @media(min-width:768px) {
   html[dir=rtl] .text-start { text-align: left !important; }
 
 }
-=======
->>>>>>> 19d8ff5d7d880eb6c45b11abc18b48b91002c550
 
 /* ----- History page payment table styles ---------- */
 .payment__table { min-width: 666px;color: #232859; }
@@ -445,11 +437,8 @@ html[dir=rtl] .text-start { text-align: right !important; }
 .payment__table th { background: #A9B0C0;color: var(--color-white);font-size: 1rem;line-height: 1.18;padding: 1.125rem; } 
 .payment__table th:first-child { border-radius: .625rem 0 0 .625rem;text-align: center; }
 .payment__table th:last-child { border-radius: 0 .625rem .625rem 0; }
-<<<<<<< HEAD
 html[dir="rtl"] .payment__table th:first-child { border-radius: 0 .625rem .625rem 0; }
 html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625rem; }
-=======
->>>>>>> 19d8ff5d7d880eb6c45b11abc18b48b91002c550
 .payment__table td { padding: 1.125rem;border-bottom: 1px solid #DFE0E8;vertical-align: middle; }
 .payment__table tbody tr:last-child td { border-bottom: 3px solid var(--color-primary);padding-bottom: 1.5rem; }
 .payment__table th:nth-child(1), .payment__table td:nth-child(1) { width: 5%; }
@@ -466,3 +455,10 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
 .mr-btm td, .inv-detail table td, .paySelect table td { padding-top: 3px;padding-bottom: 3px; }
 .data__col .in-val-p, .invoiceto-p .in-val-p, .paymentto-p .in-val-p { color: #666C85 !important;font-weight: 600 !important; }
  
+@media (max-width:1700px) {
+  .payment__table th { font-size: .875rem;padding: 0 1rem; }
+  .tr-bg-1 th { padding: 0 1rem !important; }
+  .payment__table td { padding: 1rem 1rem !important; }
+  .grand-total-tabel tr td:first-child, .grand-total-tabel tr td:last-child { font-size: .875rem; }
+  .grand-total th { font-size: 15px !important; }
+}

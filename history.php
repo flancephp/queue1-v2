@@ -979,7 +979,7 @@ $colsArr = [
     .site-modal tbody tr+tr { border-top: 1px solid #ddd; } 
     .site-modal tbody tr td { padding: 5px 5px; }
 
-    .modal-header .btn {
+    /* .modal-header .btn {
         background-color: #7a89ff;
         color: #fff;
         border-radius: 6px;
@@ -992,7 +992,7 @@ $colsArr = [
         border-radius: 6px;
         font-size: 14px;
         border-color: #7a89ff;
-    }
+    } */
 
     .modal-head-row .btn {
         font-size: 13px;
@@ -1197,13 +1197,15 @@ $colsArr = [
     background-color: #7a89ff;
     border-color:  #7a89ff ;
   }
-  .pdAmount, .pendAmount { font-weight:600; }
+  /* .pdAmount, .pendAmount { font-weight:600; } */
  /* .paidIsue .pdAmount,
  .paidIsue .pendAmount,
  .recIsue .pdAmount-rec,
  .recIsue .pendAmount-rec {
     font-weight: 400 !important;
   } */
+  .issueIn .ttlAmount { font-weight:600 !important; }
+   .pdAmount-rec, .pendAmount-rec { font-weight: 400; }
   /* hover effects */
   .reloadBtn a:hover {
     color: #fff !important;
@@ -1228,9 +1230,8 @@ $colsArr = [
 
 @media(max-width:991px) {
     .account-name-section { position: absolute;top:1rem;right:9rem; }
-    .issueIn { padding-right: 2rem; }
-    .modal-header { padding-right: 2rem !important; }
-    html[dir="rtl"] .modal-header { padding-right: 0 !important;padding-left: 2rem !important; }
+    .issueIn { padding-right: 2rem; } 
+    html[dir="rtl"] .modal-header { padding-right: 0 !important; }
 }
 @media(max-width:575px) {
     .account-name-section { top:4rem;right: 0;text-align: center;width: 100%; }
@@ -1320,19 +1321,23 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
     .modal .modal-table { font-size: 5px }
     .modal .table-cell { padding: 1px 5px;font-size:5px; }
     .modal .fs-13 {font-size: 8px;line-height: 1.2; }
+    .modal .fs-13.dropdown-toggle {font-size: 12px; }
     .modal .headerTxt.modal-date {font-size: 9px; }
     .modal .headerTxt {font-size: 12px; }
     .modal .modal-header { padding:0; }
     .site-modal thead tr th {font-size: 6px;padding: 4px 5px;line-height: 1.2;}
+    #view_payment_paid_content th, #view_payment_paid_content td { font-size:11px; }
     .site-modal .table1 tr td { padding: 0px 5px; }
     .grand-total-tabel tr { height: 28px; }
 }
 @media(min-width:992px) {
     #modalfiltertop { position: absolute;  top:1.7rem;left:4rem; }
     html[dir="rtl"] #modalfiltertop { left:auto;right:4rem; }
+    html[dir="rtl"] .text-end { text-align: left !important; }
 }
+html[dir="rtl"] .col-md-4.col-5.order-md-3.text-end { text-align: left !important; }
 .info__table td:nth-child(1){width:55%}
-
+#view_payment_paid_content .btn-primary { padding: 4.5px 18px;display:inline-flex; } 
 
 /* 23-8-23 sudarshan changes */
 
@@ -1367,11 +1372,8 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 }
 .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) > div {
     width: 100% !important;
-}1rem
-
-.modal-footer .btn {
-    font-size: .875rem;
-}
+} 
+ 
 
 .issueDtl_accntDtl_main > div:only-child {
     width: 100%;
@@ -1380,9 +1382,12 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 
 /* .grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
 .invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;} */
+.grand-total-tabel .grand-total th {background-color: #7a89ff !important;color: white;}
+.invoice-Details  .grand-total th {background-color: #7a89ff !important;color: white;}
 
 
-.mb-modal-close-icon { right:-10px;top:3px;width: auto; }
+.mb-modal-close-icon { width: 100%;padding:0;position:static;margin-bottom: .2rem; }
+/* .modal .btn-primary { gap:.5rem; } */
 html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 #view_payment_paid_content .mb-modal-close-icon { right:0px;top:10px; }
 .update .tb-bdy { padding-top: 6px;padding-bottom: 6px; }
@@ -1433,7 +1438,12 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .cnfrm:hover .h3, .doc-bx:hover .h3, .dlt-bx:hover .h3 { color: var(--color-white); }
 .hisTask .cnfrm:hover a .h3, .hisTask .doc-bx:hover a .h3, .hisTask .dlt-bx:hover a .h3 { color: var(--color-white); }
 .hisTask .cnfrm:hover, .hisTask .doc-bx:hover, .hisTask .dlt-bx:hover { background: var(--color-primary) !important; }
-
+.modal-dialog #order_history_popup #modalfiltertop { top:0; }
+.d-flex.align-items-start.w-100.gap-3.w-auto.mb-md-0.mb-2.modal-head-btn { position: relative; }
+@media(max-width:768px) {
+    .modal-header #modalfiltertop { margin-top: 4px;margin-bottom: 5px; }
+}
+.modal .tr-bg-1 th { padding: 0 1rem !important;height:3rem; }
 </style>
 
 
@@ -2533,20 +2543,16 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     </div>
 </div>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h1 class="modal-title h1 mt-3"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
             </div>
 
-            <div class="modal-footer justify-content-start">
-                <div class="btnBg">
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
-                </div>
-                <div class="btnBg">
-                    <button type="button" onclick="" class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                </div>
+            <div class="modal-footer justify-content-start gap-3">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn m-0"><?php echo showOtherLangText('No'); ?></button>
+                <button type="button" onclick="" class="deletelink btn btn-primary std-btn m-0"><?php echo showOtherLangText('Yes'); ?></button> 
             </div>
         </div>
     </div>
@@ -3079,7 +3085,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     <?php echo showOtherLangText('Are you sure to delete this record?') ?>
 </div>
 <div class="modal"  tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
-    <div class="modal-dialog  modal-md site-modal modal-dialog-centered">
+    <div class="modal-dialog  modal-md site-modal">
         <div id="order_details_supplier" class="modal-content p-2">
 
         </div>
@@ -3087,11 +3093,11 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 </div>
 <!-- View ckecknox Popup Start -->
 <div class="modal" tabindex="-1" id="checkbox_module" aria-labelledby="checkbox_module" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div class="modal-content ">
             <div>
                 <div class="mdlHead-Popup d-flex justify-content-between align-items-center">
-                    <span>
+                    <span class="fs-4">
                         <strong><?php echo showOtherLangText('Check columns to show in list') ?>:</strong>
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -3134,13 +3140,13 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
                     <?php } ?>
 
                     <br>
-                    <p>
+                    <div class="d-flex flex-row gap-3">
                         <button class="btn btn-primary dropdown-toggle py-2" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Show'); ?></button>
                         <?php if (isset($historyUserFilterFields)) { ?>
                             <a class="btn btn-primary dropdown-toggle py-2" onClick="window.location.href='history.php?clearshowFields=1'" style="border:1px solid #7a89ff; background-color: #7a89ff; color: #fff;"><?php echo showOtherLangText('Clear filter'); ?> </a>
 
                         <?php } ?>
-                    </p>
+                    </div>
                 </form>
             </div>
 
@@ -3151,7 +3157,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 <!-- View checkbox Popup End -->
 <!-- ===== History pdf popup new in div format======= -->
 <div class="modal" tabindex="-1" id="history_pdf" aria-labelledby="history_pdfModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered site-modal" style="max-width:830px">
+    <div class="modal-dialog site-modal" style="max-width:1000px">
         <div id="order_history_popup" class="modal-content p-2">
 
 
@@ -3160,7 +3166,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 </div>
 <!-- raw materiels Popup Start -->
 <div class="modal" tabindex="-1" id="Raw_Convert_Item_details" aria-labelledby="Raw-Convert-Item-details" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div id="Raw_Convert_Item_details_content" class="modal-content p-2">
 
 
@@ -3171,7 +3177,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 
 <!-- stock take details Popup Start -->
 <div class="modal" tabindex="-1" id="Stock_take_details" aria-labelledby="Stock-take-details" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div id="Stock_take_details_content" class="modal-content p-2">
 
 
@@ -3180,7 +3186,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 </div>
 <!-- stock take details Popup End -->
 <div class="modal" tabindex="-1" id="view_payment_paid" aria-labelledby="view-payment-paid" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md site-modal">
+    <div class="modal-dialog modal-md site-modal">
         <div class="modal-content p-2" id="view_payment_paid_content">
 
         </div>
@@ -3277,6 +3283,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (grandTotalRows.length > 0) {
         const firstGrandTotalRow = grandTotalRows[0];
+        firstGrandTotalRow.classList.add('active__th__row');
         firstGrandTotalRow.style.backgroundColor = '#7a89ff';
         firstGrandTotalRow.style.color = 'white';
     }

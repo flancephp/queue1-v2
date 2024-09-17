@@ -67,7 +67,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
         <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
     
     
-        <div class="modal-header filter-header-top pt-0 pb-2 pb-lg-3 position-relative">
+        <div class="modal-header filter-header-top pb-2 pb-lg-3 position-relative">
                                    <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                                 <div class="d-flex align-items-center justify-content-between w-100 ">
                                     <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">

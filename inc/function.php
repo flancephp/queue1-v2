@@ -5580,7 +5580,7 @@ function checkStockQtyRequisition($orderId, $accountId)
 	}
 	
 	$errorMes = '<div class="modal-body  fs-15"><div class="pb-3">
-                            <p>'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</p>
+                            <p class="modal-title fs-4 lh-sm mt-3 mb-4">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</p>
                             <p class="mt-3"># '.$qryRow['ordNumber'].'</p> <input type="hidden" name="orderId" class="issueOutOrdId" value="'.$orderId.'">
                         </div>';
     $errorMes .= '<table class="issueout2-table w-100 fs-13">

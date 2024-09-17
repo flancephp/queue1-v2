@@ -14216,6 +14216,10 @@ img[alt=LOGO] {
   font-size: 12px;
   top: auto;
 }
+@media(min-width:1600px) {
+  .alert { font-size: 1rem; }
+  .alert-dismissible .btn-close { font-size: 1rem; }
+}
 
 .alert-success {
   border-color: #0cb87f;

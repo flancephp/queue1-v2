@@ -65,7 +65,7 @@ $content  .= '<form action="stockTake_pdf_download_history.php" target="_blank" 
                     </table>';
 
 
-    $content  .= '<br>
+    $content  .= ' 
                     <table class="modal-table fs-12 w-100 mt-4">
                         <thead>
                             <tr>

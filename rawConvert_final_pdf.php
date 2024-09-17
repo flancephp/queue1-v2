@@ -82,7 +82,7 @@ $content = '
 
     </table>
 
-    <table style="width:100%; padding-top:30px; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">
+    <table style="width:100%; padding-top:20px; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">
         <tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">
             <td style="padding: 8px 5px;">#</td>
             <td style="padding: 8px 5px;">Item Name</td>
