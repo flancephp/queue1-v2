@@ -17734,7 +17734,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .otltBd-Unithd,
   .opnStk-BdVal {
     display: block;
-    width: 50%;
+    width: 100%;
   }
   .mbStk-Flp .itmInfo-Otlt {
     align-items: start;
@@ -19086,7 +19086,16 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
     margin-left: 15%;
   }
   .setOutlet {
-    padding: 0;
+    padding: 0;flex-direction: column;
+  }
+  .newOrder .row {
+    width: 100%;
+  }
+  .setOutlet div{width: 100%;}
+  .nmOutlet{}
+
+  .nmOutlet .setOutlet {
+    padding: 0;flex-direction: column;
   }
   .outletFrm {
     margin-top: 0;
@@ -19098,12 +19107,13 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
     width: 60%;
   }
   .chkOlt-Row .col-md-8 {
-    width: 10%;
+    width: auto;
+    min-width: 35px;
     order: 1;
     padding-right: 0;
   }
   .chkOlt-Row .col-md-4 {
-    width: 90%;
+    width: auto;
     order: 2;
     padding-left: 0;
   }
