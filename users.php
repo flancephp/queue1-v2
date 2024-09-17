@@ -193,10 +193,10 @@ $result = mysqli_query($con, $sql);
                                     <div class="usrTbl-body align-items-center itmBody">
                                         <div class="usrTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy usrName-Clm">
-                                                <p class="userName"><?php echo $row['username'];?></p>
+                                                <p class="userName"><span><?php echo $row['username'];?></span></p>
                                             </div>
                                             <div class="tb-bdy usrTtl-Clm">
                                                 <p class="userTittle"><?php echo $designationName;?></p>

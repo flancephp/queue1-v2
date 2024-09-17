@@ -201,10 +201,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Additional Fee Deleted Succ
                                     <div class="serFeeTbl-body itmBody">
                                         <div class="srvFeeTbl-NmCol d-flex align-items-center">
                                             <div class="tb-bdy feeNum-Clm">
-                                                <p class="feeSrNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="feeSrNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy feeName-Clm">
-                                                <p class="suplName"><?php echo $row['feeName'];?></p>
+                                                <p class="suplName"><span><?php echo $row['feeName'];?></span></p>
                                             </div>
                                         </div>
                                         <div class="srvFeeTbl-UntCol align-items-center">

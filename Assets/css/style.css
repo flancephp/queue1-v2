@@ -17202,7 +17202,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .supEml-Clm,
   .supPhn-Clm {
     padding: 4px 0;
-    /* width: 25%; */
+    width: 100%;
     color: #8c8fa7;
   }
   .sc1{
@@ -17980,7 +17980,17 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 
 
 
+.acntSrNumber strong{font-size: 26px; font-weight:600;}
+.feeSrNumber strong{font-size: 26px; font-weight:600;}
+.mngCur-Clm strong{font-size: 26px; font-weight:600;color: #666c85;}
+.suplNumber strong{font-size: 26px; font-weight:600;color: #666c85;}
 
+
+.acntSetup-Form .form-label {
+  font-size: 18px;
+  font-weight: 600;
+}
+.userNumber strong{font-size: 26px; font-weight:600;}
 
 
 @media screen and (max-width: 767px) {
@@ -18943,9 +18953,16 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .mngCur-Clm {
     color: #7a89fe;
   }
+  .currencyBold{font-size: 16px;}
+
+  .itmBody > div:first-child p {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
   .mb-MngCr {
     display: inline-block;
-    color: #8c8fa7;
+    color: #8c8fa7;font-size: 14px;
   }
   /* Manage Service Fee Page CSS Start */
   .serFeeTbl-body {
@@ -19208,8 +19225,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 }
 
 .acntSetup-Form .form-label {
-  font-size: 16px;
-  font-weight: 400;
+  /* font-size: 16px;
+  font-weight: 400; */
 }
 
 @media screen and (min-width: 1600px) {
@@ -19815,8 +19832,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
   /* Account Setup Page CSS Start */
   .acntSetup-Form .form-label {
-    font-size: 16px;
-    font-weight: 400;
+    /* font-size: 16px;
+    font-weight: 400; */
   }
   .imgUploadCss {
     font-size: 14px;
@@ -20487,6 +20504,21 @@ body .ui-widget-content {
 }
 
 @media screen and (max-width: 767px) {
+  .acntSetup-Form .form-label {
+    font-size: 16px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select{
+    margin-top: 4px;
+  margin-bottom: 4px;padding: 14px 16px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select{
+    margin-top: 4px;
+  margin-bottom: 4px;padding: 14px 16px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select input{
+    margin-top: 4px;
+  margin-bottom: 4px;padding: 14px 16px; height: 60px;
+  }
 
   .mb-hisDtl .sale-Name, .mb-hisDtl .tl-Cst {
     border: 0;
@@ -21142,6 +21174,33 @@ text-align: center;
 }
 @media (max-width: 992px) {
 
+  .acntSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .feeSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .mngCur-Clm strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .userNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .suplNumber strong{ 
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  
+  .suplName span{font-size: 16px; font-weight: 500;}
+  .mb-UsrSpan span{font-size: 16px; font-weight: 500;}
+  .userName span{font-size: 16px; font-weight: 500;}
+  .suplName span{font-size: 16px; font-weight: 500;}
+  
   .prdtCr-Unit {
       flex-wrap: nowrap !important;
   }

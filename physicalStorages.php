@@ -262,10 +262,10 @@ if( isset($_POST['name']) )
                                     <div class="phyStrgTbl-body align-items-center itmBody">
                                         <div class="phyStrgTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy phyStrgNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy phyStrgName-Clm">
-                                                <p class="userName"><?php echo $row['name'];?></p>
+                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
                                                 
                                             </div>
                                         </div>

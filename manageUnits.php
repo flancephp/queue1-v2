@@ -242,10 +242,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                                     <div class="mng-UntTbl-body align-items-center itmBody">
                                         <div class="mng-UntTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy mng-UntNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy mng-UntName-Clm">
-                                                <p class="userName"><?php echo $row['name'];?></p>
+                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
                                             </div>
                                         </div>
                                         <div class="mng-UntTbl-Icns">
