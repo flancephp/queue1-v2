@@ -35,7 +35,7 @@ $typeArr = [
 
 
 $typeOptions =  '<ul class="dropdown-menu ordertype" dt-ft-size >';
-$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
+$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">View All</a></li>';
 
 													foreach($typeArr as $typeKey => $typeVal)
 													{
@@ -54,11 +54,11 @@ $sqlQry = " SELECT s.*, od.pId AS pId FROM  tbl_suppliers s
                                                     INNER JOIN tbl_orders o ON (s.id=o.supplierId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
 
-                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND s.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY s.name ";
+                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND s.account_id = '".$_SESSION['accountId']."' GROUP BY od.pId, o.supplierId  ORDER BY s.name ";
                                                     $resultStore = mysqli_query($con, $sqlQry);
 
 $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
-$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
+$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">View All</a></li>';
 
                                 while($suppRow = mysqli_fetch_array($resultStore))
                                                     {
@@ -72,14 +72,14 @@ $suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHis
     $sqlSet = " SELECT du.*, od.pId AS pId FROM  tbl_deptusers du
                                                     INNER JOIN tbl_orders o ON (du.id=o.recMemberId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
-                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND du.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY du.name ";
+                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND du.account_id = '".$_SESSION['accountId']."' GROUP BY od.pId, o.recMemberId ORDER BY du.name ";
                                                     $resultSet = mysqli_query($con, $sqlSet);
 
                                                     while($deptUserRow = mysqli_fetch_array($resultSet) )
                                                     {
-                                           $sel = isset($_GET['suppMemStoreId']) && $_GET['suppMemStoreId'] == 'deptUserId_' . $deptUserRow['id'] ? 'selected' : '';
+                                                        $sel = isset($_GET['suppMemStoreId']) && $_GET['suppMemStoreId'] == 'deptUserId_' . $deptUserRow['id'] ? 'selected' : '';
 
-                                                $suppMemStoreOptions .= '<li data-id="deptUserId_'.$deptUserRow['id'].'" data-value="'.trim($deptUserRow['name']).'" ><a class="dropdown-item isuOut-rdSup '.$sel.'" href="javascript:void(0)">'.trim($deptUserRow['name']).'</a></li>';
+                                                        $suppMemStoreOptions .= '<li data-id="deptUserId_'.$deptUserRow['id'].'" data-value="'.trim($deptUserRow['name']).'" ><a class="dropdown-item isuOut-rdSup '.$sel.'" href="javascript:void(0)">'.trim($deptUserRow['name']).'</a></li>';
                                                     }
 
                                                     // for store type
@@ -87,7 +87,7 @@ $suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHis
                                                     $sqlSet = " SELECT st.*, od.pId AS pId FROM  tbl_stores st
                                                     INNER JOIN tbl_orders o ON (st.id=o.storeId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
-                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']."  AND st.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY st.name ";
+                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']."  AND st.account_id = '".$_SESSION['accountId']."' GROUP BY od.pId, o.storeId ORDER BY st.name ";
                                                     $resultSet = mysqli_query($con, $sqlSet);
 
 
@@ -613,7 +613,7 @@ Qty'); ?></p>
                                    }
                                    else
                                    {
-                                       $assignTo = '<span style="color:Maroon;font-weight:bold;">'.showOtherLangText('Raw Item Convert').'</span>'; 
+                                       $assignTo = '<span style="color:#ee6464;font-weight:bold;">'.showOtherLangText('Raw Item Convert').'</span>'; 
                                    }
 
                                     $suppMemStoreName = '';
@@ -733,7 +733,7 @@ $(function() {
         var dateTypeID = urlParams.get('suppMemStoreId');
             if(dateTypeID!=='')
             {
-                $("#refertotext").text($(".referto .selected").text());
+                $("#refertotext").text($(".referto .selected").text()).substr(0, 12);
             }
         }
 
@@ -755,7 +755,7 @@ $(function() {
         var dateTypeID = urlParams.get('ordType');
             if(dateTypeID!=='')
             {
-                $("#ordertypetext").text($(".ordertype .selected").text());
+                $("#ordertypetext").text($(".ordertype .selected").text().substr(0, 12));
             }
         }
 
