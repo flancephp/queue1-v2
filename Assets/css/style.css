@@ -20510,6 +20510,10 @@ body .ui-widget-content {
   
 }
 
+.acntSetup-Form .form-control, .acntSetup-Form .form-select input{
+  font-size: 16px;
+  font-weight: 400;
+}
 @media screen and (max-width: 767px) {
   .acntSetup-Form .form-label {
     font-size: 16px;
