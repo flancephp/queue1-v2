@@ -252,10 +252,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Department Deleted Successf
                                     <div class="mngDepTbl-body align-items-center itmBody">
                                         <div class="mngDepTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy mngDepNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy mngDepName-Clm">
-                                                <p class="userName"><?php echo $row['name'];?></p>
+                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
                                             </div>
                                         </div>
                                         <div class="mngDepTbl-Icns">

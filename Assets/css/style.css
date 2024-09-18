@@ -458,6 +458,10 @@ progress {
   font-weight: 300;
   line-height: 1.2;
 }
+.stock-radio {
+  min-width: 85px;
+}
+
 @media (min-width: 1200px) {
   .display-1 {
     font-size: 5rem;
@@ -15943,7 +15947,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   .nmOutlet,
   .setOutlet {
-    width: 50%;
+    width: 70%;
   }
   .oltCol-8,
   .oltTsk-Dtl {
@@ -16059,17 +16063,76 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 }
 
 }
+
+
+/* 30-8-24 */
+.otlt-opnStk, .otlt-isn, .otlt-Ajst, .otlt-Pos, .otlt-slBar, .otlt-clStk, .otlt-usg, .otlt-var, .usg-p-g, .avg-usg, .usg-lvl{
+  width: 100%;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.otlt-itm-typ,
+.otltBd-itm-typ{
+  width: 10%;
+    padding: 8px;
+}
+.otlt-slno,
+.otltBd-slno {
+  width: 5%;
+  padding: 0.5rem;
+}
+.otltBd-stkPrc, .otlt-stkPrc {
+   width: 10% !important;
+}
+.flipClm-Otlt {
+  display: flex;
+}
+
+.otlt-hdNote {
+  display: flex !important;
+  width: 15%;
+  padding: .5rem;
+}
+
+.otlt-usg__otlt-var {
+  width: 20%;
+  display: flex;
+}
+.otlt-usg__otlt-var > div {
+   width: 50% !important;
+}
+.otltBd-hdNote,
+.otlt-hdNote {
+  width: 10%;
+}
+.otltBd-hdNote .note-itm {
+  width: 100%;
+}
+.mbStk-Detail {
+  width: 80%;
+}
+.otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk {
+  width: 100%;
+  padding-left: 0;
+}
+
+
 @media screen and (max-width: 992px) {
+
+
 
   .mbStock, .mbStk-Detail {
     width: 90% !important;
     margin-left: 43px;font-size: 14px;
     font-weight: 500;
   }
-  .otlt-slno,
-.otltBd-slno {
-  width: 5%;
-  padding: 0.5rem;
+  .otlt-slno, .otltBd-slno {
+    max-width: 15%;
+    padding: 0.5rem;
+    min-width: 8%;
 }
 
 
@@ -17146,7 +17209,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .supEml-Clm,
   .supPhn-Clm {
     padding: 4px 0;
-    /* width: 25%; */
+    width: 100%;
     color: #8c8fa7;
   }
   .sc1{
@@ -17543,10 +17606,13 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     box-shadow: 0px 0px 6px 0px rgba(65, 82, 140, 0.17);
   }
   .otltBd-hdImg {
-    width: 15%;
+    width: 15%; text-align: left;
   }
-  .otltBd-itm {
-    width: 85%;
+  .otlt-itm, .otltBd-itm {
+    min-width: 70% !important;
+    max-width: 0%;
+    font-size: 14px;
+    font-weight: 500;
   }
   .mbSale-Head,
   .mblStock-Sale,
@@ -17675,7 +17741,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .otltBd-Unithd,
   .opnStk-BdVal {
     display: block;
-    width: 50%;
+    width: 100%;
   }
   .mbStk-Flp .itmInfo-Otlt {
     align-items: start;
@@ -17728,7 +17794,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 6px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between;padding-left: 43px;
   }
   .nwOrder-Div {
     padding: 14px 10px 0;
@@ -17910,6 +17976,29 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .criCols1{width:14% ;font-size: 14px; font-weight: 400;}
   .criCols2{width:14% ;font-size: 14px; font-weight: 400;}
   .criCols3{width:12% ;font-size: 14px; font-weight: 400;}
+
+
+
+
+
+
+
+
+
+
+
+.acntSrNumber strong{font-size: 26px; font-weight:600;}
+.feeSrNumber strong{font-size: 26px; font-weight:600;}
+.mngCur-Clm strong{font-size: 26px; font-weight:600;color: #666c85;}
+.suplNumber strong{font-size: 26px; font-weight:600;color: #666c85;}
+
+
+.acntSetup-Form .form-label {
+  font-size: 18px;
+  font-weight: 600;
+}
+.userNumber strong{font-size: 26px; font-weight:600;}
+
 
 @media screen and (max-width: 767px) {
   .tbdy-dtMbr {
@@ -18871,9 +18960,16 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .mngCur-Clm {
     color: #7a89fe;
   }
+  .currencyBold{font-size: 16px;}
+
+  .itmBody > div:first-child p {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
   .mb-MngCr {
     display: inline-block;
-    color: #8c8fa7;
+    color: #8c8fa7;font-size: 14px;
   }
   /* Manage Service Fee Page CSS Start */
   .serFeeTbl-body {
@@ -19014,7 +19110,16 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
     margin-left: 15%;
   }
   .setOutlet {
-    padding: 0;
+    padding: 0;flex-direction: column;
+  }
+  .newOrder .row {
+    width: 100%;
+  }
+  .setOutlet div{width: 100%;}
+  .nmOutlet{}
+
+  .nmOutlet .setOutlet {
+    padding: 0;flex-direction: column;
   }
   .outletFrm {
     margin-top: 0;
@@ -19026,12 +19131,13 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
     width: 60%;
   }
   .chkOlt-Row .col-md-8 {
-    width: 10%;
+    width: auto;
+    min-width: 35px;
     order: 1;
     padding-right: 0;
   }
   .chkOlt-Row .col-md-4 {
-    width: 90%;
+    width: auto;
     order: 2;
     padding-left: 0;
   }
@@ -19126,8 +19232,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 }
 
 .acntSetup-Form .form-label {
-  font-size: 16px;
-  font-weight: 400;
+  /* font-size: 16px;
+  font-weight: 400; */
 }
 
 @media screen and (min-width: 1600px) {
@@ -19733,8 +19839,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
   /* Account Setup Page CSS Start */
   .acntSetup-Form .form-label {
-    font-size: 16px;
-    font-weight: 400;
+    /* font-size: 16px;
+    font-weight: 400; */
   }
   .imgUploadCss {
     font-size: 14px;
@@ -20220,6 +20326,16 @@ form.login-form input:focus{
 
 
 @media(max-width:767px){
+  .otlt-slno, .otltBd-slno {
+    max-width: 20%;
+    padding: 0.5rem;
+    min-width: 14%;
+    width: auto;
+  }
+  .otltBd-hdImg {
+    min-width: 15%;
+    text-align: left;
+  }
   .login-outer{
     min-height: auto;
     padding: 60px 30px;
@@ -20352,7 +20468,21 @@ body .ui-widget-content {
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
-
+  .otlt-itm-typ, .otltBd-itm-typ {
+    width: 50%;
+    padding: 8px 0px;
+    padding-left: 0px;
+    padding-left: 43px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .otltBd-stkPrc, .otlt-stkPrc {
+    width: 50% !important;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100%;
+    min-width: 30%;
+  }
   .itmBody > div:first-child p{
     padding: 0px 3px;
     border-radius: 8px;
@@ -20381,6 +20511,21 @@ body .ui-widget-content {
 }
 
 @media screen and (max-width: 767px) {
+  .acntSetup-Form .form-label {
+    font-size: 16px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select{
+    margin-top: 4px;
+  margin-bottom: 4px;padding: 14px 16px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select{
+    margin-top: 4px;
+  margin-bottom: 4px;padding: 14px 16px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select input{
+    margin-top: 4px;
+  margin-bottom: 4px;padding: 14px 16px; height: 60px;
+  }
 
   .mb-hisDtl .sale-Name, .mb-hisDtl .tl-Cst {
     border: 0;
@@ -21036,6 +21181,33 @@ text-align: center;
 }
 @media (max-width: 992px) {
 
+  .acntSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .feeSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .mngCur-Clm strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .userNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .suplNumber strong{ 
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  
+  .suplName span{font-size: 16px; font-weight: 500;}
+  .mb-UsrSpan span{font-size: 16px; font-weight: 500;}
+  .userName span{font-size: 16px; font-weight: 500;}
+  .suplName span{font-size: 16px; font-weight: 500;}
+  
   .prdtCr-Unit {
       flex-wrap: nowrap !important;
   }
@@ -21122,65 +21294,22 @@ text-align: center;
 .show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(3) { text-align: end;}
 
 
-/* 30-8-24 */
-.otlt-opnStk, .otlt-isn, .otlt-Ajst, .otlt-Pos, .otlt-slBar, .otlt-clStk, .otlt-usg, .otlt-var, .usg-p-g, .avg-usg, .usg-lvl{
-  width: 100%;
-  padding: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 0;
-}
 
-.otlt-itm-typ,
-.otltBd-itm-typ{
-  width: 10%;
-    padding: 8px;
-}
-.otlt-slno,
-.otltBd-slno {
-  width: 5%;
-  padding: 0.5rem;
-}
-.otltBd-stkPrc, .otlt-stkPrc {
-   width: 10% !important;
-}
-.flipClm-Otlt {
-  display: flex;
-}
-
-.otlt-hdNote {
-  display: flex !important;
-  width: 15%;
-  padding: .5rem;
-}
-
-.otlt-usg__otlt-var {
-  width: 20%;
-  display: flex;
-}
-.otlt-usg__otlt-var > div {
-   width: 50% !important;
-}
-.otltBd-hdNote,
-.otlt-hdNote {
-  width: 10%;
-}
-.otltBd-hdNote .note-itm {
-  width: 100%;
-}
-.mbStk-Detail {
-  width: 80%;
-}
-.otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk {
-  width: 12.5%;
-  padding-left: 0;
-}
 
 @media (max-width: 992px) {
 .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk {
   width: 100%;
   padding-left: 0;
 }
+
+.otltBd-hdNote .note-itm {
+  border: 1px solid #eee;
+  width: 80px;
+  text-align: center;
+  padding: 8px;
+}
+
+
 }
 
 /* .modal-table .table-cell {

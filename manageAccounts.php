@@ -211,10 +211,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
                                     <div class="mngAcntTbl-body itmBody">
                                         <div class="mngAcntTbl-NmCol d-flex align-items-center">
                                             <div class="tb-bdy acntSrNum-Clm">
-                                                <p class="acntSrNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="acntSrNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy acntName-Clm">
-                                                <p class="suplName"><?php echo $row['accountName'];?></p>
+                                                <p class="suplName"><span><?php echo $row['accountName'];?></span></p>
                                             </div>
                                             <div class="tb-bdy acntNbr-Clm">
                                                 <p class="suplAdrs"><?php echo $row['accountNumber'];?></p>

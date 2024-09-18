@@ -196,10 +196,10 @@ $curResult = mysqli_query($con, $sql);
                                     <div class="mngCurTbl-body align-items-center itmBody">
                                         <div class="mngCurTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy mngCur-Clm">
-                                                <p><?php echo $x;?></p>
+                                                <p><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy mngCur-Clm">
-                                                <p><?php echo $curRow['currency'];?></p>
+                                                <p><span class="currencyBold"><span><?php echo $curRow['currency'];?></span></span></p>
                                             </div>
                                             <div class="tb-bdy mngRate-Clm">
                                                 <p class="mngCr-Rate"> <span class="mb-MngCr">Rate (S)</span> <?php echo $curRow['amt'];?></p>

@@ -70,6 +70,36 @@ include_once('script/outlet_report_saleCenter_script.php');
 .untFtr::after , .untFtr::before {
     display: none;
 }
+
+@media screen and (max-width: 992px) {
+.mbStock,   .mbStk-Detail {width: 100% !important;}
+.unitBd-div {
+  width: 100%;
+  display: flex;padding-left: 43px;
+}
+.untFtr {
+  width: 100% !important;
+  text-align: start;
+}
+.untSub {
+  width: 100% !important;
+}
+.otltBd-Min, .otltBd-Max {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;padding-left: 43px;padding-right: 12px;
+}
+.otltBd-Req {
+    width: 100%;padding-left: 43px;
+  }
+  .untCount {
+  width: 100% !important;
+}
+.otltBd-Avr {
+  width: 100%;padding-left: 43px;
+}
+}
+
     </style>
 
 </head>

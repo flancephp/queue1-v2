@@ -311,10 +311,10 @@ foreach($resItemHistory['resRows'] as $item){
 
                             <div>
                             <div class="vw-clm-8">
-                                 <p class="vwBdy-ttl">stock Value</p>
+                                 <p class="vwBdy-ttl">Stock Value</p>
                             </div>
                             <div class="vw-clm-4">
-                                 <p class="viewStock-prc">57.60 $</p>
+                                 <p class="viewStock-prc"><?php showPrice($res['stockValue'],$getDefCurDet['curCode']);?></p>
                             </div>
                             </div>
                         </div>
@@ -565,7 +565,15 @@ foreach($resItemHistory['resRows'] as $item){
                                         <p><?php echo showOtherLangText('Issue Out'); ?></p>
                                     </div>
                                     <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Variances'); ?></p>
+                                        <p class="bl-Head"><?php echo showOtherLangText('Varianc'); ?></p>
+                                    </div>
+
+                                    <div class="itmVw-varClm">
+                                        <p class="bl-Head"><?php echo showOtherLangText('Convt'); ?></p>
+                                    </div>
+
+                                    <div class="itmVw-varClm">
+                                        <p class="bl-Head"><?php echo showOtherLangText('Convt').' '.$getDefCurDet['curCode']; ?></p>
                                     </div>
                                 </div>
                                 <div class="tb-head d-flex align-items-center last-Stock">
@@ -652,7 +660,15 @@ Qty'); ?></p>
                                             </div>
                                             <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(3, $row)!=''?showItemTypeData(3, $row).' '.$getDefCurDet['curCode']:''; ?></p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(3, $row, 1);?></p>
-                                        </div>
+                                            </div>
+
+
+                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(4, $row, 1);?></p>
+                                            </div>
+
+                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(4, $row);?></p>
+                                            </div>
+
                                         </div>
                                         <div class="tb-bdy align-items-center tbdy-lstStk">
                                             <div class="d-flex align-items-center tabDiv-prc flxDir">

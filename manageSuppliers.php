@@ -199,10 +199,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                                     <div class="suplrTbl-body itmBody">
                                         <div class="supTbl-NmCol d-flex align-items-center">
                                             <div class="tb-bdy supNum-Clm">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy supName-Clm">
-                                                <p class="suplName"><?php echo $row['name'];?></p>
+                                                <p class="suplName"><span><?php echo $row['name'];?></span></p>
                                             </div>
                                             <div class="tb-bdy supAdd-Clm">
                                                 <p class="suplAdrs"><?php echo $row['address'];?></p>
