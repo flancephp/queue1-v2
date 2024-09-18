@@ -213,10 +213,10 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('OutLet Deleted Successfully
                                     <div class="usrTbl-body align-items-center itmBody">
                                         <div class="outTbl-Cnt d-flex align-items-center">
                                             <div class="tb-bdy outNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy outName-Clm">
-                                                <p class="userName"><?php echo $row['name'];?></p>
+                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
                                             </div>
                                         </div>
                                         <div class="outTbl-Icns">

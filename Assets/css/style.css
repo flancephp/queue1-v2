@@ -17796,6 +17796,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     align-items: center;
     justify-content: space-between;padding-left: 43px;
   }
+  
+  html[dir=rtl] .otltBd-hdNote {
+    padding-left: 10px;
+  }
   .nwOrder-Div {
     padding: 14px 10px 0;
   }
@@ -17985,7 +17989,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 
 
 
-
+  .catgryNum-Clm strong{font-size: 26px; font-weight:600;}
 
 .acntSrNumber strong{font-size: 26px; font-weight:600;}
 .feeSrNumber strong{font-size: 26px; font-weight:600;}
@@ -18695,10 +18699,13 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
     padding: 3px 3px 3px 5px;
   }
   .stEze-Lnk {
-    padding: 3px 0;
+    padding: 5px 0;
   }
   .stEze-Lnk {
     width: 10%;
+    max-width: 45px;
+    position: relative;
+    right: 2px;
   }
   .ezeCat-All {
     font-size: 13px;
@@ -19079,6 +19086,16 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .otltTbl-head {
     width: 90%;
   }
+
+  html[dir=rtl] .otltTbl-bdy,
+  .otltTbl-head {
+    width: 90%; padding-right: 43px;
+  }
+  html[dir=rtl] .otltBd-usg, .otltBd-var {
+    padding-left: 0px;
+  }
+
+
   .mb-saleBg {
     background: url(../images/mobile-bg.png);
   }
@@ -20336,6 +20353,10 @@ form.login-form input:focus{
     min-width: 15%;
     text-align: left;
   }
+  html[dir=rtl] .otltBd-hdImg {
+    min-width: 15%;
+    text-align: right;
+  }
   .login-outer{
     min-height: auto;
     padding: 60px 30px;
@@ -20375,7 +20396,8 @@ body .ui-widget-content {
 
 
 
-
+.gap-r{padding-right: 60px;}
+.gap-l{padding-left: 30px;}
 
 /* ------------- new popup design start ---------- */
 .modal .modal-table {
@@ -20464,10 +20486,16 @@ body .ui-widget-content {
   width: 40px;
   height: 40px;
 }
-
+.outlet-Tblhead .tb-head {
+  font-size: 16px;
+  font-weight: 400;
+}
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
+
+  .gap-r{padding-right: 10px;}
+.gap-l{padding-left: 10px;}
   .otlt-itm-typ, .otltBd-itm-typ {
     width: 50%;
     padding: 8px 0px;
@@ -20476,6 +20504,7 @@ body .ui-widget-content {
     font-size: 14px;
     font-weight: 500;
   }
+  
   .otltBd-stkPrc, .otlt-stkPrc {
     width: 50% !important;
     display: flex;
@@ -20483,6 +20512,10 @@ body .ui-widget-content {
     max-width: 100%;
     min-width: 30%;
   }
+  html[dir=rtl] .otltBd-stkPrc, .otlt-stkPrc {
+    padding-left: 10px;
+  }
+
   .itmBody > div:first-child p{
     padding: 0px 3px;
     border-radius: 8px;
@@ -20514,7 +20547,68 @@ body .ui-widget-content {
   font-size: 16px;
   font-weight: 400;
 }
+
+.acntSetup-Form .form-label {
+  font-size: 18px;line-height: 20px;
+}
+.acntSetup-Form .form-control, .acntSetup-Form .form-select{
+  margin-top: 4px;
+margin-bottom: 4px;padding: 14px 16px;
+}
+.acntSetup-Form .form-control, .acntSetup-Form .form-select{
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 16px 16px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.acntSetup-Form .form-select{
+  background-image: url("../icons/select.svg");
+  background-size: 48px 40px;
+  background-position: right;
+background-repeat: no-repeat;
+cursor: pointer;
+}
+.acntSetup-Form .form-control, .acntSetup-Form .form-select input{
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 16px 16px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.adUsr-Div-full .form-select input{
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 16px 16px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.adUsr-Div-full .form-control, .adUsr-Div-full .form-select{
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 16px 16px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.adUsr-Div-full .form-select{
+  background-image: url("../icons/select.svg");
+  background-size: 48px 40px;
+  background-position: right;
+background-repeat: no-repeat;
+cursor: pointer;
+}
+.adUsr-Div-full .semibold {
+  font-weight: 600;
+  padding-bottom: 10px;
+  font-size:16px;
+}
+
 @media screen and (max-width: 767px) {
+  .slCst-fltBtn {
+    margin-left: 00px;
+  }
+  .gap-r{padding-right: 00px;}
+.gap-l{padding-left: 00px;}
   .acntSetup-Form .form-label {
     font-size: 16px;
   }
@@ -20524,11 +20618,24 @@ body .ui-widget-content {
   }
   .acntSetup-Form .form-control, .acntSetup-Form .form-select{
     margin-top: 4px;
-  margin-bottom: 4px;padding: 14px 16px;
+    margin-bottom: 4px;
+    padding: 16px 16px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .acntSetup-Form .form-select{
+    background-image: url("../icons/select.svg");
+    background-size: 48px 40px;
+    background-position: right;
+  background-repeat: no-repeat;
+  cursor: pointer;
   }
   .acntSetup-Form .form-control, .acntSetup-Form .form-select input{
     margin-top: 4px;
-  margin-bottom: 4px;padding: 14px 16px; height: 60px;
+    margin-bottom: 4px;
+    padding: 16px 16px;
+    font-size: 16px;
+    font-weight: 400;
   }
 
   .mb-hisDtl .sale-Name, .mb-hisDtl .tl-Cst {
@@ -21186,6 +21293,10 @@ text-align: center;
 @media (max-width: 992px) {
 
   .acntSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .catgryNum-Clm strong {
     font-size: 16px;
     font-weight: 400;
   }

@@ -218,7 +218,7 @@ $easyDataArr = $easyData['data'];
 
                         <div class="acntStp">
                             <div class="addUser-Form acntSetup-Form edtRev-cntr row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 gap-r">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
                                             <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
@@ -319,7 +319,7 @@ $easyDataArr = $easyData['data'];
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 gap-l">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
                                             <label for="address" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
