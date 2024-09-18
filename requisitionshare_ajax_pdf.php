@@ -67,7 +67,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
         <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
     
     
-        <div class="modal-header filter-header-top pb-2 pb-lg-3 position-relative">
+        <div class="modal-header filter-header-top position-relative">
                                    <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                                 <div class="d-flex align-items-center justify-content-between w-100 ">
                                     <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
@@ -78,7 +78,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                      </div>
                                 </div>
                                 <div class="collapse" id="modalfiltertop">
-                                    <div class="d-flex gap-1 gap-md-3 mt-2 flex-wrap modal-head-row">
+                                    <div class="d-flex gap-1 gap-md-3 mt-1 flex-wrap modal-head-row">
                                     
 
                                     <div class="dropdown">
@@ -266,17 +266,24 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <div class="table-cell medium"><span  class="taskNo smryHead">'.showOtherLangText('Task No.').'</span></div>
                                         <div class="table-cell medium"><span  class="department smryHead">'.showOtherLangText('Department').'</span></div>
                                         <div class="table-cell medium"><span  class="member smryHead">'.showOtherLangText('Member').'</span></div>
-                                        <div class="table-cell medium order-req-dtl-total-head"><span  class="total amountSections smryHead">'.showOtherLangText('Total').'</span></div>
+                                        <div class="table-cell medium order-req-dtl-total-head">
+                                            <div class="d-flex">
+                                                <div class="col-7"></div>
+                                                <div class="col-5">
+                                                    <span  class="total amountSections smryHead">'.showOtherLangText('Total').'</span>
+                                                </div>
+                                            </div> 
+                                        </div>
                                     </div>
                                     <div class="table-row thead">
                                         <div class="table-cell"><span class="taskNo smryHead">'.$ordDet['ordNumber'].'</span></div>
                                         <div class="table-cell"><span  class="department smryHead">'.$departRow['departments'].'</span></div>
                                         <div class="table-cell"><span  class="member smryHead">'.$mebRes['name'].'</span></div>
                                         <div class="table-cell table-amount-same-alignment">
-                                            <div class="table-row">
-                                                <div class="table-cell py-0" style="width: 50%;"></div>
-                                                <div class="table-cell py-0" style="width: 50%;"><span  class="total amountSections smryHead">'.getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
-                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-7"></div>
+                                                <div class="col-5"><span  class="total amountSections smryHead">'.getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
+                                            </div> 
                                         </div>
                                     </div>
                                     <div class="table-row">';
@@ -295,7 +302,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <div class="table-cell" style="width: 25%;"></div>';
                                     }
 
-                                     $content .= '</div>';
+                                     $content .= '</div><div class="table-row"><div class="table-cell"></div><div class="table-cell"></div><div class="table-cell"></div>  <div class="table-cell">';
                                      $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                                  $resultSet = mysqli_query($con, $sqlSet);
                                  $chargeRow = mysqli_fetch_array($resultSet);   
@@ -313,20 +320,11 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                  { 
     
                                     $showGrandTotal = true;
-                                     $content .= '<div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;">
-                                            <div class="sub-table w-100 table-amount-val-same-alignment" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell"><span class="amountSections smryHead" >'.showOtherLangText('Sub Total').'</span></div>
-                                                    <div class="table-cell" style="text-align: end;padding-right: 10px;"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'
-                                            </span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>';
+                                     $content .= '<div class="d-flex set__left__padding"> 
+                                     <div class="col-7"><span class="amountSections smryHead" >'.showOtherLangText('Sub Total').'</span></div>
+                                     <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'
+                                         
+                                    </div></div>';
                                 }
                                  $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
                                  INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
@@ -341,21 +339,11 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                          {
                                  $fixedCharges += $row['price'];
                                  $fixedChargesOther += $row['curAmt'];
-                                   $content .= '<div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;">
-                                            <div class="sub-table table-amount-val-same-alignment w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
-                                                    <div class="table-cell" style="text-align: end;padding-right: 10px;"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'
-                                                </span></div>
-                                                   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>';
+                                   $content .= '<div class="d-flex set__left__padding"> 
+                                   <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
+                                   <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'
+                                         
+                                    </div></div>';
                           }
 
                            $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
@@ -374,20 +362,10 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
          
                              $calDiscount = ($chargePrice*$row['price']/100);
                              $calDiscountOther = ($chargePriceOther*$row['price']/100);
-                              $content .= '<div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;">
-                                            <div class="sub-table table-amount-val-same-alignment w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
-                                                    <div class="table-cell" style="text-align: end;padding-right: 10px;"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'
-                             </span></div>
-                                                  
-                                                </div>
-                                            </div>
-                                        </div>
+                              $content .= '<div class="d-flex set__left__padding"> 
+                              <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
+                              <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'</span></div>
+                                         
                                     </div>';
 
 
@@ -411,20 +389,11 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
          
                              $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
                              $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
-                              $content .= '<div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;">
-                                            <div class="sub-table table-amount-val-same-alignment w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
-                                                    <div class="table-cell" style="text-align: end;padding-right: 10px;"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'
-                                </span></div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                              $content .= '<div class="d-flex set__left__padding"> 
+                              <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
+                              <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'
+          </span></div>
+                                         
                                     </div>';
 
                                }
@@ -438,25 +407,16 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
          
                              if($showGrandTotal)
                              {
-                              $content .= '<div class="table-row">
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;">
-                                            <div class="sub-table table-amount-val-same-alignment w-100" style="display: table;">
-                                                <div class="table-row">
-                                                    <div class="table-cell"><span class="amountSections smryHead" >'.showOtherLangText('Grand Total').'</span></div>
-                                                    <div class="table-cell" style="text-align: end;padding-right: 10px;"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'
-                                </span></div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                              $content .= '<div class="d-flex set__left__padding"> 
+                              <div class="col-7"><span class="amountSections smryHead" >'.showOtherLangText('Grand Total').'</span></div>
+                              <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'
+          </span></div>
+                                         
                                     </div>';
                              }
 
 
-                                $content .= '</div></div>';
+                                $content .= '</div></div></div></div>';
 
                              $content .= '<div class="overflow-aut"><div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead">';
                               $content .= '<div class="table-cell">#</div>';

@@ -32,9 +32,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
 			$resultSet = mysqli_query($con, $sqlSet);
 			$orderBy = mysqli_fetch_array($resultSet);
 
-$content  .= '<form action="rawConvert_pdf_download.php" target="_blank" method="get"><div class="modal-header pb-3">   <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div> ';
+$content  .= '<form action="rawConvert_pdf_download.php" target="_blank" method="get"><div class="modal-header">   <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div> ';
 $content  .= '<input type="hidden" name="orderId" value="'.$_POST['orderId'].'"/>';
-$content  .= '<div class="d-flex align-items-center justify-content-end w-100 pe-3">
+$content  .= '<div class="d-flex align-items-center justify-content-end w-100">
                        <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></button>
                        </div>
                 </div>

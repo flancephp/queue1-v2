@@ -99,7 +99,7 @@ html[dir="rtl"] .border-line { left: auto;right: 0%;border-radius: 16px 0 0 16px
 }
 .active__th__row th { background-color: var(--color-primary);color: var(--color-white); }
 /* .grand-total th { background-color: var(--color-primary);color: var(--color-white); } */
-.pending__inv .grand-total th { background-color: #E99624; }
+.pending__inv .grand-total th { background-color: var(--color-primary);color: var(--color-white); }
 .table__col table td:first-child,.table__col table th:first-child { width: 60%; }
 .table__col .grand-total-tabel tr td:last-child,.table__col .grand-total-tabel tr th:last-child { width: 40%;text-align: left !important; }
 .table__col { width: 40%;flex: 0 0 40%; }
@@ -301,7 +301,7 @@ html[dir="rtl"] .f-01 { text-align: right; }
   margin-top: 10px;
   align-items: center;
 }
-
+html[dir="rtl"] .grand-total-tabel tr td:first-child { text-align: right; }
 
 .payDetail input {
   font-size: inherit !important;
@@ -456,7 +456,7 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
 .data__col .in-val-p, .invoiceto-p .in-val-p, .paymentto-p .in-val-p { color: #666C85 !important;font-weight: 600 !important; }
  
 @media (max-width:1700px) {
-  .payment__table th { font-size: .875rem;padding: 0 1rem; }
+  .payment__table th { font-size: .875rem;padding: 0 1rem;height: 4rem;vertical-align: middle; }
   .tr-bg-1 th { padding: 0 1rem !important; }
   .payment__table td { padding: 1rem 1rem !important; }
   .grand-total-tabel tr td:first-child, .grand-total-tabel tr td:last-child { font-size: .875rem; }

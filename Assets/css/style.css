@@ -3372,6 +3372,13 @@ textarea.form-control-lg {
   margin-top: 0;
   margin-left: 0.125rem;
 }
+html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
+  top: 0;
+  right: 100%;
+  left: auto;
+  margin-top: 0;
+  text-align: start;
+}
 .dropend .dropdown-toggle::after {
   display: inline-block;
   margin-left: 0.255em;

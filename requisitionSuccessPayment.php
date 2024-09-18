@@ -1132,8 +1132,8 @@ $payModeRow = mysqli_fetch_array($resultSet);
                         </div>
                         <br>
 
-                        <div class="form-check payModal-Flex">
-                            <input type="radio" name="refund" value="refundAmt" id="refundAmt" class="form-check-input">
+                        <div class="form-check payModal-Flex d-flex align-items-center gap-3 p-0">
+                            <input type="radio" name="refund" value="refundAmt" id="refundAmt" class="form-check-input float-none m-0">
                             <label for="refundAmt" class="form-check-label"><?php echo showOtherLangText('Refund the amount to account only.'); ?></label>
                             
                         </div>
@@ -1281,14 +1281,15 @@ $payModeRow = mysqli_fetch_array($resultSet);
     </script>
 
 <script>
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Find all elements with the class 'grand-total'
-//     const grandTotalElements = document.querySelectorAll('.grand-total');
+document.addEventListener('DOMContentLoaded', function () {
+    // Find all elements with the class 'grand-total'
+    const grandTotalElements = document.querySelectorAll('.grand-total');
 
-//     if (grandTotalElements.length > 0) {
-//         grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
-//     }
-// });
+    if (grandTotalElements.length > 0) {
+        grandTotalElements[0].classList.add('active__th__row');
+        // grandTotalElements[0].setAttribute('style', 'background: #7A89FF !important; color: white !important;');
+    }
+});
 </script>
     <div id="dialog" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>

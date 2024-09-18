@@ -67,7 +67,7 @@ $content  = '<form action="ordershare_pdf_download.php" target="_blank" method="
 <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
 <input type="hidden" name="isSupDet" value="'.$_POST['isSupDet'].'" />
 <input type="hidden" name="ordCurId" id="ordCurId" value="'.$ordDet['ordCurId'].'" />';
-$content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
+$content .= '<div class="modal-header position-relative">
                       <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                         <div class="d-md-flex align-items-center justify-content-between w-100 ">
                             <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
@@ -79,7 +79,7 @@ $content .= '<div class="modal-header pb-2 pb-lg-3 position-relative">
                             </div>
                         </div>
                         <div class="collapse" id="modalfiltertop">
-                            <div class="d-flex flex-wrap gap-1 gap-md-3 modal-head-row mt-2">
+                            <div class="d-flex flex-wrap gap-1 gap-md-3 modal-head-row mt-1">
                             
 
                             <div class="dropdown">

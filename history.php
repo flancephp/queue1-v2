@@ -976,8 +976,8 @@ $colsArr = [
     .site-modal .thead+tr { border-top: 0; } 
     .site-modal thead,
     .site-modal .thead { background-color: rgb(122 137 255 / 20%); } 
-    .site-modal tbody tr+tr { border-top: 1px solid #ddd; } 
-    .site-modal tbody tr td { padding: 5px 5px; }
+    .site-modal tbody tr+tr { border-top: 0; } 
+    .site-modal tbody tr td { padding: 8px 5px; }
 
     /* .modal-header .btn {
         background-color: #7a89ff;
@@ -1319,12 +1319,11 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 .modal-content {overflow-x:hidden !important; }
 @media(max-width:767px){
     .modal .modal-table { font-size: 5px }
-    .modal .table-cell { padding: 1px 5px;font-size:5px; }
+    .modal .table-cell { padding: 4px 5px;font-size:5px; }
     .modal .fs-13 {font-size: 8px;line-height: 1.2; }
     .modal .fs-13.dropdown-toggle {font-size: 12px; }
     .modal .headerTxt.modal-date {font-size: 9px; }
-    .modal .headerTxt {font-size: 12px; }
-    .modal .modal-header { padding:0; }
+    .modal .headerTxt {font-size: 12px; } 
     .site-modal thead tr th {font-size: 6px;padding: 4px 5px;line-height: 1.2;}
     #view_payment_paid_content th, #view_payment_paid_content td { font-size:11px; }
     .site-modal .table1 tr td { padding: 0px 5px; }
@@ -1334,23 +1333,14 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
     #modalfiltertop { position: absolute;  top:1.7rem;left:4rem; }
     html[dir="rtl"] #modalfiltertop { left:auto;right:4rem; }
     html[dir="rtl"] .text-end { text-align: left !important; }
+    .mb-modal-close-icon { display:none; }
 }
 html[dir="rtl"] .col-md-4.col-5.order-md-3.text-end { text-align: left !important; }
 .info__table td:nth-child(1){width:55%}
 #view_payment_paid_content .btn-primary { padding: 4.5px 18px;display:inline-flex; } 
+html[dir="rtl"] #view_payment_paid_content .btn-primary .ps-1 { padding-left: 0 !important;padding-right: .25rem; } 
 
-/* 23-8-23 sudarshan changes */
-
-@media (min-width: 1137px) {
-    
-    
-}
-/* @media (min-width:1600px) {
-    .res__filter__box .itmTable {
-        padding: 3px 24px;
-    }
-} */
-
+ 
 .SummaryItems > div:nth-child(1) {width: 35% !important;}
 .SummaryItems > div:nth-child(2) {width: 30% !important;}
 .SummaryItems > div:nth-child(3) {width: 35% !important;}
@@ -1444,6 +1434,20 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     .modal-header #modalfiltertop { margin-top: 4px;margin-bottom: 5px; }
 }
 .modal .tr-bg-1 th { padding: 0 1rem !important;height:3rem; }
+
+html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
+  top: 0;
+  right: 100%;
+  left: auto;
+  margin-top: 0;
+  text-align: start;
+}
+.set__left__padding { padding:8px 0; } 
+@media(max-width:767px) {
+    .set__left__padding { padding: 5px 0px;line-height: 1.4; } 
+    .modal-header { padding: 0px 0 12px 0; }
+}
+ 
 </style>
 
 

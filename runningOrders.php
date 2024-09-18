@@ -316,17 +316,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     #itemDiv, #taskDiv , #taskDiv { background: #fff; }
     .remove__parent__padding { margin-left: -.5rem;margin-right: -.5rem; }
     .modal .table-cell { font-size:12px; }
+    .mb-modal-close-icon { width: 100%;padding: 0;position: static;margin-bottom: .2rem; }
     @media(max-width:767px){
         .modal .modal-table { font-size: 5px }
         .modal .table-cell { padding: 1px 5px;font-size:5px; }
         .modal .fs-13 {font-size: 8px;line-height: 1.2; }
         .dropdown-toggle.fs-13 { font-size:12px; }
         .modal .headerTxt.modal-date {font-size: 9px; }
-        .modal .headerTxt {font-size: 12px; }
-        .modal .modal-header { padding:0; }
+        .modal .headerTxt {font-size: 12px; } 
     }
     @media(min-width:992px) {
-        #modalfiltertop { position: absolute;top:.75rem; left:4rem; } 
+        #modalfiltertop { position: absolute;top:.65rem; left:4rem; } 
     }
     .nav-bar a {
         color: #8C8FA7;
@@ -391,7 +391,23 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .cn-btn { color: #232859; }
     .cnfrm, .doc-bx, .dlt-bx { margin:0; } 
     #order_details_supplier .modal-header .btn-primary.dwnBtn { padding: 4.5px 18px !important;display:inline-flex;border-radius: 6px !important;align-items: center;gap: .25rem; }
+    #order_details_supplier .modal-header .btn-primary.dwnBtn span,#order_details_supplier .modal-header .btn-primary.dwnBtn i { position: relative;top:-1px; }
     .modal-header .btn[data-bs-toggle="collapse"] { padding:5px 14px; }
+    .table-cell.medium.order-req-dtl-total-head, .amountSections.smryHead.sumBreakupAmtText.table-cell.medium.order-dtl-total-head{ text-align: center; }
+    @media(min-width:992px) {
+        .mb-modal-close-icon { display:none; }
+    }
+    .set__left__padding { padding: 8px 0px; }
+    @media(max-width:767px) {
+        .set__left__padding { padding: 5px 0px;line-height: 1.4; } 
+    }
+    .modal-header {
+    padding: 12px 0 18px 0;
+    }
+    @media(max-width:767px) {  
+    .modal-header { padding: 0px 0 12px 0; }
+    }
+    .modal-dialog-centered { align-items: flex-start; }
 </style>
 </head>
 

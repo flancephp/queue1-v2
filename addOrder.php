@@ -378,7 +378,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
 .prdtStk-Qty { width: 9%; }
 .prdtCnt-Scnd { width: 8%; }
 .ttlDft-Crcy.tb-bdy { font-weight:600; }
-html[dir='rtl'] .ttlDft-Crcy.tb-bdy { text-align: right; }
+html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: right; }
 .form-control.qty-itm { font-size:.875rem;font-weight:700; }
 .Itm-Name { font-weight:500; }
 .tb-head, .prdtImg.tb-head { font-weight: 500; }
@@ -438,6 +438,9 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
 @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
 @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
+@media screen and (max-width: 992px) {
+  .ttlDft-Crcy, .ttlOtr-Crcy { font-weight: 600;flex: 0 0 100%;}
+}
 </style>
 </head>
 

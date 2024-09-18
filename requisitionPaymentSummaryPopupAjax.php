@@ -333,8 +333,8 @@ $content .= '<div class="modal-header pb-3">
             $netTotalAmt= ($chargePrice+ $totalTaxCharges+$totalDiscountPercent+$totalFixedDiscount);
 
                              $content .= '<tr class="grand-total" style=" max-height: 38px;">
-                                            <th>'. showOtherLangText('Grand Total').'</th>
-                                            <th>'. getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
+                                            <th style="background: #7A89FF;color:#fff;">'. showOtherLangText('Grand Total').'</th>
+                                            <th style="background: #7A89FF;color:#fff;">'. getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
                                     </tr>
                                         <tr></tr>
                                     </tbody>
