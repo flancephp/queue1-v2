@@ -17686,7 +17686,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .otltBd-Min,
   .otltBd-Max,
   .otltBd-Avr {
-    padding: 6px;
+    padding: 6px;padding-left: 0px;
   }
   .currItm-Info .otltBd-opnStk,
   .currItm-Info .otltBd-clStk,
@@ -17708,7 +17708,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .infoBtn-Hide,
   .flipClm-Otlt,
   .flipInfo-Clm {
-    width: 100%;
+    width: 100%;flex-wrap: wrap;
   }
   .untFtr::before,
   .untFtr::after {
@@ -19086,10 +19086,15 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .otltTbl-head {
     width: 90%;
   }
-
-  html[dir=rtl] .otltTbl-bdy,
-  .otltTbl-head {
-    width: 90%; padding-right: 43px;
+  .px-3 {
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+  }
+  html[dir=rtl] .otltTbl-bdy{
+    width: 90%; padding-right: 20px;
+  }
+  html[dir=rtl] .otltTbl-head {
+    width: 90%; padding-right: 20px;
   }
   html[dir=rtl] .otltBd-usg, .otltBd-var {
     padding-left: 0px;
@@ -20344,14 +20349,15 @@ form.login-form input:focus{
 
 @media(max-width:767px){
   .otlt-slno, .otltBd-slno {
-    max-width: 20%;
+    max-width: auto;
     padding: 0.5rem;
-    min-width: 14%;
+    min-width: 30px;
     width: auto;
   }
   .otltBd-hdImg {
-    min-width: 15%;
+    min-width: auto;
     text-align: left;
+    width: auto;
   }
   html[dir=rtl] .otltBd-hdImg {
     min-width: 15%;

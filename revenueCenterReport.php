@@ -26,7 +26,9 @@ include_once('script/revenueCenterReport_script.php');
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
         @media screen and (max-width: 992px) {
-        .revFeat { margin-bottom: 15px; }
+        .revFeat { margin-bottom: 15px;justify-content: end;
+    display: flex;
+    width: auto; }
         }
         @media screen and (max-width: 1024px) {
             .detailPrc-show, .hstTable-show { padding:0;height: calc(100% - 3.5rem);top: 3.5rem;background: #fff;display:block;border-radius: .625rem .625rem 0 0; } 

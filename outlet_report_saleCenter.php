@@ -75,7 +75,7 @@ include_once('script/outlet_report_saleCenter_script.php');
 .mbStock,   .mbStk-Detail {width: 100% !important;}
 .unitBd-div {
   width: 100%;
-  display: flex;padding-left: 43px;
+  display: flex;padding-left: 10px;
 }
 .untFtr {
   width: 100% !important;
@@ -87,10 +87,10 @@ include_once('script/outlet_report_saleCenter_script.php');
 .otltBd-Min, .otltBd-Max {
   width: 100%;
   display: flex;
-  justify-content: space-between;padding-left: 43px;padding-right: 12px;
+  justify-content: space-between;padding-left: 10px;padding-right: 12px;
 }
 .otltBd-Req {
-    width: 100%;padding-left: 43px;
+    width: 100%;padding-left: 10px;
   }
   .untCount {
   width: 100% !important;
