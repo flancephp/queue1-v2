@@ -199,10 +199,10 @@ $designationRes = mysqli_query($con, $sqlQry);
                                             <div class="catgryTbl-Cnt d-flex align-items-center">
                                                 <div class="tb-bdy catgryNum-Clm">
                                                     <p class="userNumber"><span class="mb-UsrSpan">No.
-                                                        </span><?php echo $x;?></p>
+                                                        </span><strong><?php echo $x;?></strong></p>
                                                 </div>
                                                 <div class="tb-bdy catgryName-Clm">
-                                                    <p class="userName"><?php echo $designationName; ?></p>
+                                                    <p class="userName"><span><?php echo $designationName; ?></span></p>
                                                 </div>
                                             </div>
                                             <div class="catgryTbl-Icns">
