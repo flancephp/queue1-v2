@@ -286,7 +286,7 @@ if( isset($_POST['btnSbt']) )
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
-.overwrite__btn
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

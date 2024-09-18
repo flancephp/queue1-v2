@@ -375,7 +375,7 @@ function getItemHistory($pId, $params=array())
 	}
 
 
-	$sqlSet = " SELECT p.proType, o.id AS ordId, o.deptId, o.ordType, o.recMemberId, o.supplierId, o.storeId, du.name AS deptUserName, st.name AS storeName, sp.name AS suppName, DATE(o.setDateTime) AS actDate, od.*   
+	 $sqlSet = " SELECT p.proType, o.id AS ordId, o.deptId, o.ordType, o.recMemberId, o.supplierId, o.storeId, du.name AS deptUserName, st.name AS storeName, sp.name AS suppName, DATE(o.setDateTime) AS actDate, od.*   
 	FROM tbl_orders o
 	INNER JOIN tbl_order_details od ON(o.id = od.ordId) AND o.account_id = od.account_id
 	INNER JOIN tbl_products p ON(p.id = od.pId) AND p.account_id = od.account_id	
@@ -503,7 +503,7 @@ function getOrdItemVariancesAmtNew($ordId)
 
 
 //show amount and qty
-function showItemTypeData($type, $ordDetails, $showType=0)
+function showItemTypeData($type, $ordDetails, $showType=0, $curCode='')
 {
 		$amt = 0;
 		if( ($ordDetails['ordType'] == 1) && $type == 1)
@@ -511,7 +511,7 @@ function showItemTypeData($type, $ordDetails, $showType=0)
 		
 			if($showType == 0)
 			{
-				return showPrice($ordDetails['totalAmt'], $getDefCurDet['curCode']);
+				return showPrice($ordDetails['totalAmt'], $curCode);
 				
 			}
 			else
@@ -525,7 +525,7 @@ function showItemTypeData($type, $ordDetails, $showType=0)
 			
 			if($showType == 0)
 			{
-				return showPrice($ordDetails['totalAmt'], $getDefCurDet['curCode']);
+				return showPrice($ordDetails['totalAmt'], $curCode);
 				
 			}
 			else
@@ -540,7 +540,7 @@ function showItemTypeData($type, $ordDetails, $showType=0)
 			{
 				$variancesQtyTot = $ordDetails['qtyReceived']-$ordDetails['qty'];
 				$amt = $variancesQtyTot*$ordDetails['stockPrice'];
-				return showPrice($amt, $getDefCurDet['curCode']);
+				return showPrice($amt, $curCode);
 			}
 			else
 			{
@@ -552,7 +552,7 @@ function showItemTypeData($type, $ordDetails, $showType=0)
 		{			
 			if($showType == 0)
 			{
-				return showPrice($ordDetails['totalAmt'], $getDefCurDet['curCode']);
+				return showPrice($ordDetails['totalAmt'], $curCode);
 			}
 			else
 			{
@@ -2099,7 +2099,7 @@ function getMobileStockTakeTotalCount()
 	
 }
 
-function getMobileStockTakeCount($storageId, $isPdf=0)
+function getMobileStockTakeCount($storageId, $isPdf=0, $classShow = 1)
 {
 	global $con;
 	
@@ -2114,9 +2114,15 @@ function getMobileStockTakeCount($storageId, $isPdf=0)
 	$result = mysqli_query($con, $sql);
 	$row = mysqli_num_rows($result);
 	
+	$class = '';
+	if($classShow == 1)
+	{
+		$class = 'class="mblCnt"';
+	}
+
 	if($isPdf == 0)
 	{
-		return  ( ($row > 0) ? ('<span class="mblCnt">'.$row).'</span>' : '');
+		return  ( ($row > 0) ? ('<span '.$class.'>'.$row).'</span>' : '');
 	}
 
 	return $row;	
