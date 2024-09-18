@@ -565,16 +565,14 @@ foreach($resItemHistory['resRows'] as $item){
                                         <p><?php echo showOtherLangText('Issue Out'); ?></p>
                                     </div>
                                     <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Varianc'); ?></p>
+                                        <p class="bl-Head"><?php echo showOtherLangText('Variance'); ?></p>
                                     </div>
 
                                     <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Convt'); ?></p>
+                                        <p class="bl-Head"><?php echo showOtherLangText('Convt Qty/Amt'); ?></p>
                                     </div>
 
-                                    <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Convt').' '.$getDefCurDet['curCode']; ?></p>
-                                    </div>
+                                    
                                 </div>
                                 <div class="tb-head d-flex align-items-center last-Stock">
                                     <div class="itmVw-lstClm">
@@ -663,11 +661,13 @@ Qty'); ?></p>
                                             </div>
 
 
-                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(4, $row, 1);?></p>
+                                            <div class="itmVw-varbdClm">
+                                            <p><?php echo showItemTypeData(4, $row, 1);?><br>
+                                                <?php echo showItemTypeData(4, $row, 0, $getDefCurDet['curCode']);?>
+                                            </p>
                                             </div>
 
-                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(4, $row);?></p>
-                                            </div>
+                                           
 
                                         </div>
                                         <div class="tb-bdy align-items-center tbdy-lstStk">
