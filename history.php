@@ -1002,7 +1002,7 @@ $colsArr = [
     .modal-head-row ul.dropdown-menu {
         box-shadow: 0 0 10px #d5d5d5;
     }
-
+    html[dir="rtl"] .modal-head-row ul.dropdown-menu { text-align: right;padding: 5px 9px !important; }
     .modal-head-row .btn i {
         font-size: 10px;
     }
@@ -1225,7 +1225,7 @@ $colsArr = [
 .issueDtl .Variance {padding-right:  0px !important; width: 14% !important;}
 .issueOut {width: 31% !important;} 
 .issueIn { width: 55% !important; }
-.detailPrice {padding: 11px 11px 0 !important;}
+.detailPrice {padding: 11px 30px 0 !important;}
 .fa-filter::after { margin: -.5rem -.1rem; }
 
 @media(max-width:991px) {
@@ -1290,6 +1290,7 @@ $colsArr = [
     .res__filter__box .itmTable { min-height: calc(100vh - 3rem);padding: .75rem .75rem .5rem .75rem; }
     .res__filter__box .back__btn { width: 2.5rem;height: 2.5rem;}
     .res__filter__box .his-Paybtn { width:50%;position: absolute;top:0;right:0;flex-direction: row;padding-top: .875rem;padding-right: 1rem; }
+    html[dir="rtl"] .res__filter__box .his-Paybtn { left:0;right:auto;flex-direction: row-reverse;padding-left: 1rem;padding-right: 0; }
     .hstTbl-head .numRef, .hstTbl-head .stsHiscol { width: 100%;justify-content: space-between; }
     .res__filter__box .itmTable .tb-bdy { width: 49%;padding-top: .45rem;padding-bottom: .45rem; }
     .res__filter__box .itmTable .tb-bdy .dropdown, .res__filter__box .itmTable .dropdown-toggle { width: 100%; } 
@@ -1399,8 +1400,8 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     .update .itmTable .dropdown-toggle{ padding:7px 5px; height:34px; }
     .update .itmTable, .update .srHisclm p { font-size:12px; }
 }
-@media(max-width:1024px){
-    .update  .hisTory { margin-top: 0;padding: 0 10px; }
+@media (min-width:768px) and (max-width:1024px){
+    .update .hisTory { margin-top: 0;padding: 0 10px; }
 }
 @media screen and (min-width: 1600px) {
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 100%; }
@@ -1428,10 +1429,10 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .cnfrm:hover .h3, .doc-bx:hover .h3, .dlt-bx:hover .h3 { color: var(--color-white); }
 .hisTask .cnfrm:hover a .h3, .hisTask .doc-bx:hover a .h3, .hisTask .dlt-bx:hover a .h3 { color: var(--color-white); }
 .hisTask .cnfrm:hover, .hisTask .doc-bx:hover, .hisTask .dlt-bx:hover { background: var(--color-primary) !important; }
-.modal-dialog #order_history_popup #modalfiltertop { top:0; }
+.modal-dialog #order_history_popup #modalfiltertop { top:0 !important; }
 .d-flex.align-items-start.w-100.gap-3.w-auto.mb-md-0.mb-2.modal-head-btn { position: relative; }
 @media(max-width:768px) {
-    .modal-header #modalfiltertop { margin-top: 4px;margin-bottom: 5px; }
+    .modal-header #modalfiltertop { margin-top: 10px;margin-bottom: 0; }
 }
 .modal .tr-bg-1 th { padding: 0 1rem !important;height:3rem; }
 
@@ -1447,7 +1448,15 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
     .set__left__padding { padding: 5px 0px;line-height: 1.4; } 
     .modal-header { padding: 0px 0 12px 0; }
 }
- 
+@media (min-width: 992px) {
+  #modalfiltertop {
+    position: absolute;
+    top: .75rem !important;
+    left: 4rem;
+  }
+}
+html[dir="rtl"] .ps-1 { padding-left: 0 !important;padding-right: .25rem; }
+html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
 </style>
 
 
@@ -1494,7 +1503,7 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
 
                 <section class="ordDetail hisTory">
 
-                    <div class="alrtMessage">
+                    <div class="alrtMessage mx-lg-4">
                         <div class="container">
                         <a name="del"></a>
                             <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?>

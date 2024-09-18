@@ -402,6 +402,11 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .nwNxt-Btn1 .btn__box { max-width: 174px !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
     }
+    @media (max-width: 1399px) {
+        html[dir="rtl"] .nwNxt-Btn1 .btn__box { 
+            padding-right: 1rem;
+        }
+    }
     @media (max-width:992px) {
         .newFeatures { padding: 1rem 0 0 0; }
         .newFeatures .ms-auto { margin: 0 auto !important; }
@@ -488,6 +493,14 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .curRow.padding { padding-left: 20%; }
         html[dir="rtl"] .curRow.padding { padding-left: 5%; }
     }
+    .featRowParent { max-width:236px; }
+    @media (max-width:991px) {
+        .featRowParent { max-width:190px; }
+        .mbFeature .ordFeature > a { padding:15px 0; }
+        .mbFeature .ordFeature::before { height:26px; }
+        .mb-brCode .ord-StockQty .tabOn-Stk { white-space:nowrap; }
+    }
+    
 </style>
 </head>
 
@@ -563,7 +576,7 @@ echo $ordDetResRow['name'];
                                         <div class="col-lg-9 col-xl-10 newFeature">
                                             <div class="container">
                                                 <div class="mbFeature">
-                                                    <div class="ms-auto text-center w-100" style="max-width:236px;">
+                                                    <div class="ms-auto text-center w-100 featRowParent">
                                                         <div class="row g-3 featRow">
                                                             <div
                                                                 class="col-md-6 ordFeature dropdown drpCurr position-relative">
@@ -1284,7 +1297,7 @@ $ordQry = mysqli_query($con, $sql);
                         <div>
 
                             <div class="container mt-lg-5 topOrder">
-                                <div class="row g-3 g-md-4 align-items-end">
+                                <div class="row gy-3 gx-0 g-md-4 align-items-end">
                                     <div class="col-md-5">
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>
                                         <div class="input-group srchBx" style="border-color: rgb(213, 214, 221);">

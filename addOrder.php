@@ -426,7 +426,13 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
     .mbFeature .ordFeature::before { height: 26px; }
     .prdtImg { width: 4rem;padding-left: 0 !important; }
     .prdtCnt-Fst { width: calc(100% - 4rem) !important;position: relative; } 
-    .res__label__item p { font-size: .875rem; }
+    .res__label__item p { font-size: 14px; }
+    .compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { position:relative;top:1rem;height:55px; }
+    
+    .prdtCr-Unit .col.d-flex { flex-wrap: wrap;}
+    .prdtCr-Unit .itm-Uni.tb-bdy.col-3.res__label__item { width: 4rem !important;}
+    .dflt-Currency, .othr-Currency { width: 100% !important;flex: 0 0 100%; }
+    .prdtCr-Unit .dflt-Currency { padding-left: 0; }
 }
 .curRow .p-2 { text-align: left; }
 html[dir="rtl"] .curRow .p-2 { text-align: right; }
@@ -440,6 +446,15 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
 @media screen and (max-width: 992px) {
   .ttlDft-Crcy, .ttlOtr-Crcy { font-weight: 600;flex: 0 0 100%;}
+}
+@media (min-width: 992px) { .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
+@media (min-width: 768px) { .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
+@media screen and (max-width: 992px) {
+    .ord-Box { width: 100% !important; }
+    html[dir="rtl"] .ord-Box { padding: 0 1rem !important; }
+    html[dir="rtl"] .ord-Box .ps-3 { padding-left: 0 !important; }
+    .ord-Box .ordDate { width: 100% !important; }
+    .ord-Box .ordDate .subTittle1 { width: 100% !important;display:flex;justify-content:space-between; }
 }
 </style>
 </head>

@@ -330,7 +330,7 @@ $cond = '';
             html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 10.875rem !important; }
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { position: absolute;left: auto !important;right: 0; } 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { left:auto !important;right:0; }
-            html[dir="rtl"] .ord-Box { padding: 15px 32px 15px 15px;border-radius: 15px 0px 0 15px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }
+            html[dir="rtl"] .ord-Box { padding: 0;border-radius: 15px 0px 0 15px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }
             html[dir="rtl"] .featRow.ms-auto.w-100{margin-left: 0 !important;margin-right: auto;}
         }
         @media(min-width:768px){  
@@ -339,7 +339,7 @@ $cond = '';
         @media(min-width:1200px){ 
             .container.cntTable.pb-md-4{margin-top: -2.5rem; }  
         }
-        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 1.5rem;} }
+        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 1.5rem;} html[dir="rtl"] .container.mt-5.topOrder{{padding: 0 1.5rem;}} }
         @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 2.5rem;} }
         @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 3.5rem;} }
         .container.cntTable.header{padding-top: 1rem;}
@@ -363,7 +363,7 @@ $cond = '';
             .curRow { font-size: 1.125rem; } 
             
         }
-        
+        .featRow { max-width:118px; }
         
         @media (max-width: 991px) {
             .container.cntTable.pb-md-4{margin-top: .875rem; } 
@@ -386,6 +386,8 @@ $cond = '';
             .edit-order-section .Itm-Name.tb-bdy p{ overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
             html[dir="rtl"] .itmBody > div:first-child { left: auto; right: 0; }
             .col-lg-9.col-xl-10.newFeature { order:3; }
+            .featRow { margin-right: auto;max-width:90px; }
+            .mbFeature .ordFeature > a { padding: 17px 0; }
         }
         @media(max-width:1399px) {
             .itmBody, .itmTable { font-size: 13px; }
@@ -408,7 +410,9 @@ $cond = '';
         .curRow { width: 40%; }
         .curRow .p-2 { width: 100%;flex:none; }
         }
-
+        @media screen and (max-width: 1024px) {
+            html[dir="rtl"] .newOrder { padding: 0 5px; }
+        }
     </style>
 
 </head>
@@ -464,7 +468,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
                                     <div class="ord-Box w-100 d-flex flex-wrap gap-2 ms-0" style="border-color: #F05D53;">
                                         <div class="ordNum m-0">
-                                            <h4 class="subTittle1 p-lg-0 py-3"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
+                                            <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
                                                 <span><?php echo $ordRow['ordNumber'];?></span>
                                             </h4>
                                         </div>
@@ -472,7 +476,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <h4 class="subTittle1">23/05/2022</h4>
                                     </div> -->
                                     <div class="ordNum m-0">
-                                            <h4 class="subTittle1 p-lg-0 py-3">
+                                            <h4 class="subTittle1">
                                                 <span><?php echo showOtherLangText('Requisition By'); ?>:</span> <span><?php
                                         $sqlSet = " SELECT o.recMemberId, du.* FROM tbl_orders o  
                                         INNER JOIN tbl_deptusers du ON(o.recMemberId=du.id) AND o.account_id=du.account_id
@@ -499,7 +503,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <div class="mbFeature">
                                             <div class="">
                                                 <div class="text-center">
-                                                    <div class="featRow ms-auto w-100" style="max-width:118px;">
+                                                    <div class="featRow ms-auto w-100">
                                                         <div class="ordFeature w-100 drpFee position-relative">
                                                             <a href="javascript:void(0)" class="dropdown-toggle tabFet"
                                                                 role="button" data-bs-toggle="dropdown"
@@ -1096,7 +1100,7 @@ $ordRow = mysqli_fetch_array($resultSet);
 
                         <div>
 
-                            <div class="container mt-5 topOrder">
+                            <div class="container mt-3 mt-md-4 mt-lg-5 topOrder">
                                 <div class="row gx-0 gy-3 g-lg-4 align-items-end">
                                     <div class="col-md-5">
                                         <p class="fs-14 pb-3"><?php echo showOtherLangText('Add New Items'); ?></p>

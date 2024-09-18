@@ -211,208 +211,206 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
     <div class="w-100 p-2 pt-0 d-flex justify-content-end d-md-none">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                    <div class="d-md-flex align-items-center justify-content-between w-100 ">
-                        <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
-                        
-                                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
-                                    <i class="fa fa-filter"></i>
-                                </button>
+                    <div class="d-md-flex align-items-center justify-content-between w-100 position-relative">
+                        <div class="d-flex align-items-center justify-content-between w-100 "> 
+                            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
+                                <i class="fa fa-filter"></i>
+                            </button>
+                         
+                            <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
                             
-                                <div class="collapse" id="modalfiltertop">
-                                    <div class="d-flex gap-3 modal-head-row">
+                        </div>
+                        <div class="collapse" id="modalfiltertop">
+                            <div class="d-flex gap-3 modal-head-row">
+                            
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                '.showOtherLangText('Headers').'<i class="fa-solid fa-angle-down ps-1"></i>
+                                </button>
+                                <ul id="show-headerHistory" class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" name="checkAll" class="headChk-AllHistory form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Check All').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="address"
+                                            id="headChk-BxHistory" 
+                                            class="headCheckboxHistory header-addressHistory form-check-input"
+                                            onclick="showHideByClassHistory(\'address-sectionHistory\')" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Address').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="logo" 
+                                        id="headChk-BxHistory"
+                                        class="headCheckboxHistory header-logoHistory form-check-input"
+                                        onclick="showHideByClassHistory(\'logo-sectionHistory\')" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Logo').'</span>
+                                    </li>
+                                </ul>
+                            </div>                                  
+
+                            <div class=" dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                '.showOtherLangText('Summary').'<i class="fa-solid fa-angle-down ps-1"></i>
+                                </button>
+                                <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="checkAll" class="smryChk-AllHistory form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Check All').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="issueInSummary" 
+                                        onclick="showHideByClassHistory(\'issueInSection\')" class="smryCheckboxHistory summary-issue-in form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Issued In').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="defaultCurrency" class="smryCheckboxHistory summary-default-currencyHistory form-check-input" onclick="showHideByClassHistory(\'defaultCurSection\')" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Default Currency').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="otherCurrency" onclick="showHideByClassHistory(\'otherCurSection\')" class="smryCheckboxHistory summary-other-currencyHistory form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Other Currency').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="paidSection" class="smryCheckboxHistory summary-paid form-check-input"
+                                        onclick="showHideByClassHistory(\'paidSection\')" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Paid') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked"
+                                            onclick="showHideByClassHistory(\'pendingSection\')" name="pendingSection" class="form-check-input smryCheckboxHistory summary-pending" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Pending') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="issuedOut" 
+                                            onclick="showHideByClassHistory(\'issueOutSection\')" class="smryCheckboxHistory summary-issue-out form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Issued Out').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="receiveSection"
+                                            onclick="showHideByClassHistory(\'receiveSection\')" class="smryCheckboxHistory summary-issue-out-receive form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Received').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="issueOutPendingSection" class="smryCheckboxHistory summary-issue-out-pending form-check-input"
+                                            onclick="showHideByClassHistory(\'issueOutPendingSection\')" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Issued Out Pending').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" checked="checked" name="variance" onclick="showHideByClassHistory(\'varianceRow\')" class="smryCheckboxHistory summary-variance form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Variances').'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class=" dropdown">
+                                <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                '.showOtherLangText('Item Table').'<i class="fa-solid fa-angle-down ps-1"></i>
+                                </button>
+                                <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                    <li>
+                                        <input type="checkbox" class="itemChk-AllHistory form-check-input" checked="checked">
+                                        <span class="fs-13">'.showOtherLangText('Check All') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemTaskNo" onclick="showHideByClassHistoryItem(\'head2\')"
+
+                                '.( isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
                                     
 
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        '.showOtherLangText('Headers').'<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul id="show-headerHistory" class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" name="checkAll" class="headChk-AllHistory form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Check All').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="address"
-                                                    id="headChk-BxHistory" 
-                                                    class="headCheckboxHistory header-addressHistory form-check-input"
-                                                    onclick="showHideByClassHistory(\'address-sectionHistory\')" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Address').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="logo" 
-                                                id="headChk-BxHistory"
-                                                class="headCheckboxHistory header-logoHistory form-check-input"
-                                                onclick="showHideByClassHistory(\'logo-sectionHistory\')" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Logo').'</span>
-                                            </li>
-                                        </ul>
-                                    </div>                                  
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        '.showOtherLangText('Summary').'<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="checkAll" class="smryChk-AllHistory form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Check All').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="issueInSummary" 
-                                                onclick="showHideByClassHistory(\'issueInSection\')" class="smryCheckboxHistory summary-issue-in form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Issued In').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="defaultCurrency" class="smryCheckboxHistory summary-default-currencyHistory form-check-input" onclick="showHideByClassHistory(\'defaultCurSection\')" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Default Currency').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="otherCurrency" onclick="showHideByClassHistory(\'otherCurSection\')" class="smryCheckboxHistory summary-other-currencyHistory form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Other Currency').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="paidSection" class="smryCheckboxHistory summary-paid form-check-input"
-                                                onclick="showHideByClassHistory(\'paidSection\')" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Paid') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked"
-                                                  onclick="showHideByClassHistory(\'pendingSection\')" name="pendingSection" class="form-check-input smryCheckboxHistory summary-pending" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Pending') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="issuedOut" 
-                                                    onclick="showHideByClassHistory(\'issueOutSection\')" class="smryCheckboxHistory summary-issue-out form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Issued Out').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="receiveSection"
-                                                    onclick="showHideByClassHistory(\'receiveSection\')" class="smryCheckboxHistory summary-issue-out-receive form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Received').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="issueOutPendingSection" class="smryCheckboxHistory summary-issue-out-pending form-check-input"
-                                                    onclick="showHideByClassHistory(\'issueOutPendingSection\')" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Issued Out Pending').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" checked="checked" name="variance" onclick="showHideByClassHistory(\'varianceRow\')" class="smryCheckboxHistory summary-variance form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Variances').'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class=" dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
-                                        '.showOtherLangText('Item Table').'<i class="fa-solid fa-angle-down ps-1"></i>
-                                        </button>
-                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
-                                            <li>
-                                                <input type="checkbox" class="itemChk-AllHistory form-check-input" checked="checked">
-                                                <span class="fs-13">'.showOtherLangText('Check All') .'</span>
-                                            </li>
-                                            <li>
-                                               <input type="checkbox" name="itemTaskNo" onclick="showHideByClassHistoryItem(\'head2\')"
-
-                                        '.( isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
-                                         
-
-                                       
-                                            class="form-check-input itmTblCheckboxHistory item-taskNo" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Task No.') .'</span>
-                                            </li>
-                                            <li>
-                                               <input type="checkbox" name="itemDate" onclick="showHideByClassHistoryItem(\'head3\')" 
-                                        
-                                        '.( isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
-
-                                            class="form-check-input itmTblCheckboxHistory item-date" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Date') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-user form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('User') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox"  name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-sup-invNo form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Sup Invoice No.') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ? '' : 'checked="checked"' ).' value="1">
-                                                <span class="fs-13">'.showOtherLangText('Type') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox"  onclick="showHideByClassHistoryItem(\'head7\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ? '' : 'checked="checked"' ).'name="itemReferTo" class="itmTblCheckboxHistory item-referTo form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Refer to') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox"  name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-value form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Value') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox"  name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckboxHistory item-def-curr-value form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Default Currency Total') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckboxHistory item-sec-curr-value form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Second Currency Total') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-status form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Status') .'</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-paymentNo form-check-input" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Payment no.') .'</span>
-                                            </li>
-                                            <li>
-                                               <input type="checkbox" name="itemInvNo" onclick="showHideByClassHistoryItem(\'head11\')" 
-
-                                        '.( isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
-
-                                            class="form-check-input itmTblCheckboxHistory item-invNo" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Invoice no.') .'</span>
-                                            </li>
-                                            <li>
-                                               <input type="checkbox" name="itemAccount" onclick="showHideByClassHistoryItem(\'head12\')" 
-                                        '.( isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
-
-                                            class="form-check-input itmTblCheckboxHistory item-account" value="1">
-                                                <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    </div>
                                 
-                                </div>
+                                    class="form-check-input itmTblCheckboxHistory item-taskNo" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Task No.') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemDate" onclick="showHideByClassHistoryItem(\'head3\')" 
+                                
+                                '.( isset($historyUserFilterFields) && !in_array(2, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
 
+                                    class="form-check-input itmTblCheckboxHistory item-date" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Date') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemUser" onclick="showHideByClassHistoryItem(\'head4\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(3, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-user form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('User') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  name="itemSupInvNo" onclick="showHideByClassHistoryItem(\'head5\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(8, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-sup-invNo form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Sup Invoice No.') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemType" class="itmTblCheckboxHistory item-type form-check-input" onclick="showHideByClassHistoryItem(\'head6\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(4, $historyUserFilterFields) ? '' : 'checked="checked"' ).' value="1">
+                                        <span class="fs-13">'.showOtherLangText('Type') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  onclick="showHideByClassHistoryItem(\'head7\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(7, $historyUserFilterFields) ? '' : 'checked="checked"' ).'name="itemReferTo" class="itmTblCheckboxHistory item-referTo form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Refer to') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  name="itemValue" onclick="showHideByClassHistoryItem(\'head8\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-value form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Value') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  name="itemDefCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-def-curr\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckboxHistory item-def-curr-value form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Default Currency Total') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemSecCurrValue" onclick="showHideByClassHistoryItem(\'itemTable-other-curr\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(10, $historyUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckboxHistory item-sec-curr-value form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Second Currency Total') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemStatus" onclick="showHideByClassHistoryItem(\'head9\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-status form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Status') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemPaymentNo" onclick="showHideByClassHistoryItem(\'head10\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckboxHistory item-paymentNo form-check-input" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Payment no.') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemInvNo" onclick="showHideByClassHistoryItem(\'head11\')" 
+
+                                '.( isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
+
+                                    class="form-check-input itmTblCheckboxHistory item-invNo" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Invoice no.') .'</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="itemAccount" onclick="showHideByClassHistoryItem(\'head12\')" 
+                                '.( isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) ? '' : 'checked="checked"' ).'
+
+                                    class="form-check-input itmTblCheckboxHistory item-account" value="1">
+                                        <span class="fs-13">'.showOtherLangText('Accounts') .'</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            </div>
                         
-
                         </div>
-                        <button type="submit" class="btn btn-primary dwnBtn"><span class="align-middle">'.showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
+                        
                     </div>
                 </div></form> 
                 <div class="modal-body px-2 py-3">
@@ -680,7 +678,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                 {
                 $content .= '<div class="summery-row summery-row1">
                         <div class="row m-0"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
-                            <div class=" '.$issueinClass.' issueInSection pe-1 summaryPart">
+                            <div class=" '.$issueinClass.' issueInSection col-12 px-0 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell">&nbsp;</div>
@@ -778,7 +776,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                             }
                                 
                         }
-                    $content .= '<div class=" '.$varianceClass.' varianceRow ps-0 summaryPart" id="varianceId">
+                    $content .= '<div class=" '.$varianceClass.' varianceRow ps-0 pe-0 summaryPart" id="varianceId">
                                 <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
                     <div class="table-cell medium">'. showOtherLangText('Variance') .'</div>
                                     </div>

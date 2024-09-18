@@ -78,7 +78,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                      </div>
                                 </div>
                                 <div class="collapse" id="modalfiltertop">
-                                    <div class="d-flex gap-1 gap-md-3 mt-1 flex-wrap modal-head-row">
+                                    <div class="d-flex gap-1 gap-md-3 flex-wrap modal-head-row">
                                     
 
                                     <div class="dropdown">

@@ -450,8 +450,8 @@ $otherChrgQry=mysqli_query($con, $sql);
             .update .rcvOrder .smBtn .fetBtn img { height:40px; }
             .update .rcvOrder .btnBg{width: auto;}
             .update .rcvOrder .smBtn { gap:10px;justify-content:flex-end;} 
-            .update .smBtn .fetBtn { margin-right: auto;} 
-            html[dir="rtl"] .update .smBtn .fetBtn { margin-right: 0;margin-left: auto; }
+            .update .smBtn .fetBtn { margin-left: auto;} 
+            html[dir="rtl"] .update .smBtn .fetBtn { margin-right: auto;margin-left: 0; }
             .subTittle1{ justify-content: space-between;width:100% !important;}
             .dropdown-toggle.tabFet:hover, .dropdown-toggle.tabFet:focus, .dropdown-toggle.tabFet:active { border-color: var(--color-primary) !important;background-color: var(--color-primary);box-shadow: none;color:var(--color-white); }
             html[dir="rtl"] .rcvOrder .sltSupp {flex: 0 0 100%;width: 100%; }
@@ -470,11 +470,12 @@ $otherChrgQry=mysqli_query($con, $sql);
             html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-left: 0;margin-right: auto; }
             .update .recItm-Unit, .update .recCr-Type .tb-bdy, .update .ttlDft-RecPrc, .update .ttlOtr-RecPrc  { width: 50%;text-align: left; }
             .update .recCr-Type { width: 100%;margin-top: .35rem; } 
-            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:1.5rem;right:1rem;max-width:36.5%;}
+            .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { position: absolute;top:2rem;right:1rem;max-width:36.5%;}
             .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price .form-control { width:100%;}
             html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center .tabTtl-Price { right:auto;left:1rem;}
             html[dir="rtl"] .update .recItm-Unit, html[dir="rtl"] .update .recCr-Type .tb-bdy, html[dir="rtl"] .update .ttlDft-RecPrc, html[dir="rtl"] .update .ttlOtr-RecPrc { text-align: right; }
-            
+            .tab-RecItm .recive-Item { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
+            .recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-top: 2px; }
         }
         @media(min-width:992px){
             .nwNxt-Btn .btnBg { max-width:174px;margin-left:auto;}
@@ -503,7 +504,11 @@ $otherChrgQry=mysqli_query($con, $sql);
         }
         .recTtlPrc-Type { width: 16%; }
         .recPrc-Unit { width: 38%; }
-        
+        @media screen and (max-width: 767px) {
+        .stockFeat {
+            width: 96px;
+        }
+        }
     </style>
 </head>
 
@@ -645,13 +650,13 @@ $otherChrgQry=mysqli_query($con, $sql);
                                     </div>
 
                                     <div class="col-md-2 text-end smBtn nwNxt-Btn pe-0">
-                                        <div class="btnBg order-2">
+                                        <div class="btnBg">
                                             <a href="javascript:void(0)" class="btn btn-primary w-100 receive-btn d-inline-flex align-items-center justify-content-center"><?php echo showOtherLangText('Receive');?></a>
                                         </div>
-                                        <div class="btnBg mt-3 order-3">
+                                        <div class="btnBg mt-3">
                                             <a href="runningOrders.php" class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center"><?php echo showOtherLangText('Back');?></a>
                                         </div>
-                                        <div class="fetBtn order-1">
+                                        <div class="fetBtn">
                                             <a href="javascript:void(0)">
                                                 <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                             </a>

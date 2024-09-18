@@ -377,6 +377,7 @@ if($_SESSION['deptId'] != '')
             .reqImg.tb-bdy { padding-left: 0; }
             .ordFeature.margin { margin-left: auto;margin-right: auto; }
             .featRow { justify-content:center; }
+            .compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { position: relative;top:1rem; }
         }
         .form-control.qty-itm { font-weight:700;font-size:.875rem; }
         .curRow .p-2 { text-align: left;width: 100%;flex:none;}
@@ -395,6 +396,19 @@ if($_SESSION['deptId'] != '')
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
         @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
         @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
+        @media screen and (max-width: 767px) {
+            .ordFeature {  width: 50%;  }
+            .mbFeature .ordFeature > a { padding: 13px 0; }
+            .mbFeature .ordFeature::before { height: 26px; }
+        }
+        .filter__width { max-width: 255px; }
+        @media(min-width: 768px){ .filter__width { max-width: 355px; } }
+        @media screen and (max-width: 991px) {
+            html[dir="rtl"] .ord-Box { padding: 0px 15px;width: 100%;} 
+            html[dir="rtl"] .ord-Box .ps-3 { padding-left: 0 !important; }
+        }
+        @media (min-width: 992px) { .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
+        @media (min-width: 768px) { .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
     </style>
 </head>
 
@@ -484,103 +498,102 @@ if($_SESSION['deptId'] != '')
                                     <div class="container">
 
                                         <div class="mbFeature">
-                                            <div class="d-flex justify-content-center justify-content-lg-end">
-                                                <div class="w-100 text-center" style="max-width: 347px;">
-                                                    <div class="row g-3"> 
-                                                        <div class="col-md-4">
-                                                            <div class="featRow">
-                                                                <div class="ordFeature margin"> 
-                                                                    <?php if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) { ?>
-        
-                                                                    <a href="addRecusation.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>"
-                                                                        class="tabFet">
-                                                                        <span class="autoFill"></span>
-                                                                        <p class="btn2">
-                                                                            <?php echo showOtherLangText('Auto Fill'); ?></p>
-                                                                    </a>
-                                                                    <?php } else { ?>
-        
-                                                                    <a href="javascript:void(0)" class="tabFet">
-                                                                        <span class="autoFill"></span>
-                                                                        <p class="btn2">
-                                                                            <?php echo showOtherLangText('Auto Fill'); ?></p>
-                                                                    </a> 
-                                                                    <?php } ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="featRow row"> 
-                                                                <div class="col-md-6 ordFeature ">
-                                                                    <a href="javascript:void(0)" onClick="clearTempItem()" class="tabFet">
-                                                                        <span class="clear"></span>
-                                                                        <p class="btn2">
-                                                                            <?php echo showOtherLangText('Clear'); ?></p>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-6 ordFeature drpFee position-relative">
-                                                                    <a href="javascript:void(0)" class="dropdown-toggle tabFet"
-                                                                        role="button" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <span class="fee"></span>
-                                                                        <p class="btn2"><?php echo showOtherLangText('Fee'); ?>
-                                                                            <i class="fa-solid fa-angle-down"></i>
-                                                                        </p>
-                                                                    </a>
-        
-                                                                    <ul class="item dropdown-menu">
-                                                                        <li class="dropdown innerDrop">
-                                                                            <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a> 
-                                                                            <ul class="subitem submenu">
-                                                                                <?php
-                                                                                //add item fee & custom fee modal box 
-                                                                                $sql = " SELECT * 
-                                                                                FROM tbl_custom_items_fee 
-                                                                                WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-                                                                                $customItemsResult = mysqli_query($con, $sql);
-                    
-                                                                                //$liCount = 0;
-                                                                                while ($resultRow = mysqli_fetch_array($customItemsResult)) 
-                                                                                {
-                                                                                    //$liCount++;
-                                                                                    echo "<li class='innerLi dropdown-item px-2'><a tabindex='-1' href='addRecusation.php?feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." ' >".$resultRow['itemName']."</a></li>";
-                                                                                } 
-                                                                                ?>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                class="sub-btn std-btn mb-usrBkbtn"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#new-service-item"
-                                                                                href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
-                                                                        </li>
-                                                                        <li class="dropdown innerDrop">
-                                                                            <a class="item dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
-                                                                            <ul class="subitem submenu large">
-                                                                                <?php
-                                                                                    //add item fee & custom fee modal box 
-                                                                                    $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
-                                                                                    $ordFeeFetch = mysqli_query($con, $sqlQry);
-                                                                                    //$innerLiCount = 0;
-                                                                                    while ($resultRow = mysqli_fetch_array($ordFeeFetch))
-                                                                                    {
-                                                                                        // $innerLiCount++;
-                                                                                        echo "<li class='innerLi dropdown-item px-2'><a tabindex='-1' href='addRecusation.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
-                                                                                    } 
-                                                                                ?>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a>
-                                                                        </li>
-        
-                                                                       
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                            <div class="d-flex justify-content-center justify-content-lg-end mt-3 mt-md-0">
+                                                <div class="w-100 text-center row gx-2 gx-lg-3 gy-0 filter__width">
+                                                    <div class="col-4">
+                                                        <div class="featRow w-100">
 
+                                                            <div class="ordFeature w-100"> 
+                                                                <?php if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) { ?>
+    
+                                                                <a href="addRecusation.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId'];?>&currencyId=<?php echo $_SESSION['currencyId'] ?>"
+                                                                    class="tabFet">
+                                                                    <span class="autoFill"></span>
+                                                                    <p class="btn2">
+                                                                        <?php echo showOtherLangText('Auto Fill'); ?></p>
+                                                                </a>
+                                                                <?php } else { ?>
+    
+                                                                <a href="javascript:void(0)" class="tabFet">
+                                                                    <span class="autoFill"></span>
+                                                                    <p class="btn2">
+                                                                        <?php echo showOtherLangText('Auto Fill'); ?></p>
+                                                                </a> 
+                                                                <?php } ?> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-8">
+
+                                                        <div class="featRow row g-0 w-100">  
+                                                            <div class="col-6 ordFeature ">
+                                                                <a href="javascript:void(0)" onClick="clearTempItem()" class="tabFet">
+                                                                    <span class="clear"></span>
+                                                                    <p class="btn2">
+                                                                        <?php echo showOtherLangText('Clear'); ?></p>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-6 ordFeature drpFee position-relative">
+                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet"
+                                                                    role="button" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false">
+                                                                    <span class="fee"></span>
+                                                                    <p class="btn2"><?php echo showOtherLangText('Fee'); ?>
+                                                                        <i class="fa-solid fa-angle-down"></i>
+                                                                    </p>
+                                                                </a>
+    
+                                                                <ul class="item dropdown-menu">
+                                                                    <li class="dropdown innerDrop">
+                                                                        <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a> 
+                                                                        <ul class="subitem submenu">
+                                                                            <?php
+                                                                            //add item fee & custom fee modal box 
+                                                                            $sql = " SELECT * 
+                                                                            FROM tbl_custom_items_fee 
+                                                                            WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                                            $customItemsResult = mysqli_query($con, $sql);
+                
+                                                                            //$liCount = 0;
+                                                                            while ($resultRow = mysqli_fetch_array($customItemsResult)) 
+                                                                            {
+                                                                                //$liCount++;
+                                                                                echo "<li class='innerLi dropdown-item px-2'><a tabindex='-1' href='addRecusation.php?feeType=1&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." ' >".$resultRow['itemName']."</a></li>";
+                                                                            } 
+                                                                            ?>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                            class="sub-btn std-btn mb-usrBkbtn"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#new-service-item"
+                                                                            href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
+                                                                    </li>
+                                                                    <li class="dropdown innerDrop">
+                                                                        <a class="item dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                        <ul class="subitem submenu large">
+                                                                            <?php
+                                                                                //add item fee & custom fee modal box 
+                                                                                $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
+                                                                                $ordFeeFetch = mysqli_query($con, $sqlQry);
+                                                                                //$innerLiCount = 0;
+                                                                                while ($resultRow = mysqli_fetch_array($ordFeeFetch))
+                                                                                {
+                                                                                    // $innerLiCount++;
+                                                                                    echo "<li class='innerLi dropdown-item px-2'><a tabindex='-1' href='addRecusation.php?feeType=3&itemCharges=".$resultRow['id']."&currencyId=".$_SESSION['currencyId']." '>".$resultRow['feeName']."</a> ";
+                                                                                } 
+                                                                            ?>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a>
+                                                                    </li>
+    
+                                                                   
+                                                                </ul>
+                                                            </div>
+                                                        </div> 
                                                     </div>
                                                 </div>
 

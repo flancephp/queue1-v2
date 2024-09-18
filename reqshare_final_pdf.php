@@ -77,6 +77,7 @@ $content .= '<head>
         th {
             text-align:left;
         }
+            html[dir="rtl"] th, html[dir="rtl"] td { text-align:right; }
     </style>
 </head>';
 

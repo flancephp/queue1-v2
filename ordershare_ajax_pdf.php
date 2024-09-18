@@ -79,7 +79,7 @@ $content .= '<div class="modal-header position-relative">
                             </div>
                         </div>
                         <div class="collapse" id="modalfiltertop">
-                            <div class="d-flex flex-wrap gap-1 gap-md-3 modal-head-row mt-1">
+                            <div class="d-flex flex-wrap gap-1 gap-md-3 modal-head-row">
                             
 
                             <div class="dropdown">

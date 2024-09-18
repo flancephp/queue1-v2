@@ -307,6 +307,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
  <link rel="stylesheet" href="Assets/css/style1.css">
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 <style>
+    .fa.fa-filter { position:relative;top:-2px; }
     .srNum { color: #666C85; }
     .container { max-width: 100% !important;}
     .supMem-Name { color: #3fb180; }
@@ -326,7 +327,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .modal .headerTxt {font-size: 12px; } 
     }
     @media(min-width:992px) {
-        #modalfiltertop { position: absolute;top:.65rem; left:4rem; } 
+        #modalfiltertop { position: absolute;top:.75rem; left:4rem; } 
+    }
+    @media(max-width:992px) {
+        #modalfiltertop { margin-top: 12px; } 
     }
     .nav-bar a {
         color: #8C8FA7;
@@ -369,6 +373,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .status-ordered, { color: #232859; }
     .status-tmp-req, .status-tmp-order { color: #939393; }
     .status-req{ color:#232859; }
+    html[dir="rtl"] .modal-head-row ul.dropdown-menu { text-align: right;padding: 5px 9px !important; }
    
     @media (max-width: 767px) {
         .update .task-list-status-col-p .new__layout .payOptnreq, .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq {
@@ -393,7 +398,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     #order_details_supplier .modal-header .btn-primary.dwnBtn { padding: 4.5px 18px !important;display:inline-flex;border-radius: 6px !important;align-items: center;gap: .25rem; }
     #order_details_supplier .modal-header .btn-primary.dwnBtn span,#order_details_supplier .modal-header .btn-primary.dwnBtn i { position: relative;top:-1px; }
     .modal-header .btn[data-bs-toggle="collapse"] { padding:5px 14px; }
-    .table-cell.medium.order-req-dtl-total-head, .amountSections.smryHead.sumBreakupAmtText.table-cell.medium.order-dtl-total-head{ text-align: center; }
+    .amountSections.smryHead.sumBreakupAmtText.table-cell.medium.order-dtl-total-head{ text-align: center; }
     @media(min-width:992px) {
         .mb-modal-close-icon { display:none; }
     }
