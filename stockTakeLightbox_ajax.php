@@ -33,7 +33,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
 			
 			$storageDeptRow = getStoreDetailsById($ordDet['storeId']);
 
-$content  .= '<form action="stockTake_pdf_download_history.php" target="_blank" method="get"><div class="modal-header pt-0 pb-3 "> 
+$content  .= '<form action="stockTake_pdf_download_history.php" target="_blank" method="get"><div class="modal-header"> 
                         <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                         <input type="hidden" name="orderId" value="'.$_POST['orderId'].'"/>  <div class="d-flex align-items-center justify-content-end w-100">
                         <button type="submit" class="btn btn-primary dwnBtn"><span>'.showOtherLangText('Press').'</span> <i class="fa-solid fa-download ps-1"></i></a></button>
