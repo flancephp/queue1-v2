@@ -391,7 +391,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .cn-btn { color: #232859; }
     .cnfrm, .doc-bx, .dlt-bx { margin:0; } 
     #order_details_supplier .modal-header .btn-primary.dwnBtn { padding: 4.5px 18px !important;display:inline-flex;border-radius: 6px !important;align-items: center;gap: .25rem; }
+    #order_details_supplier .modal-header .btn-primary.dwnBtn span,#order_details_supplier .modal-header .btn-primary.dwnBtn i { position: relative;top:-1px; }
     .modal-header .btn[data-bs-toggle="collapse"] { padding:5px 14px; }
+    .table-cell.medium.order-req-dtl-total-head, .amountSections.smryHead.sumBreakupAmtText.table-cell.medium.order-dtl-total-head{ text-align: center; }
+    @media(min-width:992px) {
+        .mb-modal-close-icon { display:none; }
+    }
+    .set__left__padding > .col { padding: 8px 0px; }
+    @media(max-width:767px) {
+        .set__left__padding > .col { padding: 85px 0px;line-height: 1.4; }
+
+    }
 </style>
 </head>
 

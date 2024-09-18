@@ -496,11 +496,14 @@ $otherChrgQry=mysqli_query($con, $sql);
             .dropdown-toggle.tabFet { padding: 14px 10px; }
         } 
         @media(min-width:1400px) {
-            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 50px; }
+            html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 66px; }
         }
         @media(min-width:992px) and (max-width:1399px) {
             html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 70px 0 44px; }
         }
+        .recTtlPrc-Type { width: 16%; }
+        .recPrc-Unit { width: 38%; }
+        
     </style>
 </head>
 

@@ -1338,6 +1338,7 @@ html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 html[dir="rtl"] .col-md-4.col-5.order-md-3.text-end { text-align: left !important; }
 .info__table td:nth-child(1){width:55%}
 #view_payment_paid_content .btn-primary { padding: 4.5px 18px;display:inline-flex; } 
+html[dir="rtl"] #view_payment_paid_content .btn-primary .ps-1 { padding-left: 0 !important;padding-right: .25rem; } 
 
 /* 23-8-23 sudarshan changes */
 
@@ -1444,6 +1445,14 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     .modal-header #modalfiltertop { margin-top: 4px;margin-bottom: 5px; }
 }
 .modal .tr-bg-1 th { padding: 0 1rem !important;height:3rem; }
+
+html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
+  top: 0;
+  right: 100%;
+  left: auto;
+  margin-top: 0;
+  text-align: start;
+}
 </style>
 
 

@@ -1285,8 +1285,8 @@ if ($paymentRow['paymentStatus']==1)
                         </div>
                         <br>
 
-                        <div class="form-check payModal-Flex">
-                            <input type="radio" name="refund" value="refundAmt" id="refundAmt" class="form-check-input">
+                        <div class="form-check payModal-Flex d-flex align-items-center gap-3 p-0">
+                            <input type="radio" name="refund" value="refundAmt" id="refundAmt" class="form-check-input float-none m-0">
                             <label for="refundAmt" class="form-check-label"><?php echo showOtherLangText('Refund the amount of ') . $paymentRow['amount'] . showOtherLangText(' to account only.'); ?></label>
                              
                         </div>

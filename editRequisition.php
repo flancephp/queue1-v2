@@ -464,7 +464,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
                                     <div class="ord-Box w-100 d-flex flex-wrap gap-2 ms-0" style="border-color: #F05D53;">
                                         <div class="ordNum m-0">
-                                            <h4 class="subTittle1"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
+                                            <h4 class="subTittle1 p-lg-0 py-3"><span><?php echo showOtherLangText('Task no.'); ?>#:</span>
                                                 <span><?php echo $ordRow['ordNumber'];?></span>
                                             </h4>
                                         </div>
@@ -472,7 +472,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <h4 class="subTittle1">23/05/2022</h4>
                                     </div> -->
                                     <div class="ordNum m-0">
-                                            <h4 class="subTittle1">
+                                            <h4 class="subTittle1 p-lg-0 py-3">
                                                 <span><?php echo showOtherLangText('Requisition By'); ?>:</span> <span><?php
                                         $sqlSet = " SELECT o.recMemberId, du.* FROM tbl_orders o  
                                         INNER JOIN tbl_deptusers du ON(o.recMemberId=du.id) AND o.account_id=du.account_id

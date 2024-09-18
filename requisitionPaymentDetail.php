@@ -721,9 +721,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                 <p id="name" class="f-03 in-val-p mb-1">
                                     <?php echo isset($reqPayInfo['invoiceName']) ? $reqPayInfo['invoiceName'] : $invName; ?>
                                 </p>
-                            </div>
-                            <div class="">
-                                <p id="address" class="f-02 mt-2 mb-1">
+                                <p id="address" class="f-03 in-val-p mb-1">
                                     <?php echo isset($reqPayInfo['invoiceAddress']) ? nl2br($reqPayInfo['invoiceAddress']) : nl2br($address) ;?>
                                 </p>
                                 <p id="email" class="f-03 in-val-p mb-1">
@@ -733,6 +731,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                                     <?php echo isset($reqPayInfo['invoicePhone']) ? $reqPayInfo['invoicePhone'] : $phone ; ?>
                                 </p>
                             </div>
+                            
                             <br>
 
                             <div class="table-responsive mt-4 mt-md-4">
