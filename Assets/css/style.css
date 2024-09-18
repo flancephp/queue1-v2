@@ -16126,7 +16126,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
   .mbStock, .mbStk-Detail {
     width: 90% !important;
-    margin-left: 43px;font-size: 14px;
+    margin-left: 10px;font-size: 14px;
     font-weight: 500;
   }
   .otlt-slno, .otltBd-slno {
@@ -17794,7 +17794,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 6px;
     display: flex;
     align-items: center;
-    justify-content: space-between;padding-left: 43px;
+    justify-content: space-between;padding-left: 10px;
   }
   
   html[dir=rtl] .otltBd-hdNote {
@@ -20500,7 +20500,7 @@ body .ui-widget-content {
     width: 50%;
     padding: 8px 0px;
     padding-left: 0px;
-    padding-left: 43px;
+    padding-left: 10px;
     font-size: 14px;
     font-weight: 500;
   }
