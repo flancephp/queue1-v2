@@ -35,7 +35,7 @@ $typeArr = [
 
 
 $typeOptions =  '<ul class="dropdown-menu ordertype" dt-ft-size >';
-$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
+$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">View All</a></li>';
 
 													foreach($typeArr as $typeKey => $typeVal)
 													{
@@ -54,11 +54,11 @@ $sqlQry = " SELECT s.*, od.pId AS pId FROM  tbl_suppliers s
                                                     INNER JOIN tbl_orders o ON (s.id=o.supplierId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
 
-                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND s.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY s.name ";
+                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND s.account_id = '".$_SESSION['accountId']."' GROUP BY od.pId, o.supplierId  ORDER BY s.name ";
                                                     $resultStore = mysqli_query($con, $sqlQry);
 
 $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
-$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'">View All</a></li>';
+$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id='.$_GET['id'].'&fromDate='.$_GET['fromDate'].'&toDate='.$_GET['toDate'].'">View All</a></li>';
 
                                 while($suppRow = mysqli_fetch_array($resultStore))
                                                     {
@@ -72,14 +72,14 @@ $suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHis
     $sqlSet = " SELECT du.*, od.pId AS pId FROM  tbl_deptusers du
                                                     INNER JOIN tbl_orders o ON (du.id=o.recMemberId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
-                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND du.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY du.name ";
+                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']." AND du.account_id = '".$_SESSION['accountId']."' GROUP BY od.pId, o.recMemberId ORDER BY du.name ";
                                                     $resultSet = mysqli_query($con, $sqlSet);
 
                                                     while($deptUserRow = mysqli_fetch_array($resultSet) )
                                                     {
-                                           $sel = isset($_GET['suppMemStoreId']) && $_GET['suppMemStoreId'] == 'deptUserId_' . $deptUserRow['id'] ? 'selected' : '';
+                                                        $sel = isset($_GET['suppMemStoreId']) && $_GET['suppMemStoreId'] == 'deptUserId_' . $deptUserRow['id'] ? 'selected' : '';
 
-                                                $suppMemStoreOptions .= '<li data-id="deptUserId_'.$deptUserRow['id'].'" data-value="'.trim($deptUserRow['name']).'" ><a class="dropdown-item isuOut-rdSup '.$sel.'" href="javascript:void(0)">'.trim($deptUserRow['name']).'</a></li>';
+                                                        $suppMemStoreOptions .= '<li data-id="deptUserId_'.$deptUserRow['id'].'" data-value="'.trim($deptUserRow['name']).'" ><a class="dropdown-item isuOut-rdSup '.$sel.'" href="javascript:void(0)">'.trim($deptUserRow['name']).'</a></li>';
                                                     }
 
                                                     // for store type
@@ -87,7 +87,7 @@ $suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHis
                                                     $sqlSet = " SELECT st.*, od.pId AS pId FROM  tbl_stores st
                                                     INNER JOIN tbl_orders o ON (st.id=o.storeId)
                                                     INNER JOIN tbl_order_details od ON (o.id=od.ordId)
-                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']."  AND st.account_id = '".$_SESSION['accountId']."' GROUP BY pId ORDER BY st.name ";
+                                                    WHERE o.status = '2' AND pId = '".$_GET['id']."' ".$resItemHistory['cond']."  AND st.account_id = '".$_SESSION['accountId']."' GROUP BY od.pId, o.storeId ORDER BY st.name ";
                                                     $resultSet = mysqli_query($con, $sqlSet);
 
 
@@ -104,16 +104,16 @@ $plusvariance = $minusvariance = '';
 $plusqtytot =  $minusqtytot = '';
 foreach($resItemHistory['resRows'] as $item){
    // $variancesQtyTot = '';$amt = '';
-           if($showType == 0)
+           if($_GET['ordType'] == 4)
             {
                  $variancesQtyTot = $item['qtyReceived']-$item['qty'];
 
                  $amt = $variancesQtyTot*$item['stockPrice'];
                 if($variancesQtyTot>0)
                 {
-                $plusqtytot += $variancesQtyTot;
+                     $plusqtytot += $variancesQtyTot;
                 } else {
-                $minusqtytot += $variancesQtyTot;
+                    $minusqtytot += $variancesQtyTot;
                 }
 
                 if($amt>0)
@@ -509,9 +509,9 @@ foreach($resItemHistory['resRows'] as $item){
                                         </div>
                                         <div class="itmVw-varNtive">
                                             <p class="Vw-varHead"><?php echo showOtherLangText('Converted'); ?></p>
-                                            <p class="viewItm-varMinus "><?php echo $resItemHistory['convertedQtyTot'];?><?php echo $res['countingUnit'];?></p>
-                                            <p class="varMinus-countUnt ">
-                                <?php showPrice($resItemHistory['convertedTot'],$getDefCurDet['curCode']);?></p>
+                                            <p class="viewItm-varMinus "><?php showPrice($resItemHistory['convertedTot'],$getDefCurDet['curCode']);?> </p>
+                                            <p class="varMinus-countUnt "><?php echo $resItemHistory['convertedQtyTot'];?><?php echo $res['countingUnit'];?>
+                                </p>
                                         </div>
                                     </div>
                                 </div>
@@ -565,16 +565,14 @@ foreach($resItemHistory['resRows'] as $item){
                                         <p><?php echo showOtherLangText('Issue Out'); ?></p>
                                     </div>
                                     <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Varianc'); ?></p>
+                                        <p class="bl-Head"><?php echo showOtherLangText('Variance'); ?></p>
                                     </div>
 
                                     <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Convt'); ?></p>
+                                        <p class="bl-Head"><?php echo showOtherLangText('Converted'); ?></p>
                                     </div>
 
-                                    <div class="itmVw-varClm">
-                                        <p class="bl-Head"><?php echo showOtherLangText('Convt').' '.$getDefCurDet['curCode']; ?></p>
-                                    </div>
+                                    
                                 </div>
                                 <div class="tb-head d-flex align-items-center last-Stock">
                                     <div class="itmVw-lstClm">
@@ -615,7 +613,7 @@ Qty'); ?></p>
                                    }
                                    else
                                    {
-                                       $assignTo = '<span style="color:Maroon;font-weight:bold;">'.showOtherLangText('Raw Item Convert').'</span>'; 
+                                       $assignTo = '<span style="color:#ee6464;font-weight:bold;">'.showOtherLangText('Raw Item Convert').'</span>'; 
                                    }
 
                                     $suppMemStoreName = '';
@@ -650,24 +648,30 @@ Qty'); ?></p>
                                         <div class="tb-bdy d-flex align-items-center tbdy-isuVar">
                                             <div class="itmVw-inbdClm">
                                                 <p class="mb-isuHead">Issue In</p>
-                                                 <p><?php echo showItemTypeData(1, $row)!=''?showItemTypeData(1, $row).' '.$getDefCurDet['curCode']:''; ?></p>
+                                                 <p><?php echo showItemTypeData(1, $row, 0, $getDefCurDet['curCode']); ?></p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(1, $row, 1);?></p>
                                             </div>
                                             <div class="itmVw-outbdClm">
                                                 <p class="mb-isuHead">Issue Out</p>
-                                               <p><?php echo showItemTypeData(2, $row)!=''?showItemTypeData(2, $row).' '.$getDefCurDet['curCode']:''; ?></p>
+                                               <p><?php echo showItemTypeData(2, $row, 0, $getDefCurDet['curCode']); ?></p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(2, $row, 1);?></p>
                                             </div>
-                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(3, $row)!=''?showItemTypeData(3, $row).' '.$getDefCurDet['curCode']:''; ?></p>
+                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(3, $row , 0, $getDefCurDet['curCode']); ?></p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(3, $row, 1);?></p>
                                             </div>
 
 
-                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(4, $row, 1);?></p>
+                                            <div class="itmVw-varbdClm">
+                                            <p>
+                                                
+                                            <?php echo showItemTypeData(4, $row, 0, $getDefCurDet['curCode']);?>
+                                            <br>
+                                            <?php echo showItemTypeData(4, $row, 1);?>
+                                                
+                                            </p>
                                             </div>
 
-                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(4, $row);?></p>
-                                            </div>
+                                           
 
                                         </div>
                                         <div class="tb-bdy align-items-center tbdy-lstStk">
@@ -722,7 +726,21 @@ $(function() {
         window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate="+fromDate+ "&toDate="+toDate+ "&suppMemStoreId="+$this.data("id");
       });
 
-      $(".ordertype").on("click", "a", function(e){
+      
+
+      var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('suppMemStoreId')) {
+        var dateTypeID = urlParams.get('suppMemStoreId');
+            if(dateTypeID!=='')
+            {
+                $("#refertotext").text($(".referto .selected").text()).substr(0, 12);
+            }
+        }
+
+    
+
+
+    $(".ordertype").on("click", "a", function(e){
         var $this = $(this).parent();
          $("#ordertypetext").text($this.data("value"));
          var fromDate = $('#fromDate').val();
@@ -730,12 +748,14 @@ $(function() {
         window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate="+fromDate+ "&toDate="+toDate+ "&ordType="+$this.data("id");
       });
 
+     
+
       var urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('suppMemStoreId')) {
-        var dateTypeID = urlParams.get('suppMemStoreId');
+        if (urlParams.has('ordType')) {
+        var dateTypeID = urlParams.get('ordType');
             if(dateTypeID!=='')
             {
-                $("#refertotext").text($(".referto .selected").text());
+                $("#ordertypetext").text($(".ordertype .selected").text().substr(0, 12));
             }
         }
 

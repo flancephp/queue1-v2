@@ -108,7 +108,7 @@
             </a>
             <?php
                 if ($_SESSION['accountId'] != 4 || $test =1){
-                    if ($mobUserPermission['bar_control_sales'] == 1){?>
+                    if ($mobUserPermission['bar_control_sales'] == 1 || $test =1){?>
                         <a href="<?php echo $mobileSiteUrl;?>barControl1.php" class="mblBx-Lnk text-center">
                             <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Bar_Control.svg" alt="Bar Control" class="fieldIcns">
                             <p class="mblFnt1"><?php echo showOtherLangText('Bar Control Sales') ?></p>

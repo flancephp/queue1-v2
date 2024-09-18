@@ -304,33 +304,38 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                      $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. showOtherLangText('Stock Take') .'</span></div>';
                                      }
                                     $content .= '</div>';
-                                    if( !isset($_SESSION['filterByStorage']) || ($_SESSION['filterByStorage']) == '' )
-                    { 
 
-                       $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
-                                    $content .= '<div class="table-row">
-                                           <div class="table-cell"><span class="store-name summaryPart"> '. showOtherLangText('All Stores') .'</span> </div>
-                                          <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($storeResRow['totalstockValue'],$getDefCurDet['curCode']).'</div>';
-                                     if($stockTakeCnt > 0)
-                                    {
-                                    $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart"> '. getMobileStockTakeTotalCount().'</span></div>
-                                         </div>';
-                                    }
-                    }
+                                    if( !isset($_SESSION['filterByStorage']) || ($_SESSION['filterByStorage']) == '' )
+                                        { 
+
+                                        $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
+                                                        $content .= '<div class="table-row">
+                                                            <div class="table-cell"><span class="store-name summaryPart"> '. showOtherLangText('All Stores') .'</span> </div>
+                                                            <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($storeResRow['totalstockValue'],$getDefCurDet['curCode']).'</div>';
+                                                        if($stockTakeCnt > 0)
+                                                        {
+                                                        $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart"> '. getMobileStockTakeTotalCount().'</span></div>
+                                                           ';
+                                                        }
+
+                                                        $content .= '</div>';
+                                        }
 
                                     while($storageDeptRow = mysqli_fetch_array($storeQry))
                                     {
 
-                                    $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
-                                    $content .= '<div class="table-row">
-                                           <div class="table-cell"><span class="store-name summaryPart">'. $storageDeptRow['name'] .'</span> </div>
-                                          <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</div>';
-                                     if($stockTakeCnt > 0)
-                                    {
-                                    $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. getMobileStockTakeCount($storageDeptRow['id']).'</span></div>
-                                         </div>';
+                                        $totalstockValue=getStockTotalOfStore($storageDeptRow['id'], $cond);
+                                        $content .= '<div class="table-row">
+                                            <div class="table-cell"><span class="store-name summaryPart">'. $storageDeptRow['name'] .'</span> </div>
+                                            <div class="table-cell"><span class="store-totalPrice summaryPart">'. getPriceWithCur($totalstockValue,$getDefCurDet['curCode']).'</div>';
+                                        if($stockTakeCnt > 0)
+                                        {
+                                        $content .= '<div class="table-cell"><span class="store-stockTakeCount summaryPart">'. getMobileStockTakeCount($storageDeptRow['id'], 0 , '').'</span></div>
+                                            ';
+                                        }
+
+                                        $content .= '</div>';
                                     }
-                                }
                         
                                 $content .= '</div>
                             </div>
