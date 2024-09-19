@@ -400,7 +400,7 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
 }
 
 @media (max-width:991px) {
-    .smBtn .btn { height:40px;padding:0 16px;}
+    .smBtn .btn { height:40px;padding:0 16px !important;}
     .smBtn .fetBtn img { height:40px; }
     .topOrder { padding: 8px 10px 0 10px !important; }
     .prdtCnt-Fst { width: 76% !important;position: relative; }
