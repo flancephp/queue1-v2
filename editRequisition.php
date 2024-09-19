@@ -372,7 +372,7 @@ $cond = '';
             html[dir="rtl"] .fetBtn { margin-left: 0;margin-right: auto; } 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position .ord-Box{border-radius:10px !important;border-right: 1px solid #f05d53;padding-top: 0;padding-bottom: 0; }
             html[dir="rtl"] .update .ordInfo { padding: 0; }
-            html[dir="rtl"] .featRow.ms-auto.w-100 { margin-right: auto; }
+            html[dir="rtl"] .featRow.ms-auto.w-100 { margin-right: auto;margin-left: 0 !important; }
 
             .newOrd-CntPrt{ position: relative; }
             .itmBody > div:first-child{ position: absolute;top:0.5rem;left:0;font-size: 12px;width: 25% !important;text-align: center; }
@@ -386,8 +386,9 @@ $cond = '';
             .edit-order-section .Itm-Name.tb-bdy p{ overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
             html[dir="rtl"] .itmBody > div:first-child { left: auto; right: 0; }
             .col-lg-9.col-xl-10.newFeature { order:3; }
-            .featRow { margin-right: auto;max-width:90px; }
+            .featRow { max-width:90px; }
             .mbFeature .ordFeature > a { padding: 17px 0; }
+            html[dir="rtl"] .ord-Box { padding:4px 1rem !important; }
         }
         @media(max-width:1399px) {
             .itmBody, .itmTable { font-size: 13px; }
@@ -412,6 +413,15 @@ $cond = '';
         }
         @media screen and (max-width: 1024px) {
             html[dir="rtl"] .newOrder { padding: 0 5px; }
+        }
+        @media(max-width:991px) {
+            .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
+            .subitem.submenu.large.list-unstyled.dropdown-menu.dropdown__menu { left: -11rem !important; }
+            html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
+            .dropdown-item { font-size:13px; }
+            .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
+            .mb-brCode { justify-content: flex-start;padding-left: 0px; }
+            .prdtImg.tb-bdy .ordItm-Img { position: relative;top:10px; }
         }
     </style>
 
@@ -505,7 +515,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                 <div class="text-center">
                                                     <div class="featRow ms-auto w-100">
                                                         <div class="ordFeature w-100 drpFee position-relative">
-                                                            <a href="javascript:void(0)" class="dropdown-toggle tabFet"
+                                                            <a href="javascript:void(0)" class="dropdown-toggle tabFet"  id="dropBtn"
                                                                 role="button" data-bs-toggle="dropdown"
                                                                 aria-expanded="false">
                                                                 <span class="fee"></span>
@@ -515,13 +525,13 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                                 </p>
                                                             </a>
 
-                                                            <ul class="item dropdown-menu"
+                                                            <ul class="item dropdown-menu"  id="dropdownMenu"
                                                                 style="left: -34% !important;">
                                                                 <li class="innerDrop  dropdown">
-                                                                    <a class="dropdown-item"
+                                                                    <a class="dropdown-item"  role="button" data-bs-toggle="dropdown" aria-expanded="false"
                                                                         href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
 
-                                                                    <ul class="subitem submenu list-unstyled">
+                                                                    <ul class="subitem submenu list-unstyled  dropdown-menu dropdown__menu">
                                                                         <?php
                                                                     //add item fee & custom fee modal box 
                                                                     $sql = " SELECT * 
@@ -546,9 +556,9 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                                         href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
                                                                 </li>
                                                                 <li class="innerDrop dropdown">
-                                                                    <a class="item dropdown-item"
+                                                                    <a class="item dropdown-item" role="button" data-bs-toggle="dropdown" aria-expanded="false"
                                                                         href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
-                                                                    <ul class="subitem submenu large list-unstyled">
+                                                                    <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                                                         <?php
                                                                         //add item fee & custom fee modal box 
                                                                         $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -1453,14 +1463,12 @@ list'); ?></span><br>
                     </div>
 
                     <div class="modal-footer">
-                        <div class="btnBg">
+                        <div class="d-flex gap-3">
                             <button type="button" data-bs-dismiss="modal"
                                 class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
-                        </div>
-                        <div class="btnBg">
                             <button type="button" onclick=""
                                 class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>

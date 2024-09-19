@@ -367,6 +367,8 @@ if($_SESSION['deptId'] != '')
             html[dir=rtl] .ord-Box { padding: 0px 15px; }
             .ordDate, .ord-Box { width: 100%; }
             .subTittle1 { display:flex;justify-content:space-between; }
+            html[dir="rtl"] .mbFeature .d-flex.justify-content-end.mt-3.mt-md-0 { justify-content: flex-start !important;}
+            .ord-Box { padding:13px 1rem !important; }
         }
         @media screen and (max-width: 767px) {
             .itmBody { position: relative; }
@@ -374,7 +376,7 @@ if($_SESSION['deptId'] != '')
             html[dir='rtl'] .itmBody > div:first-child { left: auto;right:0; }
             .reqCnt-Fst { width: calc(70% - 4rem); }
             .reqClm-Itm p { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical; white-space: normal; }
-            .reqImg.tb-bdy { padding-left: 0; }
+            .reqImg.tb-bdy { padding-left: 0;text-align: center; }
             .ordFeature.margin { margin-left: auto;margin-right: auto; }
             .featRow { justify-content:center; }
             .compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { position: relative;top:1rem; }
@@ -391,6 +393,7 @@ if($_SESSION['deptId'] != '')
         @media screen and (min-width: 1600px) { 
             .prcTable { font-size: 1rem; } 
             .nwNxt-Btn .btnBg { max-width:10.875rem;margin-left: auto; }
+            html[dir="rtl"] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
             .nwNxt-Btn .btnBg .btn { width: 100%; }
         }
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
@@ -402,13 +405,22 @@ if($_SESSION['deptId'] != '')
             .mbFeature .ordFeature::before { height: 26px; }
         }
         .filter__width { max-width: 255px; }
+        html[dir="rtl"] .filter__width { margin-right: auto !important; }
         @media(min-width: 768px){ .filter__width { max-width: 355px; } }
         @media screen and (max-width: 991px) {
-            html[dir="rtl"] .ord-Box { padding: 0px 15px;width: 100%;} 
+            html[dir="rtl"] .ord-Box { padding: 4px 15px !important;width: 100%;} 
             html[dir="rtl"] .ord-Box .ps-3 { padding-left: 0 !important; }
         }
         @media (min-width: 992px) { .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
         @media (min-width: 768px) { .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
+
+        @media(max-width:991px) {
+            .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
+            html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
+            .dropdown-item { font-size:13px; }
+            .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }
+            .mb-brCode { justify-content: flex-start;padding-left: 0px; }  
+        }
     </style>
 </head>
 
@@ -498,7 +510,7 @@ if($_SESSION['deptId'] != '')
                                     <div class="container">
 
                                         <div class="mbFeature">
-                                            <div class="d-flex justify-content-center justify-content-lg-end mt-3 mt-md-0">
+                                            <div class="d-flex justify-content-end mt-3 mt-md-0">
                                                 <div class="w-100 text-center row gx-2 gx-lg-3 gy-0 filter__width">
                                                     <div class="col-4">
                                                         <div class="featRow w-100">
@@ -534,19 +546,18 @@ if($_SESSION['deptId'] != '')
                                                                 </a>
                                                             </div>
                                                             <div class="col-6 ordFeature drpFee position-relative">
-                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet"
-                                                                    role="button" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
+                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet" id="dropBtn"
+                                                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="fee"></span>
                                                                     <p class="btn2"><?php echo showOtherLangText('Fee'); ?>
                                                                         <i class="fa-solid fa-angle-down"></i>
                                                                     </p>
                                                                 </a>
     
-                                                                <ul class="item dropdown-menu">
+                                                                <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
                                                                     <li class="dropdown innerDrop">
-                                                                        <a class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a> 
-                                                                        <ul class="subitem submenu">
+                                                                        <a class="dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?></a> 
+                                                                        <ul class="subitem submenu dropdown-menu dropdown__menu">
                                                                             <?php
                                                                             //add item fee & custom fee modal box 
                                                                             $sql = " SELECT * 
@@ -571,8 +582,8 @@ if($_SESSION['deptId'] != '')
                                                                             href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
                                                                     </li>
                                                                     <li class="dropdown innerDrop">
-                                                                        <a class="item dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
-                                                                        <ul class="subitem submenu large">
+                                                                        <a class="item dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                        <ul class="subitem submenu large dropdown-menu dropdown__menu">
                                                                             <?php
                                                                                 //add item fee & custom fee modal box 
                                                                                 $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -604,7 +615,7 @@ if($_SESSION['deptId'] != '')
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center gap-1 px-3"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
+                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center gap-1 px-lg-3"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
                                             <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i></a>
                                     </div>
                                     <div class="fetBtn">
@@ -1437,14 +1448,12 @@ list'); ?></span><br>
                 </div>
 
                 <div class="modal-footer">
-                    <div class="btnBg">
+                    <div class="d-flex gap-3">
                         <button type="button" data-bs-dismiss="modal"
                             class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
-                    </div>
-                    <div class="btnBg">
                         <button type="button" onclick=""
                             class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

@@ -527,6 +527,8 @@ $tr = '';
                                                             <p class="mbSale-Head">Usage</p>
                                                             <p class="mblStock-Sale fw-bold" title="Usage">'. $usage.'</p>
                                                         </div>
+
+
                                                         <div class="otltBd-var">
                                                             <p class="mbSale-Head">Variance</p>
                                                             <p class="mblStock-Sale fw-bold" title="Variance">'. $variancesVal.'</p>
@@ -546,6 +548,10 @@ $tr = '';
                                                             </div>
 
                                                         </div>
+
+
+
+
                                                         <div class="itmInfo-Otlt currItm-Info">
                                                             <div class="otltBd-opnStk">
                                                                 <p title="Open Stock Amount">'. getNumFormtPrice($openStockAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
@@ -571,6 +577,9 @@ $tr = '';
                                                         <div class="otltBd-var">
                                                             <p title="Variance Amount">'. getNumFormtPrice($varienceAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                         </div>
+
+
+                                                        
                                                               
                                                         </div>
                                                     </div>
@@ -770,7 +779,7 @@ $tr = '';
                                         </div>
 
                                         <div class="otlt-stkPrc hideInMobile">
-                                                    <p>Stock price test</p>
+                                                    <p>Stock price</p>
                                                 </div>
 
                                         <div class="flipClm-Otlt">

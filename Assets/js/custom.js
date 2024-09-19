@@ -36,19 +36,19 @@ $("#srch").focusout(function () {
 // Order & Requisition Pages Search Bar End
 
 // Order Page Barcode & S.Qty. Clone Start
-$(document).ready(function () {
-  $(window).resize(function () {
-    if ($(window).width() > 992) {
-      $(".mb-brCode").hide();
-    } else {
-      $(".ord-brCode").eq(0).appendTo(".mb-brCode");
-      $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
-      $(".Itm-brCode").hide();
-      $(".prdtStk-Qty").hide();
-      // $(".mb-brCode .ord-brCode").show();
-    }
-  });
-});
+// $(document).ready(function () {
+//   $(window).resize(function () {
+//     if ($(window).width() > 992) {
+//       $(".mb-brCode").hide();
+//     } else {
+//       $(".ord-brCode").eq(0).appendTo(".mb-brCode");
+//       $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
+//       $(".Itm-brCode").hide();
+//       $(".prdtStk-Qty").hide();
+//       // $(".mb-brCode .ord-brCode").show();
+//     }
+//   });
+// });
 
 $(document).ready(function () {
   if ($(window).width() > 992) {
@@ -61,6 +61,30 @@ $(document).ready(function () {
     // $(".mb-brCode .ord-brCode").show();
   }
 });
+$(document).ready(function () {
+  // Function to handle the resizing logic
+  function handleResize() {
+    if ($(window).width() > 992) {
+      $(".mb-brCode").hide();
+    } else {
+      $(".mb-brCode").show(); // Ensure the container is visible on smaller screens
+      $(".mb-brCode").empty(); // Clear existing elements to prevent duplication
+      $(".ord-brCode").eq(0).appendTo(".mb-brCode");
+      $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
+      $(".Itm-brCode").hide();
+      $(".prdtStk-Qty").hide();
+    }
+  }
+
+  // Run the resize handler immediately on load/reload
+  handleResize();
+
+  // Bind the resize event to the handler
+  $(window).resize(function () {
+    handleResize();
+  });
+});
+
 // Order Page Barcode & S.Qty. Clone End
 
 // Order Table Start

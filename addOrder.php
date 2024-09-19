@@ -357,11 +357,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 .prcTable { font-size:1rem; }
 @media(max-width:991px) { 
 /* .Itm-Name, .prdtCr-Unit { width: 50%; } */
-.prdt-Hide { width: 100%; }
+.prdt-Hide { width: 100%;margin-top: 10px; }
 /* .res__label__item::before {
 content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4;
 } */
-.mb-brCode .ord-brCode, .mb-brCode .ord-StockQty { width: 100% !important; }
+.mb-brCode .ord-brCode, .mb-brCode .ord-StockQty { width: 50% !important; }
 }
 @media screen and (min-width: 1600px) {
   .itmBody { padding-top: 12px;padding-bottom: 12px; }
@@ -396,7 +396,7 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
     html[dir='rtl'] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
 }
 @media screen and (max-width: 1599px) {
-  .itmBody, .itmTable { font-size: .875rem; } 
+  .itmBody, .itmTable { font-size: 14px; } 
 }
 
 @media (max-width:991px) {
@@ -447,14 +447,21 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 @media screen and (max-width: 992px) {
   .ttlDft-Crcy, .ttlOtr-Crcy { font-weight: 600;flex: 0 0 100%;}
 }
-@media (min-width: 992px) { .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
-@media (min-width: 768px) { .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
+@media (min-width: 992px) { html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
+@media (min-width: 768px) { html[dir="rtl"] .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
 @media screen and (max-width: 992px) {
-    .ord-Box { width: 100% !important; }
-    html[dir="rtl"] .ord-Box { padding: 0 1rem !important; }
+    .ord-Box { width: 100% !important;padding: 10px 1rem !important; }
+    html[dir="rtl"] .ord-Box { padding: 4px 1rem !important; }
     html[dir="rtl"] .ord-Box .ps-3 { padding-left: 0 !important; }
     .ord-Box .ordDate { width: 100% !important; }
     .ord-Box .ordDate .subTittle1 { width: 100% !important;display:flex;justify-content:space-between; }
+}
+@media(max-width:991px) {
+    .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
+    html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
+    .dropdown-item { font-size:13px; }
+    .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
+    .mb-brCode { justify-content: flex-start;padding-left: 0px; }
 }
 </style>
 </head>
@@ -619,19 +626,18 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 
                     </div>
                     <div class="col-md-3 ordFeature drpFee position-relative">
-                        <a href="javascript:void(0)" class="dropdown-toggle tabFet"
-                            role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a href="javascript:void(0)" class="dropdown-toggle tabFet" id="dropBtn"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="fee"></span>
                             <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
                                     class="fa-solid fa-angle-down"></i>
                             </p>
                         </a>
 
-                        <ul class="item dropdown-menu">
+                        <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
                             <li class="dropdown innerDrop">
-                                <a class="item dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-                                <ul class="subitem submenu large list-unstyled">
+                                <a class="item dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?></a>
+                                <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                     <?php
                 //add item fee & custom fee modal box 
                 $sql = " SELECT * 
@@ -650,8 +656,8 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                             </li>
                             <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
                             <li class="dropdown innerDrop">
-                                <a class="item dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
-                                <ul class="subitem submenu large list-unstyled">
+                                <a class="item dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?></a>
+                                <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                     <?php
                                     //add item fee & custom fee modal box 
                                     $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -1476,12 +1482,11 @@ list'); ?></span><br>
 </div>
 
 <div class="modal-footer">
-<div class="btnBg">
+<div class="d-flex gap-3">
 <button type="button" data-bs-dismiss="modal" class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
+<button type="button" onclick="" class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
 </div>
-<div class="btnBg">
-<button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-</div>
+ 
 </div>
 </div>
 </div>

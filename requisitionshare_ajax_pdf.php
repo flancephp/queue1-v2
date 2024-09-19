@@ -229,7 +229,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                             </div></form>'; 
                       $content  .= '<div class="modal-body px-2 py-3">
                                 <div class="row pb-3">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 col-7 order-md-1">
                                         <div id="adrsClm"  style="display:none;" class="headerTxt modal-address">
                                             <h6 class="semibold fs-14">'.$clientDetRow['accountName'].'</h6>
                                             <div class="fs-13 ">
@@ -241,10 +241,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <h4 id="orderDetailsText" class="headerTxt orderDetailsText text-center semibold">'.showOtherLangText('Requisition Details').'</h4>
-                                    </div>
-                                    <div class="col-md-4 text-md-end">
+                                    <div class="col-md-4 col-5 order-md-3 text-end">
                                         <div class="modal-logo"><div id="logoClm" class="headerTxt" style="display:none;">';
                                  if( file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
                                 {  
@@ -258,6 +255,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <div class="modal-date pt-2">
                                             <p style="display:none;" class="headerTxt currentDate" id="currentDate">'.date('d/m/Y').'</p>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4 order-md-2">
+                                        <h4 id="orderDetailsText" class="headerTxt orderDetailsText text-center semibold">'.showOtherLangText('Requisition Details').'</h4>
                                     </div>
                                 </div>
                                 <div class="overflow-aut">
