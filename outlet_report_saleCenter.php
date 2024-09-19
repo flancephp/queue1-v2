@@ -100,6 +100,7 @@ include_once('script/outlet_report_saleCenter_script.php');
 }
 }
 
+
     </style>
 
 </head>
@@ -483,7 +484,7 @@ $tr = '';
                                             '. getItemType($row['outletItemType']).'
                                         </div>
 
-                                        <div class="otltBd-stkPrc" title="Stock Price">
+                                        <div class="otltBd-stkPrc" title="Stock Price hideInMobile">
                                             '. getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'
                                         </div>
 
@@ -492,6 +493,12 @@ $tr = '';
                                                 <div class="mbStk-Detail">
                                                     <div class="mbHide-Otlt">
                                                         <div class="itmInfo-Otlt">
+
+                                                         <div class="otltBd-opnStk">
+                                                                <p class="mbSale-Head">Stock Price</p>
+                                                                <p class="mblStock-Sale" title="Stock Price">'.getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'</p>
+                                                            </div>
+
                                                             <div class="otltBd-opnStk">
                                                                 <p class="mbSale-Head">Open Stock</p>
                                                                 <p class="mblStock-Sale" title="Open Stock">'.showValue($openStock).'</p>
@@ -564,19 +571,7 @@ $tr = '';
                                                         <div class="otltBd-var">
                                                             <p title="Variance Amount">'. getNumFormtPrice($varienceAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                         </div>
-                                                               <div class="usg-p-g">
-                                                                <p class="mbSale-Head">Usage/Guest</p>
-                                                                <p class="mblStock-Sale"></p>
-                                                            </div>
-                                                            <div class="avg-usg">
-                                                                <p class="mbSale-Head">Usage Avg</p>
-                                                                <p class="mblStock-Sale"></p>
-                                                            </div>
-                                                            <div class="usg-lvl">
-                                                                <p class="mbSale-Head">Usage Level</p>
-                                                                <p class="mblStock-Sale"></p>
-
-                                                            </div>
+                                                              
                                                         </div>
                                                     </div>
                                                 </div>
@@ -770,12 +765,12 @@ $tr = '';
                                             <p>Totals</p>
                                         </div>
 
-                                        <div class="otlt-itm-typ">
+                                        <div class="otlt-itm-typ hideInMobile">
                                             <p>Item Type</p>
                                         </div>
 
-                                        <div class="otlt-stkPrc">
-                                                    <p>Stock price</p>
+                                        <div class="otlt-stkPrc hideInMobile">
+                                                    <p>Stock price test</p>
                                                 </div>
 
                                         <div class="flipClm-Otlt">
