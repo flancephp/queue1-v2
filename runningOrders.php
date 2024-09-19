@@ -331,6 +331,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     @media(max-width:992px) {
         #modalfiltertop { margin-top: 12px; } 
+        html[dir="rtl"] .reqDtl-Bg, html[dir="rtl"] .mbrDtl-Bg {
+        background: transparent;
+        }
     }
     .nav-bar a {
         color: #8C8FA7;
@@ -351,6 +354,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     .btn-primary:focus { outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;}
     @media (max-width: 767px) {
+        .btn-primary { border-radius: 0.5rem !important;padding: .5rem 1rem !important; }
         .new__layout {
             /* display: block !important; */
             flex-wrap: wrap;
@@ -411,8 +415,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     @media(max-width:767px) {  
     .modal-header { padding: 0px 0 12px 0; }
+    .modal-content { max-width:90%; }
     }
     .modal-dialog-centered { align-items: flex-start; }
+    html[dir="rtl"] .fa-share-square.pe-2 { padding-right: 0 !important;padding-left: .2rem !important; }
+    html[dir="rtl"] .tmpStatus { background: transparent !important; }
 </style>
 </head>
 
@@ -742,7 +749,7 @@ while($orderRow = mysqli_fetch_array($result))
                                                     <li>
                                                         <a class="dropdown-item" href="javascript:void(0)"
                                                             onclick="return showOrderJourney('<?php echo $orderRow['id'];?>','<?php echo $orderRow['ordType'];?>', '1');">
-                                                            <i class="far fa-share-square"></i>
+                                                            <i class="far fa-share-square pe-2"></i>
                                                             <?php echo showOtherLangText('Details(Supplier)') ?>
                                                         </a>
                                                     </li>
@@ -811,7 +818,7 @@ while($orderRow = mysqli_fetch_array($result))
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <form action="" method="post" id="assignUser" name="assignUser">
 <div class="modal" tabindex="-1" id="assign-order" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -848,7 +855,7 @@ while($orderRow = mysqli_fetch_array($result))
 </form>
 <form method="POST" id="frm_issueOutPopUpFrm" name="issueOutPopUpFrm">
 <div class="modal" tabindex="-1" id="issue-out" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog ">
         <div class="modal-content">
 
             <div class="modal-body text-center fs-13">
@@ -868,7 +875,7 @@ while($orderRow = mysqli_fetch_array($result))
 <form action="runningOrders.php?confirm=2&orderId=<?php echo $_SESSION['errorQtyOrderId'] ?>" method="POST"
 id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 <div class="modal" id="errorQtyModal" tabindex="-1" aria-labelledby="issueout2label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-550">
+    <div class="modal-dialog  modal-550">
 
 
         <?php 
@@ -884,14 +891,14 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 </form>
 
 <div class="modal" tabindex="-1" id="order_details" aria-labelledby="orderdetails" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered modal-md site-modal">
+<div class="modal-dialog  modal-md site-modal">
     <div id="order_details_supplier" class="modal-content overflow-hidden p-2">
 
     </div>
 </div>
 </div>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
+<div class="modal-dialog ">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

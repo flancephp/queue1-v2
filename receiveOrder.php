@@ -476,6 +476,7 @@ $otherChrgQry=mysqli_query($con, $sql);
             html[dir="rtl"] .update .recItm-Unit, html[dir="rtl"] .update .recCr-Type .tb-bdy, html[dir="rtl"] .update .ttlDft-RecPrc, html[dir="rtl"] .update .ttlOtr-RecPrc { text-align: right; }
             .tab-RecItm .recive-Item { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
             .recieved-order-section .recTtlPrc-Type.d-flex.align-items-center { margin-top: 2px; }
+            html[dir="rtl"] .mbFeature .row.gx-0.justify-content-end { justify-content: flex-start !important; }
         }
         @media(min-width:992px){
             .nwNxt-Btn .btnBg { max-width:174px;margin-left:auto;}
@@ -505,9 +506,10 @@ $otherChrgQry=mysqli_query($con, $sql);
         .recTtlPrc-Type { width: 16%; }
         .recPrc-Unit { width: 38%; }
         @media screen and (max-width: 767px) {
-        .stockFeat {
-            width: 96px;
-        }
+            .stockFeat { width: 88px; }
+            html[dir="rtl"] .stockFeat { margin-right: auto; }
+            .row.featRow.stkRow.divider.p-0.position-relative { justify-content: flex-end; }
+            html[dir="rtl"] .row.featRow.stkRow.divider.p-0.position-relative { justify-content: flex-start; }
         }
     </style>
 </head>
@@ -614,7 +616,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                         
                                         <div class="container">
                                             <div class="mbFeature mb-2 mb-lg-0">
-                                                <div class="row gx-0 justify-content-center justify-content-lg-end">
+                                                <div class="row gx-0 justify-content-end">
                                        
                                                     <div class="text-center w-100 md-max-fit-content"> 
                                                         <div class="row featRow stkRow divider p-0 position-relative"> 

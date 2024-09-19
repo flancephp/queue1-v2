@@ -416,7 +416,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .newOrd-CntPrt{ position: relative; }
         .itmBody > div:first-child{ position: absolute;top:0.5rem;left:0;font-size: 12px;width: 25% !important;text-align: center; }
         .itmBody > div:first-child p { font-size: 12px; }
-        .prdtImg { width: 25%; }
+        .prdtImg { width: 25%;text-align: center; }
+        .prdtImg .glyphicon-trash { font-size: 1.25rem;margin-top: 1.5rem;display: block; }
         .prdtCnt-Fst { width: 50% !important; }
         .edit-order-section.update .prdtCnt-Scnd { width: 25% !important; }
         .edit-order-section.update .prdtCnt-Scnd .itm-Quantity,.edit-order-section.update .prdtCnt-Scnd .ttlCr-Type { width: 100% !important; }  
@@ -437,7 +438,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir="rtl"] .update .ordInfo { padding: 0; } 
         .col-lg-9.col-xl-10.newFeature { order:3;padding-top: .5rem; }
         .container.pt-5.topOrder {padding:0 !important;}
-        .mbFeature .ms-auto.text-center.w-100 { margin: 0 auto !important; }
+        .mbFeature .ms-auto.text-center.w-100 { margin: 0 0 0 auto !important; }
+        html[dir="rtl"] .mbFeature .ms-auto.text-center.w-100 { margin: 0 auto 0 0 !important; }
     }
     @media screen and (max-width: 1024px) {
         .update .sltSupp.nwOrd-Num { width: 35%; }
@@ -465,7 +467,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     }
     @media (max-width: 1599px) {
         .itmTable { font-size: .875rem; }
-        .itmBody { font-size: .812rem; }
+        .itmBody { font-size: 14px; }
     }
     
     .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type {
@@ -500,7 +502,13 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .mbFeature .ordFeature::before { height:26px; }
         .mb-brCode .ord-StockQty .tabOn-Stk { white-space:nowrap; }
     }
-    
+    @media(max-width:991px) {
+        .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
+        html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
+        .dropdown-item { font-size:13px; }
+        .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
+        .mb-brCode { justify-content: flex-start;padding-left: 0px; }  
+    }
 </style>
 </head>
 
@@ -627,7 +635,7 @@ echo $ordDetResRow['name'];
 
                                                             </div>
                                                             <div class="col-md-6 ordFeature drpFee position-relative">
-                                                                <a href="javascript:void(0)"
+                                                                <a href="javascript:void(0)" id="dropBtn"
                                                                     class="dropdown-toggle tabFet" role="button"
                                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="fee"></span>
@@ -637,11 +645,11 @@ echo $ordDetResRow['name'];
                                                                     </p>
                                                                 </a>
 
-                                                                <ul class="item dropdown-menu">
+                                                                <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
                                                                     <li class="innerDrop dropdown">
-                                                                        <a class="dropdown-item"
+                                                                        <a class="dropdown-item"  role="button" data-bs-toggle="dropdown" aria-expanded="false"
                                                                             href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
-                                                                        <ul class="subitem  submenu list-unstyled">
+                                                                        <ul class="subitem  submenu list-unstyled dropdown-menu dropdown__menu">
                                                                             <?php 
                                             //add item fee & custom fee modal box 
                                             $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -662,10 +670,9 @@ echo $ordDetResRow['name'];
                                                                             href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
                                                                     </li>
                                                                     <li class="innerDrop dropdown">
-                                                                        <a class="dropdown-item"
-                                                                            href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                        <a class="dropdown-item"  href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?></a>
                                                                         <ul
-                                                                            class="subitem  submenu large list-unstyled">
+                                                                            class="subitem  submenu large list-unstyled dropdown-menu dropdown__menu">
                                                                             <?php
                                         //add item fee & custom fee modal box 
                                         $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='".$_SESSION['accountId']."' ";
@@ -1894,14 +1901,12 @@ list'); ?></span>
                 </div>
 
                 <div class="modal-footer">
-                    <div class="btnBg">
+                    <div class="d-flex gap-3">
                         <button type="button" data-bs-dismiss="modal"
                             class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
-                    </div>
-                    <div class="btnBg">
                         <button type="button" onclick=""
                             class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
