@@ -687,7 +687,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                             </div>
                                         </a>
                                         <?php if (mysqli_num_rows($storeQry) > 1) {  ?>
-                                            <a href="javascript:void(0)" class="allStore">
+                                            <a href="stockView.php" class="allStore">
                                                 <div class="othStr">
                                                     <div class="storeCont">
                                                         <h2 class="h2"><?php echo showOtherLangText('All Stores') ?></h2>
@@ -1546,8 +1546,8 @@ html[dir=rtl] .modal-footer .btnBg{
     <script>
         $(function() {
 
-            <?php if (isset($_GET['allstore'])) { ?>
-                // $(".allStore").css("display", "flex");
+            <?php if (!isset($_GET['filterByStorage'])) { ?>
+                $(".allStore").css("display", "flex");
                 // $(".storeCol").css("background", "#7A89FE");
                 // $(".dskAll-str").hide();
 
