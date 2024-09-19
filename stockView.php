@@ -540,6 +540,28 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
       */   
 
       /* 04-09-24 sudarshan */
+      @media (max-width: 992px) {
+      .mblCnt {
+            font-size: 14px;
+            padding: 2px 6px;
+            top: -14%;
+            left: -14%;
+        }
+
+        html[dir="rtl"] .mblCnt {
+  border-radius: 20px !important;
+  border: 2px solid #FFF;
+  background: #7A89FE !important;
+  box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+  font-size: 14px;
+  top: -10%;
+  left: -15%;
+  position: absolute !important;
+  color: #fff;
+  font-weight: 600;padding: 2px 6px;
+}
+    }
+
       @media (min-width: 767px) {
     #page2head .stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
         width: 85% !important;
@@ -975,7 +997,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                 <div class="stkNamcol stkNamcol01 d-flex align-items-center">
                                     <div class="tb-head stkItmclm">
                                         <div class="d-inline-flex align-items-center" style="color:#1c2047 !important;">
-                                            <p><?php echo showOtherLangText('Item'); ?></p>
+                                            <p style="font-weight:400;"><?php echo showOtherLangText('Item'); ?></p>
                                             <span class="dblArrow">
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up" style="color: #000;"></i></a>
                                                 <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down" style="color: #000;"></i></a>
