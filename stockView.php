@@ -1546,8 +1546,8 @@ html[dir=rtl] .modal-footer .btnBg{
     <script>
         $(function() {
 
-            <?php if (isset($_GET['allstore'])) { ?>
-                // $(".allStore").css("display", "flex");
+            <?php if (!isset($_GET['filterByStorage'])) { ?>
+                $(".allStore").css("display", "flex");
                 // $(".storeCol").css("background", "#7A89FE");
                 // $(".dskAll-str").hide();
 
