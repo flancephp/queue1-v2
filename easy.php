@@ -106,7 +106,13 @@ if (isset($_GET['hotelId'])) {
             }
         }
 
+        html[dir=rtl] .spaceClass2 {
+    position: relative;
+  right: -8px;
+  }
         @media (max-width: 991px) {
+
+           
             .outlet__box {
                 width: 25%;
             }
@@ -148,8 +154,20 @@ if (isset($_GET['hotelId'])) {
             }
         }
 
-        @media (max-width: 767px) {
+        .select-pop{
+            background-size: 46px 40px; height: 45px; padding: 0.375rem 3.25rem 0.375rem 0.75rem; overflow: hidden;
+        }
+        html[dir="rtl"] .select-pop{
+            direction: ltr; background-size: 41px 40px; height: 45px; padding: 0.375rem 0.75rem 0.375rem 3.75rem; overflow: hidden;
+        }
 
+        @media (max-width: 767px) {
+            html[dir="rtl"] .spaceClass2 {
+  padding-bottom: 8px;
+}
+.spaceClass2 {
+  padding-bottom: 8px;
+}
             .right__box {
     width: 100%;
     margin-top: 4px;
@@ -188,6 +206,43 @@ if (isset($_GET['hotelId'])) {
             }
         }
 
+        @media (max-width: 554px) {
+
+            
+        .spaceClass1{
+            position: relative;
+  left: -8px;
+        }
+
+        html[dir=rtl] .spaceClass1 {
+    position: relative;
+    right: -8px;
+  }
+ 
+    }
+
+    @media (max-width: 429px) {
+        .spaceClass4 
+            {
+            position: relative;
+  left: -8px;
+        }
+        .spaceClass1 {
+    position: relative;
+    left: -16px;
+  }
+    }
+    @media (max-width: 326px) {
+        .spaceClass4 
+            {
+            position: relative;
+  left: 0px;
+        }
+        .spaceClass1 {
+    position: relative;
+    left: -8px;
+  }
+    }
         @media (max-width: 420px) {
             .middle__info .product__box {
     width: 100%;
@@ -265,23 +320,23 @@ if (isset($_GET['hotelId'])) {
                             <div class="d-flex justify-content-between flex-wrap align-items-center g-3 gap-3 pt-2">
                                 <div class="">
                                 <form name="frm" id="frm" method="get" action="">
-                                    <div class="hstCal gap-1" style=" flex-wrap:wrap;">
+                                    <div class="hstCal gap-1" style=" flex-wrap:wrap; align-items: first baseline;">
 
 
                                     
-                                        <div style="width: 250px;" class="me-2">
+                                        <div style="width: 250px;" class="me-2 spaceClass2">
                                             
 
 
                                             <?php if($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4){?>
-                                                <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 1.25rem 0.375rem 0.75rem;" aria-label="Default select example">
+                                                <select name="hotelId" id="hotelId" class="form-select select-pop" aria-label="Default select example">
 
     												<option value="21866" <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>Fun Beach Hotel(21866)</option>
     												<option value="21930" <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : '';?>>Casa Del Mar Hotel(21930)</option>
     											</select>
 										<?php }elseif($_SESSION['accountId'] == 3){?>	
 												
-                                            <select name="hotelId" id="hotelId" class="form-select" style=" background-size: 38px 38px; height:38px; padding: 0.375rem 1.25rem 0.375rem 0.75rem;" aria-label="Default select example">
+                                            <select name="hotelId" id="hotelId" class="form-select select-pop"  aria-label="Default select example">
 
     												<option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>Mnarani Beach Hotel(29624)</option>
     											</select>
@@ -315,11 +370,11 @@ if (isset($_GET['hotelId'])) {
 
                                         </div>
 
-                                        <div class="d-flex justify-content-end mx-2 align-items-end">
+                                        <div class="d-flex justify-content-end mx-2 align-items-end spaceClass4">
                                             <a href="javascript:void(0);" class="btn btn-primary update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();"><?php echo showOtherLangText('Get data'); ?></a>
                                         </div>
 
-                                        <div class=" d-flex justify-content-end mx-2 align-items-end">
+                                        <div class=" d-flex justify-content-end mx-2 align-items-end spaceClass1">
                                             <a class="btn btn-primary update w-lg-100 px-2" style="max-width: 165px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('<?php echo showOtherLangText('Are you sure to sync the data?'); ?>');"><?php echo showOtherLangText('Sync to report'); ?></a>
                                         </div>
                                         <!-- Date Box End -->
@@ -330,7 +385,7 @@ if (isset($_GET['hotelId'])) {
                                         </form>
 
                                 </div>
-                                <div class="d-flex justify-content-end align-items-end">
+                                <div class="d-flex justify-content-end align-items-end spaceClass3">
                                     <a href="revenueCenterReport.php" class="btn btn-primary update w-lg-100" style="max-width: 140px;"><?php echo showOtherLangText('Back'); ?></a>
                                 </div>
                             </div>

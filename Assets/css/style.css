@@ -16952,7 +16952,22 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .revCenter-Name {
     background: transparent;
     border: none;
-    border-radius: 0;
+    border-radius: 0;padding-left: 10px;
+    padding-right: 10px;
+  }
+  .num-List {
+    justify-content: end;
+    display: flex;padding-right: 10px;
+  }
+  .outlet-Name {
+    width: 43%;
+  }
+  .outlet-Salecst {
+    width: 25%;
+  }
+  .outlet-Totalcst {
+    width: 32%;
+    justify-content: end;
   }
   .revtable-Detail {
     background: transparent;
@@ -18005,6 +18020,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 
 
 @media screen and (max-width: 767px) {
+
   .tbdy-dtMbr {
     width: 50%;
   }
@@ -18036,7 +18052,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
 
   .modal-header, .modal-footer, .modal-body {
-    padding: 12px 0 12px 0;
+    padding: 0px 0 12px 0;
   }
   .itmBody {
     font-size: 11px;
@@ -19186,7 +19202,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   html[dir=rtl] .sale-Variance,
   html[dir=rtl] .tl-Cst {
     margin-left: 5px;
-    margin-right: auto;
+    margin-right: auto; width: 100%;
   }
   html[dir=rtl] .hisTblbody {
     margin: 0 8px;
@@ -21056,6 +21072,8 @@ img.previewImg {
 .tb-bdy.stkImgcol .imgItm { height: 40px;object-fit: contain; }
 .modal .addUser-Form .form-control { width: 100% !important;margin: 0% !important; }
 
+html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin: 0% !important; }
+
 .compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; }
 .compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
 @media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
@@ -21281,12 +21299,11 @@ text-align: center;
 
 .mb-modal-close-icon {
   display: flex;
+  padding: 0;
+  width: 100%;
+  margin-bottom: .2rem;
+  position: static;
   justify-content: end;
-  padding: 0 .5rem .5rem;
-  width: 15px;
-  position: absolute;
-  right: 10px;
-  top: 5px;
 }
 
 /* 23-8-24 client issues */
