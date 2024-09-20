@@ -415,11 +415,7 @@ $cond = '';
             html[dir="rtl"] .newOrder { padding: 0 5px; }
         }
         @media(max-width:991px) {
-            .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
-            .subitem.submenu.large.list-unstyled.dropdown-menu.dropdown__menu { left: -11rem !important; }
-            html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
-            .dropdown-item { font-size:13px; }
-            .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
+            .ord-Box { padding: 12px 1rem; }
             .mb-brCode { justify-content: flex-start;padding-left: 0px; }
             .prdtImg.tb-bdy .ordItm-Img { position: relative;top:10px; }
         }
@@ -588,7 +584,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg w-100">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-center gap-2 d-inline-flex">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-end gap-2 d-inline-flex px-md-3">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center m-0"></i>
                                                 </a>
                                             </div>

@@ -459,10 +459,7 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 @media(max-width:991px) {
    /* .innerDrop .submenu.large { display:none !important;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem;right:auto; }
     .innerDrop .submenu.large.show { display:block !important; } */
-    html[dir="rtl"] .innerDrop .dropdown-menu, html[dir=rtl] .ordFeature .innerDrop:first-child .submenu { right: -12rem !important;left:auto !important;display:none !important; }
-    html[dir="rtl"] .innerDrop .dropdown-menu.show, html[dir=rtl] .ordFeature .innerDrop:first-child .submenu.show { display:block !important;transform: none !important; }
-    .dropdown-item { font-size:13px; }
-    .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
+     
     .mb-brCode { justify-content: flex-start;padding-left: 0px; }
 }
 /* .tabFet.show { background-color: var(--color-primary);color:var(--color-white); } */
@@ -561,7 +558,7 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
 <div class="ordInfo newFeatures">
 <div class="container">
     <div class="mbFeature">
-        <div class="row g-0 justify-content-center justify-content-lg-end">
+        <div class="row g-0 justify-content-end">
             <div class="col-md-7 text-center filder__btns w-100">
                 <div class="row featRow">
                     <div class="col-md-3 ordFeature">

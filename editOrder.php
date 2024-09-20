@@ -402,15 +402,11 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .nwNxt-Btn1 .btn__box { max-width: 174px !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
     }
-    @media (max-width: 1399px) {
-        html[dir="rtl"] .nwNxt-Btn1 .btn__box { 
-            padding-right: 1rem;
-        }
-    }
+    
     @media (max-width:992px) {
         .newFeatures { padding: 1rem 0 0 0; }
         .newFeatures .ms-auto { margin: 0 auto !important; }
-        .btn__box { max-width: 14rem;}
+        .btn__box { justify-content:flex-start !important; }
         .fetBtn img { height:3rem; }
         .newOrdTask1 {background: rgba(255, 255, 255, 0.8);box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);padding: 0;margin-bottom: 5px;border-radius:.5rem;display:flex;}
         .newOrd-CntPrt{ position: relative; }
@@ -425,7 +421,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .prdtCr-Unit .crncy-Type.w-50 { width: 60% !important; }
         .itmBody { font-size: 12px; }
         .mb-brCode .ord-StockQty { width: 50%; }
-        .btn__box .btn { height:40px;padding: 0 16px;display: inline-flex;align-items: center;justify-content:center; }
+        .btn__box .btn { height:40px;padding: 0 16px !important;display: inline-flex;align-items: center;justify-content:center;width: auto !important; }
         .fetBtn img { height:40px; }
         .ttlDft-Crcy, .ttlOtr-Crcy{ min-width: 100%; }
         .edit-order-section .Itm-Name.tb-bdy p{ overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
@@ -719,7 +715,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                 </a>
                                             </div>
                                             <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
-                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100">
+                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-3 d-inline-flex align-items-center">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
                                                     <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i>
                                                 </a> 

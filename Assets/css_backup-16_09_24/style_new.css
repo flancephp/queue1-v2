@@ -9889,7 +9889,7 @@ img {
   transition: color 0s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 .nav-bar > ul > li > a.nav-link{ 
-  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .1s ease-in-out;
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize; 
 }
 .nav-bar > ul > li > a.nav-link .sm__text{ 
  max-width: 60px;white-space: break-spaces;margin-left: auto;margin-right: auto;
