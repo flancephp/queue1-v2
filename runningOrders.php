@@ -419,7 +419,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     .modal-dialog-centered { align-items: flex-start; }
     html[dir="rtl"] .fa-share-square.pe-2 { padding-right: 0 !important;padding-left: .2rem !important; }
-    html[dir="rtl"] .tmpStatus { background: transparent !important; }
+    @media(max-width:991px) { 
+        html[dir="rtl"] .tmpStatus { background: transparent !important; }
+    }
 </style>
 </head>
 

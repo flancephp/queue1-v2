@@ -450,19 +450,22 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 @media (min-width: 992px) { html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
 @media (min-width: 768px) { html[dir="rtl"] .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
 @media screen and (max-width: 992px) {
-    .ord-Box { width: 100% !important;padding: 10px 1rem !important; }
+    .ord-Box { width: 100% !important;padding: 14px 1rem !important; }
     html[dir="rtl"] .ord-Box { padding: 4px 1rem !important; }
     html[dir="rtl"] .ord-Box .ps-3 { padding-left: 0 !important; }
     .ord-Box .ordDate { width: 100% !important; }
     .ord-Box .ordDate .subTittle1 { width: 100% !important;display:flex;justify-content:space-between; }
 }
 @media(max-width:991px) {
-    .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
-    html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
+   /* .innerDrop .submenu.large { display:none !important;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem;right:auto; }
+    .innerDrop .submenu.large.show { display:block !important; } */
+    html[dir="rtl"] .innerDrop .dropdown-menu, html[dir=rtl] .ordFeature .innerDrop:first-child .submenu { right: -12rem !important;left:auto !important;display:none !important; }
+    html[dir="rtl"] .innerDrop .dropdown-menu.show, html[dir=rtl] .ordFeature .innerDrop:first-child .submenu.show { display:block !important;transform: none !important; }
     .dropdown-item { font-size:13px; }
     .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
     .mb-brCode { justify-content: flex-start;padding-left: 0px; }
 }
+/* .tabFet.show { background-color: var(--color-primary);color:var(--color-white); } */
 </style>
 </head>
 
@@ -636,7 +639,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 
                         <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
                             <li class="dropdown innerDrop">
-                                <a class="item dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?></a>
+                                <a class="item dropdown-item" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?></a>
                                 <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                     <?php
                 //add item fee & custom fee modal box 
@@ -656,7 +659,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                             </li>
                             <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
                             <li class="dropdown innerDrop">
-                                <a class="item dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?></a>
+                                <a class="item dropdown-item" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?></a>
                                 <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                     <?php
                                     //add item fee & custom fee modal box 
