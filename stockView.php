@@ -257,6 +257,21 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .strfetCol { width: 310px; } 
         .storeCol { width: calc(100% - 350px); }
 
+        .mblCnt {
+            border-radius: 20px !important;
+            border: 2px solid #FFF;
+            background: #7A89FE !important;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+            font-size: 18px;
+            top: -10%;
+            left: -10%;
+            position: absolute !important;
+            padding: 4px 8px;
+            color: #fff;
+        }
+
+     
+
         @media(max-width:991px) {
             .storeCol {
                 width: 100% !important;
@@ -479,22 +494,62 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
         }
 
+        @media(max-width:1800px) {
+  .storeCol {
+    max-width: 970px;
+  }
+  @media(max-width:1600px) {
+  .storeCol {
+    max-width: 780px;
+  }
+
+        @media(max-width:1599px) {
+  .storeCol {
+    width: calc(100% - 280px);
+    max-width: 780px;
+  }
+  .strfetCol {
+  width: 280px;
+}
+
+  .tb-bdy {
+  font-size: 14px;
+}
+  
+  .mblCnt {
+  font-size: 14px;
+  top: -15%;
+  left: -15%;
+  padding: 2px 6px;
+}
+
+}
+@media(max-width:1480px) {
+  .storeCol {
+    max-width: 770px;
+  }
+
+}
+@media(max-width:1366px) {
+  .storeCol {
+    max-width: 690px;
+  }
+
+}
+@media(max-width:1280px) {
+  .storeCol {
+    max-width: 600px;
+  }
+
+}
+
+        
+
         #page2head .mbShw .stkPrcol .lstPrcol {width: 33%;} 
         .storeCont .h2 {
             overflow: hidden !important;
         }
-        .mblCnt {
-            border-radius: 20px !important;
-            border: 2px solid #FFF;
-            background: #7A89FE !important;
-            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
-            font-size: 18px;
-            top: -10%;
-            left: -10%;
-            position: absolute !important;
-            padding: 4px 8px;
-            color: #fff;
-        }
+       
 
         html[dir=rtl] .mblCnt {
             border-radius: 20px !important;

@@ -14232,6 +14232,86 @@ img[alt=LOGO] {
   .alert-dismissible .btn-close { font-size: 1rem; }
 }
 
+
+
+
+.nav-bar > ul > li > a.nav-link {
+  height: 84PX;
+  width: 96px;
+  font-size: 14px;
+}
+.srHisclm p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.itmBody > div:first-child p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.itmBody >  div:first-child .counter__col {
+  font-size: 15px;
+}
+.itmBody >  div:first-child {
+  font-size: 16px;
+}
+
+.prdtImg.tb-head {
+  font-weight: 700;
+}
+
+.numRef1:first-child .srHisclm p {
+  font-weight: 700;
+}
+
+nav p {
+font-weight: 500;
+text-align: center;
+}
+
+/* ----- 1366 screen css start ------- */
+
+
+@media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
+ 
+  .nav-bar > ul > li > a.nav-link {
+    height: 66px;
+    width: 80px;
+    font-size: 12px;
+  }
+  .itmTable {
+    font-size: 14px;
+  }
+  .supStkclm .dropdown-toggle {
+    font-size: 13px;padding: 9px 12px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .itmBody > div:first-child .counter__col {
+    font-size: 14px;
+  }
+  body {
+    font-size: 14px;
+  }
+  .dropdown-item {
+    font: 400 13px/15px "Inter", sans-serif;
+  }
+  
+
+
+
+
+
+
+
+
+}
+
+/* ----- 1366 screen css end ------- */
+
+
 .alert-success {
   border-color: #0cb87f;
 }
@@ -20515,9 +20595,6 @@ body .ui-widget-content {
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
-  .hideInMobile {
-    display: none;
-  }
 
   .gap-r{padding-right: 10px;}
 .gap-l{padding-left: 10px;}
@@ -21093,17 +21170,9 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 .logout__icon img { width:32px !important;height: 32px !important; }
 .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
 
-.nav-bar > ul > li > a.nav-link {
-  height: 84PX;
-  width: 96px;
-  font-size: 14px;
-}
+
 @media (max-width: 1599px) {
-  .nav-bar > ul > li > a.nav-link {
-    height: 84PX;
-    width: 96px;
-    font-size: 14px;
-  }
+  
   .new_task__icon img {
     width: 28px !important;
     height: 28px !important;
@@ -21132,11 +21201,7 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
     width: 32px !important;
     height: 32px !important;
   }
-  .nav-bar > ul > li > a.nav-link { 
-    height: 84PX;
-    width: 96px;
-    font-size: 14px;
-  }
+  
 
 }
 
@@ -21257,34 +21322,6 @@ html[dir=rtl] body {
 }
 
 
-.srHisclm p {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.itmBody > div:first-child p {
-  font-size: 16px;
-  font-weight: 400;
-}
-.itmBody >  div:first-child .counter__col {
-  font-size: 15px;
-}
-.itmBody >  div:first-child {
-  font-size: 16px;
-}
-
-.prdtImg.tb-head {
-  font-weight: 700;
-}
-
-.numRef1:first-child .srHisclm p {
-  font-weight: 700;
-}
-
-nav p {
-font-weight: 500;
-text-align: center;
-}
 
 
 @media (max-width: 991.98px) {
