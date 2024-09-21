@@ -1457,6 +1457,9 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
 }
 html[dir="rtl"] .ps-1 { padding-left: 0 !important;padding-right: .25rem; }
 html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
+@media screen and (min-width: 1600px) {
+  .chkStore img { width: 26px; }
+}
 </style>
 
 
@@ -2095,7 +2098,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                     <!-- check box model icon -->
                                     <div class="chkStore">
                                         <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
-                                            <img src="Assets/icons/chkColumn.svg" style="width: 22px;" alt="Check Column">
+                                            <img src="Assets/icons/chkColumn.svg" alt="Check Column">
                                         </a>
                                     </div>
                                 </div>

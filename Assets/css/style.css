@@ -20135,7 +20135,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize;transition: all .05s ease-in-out;
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize; transition: none;
 }
 .nav-bar > ul > li > a.nav-link .sm__text {
   max-width: 60px;
@@ -21020,17 +21020,18 @@ img.previewImg {
 .stkRow .stockFeat:hover a { color: var(--color-white); }
 .stkRow .stockFeat { border-radius: var(--radius); }
 
-.innerDrop .submenu { position: absolute;top: 0;background: #fff;width: min-content;border-radius: var(--radius);padding: .25rem;right: -4.8rem; }
-.innerDrop .submenu.large { right: -13rem;width: 13rem; }
+.innerDrop .submenu { position: absolute;top: 0;background: #fff;width: 12rem;border-radius: var(--radius);padding: .25rem;right: -12rem;min-width: 12rem !important; }
+.innerDrop .submenu.show { width: 12rem;right: -12rem !important;left: auto !important;transform: none !important; } 
 .innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
 .submenu .dropdown-item { font-size: 12px;padding: .15rem .5rem; }
 
-@media (max-width:1599px) {
-  .innerDrop .submenu { right: -4.8rem; }
-  .innerDrop .submenu.large { right: -11rem;width: 11rem; }
-  .innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
-  
-
+@media (max-width:991px) {
+  .innerDrop .submenu { left: -12rem;right: auto;display: none !important; }
+  .innerDrop .submenu.show { left: -12rem !important;right: auto !important;display: block !important; } 
+  html[dir="rtl"] .innerDrop .dropdown-menu, html[dir=rtl] .ordFeature .innerDrop:first-child .submenu { right: -12rem !important;left:auto !important;display:none !important; }
+  html[dir="rtl"] .innerDrop .dropdown-menu.show, html[dir=rtl] .ordFeature .innerDrop:first-child .submenu.show { display:block !important;transform: none !important; }
+  .dropdown-item { font-size:13px; }
+  .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; } 
 }
 .dropdown-menu.show { z-index: 99; }
 .new__layout .task-status {width: 42%; } 
@@ -21057,7 +21058,7 @@ img.previewImg {
   background-color: #5b6dfa;border-color: #5b6dfa; 
 }
 .btn-primary:active,.btn-primary:focus {
-  outline: 3px solid var(--color-white);outline-offset: -6px;
+  outline: 3px solid var(--color-white);outline-offset: -6px;transition: none;
 }
 .items__manager__btn { width: 110px; }
 .items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
@@ -21414,7 +21415,7 @@ text-align: center;
   box-shadow: none !important;
 }
 
-@media (max-width: 1599px) {
+/* @media (max-width: 1599px) {
  .innerDrop .submenu {
       right: -5.3rem;
   }
@@ -21422,7 +21423,7 @@ text-align: center;
  html[dir=rtl] .ordFeature .innerDrop:first-child .submenu {
       right: -6rem;
   }
-}
+} */
 
 .issueIn .ttlAmount {font-weight: 600;}
 .issueIn .gr-Out {font-weight: 600;}
