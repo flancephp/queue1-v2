@@ -741,9 +741,10 @@ include_once('script/revenueCenterReport_script.php');
         <div class="modal-dialog modal-dialog-centered modal-md site-modal">
             <div class="modal-content p-2">
                 <div class="modal-header pb-3">
+                <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                     <div class="d-md-flex align-items-center justify-content-between w-100 ">
                         <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">
-                        
+                                    
                                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#modalfiltertop">
                                     <i class="fa fa-filter"></i>
                                 </button>

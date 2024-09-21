@@ -122,6 +122,7 @@ $stockUserFilterFields = $userDetails['stockUserFilterFields'] ?    explode(',',
 $stockTakeCnt = getMobileStockTakeCount($_SESSION['filterByStorage'], 1);
 
 $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><div class="modal-header ">
+                    <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                     <div class="d-md-flex align-items-center justify-content-between w-100 ">
                        
                         <div class="d-flex align-items-start w-100 gap-3 w-auto mb-md-0 mb-2 modal-head-btn">

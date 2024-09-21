@@ -155,10 +155,10 @@ if (isset($_GET['hotelId'])) {
         }
 
         .select-pop{
-            background-size: 46px 40px; height: 45px; padding: 0.375rem 3.25rem 0.375rem 0.75rem; overflow: hidden;
+            background-size: 46px 40px; height: 45px; padding: 0.375rem 3.25rem 0.375rem 0.75rem; overflow: hidden; border-radius: 8px;
         }
         html[dir="rtl"] .select-pop{
-            direction: ltr; background-size: 41px 40px; height: 45px; padding: 0.375rem 0.75rem 0.375rem 3.75rem; overflow: hidden;
+            direction: ltr; background-size: 41px 40px; height: 45px; padding: 0.375rem 0.75rem 0.375rem 3.75rem; overflow: hidden; border-radius: 8px;
         }
 
         @media (max-width: 767px) {

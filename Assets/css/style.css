@@ -20515,6 +20515,9 @@ body .ui-widget-content {
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
+  .hideInMobile {
+    display: none;
+  }
 
   .gap-r{padding-right: 10px;}
 .gap-l{padding-left: 10px;}
