@@ -14227,6 +14227,244 @@ img[alt=LOGO] {
   font-size: 12px;
   top: auto;
 }
+
+
+.nav-bar > ul > li > a.nav-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize; transition: none;
+}
+.nav-bar > ul > li > a.nav-link .sm__text {
+  max-width: 60px;
+  white-space: break-spaces;
+  margin-left: auto;
+  margin-right: auto;
+  color: #8C8FA7 !important;
+}
+ .nav-bar .nav-link.active  .sm__text  {
+  color: white !important;
+ }
+ .nav-bar .nav-link:hover  .sm__text  {
+  color: white !important;
+  
+ }
+ .nav-bar .nav-link:focus  .sm__text  {
+  color: white !important;
+ }
+
+.tpBar-red {
+  border-top: 6px solid #F05D53;
+}
+
+.revTbl-Hd .sale-Varlist {
+    width: 38%;
+}
+
+.hisParent-sec{
+  box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
+}
+
+.hisTblbody, .hisTory, .history-info{
+  margin-left: 0;
+}
+
+.stockView .lstPrcol{
+  width:25%;
+}
+
+.mbFeature .ordFeature {
+  padding: 0 4px;
+}
+.featRow {
+  padding: 0;
+}
+
+.ord-Box{
+  width:max-content;
+}
+
+
+.revTbl-Hd .sale-Cost{
+  width:43%;
+}
+
+.revTbl-Hd .chk-revCnt {
+  width: 11%;
+}
+
+.mainRuntsk .payOptnreq {
+  width: 18%;
+}
+
+.mbFeature .ordFeature > a {
+  padding: 25px 0;
+  display: block;
+  border-radius: 10px;
+}
+
+.mbFeature .ordFeature {
+    padding: 0;
+    border-radius: 10px;
+    position: relative;
+}
+
+.mbFeature .ordFeature:before {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 50px;
+  position: absolute;
+  background: #8c8fa7;
+  top: 20px;
+  left: 0;
+}
+.mbFeature .ordFeature:first-child:before {
+  opacity: 0;
+}
+
+.mbFeature .ordFeature > a:hover {
+  background: #7a89ff;
+}
+.mbFeature .ordFeature > a {
+  padding: 25px 0;
+  display: block;
+}
+
+.mbFeature .ordFeature > a:hover p {
+  color: #fff !important;
+}
+
+.stkTblhead  .stkNamcol, .cntTable .stkNamcol{
+  width: 45%;
+}
+
+.stkTblhead .stkPrcol, .cntTable .stkPrcol{
+  width: 46%;
+}
+
+.stkTblhead .mbShw, .cntTable .mbShw{
+    width: 75%;
+}
+
+.stkTblhead  .mbHde,.cntTable .mbHde  {
+  width: 25%;
+}
+
+.stkTblhead .stkItmclm, .stkTblhead   .stkItmclm{
+  width: 61%;
+}
+
+.stockView .lstPrcol:first-child {
+  width: 28%;
+}
+
+
+.dropdown-submenu ul.dropdown-menu {
+            position: absolute;
+            left: 100% !important;
+            top: 0 !important;
+            margin-left: 5px !important;
+            transform: none !important;
+        }
+
+        .dropdown-submenu a i{
+            float:right;
+            padding-top: 2px;
+        }
+/******* LOGIN CSS **********/
+
+
+.fs-22        {		font-size: 22px;    line-height: 22px;}
+.fs-20    {		font-size: 20px;    line-height: 22px;}
+.fs-19        {		font-size: 19px;	line-height: 21px;}
+.fs-18     {		font-size: 18px;	line-height: 20px;}
+.fs-16        {		font-size: 16px;	line-height: 18px;}
+.fs-14        {		font-size: 14px;	line-height: 16px;}
+.fs-13        {		font-size: 13px;    line-height: 15px;}
+.fs-12        {		font-size: 12px;    line-height: 14px;}
+
+.bold{font-weight: 700;}
+.semibold{font-weight: 600;}
+.medium{font-weight: 500;}
+
+.login-outer h1{
+  font-size: 26PX;
+}
+
+.login-outer {
+  background: rgb(255 255 255 / 56%);
+  min-height: calc(100vh - 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: -10px 10px 30px 0px #6071AF1A;
+}
+
+.login-outer > div {
+  max-width: 480px;
+  width:100%;
+  margin: 0 auto;
+}
+
+.login-form .drp-btn{
+  padding-left: 3px !important;
+}
+
+.login-form  .input-group .btn {
+  padding: 0;
+  min-width: 43px;
+  height:43px;
+  line-height: 43px;
+  font-size: 14px;
+}
+
+form.login-form .form-control {
+  font-size: 16px;
+  color: #8C8FA7;
+  padding-left: 8px;
+}
+
+form.login-form input:focus{
+  outline: 0;
+  border: 0;
+}
+
+.login-remember input{
+  width: 24px;
+  height: 24px;
+  background-size: 16px;
+}
+
+
+.title-listing-item label{
+  font-size: 13px;
+}
+
+.recOrdTask .recItm-Name, .recPrice  .recItm-Name {
+  width: 25%;
+}
+
+.recOrdTask .recTtlPrc-Type, .recPrice .recTtlPrc-Type{
+  width: 12%;
+}
+
+.recOrdTask .recPrc-Unit > *, .recPrice .recPrc-Unit > *{
+  width: 33%;
+}
+
+.recOrdTask .recQty-Code, .recPrice  .recQty-Code {
+  width: 30%;
+}
+
+
+
+
+
 @media(min-width:1600px) {
   .alert { font-size: 1rem; }
   .alert-dismissible .btn-close { font-size: 1rem; }
@@ -14269,7 +14507,23 @@ font-weight: 500;
 text-align: center;
 }
 
-/* ----- 1366 screen css start ------- */
+
+/* ----- 1600 to 1920 Desktop Screen start ------- */
+
+
+@media screen and (min-device-width: 1600px) and (max-device-width: 1920px) { 
+ 
+ 
+
+
+}
+
+
+/* ----- 1600 to 1920 Desktop Screen end ------- */
+
+
+
+/* ----- 1599 to 1024 Desktop Screen start ------- */
 
 
 @media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
@@ -14308,9 +14562,59 @@ text-align: center;
 
 
 }
+ 
+/* ----- 1599 to 1024 Desktop Screen css end ------- */
 
-/* ----- 1366 screen css end ------- */
 
+
+
+
+/* ----- 769 to 992 Tablet Screen css start ------- */
+ 
+
+@media screen and (min-device-width: 769px) and (max-device-width: 992px) { 
+  
+  .itmBody > div:first-child .counter__col {
+    font-size: 13px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 13px;
+  
+  }
+  .supStkclm .dropdown-toggle {
+    font-size: 12px;
+  }
+  .dropdown-item {
+    font: 400 13px/15px "Inter", sans-serif;
+  }
+  
+
+
+
+}
+
+/* ----- 769 to 992 Tablet Screen css end ------- */
+
+
+
+
+
+@media (max-width: 768px) { 
+  
+  .itmBody > div:first-child p {
+    font-size: 14px; 
+  }
+ .lstValueSize{font-size: 14px;}
+ .mainValueSize{font-size: 16px; color:#6F7CE5; font-weight: 500;}
+ .stkTblhead .mbShw, .cntTable .mbShw {
+  width: 100%;
+}
+
+.supStkclm .dropdown-toggle {
+  font-size: 14px;
+}
+
+}
 
 .alert-success {
   border-color: #0cb87f;
@@ -15276,7 +15580,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     padding: 0 30px;
   }
   .itmTable {
-    font-size: 15px;
+    font-size: 14px;
   }
   .itmBody > div:first-child {
     font-size: 15px;
@@ -15326,7 +15630,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
   /* Stock Page CSS Start */
   .stkView .container {
-    padding: 10px 0 0;
+    padding: 10px 10px 0px 10px;
   }
   .stkSrcicn .container {
     padding: 0;
@@ -16877,7 +17181,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     justify-content: center;
   }
   .supStkclm {
-    width: 23%;
+    width: 50%;
   }
   .supStkclm .dropdown-toggle {
     width: 160px;
@@ -18053,6 +18357,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   }
 }
 
+
 @media screen and (min-device-width: 993px) and (max-device-width: 1024px) { 
 .navbar-toggler{
   position: relative;
@@ -19138,8 +19443,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
   .cstBtn-Sale,
   .cstBtn-Qty {
-    min-width: 45px;
-    min-height: 45px;
+    min-width: 40px;
+    min-height: 40px;
   }
   .saleCnt-Rpt .guestNum .text-center,
   .saleCnt-Rpt .sl-Num .text-center,
@@ -20210,237 +20515,6 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 }
 /******* CUSTOM CSS **********/
 
-.nav-bar > ul > li > a.nav-link{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 84px;width: 97px;padding: 0%;margin-left: auto;margin-right: auto;font-size: 14px;line-height: 1.14;text-transform: capitalize; transition: none;
-}
-.nav-bar > ul > li > a.nav-link .sm__text {
-  max-width: 60px;
-  white-space: break-spaces;
-  margin-left: auto;
-  margin-right: auto;
-  color: #8C8FA7 !important;
-}
- .nav-bar .nav-link.active  .sm__text  {
-  color: white !important;
- }
- .nav-bar .nav-link:hover  .sm__text  {
-  color: white !important;
-  
- }
- .nav-bar .nav-link:focus  .sm__text  {
-  color: white !important;
- }
-
-.tpBar-red {
-  border-top: 6px solid #F05D53;
-}
-
-.revTbl-Hd .sale-Varlist {
-    width: 38%;
-}
-
-.hisParent-sec{
-  box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
-}
-
-.hisTblbody, .hisTory, .history-info{
-  margin-left: 0;
-}
-
-.stockView .lstPrcol{
-  width:25%;
-}
-
-.mbFeature .ordFeature {
-  padding: 0 4px;
-}
-.featRow {
-  padding: 0;
-}
-
-.ord-Box{
-  width:max-content;
-}
-
-
-.revTbl-Hd .sale-Cost{
-  width:43%;
-}
-
-.revTbl-Hd .chk-revCnt {
-  width: 11%;
-}
-
-.mainRuntsk .payOptnreq {
-  width: 18%;
-}
-
-.mbFeature .ordFeature > a {
-  padding: 25px 0;
-  display: block;
-  border-radius: 10px;
-}
-
-.mbFeature .ordFeature {
-    padding: 0;
-    border-radius: 10px;
-    position: relative;
-}
-
-.mbFeature .ordFeature:before {
-  content: '';
-  display: inline-block;
-  width: 1px;
-  height: 50px;
-  position: absolute;
-  background: #8c8fa7;
-  top: 20px;
-  left: 0;
-}
-.mbFeature .ordFeature:first-child:before {
-  opacity: 0;
-}
-
-.mbFeature .ordFeature > a:hover {
-  background: #7a89ff;
-}
-.mbFeature .ordFeature > a {
-  padding: 25px 0;
-  display: block;
-}
-
-.mbFeature .ordFeature > a:hover p {
-  color: #fff !important;
-}
-
-.stkTblhead  .stkNamcol, .cntTable .stkNamcol{
-  width: 45%;
-}
-
-.stkTblhead .stkPrcol, .cntTable .stkPrcol{
-  width: 46%;
-}
-
-.stkTblhead .mbShw, .cntTable .mbShw{
-    width: 75%;
-}
-
-.stkTblhead  .mbHde,.cntTable .mbHde  {
-  width: 25%;
-}
-
-.stkTblhead .stkItmclm, .stkTblhead   .stkItmclm{
-  width: 61%;
-}
-
-.stockView .lstPrcol:first-child {
-  width: 28%;
-}
-
-
-.dropdown-submenu ul.dropdown-menu {
-            position: absolute;
-            left: 100% !important;
-            top: 0 !important;
-            margin-left: 5px !important;
-            transform: none !important;
-        }
-
-        .dropdown-submenu a i{
-            float:right;
-            padding-top: 2px;
-        }
-/******* LOGIN CSS **********/
-
-
-.fs-22        {		font-size: 22px;    line-height: 22px;}
-.fs-20    {		font-size: 20px;    line-height: 22px;}
-.fs-19        {		font-size: 19px;	line-height: 21px;}
-.fs-18     {		font-size: 18px;	line-height: 20px;}
-.fs-16        {		font-size: 16px;	line-height: 18px;}
-.fs-14        {		font-size: 14px;	line-height: 16px;}
-.fs-13        {		font-size: 13px;    line-height: 15px;}
-.fs-12        {		font-size: 12px;    line-height: 14px;}
-
-.bold{font-weight: 700;}
-.semibold{font-weight: 600;}
-.medium{font-weight: 500;}
-
-.login-outer h1{
-  font-size: 26PX;
-}
-
-.login-outer {
-  background: rgb(255 255 255 / 56%);
-  min-height: calc(100vh - 150px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  max-width: 900px;
-  margin: 0 auto;
-  box-shadow: -10px 10px 30px 0px #6071AF1A;
-}
-
-.login-outer > div {
-  max-width: 480px;
-  width:100%;
-  margin: 0 auto;
-}
-
-.login-form .drp-btn{
-  padding-left: 3px !important;
-}
-
-.login-form  .input-group .btn {
-  padding: 0;
-  min-width: 43px;
-  height:43px;
-  line-height: 43px;
-  font-size: 14px;
-}
-
-form.login-form .form-control {
-  font-size: 16px;
-  color: #8C8FA7;
-  padding-left: 8px;
-}
-
-form.login-form input:focus{
-  outline: 0;
-  border: 0;
-}
-
-.login-remember input{
-  width: 24px;
-  height: 24px;
-  background-size: 16px;
-}
-
-
-.title-listing-item label{
-  font-size: 13px;
-}
-
-.recOrdTask .recItm-Name, .recPrice  .recItm-Name {
-  width: 25%;
-}
-
-.recOrdTask .recTtlPrc-Type, .recPrice .recTtlPrc-Type{
-  width: 12%;
-}
-
-.recOrdTask .recPrc-Unit > *, .recPrice .recPrc-Unit > *{
-  width: 33%;
-}
-
-.recOrdTask .recQty-Code, .recPrice  .recQty-Code {
-  width: 30%;
-}
 
 
 @media(max-width:767px){
@@ -21326,7 +21400,7 @@ html[dir=rtl] body {
 
 @media (max-width: 991.98px) {
   .itmBody > div:first-child p {
-    font-size: 14px;
+    /* font-size: 14px; */
     font-weight: 400;
     padding: 0px 3px;
     border-radius: 8px;
