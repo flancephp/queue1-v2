@@ -10641,7 +10641,9 @@ a.tabFet:focus .viewOrder {
 }
 
 a.tabFet:hover .fee,
-a.tabFet:focus .fee {
+a.tabFet:active .fee,
+a.tabFet:focus .fee,
+a.tabFet.show .fee {
   background: url(../icons/fee-bg.png);
 }
 
@@ -10650,7 +10652,9 @@ a.tabFet:focus .fee {
 }
 
 a.tabFet:hover .currency,
-a.tabFet:focus .currency {
+a.tabFet:active .currency,
+a.tabFet:focus .currency,
+a.tabFet.show .currency {
   background: url(../icons/currency-bg.png);
 }
 
@@ -10668,7 +10672,9 @@ a.tabFet:focus .importFile {
 }
 
 a.tabFet:hover .sampleFile,
-a.tabFet:focus .sampleFile {
+a.tabFet:focus .sampleFile,
+a.tabFet:active .sampleFile,
+a.tabFet.show .sampleFile {
   background: url(../icons/sample-file-bg.png);
 }
 
@@ -14255,7 +14261,7 @@ img[alt=LOGO] {
  }
 
 .tpBar-red {
-  border-top: 6px solid #F05D53;
+  border-top: 6px solid #F05D53 !important;
 }
 
 .revTbl-Hd .sale-Varlist {
@@ -14324,15 +14330,10 @@ img[alt=LOGO] {
   opacity: 0;
 }
 
-.mbFeature .ordFeature > a:hover {
+.mbFeature .ordFeature > a:hover, .mbFeature .ordFeature > a.show {
   background: #7a89ff;
-}
-.mbFeature .ordFeature > a {
-  padding: 25px 0;
-  display: block;
-}
-
-.mbFeature .ordFeature > a:hover p {
+} 
+.mbFeature .ordFeature > a:hover p, .mbFeature .ordFeature > a.show p {
   color: #fff !important;
 }
 
@@ -14526,7 +14527,7 @@ text-align: center;
 /* ----- 1599 to 1024 Desktop Screen start ------- */
 
 
-@media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
+@media screen and (min-width: 1024px) and (max-width: 1599px) { 
  
   .nav-bar > ul > li > a.nav-link {
     height: 66px;
@@ -14572,7 +14573,7 @@ text-align: center;
 /* ----- 769 to 992 Tablet Screen css start ------- */
  
 
-@media screen and (min-device-width: 769px) and (max-device-width: 992px) { 
+@media screen and (min-width: 769px) and (max-width: 992px) { 
   
   .itmBody > div:first-child .counter__col {
     font-size: 13px;
@@ -21242,7 +21243,7 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 .revenue__icon img { width:44px !important;height: 32px !important; }
 .setup__icon img { width:32px !important;height: 32px !important; }
 .logout__icon img { width:32px !important;height: 32px !important; }
-.nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
+/* .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  } */
 
 
 @media (max-width: 1599px) {
