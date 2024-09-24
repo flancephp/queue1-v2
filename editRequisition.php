@@ -390,6 +390,7 @@ $cond = '';
             .featRow { max-width:90px; }
             .mbFeature .ordFeature > a { padding: 17px 0; }
             html[dir="rtl"] .ord-Box { padding:4px 1rem !important; }
+            .mb-brCode .ord-StockQty { width: 50%; }
         }
         @media(max-width:1399px) {
             .itmBody, .itmTable { font-size: 13px; }

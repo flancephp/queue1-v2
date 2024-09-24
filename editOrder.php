@@ -487,6 +487,10 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     html[dir="rtl"] .curRow.padding { padding-left: 5%; }
     html[dir="rtl"] .curRow .p-2 { text-align: left; }
 
+    .min__stock__qty {
+        display: flex;background-color: pink;width: 43px;text-align: center;height: 30px;justify-content: center;align-items: center;
+    }
+
     @media screen and (min-width: 1600px) { 
         .curRow.padding { padding-left: 20%; }
         html[dir="rtl"] .curRow.padding { padding-left: 5%; }
@@ -503,7 +507,10 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }
         .dropdown-item { font-size:13px; }
         .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }  
-        .mb-brCode { justify-content: flex-start;padding-left: 0px; }  
+        .mb-brCode { justify-content: flex-start;padding-left: 0px;align-items:center;display:flex !important; }  
+        .min__stock__qty {
+            width: auto;
+        }
     }
 </style>
 </head>
@@ -581,7 +588,7 @@ echo $ordDetResRow['name'];
                                             <div class="container">
                                                 <div class="mbFeature">
                                                     <div class="ms-auto text-center w-100 featRowParent">
-                                                        <div class="row g-3 featRow">
+                                                        <div class="row g-3 featRow p-0">
                                                             <div
                                                                 class="col-md-6 ordFeature dropdown drpCurr position-relative">
                                                                 <a href="javascript:void(0)"
@@ -708,7 +715,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-between">
+                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-between ps-lg-4 ps-xxl-0">
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)">
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
@@ -1249,7 +1256,7 @@ $ordQry = mysqli_query($con, $sql);
                                             </div>
                                         </div>
                                         <div class="prdtStk-Qty tb-bdy">
-                                            <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : '';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                                            <p class="ord-StockQty <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'min__stock__qty' : '';?>" ><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
                                         </div>
                                         <div class="prdtCnt-Scnd d-lg-flex align-items-center">
                                             <div class="itm-Quantity tb-bdy " data-text="<?php echo showOtherLangText('Qty'); ?>">
@@ -1509,7 +1516,7 @@ $stockQty = $stockQty - $totalProQty;
                                                     </div>
                                                 </div>
                                                 <div class="prdtStk-Qty tb-bdy">
-                                                    <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;: 30px;"' : '';?>>
+                                                    <p class="ord-StockQty <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'min__stock__qty' : '';?>">
                                                         <?php echo round(($stockQty/$row['factor']), 1);?> <span
                                                             class="tabOn-Stk">On stock</span></p>
                                                 </div>
