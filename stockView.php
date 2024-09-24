@@ -371,11 +371,11 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
 
             .stockView .cntTable {
-                padding: 0 54px !important;
+                padding: 0 10px !important;
             }
 
             .stkTblhead {
-                padding: 0 54px !important;
+                padding: 0 10px !important;
             }
 
             #page2head.stkTblhead .mbShw,
@@ -498,18 +498,21 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   .storeCol {
     max-width: 970px;
   }
+}
   @media(max-width:1600px) {
   .storeCol {
     max-width: 780px;
   }
+}
 
         @media(max-width:1599px) {
   .storeCol {
     width: calc(100% - 280px);
     max-width: 780px;
   }
+
   .strfetCol {
-  width: 280px;
+  width: 280px;margin-top: 10px;
 }
 
   .tb-bdy {
@@ -524,6 +527,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 }
 
 }
+
 @media(max-width:1480px) {
   .storeCol {
     max-width: 770px;
@@ -542,6 +546,60 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   }
 
 }
+@media(max-width:1280px) {
+  .storeCol {
+    max-width: 600px;
+  }
+
+}
+
+@media(max-width:1160px) {
+  .storeCol {
+    max-width: 520px;
+  }
+
+}
+@media(max-width:1050px) {
+  .storeCol {
+    max-width: 480px;
+  }
+
+}
+@media(max-width:1024px) {
+  .storeCol {
+    max-width: 620px;
+  }
+
+}
+
+@media screen and (min-device-width: 769px) and (max-device-width: 992px) { 
+ 
+    .storeCol {
+    max-width: 100%;width: 100%;
+  }
+  .tb-bdy {
+    font-size: 13px;
+  }
+
+
+
+
+
+}
+
+@media (max-width: 768px) { 
+  
+  .storeCol {
+     max-width: 100%;
+     width: 100%;
+   }
+ 
+   .tb-bdy {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+ }
 
         
 
@@ -1246,7 +1304,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                             <div class="stkPrcol d-md-flex align-items-center">
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?> <p><span class="mbLst-value">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                    <?php } else { ?> <p><span class="mbLst-value lstValueSize">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1254,7 +1312,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Stock">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Stock</span><?php echo getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        <p><span class="mbLst-value lstValueSize">Stock</span><?php echo getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1262,8 +1320,8 @@ html[dir=rtl] .modal-footer .btnBg{
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                        </p>
+                                                        <p><span class="mainValueSize"><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                    </span></p>
                                                     <?php } ?>
                                                 </div>
 
