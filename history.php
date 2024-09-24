@@ -966,6 +966,36 @@ $colsArr = [
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
 <style>
+    /* Filter Col Width */
+    .fourCell .numRef .tb-bdy.srHisclm,
+    .threeCell .numRef .tb-bdy.srHisclm,
+    .twoCell .numRef .tb-bdy.srHisclm,
+    .oneCell .numRef .tb-bdy.srHisclm { width: 4rem !important; }
+
+    .fourCell .hisTask .numRef .tb-bdy,
+    .fourCell .numRef .tb-bdy { width: 25%; }
+
+    .threeCell .hisTask .numRef .tb-bdy,
+    .threeCell .numRef .tb-bdy,
+    .payThreeCell .dropdnbtns .stsHiscol .tb-bdy, .payThreeCell .cntTableData .stsHiscol .tb-bdy { width: 33.33% !important; }
+
+    .twoCell .hisTask .numRef .tb-bdy,
+    .twoCell .numRef .tb-bdy,
+    .payTwoCell .dropdnbtns .stsHiscol .tb-bdy, .payTwoCell .cntTableData .stsHiscol .tb-bdy { width: 50%; }
+
+    .oneCell .hisTask .numRef .tb-bdy,
+    .oneCell .numRef .tb-bdy { width: 100%; }
+    .oneCell .hisValclm { width: 15% !important; }
+    .oneCell .dropdnbtns .numRef, .oneCell  .cntTableData .numRef { width: calc(40% - 185px) !important; }
+    
+    .noCell .dropdnbtns .numRef, .noCell .cntTableData .numRef { width: 0% !important; }
+
+    /* Filter Col Width */
+
+
+
+
+
     .modal-md { max-width: 800px; } 
     .modal-address p { padding-bottom: 2px; } 
     .site-modal .modal-content { background: #f0f0f0; } 
@@ -1473,6 +1503,10 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
   .flex, .hisDateclm, .user-dpd, .date-dpd, .hisDateclm.date, .numItmclm, .type-dpd, .update .hisTask .hisTypclm  { flex: 1 0 0% !important;width:auto !important;max-width:100% !important; }
    
 }
+
+
+
+
 </style>
 
 

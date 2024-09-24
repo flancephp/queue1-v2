@@ -328,6 +328,7 @@ if($_SESSION['deptId'] != '')
     <link rel="stylesheet" href="Assets/css/style1.css">
 
     <style>
+        .tpBar-red { border-top: 6px solid #F05D53 !important; }
         .ord-Box.position { border-color: #f05d53; }
         .fa-angle-right, .fa-angles-left {padding: 0; font-size: 1rem; width: 30px;height:30px; }
         .d-flex.align-items-center.itmTable > div:first-child, .itmBody > div:first-child { width: 4rem; }
@@ -615,7 +616,7 @@ if($_SESSION['deptId'] != '')
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center justify-content-xl-end gap-1 px-lg-2 px-xxl-3 w-100"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
+                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center justify-content-xl-end gap-2 px-lg-2 px-xxl-3 w-100"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
                                             <i class="fa-solid fa-angle-right d-none d-xl-inline-flex justify-content-center align-items-center m-0"></i></a>
                                     </div>
                                     <div class="fetBtn">
