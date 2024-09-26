@@ -15563,8 +15563,8 @@ text-align: center;
   padding: 10px 22px;
 }
 
-
-
+.mView1{display: none;}
+.dView1{display: block;}
 
 
 
@@ -16525,6 +16525,9 @@ text-align: center;
 
 @media (max-width: 767px) { 
   
+  .mView1{display: block;}
+  .dView1{display: none;}
+
   .itmBody > div:first-child p {
     font-size: 14px; 
   }

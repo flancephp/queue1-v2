@@ -131,7 +131,120 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                     <i class="fa fa-filter"></i>
                                 </button>
                                  
+                                <div class="collapse dView1" id="modalfiltertop">
+                                    <div class="d-flex gap-3 modal-head-row">
+                                    
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        '. showOtherLangText('Headers') .'<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" class="headChk-All form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Check All') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" id="headChk-Bx" name="address" class="headCheckbox header-address form-check-input" checked="checked" onclick="showHideByClass(\'address-section\')"
+                                                    value="1">
+                                                <span class="fs-13">'. showOtherLangText('Address') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" id="headChk-Bx" name="logo" class="headCheckbox header-logo form-check-input" value="1" onclick="showHideByClass(\'logo-section\')">
+                                                <span class="fs-13">'. showOtherLangText('Logo') .'</span>
+                                            </li>
+                                        </ul>
+                                    </div>                                  
+
+                                    <div class=" dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        '. showOtherLangText('Summary') .'<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" id="summary"class="smryChk-All form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Check All') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" name="store" id="smryChk-Bx" class="form-check-input smryCheckbox summary-store" value="1" onclick="showHideByClass(\'store-name\')">
+                                                <span class="fs-13">'. showOtherLangText('Stores') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" checked="checked" d="smryChk-Bx" id="smryChk-Bx"name="totalPrice" class="smryCheckbox summary-totalPrice form-check-input" onclick="showHideByClass(\'store-totalPrice\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Total Price') .'</span>
+                                            </li>';
+                                        if($stockTakeCnt > 0)
+                                {    
+                                         $content .=  '<li>
+                                                <input type="checkbox" checked="checked" 
+                                                   id="smryChk-Bx" name="stockTake" class="smryCheckbox summary-stockTake form-check-input" 
+                                                   onclick="showHideByClass(\'store-stockTakeCount\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Stock Take') .'</span>
+                                            </li>';
+                                }
+                                        $content .=  '</ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle fs-13 py-2" type="button" id="headers" data-bs-toggle="dropdown" aria-expanded="false">
+                                        '. showOtherLangText('Item Table') .'<i class="fa-solid fa-angle-down ps-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu px-3" aria-labelledby="headers">
+                                            <li>
+                                                <input type="checkbox" checked="checked" class="itemChk-All form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Check All') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" '.( isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields) ? '' : 'checked="checked"' ).' name="photo" class="itmTblCheckbox item-photo form-check-input" onclick="showHideByClass(\'item2\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Photo') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="itemName" '.( isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields) ? '' : 'checked="checked"' ).'class="itmTblCheckbox item-item form-check-input" 
+                                                 onclick="showHideByClass(\'item3\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Item') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="barCode" '.( isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-barCode form-check-input" onclick="showHideByClass(\'item4\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('BarCode') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="qty" '.( isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="itmTblCheckbox item-quantity form-check-input" onclick="showHideByClass(\'item5\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Quantity') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox"  name="reqQty" '.( isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item6\')" class="itmTblCheckbox item-requestsQty form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Requests Qty') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="avlQty" '.( isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item7\')" class="itmTblCheckbox item-availableQty form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Available Qty') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="lastPrice" '.( isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields) ? '' : 'checked="checked"' ).'  class="itmTblCheckbox item-lastPrice form-check-input" onclick="showHideByClass(\'item8\')" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Last Price') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="stockPrice" '.( isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item9\')" class="itmTblCheckbox item-stockPrice form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Stock Price') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="stockValue" '.( isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item10\')" class="itmTblCheckbox item-stockValue form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Stock Value') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="subCat" '.( isset($stockUserFilterFields) && !in_array(8, $stockUserFilterFields) ? '' : 'checked="checked"' ).' onclick="showHideByClass(\'item11\')" class="itmTblCheckbox item-subCategory form-check-input" value="1">
+                                                <span class="fs-13">'. showOtherLangText('Sub Category') .'</span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="suplr" '.( isset($stockUserFilterFields) && !in_array(9, $stockUserFilterFields) ? '' : 'checked="checked"' ).' class="form-check-input itmTblCheckbox item-supplier" onclick="showHideByClass(\'item12\')"  value="1">
+                                                <span class="fs-13">'. showOtherLangText('Supplier') .'</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    </div>
                                 
+                                </div>
 
                         
                         
@@ -140,7 +253,7 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                     class="btn btn-primary dwnBtn"><span class="align-middle">'. showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
                     </div>
 
-                    <div class="collapse" id="modalfiltertop">
+                    <div class="collapse mView1" id="modalfiltertop">
                                     <div class="d-flex gap-3 modal-head-row">
                                     
 
