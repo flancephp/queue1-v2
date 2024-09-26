@@ -131,7 +131,16 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                     <i class="fa fa-filter"></i>
                                 </button>
                                  
-                                <div class="collapse" id="modalfiltertop">
+                                
+
+                        
+                        
+                        </div>
+                        <button type="submit"
+                    class="btn btn-primary dwnBtn"><span class="align-middle">'. showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
+                    </div>
+
+                    <div class="collapse" id="modalfiltertop">
                                     <div class="d-flex gap-3 modal-head-row">
                                     
 
@@ -245,13 +254,6 @@ $content = '<form method="get" action="stock_pdf_download.php" target="_blank"><
                                     </div>
                                 
                                 </div>
-
-                        
-                        
-                        </div>
-                        <button type="submit"
-                    class="btn btn-primary dwnBtn"><span class="align-middle">'. showOtherLangText('Press') .'</span> <i class="fa-solid fa-download ps-1"></i></button>
-                    </div>
                 </div>
                 <div class="modal-body px-2 py-3">
                     <div class="row pb-3">

@@ -98,6 +98,12 @@ include_once('script/outlet_report_saleCenter_script.php');
 .otltBd-Avr {
   width: 100%;padding-left: 43px;
 }
+html[dir=rtl] .otltBd-Unit {
+  display: flex;
+  width: 72%;
+  padding: 4px 0px;
+}
+
 }
 
 

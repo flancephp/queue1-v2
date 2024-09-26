@@ -180,7 +180,7 @@ if (isset($_GET['hotelId'])) {
             .middle__info {
                 width: 50%;
                 position: relative;
-                min-height: 64px;
+                min-height: 64px;flex-direction: column;
             }
 
             .middle__info .sales__box {
@@ -189,17 +189,24 @@ if (isset($_GET['hotelId'])) {
 
             .middle__info .product__box {
     width: 100%;
-    position: absolute;
-    bottom: -5px;
+    position: relative;
+    bottom: -7px;
     left: -100%;
   }
 
             .middle__info .cate__box {
                 width: 100%;
-                position: absolute;
-                bottom: -4px;
-                left: 0%;
+                position: relative;
+                bottom: -10px;
+                left: -100%;
             }
+
+            html[dir=rtl] .middle__info .cate__box {
+        width: 100%;
+        position: relative;
+        bottom: -10px;
+        left: 100%;
+    }
 
             .category__table .middle__info {
                 min-height: auto;
@@ -248,7 +255,7 @@ if (isset($_GET['hotelId'])) {
     width: 100%;
     position: absolute;
     bottom: -28px;
-    left: -100%;
+    left: 0%;
   }
   .itmBody > div:first-child p {
     font-size: 13px;
@@ -283,7 +290,7 @@ if (isset($_GET['hotelId'])) {
             </div>
             <div class="cntArea">
                 <section class="usr-info">
-                    <div class="row">
+                    <div class="row headerSpace1" >
                         <div class="col-md-4 d-flex align-items-end">
                             <h1 class="h1">Get POS Sales</h1>
                         </div>

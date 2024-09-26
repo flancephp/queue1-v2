@@ -270,7 +270,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             color: #fff;
         }
 
-     
+        html[dir=rtl] .mblCnt {
+            border-radius: 20px !important;
+            border: 2px solid #FFF;
+            background: #7A89FE !important;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+            font-size: 18px;
+            top: -10%;
+            left: -10%;
+            position: absolute !important;
+            padding: 4px 11px;
+            color: #fff;font-weight: 600;
+        }
+
 
         @media(max-width:991px) {
             .storeCol {
@@ -364,7 +376,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         }
 
         .small-font{font-size:9px;}
-        @media (min-width:767px) {
+        @media (min-width:768px) {
             
             .mbShw .stkPrcol {
                 width: 35% !important;
@@ -380,7 +392,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
             #page2head.stkTblhead .mbShw,
             .page2bdy .cntTable .mbShw {
-                width: 80%;
+                /* width: 80%; */
             }
 
             #page2head.stkTblhead .mbHde,
@@ -421,6 +433,15 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             #upload_form { max-width:240px; }
             #upload_form .stockFeat .tabFet { width: 100%;min-height: 57px; }
             #upload_form .dropStk p span { white-space: break-spaces; }
+        }
+
+        @media screen and (min-device-width: 768px) and (max-device-width: 992px) {
+
+            #page2head.stkTblhead .mbShw,
+            .page2bdy .cntTable .mbShw {
+                width: 100%;
+            }
+  
         }
         @media (max-width: 767px) { 
             .md__33{ line-height: 20px; }
@@ -525,6 +546,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   left: -15%;
   padding: 2px 6px;
 }
+html[dir="rtl"] .mblCnt {
+  font-size: 14px;
+  top: -10%;
+  left: -12%;
+  padding: 2px 6px;
+}
 
 }
 
@@ -567,12 +594,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 }
 @media(max-width:1024px) {
   .storeCol {
-    max-width: 620px;
+    max-width: 600px;
   }
 
 }
 
-@media screen and (min-device-width: 769px) and (max-device-width: 992px) { 
+@media screen and (min-device-width: 768px) and (max-device-width: 992px) { 
  
     .storeCol {
     max-width: 100%;width: 100%;
@@ -580,14 +607,16 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   .tb-bdy {
     font-size: 13px;
   }
-
+  #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
+    width: 100% !important;
+  }
 
 
 
 
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
   
   .storeCol {
      max-width: 100%;
@@ -609,19 +638,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         }
        
 
-        html[dir=rtl] .mblCnt {
-            border-radius: 20px !important;
-            border: 2px solid #FFF;
-            background: #7A89FE !important;
-            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
-            font-size: 18px;
-            top: -10%;
-            left: -10%;
-            position: absolute !important;
-            padding: 4px 11px;
-            color: #fff;font-weight: 600;
-        }
-
+        
     /*     @media (min-width: 768px) {
             .stkView .container:not(.large) { max-width: 720px; }
         } 
@@ -661,7 +678,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             left: -14%;
         }
 
-        html[dir="rtl"] .mblCnt {
+        /* html[dir="rtl"] .mblCnt {
   border-radius: 20px !important;
   border: 2px solid #FFF;
   background: #7A89FE !important;
@@ -672,12 +689,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   position: absolute !important;
   color: #fff;
   font-weight: 600;padding: 2px 6px;
-}
+} */
     }
 
-      @media (min-width: 767px) {
+      @media (min-width: 768px) {
     #page2head .stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
-        width: 85% !important;
+        /* width: 85% !important; */
     }
     #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
         width: 85% !important;

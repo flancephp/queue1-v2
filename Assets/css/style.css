@@ -461,6 +461,7 @@ progress {
 .stock-radio {
   min-width: 85px;
 }
+/* .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  } */
 
 @media (min-width: 1200px) {
   .display-1 {
@@ -14464,158 +14465,6 @@ form.login-form input:focus{
 
 
 
-
-@media(min-width:1600px) {
-  .alert { font-size: 1rem; }
-  .alert-dismissible .btn-close { font-size: 1rem; }
-}
-
-
-
-
-.nav-bar > ul > li > a.nav-link {
-  height: 84PX;
-  width: 96px;
-  font-size: 14px;
-}
-.srHisclm p {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.itmBody > div:first-child p {
-  font-size: 16px;
-  font-weight: 400;
-}
-.itmBody >  div:first-child .counter__col {
-  font-size: 15px;
-}
-.itmBody >  div:first-child {
-  font-size: 16px;
-}
-
-.prdtImg.tb-head {
-  font-weight: 700;
-}
-
-.numRef1:first-child .srHisclm p {
-  font-weight: 700;
-}
-
-nav p {
-font-weight: 500;
-text-align: center;
-}
-
-
-/* ----- 1600 to 1920 Desktop Screen start ------- */
-
-
-@media screen and (min-device-width: 1600px) and (max-device-width: 1920px) { 
- 
- 
-
-
-}
-
-
-/* ----- 1600 to 1920 Desktop Screen end ------- */
-
-
-
-/* ----- 1599 to 1024 Desktop Screen start ------- */
-
-
-@media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
- 
-  .nav-bar > ul > li > a.nav-link {
-    height: 66px;
-    width: 80px;
-    font-size: 12px;
-  }
-  .itmTable {
-    font-size: 14px;
-  }
-  .supStkclm .dropdown-toggle {
-    font-size: 13px;padding: 9px 12px;
-  }
-  .itmBody > div:first-child p {
-    font-size: 14px;
-    font-weight: 400;
-  }
-  .itmBody > div:first-child .counter__col {
-    font-size: 14px;
-  }
-  body {
-    font-size: 14px;
-  }
-  .dropdown-item {
-    font: 400 13px/15px "Inter", sans-serif;
-  }
-  
-
-
-
-
-
-
-
-
-}
- 
-/* ----- 1599 to 1024 Desktop Screen css end ------- */
-
-
-
-
-
-/* ----- 769 to 992 Tablet Screen css start ------- */
- 
-
-@media screen and (min-device-width: 769px) and (max-device-width: 992px) { 
-  
-  .itmBody > div:first-child .counter__col {
-    font-size: 13px;
-  }
-  .itmBody > div:first-child p {
-    font-size: 13px;
-  
-  }
-  .supStkclm .dropdown-toggle {
-    font-size: 12px;
-  }
-  .dropdown-item {
-    font: 400 13px/15px "Inter", sans-serif;
-  }
-  
-
-
-
-}
-
-/* ----- 769 to 992 Tablet Screen css end ------- */
-
-
-
-
-
-@media (max-width: 768px) { 
-  
-  .itmBody > div:first-child p {
-    font-size: 14px; 
-  }
- .lstValueSize{font-size: 14px;}
- .mainValueSize{font-size: 16px; color:#6F7CE5; font-weight: 500;}
- .stkTblhead .mbShw, .cntTable .mbShw {
-  width: 100%;
-}
-
-.supStkclm .dropdown-toggle {
-  font-size: 14px;
-}
-
-}
-
 .alert-success {
   border-color: #0cb87f;
 }
@@ -15508,6 +15357,1042 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 
 .edit-product{font-weight: 400; font-size: 16px; width: 80%;}
+
+
+
+
+
+@media(min-width:1600px) {
+  .alert { font-size: 1rem; }
+  .alert-dismissible .btn-close { font-size: 1rem; }
+}
+
+
+
+
+.nav-bar > ul > li > a.nav-link {
+  height: 84PX;
+  width: 96px;
+  font-size: 14px;
+}
+.srHisclm p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.itmBody > div:first-child p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.itmBody >  div:first-child .counter__col {
+  font-size: 15px;
+}
+.itmBody >  div:first-child {
+  font-size: 16px;
+}
+
+.prdtImg.tb-head {
+  font-weight: 700;
+}
+
+.numRef1:first-child .srHisclm p {
+  font-weight: 700;
+}
+
+nav p {
+font-weight: 500;
+text-align: center;
+}
+.rcSpace1{
+  padding: 10px 22px;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 1600px) {
+  .body1 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .body2 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .h1 {
+    font-size: 26px;
+    font-weight: 500;
+    color: #1c2047;
+    margin: 0;
+  }
+  .h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .subTittle1 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .subTittle2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .btn1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .btn2,
+  .stsBar .btn2 {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+    line-height: 14px;
+  }
+  .cntArea {
+    padding: 16px 15px 0 14px;
+  }
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1920px;
+  }
+  /* .drpFee .dropdown-menu.show {
+    transform: translate(4px, 88px) !important;
+  } */
+  /* Nav Bar CSS Start */
+  .logo {
+    padding-left: 10px;
+  }
+  .lg-Img {
+    width: 100%;
+  }
+  .user,
+  .acc-info {
+    border-radius: 10px;
+    width: 189px;
+  }
+  .acc-info {
+    gap: 16px;
+  }
+  
+  a.nav_sub {
+    padding: 10px 12px;
+    border-radius: 0;
+  }
+  .navIcon,
+  .nav_sub .navIcon,
+  .mb_nvSubIcn,
+  .mb_navIcn {
+    width: 28px;
+    height: 28px;
+  }
+  .nav.h2 {
+    row-gap: 16px;
+  }
+  /* .nav-bar {
+    padding-top: 44px;
+  }
+  .nav-col {
+    padding: 16px 50px 0 17px;
+  } */
+  .nwSub-Menu {
+    width: 200px;
+  }
+ 
+  /* Nav Bar CSS End */
+  /* New Order CSS Start */
+  .newOrder {
+    padding: 9px 35px 0 12px;
+  }
+  .user img {
+    margin-right: 10px;
+    width: 38px;
+    height: 38px;
+  }
+  .q-Logo {
+    border-radius: 10px;
+    padding: 5px 7px;
+    height: 38px;
+  }
+  .usr-info .col-md-8 {
+    gap: 16px;
+    margin-top: 5px;
+  }
+  .acc-info .dropdown-menu.show {
+    transform: translate(22px, 42px) !important;
+    min-width: 189px !important;
+  }
+  .acc-info .fa-angle-down {
+    margin-left: 30px;
+  }
+  .itmTable {
+    font-size: 16px; 
+  }
+  th {
+    font-size: 16px;
+    line-height: 19px;
+  }
+  .form-control,
+  .form-select {
+    font-size: 16px;
+    line-height: 19.36px;
+  }
+  .qty-itm,
+  .note-itm {
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .prcTable {
+    font-size: 17px;
+    line-height: 23px;
+    padding: 10px 16px;
+  }
+  .imgItm {
+    width: 40px;
+  }
+  .cnfrm img,
+  .doc-bx img,
+  .dlt-bx img {
+    width: 24px;
+    height: 24px;
+  }
+  .itmBody {
+    font-size: 15px;
+    line-height: 22px;
+    padding-top:12px;
+    padding-bottom:12px;
+  }
+  /* .drpCurr .dropdown-menu.show {
+    transform: translate3d(0px, 80px, 0px) !important;
+  } */
+  .ordFeature {
+    padding: 8px 4px;
+  }
+  .ordInfo {
+    padding: 0 64px;
+  }
+  .ordDetail {
+    margin-top: 28px;
+    margin-bottom: 20px;
+  }
+  .usr-info .col-md-4 .h1 {
+    margin-bottom: 5px;
+    padding-left: 15px;
+  }
+  .topOrder {
+    padding: 16px 32px 0;
+  }
+  .drp-btn .fa-solid,
+  .input-group .btn {
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px 10px;
+  }
+  .input-group .btn {
+    padding: 10px 11px;
+    border-radius: 10px;
+  }
+  .input-group .btn .fa-search {font-size: 20px;}
+  .drp-btn .fa-solid {
+    padding: 13px 14px;
+  }
+  .glb-btn {
+    margin-bottom: 15px;
+    max-width: 322px;
+  }
+  .srchBx {
+    max-width: 322px;
+    padding: 5px 5px 5px 17px !important;
+  }
+  .drp-btn {
+    padding: 5px 5px 5px 12px !important;
+  }
+  .saveList,
+  .loadList,
+  .clear,
+  .autoFill,
+  .viewOrder,
+  .fee,
+  .currency {
+    width: 22px;
+    height: 22px;
+  }
+  .featRow {
+    padding: 16px 4px;
+  }
+  .tb-head {
+    padding: 8px 8px 25px;
+  }
+  .tb-bdy {
+    padding: 16px 8px;
+  }
+  .dropdown-item {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .ordInfo .btn2,
+  .stockFeat .btn2 {
+    padding-top: 8px;
+  }
+  .nordPrice {
+    margin-top: 30px;
+  }
+  .glb-btn .dropdown-menu.show {
+    transform: translate(0px, 55px) !important;
+  }
+  .ordItm-Img {
+    width: 40px;
+  }
+  /* New Order CSS End */
+  .erdInfo .col-md-4 {
+    padding: 0 8px 0 40px;
+  }
+  .erdInfo .price .p-1 {
+    padding: 6px 4px !important;
+  }
+  .erdOrder .smBtn {
+    padding: 0 12px 0 36px;
+  }
+  /* Custom Btn CSS Start */
+  .sub-btn {
+    border-radius: 15px;
+    padding: 9px 20px 9px 20px !important;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+  .sub-btn.form-submit-btn,.sub-btn.submit_new_order,.sub-btn.orderupdate { padding: 3px 10px !important; }
+  .sub-btn:focus {
+    background-color: #7a89ff;
+  }
+  .sub-btn .fa-angle-right,
+  .sub-btn .fa-angles-left {
+    padding: 8px;
+    margin-left: 15px;
+    font-size: 12px;
+    width: 30px;
+  }
+  /* Custom Btn CSS End */
+  .std-btn {
+    padding: .75rem 1.875rem;
+  }
+  .invNum {
+    padding: 10px;
+  }
+  .rcvOrder {
+    padding: 12px 70px 0 24px;
+  }
+  .rcvInfo {
+    padding: 0 64px 0 50px;
+  }
+  .rcvInfo .col-md-4 {
+    padding: 0 8px 0 37px;
+  }
+  .sampleFile,
+  .importFile {
+    width: 30px;
+    height: 30px;
+  }
+  .rcvInfo .featRow {
+    padding: 10px 4px;
+  }
+  .recPrice {
+    margin-top: 40px;
+  }
+  .recvInv {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 0px 24px 16px;
+  }
+  .recvInv .d-flex {
+    padding-top: 24px;
+  }
+  .suppDetl {
+    padding: 0 10px 0 12px;
+  }
+  .rcvOrder .smBtn {
+    padding: 0 12px 0 35px;
+  }
+  .newReq {
+    padding: 14px 69px 0 37px;
+  }
+  .reqInfo {
+    padding: 0 39px 0 70px;
+  }
+  .reqInfo .col-md-2 {
+    padding: 0 14px 0 0;
+  }
+  .edtReq {
+    padding: 13px 69px 0 37px;
+  }
+  .edtreqInfo {
+    padding: 0 39px 0 70px;
+  }
+  .edtreqInfo .col-md-4 {
+    width: 28%;
+  }
+  .edtReq .smBtn {
+    padding: 0 12px 0 30px;
+  }
+  .runTable {
+    font-size: 16px;
+    line-height: 19.36px;
+  }
+  .runDetail {
+    font-size: 16px;
+    line-height: 27px;
+  }
+  .conFirm,
+  .docMent,
+  .edIt,
+  .dlTe,
+  .isuOut,
+  .assIgn,
+  .receIve,
+  .prdItm,
+  .vwDtl,
+  .add-Itm,
+  .impItem {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .payOptnreq,
+  .dleOptnreq {
+    width: 26%;
+  }
+  .task-status {
+    width: 48%;
+  }
+  /* Stock Page CSS Start */
+  .stkView .container {
+    padding: 54px 54px 0;
+  }
+  .stkSrcicn .container {
+    padding: 0 54px;
+  }
+  .stockView .cntTable {
+    padding: 0 54px;
+  }
+  .stockUser .col-md-4 .h1 {
+    padding: 0;
+  }
+  .storeCol {
+    width: 73%;
+    padding: 0 12px 20px 0;
+  }
+  .allStr .h2,
+  .storeCont .h2 {
+    font-size: 18px;
+  }
+  .storeCont .body2 {
+    font-size: 16px;
+  }
+  .othStr {
+    width: 150px;
+  }
+  .otrStock,
+  .allStore {
+    max-width: 150px;
+  }
+  .storeCont {
+    margin: 10px 8px;
+    padding: 20px 10px 30px;
+  }
+  .storeCont hr,
+  .storeCont .h2 {
+    margin-bottom: 20px;
+  }
+  .store a {
+    margin-right: 15px;
+  }
+  .chkStore img {
+    width: 32px;
+  }
+  .stockFeat {
+    padding: 16px 18px;
+  }
+  .dropStk .dropdown-menu.show {
+    transform: translate(0, 76px) !important;
+  }
+  .stkSrcicn {
+    margin-top: 50px;
+  }
+  .stkTblhead {
+    padding: 0 54px;
+    margin-top: 20px;
+  }
+  .supStkclm .dropdown-toggle {
+    padding: 12px 16px;
+    width: 100%;
+  }
+  /* Stock Page CSS End */
+  .hisParent-sec {
+    margin: 40px 0 20px;
+  }
+  .hisParent-sec .ordDetail {
+    margin-top: 0px;
+  }
+  .history-info .col-md-4 .h1 {
+    padding-left: 25px;
+  }
+  .hstCal .fa-calendar {
+    font-size: 24px;
+    padding: 12px 13px;
+  }
+  .hstDate {
+    width: 310px;
+    padding: 11px 15px;
+  }
+  .reloadBtn a {
+    font-size: 20px;
+    padding: 7px 6px;
+    width: 48px;
+  }
+  .detailPrice {
+    padding: 15px 32px 0;
+  }
+  .hisData {
+    padding: 20px 32px 0;
+  }
+  .paidIsue,
+  .usdCurr,
+  .otrCurr,
+  .recIsue,
+  .Variance,
+  .accntDtl {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .recIsue .col-md-5 {
+    padding: 0 7px 0 30px;
+  }
+  .hstTbl-head {
+    padding: 0 24px;
+  }
+  .hisTask {
+    padding: 3px 24px;
+  }
+  .hisStatusclm .dropdown-toggle,
+  .hisAcntclm .dropdown-toggle {
+    width: 130px;
+  }
+  .hisTypclm .dropdown-toggle,
+  .hisRefrclm .dropdown-toggle {
+    width: 160px;
+  }
+  .hisTypclm .dropdown-toggle,
+  .hisRefrclm .dropdown-toggle,
+  .hisStatusclm .dropdown-toggle,
+  .hisAcntclm .dropdown-toggle {
+    padding: 10px 12px;
+  }
+  .revnueParent-sec {
+    margin: 28px 0 20px;
+  }
+  .revCenter {
+    margin-top: 0;
+  }
+  .guestNum,
+  .sl-Num {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .gt-Data {
+    width: 9%;
+  }
+  .gstNo {
+    width: 27%;
+  }
+  .outlet-Name {
+    padding-left: 8px;
+  }
+  .revFeat {
+    padding: 16px 20px;
+  }
+  .revFeat .btn2 {
+    padding-top: 3px;
+  }
+  .guestNum,
+  .sl-Num,
+  .ttlCost,
+  .sale-Variance {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .salesDtl {
+    padding: 20px 30px;
+  }
+  .gst-Head,
+  .gst-Var,
+  .sale-Name,
+  .sale-Amunt,
+  .tl-Cst,
+  .sl-Cost,
+  .sl-Usage,
+  .sl-Variance,
+  .sale-Amount,
+  .usage-Amount,
+  .var-Amount,
+  .sl-varDtl,
+  .sl-varDif,
+  .sl-varValue,
+  .sl-varTtl,
+  .cst-Value .col-md-7 {
+    padding: 9px 6px;
+  }
+  /* Item History View Page CSS Start */
+  .itmhstDetail {
+    margin: 28px 0 18px;
+  }
+  .itm-viewDtl {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .gst-Var, .sale-Amunt{
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .view-tblBody,
+  .view-tblHead,
+  .heading-Unt,
+  .body-Unt {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .view-tblHead .productName, .productQty {
+    font-size: 18px;
+  }
+  .prhead-Unit{ font-size: 16px;}
+
+  .itmVw-Task .tb-bdy {
+    padding: 10px 8px;
+  }
+  .itmVw-info .col-md-4 .h1 {
+    padding-left: 0;
+  }
+  /* Item History View Page CSS End */
+  /* Setup Page CSS Start */
+  .stup-UsrAcnt {
+    min-height: 250px;
+  }
+  .stupImg {
+    width: 68px;
+  }
+  .stup-clm-2 p {
+    font-size: 20px;
+    line-height: 20px;
+  }
+  .triangle-down {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #edeff1;
+  }
+  .sbMnu-acntStup {
+    margin: 5px 0;
+  }
+  .sub-Icns img {
+    height: 50px;
+    width: 40px;
+  }
+  /* Setup Page CSS End */
+  .usrTable {
+    margin-top: 35px;
+  }
+  /* Account Setup Page CSS Start */
+  .acntSetup-Form .form-label {
+    /* font-size: 16px;
+    font-weight: 400; */
+  }
+  .imgUploadCss {
+    font-size: 14px;
+  }
+  /* Account Setup Page CSS End */
+  /* Outlet Page CSS Start */
+  .outletTable {
+    margin-top: 35px;
+  }
+  /* Outlet Page CSS End */
+  /* Manage Supplier Page CSS Start */
+  .suplrTable {
+    margin-top: 35px;
+  }
+  /* Manage Supplier Page CSS End */
+  /* Edit Supplier Page CSS Start */
+  .edtSup-Div {
+    margin-top: 35px;
+  }
+  /* Edit Supplier Page CSS End */
+  /* Revnue Center Setup Page CSS Start */
+  .revStpTable .container {
+    margin-top: 35px;
+  }
+  /* Revnue Center Setup Page CSS End */
+  /* Edit Revnue Center Setup Page CSS Start */
+  .setEze-Ctgry .form-control {
+    width: 93%;
+  }
+  .stEze-Lnk {
+    width: 7%;
+  }
+  /* Edit Revnue Center Setup Page CSS End */
+  /* Manage Department Setup Page CSS Start */
+  .modal-dialog {
+    max-width: 500px;
+  }
+  /* Manage Department Setup Page CSS End */
+  /* Categories Page CSS Start */
+  .catgryTable .container {
+    margin-top: 35px;
+  }
+  .subCat-Lnk {
+    font-size: 12px;
+  }
+  /* Categories Page CSS End */
+  .mngCurTable {
+    margin-top: 35px;
+  }
+  .curExt-Btn .btnBg:first-child {
+    margin-right: 12px;
+  }
+  .slCst-fltBtn img {
+    padding: 16px;
+  }
+  .cstBtn-Sale,
+  .cstBtn-Qty {
+    font-size: 14px;
+    min-width: 52px;
+    min-height: 52px;
+  }
+  .txtSale-Btn {
+    font-size: 18px;
+  }
+  .otltTbl-head,
+  .otltTbl-bdy {
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .otltBd-itm{font-weight: 500;}
+  .otltBd-hdImg img {
+    max-height: 60px;
+  }
+  .untFtr::before {
+    padding-right: 10px;
+  }
+  .ord-Box {
+    padding: 15px 15px 15px 32px;
+    border-radius: 0px 15px 15px 0px;
+    margin-left: -45px;
+  }
+  .newFeatures {
+    padding: 0 64px 0 88px;
+  }
+  .nwOrder-Div {
+    padding: 16px 32px 0 0;
+  }
+  .curRow {
+    font-size: 20px;
+  }
+  html[dir=rtl] .logo {
+    padding-left: 0;
+    padding-right: 10px;
+  }
+  html[dir=rtl] .newOrder {
+    padding: 9px 12px 0 35px;
+  }
+  html[dir=rtl] .prcTable {
+    padding: 10px 16px 10px 32px;
+  }
+  html[dir=rtl] .ordNum .subTittle1 {
+    padding: 10px 32px 10px 10px;
+  }
+  html[dir=rtl] .drp-btn,
+  html[dir=rtl] .srchBx {
+    padding: 5px 17px 5px 5px !important;
+  }
+  html[dir=rtl] .drp-btn .fa-solid,
+  html[dir=rtl] .input-group .btn {
+    border-radius: 10px 0px 0px 10px;
+  }
+  html[dir=rtl] .input-group .btn {
+    border-radius: 10px;
+  }
+  html[dir=rtl] .acc-info .dropdown-menu.show {
+    transform: translate(-37px, 42px) !important;
+  }
+  html[dir=rtl] .sub-btn {
+    padding: 9px 35px 9px 13px;
+  }
+  html[dir=rtl] .usr-info .col-md-4 .h1 {
+    padding: 0 15px 0 0;
+  }
+  html[dir=rtl] .erdInfo {
+    padding: 0 64px 0 85px;
+  }
+  html[dir=rtl] .erdOrder .smBtn {
+    padding: 0 36px 0 12px;
+  }
+  html[dir=rtl] .erdInfo .col-md-4 {
+    padding: 0 40px 0 8px;
+  }
+  html[dir=rtl] .std-btn {
+    padding: .75rem 1.875rem;
+  }
+  html[dir=rtl] .rcvOrder .smBtn {
+    padding: 0 35px 0 12px;
+  }
+  html[dir=rtl] .suppDetl {
+    padding: 0 12px 0 10px;
+  }
+  html[dir=rtl] .rcvInfo .col-md-4 {
+    padding: 0 37px 0 8px;
+  }
+  html[dir=rtl] .rcvInfo {
+    padding: 0 51px 0 36px;
+  }
+  html[dir=rtl] .rcvOrder {
+    padding: 12px 24px 0 70px;
+  }
+  html[dir=rtl] .newReq {
+    padding: 14px 37px 0 69px;
+  }
+  html[dir=rtl] .reqInfo {
+    padding: 0 70px 0 39px;
+  }
+  html[dir=rtl] .edtReq {
+    padding: 13px 37px 0 69px;
+  }
+  html[dir=rtl] .edtReq .smBtn {
+    padding: 0 30px 0 12px;
+  }
+  html[dir=rtl] .edtreqInfo {
+    padding: 0 70px 0 39px;
+  }
+  html[dir=rtl] .rntskHead {
+    padding: 0 140px 0 180px;
+  }
+  html[dir=rtl] .runTask {
+    margin: 0 140px 0 180px;
+  }
+  html[dir=rtl] .reqDtl {
+    padding-left: 4px !important;
+    padding-right: 25px !important;
+  }
+  html[dir=rtl] .reqType {
+    border-right: none;
+    border-left: 2px solid rgba(169, 176, 192, 0.5);
+    border-radius: 0px 10px 10px 0px;
+  }
+  html[dir=rtl] .ordType {
+    border-radius: 0px 10px 10px 0px;
+  }
+  html[dir=rtl] .tmpStatus,
+  html[dir=rtl] .conStatus {
+    margin-left: 0px;
+    margin-right: 5px;
+    border-radius: 0px 10px 10px 0px;
+  }
+  html[dir=rtl] .history-info .col-md-4 .h1 {
+    padding-right: 25px;
+  }
+  html[dir=rtl] .stockUser .col-md-4 .h1,
+  html[dir=rtl] .itmVw-info .col-md-4 .h1 {
+    padding: 0;
+  }
+  html[dir=rtl] .storeCol {
+    padding: 0 0 20px 12px;
+  }
+  html[dir=rtl] .curExt-Btn .btnBg:first-child {
+    margin-left: 12px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* ----- 1600 to 1920 Desktop Screen start ------- */
+
+
+@media screen and (min-device-width: 1601px) and (max-device-width: 1920px) { 
+ 
+ 
+
+
+}
+
+
+/* ----- 1600 to 1920 Desktop Screen end ------- */
+
+
+
+/* ----- 1599 to 1024 Desktop Screen start ------- */
+
+
+@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) { 
+ 
+  .nav-bar > ul > li > a.nav-link {
+    height: 66px;
+    width: 80px;
+    font-size: 12px;
+  }
+  .itmTable {
+    font-size: 14px;
+  }
+  .supStkclm .dropdown-toggle {
+    font-size: 13px;padding: 9px 12px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .itmBody > div:first-child .counter__col {
+    font-size: 14px;
+  }
+  body {
+    font-size: 14px;
+  }
+  .dropdown-item {
+    font: 400 13px/15px "Inter", sans-serif;
+  }
+  
+
+
+
+
+
+
+
+
+}
+/* ----- 1599 to 1024 Desktop Screen end ------- */
+
+/* ----- 993 to 1024 Desktop Screen start ------- */
+
+@media screen and (min-device-width: 993px) and (max-device-width: 1024px) { 
+
+  .usr-info .col-md-4 .h1 {
+    margin-bottom: 0px;
+    padding-left: 45px;
+  }
+  html[dir=rtl] .usr-info .col-md-4 .h1 {
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 45px;
+  }
+  .nav-bar > ul > li > a.nav-link {
+    height: 60px;
+    width: 70px;
+    font-size: 11.6px;
+  }
+  .usr-info .col-md-4 .h1 {
+    margin-bottom: 0px;
+    padding-left: 45px;
+  }
+
+}
+ 
+/* ----- 993 to 1024 Desktop Screen css end ------- */
+
+
+
+
+
+/* ----- 768 to 992 Tablet Screen css start ------- */
+ 
+
+@media screen and (min-device-width: 768px) and (max-device-width: 992px) { 
+  
+  .itmBody > div:first-child .counter__col {
+    font-size: 13px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 13px;
+  
+  }
+  .supStkclm .dropdown-toggle {
+    font-size: 12px;
+  }
+  .dropdown-item {
+    font: 400 13px/15px "Inter", sans-serif;
+  }
+  .mbShw {
+    width: 100%;
+  }
+  .cntTable .mbShw {
+    width: 100% !important;
+  }
+  #page2head.stkTblhead .mbShw,
+  .page2bdy .cntTable .mbShw {
+      width: 80%;
+  }
+
+  .stkTblhead .mbShw, .cntTable .mbShw{
+    width: 100%;
+}
+.nav-bar > ul > li > a.nav-link {
+  height: 60px;
+  width: 70px;
+  font-size: 11.6px;
+}
+
+
+}
+
+/* ----- 768 to 992 Tablet Screen css end ------- */
+
+
+
+
+
+@media (max-width: 767px) { 
+  
+  .itmBody > div:first-child p {
+    font-size: 14px; 
+  }
+ .lstValueSize{font-size: 14px;}
+ .mainValueSize{font-size: 16px; color:#6F7CE5; font-weight: 500;}
+ .stkTblhead .mbShw, .cntTable .mbShw {
+  width: 100%;
+}
+
+.supStkclm .dropdown-toggle {
+  font-size: 14px;
+}
+
+.nav-bar > ul > li > a.nav-link {
+  height: 60px;
+  width: 70px;
+  font-size: 11.6px;
+}
+.lgOut {
+  margin-bottom: 35px;
+}
+
+}
+
 
 
 @media screen and (max-width: 1024px) {
@@ -17208,6 +18093,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   .issueDtl,
   .issueIn {
     flex-wrap: wrap;
+    align-items: start;
   }
   .dspBlk,
   .issueIn,
@@ -17995,6 +18881,10 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
     width: 100%;
     color: #7a89fe;
   }
+  html[dir=rtl] .oltLnk,
+  .slCst-Lnk {
+    border-radius: 10px 00px 00px 10px;
+  }
   .oltLnk,
   .slCst-Lnk {
     background: #e2e6e6;
@@ -18363,7 +19253,15 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
   position: relative;
   left: -336px;
 }
+html[dir=rtl] .navbar-toggler{
+  position: relative;
+  left: 336px;
+}
 .navbar-toggler .h1{
+  position: relative;
+  left: 32px;
+}
+html[dir=rtl] .navbar-toggler .h1{
   position: relative;
   left: 32px;
 }
@@ -18717,6 +19615,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
   .chkStore img {
     width: 35px;
+    min-width: 24px;
   }
   .supStkclm {
     width: 50%;
@@ -18822,6 +19721,9 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
   .main-Sldiv {
     flex-wrap: wrap;
+  }
+ html[dir=rtl] .main-Sldiv {
+    flex-wrap: wrap;width: 60%; margin: 0px auto;
   }
   .gstNo {
     width: 100%;
@@ -19659,814 +20561,6 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   font-weight: 400; */
 }
 
-@media screen and (min-width: 1600px) {
-  .body1 {
-    font-size: 16px;
-    font-weight: 600;
-  }
-  .body2 {
-    font-size: 16px;
-    font-weight: 500;
-  }
-  
-  .h1 {
-    font-size: 26px;
-    font-weight: 500;
-    color: #1c2047;
-    margin: 0;
-  }
-  .h2 {
-    font-size: 18px;
-    font-weight: 500;
-    margin: 0;
-  }
-  .h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0;
-  }
-  .subTittle1 {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0;
-  }
-  .subTittle2 {
-    font-size: 18px;
-    font-weight: 400;
-    margin: 0;
-  }
-  .btn1 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0;
-  }
-  .btn2,
-  .stsBar .btn2 {
-    font-size: 12px;
-    font-weight: 400;
-    margin: 0;
-    line-height: 14px;
-  }
-  .cntArea {
-    padding: 16px 15px 0 14px;
-  }
-  .container,
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container-xl,
-  .container-xxl {
-    max-width: 1920px;
-  }
-  /* .drpFee .dropdown-menu.show {
-    transform: translate(4px, 88px) !important;
-  } */
-  /* Nav Bar CSS Start */
-  .logo {
-    padding-left: 10px;
-  }
-  .lg-Img {
-    width: 100%;
-  }
-  .user,
-  .acc-info {
-    border-radius: 10px;
-    width: 189px;
-  }
-  .acc-info {
-    gap: 16px;
-  }
-  
-  a.nav_sub {
-    padding: 10px 12px;
-    border-radius: 0;
-  }
-  .navIcon,
-  .nav_sub .navIcon,
-  .mb_nvSubIcn,
-  .mb_navIcn {
-    width: 28px;
-    height: 28px;
-  }
-  .nav.h2 {
-    row-gap: 16px;
-  }
-  /* .nav-bar {
-    padding-top: 44px;
-  }
-  .nav-col {
-    padding: 16px 50px 0 17px;
-  } */
-  .nwSub-Menu {
-    width: 200px;
-  }
- 
-  /* Nav Bar CSS End */
-  /* New Order CSS Start */
-  .newOrder {
-    padding: 9px 35px 0 12px;
-  }
-  .user img {
-    margin-right: 10px;
-    width: 38px;
-    height: 38px;
-  }
-  .q-Logo {
-    border-radius: 10px;
-    padding: 5px 7px;
-    height: 38px;
-  }
-  .usr-info .col-md-8 {
-    gap: 16px;
-    margin-top: 5px;
-  }
-  .acc-info .dropdown-menu.show {
-    transform: translate(22px, 42px) !important;
-    min-width: 189px !important;
-  }
-  .acc-info .fa-angle-down {
-    margin-left: 30px;
-  }
-  .itmTable {
-    font-size: 16px; 
-  }
-  th {
-    font-size: 16px;
-    line-height: 19px;
-  }
-  .form-control,
-  .form-select {
-    font-size: 16px;
-    line-height: 19.36px;
-  }
-  .qty-itm,
-  .note-itm {
-    border-radius: 10px;
-    padding: 10px;
-  }
-  .prcTable {
-    font-size: 17px;
-    line-height: 23px;
-    padding: 10px 16px;
-  }
-  .imgItm {
-    width: 40px;
-  }
-  .cnfrm img,
-  .doc-bx img,
-  .dlt-bx img {
-    width: 24px;
-    height: 24px;
-  }
-  .itmBody {
-    font-size: 15px;
-    line-height: 22px;
-    padding-top:12px;
-    padding-bottom:12px;
-  }
-  /* .drpCurr .dropdown-menu.show {
-    transform: translate3d(0px, 80px, 0px) !important;
-  } */
-  .ordFeature {
-    padding: 8px 4px;
-  }
-  .ordInfo {
-    padding: 0 64px;
-  }
-  .ordDetail {
-    margin-top: 28px;
-    margin-bottom: 20px;
-  }
-  .usr-info .col-md-4 .h1 {
-    margin-bottom: 5px;
-    padding-left: 15px;
-  }
-  .topOrder {
-    padding: 16px 32px 0;
-  }
-  .drp-btn .fa-solid,
-  .input-group .btn {
-    border-radius: 0px 10px 10px 0px;
-    padding: 8px 10px;
-  }
-  .input-group .btn {
-    padding: 10px 11px;
-    border-radius: 10px;
-  }
-  .input-group .btn .fa-search {font-size: 20px;}
-  .drp-btn .fa-solid {
-    padding: 13px 14px;
-  }
-  .glb-btn {
-    margin-bottom: 15px;
-    max-width: 322px;
-  }
-  .srchBx {
-    max-width: 322px;
-    padding: 5px 5px 5px 17px !important;
-  }
-  .drp-btn {
-    padding: 5px 5px 5px 12px !important;
-  }
-  .saveList,
-  .loadList,
-  .clear,
-  .autoFill,
-  .viewOrder,
-  .fee,
-  .currency {
-    width: 22px;
-    height: 22px;
-  }
-  .featRow {
-    padding: 16px 4px;
-  }
-  .tb-head {
-    padding: 8px 8px 25px;
-  }
-  .tb-bdy {
-    padding: 16px 8px;
-  }
-  .dropdown-item {
-    font-size: 14px;
-    line-height: 20px;
-  }
-  .ordInfo .btn2,
-  .stockFeat .btn2 {
-    padding-top: 8px;
-  }
-  .nordPrice {
-    margin-top: 30px;
-  }
-  .glb-btn .dropdown-menu.show {
-    transform: translate(0px, 55px) !important;
-  }
-  .ordItm-Img {
-    width: 40px;
-  }
-  /* New Order CSS End */
-  .erdInfo .col-md-4 {
-    padding: 0 8px 0 40px;
-  }
-  .erdInfo .price .p-1 {
-    padding: 6px 4px !important;
-  }
-  .erdOrder .smBtn {
-    padding: 0 12px 0 36px;
-  }
-  /* Custom Btn CSS Start */
-  .sub-btn {
-    border-radius: 15px;
-    padding: 9px 20px 9px 20px !important;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 600;
-  }
-  .sub-btn.form-submit-btn,.sub-btn.submit_new_order,.sub-btn.orderupdate { padding: 3px 10px !important; }
-  .sub-btn:focus {
-    background-color: #7a89ff;
-  }
-  .sub-btn .fa-angle-right,
-  .sub-btn .fa-angles-left {
-    padding: 8px;
-    margin-left: 15px;
-    font-size: 12px;
-    width: 30px;
-  }
-  /* Custom Btn CSS End */
-  .std-btn {
-    padding: .75rem 1.875rem;
-  }
-  .invNum {
-    padding: 10px;
-  }
-  .rcvOrder {
-    padding: 12px 70px 0 24px;
-  }
-  .rcvInfo {
-    padding: 0 64px 0 50px;
-  }
-  .rcvInfo .col-md-4 {
-    padding: 0 8px 0 37px;
-  }
-  .sampleFile,
-  .importFile {
-    width: 30px;
-    height: 30px;
-  }
-  .rcvInfo .featRow {
-    padding: 10px 4px;
-  }
-  .recPrice {
-    margin-top: 40px;
-  }
-  .recvInv {
-    font-size: 18px;
-    line-height: 22px;
-    padding: 0px 24px 16px;
-  }
-  .recvInv .d-flex {
-    padding-top: 24px;
-  }
-  .suppDetl {
-    padding: 0 10px 0 12px;
-  }
-  .rcvOrder .smBtn {
-    padding: 0 12px 0 35px;
-  }
-  .newReq {
-    padding: 14px 69px 0 37px;
-  }
-  .reqInfo {
-    padding: 0 39px 0 70px;
-  }
-  .reqInfo .col-md-2 {
-    padding: 0 14px 0 0;
-  }
-  .edtReq {
-    padding: 13px 69px 0 37px;
-  }
-  .edtreqInfo {
-    padding: 0 39px 0 70px;
-  }
-  .edtreqInfo .col-md-4 {
-    width: 28%;
-  }
-  .edtReq .smBtn {
-    padding: 0 12px 0 30px;
-  }
-  .runTable {
-    font-size: 16px;
-    line-height: 19.36px;
-  }
-  .runDetail {
-    font-size: 16px;
-    line-height: 27px;
-  }
-  .conFirm,
-  .docMent,
-  .edIt,
-  .dlTe,
-  .isuOut,
-  .assIgn,
-  .receIve,
-  .prdItm,
-  .vwDtl,
-  .add-Itm,
-  .impItem {
-    width: 35px;
-    height: 35px;
-  }
-  
-  .payOptnreq,
-  .dleOptnreq {
-    width: 26%;
-  }
-  .task-status {
-    width: 48%;
-  }
-  /* Stock Page CSS Start */
-  .stkView .container {
-    padding: 54px 54px 0;
-  }
-  .stkSrcicn .container {
-    padding: 0 54px;
-  }
-  .stockView .cntTable {
-    padding: 0 54px;
-  }
-  .stockUser .col-md-4 .h1 {
-    padding: 0;
-  }
-  .storeCol {
-    width: 73%;
-    padding: 0 12px 20px 0;
-  }
-  .allStr .h2,
-  .storeCont .h2 {
-    font-size: 18px;
-  }
-  .storeCont .body2 {
-    font-size: 16px;
-  }
-  .othStr {
-    width: 150px;
-  }
-  .otrStock,
-  .allStore {
-    max-width: 150px;
-  }
-  .storeCont {
-    margin: 10px 8px;
-    padding: 20px 10px 30px;
-  }
-  .storeCont hr,
-  .storeCont .h2 {
-    margin-bottom: 20px;
-  }
-  .store a {
-    margin-right: 15px;
-  }
-  .chkStore img {
-    width: 32px;
-  }
-  .stockFeat {
-    padding: 16px 18px;
-  }
-  .dropStk .dropdown-menu.show {
-    transform: translate(0, 76px) !important;
-  }
-  .stkSrcicn {
-    margin-top: 50px;
-  }
-  .stkTblhead {
-    padding: 0 54px;
-    margin-top: 20px;
-  }
-  .supStkclm .dropdown-toggle {
-    padding: 12px 16px;
-    width: 100%;
-  }
-  /* Stock Page CSS End */
-  .hisParent-sec {
-    margin: 40px 0 20px;
-  }
-  .hisParent-sec .ordDetail {
-    margin-top: 0px;
-  }
-  .history-info .col-md-4 .h1 {
-    padding-left: 25px;
-  }
-  .hstCal .fa-calendar {
-    font-size: 24px;
-    padding: 12px 13px;
-  }
-  .hstDate {
-    width: 310px;
-    padding: 11px 15px;
-  }
-  .reloadBtn a {
-    font-size: 20px;
-    padding: 7px 6px;
-    width: 48px;
-  }
-  .detailPrice {
-    padding: 15px 32px 0;
-  }
-  .hisData {
-    padding: 20px 32px 0;
-  }
-  .paidIsue,
-  .usdCurr,
-  .otrCurr,
-  .recIsue,
-  .Variance,
-  .accntDtl {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  .recIsue .col-md-5 {
-    padding: 0 7px 0 30px;
-  }
-  .hstTbl-head {
-    padding: 0 24px;
-  }
-  .hisTask {
-    padding: 3px 24px;
-  }
-  .hisStatusclm .dropdown-toggle,
-  .hisAcntclm .dropdown-toggle {
-    width: 130px;
-  }
-  .hisTypclm .dropdown-toggle,
-  .hisRefrclm .dropdown-toggle {
-    width: 160px;
-  }
-  .hisTypclm .dropdown-toggle,
-  .hisRefrclm .dropdown-toggle,
-  .hisStatusclm .dropdown-toggle,
-  .hisAcntclm .dropdown-toggle {
-    padding: 10px 12px;
-  }
-  .revnueParent-sec {
-    margin: 28px 0 20px;
-  }
-  .revCenter {
-    margin-top: 0;
-  }
-  .guestNum,
-  .sl-Num {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  .gt-Data {
-    width: 9%;
-  }
-  .gstNo {
-    width: 27%;
-  }
-  .outlet-Name {
-    padding-left: 8px;
-  }
-  .revFeat {
-    padding: 16px 20px;
-  }
-  .revFeat .btn2 {
-    padding-top: 3px;
-  }
-  .guestNum,
-  .sl-Num,
-  .ttlCost,
-  .sale-Variance {
-    font-size: 18px;
-    line-height: 20px;
-  }
-  .salesDtl {
-    padding: 20px 30px;
-  }
-  .gst-Head,
-  .gst-Var,
-  .sale-Name,
-  .sale-Amunt,
-  .tl-Cst,
-  .sl-Cost,
-  .sl-Usage,
-  .sl-Variance,
-  .sale-Amount,
-  .usage-Amount,
-  .var-Amount,
-  .sl-varDtl,
-  .sl-varDif,
-  .sl-varValue,
-  .sl-varTtl,
-  .cst-Value .col-md-7 {
-    padding: 9px 6px;
-  }
-  /* Item History View Page CSS Start */
-  .itmhstDetail {
-    margin: 28px 0 18px;
-  }
-  .itm-viewDtl {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .gst-Var, .sale-Amunt{
-    font-size: 16px;
-    font-weight: 600;
-  }
-  .view-tblBody,
-  .view-tblHead,
-  .heading-Unt,
-  .body-Unt {
-    font-size: 15px;
-    line-height: 20px;
-  }
-  .view-tblHead .productName, .productQty {
-    font-size: 18px;
-  }
-  .prhead-Unit{ font-size: 16px;}
-
-  .itmVw-Task .tb-bdy {
-    padding: 10px 8px;
-  }
-  .itmVw-info .col-md-4 .h1 {
-    padding-left: 0;
-  }
-  /* Item History View Page CSS End */
-  /* Setup Page CSS Start */
-  .stup-UsrAcnt {
-    min-height: 250px;
-  }
-  .stupImg {
-    width: 68px;
-  }
-  .stup-clm-2 p {
-    font-size: 20px;
-    line-height: 20px;
-  }
-  .triangle-down {
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 15px solid #edeff1;
-  }
-  .sbMnu-acntStup {
-    margin: 5px 0;
-  }
-  .sub-Icns img {
-    height: 50px;
-    width: 40px;
-  }
-  /* Setup Page CSS End */
-  .usrTable {
-    margin-top: 35px;
-  }
-  /* Account Setup Page CSS Start */
-  .acntSetup-Form .form-label {
-    /* font-size: 16px;
-    font-weight: 400; */
-  }
-  .imgUploadCss {
-    font-size: 14px;
-  }
-  /* Account Setup Page CSS End */
-  /* Outlet Page CSS Start */
-  .outletTable {
-    margin-top: 35px;
-  }
-  /* Outlet Page CSS End */
-  /* Manage Supplier Page CSS Start */
-  .suplrTable {
-    margin-top: 35px;
-  }
-  /* Manage Supplier Page CSS End */
-  /* Edit Supplier Page CSS Start */
-  .edtSup-Div {
-    margin-top: 35px;
-  }
-  /* Edit Supplier Page CSS End */
-  /* Revnue Center Setup Page CSS Start */
-  .revStpTable .container {
-    margin-top: 35px;
-  }
-  /* Revnue Center Setup Page CSS End */
-  /* Edit Revnue Center Setup Page CSS Start */
-  .setEze-Ctgry .form-control {
-    width: 93%;
-  }
-  .stEze-Lnk {
-    width: 7%;
-  }
-  /* Edit Revnue Center Setup Page CSS End */
-  /* Manage Department Setup Page CSS Start */
-  .modal-dialog {
-    max-width: 500px;
-  }
-  /* Manage Department Setup Page CSS End */
-  /* Categories Page CSS Start */
-  .catgryTable .container {
-    margin-top: 35px;
-  }
-  .subCat-Lnk {
-    font-size: 12px;
-  }
-  /* Categories Page CSS End */
-  .mngCurTable {
-    margin-top: 35px;
-  }
-  .curExt-Btn .btnBg:first-child {
-    margin-right: 12px;
-  }
-  .slCst-fltBtn img {
-    padding: 16px;
-  }
-  .cstBtn-Sale,
-  .cstBtn-Qty {
-    font-size: 14px;
-    min-width: 52px;
-    min-height: 52px;
-  }
-  .txtSale-Btn {
-    font-size: 18px;
-  }
-  .otltTbl-head,
-  .otltTbl-bdy {
-    font-size: 16px;
-    line-height: 18px;
-  }
-  .otltBd-itm{font-weight: 500;}
-  .otltBd-hdImg img {
-    max-height: 60px;
-  }
-  .untFtr::before {
-    padding-right: 10px;
-  }
-  .ord-Box {
-    padding: 15px 15px 15px 32px;
-    border-radius: 0px 15px 15px 0px;
-    margin-left: -45px;
-  }
-  .newFeatures {
-    padding: 0 64px 0 88px;
-  }
-  .nwOrder-Div {
-    padding: 16px 32px 0 0;
-  }
-  .curRow {
-    font-size: 20px;
-  }
-  html[dir=rtl] .logo {
-    padding-left: 0;
-    padding-right: 10px;
-  }
-  html[dir=rtl] .newOrder {
-    padding: 9px 12px 0 35px;
-  }
-  html[dir=rtl] .prcTable {
-    padding: 10px 16px 10px 32px;
-  }
-  html[dir=rtl] .ordNum .subTittle1 {
-    padding: 10px 32px 10px 10px;
-  }
-  html[dir=rtl] .drp-btn,
-  html[dir=rtl] .srchBx {
-    padding: 5px 17px 5px 5px !important;
-  }
-  html[dir=rtl] .drp-btn .fa-solid,
-  html[dir=rtl] .input-group .btn {
-    border-radius: 10px 0px 0px 10px;
-  }
-  html[dir=rtl] .input-group .btn {
-    border-radius: 10px;
-  }
-  html[dir=rtl] .acc-info .dropdown-menu.show {
-    transform: translate(-37px, 42px) !important;
-  }
-  html[dir=rtl] .sub-btn {
-    padding: 9px 35px 9px 13px;
-  }
-  html[dir=rtl] .usr-info .col-md-4 .h1 {
-    padding: 0 15px 0 0;
-  }
-  html[dir=rtl] .erdInfo {
-    padding: 0 64px 0 85px;
-  }
-  html[dir=rtl] .erdOrder .smBtn {
-    padding: 0 36px 0 12px;
-  }
-  html[dir=rtl] .erdInfo .col-md-4 {
-    padding: 0 40px 0 8px;
-  }
-  html[dir=rtl] .std-btn {
-    padding: .75rem 1.875rem;
-  }
-  html[dir=rtl] .rcvOrder .smBtn {
-    padding: 0 35px 0 12px;
-  }
-  html[dir=rtl] .suppDetl {
-    padding: 0 12px 0 10px;
-  }
-  html[dir=rtl] .rcvInfo .col-md-4 {
-    padding: 0 37px 0 8px;
-  }
-  html[dir=rtl] .rcvInfo {
-    padding: 0 51px 0 36px;
-  }
-  html[dir=rtl] .rcvOrder {
-    padding: 12px 24px 0 70px;
-  }
-  html[dir=rtl] .newReq {
-    padding: 14px 37px 0 69px;
-  }
-  html[dir=rtl] .reqInfo {
-    padding: 0 70px 0 39px;
-  }
-  html[dir=rtl] .edtReq {
-    padding: 13px 37px 0 69px;
-  }
-  html[dir=rtl] .edtReq .smBtn {
-    padding: 0 30px 0 12px;
-  }
-  html[dir=rtl] .edtreqInfo {
-    padding: 0 70px 0 39px;
-  }
-  html[dir=rtl] .rntskHead {
-    padding: 0 140px 0 180px;
-  }
-  html[dir=rtl] .runTask {
-    margin: 0 140px 0 180px;
-  }
-  html[dir=rtl] .reqDtl {
-    padding-left: 4px !important;
-    padding-right: 25px !important;
-  }
-  html[dir=rtl] .reqType {
-    border-right: none;
-    border-left: 2px solid rgba(169, 176, 192, 0.5);
-    border-radius: 0px 10px 10px 0px;
-  }
-  html[dir=rtl] .ordType {
-    border-radius: 0px 10px 10px 0px;
-  }
-  html[dir=rtl] .tmpStatus,
-  html[dir=rtl] .conStatus {
-    margin-left: 0px;
-    margin-right: 5px;
-    border-radius: 0px 10px 10px 0px;
-  }
-  html[dir=rtl] .history-info .col-md-4 .h1 {
-    padding-right: 25px;
-  }
-  html[dir=rtl] .stockUser .col-md-4 .h1,
-  html[dir=rtl] .itmVw-info .col-md-4 .h1 {
-    padding: 0;
-  }
-  html[dir=rtl] .storeCol {
-    padding: 0 0 20px 12px;
-  }
-  html[dir=rtl] .curExt-Btn .btnBg:first-child {
-    margin-left: 12px;
-  }
-}
 
 /* .ct-width01 .dt-Member, .tbdy-dtMbr {
   width: 40%;
@@ -21026,6 +21120,21 @@ cursor: pointer;
 }
 
 
+@media screen and (max-width: 380px) {
+.modal-head-row .btn {
+  font-size: 12px;
+  height: 34px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+html[dir=rtl] .modal-head-row .btn {
+  font-size: 11px;
+  height: 34px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+}
 /* =========== 29/04/2024============= */
 
 .requiredsign {
@@ -21147,7 +21256,7 @@ img.previewImg {
   margin: 0 15px 0 0;
 }
 /* Krishna test file  */
-
+.headerSpace1{text-align: right; padding-top: 12px;}
 
 /*=========================================================== Styles: Shuvro. ===============================================*/
 :root { 
@@ -21242,7 +21351,7 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 .revenue__icon img { width:44px !important;height: 32px !important; }
 .setup__icon img { width:32px !important;height: 32px !important; }
 .logout__icon img { width:32px !important;height: 32px !important; }
-.nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  }
+
 
 
 @media (max-width: 1599px) {
@@ -21585,8 +21694,8 @@ html[dir=rtl] body {
   .modal-header #modalfiltertop{
     position: relative !important;
     top: 0 !important;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 }
  .modal-table .table-cell {

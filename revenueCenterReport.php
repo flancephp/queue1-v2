@@ -32,6 +32,7 @@ include_once('script/revenueCenterReport_script.php');
         }
         @media screen and (max-width: 1024px) {
             .detailPrc-show, .hstTable-show { padding:0;height: calc(100% - 3.5rem);top: 3.5rem;background: #fff;display:block;border-radius: .625rem .625rem 0 0; } 
+            
             .rev-Cntrgst { margin-top: 65px; }
             .revTbl-Hd .chk-revCnt { width: 100%;padding-left: 1rem;padding-right: 1rem; }
             .rev-Cntrgst .dropdown-toggle, .out-Let .dropdown-toggle { min-height: 3.6rem; }
@@ -96,7 +97,7 @@ include_once('script/revenueCenterReport_script.php');
                 </section>
 
                 <section class="hisParent-sec revnueParent-sec">
-                    <div class="header__area">
+                    <div class="header__area rcSpace1">
 
                         <section class="container hisData">
     
