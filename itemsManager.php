@@ -423,6 +423,8 @@ $deprtOptions .= '</ul>';
             .imgItm-MngClm:first-child { width: 10%; }
         }
     </style>
+
+    
 </head>
 
 <body class="mb-Bgbdy">
@@ -687,14 +689,14 @@ $deprtOptions .= '</ul>';
                                                     class="fa-solid fa-angle-down"></i></a>
                                         </span>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="align-items-center brItm-MngClm">
                                     <div class="tb-head d-flex align-items-center item-MngClm">
                                         <p class="ft-light"><?php echo showOtherLangText('Item') ?></p>
                                         <span class="dblArrow">
-                                            <a href="javascript:void(0)" class="d-block aglStock"><i
+                                            <a href="javascript:void(0)" class="d-block aglStock" onclick="sortdata()"><i
                                                     class="fa-solid fa-angle-up"></i></a>
-                                            <a href="javascript:void(0)" class="d-block aglStock"><i
+                                            <a href="javascript:void(0)" class="d-block aglStock" onclick="sortdata()"><i
                                                     class="fa-solid fa-angle-down"></i></a>
                                         </span>
                                     </div>
@@ -849,8 +851,8 @@ $deprtOptions .= '</ul>';
                                         <?php echo $img; ?>
                                     </div>
                                     <div class="align-items-center brItm-MngClm">
-                                        <div class="tb-bdy item-MngClm">
-                                            <p>
+                                        <div class="tb-bdy item-MngClm sortable-text-item"> 
+                                            <p data-sort="<?php echo $row['itemName']; ?>">
                                                 <?php echo $row['itemName']; ?>
                                             </p>
                                         </div>
@@ -1089,3 +1091,38 @@ $deprtOptions .= '</ul>';
     }
 
 </script>
+
+
+<script>
+
+    var sorttype =0;
+    function sortdata()
+    {
+alert('test');
+        sorttype++;
+
+        $('.sortable-text-item [data-sort]').sort(function(a, b) {
+
+            if(sorttype % 2 != 0)
+            {
+                if ($(a).data("sort") < $(b).data("sort")) {
+                    return -1;
+                } else {
+                    return 1;
+                 }
+            }
+            if(sorttype % 2 == 0)
+            {
+                if ($(a).data("sort") > $(b).data("sort")) {
+                    return -1;
+                } else {
+                    return 1;
+                 }
+            }
+          
+
+            
+        }).appendTo('.sortable-text-item');
+    }
+    
+    </script>
