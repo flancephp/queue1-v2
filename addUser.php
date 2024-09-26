@@ -351,6 +351,13 @@ if( isset($_POST['user_name']) )
         z-index: 2;
         margin-right: 8px;
     }
+
+html[dir=rtl] .field-icon {
+  float: left;
+  margin-top: -30px;
+  right: -31px;
+}
+
     </style>
 </body>
 

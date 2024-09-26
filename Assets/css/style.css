@@ -459,7 +459,7 @@ progress {
   line-height: 1.2;
 }
 .stock-radio {
-  min-width: 85px;
+  min-width: auto;
 }
 /* .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  } */
 
@@ -2179,7 +2179,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   font-weight: 600;
 }
 .userNumber strong{font-size: 26px; font-weight:600;}
-.setupOutletsp1{padding-top: 44px;width: 100%;}
+.setupOutletsp1{width: 100%;}
 .padLeft40{padding-left:40px;}
 .padRight40{padding-right:40px;}
 
@@ -13586,6 +13586,9 @@ img[alt=LOGO] {
   justify-content: space-between;
 }
 
+html[dir=rtl] .setEze-Ctgry {
+  background: linear-gradient(97.27deg, rgba(244, 244, 244, 0.2) -11.19%, rgba(122, 137, 255, 0.2) 79.01%), #fff;
+}
 .setEze-Ctgry .form-control {
   background: transparent;
   border: none;
@@ -15102,6 +15105,9 @@ form.login-form input:focus{
 .nmOutlet {
   padding-top: 39px;
 }
+html[dir=rtl] .nmOutlet {
+  padding-top: 0px;
+}
 
 html[dir=rtl] .logo {
   padding-left: 0;
@@ -16312,6 +16318,34 @@ text-align: center;
 .enableMobileSection{padding-right:40px;}
 .font-normal{font-weight: 400;}
 
+
+
+html[dir=rtl] .enableOrder{padding-right: 0px; padding-left: 13px;}
+html[dir=rtl] .enableRequisition{padding-right: 0px;padding-left: 13px;}
+html[dir=rtl] .enableRunningtask{padding-right: 0px;padding-left: 13px;}
+html[dir=rtl] .enableHistory{padding-right:0px;padding-left: 13px;}
+html[dir="rtl"] .enableStock {
+  padding-right: 0px;
+  padding-left: 11px;
+  min-width: auto;
+}
+html[dir=rtl] .enableNewStockTake{width: 85px;padding-left: 13px;}
+html[dir=rtl] .enableRevenueCenter{padding-right:0px;padding-left: 13px;}
+html[dir=rtl] .enableSetup{padding-right:0px;padding-left: 13px;}
+html[dir=rtl] .runningtask-radio{padding-right:0px;padding-left: 13px;}
+html[dir=rtl] .enableMobileSection{padding-right:0px;padding-left: 25px;}
+
+.AsignCategory {flex-wrap: wrap;
+display: flex;}
+.asCategory{padding-bottom: 3px;
+  padding-right: 8px;}
+.drpDwn-ItmMng .dropdown-menu{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    max-height: 350px;
+}
+
 /* ----- 1600 to 1920 Desktop Screen start ------- */
 
 
@@ -16439,6 +16473,9 @@ text-align: center;
   }
   .stock-radio {
     min-width: 80px;
+  }
+  html[dir=rtl] .stock-radio {
+    min-width: auto;
   }
   .enableRevenueCenter {
     padding-right: 17px;
@@ -16611,6 +16648,12 @@ text-align: center;
 .form-select {
   background-size: 42px 36px;
 }
+html[dir=rtl] .acntStp-Row .form-select {
+  background-size: 38px 36px;
+}
+html[dir=rtl] .form-select {
+  background-size: 38px 36px;
+}
 .setEze-Ctgry {
   padding: 0px 5px;
 }
@@ -16673,6 +16716,7 @@ text-align: center;
 
 @media (max-width: 767px) { 
 
+  .colDisable{display:none;}
   .desableRevenueCenter{padding-left: 0px;}
 .desableNewStockTake{padding-left: 0px;}
 .desableHistory{padding-left: 0px;}
@@ -17462,6 +17506,17 @@ text-align: center;
     width: 6%;
     align-self: stretch;
   }
+  html[dir=rtl] .mb-itmMngLink, 
+  .mb-oltLnk {
+    border-radius: 10px 00px 00px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    width: 100%;
+    color: #7a89fe;
+  }
+
   .mb-itmMngLink,
   .mb-oltLnk {
     background: #ffffff;
@@ -17474,6 +17529,9 @@ text-align: center;
     width: 100%;
     color: #7a89fe;
   }
+
+  
+
   .itemManager-Task {
     background: #edeff1;
     box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
@@ -18810,7 +18868,7 @@ text-align: center;
   .supTbl-EmCol {
     order: 3;
     width: 100%;
-    display: none;
+    display: none;padding-left: 3px;
   }
   .supTbl-IcnCol {
     order: 2;
@@ -20747,6 +20805,10 @@ html[dir=rtl] .navbar-toggler .h1{
   .unitOlt-Clm {
     margin-left: 15%;
   }
+  html[dir=rtl] .unitOlt-Clm {
+    margin-left: 0%;margin-right: 15%;
+  }
+
   .setOutlet {
     padding: 0;flex-direction: column;
   }
@@ -20774,13 +20836,19 @@ html[dir=rtl] .navbar-toggler .h1{
     order: 1;
     padding-right: 0;
   }
+  html[dir=rtl] .chkOlt-Row .col-md-8 {
+    /* width: auto; */
+    min-width: 35px;
+    order: 1;
+    padding-right: 12px;
+  }
   .chkOlt-Row .col-md-4 {
     width: auto;
     order: 2;
     padding-left: 0;
   }
   html[dir=rtl] .mb-usrBkbtn {
-    padding: 7px 10px;
+    padding: .625rem 1rem;
   }
   html[dir=rtl] .rcvOrder .smBtn,
   html[dir=rtl] .rcvInfo,
@@ -21150,6 +21218,7 @@ body .ui-widget-content {
     font-weight: 400;
   }
 
+
   .mb-hisDtl .sale-Name, .mb-hisDtl .tl-Cst {
     border: 0;
     padding: 3px 0;
@@ -21234,8 +21303,223 @@ body .ui-widget-content {
 
 
 }
+
+
+
+@media (max-width: 991.98px) {
+  .itmBody > div:first-child p {
+    /* font-size: 14px; */
+    font-weight: 400;
+    padding: 0px 3px;
+    border-radius: 8px;
+  }
+  .itmBody {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+    
+  }
+  .mngAcntTbl-body{
+    display: flex;
+    align-items: center;
+  }
+  .mngAcntTbl-BlCol{padding-left: 3px;}
+}
+
+.mb-modal-close-icon {
+  display: flex;
+  padding: 0;
+  width: 100%;
+  margin-bottom: .2rem;
+  position: static;
+  justify-content: end;
+}
+
+/* 23-8-24 client issues */
+
+@media (max-width: 575px) {
+  .Itm-Name {
+      width: 100% !important;
+  }
+}
+@media (max-width: 992px) {
+
+  .acntSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .catgryNum-Clm strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .feeSrNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .mngCur-Clm strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .userNumber strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .suplNumber strong{ 
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  
+  .suplName span{font-size: 16px; font-weight: 500;}
+  .mb-UsrSpan span{font-size: 16px; font-weight: 500;}
+  .userName span{font-size: 16px; font-weight: 500;}
+  .suplName span{font-size: 16px; font-weight: 500;}
+  
+  .prdtCr-Unit {
+      flex-wrap: nowrap !important;
+  }
+  .hdfetCol {
+    margin-left: 10px;
+  }
+  
+
+}
+
+@media (max-width: 991px) {
+  .prdtCnt-Fst {
+      width: 100% !important;
+  }
+  .Itm-Name, .prdtCr-Unit {
+      width: 100% !important;
+  }
+}
+
+
 @media screen and (max-width: 480px) {
 
+  .acntStp-Row .col-8 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  html[dir=rtl] .enableOrder{padding-right: 0px; padding-left: 8px;}
+  html[dir=rtl] .enableRequisition{padding-right: 0px;padding-left: 8px;}
+  html[dir=rtl] .enableRunningtask{padding-right: 0px;padding-left: 8px;}
+  html[dir=rtl] .enableHistory{padding-right:0px;padding-left: 8px;}
+  html[dir="rtl"] .enableStock {
+    padding-right: 0px;
+    padding-left: 11px;
+    min-width: auto;
+  }
+  html[dir=rtl] .enableNewStockTake{width: 85px;padding-left: 8px;}
+  html[dir=rtl] .enableRevenueCenter{padding-right:0px;padding-left: 8px;}
+  html[dir=rtl] .enableSetup{padding-right:0px;padding-left: 8px;}
+  html[dir=rtl] .runningtask-radio{padding-right:0px;padding-left: 8px;}
+  html[dir=rtl] .enableMobileSection{padding-right:0px;padding-left: 4px;}
+html[dir=rtl] .stock-radio {
+  min-width: auto;
+    padding-right: 0px;
+    padding-left: 8px;
+}
+
+
+
+  html[dir=rtl]  .acntSetup-Form .form-control, .acntSetup-Form .form-select input {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  html[dir=rtl] .acntSetup-Form .form-control, .acntSetup-Form .form-select {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  html[dir=rtl] .form-select {
+    background-size: 35px;
+    border-radius: 8px;
+  }
+
+  .suplName span {
+    font-size: 14px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select input {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select {
+    padding: 13px 16px;
+    font-size: 14px;
+  }
+  .acntSetup-Form .form-select {
+    background-size: 42px 34px;
+  }
+  .itmMng-filtBtn img {
+    padding: 12px;
+  }
+  .enableRequisition {
+    padding-right: 17px;
+  }
+  .runningtask-radio {
+    padding-right: 17px;
+  }
+  .enableHistory {
+    padding-right: 17px;
+  }
+  .stock-radio {
+    min-width: auto;
+    padding-right: 17px;
+  }
+  html[dir="rtl"] .enableMobileSection {
+    padding-right: 0px;
+    padding-left: 4px;
+  }
+  
+
+
+  .enableRevenueCenter {
+    padding-right: 17px;
+  }
+  .enableSetup {
+    padding-right: 17px;
+  }
+  .enableOrder {
+    padding-right: 17px;
+  }
+
+  .setOutlet div {
+    width: 100%;
+    flex-direction: column;
+  }
+
+
+
+  .userName span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .userName span {
+    font-size: 14px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 14px;
+  }
+  .title-listing-item .col-6 {
+    width: 100%;
+  }
+  .acntSetup-Form .form-label {
+    font-size: 14px;
+  }
+  .fs-13 {
+    font-size: 14px;
+  }
+  .semibold {
+    font-weight: 500;
+  }
   .ac-setup .acnt-Div {
     width: 100%;
     margin-right: 15px;
@@ -21406,6 +21690,9 @@ html[dir=rtl] .modal-head-row .btn {
 }
 .addUser-Form .labelDiv {
   margin-inline: auto;
+  height: 80px;
+  display: inline-block;
+  width: 100%;
 }
 
 .row.acntStp-Row > .col-md-3 {
@@ -21534,7 +21821,7 @@ html[dir=rtl] .modal-head-row .btn {
 
 /* @media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  } */
 @media (max-width: 991px) {
-  .btn-primary { padding: .625rem 1rem;border-radius: .5rem; }
+  .btn-primary { padding: .625rem 1rem;border-radius: .937rem; }
   .items__manager__btn { width: 78px;font-size: 10px;height: 57px;gap: 4px;padding: 0.2rem .75rem; }
   .items__manager__btn svg { width: 18px;height: 18px; } 
 }
@@ -21657,7 +21944,7 @@ html[dir=rtl] .user-info {
 }
 
 html[dir=rtl] .sub-btn {
-  padding: .625rem 0.625rem;
+  padding: .5rem 0.5rem;
 }
 
 
@@ -21715,88 +22002,6 @@ html[dir=rtl] body {
 
 
 
-
-@media (max-width: 991.98px) {
-  .itmBody > div:first-child p {
-    /* font-size: 14px; */
-    font-weight: 400;
-    padding: 0px 3px;
-    border-radius: 8px;
-  }
-  .itmBody {
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: 400;
-  }
-}
-
-.mb-modal-close-icon {
-  display: flex;
-  padding: 0;
-  width: 100%;
-  margin-bottom: .2rem;
-  position: static;
-  justify-content: end;
-}
-
-/* 23-8-24 client issues */
-
-@media (max-width: 575px) {
-  .Itm-Name {
-      width: 100% !important;
-  }
-}
-@media (max-width: 992px) {
-
-  .acntSrNumber strong {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .catgryNum-Clm strong {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .feeSrNumber strong {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .mngCur-Clm strong {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .userNumber strong {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .suplNumber strong{ 
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  
-  .suplName span{font-size: 16px; font-weight: 500;}
-  .mb-UsrSpan span{font-size: 16px; font-weight: 500;}
-  .userName span{font-size: 16px; font-weight: 500;}
-  .suplName span{font-size: 16px; font-weight: 500;}
-  
-  .prdtCr-Unit {
-      flex-wrap: nowrap !important;
-  }
-  .hdfetCol {
-    margin-left: 10px;
-  }
-  
-
-}
-
-@media (max-width: 991px) {
-  .prdtCnt-Fst {
-      width: 100% !important;
-  }
-  .Itm-Name, .prdtCr-Unit {
-      width: 100% !important;
-  }
-}
 
 
 .fa-angle-right,

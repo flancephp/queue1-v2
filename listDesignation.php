@@ -149,7 +149,7 @@ $designationRes = mysqli_query($con, $sqlQry);
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span
                                                 class="nstdSpan"><?php echo showOtherLangText('Title');?></span></span>
-                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add Title'); ?></span></a>
+                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
                                 </div>
                             </div>
                         </div>

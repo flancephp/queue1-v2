@@ -500,9 +500,13 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                     <div class="container itmMng-Src outletFrm">
                      <div class="row">
              <!--  <div class="col-xl-8 oltCol-8"> --> <div>
-                                <div class="acntStp">
+                                <div class="acntStp padRight40">
                                     <div class="addUser-Form acntSetup-Form row">
-                                        <div class="acnt-Div nmOutlet">
+                                        <div class="acnt-Div">
+
+                                        
+
+
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
@@ -632,7 +636,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                   <span id="showCatIds"><?php
+                                                   <span id="showCatIds" class=AsignCategory><?php
 						$sql = " SELECT * FROM tbl_map_category 
 						WHERE revId='".$sqlResultRow['revCenterId']."' AND account_id = '".$_SESSION['accountId']."' ";
 						$mapCatResult = mysqli_query($con, $sql);
@@ -647,7 +651,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
 
 							$sel = $mapOutCatRow['revCatId'] ? ' checked="checked" ' : '';
 
-							echo "<input class='form-check-input ezeeCatList' type='checkbox' name='catIds[]' value='".$mapCatRow['id']."' '".$sel."' >&nbsp;<label for='revenueCenter' class='form-label'>".$mapCatRow['catName']." </label>&nbsp;&nbsp;";
+							echo "<div class='asCategory'><input class='form-check-input ezeeCatList' type='checkbox' name='catIds[]' value='".$mapCatRow['id']."' '".$sel."' >&nbsp;<label for='revenueCenter' class='form-label'>".$mapCatRow['catName']." </label></div>&nbsp;&nbsp;";
 
 						}
 						?></span>
@@ -658,25 +662,25 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                             
                                         </div>
                                         
-                                        <div class="acntLg-Upld setOutlet">
+                                        <div class="acntLg-Upld setOutlet ">
                                         <?php
                                         if ($_SESSION['accountId'] != 4) 
                                         {
                                      	?>
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
-                                                <div class="col-md-4">
-                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value="<?php echo $sameDetails == 1 ? '1' : '0';?>"
-                                            <?php echo $sameDetails == 1 ? 'checked' : '';?> value=""
-                                            onclick="showRevCenterAddress();">
-                                                </div>
-                                            </div>
+                                            
                                             <?php        
                                             }
                                             ?>
-                                            <div>
+                                            <div class="padLeft40" style="width:100%;">
+
+                                            <div class="row align-items-center acntStp-Row">
+                                            <div class="col-md-4 colDisable">&nbsp;</div>                                        
+                                                    <div class="col-8">
+                                                    <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
+                                                    onclick="showRevCenterAddress();">
+                                                    <span style="padding-left:7px;"><label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label></span>
+                                                    </div>                 
+                                            </div>  
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Address'); ?></label>

@@ -264,14 +264,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                 <div class="acntStp">
                                     <div class="addUser-Form acntSetup-Form row">
                                         <div class="acnt-Div padRight40">
-                                            <div class="row align-items-center acntStp-Row">
-                                            <div class="col-md-4">&nbsp;</div>                                        
-                                                    <div class="col-8">
-                                                    <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
-                                                    onclick="showRevCenterAddress();">
-                                                    <span style="padding-left:7px;"><label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label></span>
-                                                    </div>                 
-                                            </div>     
+                                               
 
                                             <div class="row align-items-center acntStp-Row">    
                                                 <div class="col-md-4">
@@ -372,6 +365,15 @@ $deptResult = mysqli_query($con, $deptQry);
                                         <div class="acnt-Div">
                                             
                                             <div class="setupOutletsp1 padLeft40">
+
+                                            <div class="row align-items-center acntStp-Row">
+                                                    <div class="col-md-4 colDisable">&nbsp;</div>                                        
+                                                    <div class="col-8">
+                                                    <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
+                                                    onclick="showRevCenterAddress();">
+                                                    <span style="padding-left:7px;"><label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label></span>
+                                                    </div>                 
+                                            </div>  
                                                 <div class="row align-items-center acntStp-Row">
                                                     
                                                     <div class="col-md-4">
