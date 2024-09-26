@@ -328,6 +328,7 @@ if($_SESSION['deptId'] != '')
     <link rel="stylesheet" href="Assets/css/style1.css">
 
     <style>
+        .tpBar-red { border-top: 6px solid #F05D53 !important; }
         .ord-Box.position { border-color: #f05d53; }
         .fa-angle-right, .fa-angles-left {padding: 0; font-size: 1rem; width: 30px;height:30px; }
         .d-flex.align-items-center.itmTable > div:first-child, .itmBody > div:first-child { width: 4rem; }
@@ -411,8 +412,8 @@ if($_SESSION['deptId'] != '')
             html[dir="rtl"] .ord-Box { padding: 4px 15px !important;width: 100%;} 
             html[dir="rtl"] .ord-Box .ps-3 { padding-left: 0 !important; }
         }
-        @media (min-width: 992px) { .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
-        @media (min-width: 768px) { .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
+        @media (min-width: 992px) { html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
+        @media (min-width: 768px) { html[dir="rtl"] .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
 
         @media(max-width:991px) {
             .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
@@ -513,7 +514,7 @@ if($_SESSION['deptId'] != '')
                                             <div class="d-flex justify-content-end mt-3 mt-md-0">
                                                 <div class="w-100 text-center row gx-2 gx-lg-3 gy-0 filter__width">
                                                     <div class="col-4">
-                                                        <div class="featRow w-100">
+                                                        <div class="featRow w-100 p-0">
 
                                                             <div class="ordFeature w-100"> 
                                                                 <?php if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) { ?>
@@ -537,7 +538,7 @@ if($_SESSION['deptId'] != '')
                                                     </div>
                                                     <div class="col-8">
 
-                                                        <div class="featRow row g-0 w-100">  
+                                                        <div class="featRow p-0 row g-0 w-100">  
                                                             <div class="col-6 ordFeature ">
                                                                 <a href="javascript:void(0)" onClick="clearTempItem()" class="tabFet">
                                                                     <span class="clear"></span>
@@ -615,8 +616,8 @@ if($_SESSION['deptId'] != '')
                                 </div>
                                 <div class="smBtn nwNxt-Btn">
                                     <div class="btnBg">
-                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center gap-1 px-lg-3"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
-                                            <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i></a>
+                                        <a class="btn btn-primary form-submit-btn d-inline-flex align-items-center justify-content-center justify-content-xl-end gap-2 px-lg-2 px-xxl-3 w-100"><span class="align-middle"><?php echo showOtherLangText('Submit'); ?></span>
+                                            <i class="fa-solid fa-angle-right d-none d-xl-inline-flex justify-content-center align-items-center m-0"></i></a>
                                     </div>
                                     <div class="fetBtn">
                                         <a href="javascript:void(0)">

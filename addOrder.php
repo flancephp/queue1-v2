@@ -420,6 +420,8 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
 }
 @media (max-width:767px) {
     .newOrd-CntPrt > div:first-child { position: absolute;top: 0.25rem;left: .2rem;text-align: center;background: rgba(255, 255, 255, 0.8); }
+    html[dir="rtl"] .newOrd-CntPrt > div:first-child { right: .2rem;left:auto; }
+    html[dir="rtl"] .newOrd-CntPrt > div:nth-child(2) { padding-right: 0;text-align: center; }
     .filder__btns.col-md-7 { margin-top: .5rem; }
     .ordFeature { width: 24.33%; padding: 0 5px; }
     .mbFeature .ordFeature > a { padding: 13px 0; }
@@ -560,7 +562,7 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
     <div class="mbFeature">
         <div class="row g-0 justify-content-end">
             <div class="col-md-7 text-center filder__btns w-100">
-                <div class="row featRow">
+                <div class="row featRow p-0">
                     <div class="col-md-3 ordFeature">
 <?php
 if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0)
@@ -685,9 +687,9 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 <div class="smBtn nwNxt-Btn">
 <div class="btnBg">
 
-    <a href="javascript:void(0)" class="btn btn-primary submit_new_order d-inline-flex px-3 w-100 align-items-center justify-content-center"><span
+    <a href="javascript:void(0)" class="btn btn-primary submit_new_order d-inline-flex px-lg-2 px-xxl-3 w-100 align-items-center justify-content-center justify-content-xl-end gap-2"><span
             class="align-middle"><?php echo showOtherLangText('Submit'); ?></span> <i
-            class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i></a>
+            class="fa-solid fa-angle-right d-none d-xl-inline-flex justify-content-center align-items-center m-0"></i></a>
 </div>
 <div class="fetBtn">
     <a href="javascript:void(0)">

@@ -10642,7 +10642,9 @@ a.tabFet:focus .viewOrder {
 }
 
 a.tabFet:hover .fee,
-a.tabFet:focus .fee {
+a.tabFet:active .fee,
+a.tabFet:focus .fee,
+a.tabFet.show .fee {
   background: url(../icons/fee-bg.png);
 }
 
@@ -10651,7 +10653,9 @@ a.tabFet:focus .fee {
 }
 
 a.tabFet:hover .currency,
-a.tabFet:focus .currency {
+a.tabFet:active .currency,
+a.tabFet:focus .currency,
+a.tabFet.show .currency {
   background: url(../icons/currency-bg.png);
 }
 
@@ -10669,7 +10673,9 @@ a.tabFet:focus .importFile {
 }
 
 a.tabFet:hover .sampleFile,
-a.tabFet:focus .sampleFile {
+a.tabFet:focus .sampleFile,
+a.tabFet:active .sampleFile,
+a.tabFet.show .sampleFile {
   background: url(../icons/sample-file-bg.png);
 }
 
@@ -14256,7 +14262,7 @@ img[alt=LOGO] {
  }
 
 .tpBar-red {
-  border-top: 6px solid #F05D53;
+  border-top: 6px solid #F05D53 !important;
 }
 
 .revTbl-Hd .sale-Varlist {
@@ -14325,15 +14331,10 @@ img[alt=LOGO] {
   opacity: 0;
 }
 
-.mbFeature .ordFeature > a:hover {
+.mbFeature .ordFeature > a:hover, .mbFeature .ordFeature > a.show {
   background: #7a89ff;
-}
-.mbFeature .ordFeature > a {
-  padding: 25px 0;
-  display: block;
-}
-
-.mbFeature .ordFeature > a:hover p {
+} 
+.mbFeature .ordFeature > a:hover p, .mbFeature .ordFeature > a.show p {
   color: #fff !important;
 }
 
@@ -14465,6 +14466,161 @@ form.login-form input:focus{
 
 
 
+<<<<<<< HEAD
+=======
+
+@media(min-width:1600px) {
+  .alert { font-size: 1rem; }
+  .alert-dismissible .btn-close { font-size: 1rem; }
+}
+
+
+
+
+.nav-bar > ul > li > a.nav-link {
+  height: 84PX;
+  width: 96px;
+  font-size: 14px;
+}
+.srHisclm p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.itmBody > div:first-child p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.itmBody >  div:first-child .counter__col {
+  font-size: 15px;
+}
+.itmBody >  div:first-child {
+  font-size: 16px;
+}
+
+.prdtImg.tb-head {
+  font-weight: 700;
+}
+
+.numRef1:first-child .srHisclm p {
+  font-weight: 700;
+}
+
+nav p {
+font-weight: 500;
+text-align: center;
+}
+
+
+/* ----- 1600 to 1920 Desktop Screen start ------- */
+
+
+@media screen and (min-device-width: 1600px) and (max-device-width: 1920px) { 
+ 
+ 
+
+
+}
+
+
+/* ----- 1600 to 1920 Desktop Screen end ------- */
+
+
+
+/* ----- 1599 to 1024 Desktop Screen start ------- */
+
+
+@media screen and (min-width: 1024px) and (max-width: 1599px) { 
+ 
+  .nav-bar > ul > li > a.nav-link {
+    height: 66px;
+    width: 80px;
+    font-size: 12px;
+  }
+  .itmTable {
+    font-size: 14px;
+  }
+  .supStkclm .dropdown-toggle {
+    font-size: 13px;padding: 9px 12px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .itmBody > div:first-child .counter__col {
+    font-size: 14px;
+  }
+  body {
+    font-size: 14px;
+  }
+  .dropdown-item {
+    font: 400 13px/15px "Inter", sans-serif;
+  }
+  
+
+
+
+
+
+
+
+
+}
+ 
+/* ----- 1599 to 1024 Desktop Screen css end ------- */
+
+
+
+
+
+/* ----- 769 to 992 Tablet Screen css start ------- */
+ 
+
+@media screen and (min-width: 769px) and (max-width: 992px) { 
+  
+  .itmBody > div:first-child .counter__col {
+    font-size: 13px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 13px;
+  
+  }
+  .supStkclm .dropdown-toggle {
+    font-size: 12px;
+  }
+  .dropdown-item {
+    font: 400 13px/15px "Inter", sans-serif;
+  }
+  
+
+
+
+}
+
+/* ----- 769 to 992 Tablet Screen css end ------- */
+
+
+
+
+
+@media (max-width: 768px) { 
+  
+  .itmBody > div:first-child p {
+    font-size: 14px; 
+  }
+ .lstValueSize{font-size: 14px;}
+ .mainValueSize{font-size: 16px; color:#6F7CE5; font-weight: 500;}
+ .stkTblhead .mbShw, .cntTable .mbShw {
+  width: 100%;
+}
+
+.supStkclm .dropdown-toggle {
+  font-size: 14px;
+}
+
+}
+
+>>>>>>> 954e7c08acbf65698ad576921212af1ae19f308a
 .alert-success {
   border-color: #0cb87f;
 }
@@ -21351,7 +21507,11 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 .revenue__icon img { width:44px !important;height: 32px !important; }
 .setup__icon img { width:32px !important;height: 32px !important; }
 .logout__icon img { width:32px !important;height: 32px !important; }
+<<<<<<< HEAD
 
+=======
+/* .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  } */
+>>>>>>> 954e7c08acbf65698ad576921212af1ae19f308a
 
 
 @media (max-width: 1599px) {

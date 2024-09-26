@@ -317,6 +317,7 @@ $cond = '';
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css"> 
     <style>
+        .tpBar-red { border-top: 6px solid #F05D53; }
         .fa-angle-right, .fa-angles-left {padding: 0; font-size: 1rem; width: 30px;height:30px; }
         .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
         .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
@@ -369,6 +370,7 @@ $cond = '';
             .container.cntTable.pb-md-4{margin-top: .875rem; } 
             .fetBtn { margin-left: auto; } 
             .prdtImg{text-align: center;}
+            .prdtCr-Unit.d-flex { position: relative;top:4px; }
             html[dir="rtl"] .fetBtn { margin-left: 0;margin-right: auto; } 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position .ord-Box{border-radius:10px !important;border-right: 1px solid #f05d53;padding-top: 0;padding-bottom: 0; }
             html[dir="rtl"] .update .ordInfo { padding: 0; }
@@ -389,6 +391,7 @@ $cond = '';
             .featRow { max-width:90px; }
             .mbFeature .ordFeature > a { padding: 17px 0; }
             html[dir="rtl"] .ord-Box { padding:4px 1rem !important; }
+            .mb-brCode .ord-StockQty { width: 50%; }
         }
         @media(max-width:1399px) {
             .itmBody, .itmTable { font-size: 13px; }
@@ -418,6 +421,8 @@ $cond = '';
             .ord-Box { padding: 12px 1rem; }
             .mb-brCode { justify-content: flex-start;padding-left: 0px; }
             .prdtImg.tb-bdy .ordItm-Img { position: relative;top:10px; }
+            html[dir="rtl"] .container.mt-3.mt-md-4.mt-lg-5.topOrder,
+            html[dir="rtl"] .container.pb-4.topOrder { padding-left: 10px;padding-right: 10px; }
         }
     </style>
 
@@ -464,7 +469,7 @@ $sqlSet = " SELECT * FROM tbl_orders WHERE id = '".$_GET['orderId']."'  AND acco
 $resultSet = mysqli_query($con, $sqlSet);
 $ordRow = mysqli_fetch_array($resultSet);
 ?>
-                <section class="ordDetail edit-order-section update">
+                <section class="ordDetail edit-order-section update pb-5 pb-lg-3">
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <!-- <div class="global__padding"> -->
@@ -509,7 +514,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <div class="mbFeature">
                                             <div class="">
                                                 <div class="text-center">
-                                                    <div class="featRow ms-auto w-100">
+                                                    <div class="featRow ms-auto w-100 p-0">
                                                         <div class="ordFeature w-100 drpFee position-relative">
                                                             <a href="javascript:void(0)" class="dropdown-toggle tabFet"  id="dropBtn"
                                                                 role="button" data-bs-toggle="dropdown"

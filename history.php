@@ -966,6 +966,36 @@ $colsArr = [
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
 <style>
+    /* Filter Col Width */
+    .fourCell .numRef .tb-bdy.srHisclm,
+    .threeCell .numRef .tb-bdy.srHisclm,
+    .twoCell .numRef .tb-bdy.srHisclm,
+    .oneCell .numRef .tb-bdy.srHisclm { width: 4rem !important; }
+
+    .fourCell .hisTask .numRef .tb-bdy,
+    .fourCell .numRef .tb-bdy { width: 25%; }
+
+    .threeCell .hisTask .numRef .tb-bdy,
+    .threeCell .numRef .tb-bdy,
+    .payThreeCell .dropdnbtns .stsHiscol .tb-bdy, .payThreeCell .cntTableData .stsHiscol .tb-bdy { width: 33.33% !important; }
+
+    .twoCell .hisTask .numRef .tb-bdy,
+    .twoCell .numRef .tb-bdy,
+    .payTwoCell .dropdnbtns .stsHiscol .tb-bdy, .payTwoCell .cntTableData .stsHiscol .tb-bdy { width: 50%; }
+
+    .oneCell .hisTask .numRef .tb-bdy,
+    .oneCell .numRef .tb-bdy { width: 100%; }
+    .oneCell .hisValclm { width: 15% !important; }
+    .oneCell .dropdnbtns .numRef, .oneCell  .cntTableData .numRef { width: calc(40% - 185px) !important; }
+    
+    .noCell .dropdnbtns .numRef, .noCell .cntTableData .numRef { width: 0% !important; }
+
+    /* Filter Col Width */
+
+
+
+
+
     .modal-md { max-width: 800px; } 
     .modal-address p { padding-bottom: 2px; } 
     .site-modal .modal-content { background: #f0f0f0; } 
@@ -1071,7 +1101,7 @@ $colsArr = [
         .hisDateclm, .user-dpd { width: 18%; } 
         .date-dpd, .hisDateclm.date { width: 15%; } 
         .type-dpd, .update .hisTask .hisTypclm {width: 20%; }
-        .refer-to-dpd, .update .hisTask .hisRefrclm {width: 32% ; } 
+        /* .refer-to-dpd, .update .hisTask .hisRefrclm {width: 32% ; }  */
         .dropdnbtns .stsHiscol,
         .cntTableData .stsHiscol {
             width: 30% !important;
@@ -1313,7 +1343,7 @@ $colsArr = [
 .input-group {align-items: center;padding: 1rem 2rem;gap: .5rem;}
 .input-group button {border-radius: 10px !important;}
 .input-group input {background-color: white;border-radius: 10px !important;max-width: 200px;height: 32px;padding: 0 .5rem;}
-.srHisclm { width: 3.5rem; }
+.srHisclm { width: 4rem; }
 html[dir=rtl] .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
 .overflowTable { background-color: #fff; }
 .site-modal thead tr th { font-size:12px; }
@@ -1395,7 +1425,16 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .order_num.numItmclm p { color: #232859; }
 
 .srHisclm p { font-size:1.35rem !important;font-weight:600 !important; }
-@media(max-width:1599px){
+@media (min-width:993px) and (max-width:1599px){
+    .update .itmBody > div:first-child p,
+    .update .hisTask .tb-bdy,
+    .update .itmTable,
+    .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p { font-size: 13px !important; }
+    .update .itmTable .dropdown-toggle{ padding:7px 7px; height:34px; }
+    .srHisclm p, .update .hisTask .tb-bdy.srHisclm p { font-size: 18px !important; }
+  
+}
+@media (max-width:991px){
     .update .itmBody > div:first-child p, .update .hisTask .tb-bdy { font-size: 12px; }
     .update .itmTable .dropdown-toggle{ padding:7px 5px; height:34px; }
     .update .itmTable, .update .srHisclm p { font-size:12px; }
@@ -1417,7 +1456,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     .dropdnbtns .numRef, .cntTableData .numRef { width: calc(54% - 185px) !important; }
     .update .res__filter__box .his-Paybtn, .update .shrtHisclm { width: 195px;padding-right: 0 !important; } 
     .update .stsHiscol .hisStatusclm, .update .stsHiscol .hisAcntclm { width:25%; }
-    .srHisclm { position:absolute;top:1rem;left:-3.5rem;text-align: right; }
+    .srHisclm { position:absolute;top:1rem;left:-4rem;text-align: right; }
     html[dir="rtl"] .srHisclm { right:-3.5rem;left:auto;text-align: left;padding-left: .5rem; }
     .update .hisParent-sec { padding-left: 4rem;margin-left: -4rem; }
     html[dir="rtl"] .update .hisParent-sec { padding-left: 0;margin-left: 0;padding-right: 6rem;margin-right: -4rem; }  
@@ -1458,8 +1497,16 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
 html[dir="rtl"] .ps-1 { padding-left: 0 !important;padding-right: .25rem; }
 html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
 @media screen and (min-width: 1600px) {
-  .chkStore img { width: 26px; }
+  .chkStore img { width: 26px; } 
 }
+@media screen and (min-width: 993px) { 
+  .flex, .hisDateclm, .user-dpd, .date-dpd, .hisDateclm.date, .numItmclm, .type-dpd, .update .hisTask .hisTypclm  { flex: 1 0 0% !important;width:auto !important;max-width:100% !important; }
+   
+}
+
+
+
+
 </style>
 
 
@@ -2029,7 +2076,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14]) ) { ?>
                                             <?php } else { ?>
-                                                <div class="tb-bdy hisStatusclm sm__ml">
+                                                <div class="tb-bdy flex hisStatusclm sm__ml">
                                         <div class="d-flex align-items-center"  ><div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
                                                     <a class="dropdown-toggle body3 " data-bs-toggle="dropdown" aria-expanded="false">
                                                         <span id="statusText">
@@ -2052,7 +2099,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                     
                                         <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !isset($colsArr[15]) ) { ?>
                                         <?php } else { ?>
-                                            <div class="tb-bdy hisStatusclm d-none d-lg-block"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                            <div class="tb-bdy flex hisStatusclm d-none d-lg-block"><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
                                                 <p><?php echo showOtherLangText('Payment No.'); ?></p>
                                             </div></div>
                                         <?php } ?>
@@ -2061,7 +2108,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                    
                                         <?php if (isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
                                         <?php } else { ?>
-                                             <div class="tb-bdy hisStatusclm d-none d-lg-block" ><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                             <div class="tb-bdy flex hisStatusclm d-none d-lg-block" ><div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
                                     <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
                                             </div> </div>
                                         <?php } ?>
@@ -2070,7 +2117,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                     
                                             <?php if (isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) || !isset($colsArr[17]) ) { ?>
                                             <?php } else { ?>
-                                                <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
+                                                <div class="tb-bdy flex hisAcntclm" style="padding-left: 0px;">
 
                                         <div class="d-flex align-items-center"><div class="dropdown d-flex align-items-center w-100 position-relative">
                                                     <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -2347,9 +2394,9 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                                ?>
 
 
-        <div class="hisTask newHistoryTask <?php if ($x > 1) {
-                                                echo 'mt-2';
-                                            } ?>">
+                                <div class="
+                                    hisTask newHistoryTask <?php if ($x > 1) { echo 'mt-2'; } ?>  
+                                ">
                                     <div class="<?php echo $mclass; ?>">&nbsp;</div>
                                     <div class="align-items-center itmBody">
                                         <div class="numRef numRef2 align-items-center">
@@ -2420,25 +2467,25 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                         <div class="stsHiscol d-flex align-items-center lg_w_35">
                                            
                                                 <?php if (isset($historyUserFilterFields) && !in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
-                                                <?php } else { ?> <div class="tb-bdy hisStatusclm ps-0 lg_pr_8"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
+                                                <?php } else { ?> <div class="tb-bdy flex hisStatusclm ps-0 lg_pr_8"><p class="his-pendStatus"><?php echo $paymentStatus; ?></p></div>
                                                 <?php } ?>
                                             
                                             
                                                 <?php if (isset($historyUserFilterFields) && !in_array(15, $historyUserFilterFields) || !$colsArr[15]) { ?>
-                                                <?php } else { ?><div class="tb-bdy hisStatusclm lg_pl_0"><p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p></div>
+                                                <?php } else { ?><div class="tb-bdy flex hisStatusclm lg_pl_0"><p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p></div>
                                                 <?php } ?>
                                             
 
                                            
                                                 <?php if (isset($historyUserFilterFields) && !in_array(16, $historyUserFilterFields) || !$colsArr[16]) { ?>
                                                 <?php } else { ?>
-                                                     <div class="tb-bdy hisStatusclm lg_pl_0"><p class="his-pendStatus"><?php echo ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' '; ?></p></div> <?php } ?>
+                                                     <div class="tb-bdy flex hisStatusclm lg_pl_0"><p class="his-pendStatus"><?php echo ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' '; ?></p></div> <?php } ?>
                                             
 
                                             
                                                 <?php if (isset($historyUserFilterFields) && !in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy hisAcntclm"><p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p></div><?php } ?>
+                                                    <div class="tb-bdy flex hisAcntclm"><p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p></div><?php } ?>
                                             
 
                                         </div>
