@@ -2148,6 +2148,44 @@ textarea.form-control-lg {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   appearance: none;
 }
+
+
+
+
+
+
+html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
+.modal-footer .btnBg{margin-right:20px;}
+
+.itmVw-stkbdClm{width: 50%;}
+  .criCol1{width:14% ; font-size: 14px; font-weight: 600;}
+  .criCol2{width:14% ;font-size: 14px; font-weight: 600;}
+  .criCol3{width:12% ;font-size: 14px; font-weight: 600;}
+
+  .criCols1{width:14% ;font-size: 14px; font-weight: 400;}
+  .criCols2{width:14% ;font-size: 14px; font-weight: 400;}
+  .criCols3{width:12% ;font-size: 14px; font-weight: 400;}
+
+  .catgryNum-Clm strong{font-size: 26px; font-weight:600;}
+
+.acntSrNumber strong{font-size: 26px; font-weight:600;}
+.feeSrNumber strong{font-size: 26px; font-weight:600;}
+.mngCur-Clm strong{font-size: 26px; font-weight:600;color: #666c85;}
+.suplNumber strong{font-size: 26px; font-weight:600;color: #666c85;}
+
+
+.acntSetup-Form .form-label {
+  font-size: 18px;
+  font-weight: 600;
+}
+.userNumber strong{font-size: 26px; font-weight:600;}
+.setupOutletsp1{padding-top: 44px;width: 100%;}
+.padLeft40{padding-left:40px;}
+.padRight40{padding-right:40px;}
+
+
+
+
 @media (prefers-reduced-motion: reduce) {
   .form-select {
     transition: none;
@@ -13255,13 +13293,7 @@ a.tabFet.show .sampleFile {
   margin-top: 0;
 }
 
-.acntSetup-Form .form-label {
-  font-size: 12px;
-  line-height: 15px;
-  color: #232859;
-  font-weight: 600;
-  margin-bottom: 0;
-}
+
 
 .acntStp-Row {
   margin-top: 15px;
@@ -14384,7 +14416,7 @@ img[alt=LOGO] {
 .fs-18     {		font-size: 18px;	line-height: 20px;}
 .fs-16        {		font-size: 16px;	line-height: 18px;}
 .fs-14        {		font-size: 14px;	line-height: 16px;}
-.fs-13        {		font-size: 13px;    line-height: 15px;}
+.fs-13        {		font-size: 16px;    line-height: 15px;}
 .fs-12        {		font-size: 12px;    line-height: 14px;}
 
 .bold{font-weight: 700;}
@@ -14463,164 +14495,22 @@ form.login-form input:focus{
   width: 30%;
 }
 
+.text-danger { color: #FD3737 !important; }
+.btn-primary {
 
-
-
-<<<<<<< HEAD
-=======
-
-@media(min-width:1600px) {
-  .alert { font-size: 1rem; }
-  .alert-dismissible .btn-close { font-size: 1rem; }
-}
-
-
-
-
-.nav-bar > ul > li > a.nav-link {
-  height: 84PX;
-  width: 96px;
-  font-size: 14px;
-}
-.srHisclm p {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.itmBody > div:first-child p {
-  font-size: 16px;
-  font-weight: 400;
-}
-.itmBody >  div:first-child .counter__col {
-  font-size: 15px;
-}
-.itmBody >  div:first-child {
-  font-size: 16px;
-}
-
-.prdtImg.tb-head {
-  font-weight: 700;
-}
-
-.numRef1:first-child .srHisclm p {
-  font-weight: 700;
-}
-
-nav p {
-font-weight: 500;
-text-align: center;
-}
-
-
-/* ----- 1600 to 1920 Desktop Screen start ------- */
-
-
-@media screen and (min-device-width: 1600px) and (max-device-width: 1920px) { 
+  background-color: var(--color-primary);padding: .625rem 1.625rem;box-shadow: 0px 4px 20px 0px #7F7FA514;font-size: 1.125rem;font-weight: 600;border-radius: .937rem;border-color: var(--color-primary);transition: all .3s ease-in-out;border-width: 2px;
  
- 
-
-
+} 
+.btn-primary:hover {
+  background-color: #5b6dfa;border-color: #5b6dfa; 
 }
-
-
-/* ----- 1600 to 1920 Desktop Screen end ------- */
-
-
-
-/* ----- 1599 to 1024 Desktop Screen start ------- */
-
-
-@media screen and (min-width: 1024px) and (max-width: 1599px) { 
- 
-  .nav-bar > ul > li > a.nav-link {
-    height: 66px;
-    width: 80px;
-    font-size: 12px;
-  }
-  .itmTable {
-    font-size: 14px;
-  }
-  .supStkclm .dropdown-toggle {
-    font-size: 13px;padding: 9px 12px;
-  }
-  .itmBody > div:first-child p {
-    font-size: 14px;
-    font-weight: 400;
-  }
-  .itmBody > div:first-child .counter__col {
-    font-size: 14px;
-  }
-  body {
-    font-size: 14px;
-  }
-  .dropdown-item {
-    font: 400 13px/15px "Inter", sans-serif;
-  }
-  
-
-
-
-
-
-
-
-
+.btn-primary:active,.btn-primary:focus {
+  outline: 3px solid var(--color-white);outline-offset: -6px;transition: none;
 }
- 
-/* ----- 1599 to 1024 Desktop Screen css end ------- */
+.items__manager__btn { width: 110px; }
+.items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
 
 
-
-
-
-/* ----- 769 to 992 Tablet Screen css start ------- */
- 
-
-@media screen and (min-width: 769px) and (max-width: 992px) { 
-  
-  .itmBody > div:first-child .counter__col {
-    font-size: 13px;
-  }
-  .itmBody > div:first-child p {
-    font-size: 13px;
-  
-  }
-  .supStkclm .dropdown-toggle {
-    font-size: 12px;
-  }
-  .dropdown-item {
-    font: 400 13px/15px "Inter", sans-serif;
-  }
-  
-
-
-
-}
-
-/* ----- 769 to 992 Tablet Screen css end ------- */
-
-
-
-
-
-@media (max-width: 768px) { 
-  
-  .itmBody > div:first-child p {
-    font-size: 14px; 
-  }
- .lstValueSize{font-size: 14px;}
- .mainValueSize{font-size: 16px; color:#6F7CE5; font-weight: 500;}
- .stkTblhead .mbShw, .cntTable .mbShw {
-  width: 100%;
-}
-
-.supStkclm .dropdown-toggle {
-  font-size: 14px;
-}
-
-}
-
->>>>>>> 954e7c08acbf65698ad576921212af1ae19f308a
 .alert-success {
   border-color: #0cb87f;
 }
@@ -15514,6 +15404,25 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 .edit-product{font-weight: 400; font-size: 16px; width: 80%;}
 
+.requiredsign {
+  color: #FD3737;
+  display: inline;
+}
+img.previewImg {
+  width: 100px;
+}
+.add-Itm, .impItem {
+  transition: none !important;
+}
+.runLink, .tabFet, .itm-Feature {
+  transition: none !important;
+}
+
+  #supplier_dropdown span#supplierText {
+    width: 62px;
+    overflow: hidden;
+  }
+
 
 
 
@@ -15521,6 +15430,15 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 @media(min-width:1600px) {
   .alert { font-size: 1rem; }
   .alert-dismissible .btn-close { font-size: 1rem; }
+  .addUser-Form .form-control {
+    padding: 16px 10px;
+  }
+  .addUser-Form .form-select {
+    padding: 16px 10px;
+  }
+  .form-select {
+    background-size: 50px 42px;
+  }
 }
 
 
@@ -15563,8 +15481,7 @@ text-align: center;
   padding: 10px 22px;
 }
 
-.mView1{display: none;}
-.dView1{display: block;}
+
 
 
 
@@ -16380,14 +16297,20 @@ text-align: center;
   }
 }
 
+.spaceAddUser1{padding-top: 14px;
+  padding-bottom: 14px;}
 
-
-
-
-
-
-
-
+.enableOrder{padding-right: 18px;}
+.enableRequisition{padding-right: 20px;}
+.enableRunningtask{padding-right: 21px;}
+.enableHistory{padding-right:21px;}
+.enableStock{padding-right:21px;}
+.enableNewStockTake{width: 98px;}
+.enableRevenueCenter{padding-right:21px;}
+.enableSetup{padding-right:21px;}
+.runningtask-radio{padding-right:20px;}
+.enableMobileSection{padding-right:40px;}
+.font-normal{font-weight: 400;}
 
 /* ----- 1600 to 1920 Desktop Screen start ------- */
 
@@ -16407,7 +16330,7 @@ text-align: center;
 /* ----- 1599 to 1024 Desktop Screen start ------- */
 
 
-@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) { 
+@media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
  
   .nav-bar > ul > li > a.nav-link {
     height: 66px;
@@ -16433,17 +16356,115 @@ text-align: center;
   .dropdown-item {
     font: 400 13px/15px "Inter", sans-serif;
   }
+  .acntSetup-Form .form-label {
+    font-size: 14px;font-weight: 500;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select input {
+    font-size: 14px;padding: 13px 10px;
+  }
+  .btn-primary {
+    font-size: .9rem;
+    padding: .50rem 1.3rem;
+  }
+  .addUser-Form .form-select {
+    padding: 13px 10px;
+  }
+  .form-select {
+    background-size: 42px 36px;
+  }
+  .setEze-Ctgry {
+    padding: 0px 5px;
+  }
+  .itmMng-Tblhead .tb-head {
+    font-size: 13px;
+  }
+  #supplier_dropdown span#supplierText {
+    width: 48px;
+    overflow: hidden;
+  }
+  .suplNumber strong {
+    font-size: 16px;
+  }
+  .mngCur-Clm strong {
+    font-size: 16px;
+  }
+  .acntSrNumber strong {
+    font-size: 16px;
+  }
+  .feeSrNumber strong {
+    font-size: 16px;
+  }
+  .userNumber strong {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .edtSup-Div {
+    width: 60%;
+    margin-top: 25px;
+  }
+  .itmBody {
+    font-size: 14px;
+  }
+  .fs-13 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .spaceAddUser1 {
+    padding-top: 12px;
+    padding-bottom: 5px;
+  }
   
 
 
 
+}
 
 
 
+/* ----- 1599 to 1024 Desktop Screen end ------- */
 
+@media (max-width: 1599px) { 
+
+  .enableMobileSection {
+    padding-right: 35px;
+  }
+  .enableRequisition {
+    padding-right: 18px;
+  }
+  .runningtask-radio {
+    padding-right: 18px;
+  }
+  .enableHistory {
+    padding-right: 18px;
+  }
+  .stock-radio {
+    min-width: 80px;
+  }
+  .enableRevenueCenter {
+    padding-right: 17px;
+  }
+  .enableSetup {
+    padding-right: 17px;
+  }
+  .adUsr-Div-full .form-control, .adUsr-Div-full .form-select {
+    padding: 12px 12px;
+    font-size: 14px;
+  }
+  .gst-Head {
+    font-size: 15px;
+  }
+  .ttlCost, .sale-Variance {
+    color: #666c85;
+    font-size: 14px;
+  }
+  .hstDate .datepicker {
+    font-size: 14px;
+  }
+  .itmBody > div:first-child {
+    font-size: 14px;
+  }
 
 }
-/* ----- 1599 to 1024 Desktop Screen end ------- */
 
 /* ----- 993 to 1024 Desktop Screen start ------- */
 
@@ -16466,6 +16487,59 @@ text-align: center;
   .usr-info .col-md-4 .h1 {
     margin-bottom: 0px;
     padding-left: 45px;
+  }
+  .btn-primary {
+    font-size: .9rem;
+    padding: .50rem 1.3rem;
+  }
+  .acntSetup-Form .form-label {
+    font-size: 14px;font-weight: 500;
+  }
+  .acntSetup-Form .form-control, .acntSetup-Form .form-select input {
+    font-size: 14px;padding: 13px 10px;
+  }
+  .btn-primary {
+    font-size: .9rem;
+    padding: .50rem 1.3rem;
+  }
+  .addUser-Form .form-select {
+    padding: 13px 10px;
+  }
+  .form-select {
+    background-size: 42px 36px;
+  }
+  .setEze-Ctgry {
+    padding: 0px 5px;
+  }
+  .itmMng-Tblhead .tb-head {
+    font-size: 13px;
+  }
+  #supplier_dropdown span#supplierText {
+    width: 48px;
+    overflow: hidden;
+  }
+  .suplNumber strong {
+    font-size: 16px;
+  }
+  .mngCur-Clm strong {
+    font-size: 16px;
+  }
+  .acntSrNumber strong {
+    font-size: 16px;
+  }
+  .feeSrNumber strong {
+    font-size: 16px;
+  }
+  .userNumber strong {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .edtSup-Div {
+    width: 66%;
+    margin-top: 25px;
+  }
+  .itmBody {
+    font-size: 14px;
   }
 
 }
@@ -16513,22 +16587,108 @@ text-align: center;
   width: 70px;
   font-size: 11.6px;
 }
-
+.spaceAddUser1 {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+.btn-primary {
+  font-size: .9rem;
+  padding: .50rem 1.3rem;
+}
+.acntSetup-Form .form-label {
+  font-size: 14px;font-weight: 500;
+}
+.acntSetup-Form .form-control, .acntSetup-Form .form-select input {
+  font-size: 14px;padding: 13px 10px;
+}
+.btn-primary {
+  font-size: .9rem;
+  padding: .50rem 1.3rem;
+}
+.addUser-Form .form-select {
+  padding: 13px 10px;
+}
+.form-select {
+  background-size: 42px 36px;
+}
+.setEze-Ctgry {
+  padding: 0px 5px;
+}
+.itmMng-Tblhead .tb-head {
+  font-size: 13px;
+}
+#supplier_dropdown span#supplierText {
+  width: 48px;
+  overflow: hidden;
+}
+.suplNumber strong {
+  font-size: 16px;
+}
+.mngCur-Clm strong {
+  font-size: 16px;
+}
+.acntSrNumber strong {
+  font-size: 16px;
+}
+.feeSrNumber strong {
+  font-size: 16px;
+}
+.userNumber strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+.edtSup-Div {
+  width: 60%;
+  margin-top: 25px;
+}
+.itmBody {
+  font-size: 14px;
+}
 
 }
 
 /* ----- 768 to 992 Tablet Screen css end ------- */
+@media (max-width: 1024px) { 
+.padLeft40{padding-left:00px;}
+.padRight40{padding-right:10px;}
+.setupOutletsp1 {
+  padding-top: 0px;
+  width: 100%;
+}
+
+
+}
+
+@media (max-width: 992px) { 
+.enableMobileSection {
+  padding-right: 38px;
+}
 
 
 
+
+
+}
 
 
 @media (max-width: 767px) { 
-  
-  .mView1{display: block;}
-  .dView1{display: none;}
 
-  .itmBody > div:first-child p {
+  .desableRevenueCenter{padding-left: 0px;}
+.desableNewStockTake{padding-left: 0px;}
+.desableHistory{padding-left: 0px;}
+.desableRunningtask {padding-left: 0px;}
+.desableStock{padding-left: 0px;}
+.desableSetup{padding-left: 0px;}
+.desableRunningtask{padding-left: 0px;}
+.desableRequisition{padding-left: 0px;}
+.desableOrder{padding-left: 0px;}
+
+  .spaceAddUser1 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+   .itmBody > div:first-child p {
     font-size: 14px; 
   }
  .lstValueSize{font-size: 14px;}
@@ -16548,6 +16708,32 @@ text-align: center;
 }
 .lgOut {
   margin-bottom: 35px;
+}
+.btn-primary {
+  font-size: .9rem;
+  padding: .50rem 1.3rem;
+}
+
+.enableRequisition {
+  padding-right: 20px;
+}
+.runningtask-radio {
+  padding-right: 20px;
+}
+.enableHistory {
+  padding-right: 20px;
+}
+.stock-radio {
+  min-width: 80px;
+}
+.enableRevenueCenter {
+  padding-right: 20px;
+}
+.enableSetup {
+  padding-right: 20px;
+}
+.enableOrder {
+  padding-right: 20px;
 }
 
 }
@@ -16627,10 +16813,13 @@ text-align: center;
     font-size: 14px;
   }
   .itmBody > div:first-child {
-    font-size: 15px;
+    font-size: 14px;
+  }
+  .itmBody > div:first-child p {
+    font-size: 14px;
   }
   .itmBody {
-    font-size: 15px; font-weight: 400;
+    font-size: 14px; font-weight: 400;
     }
     .res__label__item p{font-size: 15px; font-weight: 400;}
     
@@ -18699,7 +18888,7 @@ text-align: center;
   /* Manage Supplier Page CSS End */
   /* Edit Supplier Page CSS Start */
   .edtSup-Div {
-    width: 70%;
+    width: 80%;
   }
   /* Edit Supplier Page CSS End */
   /* Revnue Center Setup Page CSS Start */
@@ -19425,41 +19614,6 @@ html[dir=rtl] .navbar-toggler .h1{
   left: 32px;
 }
 }
-
-html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
-.modal-footer .btnBg{margin-right:20px;}
-
-.itmVw-stkbdClm{width: 50%;}
-  .criCol1{width:14% ; font-size: 14px; font-weight: 600;}
-  .criCol2{width:14% ;font-size: 14px; font-weight: 600;}
-  .criCol3{width:12% ;font-size: 14px; font-weight: 600;}
-
-  .criCols1{width:14% ;font-size: 14px; font-weight: 400;}
-  .criCols2{width:14% ;font-size: 14px; font-weight: 400;}
-  .criCols3{width:12% ;font-size: 14px; font-weight: 400;}
-
-
-
-
-
-
-
-
-
-  .catgryNum-Clm strong{font-size: 26px; font-weight:600;}
-
-.acntSrNumber strong{font-size: 26px; font-weight:600;}
-.feeSrNumber strong{font-size: 26px; font-weight:600;}
-.mngCur-Clm strong{font-size: 26px; font-weight:600;color: #666c85;}
-.suplNumber strong{font-size: 26px; font-weight:600;color: #666c85;}
-
-
-.acntSetup-Form .form-label {
-  font-size: 18px;
-  font-weight: 600;
-}
-.userNumber strong{font-size: 26px; font-weight:600;}
-
 
 @media screen and (max-width: 767px) {
 
@@ -20715,10 +20869,6 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   }
 }
 
-.acntSetup-Form .form-label {
-  /* font-size: 16px;
-  font-weight: 400; */
-}
 
 
 /* .ct-width01 .dt-Member, .tbdy-dtMbr {
@@ -20799,15 +20949,7 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
     padding-bottom: 7px;
   }
 .acntSetup-Form .col-md-2, .col-md-10{padding-left:0px;}
-.desableRevenueCenter{padding-left: 17px;}
-.desableNewStockTake{padding-left: 17px;}
-.desableHistory{padding-left: 17px;}
-.desableRunningtask {padding-left: 0px;}
-.desableStock{padding-left: 17px;}
-.desableSetup{padding-left: 17px;}
-.desableRunningtask{padding-left: 17px;}
-.desableRequisition{padding-left: 17px;}
-.desableOrder{padding-left: 17px;}
+
 
 
 }
@@ -20972,65 +21114,6 @@ body .ui-widget-content {
   
 }
 
-.acntSetup-Form .form-control, .acntSetup-Form .form-select input{
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.acntSetup-Form .form-label {
-  font-size: 18px;line-height: 20px;
-}
-.acntSetup-Form .form-control, .acntSetup-Form .form-select{
-  margin-top: 4px;
-margin-bottom: 4px;padding: 14px 16px;
-}
-.acntSetup-Form .form-control, .acntSetup-Form .form-select{
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 16px 16px;
-  font-size: 16px;
-  font-weight: 400;
-}
-.acntSetup-Form .form-select{
-  background-image: url("../icons/select.svg");
-  background-size: 48px 40px;
-  background-position: right;
-background-repeat: no-repeat;
-cursor: pointer;
-}
-.acntSetup-Form .form-control, .acntSetup-Form .form-select input{
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 16px 16px;
-  font-size: 16px;
-  font-weight: 400;
-}
-.adUsr-Div-full .form-select input{
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 16px 16px;
-  font-size: 16px;
-  font-weight: 400;
-}
-.adUsr-Div-full .form-control, .adUsr-Div-full .form-select{
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 16px 16px;
-  font-size: 16px;
-  font-weight: 400;
-}
-.adUsr-Div-full .form-select{
-  background-image: url("../icons/select.svg");
-  background-size: 48px 40px;
-  background-position: right;
-background-repeat: no-repeat;
-cursor: pointer;
-}
-.adUsr-Div-full .semibold {
-  font-weight: 600;
-  padding-bottom: 10px;
-  font-size:16px;
-}
 
 @media screen and (max-width: 767px) {
   .slCst-fltBtn {
@@ -21296,25 +21379,6 @@ html[dir=rtl] .modal-head-row .btn {
 }
 /* =========== 29/04/2024============= */
 
-.requiredsign {
-  color: #FD3737;
-  display: inline;
-}
-img.previewImg {
-  width: 100px;
-}
-.add-Itm, .impItem {
-  transition: none !important;
-}
-.runLink, .tabFet, .itm-Feature {
-  transition: none !important;
-}
-@media screen and (min-width: 1024px) {
-  #supplier_dropdown span#supplierText {
-    width: 62px;
-    overflow: hidden;
-  }
-}
 
 
 /* =========== 01/05/2024============= */
@@ -21467,21 +21531,8 @@ img.previewImg {
 
 .ordInfo.erdInfo.newFeatures { width: 85%; }
 @media (min-width:992px) { .sltSupp.nwOrd-Num.position { position: absolute; } .sub-btn.std-btn.update { padding: 5px; } .ord-Box.ms-0.position { position: absolute; } .lg__left__margin{position: relative;z-index: 9; } .w-lg-100{width: 100%;} }
-.text-danger { color: #FD3737 !important; }
-.btn-primary {
 
-  background-color: var(--color-primary);padding: .625rem 1.625rem;box-shadow: 0px 4px 20px 0px #7F7FA514;font-size: 1.125rem;font-weight: 600;border-radius: .937rem;border-color: var(--color-primary);transition: all .3s ease-in-out;border-width: 2px;
- 
-} 
-.btn-primary:hover {
-  background-color: #5b6dfa;border-color: #5b6dfa; 
-}
-.btn-primary:active,.btn-primary:focus {
-  outline: 3px solid var(--color-white);outline-offset: -6px;transition: none;
-}
-.items__manager__btn { width: 110px; }
-.items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
-@media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  }
+/* @media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  } */
 @media (max-width: 991px) {
   .btn-primary { padding: .625rem 1rem;border-radius: .5rem; }
   .items__manager__btn { width: 78px;font-size: 10px;height: 57px;gap: 4px;padding: 0.2rem .75rem; }
@@ -21510,11 +21561,6 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 .revenue__icon img { width:44px !important;height: 32px !important; }
 .setup__icon img { width:32px !important;height: 32px !important; }
 .logout__icon img { width:32px !important;height: 32px !important; }
-<<<<<<< HEAD
-
-=======
-/* .nav-bar > ul > li > a.nav-link { height: 66px;width: 80px;font-size: 12px;  } */
->>>>>>> 954e7c08acbf65698ad576921212af1ae19f308a
 
 
 @media (max-width: 1599px) {

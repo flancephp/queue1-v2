@@ -287,7 +287,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                                                         </div>
                                                         <div>
                                                             <input type="checkbox" class="form-check-input" id="uncheckallRequisition" name="uncheck_all">
-                                                            <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
+                                                            <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck all'); ?></label>
                                                         </div>
                                                         </div>
                                                     </div>

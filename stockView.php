@@ -282,7 +282,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             padding: 4px 11px;
             color: #fff;font-weight: 600;
         }
-
+        .mView1{display: none;}
+        .dView1{display: block;}
 
         @media(max-width:991px) {
             .storeCol {
@@ -295,6 +296,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .storeCol .col-4.stockFeat {
                 width: 33.333% !important;
             }
+            .mView1{display: block;}
+            .dView1{display: none;}
         }
         @media screen and (max-width: 1599px) {
 

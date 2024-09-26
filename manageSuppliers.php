@@ -209,11 +209,11 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                                             </div>
                                         </div>
                                         <div class="supTbl-EmCol align-items-center">
-                                            <div class="tb-head supEml-Clm">
-                                                <p><?php echo $row['email'];?></p>
+                                            <div class="tb-bdy supEml-Clm">
+                                                <p><span class="font-normal"><?php echo $row['email'];?></span></p>
                                             </div>
-                                            <div class="tb-head supPhn-Clm">
-                                                <p><?php echo $row['phone'];?></p>
+                                            <div class="tb-bdy supPhn-Clm">
+                                                <p><span class="font-normal"><?php echo $row['phone'];?></span></p>
                                             </div>
                                         </div>
                                         <div class="supTbl-IcnCol">

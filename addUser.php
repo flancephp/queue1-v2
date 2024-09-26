@@ -182,7 +182,7 @@ if( isset($_POST['user_name']) )
                                                         class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <div class="d-flex flex-wrap gap-2 align-items-center" style="min-height: 2.65rem;"> 
+                                                <div class="d-flex flex-wrap gap-2 align-items-center spaceAddUser1" style="min-height: 2.65rem;"> 
                                                     <div class="form-check"> 
                                                         <input type="radio" name="mobile_user" class="userTypeWeb form-check-input" value="0"
                                                             onclick="get_mobile_User(this.value)" autocomplete="new-password"
@@ -346,10 +346,10 @@ if( isset($_POST['user_name']) )
     .field-icon {
         float: right;
         margin-left: -25px;
-        margin-top: -25px;
+        margin-top: -37px;
         position: relative;
         z-index: 2;
-        margin-right: 6px;
+        margin-right: 8px;
     }
     </style>
 </body>

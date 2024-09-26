@@ -263,8 +263,17 @@ $deptResult = mysqli_query($con, $deptQry);
                             <div class="col-md-12 oltCol-8">
                                 <div class="acntStp">
                                     <div class="addUser-Form acntSetup-Form row">
-                                        <div class="acnt-Div">
+                                        <div class="acnt-Div padRight40">
                                             <div class="row align-items-center acntStp-Row">
+                                            <div class="col-md-4">&nbsp;</div>                                        
+                                                    <div class="col-8">
+                                                    <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
+                                                    onclick="showRevCenterAddress();">
+                                                    <span style="padding-left:7px;"><label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label></span>
+                                                    </div>                 
+                                            </div>     
+
+                                            <div class="row align-items-center acntStp-Row">    
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
                                                 </div>
@@ -360,18 +369,11 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="acntLg-Upld setOutlet">
-                                            <div class="row align-items-center acntStp-Row chkOlt-Row">
-                                                <div class="col-md-4">
-                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
-                                            onclick="showRevCenterAddress();">
-                                                </div>
-                                            </div>
-                                            <div>
+                                        <div class="acnt-Div">
+                                            
+                                            <div class="setupOutletsp1 padLeft40">
                                                 <div class="row align-items-center acntStp-Row">
+                                                    
                                                     <div class="col-md-4">
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
                                                     </div>
