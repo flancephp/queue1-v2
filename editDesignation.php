@@ -21,7 +21,7 @@ include_once('script/editDesignation.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title>Add Additional Fee - Queue1</title>
+    <title>Edit title - Queue1</title>
     <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -297,7 +297,7 @@ include_once('script/editDesignation.php');
                                                         </div>
                                                         <div>
                                                             <input type="checkbox" class="form-check-input" id="uncheckallRequisition" name="uncheck_all">
-                                                            <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
+                                                            <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                         </div>
                                                         </div>
                                                     </div>

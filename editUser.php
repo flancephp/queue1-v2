@@ -35,7 +35,7 @@ if (isset($_POST['userType']) && $_POST['userType'] !='') {
     $returnResult = mysqli_fetch_array($result);
     $titleId = $returnResult['designation_id'];
 
-    $selTitle = '<select name="designation_title" class="form-control" id="designationTitle">';
+    $selTitle = '<select name="designation_title" class="form-select" id="designationTitle">';
 
         $selTitle .= '<option value="">'. showOtherLangText('Select Designation Title').'</option>';
 
@@ -226,9 +226,9 @@ if( isset($_POST['user_name']) )
                                         </div>
                                         <div class="col-lg-9">
                                             <input type="radio" name="mobile_user" class="userTypeWeb" value="0" <?php echo ($userRow['userType'] != '1') ? 'checked="checked"' : ''; ?> onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-                                            <label class="me-3"><?php echo showOtherLangText('Web') ?></label>
+                                            <label class="meee-3"><?php echo showOtherLangText('Web') ?></label>
                                             <input type="radio" <?php echo ($userRow['userType'] == '1') ? 'checked="checked"' : ''; ?> name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" required>
-                                            <label><?php echo showOtherLangText('Mobile') ?></label>
+                                            <label class="meee-3"><?php echo showOtherLangText('Mobile') ?></label>
                                         </div>
                                     </div>
                                     <div class="form-field row align-items-center">
@@ -390,6 +390,14 @@ function previewFile() {
   position: relative;
   z-index: 2;
   margin-right:6px;
+}
+html[dir=rtl] .field-icon {
+  float: left;
+  margin-left: 6px;
+  margin-top: -28px;
+  position: relative;
+  z-index: 2;
+  margin-right: -25px;
 }
 
 </style>

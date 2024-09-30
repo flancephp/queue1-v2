@@ -183,17 +183,17 @@ if( isset($_POST['user_name']) )
                                             </div>
                                             <div class="col-lg-9">
                                                 <div class="d-flex flex-wrap gap-2 align-items-center spaceAddUser1" style="min-height: 2.65rem;"> 
-                                                    <div class="form-check"> 
+                                                    <div class="form-check rtlClass"> 
                                                         <input type="radio" name="mobile_user" class="userTypeWeb form-check-input" value="0"
                                                             onclick="get_mobile_User(this.value)" autocomplete="new-password"
                                                             required id="webUser">
-                                                        <label class="me-3 form-check-label" for="webUser"><?php echo showOtherLangText('Web') ?></label>
+                                                        <label class="me-3 form-check-label mee-3" for="webUser"><?php echo showOtherLangText('Web') ?></label>
                                                     </div>
-                                                    <div class="form-check"> 
+                                                    <div class="form-check rtlClass"> 
                                                         <input type="radio" name="mobile_user" class="userTypeMob form-check-input" value="1"
                                                             onclick="get_mobile_User(this.value)" autocomplete="new-password"
                                                             required id="mobUser">
-                                                        <label class="form-check-label" for="mobUser"><?php echo showOtherLangText('Mobile') ?></label>
+                                                        <label class="form-check-label mee-3" for="mobUser"><?php echo showOtherLangText('Mobile') ?></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -354,7 +354,7 @@ if( isset($_POST['user_name']) )
 
 html[dir=rtl] .field-icon {
   float: left;
-  margin-top: -30px;
+  margin-top: -28px;
   right: -31px;
 }
 

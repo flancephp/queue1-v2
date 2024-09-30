@@ -268,7 +268,7 @@ html[dir=rtl] .form-select {
   border-radius: 7px;
 }
 html[dir=rtl] #currencyId {
-  background-size: 36px !important;
+  background-size: 42px !important;
 }
 html[dir=rtl] .stkView .container {
   padding: 28px 11px 0;

@@ -123,7 +123,7 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency') ?></label>
+                                        <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code') ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" name="curCode" value="<?php echo $det['curCode'];?>" id="currencyCode" placeholder="€">
