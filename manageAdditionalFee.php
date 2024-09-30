@@ -173,7 +173,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Additional Fee Deleted Succ
                                     </div>
                                     <div class="srvFeeTbl-UntCol d-flex align-items-center">
                                         <div class="tb-head feeUnit-Clm">
-                                            <p><?php echo showOtherLangText('Type'); ?></p>
+                                            <p><span class="font-normal"> <?php echo showOtherLangText('Type'); ?></span></p>
                                         </div>
                                         <div class="tb-head feeAmnt-Clm">
                                             <p><?php echo showOtherLangText('Amount'); ?></p>
@@ -209,12 +209,12 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Additional Fee Deleted Succ
                                         </div>
                                         <div class="srvFeeTbl-UntCol align-items-center">
                                             <div class="tb-head feeUnit-Clm">
-                                                <p><?php 
+                                                <p><span class="font-normal"><?php 
 								echo $row['feeType']==1 ? ' '.showOtherLangText('Tax').' ' : ' ';
 
 								echo $row['feeType']==2 ? ' '.showOtherLangText('Fixed discount').' ' : ' ';
 
-								echo $row['feeType']==3 ? ' '.showOtherLangText('Percentage discount').' ' : ' '; ?></p>
+								echo $row['feeType']==3 ? ' '.showOtherLangText('Percentage discount').' ' : ' '; ?></span></p>
                                             </div>
                                             <div class="tb-head feeAmnt-Clm">
                                                 <p><?php echo $row['feeType'] == 2 ? '<span>'.($row['amt']).'</span>' : '<span>'.($row['amt'].'</span>'.'<span> %</span>') ;?></p>

@@ -220,7 +220,7 @@ if( isset($_POST['user_name']) )
                                         <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" required name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
                                         </div>
                                     </div>
-                                    <div class="form-field row align-items-center">
+                                    <div class="form-field row align-items-center edispace01">
                                         <div class="col-lg-3">
                                             <label for="receiveInvoice" class="form-label semibold fs-13"><?php echo showOtherLangText('User Type') ?>:<span class="requiredsign">*</span></label>
                                         </div>

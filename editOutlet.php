@@ -631,7 +631,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                     </div>
                                                 </div>
                                                  <div class="dropContent" id="dropContent">
-                                                <div class="AssignEzeeCategory row align-items-center acntStp-Row">
+                                                <div class="AssignEzeeCategory row align-items-start acntStp-Row">
                                                 <div class="col-md-4">
                                                     <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Assign Ezee Category'); ?></label>
                                                 </div>

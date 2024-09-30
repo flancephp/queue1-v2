@@ -2182,6 +2182,8 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
 .setupOutletsp1{width: 100%;}
 .padLeft40{padding-left:40px;}
 .padRight40{padding-right:40px;}
+html[dir=rtl] .padRight40{padding-left:40px; padding-right:0px;}
+html[dir=rtl] .padLeft40{padding-left:00px; padding-right:40px;}
 
 
 
@@ -10359,6 +10361,139 @@ a.sbActive .mb_nvSubIcn {
   font-size: 12px;
 }
 
+
+
+/* =========== 01/05/2024============= */
+.adUsr-Div-full {
+  width: 100%;
+}
+.requiredsign {
+  color: #FD3737;
+  display: inline;
+}
+ .addUser-Form .form-field .form-control,
+ .addUser-Form .form-field .form-select {
+  margin-block-start: 0;
+}
+.addUser-Form .form-field {
+  margin-block-end: 20px;
+}
+/* .sub-btn {
+  padding: 9px 35px 9px 35px;
+} */
+.addUser-Form .preview_img {
+  margin-inline: auto;
+  aspect-ratio: 1;
+  max-width: 100%;
+}
+.addUser-Form .labelDiv {
+  margin-inline: auto;
+  height: 80px;
+  display: inline-block;
+  width: 100%;
+}
+
+.row.acntStp-Row > .col-md-3 {
+  margin-block-start: -5px;
+}
+
+/* 20-05-2024 */
+
+
+.std-btn {
+  padding: 6px 12px ;
+}
+.stockDetail .usrBtns {
+  padding: 30px 0 0 28px;
+}
+
+.stocktakeTask .stkTbl-body {
+  display: ruby-text;
+}
+
+.stktakeTable .itmTable {
+  display: ruby-text;
+  width: 100%;
+  border-bottom: 2px solid #dfe0e8
+} 
+.sub-btn { 
+  border-radius: .937rem;
+  /* padding: 3px 4px; */
+} 
+.skt-font{}
+.skt-font{} .tb-head { 
+  font-weight: 500;
+}
+.tb-head { 
+  font-weight: 600;
+}
+
+
+
+/* stock-take page */
+.stock-table {
+  padding: 20px 0;
+}
+.stock-take h3, .stock-take h6{ text-align:center;}
+.stock-take h3{
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.1;
+
+}
+.show-variances {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.show-pdf {
+  width: 40px;
+  height: auto;
+}
+.show-link a{
+  color: #000000;
+  text-decoration: underline;
+}
+.stock-table th {
+  border-bottom: 2px solid #dfe0e8;
+  background: none;
+}
+.stock-table .sub-btn {
+  margin: 0 15px 0 0;
+}
+/* Krishna test file  */
+.headerSpace1{text-align: right; padding-top: 12px;}
+
+/*=========================================================== Styles: Shuvro. ===============================================*/
+:root { 
+--color-primary: #7a89fe;--color-white: #fff;--radius: .625rem;
+} 
+.cnfrm:hover, .doc-bx:hover, .dlt-bx:hover { background-color:var(--color-primary);border-color: var(--color-primary); }
+.cnfrm:hover .cn-btn, .doc-bx:hover .cn-btn, .dlt-bx:hover .cn-btn { color: var(--color-white); }
+.cnfrm:hover a, .doc-bx:hover a { color: var(--color-white); }
+.cnfrm:hover .edIt, .doc-bx:hover .edIt { filter: contrast(0) brightness(10); }
+.itmFeat-Div.update:hover{ background-color:var(--color-primary) ;} 
+.btn-white {font-size: 0.875rem; color:#666C85;box-shadow: 0px 8px 30px 0px #6973BE21;padding:1rem 1rem;line-height: 1.14;background-color: var(--color-white);display: inline-flex;gap: .5rem;border-radius: var(--radius); }
+.btn-white:hover, .btn-white:focus, .btn-white:active {color:var(--color-white);background-color: var(--color-primary);}
+.btn-white:hover svg path, .btn-white:focus svg path, .btn-white:active svg path {stroke: var(--color-white);}
+.doc__btn svg { width: 1.5rem;height: 1.5rem; }
+.doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}
+.assign__btn svg { width: .75rem;height: 1.067rem; }
+.assign__btn:first svg path, .assign__btn:first svg circle {stroke: var(--color-white) !important;}
+.assign__btn:hover svg path, .assign__btn:hover svg circle {stroke: var(--color-white);}
+.assign__btn:hover svg path { fill: var(--color-white); }
+.stkRow .stockFeat:hover { background-color: var(--color-primary);color: var(--color-white); }
+.stkRow .stockFeat:hover a { color: var(--color-white); }
+.stkRow .stockFeat { border-radius: var(--radius); }
+
+.innerDrop .submenu { position: absolute;top: 0;background: #fff;width: 12rem;border-radius: var(--radius);padding: .25rem;right: -12rem;min-width: 12rem !important; }
+.innerDrop .submenu.show { width: 12rem;right: -12rem !important;left: auto !important;transform: none !important; } 
+.innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
+.submenu .dropdown-item { font-size: 12px;padding: .15rem .5rem; }
+
+
 /* Custom Btn CSS Start */
 .sub-btn {
   background-color: #7a89ff;
@@ -13245,7 +13380,9 @@ a.tabFet.show .sampleFile {
   margin-top: 25px;
   width: 30%;
 }
-
+.adUsr-Div-full {
+  width: 100%;
+}
 .addUser-Form {
   margin: 0;
 }
@@ -15593,6 +15730,8 @@ body .ui-widget-content {
 
 
 @media screen and (min-width: 1600px) {
+
+  
   .body1 {
     font-size: 16px;
     font-weight: 600;
@@ -16433,10 +16572,15 @@ html[dir=rtl] .enableSetup{padding-right:0px;padding-left: 13px;}
 html[dir=rtl] .runningtask-radio{padding-right:0px;padding-left: 13px;}
 html[dir=rtl] .enableMobileSection{padding-right:0px;padding-left: 25px;}
 
-.AsignCategory {flex-wrap: wrap;
+.AsignCategory {flex-wrap: wrap; white-space: pre-wrap;
 display: flex;}
 .asCategory{padding-bottom: 3px;
   padding-right: 8px;}
+  html[dir=rtl] .asCategory {
+    padding-bottom: 3px;
+    padding-right: 0px;
+    padding-left: 8px;
+  }
 .drpDwn-ItmMng .dropdown-menu{
     overflow-y: auto;
     overflow-x: hidden;
@@ -16497,6 +16641,7 @@ display: flex;}
   .btn-primary {
     font-size: .9rem;
     padding: .50rem 1.3rem;
+    border-radius: .737rem;
   }
   .addUser-Form .form-select {
     padding: 13px 10px;
@@ -16557,6 +16702,16 @@ display: flex;}
 
 @media (max-width: 1599px) { 
 
+  .btn-primary {
+    border-radius: .737rem;
+  }
+  .sub-btn {
+    border-radius: .717rem;
+  }
+
+  .edispace01{height: 43px;
+   }
+
   .outlet-Tblhead .tb-head {
     font-size: 14px;
     font-weight: 400;
@@ -16566,13 +16721,16 @@ display: flex;}
     padding-right: 35px;
   }
   .enableRequisition {
-    padding-right: 18px;
+    padding-right: 17px;
   }
   .runningtask-radio {
-    padding-right: 18px;
+    padding-right: 17px;
   }
   .enableHistory {
-    padding-right: 18px;
+    padding-right: 17px;
+  }
+  .enableStock {
+    padding-right: 17px;
   }
   .stock-radio {
     min-width: 80px;
@@ -21677,135 +21835,7 @@ html[dir=rtl] .modal-head-row .btn {
 
 
 
-/* =========== 01/05/2024============= */
-.adUsr-Div-full {
-  width: 100%;
-}
-.requiredsign {
-  color: #FD3737;
-  display: inline;
-}
- .addUser-Form .form-field .form-control,
- .addUser-Form .form-field .form-select {
-  margin-block-start: 0;
-}
-.addUser-Form .form-field {
-  margin-block-end: 20px;
-}
-/* .sub-btn {
-  padding: 9px 35px 9px 35px;
-} */
-.addUser-Form .preview_img {
-  margin-inline: auto;
-  aspect-ratio: 1;
-  max-width: 100%;
-}
-.addUser-Form .labelDiv {
-  margin-inline: auto;
-  height: 80px;
-  display: inline-block;
-  width: 100%;
-}
 
-.row.acntStp-Row > .col-md-3 {
-  margin-block-start: -5px;
-}
-
-/* 20-05-2024 */
-
-
-.std-btn {
-  padding: 6px 12px ;
-}
-.stockDetail .usrBtns {
-  padding: 30px 0 0 28px;
-}
-
-.stocktakeTask .stkTbl-body {
-  display: ruby-text;
-}
-
-.stktakeTable .itmTable {
-  display: ruby-text;
-  width: 100%;
-  border-bottom: 2px solid #dfe0e8
-} 
-.sub-btn { 
-  border-radius: .937rem;
-  /* padding: 3px 4px; */
-} 
-.skt-font{}
-.skt-font{} .tb-head { 
-  font-weight: 500;
-}
-.tb-head { 
-  font-weight: 600;
-}
-
-
-
-/* stock-take page */
-.stock-table {
-  padding: 20px 0;
-}
-.stock-take h3, .stock-take h6{ text-align:center;}
-.stock-take h3{
-    font-size: 30px;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-weight: 700;
-    line-height: 1.1;
-
-}
-.show-variances {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.show-pdf {
-  width: 40px;
-  height: auto;
-}
-.show-link a{
-  color: #000000;
-  text-decoration: underline;
-}
-.stock-table th {
-  border-bottom: 2px solid #dfe0e8;
-  background: none;
-}
-.stock-table .sub-btn {
-  margin: 0 15px 0 0;
-}
-/* Krishna test file  */
-.headerSpace1{text-align: right; padding-top: 12px;}
-
-/*=========================================================== Styles: Shuvro. ===============================================*/
-:root { 
---color-primary: #7a89fe;--color-white: #fff;--radius: .625rem;
-} 
-.cnfrm:hover, .doc-bx:hover, .dlt-bx:hover { background-color:var(--color-primary);border-color: var(--color-primary); }
-.cnfrm:hover .cn-btn, .doc-bx:hover .cn-btn, .dlt-bx:hover .cn-btn { color: var(--color-white); }
-.cnfrm:hover a, .doc-bx:hover a { color: var(--color-white); }
-.cnfrm:hover .edIt, .doc-bx:hover .edIt { filter: contrast(0) brightness(10); }
-.itmFeat-Div.update:hover{ background-color:var(--color-primary) ;} 
-.btn-white {font-size: 0.875rem; color:#666C85;box-shadow: 0px 8px 30px 0px #6973BE21;padding:1rem 1rem;line-height: 1.14;background-color: var(--color-white);display: inline-flex;gap: .5rem;border-radius: var(--radius); }
-.btn-white:hover, .btn-white:focus, .btn-white:active {color:var(--color-white);background-color: var(--color-primary);}
-.btn-white:hover svg path, .btn-white:focus svg path, .btn-white:active svg path {stroke: var(--color-white);}
-.doc__btn svg { width: 1.5rem;height: 1.5rem; }
-.doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}
-.assign__btn svg { width: .75rem;height: 1.067rem; }
-.assign__btn:first svg path, .assign__btn:first svg circle {stroke: var(--color-white) !important;}
-.assign__btn:hover svg path, .assign__btn:hover svg circle {stroke: var(--color-white);}
-.assign__btn:hover svg path { fill: var(--color-white); }
-.stkRow .stockFeat:hover { background-color: var(--color-primary);color: var(--color-white); }
-.stkRow .stockFeat:hover a { color: var(--color-white); }
-.stkRow .stockFeat { border-radius: var(--radius); }
-
-.innerDrop .submenu { position: absolute;top: 0;background: #fff;width: 12rem;border-radius: var(--radius);padding: .25rem;right: -12rem;min-width: 12rem !important; }
-.innerDrop .submenu.show { width: 12rem;right: -12rem !important;left: auto !important;transform: none !important; } 
-.innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
-.submenu .dropdown-item { font-size: 12px;padding: .15rem .5rem; }
 
 @media (max-width:992px) {
   .innerDrop .submenu { left: -12rem;right: auto;display: none !important; }
