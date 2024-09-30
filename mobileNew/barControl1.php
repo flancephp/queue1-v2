@@ -111,22 +111,8 @@
                                 <p><?php echo $totalItems;?></p>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
-                            <div class="brClm-6 brClmhead">
-                                <p><?php echo showOtherLangText('Counted') ?></p>
-                            </div>
-                            <div class="brClm-6 brClm-Dtl">
-                                <p>0</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
-                            <div class="brClm-6 brClmhead">
-                                <p><?php echo showOtherLangText('Not Counted') ?></p>
-                            </div>
-                            <div class="brClm-6 brClm-Dtl">
-                                <p>0</p>
-                            </div>
-                        </div>
+                       
+                        
                     </div>
 
                 </div>

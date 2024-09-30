@@ -83,7 +83,7 @@
                 if ($mobUserPermission['receiving_order'] == 1 || $test =1){?>
                     <a href="<?php echo $mobileSiteUrl;?>receiveOrder1.php" class="mblBx-Lnk text-center">
                         <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Receving.svg" alt="Receving" class="fieldIcns">
-                        <p class="mblFnt1"><?php echo showOtherLangText('Receiving Order') ?></p>
+                        <p class="mblFnt1"><?php echo showOtherLangText('Receiving') ?></p>
                         <?php 
                             echo ($totalReceivingCount > 0) ? '<span class="position-absolute translate-middle badge rounded-pill bg-danger homeBadge">'.$totalReceivingCount.'</span>' : ''; 
                         ?>
@@ -102,7 +102,7 @@
                     <?php
                 }
             ?>
-            <a href="<?php echo $mobileSiteUrl;?>production1.php" class="mblBx-Lnk text-center">
+            <a href="#" class="mblBx-Lnk text-center">
                 <img src="<?php echo $mobileSiteUrl;?>Assets/icons/Production.svg" alt="Production" class="fieldIcns">
                 <p class="mblFnt1">Production</p>
             </a>

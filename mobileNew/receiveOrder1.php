@@ -30,7 +30,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title><?php echo showOtherLangText('Receiving order') ?> - Queue1 Mobile</title>
+    <title><?php echo showOtherLangText('Receiving') ?> - Queue1 Mobile</title>
     <?php include('layout/mCss.php'); ?>
 </head>
 <body>
@@ -39,7 +39,6 @@
             <?php include('layout/mHeader.php'); ?>
             <div class="text-center">
                 <p class="orderNum"><?php echo $toalOrders?> <?php echo showOtherLangText('orders') ?></p>
-                <br>
                 <p>
                     <?php
                         if (isset($_GET['receivingAlreadyDone']) && $_GET['receivingAlreadyDone'] == 1){

@@ -308,7 +308,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 <style>
     .fa.fa-filter { position:relative;top:-2px; }
-    .srNum { color: #666C85; }
+    .srNum { color: #666C85;font-weight:600; }
     .container { max-width: 100% !important;}
     .supMem-Name { color: #3fb180; }
     /* .modal .show-smry-cls, .modal #itemDiv, .modal #taskDiv { overflow-x:auto; } */
@@ -421,6 +421,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     html[dir="rtl"] .fa-share-square.pe-2 { padding-right: 0 !important;padding-left: .2rem !important; }
     @media(max-width:991px) { 
         html[dir="rtl"] .tmpStatus { background: transparent !important; }
+    }
+    @media(min-width:1200px) and (max-width:1599px) {
+        .runDetail, .task-status { font-size:14px; }
+        .srNum { font-size:1.5rem; }
+        .stsBar .btn2 { font-size: 12px; }
     }
 </style>
 </head>
@@ -558,7 +563,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
                 </div>
                 <?php } ?>
                 <div class="d-flex align-items-center taskHead">
-                    <div style="width: 3%;"><?php echo mysqli_num_rows($result) > 0 ? mysqli_num_rows($result) : ''; ?></div>
+                    <div style="width: 3%;font-weight:600;"><?php echo mysqli_num_rows($result) > 0 ? mysqli_num_rows($result) : ''; ?></div>
                     <div class="d-flex align-items-center runTable py-1" style="width: 97%;">
 
                         <div class="d-flex align-items-center" style="width: 45%;">

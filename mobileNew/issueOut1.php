@@ -65,7 +65,7 @@
 					    $resultSet = mysqli_query($con, $sqlSet);
 					    $orderDet = mysqli_fetch_array($resultSet);
                     ?>
-                        <a href="javascript:void(0);" class="strgProduct issueOut-Prd" onClick="redirectToNext('<?php echo $assignRow['id'];?>', '<?php echo $assignRow['orderId'];?>');">
+                        <a href="javascript:void(0);" class="strgProduct issueOut-Prd mt-3" onClick="redirectToNext('<?php echo $assignRow['id'];?>', '<?php echo $assignRow['orderId'];?>');">
                             <div class="inner__content bg-white"> 
                                 <div class="row g-0">
                                     <div class="col-md-6 storeClm">

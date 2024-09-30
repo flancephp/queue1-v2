@@ -24,7 +24,10 @@
     $storageDeptRow = getStoreDetailsById($_GET['storageId']);
 
     $sql = "SELECT tp.*, s.qty stockQty, IF(u.name!='',u.name,tp.unitC) unitC FROM tbl_mobile_items_temp s 
-    INNER JOIN tbl_products tp ON(s.pId = tp.id) AND s.account_id = tp.account_id AND tp.status=1 AND s.stockTakeType=1 AND s.stockTakeId = '".$_GET['storageId']."' AND s.userId='".$_SESSION['id']."'
+    INNER JOIN tbl_products tp ON(s.pId = tp.id) AND s.account_id = tp.account_id AND tp.status=1
+     AND s.stockTakeType=1 AND s.stockTakeId = '".$_GET['storageId']."' AND s.userId='".$_SESSION['id']."'
+     AND s.status=0
+
     LEFT JOIN tbl_units u ON(u.id=tp.unitC) AND (u.account_id = tp.account_id) 
     WHERE tp.account_id = '".$_SESSION['accountId']."'  GROUP BY tp.id ORDER by tp.catId  ";
         

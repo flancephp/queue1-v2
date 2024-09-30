@@ -16733,18 +16733,14 @@ display: flex;}
 }
 .btn-primary {
   font-size: .9rem;
-  padding: .50rem 1.3rem;
+  padding: .5rem 1.3rem;
 }
 .acntSetup-Form .form-label {
   font-size: 14px;font-weight: 500;
 }
 .acntSetup-Form .form-control, .acntSetup-Form .form-select input {
   font-size: 14px;padding: 13px 10px;
-}
-.btn-primary {
-  font-size: .9rem;
-  padding: .50rem 1.3rem;
-}
+} 
 .addUser-Form .form-select {
   padding: 13px 10px;
 }
@@ -16860,7 +16856,7 @@ html[dir=rtl] .form-select {
 }
 .btn-primary {
   font-size: .9rem;
-  padding: .50rem 1.3rem;
+  padding: .5rem 1.3rem;
 }
 
 .enableRequisition {
@@ -21837,7 +21833,7 @@ html[dir=rtl] .modal-head-row .btn {
 
 /* @media (max-width: 1399px) { .btn-primary { font-size: .937rem; }  } */
 @media (max-width: 992px) {
-  .btn-primary { padding: .625rem 1rem;border-radius: .937rem; }
+  .btn-primary { padding: .625rem 1rem;border-radius: .5rem !important; }
   .items__manager__btn { width: 78px;font-size: 10px;height: 57px;gap: 4px;padding: 0.2rem .75rem; }
   .items__manager__btn svg { width: 18px;height: 18px; } 
 }

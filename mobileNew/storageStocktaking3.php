@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="prdctHide">&nbsp;</div>
                                 <div class="prdctValue">
-                                    <input type="text" id="item<?php echo $res['id'];?>" value="" class="form-control prdForm" placeholder="" onChange="saveQty('<?php echo $res['id'];?>', this.value);" />
+                                    <input type="text" id="item<?php echo $res['id'];?>" value="" class="form-control prdForm" placeholder="" onmouseout="saveQty('<?php echo $res['id'];?>', this.value);" />
                                     <input type="hidden" id="itemSaved<?php echo $res['id'];?>" value="<?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : 0;?>" class="input-style" />
                                     <p class="prdUnit"><strong style="color:#00ad4c;text-align:center;cursor: pointer;" class="qtyCnt" id="qtyCnt<?php echo $res['id'];?>" onclick="toggleQty('<?php echo $res['id'];?>')"><?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : '';?></strong> <?php echo $res['countingUnit'];?></p>
                                 </div>
@@ -157,6 +157,10 @@
                 var newQty = 0;
             }
 
+            if(newQty == 0 || newQty == '')
+            {
+                return true;
+            }
             var savedQty = $('#itemSaved' + pId).val();
             savedQty = Number(savedQty);
 
