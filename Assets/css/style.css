@@ -15486,7 +15486,105 @@ text-align: center;
 .rcSpace1{
   padding: 10px 22px;
 }
+body .ui-widget-content {
+  z-index: 9999;
+}
 
+
+.gap-r{padding-right: 60px;}
+.gap-l{padding-left: 30px;}
+
+/* ------------- new popup design start ---------- */
+.modal .modal-table {
+  width: 100%;
+  font-size: 12px;
+  display: table;
+  border-collapse: collapse;
+}
+.modal .table-row {
+  display: table-row; 
+  padding: 5px;
+  width: 100%;
+}
+.modal .table-row.thead {
+  font-weight: 600;
+  border-bottom: none;
+}
+.modal .table-cell {
+  display: table-cell; 
+  padding: 8px 5px;
+  vertical-align: top;
+}
+.modal .sub-table {
+  display: table;
+}
+.modal-date.pt-1 p small {
+  font-size: 11px;
+}
+.modal .table-cell.font-bold {
+  font-weight: 600;
+}
+.modal .table-cell.textStatusPaid {
+  color: #16C0FF;
+}
+.modal .table-cell.textStatusPending {
+  color: #FF9549
+}
+.modal .table-cell.textStatusReceived {
+  color: #038F00
+}
+.modal .table-row .medium {
+  font-weight: 600;
+}
+.revenue_center_table .flex-container .table-cell {
+  flex: 1;
+}
+
+.revenue_center_table  .flex-container {
+  display: flex;
+  padding: 0;
+  align-items: center;
+}
+.revenue_center_table  .flex-container.row-seprate:not(:last-child) {
+  border-bottom: 1px solid #d2d2d2;
+}
+.revenue_center_table .table-row.row-seprate {
+  border-bottom: 1px solid #d2d2d2;
+}
+.model-title-with-date {
+  padding-block-start: 12px;
+  padding-block-end: 8px;
+  border-block: 1px solid #d2d2d2;
+  margin-block-end: 32px;
+}
+.historyAccountSection .table-row.thead .table-cell {
+  border: 1px solid #fff;
+}
+.historyAccountSection .table-row.thead .table-cell small {
+  display: block;
+  font-weight: 500;
+  font-size: 10px;
+}
+.model-title-with-date .fs-15 {
+  font-size: 15px;
+  display: flex;
+  justify-content: end;
+}
+.dividerTwoRows .table-cell {
+  border-block-start: 1px solid #fff;
+  padding-block: 14px;
+}
+.dividerTwoRows.thead {
+  background-color: rgb(122 137 255 / 10%);
+}
+.table-cell-photo img {
+  width: 40px;
+  height: 40px;
+}
+.outlet-Tblhead .tb-head {
+  font-size: 16px;
+  font-weight: 400;
+}
 
 
 
@@ -16349,7 +16447,7 @@ display: flex;}
 /* ----- 1600 to 1920 Desktop Screen start ------- */
 
 
-@media screen and (min-device-width: 1601px) and (max-device-width: 1920px) { 
+@media screen and (min-device-width: 1600px) and (max-device-width: 1920px) { 
  
  
 
@@ -16458,6 +16556,11 @@ display: flex;}
 /* ----- 1599 to 1024 Desktop Screen end ------- */
 
 @media (max-width: 1599px) { 
+
+  .outlet-Tblhead .tb-head {
+    font-size: 14px;
+    font-weight: 400;
+  }
 
   .enableMobileSection {
     padding-right: 35px;
@@ -21029,113 +21132,7 @@ html[dir=rtl] .navbar-toggler .h1{
 
 }
 
-body .ui-widget-content {
-  z-index: 9999;
-}
 
-
-
-
-
-
-
-
-
-
-.gap-r{padding-right: 60px;}
-.gap-l{padding-left: 30px;}
-
-/* ------------- new popup design start ---------- */
-.modal .modal-table {
-  width: 100%;
-  font-size: 12px;
-  display: table;
-  border-collapse: collapse;
-}
-.modal .table-row {
-  display: table-row; 
-  padding: 5px;
-  width: 100%;
-}
-.modal .table-row.thead {
-  font-weight: 600;
-  border-bottom: none;
-}
-.modal .table-cell {
-  display: table-cell; 
-  padding: 8px 5px;
-  vertical-align: top;
-}
-.modal .sub-table {
-  display: table;
-}
-.modal-date.pt-1 p small {
-  font-size: 11px;
-}
-.modal .table-cell.font-bold {
-  font-weight: 600;
-}
-.modal .table-cell.textStatusPaid {
-  color: #16C0FF;
-}
-.modal .table-cell.textStatusPending {
-  color: #FF9549
-}
-.modal .table-cell.textStatusReceived {
-  color: #038F00
-}
-.modal .table-row .medium {
-  font-weight: 600;
-}
-.revenue_center_table .flex-container .table-cell {
-  flex: 1;
-}
-
-.revenue_center_table  .flex-container {
-  display: flex;
-  padding: 0;
-  align-items: center;
-}
-.revenue_center_table  .flex-container.row-seprate:not(:last-child) {
-  border-bottom: 1px solid #d2d2d2;
-}
-.revenue_center_table .table-row.row-seprate {
-  border-bottom: 1px solid #d2d2d2;
-}
-.model-title-with-date {
-  padding-block-start: 12px;
-  padding-block-end: 8px;
-  border-block: 1px solid #d2d2d2;
-  margin-block-end: 32px;
-}
-.historyAccountSection .table-row.thead .table-cell {
-  border: 1px solid #fff;
-}
-.historyAccountSection .table-row.thead .table-cell small {
-  display: block;
-  font-weight: 500;
-  font-size: 10px;
-}
-.model-title-with-date .fs-15 {
-  font-size: 15px;
-  display: flex;
-  justify-content: end;
-}
-.dividerTwoRows .table-cell {
-  border-block-start: 1px solid #fff;
-  padding-block: 14px;
-}
-.dividerTwoRows.thead {
-  background-color: rgb(122 137 255 / 10%);
-}
-.table-cell-photo img {
-  width: 40px;
-  height: 40px;
-}
-.outlet-Tblhead .tb-head {
-  font-size: 16px;
-  font-weight: 400;
-}
 /* Responsive for modal  */
 
 @media screen and (max-width: 992px) {
