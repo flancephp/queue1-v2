@@ -127,7 +127,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Date') ?></p>
                     </div>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-4">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('User') ?></p>
                     </div>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Start time') ?></p>
                     </div>
@@ -158,7 +158,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Finish time') ?></p>
                     </div>
@@ -172,7 +172,7 @@
 					$from_time = strtotime($timeTrackRes['end_time']);
 					$diff =  round(abs($to_time - $from_time) / 60)." ".showOtherLangText('min');
 				?>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Total Time') ?></p>
                     </div>
@@ -182,7 +182,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-4">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Total items') ?></p>
                     </div>
@@ -192,7 +192,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Counted') ?></p>
                     </div>
@@ -202,7 +202,7 @@
                     </div>
                 </div>
 
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Not counted') ?></p>
                     </div>

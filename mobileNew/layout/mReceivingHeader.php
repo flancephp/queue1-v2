@@ -2,7 +2,7 @@
     if($receivingStep == 1){?>
         <div class="col-md-6 bckClm">
             <a href="<?php echo $mobileSiteUrl;?>index.php" class="mblBack-Btn"><i class="fa-solid fa-chevron-left"></i></a>
-            <h2 class="mblFnt2"><?php echo showOtherLangText('Receiving Order') ?></h2>
+            <h2 class="mblFnt2"><?php echo showOtherLangText('Receiving') ?></h2>
         </div>
         <?php
     }

@@ -155,7 +155,14 @@
                                     <div class="prdctHide">&nbsp;</div>
                                     <div class="prdctValue fnPrd-Val">
                                         <p class="recUnit"><span class="unitNum"><?php echo $row['ordQty'];?></span> <?php echo $row['purchaseUnit'];?></p>
-                                        <p class="recPrice"><?php echo getPrice($row['totalAmt']).' '.$getDefCurDet['curCode'];?></p>
+
+                                        <p class="recPrice">
+                                       
+                                        <?php echo getPrice($row['totalAmt']).' '.$getDefCurDet['curCode'];?></p>
+
+                                        
+                                        <?php echo ($row['currencyId'] > 0) ? ('<p class="recPrice">'.showOtherCur($row['curAmt'], $row['currencyId']).'</p>') : '';?>    
+                                        
                                     </div>
                                 </div>
                                 <?php

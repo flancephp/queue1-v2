@@ -114,21 +114,23 @@
                                 </span> 
                                 <?php echo $row['purchaseUnit'];?>
                             </p>
-                            <p class="recOrd-Price">
+                           
                                 <?php
 								if(isset($tempItemRows[$row['id']]['amt'])){
-									echo showOtherCur(($tempItemRows[$row['id']]['amt']*$tempItemRows[$row['id']]['qty']), $tempItemRows[$row['id']]['curId']);
+									echo '<p class="recOrd-Price">'.showOtherCur(($tempItemRows[$row['id']]['amt']*$tempItemRows[$row['id']]['qty']), $tempItemRows[$row['id']]['curId']).'</p>';
 								}
-								else{
-									if($row['curAmt'] > 0){
-										echo showOtherCur($row['curAmt'], $curRes['id']);
-									}
-									else{
-										showPrice($row['totalAmt'],$getDefCurDet['curCode']);
-									}
-								} 
+								else{ ?>
+									<p class="recOrd-Price">
+                                       
+                                       <?php echo getPrice($row['totalAmt']).' '.$getDefCurDet['curCode'];?></p>
+
+                                       
+                                       <?php echo ($row['currencyId'] > 0) ? ('<p class="recOrd-Price">'.showOtherCur($row['curAmt'], $row['currencyId']).'</p>') : '';?>    
+
+                                        
+                                <?php } 
                                 ?>
-                            </p>
+                           
                         </div>
                     </div>
                     <?php

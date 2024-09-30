@@ -95,7 +95,7 @@
                         <p><?php echo isset($stockTakeRow['name']) ? $stockTakeRow['name'] : ' '.showOtherLangText('Select Storage').' ';?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Date') ?></p>
                     </div>
@@ -103,7 +103,7 @@
                         <p class="fw-500"><?php echo date('d/m/Y');?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-4">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('User') ?></p>
                     </div>
@@ -111,7 +111,7 @@
                         <p class="fw-500"><?php echo $_SESSION['name'];?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Start time') ?></p>
                     </div>
@@ -119,7 +119,7 @@
                         <p class="fw-500"><?php echo $startDate;?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Finish time') ?></p>
                     </div>
@@ -132,7 +132,7 @@
 					$from_time = strtotime($timeTrackRes['end_time']);
 					$diff =  round(abs($to_time - $from_time) / 60)." ".showOtherLangText('min');
 				?>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Total Time') ?></p>
                     </div>
@@ -140,7 +140,7 @@
                         <p class="fw-500"><?php echo $diff;?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-4">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Total items') ?></p>
                     </div>
@@ -148,7 +148,7 @@
                         <p class="fw-500"><?php echo $totalItems;?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Counted') ?></p>
                     </div>
@@ -156,7 +156,7 @@
                         <p class="fw-500"><?php echo $tempItemCnt;?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
                         <p><?php echo showOtherLangText('Not counted') ?></p>
                     </div>
