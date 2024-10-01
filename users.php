@@ -129,14 +129,14 @@ $result = mysqli_query($con, $sql);
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="setup.php" class="btn btn-primary"><span class="mb-UsrBtn"><i
+                                    <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addUser.php" class="btn btn-primary"><span
+                                    <a href="addUser.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><img src="Assets/icons/add-user.svg" alt="Add User"
                                                 class="ad-UsrImg"></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>

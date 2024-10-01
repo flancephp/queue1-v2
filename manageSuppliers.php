@@ -131,7 +131,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                             </div>
                             <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <a href="setup.php" class="btn btn-primary">
+                            <a href="setup.php" class="btn btn-primary mb-usrBkbtn">
                                 <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
                                 <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
                             </a>

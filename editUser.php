@@ -195,7 +195,7 @@ if( isset($_POST['user_name']) )
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
-                                    <a href="users.php" class="btn btn-primary"><span class="mb-UsrBtn"><i
+                                    <a href="users.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
                                 </div>
@@ -386,7 +386,7 @@ function previewFile() {
     .field-icon {
   float: right;
   margin-left: -25px;
-  margin-top: -25px;
+  margin-top: -28px;
   position: relative;
   z-index: 2;
   margin-right:6px;

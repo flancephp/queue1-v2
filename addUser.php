@@ -346,7 +346,7 @@ if( isset($_POST['user_name']) )
     .field-icon {
         float: right;
         margin-left: -25px;
-        margin-top: -37px;
+        margin-top: -28px;
         position: relative;
         z-index: 2;
         margin-right: 8px;

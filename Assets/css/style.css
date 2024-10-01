@@ -2169,19 +2169,18 @@ html[dir=rtl] .modal-footer .btnBg{margin-left:20px; margin-right: 0px;}
   .criCols2{width:14% ;font-size: 14px; font-weight: 400;}
   .criCols3{width:12% ;font-size: 14px; font-weight: 400;}
 
-  .catgryNum-Clm strong{font-size: 26px; font-weight:600;}
-
-.acntSrNumber strong{font-size: 26px; font-weight:600;}
-.feeSrNumber strong{font-size: 26px; font-weight:600;}
-.mngCur-Clm strong{font-size: 26px; font-weight:600;color: #666c85;}
-.suplNumber strong{font-size: 26px; font-weight:600;color: #666c85;}
+.catgryNum-Clm strong{font-size: 18px; font-weight:600;}
+.acntSrNumber strong{font-size: 18px; font-weight:600;}
+.feeSrNumber strong{font-size: 18px; font-weight:600;}
+.mngCur-Clm strong{font-size: 18px; font-weight:600;color: #666c85;}
+.suplNumber strong{font-size: 18px; font-weight:600;color: #666c85;}
+.userNumber strong{font-size: 18px; font-weight:600;}
 
 
 .acntSetup-Form .form-label {
   font-size: 18px;
   font-weight: 600;
 }
-.userNumber strong{font-size: 26px; font-weight:600;}
 .setupOutletsp1{width: 100%;}
 .padLeft40{padding-left:40px;}
 .padRight40{padding-right:40px;}
@@ -15587,7 +15586,7 @@ img.previewImg {
 
 
 
-@media(min-width:1600px) {
+@media(min-width:1601px) {
   .alert { font-size: 1rem; }
   .alert-dismissible .btn-close { font-size: 1rem; }
   .addUser-Form .form-control {
@@ -15749,7 +15748,7 @@ body .ui-widget-content {
 
 
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1601px) {
 
   
   .body1 {
@@ -16611,7 +16610,7 @@ display: flex;}
 /* ----- 1600 to 1920 Desktop Screen start ------- */
 
 
-@media screen and (min-device-width: 1600px) and (max-device-width: 1920px) { 
+@media screen and (min-device-width: 1601px) and (max-device-width: 1920px) { 
  
  
 
@@ -16623,10 +16622,10 @@ display: flex;}
 
 
 
-/* ----- 1599 to 1024 Desktop Screen start ------- */
+/* ----- 1600 to 1024 Desktop Screen start ------- */
 
 
-@media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
+@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) { 
  
   .nav-bar > ul > li > a.nav-link {
     height: 66px;
@@ -16718,9 +16717,31 @@ display: flex;}
 
 
 
-/* ----- 1599 to 1024 Desktop Screen end ------- */
+/* ----- 1600 to 1024 Desktop Screen end ------- */
 
-@media (max-width: 1599px) { 
+@media (max-width: 1600px) { 
+
+  .stup-clm-2 p {
+    font-size: 13px;
+}
+.sbMnu-acntStup {
+  padding: 1px 10px;
+}
+.sub-Icns img {
+  height: 38px;
+  width: 30px;
+}
+.stupImg {
+  width: 46px;
+}
+
+
+
+
+
+
+
+
   html[dir=rtl] .addUser-Form .form-select {
     padding: 16px 10px;background-size: 42px 42px;
   }
@@ -16972,6 +16993,9 @@ html[dir=rtl] .form-select {
 
 /* ----- 768 to 992 Tablet Screen css end ------- */
 @media (max-width: 1024px) { 
+  .newOrder .row {
+    margin: 0;
+  } 
 .padLeft40{padding-left:00px;}
 .padRight40{padding-right:10px;}
 .setupOutletsp1 {
@@ -16981,6 +17005,9 @@ html[dir=rtl] .form-select {
 .detailPrc-show  .newOrder .row {
   display: block;
 }
+.addUser-Form .row {
+  margin-bottom: 20px;
+}
 
 }
 
@@ -16988,7 +17015,9 @@ html[dir=rtl] .form-select {
 .enableMobileSection {
   padding-right: 38px;
 }
-
+.edispace01 {
+  height: 66px;
+}
 
 
 
@@ -17120,9 +17149,7 @@ html[dir=rtl] .form-select {
   .recPrice {
     padding: 0;
   }
-  .newOrder .row {
-    margin: 0;
-  }
+  
   .ordNum {
     margin: 0 -12px;
   }
@@ -17811,8 +17838,7 @@ html[dir=rtl] .form-select {
     width: 100%;
     color: #7a89fe;
   }
-  html[dir=rtl] .mb-itmMngLink,
-  .mb-oltLnk {
+  html[dir=rtl] .mb-oltLnk {
     border-radius: 10px 00px 00px 10px;
   }
   
@@ -18006,7 +18032,7 @@ html[dir=rtl] .form-select {
   }
   html[dir=rtl] .prcItm-MngClm {
     margin-left: 0%;
-    margin-right: 15%;
+    margin-right: 25%;
   }
 
   .supStkclm .dropdown-toggle {
@@ -19120,9 +19146,9 @@ html[dir=rtl] .form-select {
   .userDetail {
     padding: 25px 15px;
   }
-  .adUsr-Div {
+  /* .adUsr-Div {
     width: 50%;
-  }
+  } */
   .usrBtns .adUsr-Div {
     width: 100%;
   }
@@ -19247,7 +19273,7 @@ html[dir=rtl] .form-select {
     width: 84%;
   }
   .stEze-Lnk {
-    width: 15%;
+    width: 12%;
   }
   .edtRev-cntr .col-md-6 {
     padding: 0;
@@ -20671,16 +20697,22 @@ html[dir=rtl] .navbar-toggler .h1{
     width: 90%;
   }
   .setEze-Ctgry {
-    padding: 3px 3px 3px 5px;
+    padding: 0px 3px 0px 5px;
   }
   .stEze-Lnk {
     padding: 5px 0;
   }
   .stEze-Lnk {
-    width: 10%;
+    width: 36px;
     max-width: 45px;
     position: relative;
     right: 2px;
+  }
+  html[dir=rtl]  .stEze-Lnk {
+    width: 36px;
+    max-width: 45px;
+    position: relative;
+    right: -5px;
   }
   .ezeCat-All {
     font-size: 13px;
@@ -21183,7 +21215,7 @@ html[dir=rtl] .navbar-toggler .h1{
     padding: 20px 0px;
   }
   html[dir=rtl] .setEze-Ctgry {
-    padding: 3px 5px 3px 3px;
+    padding: 0px 5px 0px 3px;
   }
   html[dir=rtl] .nstdSpan {
     padding: 0 4px 0 0;
@@ -21265,14 +21297,14 @@ html[dir=rtl] .navbar-toggler .h1{
   .ac-setup .acntLg-Upld{width: 25%;}
 .edit-product{width: 90%;}
 .stupImg {
-  width: 52px;
+  width: 46px;
 }
 .stup-clm-2 p {
-  font-size: 16px;
+  font-size: 13px;
 }
 .sub-Icns img {
-  height: 44px;
-  width: 35px;
+  height: 38px;
+  width: 30px;
 }
 .stup-clm-2 p {
   padding-left: 10px;
@@ -21412,7 +21444,9 @@ html[dir=rtl] .navbar-toggler .h1{
     font-size: 16px;
     font-weight: 400;
   }
-
+.setEze-Ctgry .form-control, .acntSetup-Form .form-select input{
+  margin: 0px auto;
+}
 
   .mb-hisDtl .sale-Name, .mb-hisDtl .tl-Cst {
     border: 0;
@@ -21772,6 +21806,9 @@ html[dir=rtl] .stock-radio {
 
 
 /* ========= new css from designHtml====== */
+html[dir="rtl"] .setEze-Ctgry .form-control {
+  margin: 0px;
+}
 .dleOptnreq, .payOptnreq {
   width: 27%;
 }
@@ -21897,7 +21934,7 @@ html[dir=rtl] .modal-head-row .btn {
 .new__layout .payOptnreq { width: 26%; }
 .new__layout .payOptnreq .cnfrm { padding: 0%; }
 /* .new__layout .cnfrm { width: 63px; } */
-@media (max-width:1599px) { 
+@media (max-width:1600px) { 
   .new__layout .task-status {width: 53%; }  
   .new__layout .payOptnreq { width: 21%; }
 }
@@ -21926,7 +21963,7 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 
 .compact__tb__bdy .tb-bdy .stkImgcol .imgItm, .compact__tb__bdy .tb-bdy .ordItm-Img { height: 60px;width:50px; }
 .compact__tb__bdy  .tb-bdy { padding: 5px 8px; }
-@media screen and (min-width: 1600px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
+@media screen and (min-width: 1601px) { .compact__tb__bdy  .tb-bdy { padding: 2px 8px; } }
 .newOrder > .row { --bs-gutter-y: 0;--bs-gutter-x: 0; }
 
 
@@ -21939,7 +21976,7 @@ html[dir=rtl] .modal .addUser-Form .form-control { width: 100% !important;margin
 .logout__icon img { width:32px !important;height: 32px !important; }
 
 
-@media (max-width: 1599px) {
+@media (max-width: 1600px) {
   
   .new_task__icon img {
     width: 28px !important;
@@ -22142,7 +22179,7 @@ html[dir=rtl] body {
   box-shadow: none !important;
 }
 
-/* @media (max-width: 1599px) {
+/* @media (max-width: 1600px) {
  .innerDrop .submenu {
       right: -5.3rem;
   }
