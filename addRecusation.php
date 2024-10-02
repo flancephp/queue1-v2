@@ -557,7 +557,8 @@ if($_SESSION['deptId'] != '')
     
                                                                 <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
                                                                     <li class="dropdown innerDrop">
-                                                                        <a class="dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?></a> 
+                                                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?> <i
+                                                                        class="fa-solid fa-angle-down"></i></a> 
                                                                         <ul class="subitem submenu dropdown-menu dropdown__menu">
                                                                             <?php
                                                                             //add item fee & custom fee modal box 
@@ -583,7 +584,7 @@ if($_SESSION['deptId'] != '')
                                                                             href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
                                                                     </li>
                                                                     <li class="dropdown innerDrop">
-                                                                        <a class="item dropdown-item" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                        <a class="item dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?><i class="fa-solid fa-angle-down"></i></a>
                                                                         <ul class="subitem submenu large dropdown-menu dropdown__menu">
                                                                             <?php
                                                                                 //add item fee & custom fee modal box 

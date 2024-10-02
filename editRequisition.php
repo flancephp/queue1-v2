@@ -529,8 +529,8 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                             <ul class="item dropdown-menu"  id="dropdownMenu"
                                                                 style="left: -34% !important;">
                                                                 <li class="innerDrop  dropdown">
-                                                                    <a class="dropdown-item"  role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?></a>
+                                                                    <a class="dropdown-item d-flex justify-content-between align-items-center"  role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Service Item'); ?><i class="fa-solid fa-angle-down"></i></a>
 
                                                                     <ul class="subitem submenu list-unstyled  dropdown-menu dropdown__menu">
                                                                         <?php
@@ -557,8 +557,8 @@ $ordRow = mysqli_fetch_array($resultSet);
                                                                         href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a>
                                                                 </li>
                                                                 <li class="innerDrop dropdown">
-                                                                    <a class="item dropdown-item" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?></a>
+                                                                    <a class="item dropdown-item d-flex justify-content-between align-items-center" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        href="javascript:void(0)"><?php echo showOtherLangText('Fee'); ?><i class="fa-solid fa-angle-down"></i></a>
                                                                     <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                                                         <?php
                                                                         //add item fee & custom fee modal box 
