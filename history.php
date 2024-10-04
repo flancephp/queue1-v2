@@ -1466,6 +1466,11 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
 @media screen and (min-width: 1600px) {
   .chkStore img { width: 26px; } 
 }
+@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) {
+    html[dir="rtl"] .btn.fs-13 { 
+        line-height: 8px;
+    }
+}
 </style>
 
 

@@ -15266,6 +15266,12 @@ html[dir=rtl] .logo {
   padding-left: 0;
   padding-right: 8px;
 }
+@media(max-width:1023px) {
+  html[dir=rtl] .logo {
+    padding-left: 13px;
+    padding-right: 0;
+  }
+}
 
 html[dir=rtl] .form-select {
   background-image: url("../icons/select-rtl.svg");
@@ -17958,7 +17964,7 @@ html[dir=rtl] .form-select {
     right: 0;
   }
   html[dir=rtl] .clsBar {
-    left: 7%;
+    left: 3%;
     right: auto;
     transform: scaleX(-1);
   }
