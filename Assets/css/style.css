@@ -13746,7 +13746,7 @@ html[dir=rtl] .setEze-Ctgry {
   background: transparent;
   border: none;
   border-radius: 0;
-  width: 91%;
+  width: 80%;
   padding: 0;
 }
 
@@ -13755,7 +13755,7 @@ html[dir=rtl] .setEze-Ctgry {
 }
 
 .stEze-Lnk {
-  width: 9%;
+  width: 36px;
   background: #7a89fe;
   border-radius: 10px;
   color: #fff;
@@ -16568,15 +16568,15 @@ body .ui-widget-content {
 .spaceAddUser1{padding-top: 14px;
   padding-bottom: 14px;}
 
-.enableOrder{padding-right: 18px;}
-.enableRequisition{padding-right: 20px;}
+.enableOrder{padding-right: 21px;}
+.enableRequisition{padding-right: 21px;}
 .enableRunningtask{padding-right: 21px;}
 .enableHistory{padding-right:21px;}
 .enableStock{padding-right:21px;}
 .enableNewStockTake{width: 98px;}
 .enableRevenueCenter{padding-right:21px;}
 .enableSetup{padding-right:21px;}
-.runningtask-radio{padding-right:20px;}
+.runningtask-radio{padding-right:21px;}
 .enableMobileSection{padding-right:40px;}
 .font-normal{font-weight: 400;}
 
@@ -16618,7 +16618,8 @@ display: flex;}
 
 @media screen and (min-device-width: 1601px) and (max-device-width: 1920px) { 
  
- 
+  .edispace01{height: 54px;
+  }
 
 
 }
@@ -16749,7 +16750,11 @@ display: flex;}
 
 
   html[dir=rtl] .addUser-Form .form-select {
-    padding: 16px 10px;background-size: 42px 42px;
+    padding: 13px 10px;
+    background-size: 36px 36px;
+  }
+  .form-select {
+    font-size: 14px;
   }
 
   .btn-primary {
@@ -16768,7 +16773,10 @@ display: flex;}
   }
 
   .enableMobileSection {
-    padding-right: 35px;
+    padding-right: 34px;
+  }
+  .enableOrder {
+    padding-right: 17px;
   }
   .enableRequisition {
     padding-right: 17px;
@@ -20715,10 +20723,10 @@ html[dir=rtl] .navbar-toggler .h1{
     right: 2px;
   }
   html[dir=rtl]  .stEze-Lnk {
-    width: 36px;
-    max-width: 45px;
+    width: 10%;
+    max-width: 36px;
     position: relative;
-    right: -5px;
+    right: -1px;
   }
   .ezeCat-All {
     font-size: 13px;
@@ -21640,7 +21648,9 @@ html[dir=rtl] .navbar-toggler .h1{
     padding: 12px 10px;
     background-size: 36px 36px;
   }
-
+  .setEze-Ctgry .form-control {
+    width: 78%;
+  }
 
 
   .slCst-fltBtn img {

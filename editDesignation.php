@@ -33,10 +33,10 @@ include_once('script/editDesignation.php');
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
 
-       .fs-13{font-weight: 400;}
+       /* .fs-13{font-weight: 400;}
        .fs-13 {
         font-size: 15px;
-        }
+        } */
     </style>
 
 </head>
