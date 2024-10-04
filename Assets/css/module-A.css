@@ -439,7 +439,7 @@ html[dir=rtl] .text-start { text-align: right !important; }
 }
 
 /* ----- History page payment table styles ---------- */
-.payment__table { min-width: 666px;color: #232859; }
+.payment__table { min-width: 569px;color: #232859; }
 .payment__table th { border: 0; }
 .payment__table th { background: #A9B0C0;color: var(--color-white);font-size: 1rem;line-height: 1.18;padding: 1.125rem; } 
 .payment__table th:first-child { border-radius: .625rem 0 0 .625rem;text-align: center; }

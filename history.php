@@ -1012,7 +1012,8 @@ $colsArr = [
     }
     @media screen and (min-width: 1600px) {
     .paidIsue, .usdCurr, .otrCurr, .recIsue, .Variance, .accntDtl p:last-child {
-        font-size: 1.125rem; 
+        /* font-size: 1.125rem;  */
+        font-size: 16px; 
     }
     }
     .accntDtl {
@@ -1078,12 +1079,12 @@ $colsArr = [
         }
 
 
-        .usdCurr {display: none;}
+        .usdCurr {display: none;width: 33.333%;min-width: 8rem;}
         .dspBlk  {width: 90%;}
         .issueIn  {width: 34% !important;}
         .issueDtl .Variance { width: 33% !important;}
-        .issueDtl1 .dspBlk  {width: 47%;}
-        .issueDtl1 .issueIn  {width: 55% !important;}
+        .issueDtl1 .dspBlk  {width: 47%;min-width: 14rem;}
+       
         .issueDtl.issueDtl1 .Variance { width: 14% !important;}
 
 
@@ -1156,6 +1157,7 @@ $colsArr = [
     top: -4px;
 }
   @media (max-width:1024px) {
+    .issueDtl1 .issueIn  {width: 55% !important;overflow-x:auto;}
     .numRef {
         width: 100%;
     }
@@ -1194,13 +1196,14 @@ $colsArr = [
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    cursor: pointer;
+    cursor: pointer;background-color: #fff; 
   }
   .toggle-currency-btn:hover {
     color: #fff !important;
     background-color: #7a89ff;
     border-color:  #7a89ff ;
   }
+
   /* .pdAmount, .pendAmount { font-weight:600; } */
  /* .paidIsue .pdAmount,
  .paidIsue .pendAmount,
@@ -1225,7 +1228,7 @@ $colsArr = [
  
 #itemDiv, #taskDiv{ background-color: #fff !important;}
 
-.issueDtl {padding: 9px 10px;}
+.issueDtl {padding: 9px 10px;position: relative;}
 .issueDtl .Variance {padding-right:  0px !important; width: 14% !important;}
 .issueOut {width: 31% !important;} 
 .issueIn { width: 55% !important; }
@@ -1257,12 +1260,18 @@ $colsArr = [
     .lg_pr_8 { padding-left:8px; }
 }
 .update .hisTask { padding: 0; }
-@media(min-width:1024px) {
+@media(min-width:1025px) {
     /* .lg_max_w_100 { width:100px; } */
     .lg_w_35 { width: 35% !important; }
     .lg_pl_0 { padding-left: 0; }
     .update .hisTask { padding: 3px 16px !important; }
+    .toggle-currency-btn { position: absolute;top:10px;left:92%; }
+    .issueIn { overflow-x:auto; }
 }
+@media(min-width:1200px) { 
+    .toggle-currency-btn { left:50%; }
+}
+ 
 @media (max-width: 1024px) {
   .hstTable-show{ top: 3rem;padding-top: 0 !important;background: transparent; }
   .detailPrice.detailPrc-show { padding: 0% !important;top: 3.5rem;background-color: #fff;display: block;border-radius:1rem 1rem 0 0; } 
@@ -1282,6 +1291,8 @@ $colsArr = [
   .update .d-flex.align-items-center.justify-content-end.his-Paybtn{padding-bottom: 4px;}
   .mb-Acntdetail .tb-bdy{padding-left: 0;padding-bottom: 0 !important;display:flex;justify-content:between;}
   .hstDate .datepicker { font-size: 14px; }
+
+  .numItmclm.order_num { min-height: 4rem; }
 }
 @media(min-width:768px) and (max-width:1024px) {
     .update .newHistoryTask .itmBody .price__box.refer { padding-left: 16px; }
@@ -1303,7 +1314,7 @@ $colsArr = [
     .res__filter__box .dropdnbtns { margin-top: 1rem; }
     .update .itemBody .shrtHisclm.tb-bdy { padding: 4px 4px 0 !important; }
     .hisTask p { overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp:1;display:-webkit-box;-moz-box;white-space: nowrap;}
-    .update .itmBody .stsHiscol { padding-top: 24px;padding-left: 10px; }
+    .update .itmBody .stsHiscol { padding-left: 10px; }
 }
 @media (max-width:575px) { 
     .res__filter__box .itmTable .tb-bdy, .res__filter__box .itmTable .tb-bdy { width: 100%; } 
@@ -1397,23 +1408,28 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p { font-weight:700 !important;font-size:1rem !important; }
 .update .itmTable .dropdown-toggle{ height:43px;font-size:15px; } 
 .newHistoryTask { position: relative; }
-.order_num.numItmclm p { color: #232859; }
-
+.order_num.numItmclm p { color: #232859; } 
 .srHisclm p { font-size:1.35rem !important;font-weight:600 !important; }
+
+@media(min-width:1600px) and (max-width:1800px) {
+    .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p, .itmBody > div:first-child p, .update .itmTable, .update .srHisclm p { font-size:15px !important; }
+      
+}
+
 @media(max-width:1599px){
     .update .itmBody > div:first-child p, .update .hisTask .tb-bdy { font-size: 12px; }
     .update .itmTable .dropdown-toggle{ padding:7px 5px; height:34px;font-size:12px; }
-    .update .itmTable, .update .srHisclm p, .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p { font-size:12px !important; }
+    .update .itmTable, .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p { font-size:12px !important; }
    
 }
 @media (min-width:768px) and (max-width:1024px){
     .update .hisTory { margin-top: 0;padding: 0 10px; }
 }
 @media screen and (min-width: 1600px) {
-  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 100%; }
-  .itmBody { font-size:1rem; }
-  
-  
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 100%; } 
+}
+@media screen and (min-width: 1800px) {
+    .itmBody { font-size:1rem; }
 }
 @media screen and (min-width: 2000px) {
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1600px; }
@@ -1427,7 +1443,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     html[dir="rtl"] .srHisclm { right:-4rem;left:auto;text-align: left;padding-left: .5rem; }
     .update .hisParent-sec { padding-left: 4rem;margin-left: -4rem; }
     html[dir="rtl"] .update .hisParent-sec { padding-left: 0;margin-left: 0;padding-right: 6rem;margin-right: -4rem; }  
-    
+    .btn2 { font-size: 12px; }
 }
 .fw-normal p { font-weight:400 !important; }
 
@@ -1450,6 +1466,14 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
   text-align: start;
 }
 .set__left__padding { padding:8px 0; } 
+@media screen and (max-width: 1024px) {
+    .hisData {
+        padding: 10px 0 0;
+    }
+    .paidIsue .col-md-3 { 
+        margin-top: 9%;
+    }
+}
 @media(max-width:767px) {
     .set__left__padding { padding: 5px 0px;line-height: 1.4; } 
     .modal-header { padding: 0px 0 12px 0; }
@@ -1470,6 +1494,9 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
     html[dir="rtl"] .btn.fs-13 { 
         line-height: 8px;
     }
+}
+@media(min-width:1200px) and (max-width:1599px) { 
+    .srHisclm p{ font-size:18px !important; } 
 }
 </style>
 
@@ -1761,7 +1788,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                         $result = mysqli_query($con, $sql);
                                         if(mysqli_num_rows($result)>0){?>
                                         <!-- added on 31-7-24 -->
-                                        <div class="usdCurr text-center">
+                                        <div class="usdCurr col-4 text-center">
                                                 <div class="paidIsue d-flex">
                                                     <div class="col-md-3">
                                                         <p class="pdStatus">Paid</p>
@@ -1816,7 +1843,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                         foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
                                         
                                         
-                                            <div class="usdCurr text-center">
+                                            <div class="usdCurr col-4 text-center">
                                                 <div class="paidIsue d-flex">
                                                     <div class="col-md-3">
                                                         <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
@@ -1832,6 +1859,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                             </div>
                                            
                                         <?php } ?>
+                                         
                                         
                                         <div style="padding-left:.5rem;">
                                     <a class="<?php 

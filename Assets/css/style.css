@@ -16631,7 +16631,7 @@ display: flex;}
 /* ----- 1600 to 1024 Desktop Screen start ------- */
 
 
-@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) { 
+@media screen and (min-device-width: 1024px) and (max-device-width: 1599px) { 
  
   .nav-bar > ul > li > a.nav-link {
     height: 66px;

@@ -341,7 +341,15 @@ $cond = '';
             .container.cntTable.pb-md-4{margin-top: -2.5rem; }  
         }
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 1.5rem;} html[dir="rtl"] .container.mt-5.topOrder{{padding: 0 1.5rem;}} }
-        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 2.5rem;} }
+        @media(min-width:992px){ 
+            .container.cntTable, .nordPrice, .topOrder {padding: 0 2.5rem;} 
+            .btnBg .btn-primary {
+                font-size: 18px; 
+                min-height: 52px;
+                align-items: center;
+                display: inline-flex;
+            } 
+     }
         @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 3.5rem;} }
         .container.cntTable.header{padding-top: 1rem;}
         @media (min-width:992px) and (max-width:1199px){ 
@@ -589,7 +597,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg w-100">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-end gap-2 d-inline-flex px-md-3">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-end gap-2 d-inline-flex px-md-3 align-items-center">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center m-0"></i>
                                                 </a>
                                             </div>

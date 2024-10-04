@@ -353,6 +353,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         border-width: 2px;
     }
     .btn-primary:focus { outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;}
+    
     @media (max-width: 767px) {
         .btn-primary { border-radius: 0.5rem !important;padding: .5rem 1rem !important; }
         .new__layout {
@@ -374,6 +375,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             width: 100% !important; 
         }
     }
+  
     .status-ordered, { color: #232859; }
     .status-tmp-req, .status-tmp-order { color: #939393; }
     .status-req{ color:#232859; }
@@ -384,19 +386,26 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             justify-content:flex-start;
         }
     }
-    .task-status { font-size:13px; }
+    .status-done {
+    color: red !important;
+    }
+    .task-status { font-size:1rem; }
+    @media(max-width:1199px) {
+        .task-status { font-size:13px; }
+    }
     @media(min-width:1400px) {
         .task-status { font-size:1rem; }
         .srNum p { font-size:1.25rem; }
         .rntskHead .taskHead > div:first-child { font-size: 1rem; }
     }
     @media(min-width:1600px) { 
-        .srNum p { font-size:1.375rem; } 
+        .srNum p { font-size:20px; }  
+        .runDetail { font-size:16px; }
     }
-    .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq { width: 11.75rem !important;min-width: auto !important;gap: 0.5rem; }
+    .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq { width: 188px !important;min-width: auto !important;gap: 0.5rem; }
     .update .new__layout .payOptnreq { gap:0.5rem; }
     .task-list-status-col-p .new__layout .payOptnreq{width: 118px;}
-    .update .new__layout .task-status { width: calc(100% - 19.12rem); }
+    .update .new__layout .task-status { width: calc(100% - 305px); }
     .cn-btn { color: #232859; }
     .cnfrm, .doc-bx, .dlt-bx { margin:0; } 
     #order_details_supplier .modal-header .btn-primary.dwnBtn { padding: 4.5px 18px !important;display:inline-flex;border-radius: 6px !important;align-items: center;gap: .25rem; }
@@ -424,9 +433,16 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     @media(min-width:1200px) and (max-width:1599px) {
         .runDetail, .task-status { font-size:14px; }
-        .srNum { font-size:1.5rem; }
+        .srNum { font-size:18px; } 
+    }
+    @media(min-width:1200px) and (max-width:1599px) {
+        .runDetail, .task-status { font-size:14px; }
+        .srNum { font-size:18px; } 
+    }
+    @media(min-width:1200px) {
         .stsBar .btn2 { font-size: 12px; }
     }
+    .status-assigned { color:#0d6efd; }
 </style>
 </head>
 
@@ -588,7 +604,7 @@ echo isset($_GET['unAssigned']) ? ' '.showOtherLangText('User has been unassigne
 
                         </div>
                         <div class="d-flex align-items-center" style="width: 55%;">
-                            <div class="p-1 text-center" style="width: calc(100% - 19.12rem);">
+                            <div class="p-1 text-center" style="width: calc(100% - 305px);">
                                 <p><?php echo showOtherLangText('Status') ?></p>
                             </div>
                         </div>

@@ -401,6 +401,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 50px 0 0; }
         .nwNxt-Btn1 .btn__box { max-width: 174px !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
+        .btn__box .btn-primary { min-height: 52px;display:inline-flex;align-items:center;justify-content:center; }
     }
     
     @media (max-width:992px) {
