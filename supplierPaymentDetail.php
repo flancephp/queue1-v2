@@ -1220,7 +1220,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                                     <td><?php echo showOtherLangText('Payment Type') ?></td>
                                                     <td>
                                                         
-                                                    <select name="paymentType" id="paymentType" class="form-select  arrowdown-icon" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" required>
+                                                    <select name="paymentType" id="paymentType" class="form-select  form-select-1" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" required>
 
                           <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
@@ -1280,7 +1280,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
 
                     </select> -->
-                    <select name="accountId" id="accountId" class="form-select arrowdown-icon" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="fetchAccountDetail(this.value),this.setCustomValidity('')" required>
+                    <select name="accountId" id="accountId" class="form-select form-select-1" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="fetchAccountDetail(this.value),this.setCustomValidity('')" required>
 
                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
 

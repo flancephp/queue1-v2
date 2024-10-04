@@ -401,14 +401,14 @@ $content = '<!DOCTYPE html>
             }
           $content .= '</tbody>
       </table>
-      <table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
         <tr>
-            <td style="width: 50%; border-block: 1px solid #d2d2d2; padding-block: 20px;">
+            <td style="width: 50%; border-top: 1px solid #d2d2d2; border-bottom: 1px solid #d2d2d2; padding-top: 15px;">
                 <div style="display: flex; align-items: center;">
                     <div style="flex: 1;">
-                        <h6 style="font-weight: bold; font-size: 15px; margin: 0;">'.showOtherLangText('History Report').'</h6>
+                        <h6 style="font-weight: bold; font-size: 15px; margin: 0;line-height:18px;">'.showOtherLangText('History Report').'</h6>
                     </div>
-                    <div style="flex: 1; text-align: right; font-size: 15px;">
+                    <div style="flex: 1; text-align: right; font-size: 15px;margin:0;line-height:18px;">
                         <small>'.showOtherLangText('From').'</small> '.$fromDate.'<small> '.showOtherLangText('To').'</small> '.$toDate.'
                     </div>
                 </div>
@@ -560,8 +560,8 @@ $content = '<!DOCTYPE html>
                             </tr>';
                
               $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                        <td style="color: #198754; padding: 8px 5px;">&uarr; '.getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</td>
-                        <td style="color: #dc3545; padding: 8px 5px;">&darr; '.getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']).'</td>
+                        <td style="color: #198754; padding: 8px 5px;">&uarr;'.getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</td>
+                        <td style="color: #dc3545; padding: 8px 5px;">&darr;'.getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']).'</td>
                     </tr>
                 </table>
             </td>';

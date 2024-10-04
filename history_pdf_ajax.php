@@ -678,7 +678,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                 {
                 $content .= '<div class="summery-row summery-row1">
                         <div class="row m-0"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="'.count($otherCurrRowArr).'"/>
-                            <div class=" '.$issueinClass.' issueInSection col-12 px-0 summaryPart">
+                            <div class=" '.$issueinClass.' issueInSection px-0 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
                                         <div class="table-cell">&nbsp;</div>
