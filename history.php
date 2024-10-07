@@ -1223,7 +1223,7 @@ $colsArr = [
      scale:1.1;
   }
 
-  
+  .negetive__margin { margin-top: -30px; }
   .numItmclm, .hisDateclm, .hisValclm, .numItmclm a, .hisDateclm a, .hisValclm a, .hisStatusclm p, .numItmclm p, .action-column-p p{font-weight:600;}
  
 #itemDiv, #taskDiv{ background-color: #fff !important;}
@@ -1415,8 +1415,9 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .srHisclm p { font-size:1.35rem !important;font-weight:600 !important; }
 
 @media(min-width:1600px) and (max-width:1800px) {
-    .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p, .itmBody > div:first-child p, .update .itmTable, .update .srHisclm p { font-size:15px !important; }
-      
+    .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p, .update .itmTable, 
+    .update .itmTable .dropdown-toggle { font-size:14px !important; }
+    .serial { font-size: 18px !important; }
 }
 
 @media(max-width:1599px){
@@ -1445,8 +1446,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
     .srHisclm { position:absolute;top:1rem;left:-4rem;text-align: right; }
     html[dir="rtl"] .srHisclm { right:-4rem;left:auto;text-align: left;padding-left: .5rem; }
     .update .hisParent-sec { padding-left: 4rem;margin-left: -4rem; }
-    html[dir="rtl"] .update .hisParent-sec { padding-left: 0;margin-left: 0;padding-right: 6rem;margin-right: -4rem; }  
-    .btn2 { font-size: 12px; }
+    html[dir="rtl"] .update .hisParent-sec { padding-left: 0;margin-left: 0;padding-right: 6rem;margin-right: -4rem; }   
 }
 .fw-normal p { font-weight:400 !important; }
 
@@ -1497,6 +1497,10 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
     html[dir="rtl"] .btn.fs-13 { 
         line-height: 8px;
     }
+}
+@media(min-width:1600px) { 
+    .itmBody > .srHisclm p{ font-size:20px !important; } 
+    .btn2 { font-size: 12px; }
 }
 @media(min-width:1200px) and (max-width:1599px) { 
     .srHisclm p{ font-size:18px !important; } 
@@ -1972,7 +1976,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                             <div class="align-items-center d-flex dropdnbtns">
                                 <div class="numRef numRef1 align-items-center">
                                     <div class="tb-bdy srHisclm">
-                                        <p><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
+                                        <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
                                     </div>
                                         
                                         <?php if (isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields)) { ?>
@@ -2395,7 +2399,7 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
                                     <div class="align-items-center itmBody">
                                         <div class="numRef numRef2 align-items-center">
                                             <div class="tb-bdy srHisclm" style="min-width: fit-content;">
-                                                <p><?php echo $x; ?></p>
+                                                <p class="serial"><?php echo $x; ?></p>
                                             </div>
                                             
                                                 <?php if (isset($historyUserFilterFields) && !in_array(1, $historyUserFilterFields)) { ?>

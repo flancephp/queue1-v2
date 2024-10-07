@@ -385,7 +385,9 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     <style>
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
         @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
-        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder {padding-left: 3.5rem !important;padding-right: 3.5rem !important;}
+            .btn__box .btn-primary { min-height: 52px; }
+        }
     .fa-angle-right,
     .fa-angles-left { 
         padding: 0; font-size: 1rem;vertical-align: middle;width: 30px;height:30px;
@@ -401,7 +403,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 50px 0 0; }
         .nwNxt-Btn1 .btn__box { max-width: 174px !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
-        .btn__box .btn-primary { min-height: 52px;display:inline-flex;align-items:center;justify-content:center; }
+        .btn__box .btn-primary { min-height: 44px;display:inline-flex;align-items:center;justify-content:center; }
     }
     
     @media (max-width:992px) {
@@ -465,6 +467,9 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     @media (max-width: 1599px) {
         .itmTable { font-size: .875rem; }
         .itmBody { font-size: 14px; }
+        .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
+        .mbFeature .ordFeature > a { padding: 20px 0; }
+        .mbFeature .ordFeature:before { height: 37px; }
     }
     
     .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type {

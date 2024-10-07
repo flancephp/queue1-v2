@@ -435,6 +435,9 @@ $otherChrgQry=mysqli_query($con, $sql);
             .rcvInfo { padding: 0 49px 0 50px; }
             .fees__row .tb-bdy { line-height: 3; }
         }
+        @media screen and (max-width: 1599px) {
+            .dropdown-toggle.tabFet { padding:20px 10px; }
+        }
         @media screen and (min-width: 1200px) {
             html[dir='rtl'] .container.topOrder.rcvOrder { margin-top: -1.5rem; }
         }

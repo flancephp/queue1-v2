@@ -397,6 +397,10 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
 }
 @media screen and (max-width: 1599px) {
   .itmBody, .itmTable { font-size: 14px; } 
+  .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
+  .mbFeature .ordFeature > a { padding: 20px 0; }
+  .filder__btns.col-md-7 { max-width: 428px; }
+  .mbFeature .ordFeature:before { height: 37px; }
 }
 
 @media (max-width:991px) {

@@ -348,6 +348,9 @@ if($_SESSION['deptId'] != '')
             .reqCnt-Fst { width: calc(54% - 8rem); } 
             .reqClm-Qty { width: 45%; }
             .reqClm-Ttl { width: 55%; }
+            .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
+            .mbFeature .ordFeature > a { padding: 20px 0; }
+            .mbFeature .ordFeature:before { height: 37px; }
         }
         @media screen and (max-width: 1024px) {
             .newFeatures {

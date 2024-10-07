@@ -401,6 +401,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     @media(min-width:1600px) { 
         .srNum p { font-size:20px; }  
         .runDetail { font-size:16px; }
+        .stsBar .btn2 { font-size: 12px; }
     }
     .update .task-list-status-col-p .d-flex.align-items-center.dleOptnreq { width: 188px !important;min-width: auto !important;gap: 0.5rem; }
     .update .new__layout .payOptnreq { gap:0.5rem; }
@@ -440,7 +441,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .srNum { font-size:18px; } 
     }
     @media(min-width:1200px) {
-        .stsBar .btn2 { font-size: 12px; }
+        .stsBar .btn2 { font-size: 10px; }
     }
     .status-assigned { color:#0d6efd; }
 </style>

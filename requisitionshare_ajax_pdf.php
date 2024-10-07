@@ -302,7 +302,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         <div class="table-cell" style="width: 25%;"></div>';
                                     }
 
-                                     $content .= '</div><div class="table-row"><div class="table-cell"></div><div class="table-cell"></div><div class="table-cell"></div>  <div class="table-cell">';
+                                     $content .= '</div><div class="table-row negetive__margin"><div class="table-cell"></div><div class="table-cell"></div><div class="table-cell"></div>  <div class="table-cell">';
                                      $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                                  $resultSet = mysqli_query($con, $sqlSet);
                                  $chargeRow = mysqli_fetch_array($resultSet);   

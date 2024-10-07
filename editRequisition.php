@@ -344,12 +344,12 @@ $cond = '';
         @media(min-width:992px){ 
             .container.cntTable, .nordPrice, .topOrder {padding: 0 2.5rem;} 
             .btnBg .btn-primary {
-                font-size: 18px; 
-                min-height: 52px;
+                font-size: 14px; 
+                min-height: 44px;
                 align-items: center;
                 display: inline-flex;
             } 
-     }
+        }
         @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 3.5rem;} }
         .container.cntTable.header{padding-top: 1rem;}
         @media (min-width:992px) and (max-width:1199px){ 
@@ -370,7 +370,16 @@ $cond = '';
             .itmBody { padding-top: 0; padding-bottom: 0; }
             .tb-bdy { padding: .625rem .5rem; }
             .curRow { font-size: 1.125rem; } 
+            .btnBg .btn-primary {
+                font-size: 18px; 
+                min-height: 52px; 
+            } 
             
+        }
+        @media screen and (max-width: 1599px) {
+            .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
+            .mbFeature .ordFeature > a { padding: 20px 0; }
+            .mbFeature .ordFeature:before { height: 37px; }
         }
         .featRow { max-width:118px; }
         
