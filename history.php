@@ -1079,7 +1079,7 @@ $colsArr = [
         }
 
 
-        .usdCurr {display: none;width: 33.333%;min-width: 8rem;}
+        .usdCurr {display: none;width: 20%;min-width: 7rem;}
         .dspBlk  {width: 90%;}
         .issueIn  {width: 34% !important;}
         .issueDtl .Variance { width: 33% !important;}
@@ -1269,7 +1269,10 @@ $colsArr = [
     .issueIn { overflow-x:auto; }
 }
 @media(min-width:1200px) { 
-    .toggle-currency-btn { left:50%; }
+    .toggle-currency-btn { left:21px; }
+}
+@media(min-width:1600px) { 
+    .toggle-currency-btn { left:47px; }
 }
  
 @media (max-width: 1024px) {
