@@ -1010,9 +1010,8 @@ $colsArr = [
     .issueDtl {
         min-height: 160px !important;
     }
-    @media screen and (min-width: 1600px) {
-    .paidIsue, .usdCurr, .otrCurr, .recIsue, .Variance, .accntDtl p:last-child {
-        /* font-size: 1.125rem;  */
+    @media screen and (min-width: 1601px) {
+    .paidIsue, .usdCurr, .otrCurr, .recIsue, .Variance, .accntDtl p:last-child { 
         font-size: 16px; 
     }
     }
@@ -1247,6 +1246,7 @@ $colsArr = [
     .issueIn { padding-right: 0;width: 100% !important;margin-bottom: 2rem; }
     .issueOut {width: 60% !important;} 
     .issueDtl .Variance { width: 40% !important; }
+    .issueDtl1 .issueIn { width: 100% !important;}
 }
 
 /* ---- Responsive Filterbox styles start -------- */
@@ -1266,13 +1266,16 @@ $colsArr = [
     .lg_pl_0 { padding-left: 0; }
     .update .hisTask { padding: 3px 16px !important; }
     .toggle-currency-btn { position: absolute;top:10px;left:92%; }
+    html[dir="rtl"] .toggle-currency-btn { right:92%;left:auto; }
     .issueIn { overflow-x:auto; }
 }
 @media(min-width:1200px) { 
     .toggle-currency-btn { left:21px; }
+    html[dir="rtl"] .toggle-currency-btn { right:21px;left:auto; }
 }
 @media(min-width:1600px) { 
     .toggle-currency-btn { left:47px; }
+    html[dir="rtl"] .toggle-currency-btn { right:47px;left:auto; }
 }
  
 @media (max-width: 1024px) {
@@ -1505,6 +1508,8 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
 @media(min-width:1200px) and (max-width:1599px) { 
     .srHisclm p{ font-size:18px !important; } 
 }
+.modal .sub-table .table-cell, .modal .left__align__text .table-cell { text-align: left !important; }
+html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__align__text .table-cell { text-align: right !important; }
 </style>
 
 

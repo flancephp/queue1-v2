@@ -299,121 +299,105 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         </div>
                                         <div class="table-cell" style="width: 25%;"></div>
                                         <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>';
+                                        ';
                                     }
 
-                                     $content .= '</div><div class="table-row negetive__margin"><div class="table-cell"></div><div class="table-cell"></div><div class="table-cell"></div>  <div class="table-cell">';
-                                     $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
-                                 $resultSet = mysqli_query($con, $sqlSet);
-                                 $chargeRow = mysqli_fetch_array($resultSet);   
-                                 $chargePrice=$chargeRow['sum1'];
-                                 $chargePriceOther=$chargeRow['totalAmtOther'];
-                                 
-         
-                                 //to find order level charge
-                                 $ordCount="SELECT * from tbl_order_details where ordId='".$_REQUEST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
-                                 $ordCountResult = mysqli_query($con, $ordCount);
-                                 $ordCountRow = mysqli_num_rows($ordCountResult);
-                                 $showGrandTotal = false;
+                                    $content .= '<div class="table-cell" style="width: 25%;">';
+                                    $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
+                                    $resultSet = mysqli_query($con, $sqlSet);
+                                    $chargeRow = mysqli_fetch_array($resultSet);   
+                                    $chargePrice=$chargeRow['sum1'];
+                                    $chargePriceOther=$chargeRow['totalAmtOther'];
+                                     
+                                    //to find order level charge
+                                    $ordCount="SELECT * from tbl_order_details where ordId='".$_REQUEST['orderId']."'  AND account_id = '".$_SESSION['accountId']."' AND customChargeType='2' ";
+                                    $ordCountResult = mysqli_query($con, $ordCount);
+                                    $ordCountRow = mysqli_num_rows($ordCountResult);
+                                    $showGrandTotal = false;
     
-                                 if ($ordCountRow > 0)
-                                 { 
-    
-                                    $showGrandTotal = true;
-                                     $content .= '<div class="d-flex set__left__padding"> 
-                                     <div class="col-7"><span class="amountSections smryHead" >'.showOtherLangText('Sub Total').'</span></div>
-                                     <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'
-                                         
-                                    </div></div>';
-                                }
-                                 $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
-                                 INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-                                 WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
-         
-                                 $ordQry = mysqli_query($con, $sql);
-                         
-                     
-                         $fixedCharges = 0;
-                         $fixedChargesOther = 0;
-                         while($row = mysqli_fetch_array($ordQry))//show here order level charges
-                         {
-                                 $fixedCharges += $row['price'];
-                                 $fixedChargesOther += $row['curAmt'];
-                                   $content .= '<div class="d-flex set__left__padding"> 
-                                   <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
-                                   <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'
-                                         
-                                    </div></div>';
-                          }
+                                    if ($ordCountRow > 0)
+                                    { 
+        
+                                        $showGrandTotal = true;
+                                        $content .= '<div class="d-flex set__left__padding"> 
+                                            <div class="col-7"><span class="amountSections smryHead" >'.showOtherLangText('Sub Total').'</span></div>
+                                            <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'</div>
+                                        </div>';
+                                    }
+                                    $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                                    INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                                    WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 2 ORDER BY tp.feeName ";
+            
+                                    $ordQry = mysqli_query($con, $sql);
+                          
+                                    $fixedCharges = 0;
+                                    $fixedChargesOther = 0;
+                                    while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                                    {
+                                        $fixedCharges += $row['price'];
+                                        $fixedChargesOther += $row['curAmt'];
+                                        $content .= '<div class="d-flex set__left__padding"> 
+                                            <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
+                                            <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</div>
+                                        </div>';
+                                    }
 
-                           $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
-                                 INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-                                 WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
-                                 $ordQry = mysqli_query($con, $sql);
-                         
-                         $perCharges = 0;
-                         $perChargesOther = 0;
-                         while($row = mysqli_fetch_array($ordQry))//show here order level charges
-                         {
-                             
-                                 $perCharges += $row['price'];
-                             $perChargesOther = $row['curAmt'];
-         
-         
-                             $calDiscount = ($chargePrice*$row['price']/100);
-                             $calDiscountOther = ($chargePriceOther*$row['price']/100);
-                              $content .= '<div class="d-flex set__left__padding"> 
-                              <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
-                              <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'</span></div>
-                                         
+                                    $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                                            INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                                            WHERE od.ordId = '".$_REQUEST['orderId']."' AND od.account_id = '".$_SESSION['accountId']."'  and od.customChargeType=2 AND tp.feeType = 3 ORDER BY tp.feeName ";
+                                            $ordQry = mysqli_query($con, $sql);
+                                    
+                                    $perCharges = 0;
+                                    $perChargesOther = 0;
+                                    while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                                    {  
+                                        $perCharges += $row['price'];
+                                        $perChargesOther = $row['curAmt'];
+                    
+                                        $calDiscount = ($chargePrice*$row['price']/100);
+                                        $calDiscountOther = ($chargePriceOther*$row['price']/100);
+                                        $content .= '<div class="d-flex set__left__padding"> 
+                                        <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
+                                        <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'</span></div>        
+                                        </div>';
+            
+                                    } 
+
+                                    $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
+                                    $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
+                                
+                                    $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
+                                            INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
+                                            WHERE od.ordId = '".$_REQUEST['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
+                                    $ordQry = mysqli_query($con, $sql); 
+                                    $taxCharges = 0;
+                                    $totalTaxChargesOther = 0;
+                                    while($row = mysqli_fetch_array($ordQry))//show here order level charges
+                                    {
+                                        $taxCharges += $row['price'];
+                                        $totalTaxChargesOther += $row['curAmt']; 
+                                        $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
+                                        $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
+                                        $content .= '<div class="d-flex set__left__padding"> 
+                                        <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
+                                        <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'</span></div>
+                                        </div>'; 
+                                        }
+
+                                            $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
+                                        $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
+                    
+                    
+                                        $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
+                                        $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
+                    
+                                    if($showGrandTotal)
+                                    {
+                                    $content .= '<div class="d-flex set__left__padding"> 
+                                        <div class="col-7"><span class="amountSections smryHead" >'.showOtherLangText('Grand Total').'</span></div>
+                                        <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'</span></div>
                                     </div>';
-
-
-                           } 
-
-                              $totalCalDiscount =($chargePrice*$perCharges/100);//total discount feeType=3
-                             $totalCalDiscountOther = ($chargePriceOther*$perCharges/100); 
-                      
-                       
-                         $sql = "SELECT od.*, tp.feeName FROM tbl_order_details od 
-                                 INNER JOIN tbl_order_fee tp ON(od.customChargeId = tp.id) AND od.account_id = tp.account_id
-                                 WHERE od.ordId = '".$_REQUEST['orderId']."'  AND od.account_id = '".$_SESSION['accountId']."' and od.customChargeType=2 AND tp.feeType = 1 ORDER BY tp.feeName ";
-                         $ordQry = mysqli_query($con, $sql);
-                         
-                         $taxCharges = 0;
-                         $totalTaxChargesOther = 0;
-                         while($row = mysqli_fetch_array($ordQry))//show here order level charges
-                         {
-                             $taxCharges += $row['price'];
-                             $totalTaxChargesOther += $row['curAmt'];
-         
-                             $calTax = (($chargePrice+ $fixedCharges+$totalCalDiscount)*$row['price']/100);
-                             $calTaxOther = (($chargePriceOther+ $fixedChargesOther+$totalCalDiscountOther)*$row['price']/100);
-                              $content .= '<div class="d-flex set__left__padding"> 
-                              <div class="col-7"><span class="amountSections smryHead" >'.$row['feeName'].'</span></div>
-                              <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'
-          </span></div>
-                                         
-                                    </div>';
-
-                               }
-
-                                 $totalTax =(($chargePrice+$fixedCharges+$totalCalDiscount)*$taxCharges/100);//total tax feeType=1
-                              $totalTaxOther =(($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther)*$taxCharges/100);
-         
-         
-                             $netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
-                             $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
-         
-                             if($showGrandTotal)
-                             {
-                              $content .= '<div class="d-flex set__left__padding"> 
-                              <div class="col-7"><span class="amountSections smryHead" >'.showOtherLangText('Grand Total').'</span></div>
-                              <div class="col-5"><span class="smryDef_Val amountSections smryHead" >'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'
-          </span></div>
-                                         
-                                    </div>';
-                             }
+                                    }
 
 
                                 $content .= '</div></div></div></div>';

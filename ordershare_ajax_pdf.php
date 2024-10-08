@@ -266,7 +266,7 @@ $content .= '<div class="modal-header position-relative">
         <div class="table-row thead">
             <div class="table-cell">'.$ordDet['ordNumber'].'</div>
             <div class="table-cell">'.$suppliers.'</div>
-            <div class="table-cell">
+            <div class="table-cell left__align__text">
                 <div class="table-row">
                     <div class="table-cell py-0 "></div>
                     <div class="table-cell py-0 "><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>

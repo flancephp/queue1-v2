@@ -511,7 +511,7 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 </section>
 
 
-<section class="ordDetail">
+<section class="ordDetail pb-5 pb-sm-4 mb-4 mb-sm-0">
 <div class="tpBar-grn"></div>
 <div class="container nordPrice py-0 mt-0"> 
 <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>

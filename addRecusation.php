@@ -465,7 +465,7 @@ if($_SESSION['deptId'] != '')
                     </div>
                 </section>
 
-                <section class="ordDetail">
+                <section class="ordDetail pb-5 pb-sm-4 mb-4 mb-sm-0">
                     <div class="tpBar-grn  tpBar-red"></div>
                     <div class="container nordPrice d-block mt-0">
                         <?php if(isset($_GET['tempDataCleared']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['errorProduct']) || isset($_GET['mes']) ) {?>
