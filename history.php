@@ -1593,6 +1593,8 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
 
                         </div>
                     </div>
+                    
+
                     <form name="frm" id="frm" method="get" action="">
                         <input type="hidden" name="downloadType" id="downloadType" value="" />
                         <input type="hidden" name="downloadType" id="downloadType" value="" />
@@ -1630,7 +1632,10 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
                                 <div class="col-md-6">
                                     <div class="hstCal">
                                         <div class="his-featBtn">
-                                            <div class="cal-Ender">
+                                            <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                <i class="fa-regular fa-calendar p-0"></i>
+                                            </button>
+                                            <div class="cal-Ender d-none d-lg-block">
                                                 <a href="javascript:void(0)">
                                                     <i class="fa-regular fa-calendar"></i>
                                                 </a>
@@ -1686,7 +1691,28 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
                                         </div>
                                     </div>
                                 </div>
+                            </div><!-- /.row -->
+
+                            <div class="collapse" id="collapseExample">
+                                <div class="mt-4 d-flex gap-3">
+                                    <!-- <input placeholder="Select your date" type="text" name="checkIn" id="datepickerTest" value="" class="calendar"> 
+                                    <div class="dateVal"></div> -->
+                                    <div class="hstDate">
+                                        <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('From date') ?>" name="fromDate" autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDate']; ?>">
+                                        <span>-</span>
+                                        <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('To date') ?>" name="toDate" autocomplete="off" value="<?php echo isset($_SESSION['toDate']) ? $_SESSION['toDate'] : $_GET['toDate']; ?>">
+                                    </div>
+                                    <div class="reloadBtn date-box-search">
+                                        <a href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                    </div>
+                                    <?php if ($cond != '') { ?>
+                                        <div class="reloadBtn">
+                                            <a onClick="window.location.href='history.php?clearSearch=1';" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                        </div>
+                                    <?php } ?>
+                                </div>
                             </div>
+
                         </div>
                     </form>
                     <!-- Mobile Date Box Start -->
@@ -2626,12 +2652,28 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
 <!-- View Detail Popup End -->
 
 <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="Assets/js/custom.js"></script>
 <!-- Links for datePicker and dialog popup -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script type="text/javascript" src="cdn_js/jquery-ui-1.12.1.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery('#datepickerTest').datepicker({
+            format: 'dd-mm-yyyy', 
+        });
+  
+        $("#datepickerTest").change(function() {
+        var selectedDate = $(this).val(); 
+        $('.dateVal').html(selectedDate);
+    });
+
+});
+</script>
+
 <script>
     $(function() {
         $(".datepicker").datepicker({

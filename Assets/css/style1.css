@@ -210,9 +210,13 @@ html[dir=rtl] .rcvOrder .sltSupp {
   flex: 0 0 auto;
   width: 20%;
 }
+#rawProId,
+#convrtProId{
+  padding-left: 1.25rem;font-weight: 500;
+}
 html[dir=rtl] #rawProId,
 html[dir=rtl] #convrtProId{
-  padding-right: 1.5rem;
+  padding-right: 1.25rem;padding-left: 0;
 }
 html[dir=rtl] #password {
   padding-right: 2rem;

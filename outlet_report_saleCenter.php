@@ -105,7 +105,11 @@ html[dir=rtl] .otltBd-Unit {
 }
 
 }
-
+@media screen and (max-width: 1024px) {
+    .detailPrc-show { 
+        background: #fff;height: 93%;top: auto;bottom: 0;align-items: flex-start;border-radius:var(--radius) var(--radius) 0 0;
+    }
+}
 
     </style>
 

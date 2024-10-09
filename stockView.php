@@ -427,15 +427,16 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             
             +,stkPrcol .lstPrcol {width: 50% !important;}
         }
-        #upload_form .dropStk ul{ opacity: 1 !important;     inset: 26px 0px auto auto !important;}
+        #upload_form .dropStk ul{ opacity: 1 !important;inset: 26px 0px auto auto !important;}
         .md__33 { width: 33%; }
         @media (max-width: 991px) {
+            #upload_form .dropStk ul{ inset: 17px 0px auto auto !important;}
             .cntTable .stkPrcol { width: 30%; } 
             .page2bdy .cntTable .stkPrcol { width: 33%;display:block !important; }
             .md__33{ width: 100%; }
             #upload_form { max-width:240px; }
             #upload_form .stockFeat .tabFet { width: 100%;min-height: 57px; }
-            #upload_form .dropStk p span { white-space: break-spaces; }
+            #upload_form .dropStk p span, #upload_form .stockFeat.brdLft .btn2 { white-space: break-spaces;color: #6c6c6c; }
         }
 
         @media screen and (min-device-width: 768px) and (max-device-width: 992px) {
@@ -457,7 +458,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
             .mbLst-value { padding-right: 6px; }
             #upload_form { max-width:225px; }
-
+            html[dir="rtl"] #upload_form { max-width:244px; }
+            .cstBtn-Sale.toggle-page-btn { border-radius:8px;padding:5px; }
+            .cstBtn-Sale.toggle-page-btn img { width: 10px;height: auto;min-width: auto; }
             
         }
 
@@ -468,7 +471,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .w-55 {
             width: 45%;
         }
-
+        .fa-filter { position: relative;top: -3px; }
         .storeCont .h2 {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -619,19 +622,12 @@ html[dir="rtl"] .mblCnt {
 
 }
 
-@media (max-width: 767px) { 
-  
-  .storeCol {
-     max-width: 100%;
-     width: 100%;
-   }
- 
-   .tb-bdy {
-  font-size: 16px;
-  font-weight: 400;
-}
+@media (max-width: 767px) {  
+    .storeCol { max-width: 100%;width: 100%; } 
+    .tb-bdy { font-size: 14px;font-weight: 400; }
+    .modal-head-row ul.dropdown-menu { padding: 5px !important; }
 
- }
+}
 
         
 
@@ -763,11 +759,12 @@ html[dir=rtl] .modal-footer .btnBg{
     padding-left: 16px;
   padding-right: 0px;
   margin: 0px;
-}
-.justify-content-start{}
-
+} 
 .justify-content-start .btn{margin-right:20px;}
-
+@media screen and (min-width: 1601px) {
+    .cstBtn-Sale.toggle-page-btn { min-width: 42px;min-height: 42px; }
+    .cstBtn-Sale.toggle-page-btn img { width: 13px;height:auto; }
+}
 
       
     </style>
@@ -932,7 +929,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div class="chkStore">
                                             <a href="javascript:void(0)" style="height: 20px;" id="toggle-page-btn" class="cstBtn-Sale toggle-page-btn hideBtn-Info ">
-                                                <img src="Assets/icons/info.svg" style="height: 100%;" alt="Information" class="cstBtn-Img">
+                                                <img src="Assets/icons/info.svg" alt="Information" >
                                             </a>
 
                                         </div>
@@ -1220,7 +1217,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                 </div>
                             </div>
                             <div class="mbHde align-items-center supData-Head">
-                                <div class="tb-head supStkclm">
+                                <div class="tb-head supStkclm d-none d-lg-block">
                                     <div class="d-flex align-items-center">
                                         <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
                                         <?php } else { ?> <p><?php echo showOtherLangText('Max Qty'); ?></p>
@@ -1231,7 +1228,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                         <?php } ?>
                                     </div>
                                 </div>
-                                <div class="tb-head stk_val stk_val supStkclm">
+                                <div class="tb-head stk_val stk_val supStkclm d-none d-lg-block">
                                     <div class="d-flex align-items-center">
                                         <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                         <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
@@ -1952,6 +1949,8 @@ html[dir=rtl] .modal-footer .btnBg{
             var button = document.getElementById("btnFileUpload");
             button.onclick = function() {
                 fileupload.click();
+                console.log('upload btn clicked');
+                
             };
             fileupload.onchange = function() {
                 document.getElementById('upload_form').submit();

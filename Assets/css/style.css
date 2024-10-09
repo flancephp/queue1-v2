@@ -17148,7 +17148,7 @@ html[dir=rtl] .form-select {
     margin-bottom: 35px;
   }
   .nwSub-Menu {
-    width: auto;
+    width: auto;min-width: max-content;
   }
   .nav-item {
     width: auto;
@@ -17297,7 +17297,7 @@ html[dir=rtl] .form-select {
     max-width: 100%;
     margin: 0;
     right: 0;
-    top: 0;
+    top: 0;align-items: flex-start;
   }
   .detailPrc-show .row {
     background: #fff;
@@ -18149,7 +18149,7 @@ html[dir=rtl] .form-select {
   }
    
   .revnueParent-sec  .header__area {
-    padding: 0px 20px;
+    padding: 14px 14px 0 14px;
   }
   .header__area {
     background-color: #ffffff8a;
@@ -20059,7 +20059,7 @@ html[dir=rtl] .navbar-toggler .h1{
   }
   .navbar {
     width: 210px;
-    padding: 10px 25px 0 15px;
+    padding: 10px 25px 40px 15px;
   }
   .lgOut {
     margin-bottom: 15%;
@@ -20942,7 +20942,7 @@ html[dir=rtl] .navbar-toggler .h1{
   /* Manage Account Page CSS End */
   .addUser-Form .form-control,
   .addUser-Form .form-select {
-    font-size: 16px;
+    font-size: 14px;
   }
   .addUser-Form .form-control:disabled {
     background: rgba(255, 255, 255, 0.6);
@@ -21642,11 +21642,13 @@ html[dir=rtl] .navbar-toggler .h1{
 
   html[dir="rtl"] .addUser-Form .form-select {
     padding: 12px 10px;
-    background-size: 36px 36px;
+    background-size: 34px 34px;
+    background-position: center left 3px;
   }
   .addUser-Form .form-select {
-    padding: 12px 10px;
-    background-size: 36px 36px;
+    padding: 12px 10px; 
+    background-size: 34px 34px;
+    background-position: center right 3px;
   }
   .setEze-Ctgry .form-control {
     width: 78%;
@@ -22065,7 +22067,7 @@ html[dir=rtl] .user-info {
   margin-right: auto;
 }
 @media(max-width:575px){
-  .user-info { line-height: 1.3; }
+  .user-info { line-height: 1.3;max-width: 120px;width: 100%; }
   .user-info .col{ border-right: 1px solid #aeaeae;padding-right: .45rem; }
   .user-info .user-name{ font-size: .937rem; }
   .user-info .account-name{ font-size: .75rem; }
@@ -22088,7 +22090,7 @@ html[dir=rtl] .user-info {
 html[dir=rtl] .sub-btn {
   padding: .5rem 0.5rem;
 }
-
+.fab__search__btn { padding: 0;width: 3rem;height: 3rem;font-size: 1.125rem;border-radius: .5rem; }
 
 /* 
 @media (min-width: 576px) {
@@ -22279,4 +22281,56 @@ td.text-right{
 }
 .modal-dialog-centered {
   align-items: center;
+}
+
+
+/* From here you can start to copy */
+
+.calendar {
+  padding:8px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-size:1rem;
+  border: 1px solid #333333;
+  box-shadow: 0px 20px 40px rgba(59,60,56,0.05);
+}
+.ui-datepicker {
+  background: #ffffff;
+  border-radius: 15px;
+}         
+.ui-datepicker-calendar {
+  width: 100%;
+  text-align: center;
+}  
+.ui-state-default:hover {
+  color: #ffffff;
+  background:var(--color-primary);
+  border-radius:50px;
+  transition: all 0.25s cubic-bezier(0.7, -0.12, 0.2, 1.12);
+}
+.ui-state-highlight {
+  color: #ffffff;
+  background-color:var(--color-primary);
+  border-radius:50px;
+}
+ 
+.ui-state-active {
+  color: #ffffff;
+  background-color:var(--color-primary);
+  border-radius:50px;
+}
+.ui-datepicker-unselectable .ui-state-default {
+  color: #eee;
+  border: 2px solid transparent;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+  border: 1px solid #fff !important;
+  background: #fff !important;
+  font-weight: normal !important;
+  color: #454545 !important;
+  text-align: center !important;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  border: 1px solid var(--color-primary) !important;
+  background: var(--color-primary) !important; 
 }
