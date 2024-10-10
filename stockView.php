@@ -447,6 +447,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
   
         }
+        .cstBtn-Sale.toggle-page-btn img { width: 13px;height:auto; }
         @media (max-width: 767px) { 
             .md__33{ line-height: 20px; }
             .cntTable .stkNamcol { width: 50%; }
@@ -762,8 +763,7 @@ html[dir=rtl] .modal-footer .btnBg{
 } 
 .justify-content-start .btn{margin-right:20px;}
 @media screen and (min-width: 1601px) {
-    .cstBtn-Sale.toggle-page-btn { min-width: 42px;min-height: 42px; }
-    .cstBtn-Sale.toggle-page-btn img { width: 13px;height:auto; }
+    .cstBtn-Sale.toggle-page-btn { min-width: 42px;min-height: 42px; } 
 }
 
       
