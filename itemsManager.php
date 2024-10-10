@@ -75,34 +75,34 @@ $fileDataRows = [];
 if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
 {
 
-$xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
+        $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
 
-$i=0;
-foreach($xlsx->rows() as $row)
-{
-if($i == 0)
-{
-	$i++;
-	continue;
-}			
+        $i=0;
+        foreach($xlsx->rows() as $row)
+        {
+            if($i == 0)
+            {
+                $i++;
+                continue;
+            }			
 
-$rows[] = [
-'Item' => $row[0],
-'BarCode' => $row[1],
-'Category' => $row[2],
-'SubCategory' => $row[3],
-'Storage' => $row[4],
-'Supplier' => $row[5],
-'Departments' => $row[6],
-'PUnit' => $row[7],
-'Factor' => $row[8],
-'CUnit' => $row[9],
-'LastPrice' => $row[10],
-'MinLevel' => $row[11],
-'MaxLevel' => $row[12],
-'Photo' => $row[13]
-];
-}
+            $rows[] = [
+            'Item' => $row[0],
+            'BarCode' => $row[1],
+            'Category' => $row[2],
+            'SubCategory' => $row[3],
+            'Storage' => $row[4],
+            'Supplier' => $row[5],
+            'Departments' => $row[6],
+            'PUnit' => $row[7],
+            'Factor' => $row[8],
+            'CUnit' => $row[9],
+            'LastPrice' => $row[10],
+            'MinLevel' => $row[11],
+            'MaxLevel' => $row[12],
+            'Photo' => $row[13]
+            ];
+        }
 
 //----------------------------------
 
@@ -130,7 +130,7 @@ foreach($rows as $row)
 			$ext  = end(explode(".", $row['Photo']));
 			$newFile = time().'_'.$row['BarCode'].'.'.$ext;
 			
-			copy($bulkImgUploadPath . $row['Photo'], $target_dir . $accountImgPath. '/'. $newFile);
+			copy($bulkImgUploadPath . $row['Photo'], $target_dir . $accountImgPath. '/products/'. $newFile);
 			
 			$imgFiled = " ,`imgName` = '".$newFile."' ";
 			
@@ -819,7 +819,6 @@ $deprtOptions .= '</ul>';
                        
 						if( $row['imgName'] != '' && file_exists( dirname(__FILE__)."/uploads/". $accountImgPath .'/products/'.$row['imgName'] ) )
 						 {	
-						 	
 							$img =  '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
 						 }
 						  
