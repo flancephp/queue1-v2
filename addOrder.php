@@ -1556,7 +1556,7 @@ var nodes = document.querySelectorAll('.newOrdTask');
 
 for (i = 0; i < nodes.length; i++) {
 if (nodes[i].innerText.toLowerCase().includes(filter)) {
-nodes[i].style.setProperty("display", "block", "important");
+nodes[i].style.setProperty("display", "flex", "important");
 } else {
 nodes[i].style.setProperty("display", "none", "important");
 }
