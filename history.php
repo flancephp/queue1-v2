@@ -1632,7 +1632,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
                                 <div class="col-md-6">
                                     <div class="hstCal">
                                         <div class="his-featBtn">
-                                            <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
                                                 <i class="fa-regular fa-calendar p-0"></i>
                                             </button>
                                             <div class="cal-Ender d-none d-lg-block">
@@ -1693,20 +1693,18 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
                                 </div>
                             </div><!-- /.row -->
 
-                            <div class="collapse" id="collapseExample">
-                                <div class="mt-4 d-flex gap-3">
-                                    <!-- <input placeholder="Select your date" type="text" name="checkIn" id="datepickerTest" value="" class="calendar"> 
-                                    <div class="dateVal"></div> -->
-                                    <div class="hstDate">
+                            <div class="collapse" id="collapseSearch">
+                                <div class="mt-4 d-flex gap-2 res__search__box"> 
+                                    <div class="hstDate border-0 p-0">
                                         <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('From date') ?>" name="fromDate" autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDate']; ?>">
                                         <span>-</span>
                                         <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('To date') ?>" name="toDate" autocomplete="off" value="<?php echo isset($_SESSION['toDate']) ? $_SESSION['toDate'] : $_GET['toDate']; ?>">
                                     </div>
-                                    <div class="reloadBtn date-box-search">
+                                    <div class="reloadBtn date-box-search m-0">
                                         <a href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"></i></a>
                                     </div>
                                     <?php if ($cond != '') { ?>
-                                        <div class="reloadBtn">
+                                        <div class="reloadBtn m-0">
                                             <a onClick="window.location.href='history.php?clearSearch=1';" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
                                         </div>
                                     <?php } ?>

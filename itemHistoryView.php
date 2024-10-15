@@ -128,7 +128,8 @@ foreach($resItemHistory['resRows'] as $item){
 }
 
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
@@ -146,67 +147,123 @@ foreach($resItemHistory['resRows'] as $item){
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style type="text/css">
-    .isuIn-mrReq {color: #800000 !important;}
-    .itm-profileDtl {height: fit-content;}
-    .itmVw-qtyClm, .itmVw-qtybdClm {width: 10%;}
-    .dt-Member, .tbdy-dtMbr {width: 40%;}
+    .isuIn-mrReq {
+        color: #800000 !important;
+    }
+
+    .itm-profileDtl {
+        height: fit-content;
+    }
+
+    .itmVw-qtyClm,
+    .itmVw-qtybdClm {
+        width: 10%;
+    }
+
+    .dt-Member,
+    .tbdy-dtMbr {
+        width: 40%;
+    }
+
     /* .isu-Varance, .tbdy-isuVar {width: 30%;} */
-    .last-Stock, .tbdy-lstStk {width: 20%;}
-    .dt-Member >div, .tbdy-dtMbr >div {width: 33.33% !important;}
-    .view-tblBody > div {display: flex; width: 100%; }
-    .dt-Member select{font-size:16px;}
-    .ct-width01{
+    .last-Stock,
+    .tbdy-lstStk {
+        width: 20%;
+    }
+
+    .dt-Member>div,
+    .tbdy-dtMbr>div {
+        width: 33.33% !important;
+    }
+
+    .view-tblBody>div {
+        display: flex;
+        width: 100%;
+    }
+
+    .dt-Member select {
+        font-size: 16px;
+    }
+
+    .ct-width01 {
         /* max-width: 650px; */
         /* width: 95%; */
     }
-    
-    .dt-Member1, .tbdy-dtMbr {width: 40%;}
-    .dt-Member1 >div, .tbdy-dtMbr >div {width: 33.33% !important;}
-    .dt-Member1 select{font-size:16px;}
+
+    .dt-Member1,
+    .tbdy-dtMbr {
+        width: 40%;
+    }
+
+    .dt-Member1>div,
+    .tbdy-dtMbr>div {
+        width: 33.33% !important;
+    }
+
+    .dt-Member1 select {
+        font-size: 16px;
+    }
 
     @media screen and (max-width: 992px) {
-    .dt-Member1, .tbdy-dtMbr {width: 50%;flex-direction: column;}
-    .dt-Member1 >div, .tbdy-dtMbr >div {width: 100% !important;}
-    .dt-Member1 select{font-size:16px;}
-    
-    }
-    @media screen and (max-width: 767px) {
 
-        .last-Stock, .tbdy-lstStk {
-   width: 100%;/*margin-left: 15px; */
-}
-/* .isu-Varance, .tbdy-isuVar {
-  width: 33%;
-} */
+        .dt-Member1 { width: 50%; }
+        .tbdy-dtMbr {
+            width: 50%;
+            flex-direction: column;
+        }
+
+        .dt-Member1>div,
+        .tbdy-dtMbr>div {
+            width: 100% !important;
+        }
+        .itmVw-memberClm .dropdown-toggle {
+            padding: 12px 14px;
+        }
+        .dt-Member1 select {
+            font-size: 16px;
+        }
+        .varStk-Mem { display: inline-block; }
+    }
+
+    @media screen and (max-width: 767px) { 
+        .last-Stock,
+        .tbdy-lstStk {
+            width: 100%;
+            /*margin-left: 15px; */
+        } 
     }
 
     .itmBody {
-    font-size: 15px;
-    line-height: 22px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
+        font-size: 15px;
+        line-height: 22px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 
-    
-        .dt-Member > div, .tbdy-dtMbr > div {
-            width: 100% !important;
-            }
-            .itmVw-memberClm .dropdown-toggle {
-                padding: 10px 12px;
-                font-size: 14px;
-                }
-    @media (max-width: 767px) {
-        
-        
 
-            .view-tblBody .vw-clm-4 {
-  color: #232859;
-  font-weight: 400;font-size: 14px;
-}
-           
-        
-    }    
+    .dt-Member>div,
+    .tbdy-dtMbr>div {
+        width: 100% !important;
+    }
 
+    .itmVw-memberClm .dropdown-toggle {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    @media (max-width: 1599px) { 
+        .itmVw-memberClm .dropdown-toggle { padding:9px 4px; } 
+    }
+    @media (max-width: 767px) { 
+        .view-tblBody .vw-clm-4 {
+            color: #232859;
+            font-weight: 400;
+            font-size: 14px;
+        } 
+    }
+    @media (min-width:576px) and (max-width: 991px) { 
+        .container.mb-hisDtl.tb-itmVwdtl { padding: 15px 0; }
+    }
     </style>
     <!-- Links for datePicker and dialog popup -->
 
@@ -217,7 +274,7 @@ foreach($resItemHistory['resRows'] as $item){
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                 <?php require_once('nav.php');?>
+                <?php require_once('nav.php');?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -238,7 +295,7 @@ foreach($resItemHistory['resRows'] as $item){
                                     <h1 class="h1">Item Profile</h1>
                                 </div>
                             </div>
-                               <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -248,8 +305,8 @@ foreach($resItemHistory['resRows'] as $item){
                         <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
                     </div>
                 </section>
-                 
-              
+
+
                 <section class="itmhstDetail">
 
                     <section class="itm-profileDtl">
@@ -278,84 +335,88 @@ foreach($resItemHistory['resRows'] as $item){
                                 <p class="productName"><?php echo $res['itemName'];?></p>
                             </div>
                             <div class="vw-clm-4">
-                                <p class="productQty"><?php echo $res['stockQty'];?><?php echo ' '.$res['countingUnit'];?></p>
+                                <p class="productQty">
+                                    <?php echo $res['stockQty'];?><?php echo ' '.$res['countingUnit'];?></p>
                             </div>
                         </div>
 
                         <div class="view-tblBody mt-2">
-                           <div>
-                           <div class="vw-clm-8">
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Bar Code'); ?></p>       
+                            <div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Bar Code'); ?></p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewBarcode"><?php echo $res['barCode'];?></p>
+                                </div>
                             </div>
-                            <div class="vw-clm-4">
-                                <p class="viewBarcode"><?php echo $res['barCode'];?></p>
-                            </div>
-                           </div>
 
                             <div>
-                            <div class="vw-clm-8">
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Last Purchase Price'); ?></p>
-                             </div>
-                            <div class="vw-clm-4">
-                                <p class="viewLst-prc"><?php showPrice($res['price'],$getDefCurDet['curCode']);?></p>
-                               </div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Last Purchase Price'); ?></p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewLst-prc"><?php showPrice($res['price'],$getDefCurDet['curCode']);?>
+                                    </p>
+                                </div>
                             </div>
-                              <div>
-                              <div class="vw-clm-8">
-                               <p class="vwBdy-ttl"><?php echo showOtherLangText('Stock Price'); ?></p>
+                            <div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Stock Price'); ?></p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewStock-prc">
+                                        <?php showPrice($res['stockPrice'],$getDefCurDet['curCode']);?></p>
+                                </div>
                             </div>
-                            <div class="vw-clm-4">
-                                <p class="viewStock-prc"><?php showPrice($res['stockPrice'],$getDefCurDet['curCode']);?></p>
-                            </div>
-                              </div>
 
                             <div>
-                            <div class="vw-clm-8">
-                                 <p class="vwBdy-ttl">Stock Value</p>
-                            </div>
-                            <div class="vw-clm-4">
-                                 <p class="viewStock-prc"><?php showPrice($res['stockValue'],$getDefCurDet['curCode']);?></p>
-                            </div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl">Stock Value</p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewStock-prc">
+                                        <?php showPrice($res['stockValue'],$getDefCurDet['curCode']);?></p>
+                                </div>
                             </div>
                         </div>
 
-                       
+
 
                         <div class="view-tblBody  mt-3">
-                           <div>
-                           <div class="vw-clm-8">
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Category'); ?></p>
-                            </div>
-                            <div class="vw-clm-4">
-                                <p class="viewCategory"><?php echo $res['parentCatName'];?></p>
-                            </div>
-                           </div>
-
-                           <div>
-                           <div class="vw-clm-8">
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Sub Category'); ?></p>
-                            </div>
-                            <div class="vw-clm-4">
-                               <p class="viewSub-category"><?php echo $res['childCatName'];?></p>
-                            </div>
-                           </div>
-
-                           <div>
-                           <div class="vw-clm-8">
-                                 <p class="vwBdy-ttl"><?php echo showOtherLangText('Department'); ?></p>
+                            <div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Category'); ?></p>
                                 </div>
-                            <div class="vw-clm-4"> 
-                                <p class="viewDepartment"><?php echo  getProdcutDepartments($res['id']);?></p>
+                                <div class="vw-clm-4">
+                                    <p class="viewCategory"><?php echo $res['parentCatName'];?></p>
                                 </div>
-                           </div>
-                              <div>
-                              <div class="vw-clm-8">
-                                <p class="vwBdy-ttl"><?php echo showOtherLangText('Supplier'); ?></p>
                             </div>
-                            <div class="vw-clm-4">
-                                <p class="viewSupplier"><?php echo getProdcutSuppls($res['id']);?></p>
+
+                            <div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Sub Category'); ?></p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewSub-category"><?php echo $res['childCatName'];?></p>
+                                </div>
                             </div>
-                              </div>
+
+                            <div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Department'); ?></p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewDepartment"><?php echo  getProdcutDepartments($res['id']);?></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="vw-clm-8">
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Supplier'); ?></p>
+                                </div>
+                                <div class="vw-clm-4">
+                                    <p class="viewSupplier"><?php echo getProdcutSuppls($res['id']);?></p>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="itmUnit-tbl">
@@ -391,8 +452,11 @@ foreach($resItemHistory['resRows'] as $item){
                             <div class="row">
                                 <div class="col-md-8 itmVw-fetBtnClm">
                                     <div class="hstCal">
+                                        <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            <i class="fa-regular fa-calendar p-0"></i>
+                                        </button>
                                         <div class="his-featBtn">
-                                            <div class="cal-Ender">
+                                            <div class="cal-Ender d-none d-lg-inline-block">
                                                 <a href="javascript:void(0)">
                                                     <i class="fa-regular fa-calendar"></i>
                                                 </a>
@@ -407,22 +471,26 @@ foreach($resItemHistory['resRows'] as $item){
                                         </div>
                                         <!-- Date Box Start -->
                                         <form name="frm" id="frm" method="get" action="">
-                                        <input type="hidden" name="id" id="id" value="<?php echo $_GET['id'];?>" />
-                                        <div class="prtDate">
-                                            <div class="hstDate">
-                                                <input type="text" size="10" class="datepicker" placeholder="15/01/2023"
-                                                    name="fromDate" id="fromDate" autocomplete="off" value="<?php echo $_GET['fromDate'];?>">
-                                                <span>-</span>
-                                                <input type="text" size="10" class="datepicker" placeholder="15/02/2023" name="toDate" id="toDate" autocomplete="off" value="<?php echo $_GET['toDate'];?>">
+                                            <input type="hidden" name="id" id="id" value="<?php echo $_GET['id'];?>" />
+                                            <div class="prtDate">
+                                                <div class="hstDate">
+                                                    <input type="text" size="10" class="datepicker"
+                                                        placeholder="15/01/2023" name="fromDate" id="fromDate"
+                                                        autocomplete="off" value="<?php echo $_GET['fromDate'];?>">
+                                                    <span>-</span>
+                                                    <input type="text" size="10" class="datepicker"
+                                                        placeholder="15/02/2023" name="toDate" id="toDate"
+                                                        autocomplete="off" value="<?php echo $_GET['toDate'];?>">
+                                                </div>
+                                                <div class="reloadBtn">
+                                                    <a onClick="document.frm.submit();" href="javascript:void(0)"><i
+                                                            class="fa-solid fa-arrows-rotate"></i></a>
+                                                </div>
+                                                <div class="reloadBtn">
+                                                    <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'"
+                                                        href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                </div>
                                             </div>
-                                            <div class="reloadBtn">
-                                                <a onClick="document.frm.submit();" href="javascript:void(0)"><i
-                                                        class="fa-solid fa-arrows-rotate"></i></a>
-                                            </div>
-                                            <div class="reloadBtn">
-                                                <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                            </div>
-                                        </div>
                                         </form>
                                         <!-- Date Box End -->
                                     </div>
@@ -453,6 +521,27 @@ foreach($resItemHistory['resRows'] as $item){
                                     </div>
                                 </div>-->
                             </div>
+                            <div class="collapse" id="collapseExample">
+                                <div class="mt-4 d-flex gap-2 res__search__box"> 
+                                    <div class="hstDate p-0 border-0">
+                                        <input type="text" size="10" class="datepicker"
+                                            placeholder="15/01/2023" name="fromDate" id="fromDate"
+                                            autocomplete="off" value="<?php echo $_GET['fromDate'];?>">
+                                        <span>-</span>
+                                        <input type="text" size="10" class="datepicker"
+                                            placeholder="15/02/2023" name="toDate" id="toDate"
+                                            autocomplete="off" value="<?php echo $_GET['toDate'];?>">
+                                    </div>
+                                    <div class="reloadBtn m-0">
+                                        <a onClick="document.frm.submit();" href="javascript:void(0)"><i
+                                                class="fa-solid fa-arrows-rotate"></i></a>
+                                    </div>
+                                    <div class="reloadBtn m-0">
+                                        <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'"
+                                            href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">
@@ -464,11 +553,13 @@ foreach($resItemHistory['resRows'] as $item){
                             <div class="row">
                                 <div class="col-md-5 is-Incol">
                                     <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
-                                    <p class="ttlAmount"><?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
+                                    <p class="ttlAmount">
+                                        <?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-5 is-Outcol">
                                     <p class="rd-In"><?php echo showOtherLangText('Issue Out'); ?></p>
-                                    <p class="ttlAmount-rec"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
+                                    <p class="ttlAmount-rec">
+                                        <?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
                                 </div>
                                 <div class="col-md-2 maxBtn">
                                     <a href="javascript:void(0)" class="maxLink">
@@ -488,30 +579,47 @@ foreach($resItemHistory['resRows'] as $item){
                                     <div class="itmView-isuTbl d-flex justify-content-center text-center">
                                         <div class="itmVw-isuIn">
                                             <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
-                                            <p class="viewItm-isuIn"><?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?></p>
-                                            <p class="isuIn-countUnt"><?php echo $resItemHistory['issuedInQtyTot'];?> <?php echo $res['countingUnit'];?></p>
+                                            <p class="viewItm-isuIn">
+                                                <?php showPrice($resItemHistory['issuedInTot'],$getDefCurDet['curCode']);?>
+                                            </p>
+                                            <p class="isuIn-countUnt"><?php echo $resItemHistory['issuedInQtyTot'];?>
+                                                <?php echo $res['countingUnit'];?></p>
                                         </div>
                                         <div class="itmVw-isuOut">
                                             <p class="rd-In"><?php echo showOtherLangText('Issued Out'); ?></p>
-                                            <p class="viewItm-isuOut"><?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?></p>
-                                            <p class="isuOut-countUnt"><?php echo $resItemHistory['issuedOutQtyTot'];?> <?php echo $res['countingUnit'];?></p>
+                                            <p class="viewItm-isuOut">
+                                                <?php showPrice($resItemHistory['issuedOutTot'],$getDefCurDet['curCode']);?>
+                                            </p>
+                                            <p class="isuOut-countUnt"><?php echo $resItemHistory['issuedOutQtyTot'];?>
+                                                <?php echo $res['countingUnit'];?></p>
                                         </div>
                                         <div style="min-width: fit-content;" class="itmVw-varPtive">
                                             <p class="Vw-varHead"><?php echo showOtherLangText('Variances'); ?></p>
                                             <div style="display: flex; gap:5px; justify-content: space-evenly">
-                                                <p class="viewItm-varPlus varDif"><?php echo $minusvariance!=''? showPrice($minusvariance,$getDefCurDet['curCode']):'0';?></p>
-                                                <p class="varPlus-countUnt"><?php echo $plusvariance!=''? showPrice($plusvariance,$getDefCurDet['curCode']):'0';?></p>
+                                                <p class="viewItm-varPlus varDif">
+                                                    <?php echo $minusvariance!=''? showPrice($minusvariance,$getDefCurDet['curCode']):'0';?>
+                                                </p>
+                                                <p class="varPlus-countUnt">
+                                                    <?php echo $plusvariance!=''? showPrice($plusvariance,$getDefCurDet['curCode']):'0';?>
+                                                </p>
                                             </div>
                                             <div style="display: flex; gap:5px; justify-content: space-evenly">
-                                                <p class="viewItm-varPlus varDif"><?php echo $minusqtytot!=''?$minusqtytot.' '.$res['countingUnit']:'0';?></p>
-                                                <p class="varPlus-countUnt"><?php echo $plusqtytot!=''?$plusqtytot.' '.$res['countingUnit']:'&nbsp;';?></p>
+                                                <p class="viewItm-varPlus varDif">
+                                                    <?php echo $minusqtytot!=''?$minusqtytot.' '.$res['countingUnit']:'0';?>
+                                                </p>
+                                                <p class="varPlus-countUnt">
+                                                    <?php echo $plusqtytot!=''?$plusqtytot.' '.$res['countingUnit']:'&nbsp;';?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="itmVw-varNtive">
                                             <p class="Vw-varHead"><?php echo showOtherLangText('Converted'); ?></p>
-                                            <p class="viewItm-varMinus "><?php showPrice($resItemHistory['convertedTot'],$getDefCurDet['curCode']);?> </p>
-                                            <p class="varMinus-countUnt "><?php echo $resItemHistory['convertedQtyTot'];?><?php echo $res['countingUnit'];?>
-                                </p>
+                                            <p class="viewItm-varMinus ">
+                                                <?php showPrice($resItemHistory['convertedTot'],$getDefCurDet['curCode']);?>
+                                            </p>
+                                            <p class="varMinus-countUnt ">
+                                                <?php echo $resItemHistory['convertedQtyTot'];?><?php echo $res['countingUnit'];?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -541,7 +649,8 @@ foreach($resItemHistory['resRows'] as $item){
                                         <div class="dropdown d-flex position-relative">
                                             <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
-                                                <span id="ordertypetext"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                <span id="ordertypetext"><?php echo showOtherLangText('Type'); ?></span>
+                                                <i class="fa-solid fa-angle-down"></i>
                                             </a>
                                             <?php echo $typeOptions;?>
                                         </div>
@@ -551,7 +660,9 @@ foreach($resItemHistory['resRows'] as $item){
                                         <div class="dropdown d-flex position-relative">
                                             <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
-                                                <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                <span
+                                                    id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span>
+                                                <i class="fa-solid fa-angle-down"></i>
                                             </a>
                                             <?php echo $suppMemStoreOptions;?>
                                         </div>
@@ -572,7 +683,7 @@ foreach($resItemHistory['resRows'] as $item){
                                         <p class="bl-Head"><?php echo showOtherLangText('Converted'); ?></p>
                                     </div>
 
-                                    
+
                                 </div>
                                 <div class="tb-head d-flex align-items-center last-Stock">
                                     <div class="itmVw-lstClm">
@@ -593,7 +704,7 @@ Qty'); ?></p>
                         <div id="boxscroll">
                             <div class="container position-relative">
                                 <!-- Item Table Body Start -->
-                                   <?php
+                                <?php
                                         
                                 foreach($resItemHistory['resRows'] as $row)
                                 { 
@@ -648,41 +759,47 @@ Qty'); ?></p>
                                         <div class="tb-bdy d-flex align-items-center tbdy-isuVar">
                                             <div class="itmVw-inbdClm">
                                                 <p class="mb-isuHead">Issue In</p>
-                                                 <p><?php echo showItemTypeData(1, $row, 0, $getDefCurDet['curCode']); ?></p>
+                                                <p><?php echo showItemTypeData(1, $row, 0, $getDefCurDet['curCode']); ?>
+                                                </p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(1, $row, 1);?></p>
                                             </div>
                                             <div class="itmVw-outbdClm">
                                                 <p class="mb-isuHead">Issue Out</p>
-                                               <p><?php echo showItemTypeData(2, $row, 0, $getDefCurDet['curCode']); ?></p>
+                                                <p><?php echo showItemTypeData(2, $row, 0, $getDefCurDet['curCode']); ?>
+                                                </p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(2, $row, 1);?></p>
                                             </div>
-                                            <div class="itmVw-varbdClm"><p><?php echo showItemTypeData(3, $row , 0, $getDefCurDet['curCode']); ?></p>
+                                            <div class="itmVw-varbdClm">
+                                                <p><?php echo showItemTypeData(3, $row , 0, $getDefCurDet['curCode']); ?>
+                                                </p>
                                                 <p class="ctUnit-var"><?php echo showItemTypeData(3, $row, 1);?></p>
                                             </div>
 
 
                                             <div class="itmVw-varbdClm">
-                                            <p>
-                                                
-                                            <?php echo showItemTypeData(4, $row, 0, $getDefCurDet['curCode']);?>
-                                            <br>
-                                            <?php echo showItemTypeData(4, $row, 1);?>
-                                                
-                                            </p>
+                                                <p>
+
+                                                    <?php echo showItemTypeData(4, $row, 0, $getDefCurDet['curCode']);?>
+                                                    <br>
+                                                    <?php echo showItemTypeData(4, $row, 1);?>
+
+                                                </p>
                                             </div>
 
-                                           
+
 
                                         </div>
                                         <div class="tb-bdy align-items-center tbdy-lstStk">
                                             <div class="d-flex align-items-center tabDiv-prc flxDir">
                                                 <div class="itmVw-lstbdClm">
                                                     <p class="mb-isuHead">Last Price</p>
-                                                    <p><?php showPrice($row['lastPrice'],$getDefCurDet['curCode']);?></p>
+                                                    <p><?php showPrice($row['lastPrice'],$getDefCurDet['curCode']);?>
+                                                    </p>
                                                 </div>
                                                 <div class="itmVw-stkbdClm txtDir1">
                                                     <p class="mb-isuHead">Stock Price</p>
-                                                    <p><?php showPrice($row['stockPrice'],$getDefCurDet['curCode']);?></p>
+                                                    <p><?php showPrice($row['stockPrice'],$getDefCurDet['curCode']);?>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -713,54 +830,54 @@ Qty'); ?></p>
 
     <script type="text/javascript" src="cdn_js/jquery-ui-1.12.1.js"></script>
     <script>
-$(function() {
-    $(".datepicker").datepicker({
-        dateFormat: 'dd-mm-yy'
-    });
-    
-    $(".referto").on("click", "a", function(e){
-        var $this = $(this).parent();
-         $("#refertotext").text($this.data("value"));
-         var fromDate = $('#fromDate').val();
-        var toDate = $('#toDate').val();
-        window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate="+fromDate+ "&toDate="+toDate+ "&suppMemStoreId="+$this.data("id");
-      });
+    $(function() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
 
-      
+        $(".referto").on("click", "a", function(e) {
+            var $this = $(this).parent();
+            $("#refertotext").text($this.data("value"));
+            var fromDate = $('#fromDate').val();
+            var toDate = $('#toDate').val();
+            window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate=" +
+                fromDate + "&toDate=" + toDate + "&suppMemStoreId=" + $this.data("id");
+        });
 
-      var urlParams = new URLSearchParams(window.location.search);
+
+
+        var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('suppMemStoreId')) {
-        var dateTypeID = urlParams.get('suppMemStoreId');
-            if(dateTypeID!=='')
-            {
+            var dateTypeID = urlParams.get('suppMemStoreId');
+            if (dateTypeID !== '') {
                 $("#refertotext").text($(".referto .selected").text()).substr(0, 12);
             }
         }
 
-    
 
 
-    $(".ordertype").on("click", "a", function(e){
-        var $this = $(this).parent();
-         $("#ordertypetext").text($this.data("value"));
-         var fromDate = $('#fromDate').val();
-        var toDate = $('#toDate').val();
-        window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate="+fromDate+ "&toDate="+toDate+ "&ordType="+$this.data("id");
-      });
 
-     
+        $(".ordertype").on("click", "a", function(e) {
+            var $this = $(this).parent();
+            $("#ordertypetext").text($this.data("value"));
+            var fromDate = $('#fromDate').val();
+            var toDate = $('#toDate').val();
+            window.location.href = "itemHistoryView.php?id=" + $("#id").val() + "&fromDate=" +
+                fromDate + "&toDate=" + toDate + "&ordType=" + $this.data("id");
+        });
 
-      var urlParams = new URLSearchParams(window.location.search);
+
+
+        var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('ordType')) {
-        var dateTypeID = urlParams.get('ordType');
-            if(dateTypeID!=='')
-            {
+            var dateTypeID = urlParams.get('ordType');
+            if (dateTypeID !== '') {
                 $("#ordertypetext").text($(".ordertype .selected").text().substr(0, 12));
             }
         }
 
     });
-  </script>
+    </script>
 </body>
 
 </html>

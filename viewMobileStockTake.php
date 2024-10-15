@@ -55,6 +55,22 @@ $result = mysqli_query($con, $sql);
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
+    <style>
+        @media(min-width:992px) {
+
+            .itmBody { padding-top: 0;padding-bottom: 0; }
+        }
+        @media(min-width:992px) and (max-width:1599px) {
+            .suplrTbl-body { padding:0; }
+            .suppTbl-Head { padding: 0 0px 10px; }
+            .supTbl-IcnCol { width: 20%; }
+            .supTbl-EmCol { width: 35%; }
+        }
+        @media(max-width:767px) {
+            .supTbl-NmCol, .supTbl-IcnCol { width: 100%; }
+            .supOpt-Clm { justify-content:center; }
+        }
+    </style>
 </head>
 
 <body class="mb-Bgbdy">

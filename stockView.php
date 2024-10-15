@@ -261,8 +261,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             border-radius: 20px !important;
             border: 2px solid #FFF;
             background: #7A89FE !important;
-            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
-            font-size: 18px;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54); 
             top: -10%;
             left: -10%;
             position: absolute !important;
@@ -323,8 +322,11 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
         }
 
+        @media screen and (min-width: 1600px) {
+            .mblCnt { font-size: 16px !important; }
+        }
         @media screen and (min-width: 1800px) {
-
+            .mblCnt { font-size: 18px; }
             .container,
             .container-lg,
             .container-md,
@@ -447,6 +449,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             }
   
         }
+        .cstBtn-Sale.toggle-page-btn img { width: 13px;height:auto; }
         @media (max-width: 767px) { 
             .md__33{ line-height: 20px; }
             .cntTable .stkNamcol { width: 50%; }
@@ -762,10 +765,14 @@ html[dir=rtl] .modal-footer .btnBg{
 } 
 .justify-content-start .btn{margin-right:20px;}
 @media screen and (min-width: 1601px) {
-    .cstBtn-Sale.toggle-page-btn { min-width: 42px;min-height: 42px; }
-    .cstBtn-Sale.toggle-page-btn img { width: 13px;height:auto; }
+    .cstBtn-Sale.toggle-page-btn { min-width: 42px;min-height: 42px; } 
 }
 
+@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) {
+    .tb-bdy {
+        font-size: 14px;
+    }
+}
       
     </style>
 </head>

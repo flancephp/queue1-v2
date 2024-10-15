@@ -166,7 +166,10 @@ html[dir=rtl] .otltBd-Unit {
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="hstCal">
-                                        <div class="his-featBtn">
+                                        <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+                                            <i class="fa-regular fa-calendar p-0"></i>
+                                        </button>
+                                        <div class="his-featBtn d-none d-lg-inline-block">
                                             <div class="cal-Ender">
                                                 <a href="javascript:void(0)">
                                                     <i class="fa-regular fa-calendar"></i>
@@ -215,6 +218,21 @@ html[dir=rtl] .otltBd-Unit {
                                                 <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
                                             </a>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="collapseSearch">
+                                <div class="mt-4 d-flex gap-2 res__search__box">
+                                    <div class="hstDate p-0 border-0">
+                                        <input type="text" size="10" class="datepicker"  
+                                            name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y');?>">
+                                        <span>-</span>
+                                        <input type="text" size="10" class="datepicker" 
+                                            name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>">
+                                    </div>
+                                    <div class="reloadBtn m-0">
+                                        <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
                                     </div>
                                 </div>
                             </div>

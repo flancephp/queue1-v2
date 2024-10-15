@@ -155,10 +155,15 @@ if (isset($_GET['hotelId'])) {
         }
 
         .select-pop{
-            background-size: 46px 40px; height: 45px; padding: 0.375rem 3.25rem 0.375rem 0.75rem; overflow: hidden; border-radius: 8px;
+            height: 50px; padding: 6px 30px 6px 12px; overflow: hidden; border-radius: 8px;    border: 1px solid #d5d6dd;
         }
         html[dir="rtl"] .select-pop{
-            direction: ltr; background-size: 41px 40px; height: 45px; padding: 0.375rem 0.75rem 0.375rem 3.75rem; overflow: hidden; border-radius: 8px;
+            direction: ltr;  padding: 6px 12px 6px 30px; text-align: right;
+        }
+        @media(max-width:991px) {
+            .select-pop{
+                height: 44px; 
+            }
         }
 
         @media (max-width: 767px) {
@@ -278,6 +283,19 @@ if (isset($_GET['hotelId'])) {
   }
 
         }
+        @media (min-width:576px) and (max-width: 992px) {
+            .revnueParent-sec { 
+                border: 0;
+                background: transparent;
+                border-radius: 10px;
+                padding: 0;
+                box-shadow: none;
+            }
+            .revnueParent-sec .revCenter {
+                padding: 14px;
+            }
+        }
+        .hstDate .datepicker { height:29px; }
     </style>
 </head>
 
@@ -290,13 +308,28 @@ if (isset($_GET['hotelId'])) {
             </div>
             <div class="cntArea">
                 <section class="usr-info">
-                    <div class="row headerSpace1" >
+                    <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
                             <h1 class="h1">Get POS Sales</h1>
                         </div>
-                          <?php require_once('header.php'); ?>
+                        <div class="col-md-8 d-flex align-items-center justify-content-end">
+                            <div class="mbPage">
+                                <div class="mb-nav" id="mb-nav">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+                                    </button>
+                                </div>
+                                <div class="mbpg-name">
+                                    <h1 class="h1">Get POS Sales</h1>
+                                </div>
+                            </div>
+                             <?php require_once('header.php'); ?>
+                        </div>
                     </div>
                 </section>
+                 
 
                 <section id="landScape">
                     <div class="container">
@@ -324,76 +357,72 @@ if (isset($_GET['hotelId'])) {
                         </div> -->
 
                         <div class="container hisData">
-                            <div class="d-flex justify-content-between flex-wrap align-items-center g-3 gap-3 pt-2">
-                                <div class="">
-                                <form name="frm" id="frm" method="get" action="">
-                                    <div class="hstCal gap-1" style=" flex-wrap:wrap; align-items: first baseline;">
-
-
-                                    
-                                        <div style="width: 250px;" class="me-2 spaceClass2">
-                                            
-
-
-                                            <?php if($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4){?>
-                                                <select name="hotelId" id="hotelId" class="form-select select-pop" aria-label="Default select example">
-
-    												<option value="21866" <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>Fun Beach Hotel(21866)</option>
-    												<option value="21930" <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : '';?>>Casa Del Mar Hotel(21930)</option>
-    											</select>
-										<?php }elseif($_SESSION['accountId'] == 3){?>	
-												
-                                            <select name="hotelId" id="hotelId" class="form-select select-pop"  aria-label="Default select example">
-
-    												<option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>Mnarani Beach Hotel(29624)</option>
-    											</select>
-										<?php } ?>
-
-                                        </div>
-
-
-
-                                        <div class="his-featBtn">
-                                            <div class="cal-Ender">
-                                                <a href="javascript:void(0)">
-                                                    <i class="fa-regular fa-calendar"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- Date Box Start -->
-                                        <div class="prtDate me-2">
-                                            <div class="hstDate" style="min-height: 38px;">
-
-                                            
-                                                <input type="text" size="10" class="datepicker" placeholder="15/01/2023" name="date" id="date" autocomplete="off" value="<?php echo $date;?>">
-                                               
-                                            </div>
-                                            <!--<div class="reloadBtn">
-                                                <a href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"></i></a>
-                                            </div>
-                                            <div class="reloadBtn">
-                                                <a href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                            </div>-->
-
-                                        </div>
-
-                                        <div class="d-flex justify-content-end mx-2 align-items-end spaceClass4">
-                                            <a href="javascript:void(0);" class="btn btn-primary update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();"><?php echo showOtherLangText('Get data'); ?></a>
-                                        </div>
-
-                                        <div class=" d-flex justify-content-end mx-2 align-items-end spaceClass1">
-                                            <a class="btn btn-primary update w-lg-100 px-2" style="max-width: 165px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('<?php echo showOtherLangText('Are you sure to sync the data?'); ?>');"><?php echo showOtherLangText('Sync to report'); ?></a>
-                                        </div>
-                                        <!-- Date Box End -->
-
-
-                                    </div>
-
-                                        </form>
-
+                            <div class="row g-3">
+                                <div class="col-lg-2 order-lg-2 text-lg-end">
+                                    <a href="revenueCenterReport.php" class="btn btn-primary update w-lg-100" style="max-width: 140px;"><?php echo showOtherLangText('Back'); ?></a>                
                                 </div>
-                                <div class="d-flex justify-content-end align-items-end spaceClass3">
-                                    <a href="revenueCenterReport.php" class="btn btn-primary update w-lg-100" style="max-width: 140px;"><?php echo showOtherLangText('Back'); ?></a>
+                                <div class="col-lg-10 order-lg-1">
+                                    <form name="frm" id="frm" method="get" action="">
+                                        <div class="hstCal gap-2" style=" flex-wrap:wrap;"> 
+                                            <div style="width: 250px;" class="">  
+                                                <?php if($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4){?>
+                                                    <select name="hotelId" id="hotelId" class="form-select select-pop" aria-label="Default select example">
+        
+                                                        <option value="21866" <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>Fun Beach Hotel(21866)</option>
+                                                        <option value="21930" <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : '';?>>Casa Del Mar Hotel(21930)</option>
+                                                    </select>
+                                                <?php }elseif($_SESSION['accountId'] == 3){?>	
+                                                        
+                                                    <select name="hotelId" id="hotelId" class="form-select select-pop"  aria-label="Default select example">
+        
+                                                            <option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>Mnarani Beach Hotel(29624)</option>
+                                                        </select>
+                                                <?php } ?> 
+                                            </div> 
+                                            <div class="his-featBtn">
+                                                <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+                                                    <i class="fa-regular fa-calendar p-0"></i>
+                                                </button>
+                                                <div class="cal-Ender d-none d-lg-inline-block">
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa-regular fa-calendar"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- Date Box Start -->
+                                            <div class="prtDate ">
+                                                <div class="hstDate m-0" style="min-height: 38px;"> 
+                                                    <input type="text" size="10" class="datepicker" placeholder="15/01/2023" name="date" id="date" autocomplete="off" value="<?php echo $date;?>">
+                                                   
+                                                </div>
+                                                <!--<div class="reloadBtn">
+                                                    <a href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                                </div>
+                                                <div class="reloadBtn">
+                                                    <a href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                </div>-->
+        
+                                            </div>
+        
+                                            <div class="d-flex justify-content-end gap-2 align-items-end">
+                                                <a href="javascript:void(0);" class="btn btn-primary update w-lg-100" style="max-width: 140px;" onClick="document.frm.submit();"><?php echo showOtherLangText('Get data'); ?></a>
+                                                <a class="btn btn-primary update w-lg-100 text-nowrap" style="max-width: 200px;" href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>" onClick="return confirm('<?php echo showOtherLangText('Are you sure to sync the data?'); ?>');"><?php echo showOtherLangText('Sync to report'); ?></a>
+                                            </div>
+        
+                                            
+                                            <!-- Date Box End -->
+        
+        
+                                        </div> 
+                                    </form> 
+                                </div><!-- /.col -->
+                                
+                            </div><!-- /.row --> 
+                            <div class="collapse" id="collapseSearch">
+                                <div class="mt-4 d-flex gap-2 res__search__box"> 
+                                    <div class="hstDate p-0 border-0">
+                                        <input type="text" size="10" class="datepicker" placeholder="15/01/2023" name="date" id="date" autocomplete="off" value="<?php echo $date;?>">
+                                    </div> 
                                 </div>
                             </div>
                         </div>
