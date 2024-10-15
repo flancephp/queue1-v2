@@ -133,6 +133,20 @@ if($_GET['confirm'] == 2)//for recusation
 		`stockValue` = ( stockValue - ".$ordRow['totalAmt']." )
 		WHERE pId = '".$ordRow['pId']."' AND account_id = '".$_SESSION['accountId']."'   ";
 		mysqli_query($con, $upQry);
+
+        //update stock data in order details
+        $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$ordRow['pId']."'  AND account_id = '".$_SESSION['accountId']."' ";
+        $stkQry = mysqli_query($con, $sql);
+        $stkRow = mysqli_fetch_array($stkQry);
+
+        $upQry = " UPDATE  `tbl_order_details` SET
+        `lastPrice` = '".$stkRow['lastPrice']."', 
+        `stockPrice` = '".$stkRow['stockPrice']."',
+        `stockQty` = '".$stkRow['qty']."'
+
+        WHERE ordId = '".$_GET['orderId']."' AND pId = '".$ordRow['pId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+        mysqli_query($con, $upQry);
+        //end 
 	
 	}
 	
