@@ -112,13 +112,12 @@ if( is_array($rows) && !empty($rows) )
 
 foreach($rows as $row)
 {
-	
+
 	$sql = "select * FROM tbl_products WHERE barCode = '".trim($row['BarCode'])."' AND account_id = '".$_SESSION['accountId']."'  ";
 	$result = mysqli_query($con, $sql);
 	$res = mysqli_fetch_array($result);
 	
 	$imgFiled = '';
-	
 	
 	//photo section goes here
 		if($row['Photo'] != '' && file_exists($bulkImgUploadPath. trim($row['Photo'])) )
@@ -129,7 +128,7 @@ foreach($rows as $row)
 			
 			$ext  = end(explode(".", $row['Photo']));
 			$newFile = time().'_'.$row['BarCode'].'.'.$ext;
-			
+		//	echo $target_dir . $accountImgPath. '/products/'. $newFile;die;
 			copy($bulkImgUploadPath . $row['Photo'], $target_dir . $accountImgPath. '/products/'. $newFile);
 			
 			$imgFiled = " ,`imgName` = '".$newFile."' ";
