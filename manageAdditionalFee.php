@@ -110,7 +110,7 @@ $result = mysqli_query($con, $sql);
                 </section>
 
                 <section class="ordDetail userDetail">
-                    <div class="container">
+                    <div class="container pb-5">
                     <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php 

@@ -248,7 +248,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
 
 
                         <div class="catgryTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="catgryTbl-Head align-items-center itmTable">
                                     <div class="catgryTbl-Cnt d-flex align-items-center">

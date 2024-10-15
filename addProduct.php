@@ -250,7 +250,7 @@ if( isset($_POST['itemName']) )
                         </div>
                     </div>
 
-                    <div class="container itmMng-Src outletFrm">
+                    <div class="container itmMng-Src outletFrm pb-5">
                     <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p>

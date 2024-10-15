@@ -161,7 +161,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
                         </div>
 
                         <div class="mngAcntTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="mngAcntTbl-Head align-items-center itmTable">
                                     <div class="mngAcntTbl-NmCol d-flex align-items-center">

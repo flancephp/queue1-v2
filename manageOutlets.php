@@ -161,7 +161,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('OutLet Deleted Successfully
                         </div>
 
                         <div class="outletTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="usrTbl-Head align-items-center itmTable">
                                     <div class="outTbl-Cnt d-flex align-items-center">

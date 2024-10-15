@@ -213,7 +213,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Department Deleted Successf
                         </div>
 
                         <div class="mngDepTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="mngDepTbl-Head align-items-center itmTable">
                                     <div class="mngDepTbl-Cnt d-flex align-items-center">

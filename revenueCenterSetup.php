@@ -154,7 +154,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Revenue Center Deleted Succ
                         </div>
 
                         <div class="revStpTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="revstpTbl-Head align-items-center itmTable">
                                     <div class="revstpTbl-Cnt d-flex align-items-center">

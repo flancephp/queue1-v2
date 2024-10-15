@@ -198,7 +198,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                         </div>
 
                         <div class="mng-UntTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="mng-UntTbl-Head align-items-center itmTable">
                                     <div class="mng-UntTbl-Cnt d-flex align-items-center">

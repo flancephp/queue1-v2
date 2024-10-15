@@ -72,7 +72,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                 </section>
 
                 <section class="ordDetail userDetail">
-                     <form name="frm" id="frm" method="post" action="" class="container">
+                     <form name="frm" id="frm" method="post" action="" class="container pb-5">
                         <div class="container">
                         <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes']) ) {?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">

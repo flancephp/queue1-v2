@@ -792,7 +792,7 @@ $deprtOptions .= '</ul>';
                     </form>
 
                     <div id="boxscroll">
-                        <div class="container cntTable">
+                        <div class="container cntTable pb-5">
                             <?php 
 					$x= 0;
 					while($row = mysqli_fetch_array($mainQry))
@@ -1028,7 +1028,7 @@ $deprtOptions .= '</ul>';
 
         for (i = 0; i < nodes.length; i++) {
             if (nodes[i].innerText.toLowerCase().includes(filter)) {
-                nodes[i].style.setProperty("display", "block", "important");
+                nodes[i].style.setProperty("display", "flex", "important");
             } else {
                 nodes[i].style.setProperty("display", "none", "important");
             }

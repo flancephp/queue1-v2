@@ -107,7 +107,7 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
                 </section>
 
                 <section class="ordDetail setupDetail">
-                    <div class="container">
+                    <div class="container pb-5">
                         <div class="stupIcons">
                             <div class="stup-clm-2">
                                 <div class="stup-UsrAcnt">

@@ -157,7 +157,7 @@ $curResult = mysqli_query($con, $sql);
                         </div>
 
                         <div class="mngCurTable">
-                            <div class="container">
+                            <div class="container pb-5">
                                 <!-- Table Head Start -->
                                 <div class="mngCurTbl-Head align-items-center itmTable">
                                     <div class="mngCurTbl-Cnt d-flex align-items-center">

@@ -125,7 +125,7 @@ $result = mysqli_query($con, $sql);
                             <?php } ?>
                         </div>
                            </div>
-                    <div class="container">
+                    <div class="container pb-5">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
