@@ -21270,6 +21270,10 @@ html[dir=rtl] .navbar-toggler .h1{
     width: 35px;
     height: 35px;
   }
+@media screen and (min-width: 1599px) {
+  .nav-bar a { font-size: 14px;  } 
+   
+}
 @media screen and (min-width: 1800px) {
   .nav-bar a { font-size: 1rem;  }
   .nav-bar { margin-top: 1.5rem; } 

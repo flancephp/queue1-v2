@@ -343,7 +343,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Add'); ?></button>
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
                     </div>
                 </div>
             </div>
@@ -369,7 +369,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
-                        <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Save'); ?></button>
+                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
                     </div>
                 </div>
             </div>

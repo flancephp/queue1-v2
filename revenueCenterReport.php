@@ -41,6 +41,8 @@ include_once('script/revenueCenterReport_script.php');
             .guestNum .text-center, .sl-Num .text-center { margin-right: auto; } 
             .cst-Value .col-md-7 { margin: 0 auto; }
             .sale-Variance, .tl-Cst { margin-right: auto; }
+            .revnueParent-sec .num-List .mbguest-Head { margin-bottom: 6px;font-size:14px; }
+            .revCenter-Name p { font-size: 14px; }
         }
         /* hover effects */
         .reloadBtn a:hover {
@@ -60,6 +62,13 @@ include_once('script/revenueCenterReport_script.php');
             .gt-Data {
                 width: 10%;
             }
+        }
+        .revFeat .dropdown-menu.show { transform: translate(0px, 86px) !important; }
+        @media screen and (max-width: 992px) {
+            .revFeat .dropdown-menu.show {
+                transform: translate(0px, 65px) !important;
+            }
+            .mbhead-revCntr { margin-bottom: 6px; }
         }
     </style>
 </head>

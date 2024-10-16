@@ -793,7 +793,7 @@ $tr = '';
                         <div id="boxscroll">
                             <div class="container position-relative outletTbl">
                                 <!-- Item Table Head Start -->
-                                <div class="container outletTask">
+                                <div class="container outletTask d-none d-lg-flex">
                                     <div class="otltTbl-head">
                                     <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
                                         <div class="otlt-hdImg"></div>

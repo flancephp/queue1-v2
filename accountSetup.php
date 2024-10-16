@@ -84,7 +84,13 @@ echo "<script>window.location='accountSetup.php?updated=1'</script>";
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-
+    <style>
+        @media screen and (max-width: 767px) {
+            html[dir=rtl] .acntLg-Upld {
+                padding-right: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body class="mb-Bgbdy">
