@@ -383,7 +383,7 @@ function getItemHistory($pId, $params=array())
 	LEFT JOIN tbl_deptusers du ON(o.recMemberId = du.id) AND o.account_id = du.account_id
 	LEFT JOIN tbl_stores st ON(o.storeId = st.id) AND o.account_id = s.account_id
 	LEFT JOIN tbl_suppliers sp ON(o.supplierId = sp.id) AND o.account_id = sp.account_id						
-	WHERE od.pId = '".$pId."' AND od.account_id = '".$_SESSION['accountId']."' AND o.status = 2 ".$cond." ORDER BY od.id desc ";
+	WHERE od.pId = '".$pId."' AND od.account_id = '".$_SESSION['accountId']."' AND o.status = 2 ".$cond." ORDER BY o.setDateTime desc ";
 	
 	$resultSet = mysqli_query($con, $sqlSet);
 	

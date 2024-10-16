@@ -286,34 +286,36 @@ $cond1 = $cond;
 
 
 if ($cond != '') {
-$_SESSION['getVals'] = $_GET;
+    $_SESSION['getVals'] = $_GET;
 } else {
-unset($_SESSION['getVals']);
+    unset($_SESSION['getVals']);
 }
 
 if (isset($_GET['accountNo']) && $_GET['accountNo'] > 0) {
-$cond .= " AND o.bankAccountId = '" . $_GET['accountNo'] . "' AND o.paymentStatus = 1 ";
-$cond1 = $cond;
+    $cond .= " AND o.bankAccountId = '" . $_GET['accountNo'] . "' AND o.paymentStatus = 1 ";
+    $cond1 = $cond;
 }
 
 if ($_GET['dateType'] == '') {
-$cond .= " GROUP BY o.id ORDER BY o.id desc ";
-$cond1 = $cond;
+    $cond .= " GROUP BY o.id ORDER BY o.setDateTime desc ";
+    $cond1 = $cond;
 }
 
 if ($_GET['dateType'] != '' && $_GET['dateType'] == 1) {
-$cond .= " GROUP BY o.id ORDER BY o.ordDateTime desc ";
-$cond1 = $cond;
+    $cond .= " GROUP BY o.id ORDER BY o.ordDateTime desc ";
+    $cond1 = $cond;
 }
 if ($_GET['dateType'] != '' && $_GET['dateType'] == 2) {
-$cond .= " GROUP BY o.id ORDER BY o.setDateTime desc ";
-$cond1 = $cond;
+    $cond .= " GROUP BY o.id ORDER BY o.setDateTime desc ";
+    $cond1 = $cond;
 }
 if ($_GET['dateType'] != '' && $_GET['dateType'] == 3) {
 
 $cond .= " GROUP BY o.id ORDER BY o.paymentDateTime desc, o.setDateTime desc ";
 $cond1 = $cond;
 }
+
+
 
 
 $mainSqlQry = " SELECT
