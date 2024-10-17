@@ -1157,6 +1157,7 @@ $colsArr = [
     position: relative;
     top: -4px;
 }
+.modal.show .modal-dialog { margin-top: 2rem; }
   @media (max-width:1024px) {
     .issueDtl1 .issueIn  {width: 55% !important;overflow-x:auto;}
     .numRef {

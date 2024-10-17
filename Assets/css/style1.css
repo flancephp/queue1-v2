@@ -51,13 +51,18 @@ html[dir=rtl] .dropend .dropdown-menu[data-bs-popper] {
   margin-top: 0;
   text-align: start;
 }
-      @media (min-width: 992px) {
-        html[dir=rtl] .ord-Box.ms-0.position {
-            right: 0;
-            border-radius: 10px 0px 0px 10px;
-            border-right: 0;
-        }
-    }
+@media (min-width: 992px) {
+html[dir=rtl] .ord-Box.ms-0.position {
+right: 0;
+border-radius: 10px 0px 0px 10px;
+border-right: 0;
+}
+}
+@media (max-width: 575px) {
+  html[dir=rtl] .dropend .dropdown-menu[data-bs-popper] {
+    right: 84%;
+  }
+}
 
 @media screen and (min-width: 1600px) {
   html[dir=rtl] .ord-Box {

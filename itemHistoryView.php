@@ -206,7 +206,7 @@ foreach($resItemHistory['resRows'] as $item){
 
     @media screen and (max-width: 992px) {
 
-        .dt-Member1 { width: 50%; }
+        .dt-Member1 { width: 100%; }
         .tbdy-dtMbr {
             width: 50%;
             flex-direction: column;
@@ -223,6 +223,7 @@ foreach($resItemHistory['resRows'] as $item){
             font-size: 16px;
         }
         .varStk-Mem { display: inline-block; }
+        .itmVw-Tblshow .itmTable { border:0; }
     }
 
     @media screen and (max-width: 767px) { 
@@ -263,6 +264,25 @@ foreach($resItemHistory['resRows'] as $item){
     }
     @media (min-width:576px) and (max-width: 991px) { 
         .container.mb-hisDtl.tb-itmVwdtl { padding: 15px 0; }
+    }
+    .dropdown-toggle span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+    }
+    @media(max-width:991px) {
+        .itmVw-memberClm.res__positioned__box, .itmVw-memberClm.res__positioned__box2 {
+            position: absolute;top:90px;left:20px;width: calc(100% - 40px) !important;margin:0;
+        }
+        .itmVw-memberClm.res__positioned__box2 {
+            top:140px;
+        }
+        .itmVw-memberClm .dropdown-toggle {
+            padding: 9px 12px;
+        }
     }
     </style>
     <!-- Links for datePicker and dialog popup -->
@@ -645,7 +665,7 @@ foreach($resItemHistory['resRows'] as $item){
                                     <div class="itmVw-dateClm">
                                         <p><?php echo showOtherLangText('Date'); ?></p>
                                     </div>
-                                    <div class="itmVw-memberClm">
+                                    <div class="itmVw-memberClm res__positioned__box">
                                         <div class="dropdown d-flex position-relative">
                                             <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
@@ -656,7 +676,7 @@ foreach($resItemHistory['resRows'] as $item){
                                         </div>
                                     </div>
 
-                                    <div class="itmVw-memberClm">
+                                    <div class="itmVw-memberClm res__positioned__box2">
                                         <div class="dropdown d-flex position-relative">
                                             <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                 aria-expanded="false">

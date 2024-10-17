@@ -341,7 +341,7 @@ if($_SESSION['deptId'] != '')
         @media screen and (min-width: 1600px) {
             .newFeatures { padding: 0 39px 0 88px; }
         }
-        @media screen and (max-width: 1599px) {
+        @media screen and (max-width: 1700px) {
             .newFeatures { padding-right: 30px !important; }
             .itmTable, .itmBody { font-size: 14px; }
             .reqImg { width: 4rem; }

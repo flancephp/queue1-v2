@@ -439,7 +439,7 @@ html[dir=rtl] .text-start { text-align: right !important; }
 }
 
 /* ----- History page payment table styles ---------- */
-.payment__table { min-width: 569px;color: #232859; }
+.payment__table { min-width: 560px;color: #232859; }
 .payment__table th { border: 0; }
 .payment__table th { background: #A9B0C0;color: var(--color-white);font-size: 1rem;line-height: 1.18;padding: 1.125rem; } 
 .payment__table th:first-child { border-radius: .625rem 0 0 .625rem;text-align: center; }
@@ -457,6 +457,16 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
 .payment__table th:nth-child(7), .payment__table td:nth-child(7) { width: 18%; }
 .payment__table .dlTe { width: 1.5rem;height: 1.5rem; }
 
+@media(min-width:1200px) and (max-width: 1800px) { 
+  .payment__table th:nth-child(2), .payment__table td:nth-child(2) { width: 15%; }
+  .payment__table th:nth-child(3), .payment__table td:nth-child(3) { width: 10%; }
+  .payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 20%; }
+  .payment__table th:nth-child(5), .payment__table td:nth-child(5) { width: 20%; }
+  .payment__table th:nth-child(6), .payment__table td:nth-child(6) { width: 15%; }
+  .payment__table th:nth-child(7), .payment__table td:nth-child(7) { width: 15%; }
+  .table__col { width: 55%;flex: 0 0 55%; }
+}
+
 .payment-tabel-header .table1 tr td.dark__td__color { color: #1C2047 !important; }
 .mr-btm { width: 100%; }
 .mr-btm td, .inv-detail table td, .paySelect table td { padding-top: 3px;padding-bottom: 3px; }
@@ -464,8 +474,13 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
  
 @media (max-width:1700px) {
   .payment__table th { font-size: .875rem;padding: 0 1rem;height: 4rem;vertical-align: middle; }
-  .tr-bg-1 th { padding: 0 1rem !important; }
-  .payment__table td { padding: 1rem 1rem !important; }
-  .grand-total-tabel tr td:first-child, .grand-total-tabel tr td:last-child { font-size: .875rem; }
-  .grand-total th { font-size: 15px !important; }
+  .tr-bg-1 th { padding: 0 .625rem !important; }
+  .payment__table td { padding: 1rem .625rem !important; }
+  .grand-total-tabel tr td:first-child, .grand-total-tabel tr td:last-child { font-size: .875rem;padding: 1rem 1rem !important; }
+  .grand-total th { font-size: 14px !important; }
+  .invoiceto-p p, .paymentto-p p { font-size: 14px !important; }
+}
+@media (max-width:575px) {
+  .invoiceto-p p, .paymentto-p p { font-size: 13px !important; }
+  .payment__table th { font-size: 11px; }
 }

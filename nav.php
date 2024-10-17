@@ -9,14 +9,14 @@
         <div class="nav-bar">
             <ul class="nav flex-column h2">
                 <li class="nav-item dropdown dropend">
-                    <a class="nav-link new_task__icon <?php echo isMenuActive(['addOrder.php','addRecusation.php']); ?> d-flex align-items-center text-center dropdown-toggle" aria-current="page" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link new_task__icon <?php echo isMenuActive(['addOrder.php','addRecusation.php']); ?> d-flex align-items-center text-center dropdown-toggle" role="button" aria-current="page" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="d-block w-100"> 
                             <img src="Assets/icons/new_task.svg" alt="Task" class="navIcon">
                             <img src="Assets/icons/new_task_hv.svg" alt="Task" class="mb_navIcn">
                             <p class="mt-1 sm__text"><?php echo showOtherLangText('New Task'); ?></p>
                         </span>
                     </a>
-                    <ul class="dropdown-menu nwSub-Menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu nwSub-Menu">
                         <li><a class="nav-link nav_sub <?php echo isSubMenuActive('addOrder.php'); ?>"
                                 aria-current="page" href="addOrder.php">
                                 <img src="Assets/icons/new_order.svg" alt="New order" class="navIcon align-middle">

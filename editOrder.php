@@ -464,12 +464,13 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     @media screen and (min-width: 1400px) { 
         .container.topOrder.erdOrder { margin-top: -1.5rem; }
     }
-    @media (max-width: 1599px) {
+    @media (max-width: 1700px) {
         .itmTable { font-size: .875rem; }
         .itmBody { font-size: 14px; }
         .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
         .mbFeature .ordFeature > a { padding: 20px 0; }
         .mbFeature .ordFeature:before { height: 37px; }
+        .btn__box .btn-primary { font-size:1rem; }
     }
     
     .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type {

@@ -395,7 +395,7 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
     .nwNxt-Btn .btnBg { margin-left: auto; }
     html[dir='rtl'] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
 }
-@media screen and (max-width: 1599px) {
+@media screen and (max-width: 1700px) {
   .itmBody, .itmTable { font-size: 14px; } 
   .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
   .mbFeature .ordFeature > a { padding: 20px 0; }

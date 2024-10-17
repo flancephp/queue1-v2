@@ -473,11 +473,11 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                     <thead>
                                         <tr class="tr-bg-1">
                                             <th>#</th>
-                                            <th style="width: 22%;"><?php echo showOtherLangText('Item'); ?></th>
+                                            <th><?php echo showOtherLangText('Item'); ?></th>
                                             <th><?php echo showOtherLangText('Unit'); ?></th>
-                                            <th style="width: 14%;"><?php echo showOtherLangText('Ordered'); ?><br><?php echo showOtherLangText('Quantity'); ?>
+                                            <th><?php echo showOtherLangText('Ordered'); ?><br><?php echo showOtherLangText('Quantity'); ?>
                                             </th>
-                                            <th style="width: 14%;"><?php echo showOtherLangText('Receive'); ?><br><?php echo showOtherLangText('Quantity'); ?>
+                                            <th><?php echo showOtherLangText('Receive'); ?><br><?php echo showOtherLangText('Quantity'); ?>
                                             </th>
     
                                             <?php 
@@ -521,10 +521,10 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                                         ?>
                                         <tr>
                                             <td><?php echo $x; ?></td>
-                                            <td style="width: 22%;"><?php echo $showCif['itemName'];?></td>
+                                            <td><?php echo $showCif['itemName'];?></td>
                                             <td><?php echo $showCif['unit'];?></td>
-                                            <td style="width: 14%;">1</td>
-                                            <td style="width: 14%;">1</td>
+                                            <td>1</td>
+                                            <td>1</td>
                                             <?php 
                                             if ($orderRow['ordCurId'] > 0) { 
                                             ?>

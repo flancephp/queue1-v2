@@ -376,10 +376,11 @@ $cond = '';
             } 
             
         }
-        @media screen and (max-width: 1599px) {
+        @media screen and (max-width: 1700px) {
             .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
             .mbFeature .ordFeature > a { padding: 20px 0; }
             .mbFeature .ordFeature:before { height: 37px; }
+            .btn__box .btn-primary { font-size:1rem; }
         }
         .featRow { max-width:118px; }
         
