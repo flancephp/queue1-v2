@@ -241,7 +241,7 @@ if( $res['proType'] == 3)
                     </div>
                 </section>
 
-                <section class="ordDetail userDetail itmMngDetail">
+                <section class="ordDetail userDetail itmMngDetail pb-5">
                     <div class="container">
                     <form role="form" action="" method="post" class="container" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?php echo $res['id'];?>" /><div class="row mb-3 mb-md-0">

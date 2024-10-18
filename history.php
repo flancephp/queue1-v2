@@ -1157,6 +1157,7 @@ $colsArr = [
     position: relative;
     top: -4px;
 }
+.modal.show .modal-dialog { margin-top: 2rem; }
   @media (max-width:1024px) {
     .issueDtl1 .issueIn  {width: 55% !important;overflow-x:auto;}
     .numRef {
@@ -1482,9 +1483,12 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
         margin-top: 9%;
     }
 }
+.modal-table .table-cell .photo img { max-height:50px;width:auto; }
 @media(max-width:767px) {
     .set__left__padding { padding: 5px 0px;line-height: 1.4; } 
     .modal-header { padding: 0px 0 12px 0; }
+    .modal-table .table-cell .photo img { max-height:20px; }
+    .dropdown-menu.show { padding: 5px !important; }
 }
 @media (min-width: 992px) {
   #modalfiltertop {
@@ -1558,7 +1562,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
 
                 <section class="ordDetail hisTory">
 
-                    <div class="alrtMessage mx-lg-4">
+                    <div class="alrtMessage mx-lg-4 mt-4">
                         <div class="container">
                         <a name="del"></a>
                             <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?>
@@ -1696,7 +1700,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
                             </div><!-- /.row -->
 
                             <div class="collapse" id="collapseSearch">
-                                <div class="mt-4 d-flex gap-2 res__search__box"> 
+                                <!-- <div class="mt-4 d-flex gap-2 res__search__box"> 
                                     <div class="hstDate border-0 p-0">
                                         <input type="text" size="10" class="datepicker" placeholder="<?php echo showOtherLangText('From date') ?>" name="fromDate" autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDate']; ?>">
                                         <span>-</span>
@@ -1710,7 +1714,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
                                             <a onClick="window.location.href='history.php?clearSearch=1';" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
                                         </div>
                                     <?php } ?>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
@@ -2635,7 +2639,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
     </div>
 </div>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

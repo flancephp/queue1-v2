@@ -355,7 +355,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     a.active {
         color: #fff !important;
     }
-    .btn-primary {
+    /* .btn-primary {
         background-color: var(--color-primary) !important;
         padding: .625rem 1.625rem !important;
         box-shadow: 0px 4px 20px 0px #7F7FA514;
@@ -366,7 +366,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         transition: all .3s ease-in-out;
         border-width: 2px;
     }
-    .btn-primary:focus { outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;}
+    .btn-primary:focus { outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;} */
     
     @media (max-width: 767px) {
         .btn-primary { border-radius: 0.5rem !important;padding: .5rem 1rem !important; }
@@ -437,10 +437,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .modal-header {
     padding: 12px 0 18px 0;
     }
+    .modal-table .table-cell .photo img { max-height:50px;width:auto; }
     @media(max-width:767px) {  
     .modal-header { padding: 0px 0 12px 0; }
     .modal-content { max-width:90%;margin-top: 2rem; }
     .dropdown-menu.show {padding: 5px !important; }
+    .modal-table .table-cell .photo img { max-height:20px; }
     }
     .modal-dialog-centered { align-items: flex-start; }
     html[dir="rtl"] .fa-share-square.pe-2 { padding-right: 0 !important;padding-left: .2rem !important; }
@@ -894,7 +896,7 @@ while($orderRow = mysqli_fetch_array($result))
 </form>
 <form method="POST" id="frm_issueOutPopUpFrm" name="issueOutPopUpFrm">
 <div class="modal" tabindex="-1" id="issue-out" aria-labelledby="edit-Assign-OrderLabel" aria-hidden="true">
-    <div class="modal-dialog ">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-body text-center fs-13">
@@ -914,7 +916,7 @@ while($orderRow = mysqli_fetch_array($result))
 <form action="runningOrders.php?confirm=2&orderId=<?php echo $_SESSION['errorQtyOrderId'] ?>" method="POST"
 id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 <div class="modal" id="errorQtyModal" tabindex="-1" aria-labelledby="issueout2label" aria-hidden="true">
-    <div class="modal-dialog  modal-550">
+    <div class="modal-dialog  modal-550 modal-dialog-centered" style="align-items:center !important;">
 
 
         <?php 
@@ -937,7 +939,7 @@ id="frm_issueOutPopUpFinalFrm" name="issueOutPopUpFrm">
 </div>
 </div>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-<div class="modal-dialog ">
+<div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

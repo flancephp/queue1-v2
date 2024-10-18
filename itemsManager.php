@@ -418,7 +418,7 @@ $deprtOptions .= '</ul>';
         @media screen and (max-width: 992px) {
             .bkItm-MngBtn, .fetItm-Mng { width: 50%; }
             .bkItm-MngBtn { display: flex;justify-content: space-between;align-items: center; }
-             .bkItm-MngBtn .btn-primary { /*width: 52px;height:52px;*/row acntStp-Row } 
+             .bkItm-MngBtn .btn-primary { /*width: 52px;height:52px;*/ } 
             .imgItm-MngClm:first-child { width: 10%; }
         }
     </style>

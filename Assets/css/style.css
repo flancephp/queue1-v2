@@ -16717,7 +16717,7 @@ display: flex;}
     padding-bottom: 5px;
   }
   
-  .itmView-isuTbl { font-size: 16px; }
+  .itmView-isuTbl { font-size: 15px; }
 
 
 }
@@ -21270,8 +21270,15 @@ html[dir=rtl] .navbar-toggler .h1{
     width: 35px;
     height: 35px;
   }
+@media screen and (min-width: 1200px) {
+  .nav-bar .dropdown .dropdown-menu a { font-size: 14px;white-space: nowrap;  } 
+   
+}
+@media screen and (min-width: 1600px) {
+  .nav-bar a { font-size: 1rem;  } 
+}
 @media screen and (min-width: 1800px) {
-  .nav-bar a { font-size: 1rem;  }
+  
   .nav-bar { margin-top: 1.5rem; } 
   .itmBody,.itmTable { font-size: 15px;line-height: 20px; }
   .runTask { margin: 0 180px 0 140px; }

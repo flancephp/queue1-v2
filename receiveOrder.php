@@ -443,6 +443,11 @@ $otherChrgQry=mysqli_query($con, $sql);
         }
         .ttlOtr-RecPrc.tb-bdy, .ttlDft-RecPrc.tb-bdy { color:var(--color-primary);font-weight:600; }
         .ttlDft-RecPrc.tb-bdy.input {color: #232859;font-weight:400;  }
+        @media screen and (max-width: 1700px) {
+            .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
+            .dropdown-toggle.tabFet { padding: 20px 10px; } 
+            .btnBg .btn-primary { font-size:1rem; }
+        }
         @media(max-width:1200px){
             .update .rcvOrder .smBtn { padding: 0;}
         }

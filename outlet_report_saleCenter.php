@@ -110,7 +110,22 @@ html[dir=rtl] .otltBd-Unit {
         background: #fff;height: 93%;top: auto;bottom: 0;align-items: flex-start;border-radius:var(--radius) var(--radius) 0 0;
     }
 }
+@media(min-width:992px) {
+    /* .otltBd-slBar, .otltBd-Ajst { display:none; } */
+    /* .currItm-Info > div { width: 12.5%; } */
 
+    .otlt-itm-typ, .otltBd-itm-typ { width: 7%; }
+    .otlt-itm, .otltBd-itm { width: 10% !important; }
+    .otltBd-stkPrc, .otlt-stkPrc { width: 7% !important; }
+    .flipClm-Otlt, .infoBtn-Hide { width: 66%; }
+    .otlt-opnStk, .otlt-isn, .otlt-Ajst, .otlt-Pos, .otlt-slBar, .otlt-clStk, .otlt-usg, .otlt-var, .usg-p-g, .avg-usg, .usg-lvl {
+        width: 9.09% !important;
+    }
+    .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk, .otltBd-usg, .otltBd-var, .usg-p-g, .avg-usg, .usg-lvl {
+        width: 9.09% !important;
+    }
+    .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst { padding-left: 8px; }
+}
     </style>
 
 </head>
@@ -522,7 +537,7 @@ $tr = '';
                                                     <div class="mbHide-Otlt">
                                                         <div class="itmInfo-Otlt">
 
-                                                         <div class="otltBd-opnStk">
+                                                            <div class="otltBd-opnStk d-lg-none">
                                                                 <p class="mbSale-Head">Stock Price</p>
                                                                 <p class="mblStock-Sale" title="Stock Price">'.getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
@@ -599,12 +614,18 @@ $tr = '';
                                                             <div class="otltBd-clStk">
                                                                 <p title="Close Stock Amount">'.getNumFormtPrice($closeStockAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
                                                             </div>
-                                                              <div class="otltBd-usg">
-                                                            <p title="Usage Amount">'. getNumFormtPrice($usageAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
-                                                        </div>
-                                                        <div class="otltBd-var">
-                                                            <p title="Variance Amount">'. getNumFormtPrice($varienceAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
-                                                        </div>
+                                                            <div class="otltBd-usg">
+                                                                <p title="Usage Amount">'. getNumFormtPrice($usageAmt,$getDefCurDet['curCode'],$decimalPlace).'</p>
+                                                            </div>
+                                                            <div class="otltBd-var">
+                                                                <p title="Variance Amount">'. getNumFormtPrice($varienceAmt,$getDefCurDet['curCode'],$decimalPlace) .'</p>
+                                                            </div>
+                                                            <div class="usg-p-g"> 
+                                                            </div>
+                                                            <div class="avg-usg"> 
+                                                            </div>
+                                                            <div class="usg-lvl"> 
+                                                            </div>
 
 
                                                         
@@ -793,7 +814,7 @@ $tr = '';
                         <div id="boxscroll">
                             <div class="container position-relative outletTbl">
                                 <!-- Item Table Head Start -->
-                                <div class="container outletTask">
+                                <div class="container outletTask d-none d-lg-flex">
                                     <div class="otltTbl-head">
                                     <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
                                         <div class="otlt-hdImg"></div>
@@ -1062,9 +1083,9 @@ function myFunction() {
 
             if (text.toLowerCase().includes(filter)) {
                 if (!foundInChild) {
-                    parentDiv.style.display = "block";  
+                    parentDiv.style.display = "flex";  
                 }
-                childNode.style.display = "block";  
+                childNode.style.display = "flex";  
                 foundInChild = true;
             } else {
                 childNode.style.display = "none";  // Hide non-matching child

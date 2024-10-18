@@ -419,15 +419,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .page1bdy .cntTable .stkNamcol>div:nth-child(4){
                 width: 20% !important;
             }
-            #page1head .mbSh+-w .stkPrcol .lstPrcol {width: 33% !important;}
-            #page1bdy .mbShw .
-            
-            
-            
-            
-            
-            
-            +,stkPrcol .lstPrcol {width: 50% !important;}
+            #page1head .mbShw .stkPrcol .lstPrcol {width: 33% !important;}
+            #page1bdy .mbShw .stkPrcol .lstPrcol {width: 50% !important;}
         }
         #upload_form .dropStk ul{ opacity: 1 !important;inset: 26px 0px auto auto !important;}
         .md__33 { width: 33%; }
@@ -535,15 +528,16 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   }
 }
 
-        @media(max-width:1599px) {
+@media(max-width:1599px) {
   .storeCol {
     width: calc(100% - 280px);
     max-width: 780px;
   }
+  html[dir="rtl"] #upload_form .dropStk ul { inset: 26px -39px auto auto !important; }
 
   .strfetCol {
   width: 280px;margin-top: 10px;
-}
+    }
 
   .tb-bdy {
   font-size: 14px;
@@ -1664,7 +1658,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <td class="criCols3"><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
                                     </td>
                                 </tr>
-                                <tr class="semibold">
+                                <tr>
                                     <td><?php
                                         if ($convertItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $convertItemRow['imgName'])) {
                                             echo '<img width="60" height="60" src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $convertItemRow['imgName'] . '" >';
