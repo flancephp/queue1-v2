@@ -537,7 +537,7 @@ $tr = '';
                                                     <div class="mbHide-Otlt">
                                                         <div class="itmInfo-Otlt">
 
-                                                         <div class="otltBd-opnStk">
+                                                            <div class="otltBd-opnStk d-lg-none">
                                                                 <p class="mbSale-Head">Stock Price</p>
                                                                 <p class="mblStock-Sale" title="Stock Price">'.getNumFormtPrice($stockPrice,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
