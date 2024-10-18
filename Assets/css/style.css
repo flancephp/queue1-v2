@@ -21271,7 +21271,7 @@ html[dir=rtl] .navbar-toggler .h1{
     height: 35px;
   }
 @media screen and (min-width: 1200px) {
-  .nav-bar a { font-size: 14px;white-space: nowrap;  } 
+  .nav-bar .dropdown .dropdown-menu a { font-size: 14px;white-space: nowrap;  } 
    
 }
 @media screen and (min-width: 1600px) {
