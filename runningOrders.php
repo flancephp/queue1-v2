@@ -1352,19 +1352,19 @@ updateVisibility();
 
 function updateVisibility() {
 
-var otherCurId = $('#ordCurId').val();
+    var otherCurId = $('#ordCurId').val();
 
-if (!$(".summary-default-currency").is(":checked") && (!$(".summary-second-currency").is(
-    ":checked") || otherCurId == 0)) {
+    if (!$(".summary-default-currency").is(":checked") && (!$(".summary-second-currency").is(
+        ":checked") || otherCurId == 0)) {
 
-$('.amountSections').css('display', 'none');
-$('.SummaryItems').css('display', 'none');
+    $('.amountSections').css('display', 'none');
+    $('.SummaryItems').css('display', 'none');
 
-// $('.smryTtl').css('display', 'none');
+    // $('.smryTtl').css('display', 'none');
 
 } else {
-$('.sumBreakupAmtText').css('display', 'block');
-$('.SummaryItems').css('display', 'table-row');
+    $('.sumBreakupAmtText').css('display', 'block');
+    $('.SummaryItems').css('display', 'table-row');
 }
 }
 

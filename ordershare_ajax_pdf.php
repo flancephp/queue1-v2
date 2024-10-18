@@ -270,7 +270,7 @@ $content .= '<div class="modal-header position-relative">
                 <div class="table-row">
                     <div class="table-cell py-0 "></div>
                     <div class="table-cell py-0 "><span class="smryDef_Val smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</span></div>
-                    <div class="table-cell py-0 " style="padding-right:0px;"<span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
+                    <div class="table-cell py-0 " style="padding-right:0px;"><span class="smryOtr_Val amountSections  smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'. showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']).'</span></div>
                 </div>
             </div>
         </div>
@@ -444,7 +444,7 @@ $content .= '<div class="modal-header position-relative">
                  $content .=     '<div id="itemDiv" class="px-2"><div class="modal-table fs-12 w-100 mt-">
                             <div class="table-row thead">';
                    $content .=    '<div class="table-cell">#</div>';
-                   $content .=    '<div class="table-cell"><span style="display:nid="taskDiv"one;"   class="photo">'.showOtherLangText('Photo').'</span></div>';
+                   $content .=    '<div class="table-cell"><span style="display:none"   class="photo">'.showOtherLangText('Photo').'</span></div>';
                    $content .=   '<div class="table-cell"><span   class="itmProd">'.showOtherLangText('Item').'</span></div>';
                    $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmCode">'.showOtherLangText('Barcode').'</span></div>';
                    $content .=   '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"  class="itmPrc">'.showOtherLangText('Price').'('.$getDefCurDet['curCode'].')</div>';
