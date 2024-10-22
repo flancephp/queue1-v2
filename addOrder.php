@@ -426,8 +426,9 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
     .newOrd-CntPrt > div:first-child { position: absolute;top: 0.25rem;left: .2rem;text-align: center;background: rgba(255, 255, 255, 0.8); }
     html[dir="rtl"] .newOrd-CntPrt > div:first-child { right: .2rem;left:auto; }
     html[dir="rtl"] .newOrd-CntPrt > div:nth-child(2) { padding-right: 0;text-align: center; }
-    .filder__btns.col-md-7 { margin-top: .5rem; }
-    .ordFeature { width: 24.33%; padding: 0 5px; }
+    .filder__btns.col-md-7 { margin-top: 1.25rem; }
+    .prcTable { margin-top: 8px; }
+    .ordFeature { width: 24.33% !important; padding: 0 5px; }
     .mbFeature .ordFeature > a { padding: 13px 0; }
     .mbFeature .ordFeature::before { height: 26px; }
     .prdtImg { width: 4rem;padding-left: 0 !important; }
@@ -555,7 +556,8 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
     </div> -->
     <div class="ordDate">
         <h4 class="subTittle1">
-            <span><?php echo showOtherLangText('Task'); ?>#:  332974</span>
+            <!-- #:  332974 -->
+            <span><?php echo showOtherLangText('Task'); ?></span>
             <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
         </h4>
     </div>

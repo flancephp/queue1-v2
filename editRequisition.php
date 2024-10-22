@@ -333,6 +333,7 @@ $cond = '';
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { left:auto !important;right:0; }
             html[dir="rtl"] .ord-Box { padding: 0;border-radius: 15px 0px 0 15px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }
             html[dir="rtl"] .featRow.ms-auto.w-100{margin-left: 0 !important;margin-right: auto;}
+            
         }
         @media(min-width:768px){  
             html[dir="rtl"] .btnBg.text-center.text-md-end { text-align: left !important; } 
@@ -393,6 +394,7 @@ $cond = '';
             html[dir="rtl"] .sltSupp.nwOrd-Num.position .ord-Box{border-radius:10px !important;border-right: 1px solid #f05d53;padding-top: 0;padding-bottom: 0; }
             html[dir="rtl"] .update .ordInfo { padding: 0; }
             html[dir="rtl"] .featRow.ms-auto.w-100 { margin-right: auto;margin-left: 0 !important; }
+            .featRow.ms-auto.w-100{margin-top: 8px !important; }
 
             .newOrd-CntPrt{ position: relative; }
             .itmBody > div:first-child{ position: absolute;top:0.5rem;left:0;font-size: 12px;width: 25% !important;text-align: center; }

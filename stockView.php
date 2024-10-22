@@ -536,7 +536,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
   html[dir="rtl"] #upload_form .dropStk ul { inset: 26px -39px auto auto !important; }
 
   .strfetCol {
-  width: 280px;margin-top: 10px;
+  width: 280px;margin-top: 1px;
     }
 
   .tb-bdy {

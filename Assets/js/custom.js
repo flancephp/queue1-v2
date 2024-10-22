@@ -1,14 +1,54 @@
 // Nav Toggler End
 
 // Nav Bar Click
-$(".navbar-toggler").click(function () {
-  $("body").addClass("showNav");
+$(document).ready(function () {
+  // Open the navigation menu
+  $(".navbar-toggler").click(function (e) {
+      e.stopPropagation(); // Prevent the click from bubbling up
+      $("body").addClass("showNav");
+  });
+
+  // Close the navigation menu when close button is clicked
+  $(".clsBar a").click(function (e) {
+      e.stopPropagation(); // Prevent the click from bubbling up
+      $("body").removeClass("showNav");
+  });
+
+  // Close the navigation menu when clicked outside the #nav-col
+  $(document).click(function (event) {
+      // If the click is outside #nav-col and not on the navbar-toggler, close the menu
+      if (!$(event.target).closest('#nav-col').length && !$(event.target).closest('.navbar-toggler').length) {
+          $("body").removeClass("showNav");
+      }
+  });
+
+  // Stop propagation when clicking inside #nav-col to prevent the document click from closing the nav
+  $("#nav-col").click(function (e) {
+      e.stopPropagation(); // Prevent click inside nav from closing it
+  });
 });
 
-// Close Btn Click
-$(".clsBar a").click(function () {
-  $("body").removeClass("showNav");
-});
+
+// $(".navbar-toggler").click(function () {
+//   $("body").addClass("showNav");
+// });
+
+// // Close Btn Click
+// $(".clsBar a").click(function () {
+//   $("body").removeClass("showNav");
+// });
+
+// document.addEventListener("DOMContentLoaded", function() {
+//   const navCol = document.getElementById('nav-col');
+  
+//   document.addEventListener('click', function(event) {
+//       // Check if the click was outside of the nav-col
+//       if (!navCol.contains(event.target)) {
+//           document.body.classList.remove('showNav'); // Replace 'your-class-name' with the actual class you want to remove
+//       }
+//   });
+// });
+
 
 // Nav Toggler End
 

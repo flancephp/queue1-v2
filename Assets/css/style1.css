@@ -277,7 +277,13 @@ html[dir=rtl] .form-select {
   border-radius: 7px;
 }
 html[dir=rtl] #currencyId {
-  background-size: 42px !important;
+  background-size: 42px 36px !important;
+  background-position: center left;
+}
+@media(min-width:1600px) {
+  html[dir=rtl] #currencyId {
+    background-size: 42px 42px !important; background-position: center left 5px;
+  }
 }
 html[dir=rtl] .stkView .container {
   padding: 28px 11px 0;
