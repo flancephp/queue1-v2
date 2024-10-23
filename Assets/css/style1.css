@@ -46,7 +46,7 @@ html[dir=rtl] .addUser-Form input[type=password]{
 }
 html[dir=rtl] .dropend .dropdown-menu[data-bs-popper] {
   top: 0;
-  right: 100%;
+  right: 85%;
   left: auto;
   margin-top: 0;
   text-align: start;

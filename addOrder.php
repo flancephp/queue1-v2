@@ -421,12 +421,13 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
     html[dir=rtl] .ordInfo { padding: 0; }
     .crncy-Type.col.d-flex { flex:none; }
     .curRow { font-size: 1rem; }
+    .filder__btns.col-md-7 { margin-top: 1rem; }
 }
 @media (max-width:767px) {
     .newOrd-CntPrt > div:first-child { position: absolute;top: 0.25rem;left: .2rem;text-align: center;background: rgba(255, 255, 255, 0.8); }
     html[dir="rtl"] .newOrd-CntPrt > div:first-child { right: .2rem;left:auto; }
     html[dir="rtl"] .newOrd-CntPrt > div:nth-child(2) { padding-right: 0;text-align: center; }
-    .filder__btns.col-md-7 { margin-top: 1.25rem; }
+    
     .prcTable { margin-top: 8px; }
     .ordFeature { width: 24.33% !important; padding: 0 5px; }
     .mbFeature .ordFeature > a { padding: 13px 0; }

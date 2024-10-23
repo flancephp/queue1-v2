@@ -100,7 +100,12 @@ if( isset($_POST['user_name']) )
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-
+    <style>
+        @media(max-width:767px) {
+.usrBtns .btn-primary { padding-top: 7px; }
+            }        
+    
+    </style>
 </head>
 
 <body class="mb-Bgbdy">

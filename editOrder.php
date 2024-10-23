@@ -440,8 +440,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir="rtl"] .update .ordInfo { padding: 0; } 
         .col-lg-9.col-xl-10.newFeature { order:3;padding-top: .5rem; }
         .container.pt-5.topOrder {padding:0 !important;}
-        .mbFeature .ms-auto.text-center.w-100 { margin: 0 0 0 auto !important; }
-        html[dir="rtl"] .mbFeature .ms-auto.text-center.w-100 { margin: 0 auto 0 0 !important; }
+        .mbFeature .ms-auto.text-center.w-100 { margin: 10px 0 4px auto !important; }
+        html[dir="rtl"] .mbFeature .ms-auto.text-center.w-100 { margin: 8px auto 3px 0 !important; }
     }
     @media screen and (max-width: 1024px) {
         .update .sltSupp.nwOrd-Num { width: 35%; }
