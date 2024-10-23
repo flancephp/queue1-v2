@@ -144,7 +144,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Additional Fee Deleted Succ
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addAdditionalFee.php" class="btn btn-primary mb-usrBkbtn"><span
+                                    <a href="addAdditionalFee.php" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan">Fee</span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
                                 </div>

@@ -100,12 +100,7 @@ if( isset($_POST['user_name']) )
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <style>
-        @media(max-width:767px) {
-.usrBtns .btn-primary { padding-top: 7px; }
-            }        
-    
-    </style>
+     
 </head>
 
 <body class="mb-Bgbdy">
@@ -152,7 +147,7 @@ if( isset($_POST['user_name']) )
                             <div class="usrBtns d-flex align-items-center justify-content-between">
                                 <div class="usrBk-Btn">
                                     <div class="btnBg">
-                                        <a href="users.php" class="btn btn-primary"><span
+                                        <a href="users.php" class="btn btn-primary res__pt"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                                 class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span></a>
                                     </div>

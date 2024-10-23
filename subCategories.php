@@ -209,7 +209,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn"
+                                    <a href="javascript:void(0)" class="btn btn-primary mb-usrBkbtn res__w__auto"
                                         data-bs-toggle="modal" data-bs-target="#add-Sub_category"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan">Sub. Category</span></span> <span

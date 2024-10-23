@@ -145,7 +145,7 @@ $designationRes = mysqli_query($con, $sqlQry);
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addDesignation.php" class="btn btn-primary mb-usrBkbtn"><span
+                                    <a href="addDesignation.php" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span
                                                 class="nstdSpan"><?php echo showOtherLangText('Title');?></span></span>

@@ -142,7 +142,7 @@ $curResult = mysqli_query($con, $sql);
                             <div class="usrAd-Btn">
                                 <div class="curExt-Btn">
                                     <div class="btnBg">
-                                        <a href="editMainCurrency.php?currencyType=1" class="btn btn-primary mb-usrBkbtn"><span
+                                        <a href="editMainCurrency.php?currencyType=1" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-ellipsis"></i>
                                                 <span class="nstdSpan"><?php echo showOtherLangText('Main Currency'); ?></span></span> <span
                                                 class="dsktp-Btn"><?php echo showOtherLangText('Edit Main Currency');?></span></a>

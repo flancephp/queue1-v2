@@ -210,7 +210,7 @@ if( isset($_POST['name']) )
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#add-PhyStorage">
+                                    <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto" data-bs-toggle="modal" data-bs-target="#add-PhyStorage">
                                         <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Store'); ?></span></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span>
                                     </a>

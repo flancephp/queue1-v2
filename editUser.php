@@ -147,6 +147,7 @@ if( isset($_POST['user_name']) )
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
         .addUser-Form .form-field { min-height: 37px; }
+        @media(max-width:768px) { .mb-UsrBtn i { position: relative;top:-2px; } }
     </style>
 
 </head>

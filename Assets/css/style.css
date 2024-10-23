@@ -13297,7 +13297,7 @@ a.tabFet.show .sampleFile {
 }
 
 .ad-UsrImg {
-  width: 25px;
+  width: 32px;
 }
 
 .mb-UsrBtn {
@@ -13441,6 +13441,12 @@ a.tabFet.show .sampleFile {
   display: flex;
 }
 
+@media (max-width:991px) {
+  .acntLg-Upld {
+    padding-left: 20px; 
+  }
+}
+
 .acntSetup-Form .form-control,
 .acntSetup-Form .form-select {
   margin-top: 0;
@@ -13481,6 +13487,10 @@ a.tabFet.show .sampleFile {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+@media (min-width:576px) and (max-width:991px) {
+  .preview_img { width: 140px;height: 140px; }
 }
 
 .imgHidden {
@@ -15549,6 +15559,12 @@ html[dir=rtl] .sub-Icns img {
 html[dir=rtl] .acntLg-Upld {
   padding-left: 0px;
   padding-right: 50px;
+}
+
+@media (max-width:991px) {
+  html[dir=rtl] .acntLg-Upld { 
+    padding-right: 23px;
+  }
 }
 
 html[dir=rtl] .drpItm-MngClm .fa-solid.fa-angle-down {
@@ -18132,7 +18148,7 @@ html[dir=rtl] .form-select {
 
 @media screen and (max-width: 992px) {
 
-  .usrBtns .btn-primary { height: 2.625rem; }
+  .usrBtns .btn-primary, .mb-usrBkbtn, .addOutlet-Btn .btn-primary, .bkOutlet-Btn .btn-primary { height: 44px;display: inline-flex;justify-content: center;align-items: center; }
 
   .mbStock, .mbStk-Detail {
     width: 90% !important;
@@ -20017,7 +20033,9 @@ html[dir=rtl] .navbar-toggler .h1{
 }
 
 @media screen and (max-width: 767px) {
-
+  .usrBtns .btn-primary, .mb-usrBkbtn, .addOutlet-Btn .btn-primary, .bkOutlet-Btn .btn-primary { width: 44px;padding: 0; }
+  .usrBtns .btn-primary.res__pt, .mb-usrBkbtn.res__pt, .bkOutlet-Btn .btn-primary.res__pt { padding-top: 4px; }
+  .usrBtns .btn-primary.res__w__auto, .mb-usrBkbtn.res__w__auto { width: auto;padding: 0 12px; }
   html[dir="rtl"] .padRight40 {
     padding-left: 00px;
     padding-right: 0px;
