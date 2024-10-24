@@ -136,7 +136,7 @@ $result = mysqli_query($con, $sql);
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addUser.php" class="btn btn-primary mb-usrBkbtn"><span
+                                    <a href="addUser.php" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                             class="mb-UsrBtn"><img src="Assets/icons/add-user.svg" alt="Add User"
                                                 class="ad-UsrImg"></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>

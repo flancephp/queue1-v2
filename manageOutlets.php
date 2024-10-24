@@ -152,7 +152,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('OutLet Deleted Successfully
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
-                                    <a href="addOutlet.php" class="btn btn-primary mb-usrBkbtn"><span
+                                    <a href="addOutlet.php" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                             <span class="nstdSpan">Outlet</span></span> <span class="dsktp-Btn">
                                     <?php echo showOtherLangText('Add') ?></span></a>

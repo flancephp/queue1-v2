@@ -13297,7 +13297,7 @@ a.tabFet.show .sampleFile {
 }
 
 .ad-UsrImg {
-  width: 25px;
+  width: 32px;
 }
 
 .mb-UsrBtn {
@@ -13441,6 +13441,12 @@ a.tabFet.show .sampleFile {
   display: flex;
 }
 
+@media (max-width:991px) {
+  .acntLg-Upld {
+    padding-left: 20px; 
+  }
+}
+
 .acntSetup-Form .form-control,
 .acntSetup-Form .form-select {
   margin-top: 0;
@@ -13481,6 +13487,10 @@ a.tabFet.show .sampleFile {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+@media (min-width:576px) and (max-width:991px) {
+  .preview_img { width: 140px;height: 140px; }
 }
 
 .imgHidden {
@@ -14663,9 +14673,11 @@ form.login-form input:focus{
 .btn-primary:active,.btn-primary:focus {
   outline: 3px solid var(--color-white);outline-offset: -6px;transition: none;
 }
+html[dir="rtl"] .btn-primary .fa-angle-right { transform: rotate(-180deg);background: linear-gradient(0deg, #7a89ff 35%, #8795ff 115%);    box-shadow: inset 1px -4px 4px #596bf3; } 
 .items__manager__btn { width: 110px; }
 .items__manager__btn .text { max-width: 38px;margin-left: auto;margin-right: auto; }
 
+.itmBody.newOrd-CntPrt, .itmBody.reqCnt-Part { width: 100%; }
 
 .alert-success {
   border-color: #0cb87f;
@@ -15547,6 +15559,12 @@ html[dir=rtl] .sub-Icns img {
 html[dir=rtl] .acntLg-Upld {
   padding-left: 0px;
   padding-right: 50px;
+}
+
+@media (max-width:991px) {
+  html[dir=rtl] .acntLg-Upld { 
+    padding-right: 23px;
+  }
 }
 
 html[dir=rtl] .drpItm-MngClm .fa-solid.fa-angle-down {
@@ -17124,7 +17142,7 @@ html[dir=rtl] .form-select {
     right: 7%;
   }
   .nav-col {
-    width: 100%;
+    width: 100%;max-width: 266px;
     padding: 0 16px 0 0px;
     position: fixed;
     left: -100%;
@@ -17137,13 +17155,14 @@ html[dir=rtl] .form-select {
   .nav-col::after { content: '';width: 100%;height: 100%;display: block;position: fixed;top:0%;right: 0%;left: 0%;
     background-color: rgba(35, 40, 89, 0.4);transition: all .5s ease-in-out;z-index: 0;opacity: 0;visibility: hidden;
   }
-  .showNav .nav-col::after { opacity: 1;visibility: visible; }
+  .showNav .nav-col::after { opacity: 1;visibility: visible;pointer-events: none; }
   .navbar {
     background-color: #fff;
     width: 250px;
     padding: 10px 50px 0px 25px;
     flex-direction: column;
   }
+  html[dir="rtl"] .navbar { padding: 10px 25px 0px 25px; }
   .lgOut {
     margin-bottom: 35px;
   }
@@ -18060,12 +18079,17 @@ html[dir=rtl] .form-select {
 }
 @media screen and (min-width: 993px) {
 
-.mb-modal-close-icon {
-  padding: 0rem 0rem;
-}
+  .mb-modal-close-icon {
+    padding: 0rem 0rem;
+  }
 
 }
 
+@media(min-width:576px) and (max-width:1024px) {
+  html[dir=rtl] .clsBar {
+    left: 2%; 
+  }
+}
 
 /* 30-8-24 */
 .otlt-opnStk, .otlt-isn, .otlt-Ajst, .otlt-Pos, .otlt-slBar, .otlt-clStk, .otlt-usg, .otlt-var, .usg-p-g, .avg-usg, .usg-lvl{
@@ -18124,7 +18148,7 @@ html[dir=rtl] .form-select {
 
 @media screen and (max-width: 992px) {
 
-
+  .usrBtns .btn-primary, .mb-usrBkbtn, .addOutlet-Btn .btn-primary, .bkOutlet-Btn .btn-primary { height: 44px;display: inline-flex;justify-content: center;align-items: center; }
 
   .mbStock, .mbStk-Detail {
     width: 90% !important;
@@ -20009,7 +20033,9 @@ html[dir=rtl] .navbar-toggler .h1{
 }
 
 @media screen and (max-width: 767px) {
-
+  .usrBtns .btn-primary, .mb-usrBkbtn, .addOutlet-Btn .btn-primary, .bkOutlet-Btn .btn-primary { width: 44px;padding: 0; }
+  .usrBtns .btn-primary.res__pt, .mb-usrBkbtn.res__pt, .bkOutlet-Btn .btn-primary.res__pt { padding-top: 4px; }
+  .usrBtns .btn-primary.res__w__auto, .mb-usrBkbtn.res__w__auto { width: auto;padding: 0 12px; }
   html[dir="rtl"] .padRight40 {
     padding-left: 00px;
     padding-right: 0px;
@@ -20565,6 +20591,7 @@ html[dir=rtl] .navbar-toggler .h1{
   .mb-UsrBtn {
     display: inline-block;
   }
+  .mb-UsrBtn .fa-solid.fa-arrow-left { font-size: 18px; }
   .usrTbl-Head {
     display: none;
   }
@@ -21239,6 +21266,9 @@ html[dir=rtl] .navbar-toggler .h1{
   html[dir=rtl] .alert {
     padding: 10px 10px 10px 30px;
   }
+}
+@media (max-width: 575px) {
+  .lgOut { margin-bottom: 45%; }
 }
 @media screen and (max-width: 767px) and (orientation: landscape) {
   

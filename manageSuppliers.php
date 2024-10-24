@@ -135,7 +135,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Supplier Deleted Successful
                                 <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
                                 <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
                             </a>
-                            <a href="addEditSupplier.php" class="btn btn-primary mb-usrBkbtn">
+                            <a href="addEditSupplier.php" class="btn btn-primary mb-usrBkbtn res__w__auto">
                                 <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
                                     <span class="nstdSpan"><?php echo showOtherLangText('Supplier') ?></span>
                                 </span> 

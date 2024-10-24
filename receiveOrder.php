@@ -407,7 +407,7 @@ $otherChrgQry=mysqli_query($con, $sql);
     <style>
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
         @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
-        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
+        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;}.curRow { font-size:1.125rem; }.txnmRow { font-size:16px;} }
         .container{max-width:100%;}
         /* .dropdown-toggle.tabFet:hover, .dropdown-toggle.tabFet:focus { border-color: var(--color-primary) !important;background-color: var(--color-primary);box-shadow: none; } */
         .btn-primary:focus {outline: 3px solid var(--color-white) !important;outline-offset: -6px !important;} 
@@ -420,8 +420,8 @@ $otherChrgQry=mysqli_query($con, $sql);
         .featRow .stockFeat .dropdown-menu a:hover { background-color: #e9ecef;}
         .featRow .stockFeat .dropdown-menu a svg {width: 1.125rem;height: 1.125rem;} 
         .stkRow .stockFeat:hover  .dropdown-menu a{ color: #666c85 !important; }
-        .curRow { font-size:1.125rem; }
-        .txnmRow { font-size:1rem;}
+        .curRow { font-size: 14px; }
+        .txnmRow { font-size:14px;}
         
         .recive-Item { font-weight:500; }
         .compact__tb__bdy .tb-bdy, .itmBody { font-weight:400;font-size:.875rem; }

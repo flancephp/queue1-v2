@@ -484,7 +484,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                             </div>
                             <div class="col-md-6 addOutlet-Btn">
                                 <div class="itmLnk-Row">
-                                    <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#add-Item">
+                                    <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto" data-bs-toggle="modal" data-bs-target="#add-Item">
                                         <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Add Item'); ?></span></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span>
                                     </a> 

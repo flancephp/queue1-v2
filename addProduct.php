@@ -227,7 +227,7 @@ if( isset($_POST['itemName']) )
                         <div class="row mb-3 mb-md-0">
                             <div class="col-md-6 bkOutlet-Btn">
                                 <div class="btnBg">
-                                    <a href="itemsManager.php" class="btn btn-primary"><span
+                                    <a href="itemsManager.php" class="btn btn-primary res__pt"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
                                             class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>

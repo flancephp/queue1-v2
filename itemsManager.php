@@ -418,8 +418,20 @@ $deprtOptions .= '</ul>';
         @media screen and (max-width: 992px) {
             .bkItm-MngBtn, .fetItm-Mng { width: 50%; }
             .bkItm-MngBtn { display: flex;justify-content: space-between;align-items: center; }
-             .bkItm-MngBtn .btn-primary { /*width: 52px;height:52px;*/ } 
             .imgItm-MngClm:first-child { width: 10%; }
+        }
+        @media screen and (max-width: 767px) {
+            .bkItm-MngBtn .btn-primary { width: 52px;height:52px; } 
+            .itmMng-filtBtn {
+                width: 44px;margin-top: 0;
+            }
+            .itmMng-Src .col-md-6 {
+                width: calc(100% - 55px);
+                margin-right: auto;
+            }
+            html[dir="rtl"] .itmMng-Src .col-md-6 { margin-left: auto;margin-right: 0; }
+            .input-group .btn { padding: 7px 13px;  }
+            html[dir="rtl"] .input-group .btn { padding: 6px 13px;  }
         }
     </style>
 

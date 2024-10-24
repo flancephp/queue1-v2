@@ -355,7 +355,10 @@ if($_SESSION['deptId'] != '')
         @media screen and (max-width: 1024px) {
             .newFeatures {
                 padding-right: 0px !important;
-            }
+            } 
+        }
+        @media(min-width: 992px) and (max-width:1024px) {
+            .filter__width { margin-right: 25px !important; }
         }
         @media screen and (max-width: 991px) {
             .nwNxt-Btn .btn, .fetBtn img { height:40px; }
@@ -367,7 +370,7 @@ if($_SESSION['deptId'] != '')
             .reqCnt-Scnd.d-flex.align-items-center { flex-wrap:wrap; }
             .reqClm-Unit { width: auto; }
             html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0; }
-            html[dir=rtl] .newReq .glb-btn { margin-bottom: 10px;  }
+            .newReq .glb-btn { margin-bottom: 10px;  }
             html[dir=rtl] .ord-Box { padding: 0px 15px; }
             .ordDate, .ord-Box { width: 100%; }
             .subTittle1 { display:flex;justify-content:space-between; }
@@ -424,6 +427,7 @@ if($_SESSION['deptId'] != '')
             .dropdown-item { font-size:13px; }
             .innerDrop .dropdown-menu .dropdown-item { padding: .25rem .5rem; }
             .mb-brCode { justify-content: flex-start;padding-left: 0px; }  
+            /* .filter__width { margin-top: 10px !important; } */
         }
     </style>
 </head>
@@ -503,7 +507,8 @@ if($_SESSION['deptId'] != '')
                                     <div class="ord-Box ms-0 position start-0 ps-4" style="top:1rem;">
                                         <div class="ordDate ms-0">
                                             <h4 class="subTittle1">
-                                                <span><?php echo showOtherLangText('Task'); ?>#:  332974</span>
+                                                <!-- #:  332974 -->
+                                                <span><?php echo showOtherLangText('Task'); ?></span>
                                                 <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
                                             </h4>
                                         </div>
@@ -514,7 +519,7 @@ if($_SESSION['deptId'] != '')
                                     <div class="container">
 
                                         <div class="mbFeature">
-                                            <div class="d-flex justify-content-end mt-3 mt-md-0">
+                                            <div class="d-flex justify-content-end mt-3 mt-lg-0">
                                                 <div class="w-100 text-center row gx-2 gx-lg-3 gy-0 filter__width">
                                                     <div class="col-4">
                                                         <div class="featRow w-100 p-0">

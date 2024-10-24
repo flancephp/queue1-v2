@@ -405,9 +405,12 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     /* @media(min-width:576px){ .container.erdOrder{padding: 1rem 24px 0 24px;} } */
     @media(min-width:992px){ 
         html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 50px 0 0; }
-        .nwNxt-Btn1 .btn__box { max-width: 174px !important;margin-left: auto; }
+        .nwNxt-Btn1 .btn__box { max-width: 135px !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
         .btn__box .btn-primary { min-height: 44px;display:inline-flex;align-items:center;justify-content:center; }
+    }
+    @media(min-width:1600px){ 
+        .nwNxt-Btn1 .btn__box { max-width: 174px !important; }
     }
     
     @media (max-width:992px) {
@@ -441,8 +444,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir="rtl"] .update .ordInfo { padding: 0; } 
         .col-lg-9.col-xl-10.newFeature { order:3;padding-top: .5rem; }
         .container.pt-5.topOrder {padding:0 !important;}
-        .mbFeature .ms-auto.text-center.w-100 { margin: 0 0 0 auto !important; }
-        html[dir="rtl"] .mbFeature .ms-auto.text-center.w-100 { margin: 0 auto 0 0 !important; }
+        .mbFeature .ms-auto.text-center.w-100 { margin: 10px 0 4px auto !important; }
+        html[dir="rtl"] .mbFeature .ms-auto.text-center.w-100 { margin: 8px auto 3px 0 !important; }
     }
     @media screen and (max-width: 1024px) {
         .update .sltSupp.nwOrd-Num { width: 35%; }

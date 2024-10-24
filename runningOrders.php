@@ -409,11 +409,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     @media(min-width:1400px) {
         .task-status { font-size:1rem; }
-        .srNum p { font-size:1.25rem; }
+        .srNum p { font-size:14px; }
         .rntskHead .taskHead > div:first-child { font-size: 1rem; }
     }
     @media(min-width:1600px) { 
-        .srNum p { font-size:20px; }  
+        .srNum p { font-size:16px; }  
         .runDetail { font-size:16px; }
         .stsBar .btn2 { font-size: 12px; }
     }
@@ -451,12 +451,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     }
     @media(min-width:1200px) and (max-width:1599px) {
         .runDetail, .task-status { font-size:14px; }
-        .srNum { font-size:18px; } 
+        .srNum { font-size:14px; } 
     }
-    @media(min-width:1200px) and (max-width:1599px) {
-        .runDetail, .task-status { font-size:14px; }
-        .srNum { font-size:18px; } 
-    }
+    
     @media(min-width:1200px) {
         .stsBar .btn2 { font-size: 10px; }
     }

@@ -1418,7 +1418,7 @@ html[dir="rtl"] .mb-modal-close-icon { right:auto;left:-10px; }
 .update .itmTable .dropdown-toggle{ height:43px;font-size:15px; } 
 .newHistoryTask { position: relative; }
 .order_num.numItmclm p { color: #232859; } 
-.srHisclm p { font-size:1.35rem !important;font-weight:600 !important; }
+.srHisclm p { font-weight:600 !important; }
 
 @media(min-width:1600px) and (max-width:1800px) {
     .update .hisStk-typ p, .update .hisReq-typ p, .update .hisOrd-typ p, .update .itmTable, 
@@ -1508,11 +1508,11 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
     }
 }
 @media(min-width:1600px) { 
-    .itmBody > .srHisclm p{ font-size:20px !important; } 
+    .itmBody > .srHisclm p{ font-size:16px !important; } 
     .btn2 { font-size: 12px; }
 }
 @media(min-width:1200px) and (max-width:1599px) { 
-    .srHisclm p{ font-size:18px !important; } 
+    .srHisclm p{ font-size:14px !important; } 
 }
 .modal .sub-table .table-cell, .modal .left__align__text .table-cell { text-align: left !important; }
 html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__align__text .table-cell { text-align: right !important; }
