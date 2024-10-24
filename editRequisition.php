@@ -14,7 +14,8 @@ $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
 if ($permissionRow)
 {
-echo "<script>window.location='index.php'</script>";
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 
@@ -87,7 +88,8 @@ if(isset($_POST['updateOrder']))
             
             if( isset($_POST['qty'][$productId]) && $_POST['qty'][$productId] < 1 )
             {
-                 $Qry = " DELETE FROM  `tbl_order_details` WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."' ";
+                 echo $Qry = " DELETE FROM  `tbl_order_details` WHERE ordId = '".$_GET['orderId']."' AND pId = '".$productId."' ";
+                 die;
                  mysqli_query($con, $Qry);
             }
             elseif( isset($_POST['qty'][$productId]) && $_POST['qty'][$productId] > 0 )
@@ -151,31 +153,31 @@ if(isset($_POST['updateOrder']))
             
             if ( $ordDetRowCheck )
             { 
-            
-            $updateQry = " UPDATE tbl_order_details SET note='".$tempOrdDetRow['note']."' WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
-            mysqli_query($con, $updateQry); 
-            
+                $updateQry = " UPDATE tbl_order_details SET note='".$tempOrdDetRow['note']."' WHERE ordId='".$tempOrdDetRow['ordId']."' AND account_id = '".$_SESSION['accountId']."' and customChargeId='".$tempOrdDetRow['customChargeId']."' and customChargeType='".$tempOrdDetRow['customChargeType']."' ";
+                mysqli_query($con, $updateQry); 
             }
             else
-            {
-            
-            
-            $insertQry = " INSERT INTO `tbl_order_details`
-            SET `account_id` = '".$tempOrdDetRow['account_id']."',
-            `ordId` = '".$tempOrdDetRow['ordId']."',
-            `note` = '".$tempOrdDetRow['note']."',
-            `customChargeType` = '".$tempOrdDetRow['customChargeType']."',
-            `customChargeId` = '".$tempOrdDetRow['customChargeId']."',
-            `price` = '".$tempOrdDetRow['price']."',
-            `qty` = '1',
-            `totalAmt` = '".$tempOrdDetRow['totalAmt']."' ";
-            
-            mysqli_query($con, $insertQry); 
+            {            
+                $insertQry = " INSERT INTO `tbl_order_details`
+                SET `account_id` = '".$tempOrdDetRow['account_id']."',
+                `ordId` = '".$tempOrdDetRow['ordId']."',
+                `note` = '".$tempOrdDetRow['note']."',
+                `customChargeType` = '".$tempOrdDetRow['customChargeType']."',
+                `customChargeId` = '".$tempOrdDetRow['customChargeId']."',
+                `price` = '".$tempOrdDetRow['price']."',
+                `qty` = '1',
+                `totalAmt` = '".$tempOrdDetRow['totalAmt']."' ";
+                
+                mysqli_query($con, $insertQry); 
             
             }
     
     }//end while
 
+     //delete order_details_temp data after form submit
+      $delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."'  ";
+     mysqli_query($con, $delQry);
+     
 
         //set order net value
         requisitionTotalValue($_GET['orderId']);
@@ -202,11 +204,9 @@ if(isset($_POST['updateOrder']))
     mysqli_query($con, $qry);
 
         
-        //delete order_details_temp data after form submit
-        $delQry=" DELETE FROM tbl_order_details_temp WHERE ordId='".$_GET['orderId']."' AND account_id='".$_SESSION['accountId']."'  ";
-        mysqli_query($con, $delQry);
-        
+       
         echo '<script>window.location="runningOrders.php?updated=1&orderId='.$_GET['orderId'].'"</script>';
+        exit;
 
 }//end udpdate order
 
@@ -248,6 +248,7 @@ if( !empty($_POST['itemName']) )
     editCustomCharge($_GET['orderId'],1,$itemCharges,$_SESSION['ordDeptId'], 1);
     
     echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'"</script>';
+    exit;
 
 }
 
@@ -271,6 +272,7 @@ if( !empty($_POST['feeName']) )
     editCustomCharge($_GET['orderId'],3,$itemCharges,$_SESSION['ordDeptId'], 1);
     
     echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'"</script>';
+    exit;
 
 }
 //end
@@ -294,6 +296,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     
     
     echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'&delete=1"</script>';
+    exit;
 
 }//end 
 

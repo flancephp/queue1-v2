@@ -62,7 +62,10 @@ if($ordDet['ordCurId'] > 0)
     $res = mysqli_query($con, " SELECT * from tbl_currency WHERE id='".$ordDet['ordCurId']."'  AND account_id = '".$_SESSION['accountId']."' ");
     $curDet = mysqli_fetch_array($res);
 }   
+
+
 $content  = '<form action="ordershare_pdf_download.php" target="_blank" method="get">
+<input type="hidden" name="getLangType" value="'.$getLangType.'" id="history_pdf_page"/> 
 <input type="hidden" name="history_pdf_page" value="0" id="history_pdf_page"/> 
 <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
 <input type="hidden" name="isSupDet" value="'.$_POST['isSupDet'].'" />

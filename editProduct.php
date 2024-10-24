@@ -26,6 +26,7 @@ if(isset($_POST['itemName']))
     if($res)
     {
         echo "<script>window.location='editProduct.php?error=1&id=".$_POST['id']."'</script>";
+        exit;
     }
     else
     {
@@ -577,6 +578,19 @@ if( $res['proType'] == 3)
                                                     onchange="this.setCustomValidity('')" required />
                                                 </div>
                                             </div>
+
+                                            <div class="row align-items-center acntStp-Row">
+                                                <div class="col-md-4">
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Stock Price').'('.$getDefCurDet['curCode'].')'; ?><span class="requiredsign">*</span></label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                <input type="text" class="form-control" name="stockPrice" id="stockPrice"
+                                                    value="<?php echo getPrice($res['stockPrice']);?>" autocomplete="off"
+                                                   
+                                                      />
+                                                </div>
+                                            </div>
+
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Min Level') ?><span class="requiredsign">*</span></label>

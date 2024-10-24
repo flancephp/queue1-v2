@@ -11,8 +11,9 @@ use Dompdf\Dompdf;
 // Instantiate and use the dompdf class 
 $dompdf = new Dompdf();
 
+$pdfFile = $_GET['getLangType'] == 1 ? 'ordershare_final_pdf_rtl.php' : 'ordershare_final_pdf.php';
 
-include('ordershare_final_pdf.php'); // Include history_final_pdf.php file to get content variable
+include($pdfFile); // Include history_final_pdf.php file to get content variable
 // echo $content;
 // exit;
 // Load content from html file 

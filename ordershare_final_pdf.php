@@ -80,7 +80,10 @@ $content .= '<html dir="'.($getLangType == '1' ?'rtl' : '').'"   lang="'.($getLa
         @page { margin: 10px 10px; }
         th {
             text-align:left;
-        }
+        } 
+            html[dir="'.($getLangType == '1' ?'rtl' : '').'", lang="'.($getLangType == '1' ? 'he' : '').'"] {
+                th, td { text-align:right; }
+            }
     </style>
     </head>';
 
