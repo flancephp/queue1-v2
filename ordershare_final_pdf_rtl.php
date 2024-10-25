@@ -78,21 +78,19 @@ $content .= '<html>';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         @page { margin: 10px 10px; }
-        th {
-            text-align:left;
-        } 
-           
+        
+        th, td { text-align: right; }    
     </style>
     </head>';
 
 $content .= '<body style="' . ($getLangType == '1' 
-    ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;' 
+    ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;box-sizing:border-box;' 
     : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
 if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['orderDetails'] == 1 || $_GET['currentDate'] == 1)
     {
 $content .= '<table style="width: 100%; border-spacing: 0;">
-    <tr valign="top">
-        <td width="33%">';
+    <tr align="top">
+        <td width="33%" style="text-align:left;vertical-align:top;">';
 //logo and date will go here
 
     if($_GET['logo'] == 1)
@@ -119,31 +117,28 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
  $content .=  '</td>';
   if($_GET['orderDetails'] == 1)
                {
- $content .=  '<td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center;border:0;">
-            '.showOtherLangText('Order Details').'
+ $content .=  '<td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center !important;border:0;vertical-align:top;">
+        <b style="text-align: center; padding:5px; ">'.showOtherLangText('Order Details').'</b>
               </td>';
                  }
 
 //address will go here
- $content .=  '<td  width="33%" align="right">';
+ $content .=  '<td  width="33%">';
 
 if($_GET['address'] == 1)
 {
-    $content .=   '<table style="width: 100%; border-spacing: 0;" >
-    <tr>
-    <td style="font-size: 14px; line-height: 16px; font-weight: 600;border:0;" align="right">'.$clientDetRow['accountName'].'</td>
-    </tr>
-    </table>
-    <table style="width: 100%; border-spacing: 0; margin-top: 5px;">
-    <tr>
-    <td style="font-size: 13px; line-height: 15px; font-weight: 400;border:0;" align="right">
-        '.$clientDetRow['address_one'].'<br>
-        '.$clientDetRow['address_two'].'<br>
-        '.$clientDetRow['city'].', '.$clientDetRow['countryName'].'<br>
-        '.$clientDetRow['email'].'<br>
-        '.$clientDetRow['phone'].'
-    </td>
-    </tr>
+    $content .=   ' 
+    <table style="width: 100%; border-spacing: 0; margin-top: 5px;text-align:right;">
+        <tr>
+            <td style="font-size: 13px; line-height: 15px; font-weight: 400;border:0;">
+                <b>'.$clientDetRow['accountName'].'</b><br>
+                '.$clientDetRow['address_one'].'<br>
+                '.$clientDetRow['address_two'].'<br>
+                '.$clientDetRow['city'].', '.$clientDetRow['countryName'].'<br>
+                '.$clientDetRow['email'].'<br>
+                '.$clientDetRow['phone'].'
+            </td>
+        </tr>
     </table>';
 }
 
@@ -158,18 +153,17 @@ if($_GET['address'] == 1)
 
 
 
-$content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;">
+$content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;text-align:right;">
    
         <tr>
-            <td style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Total').'</td>
-            <td style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
-            <td >
+            <td width="50%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Total').'</td>
+            <td width="25%" style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
+            <td width="25%">
                 <table style="width: 100%;">';
          if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1 )    { 
         $content .=   '<tr>
                         <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
-                        <td width="40%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Task No.').'</td>
-                        <td width="20%" style="padding: 5px;border:0;">&nbsp;</td>
+                        <td width="60%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Task No.').'</td> 
                     </tr>';
          }
                 
@@ -178,29 +172,24 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         </tr>
         <tr style="background-color: rgba(122, 137, 255, 0.2);">
             <td style="padding:8px 5px;font-weight: 700;border:0;">
-            
-            
-                 <table style="width: 100%;">
-                    <tr>
-                        
-                       
-                        
-                
+             
+                <table style="width: 100%;">
+                    <tr> 
 
-                 <td width="30%" style="padding:8px 5px; font-weight: 700;text-align:left">';
-                if( $_GET['secondCurrency']  == 1 )  
-                {
-                    $content .= showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']);
-                }
-                 $content .= '</td>
+                        <td width="30%" style="padding:8px 5px; font-weight: 700;">';
+                        if( $_GET['secondCurrency']  == 1 )  
+                        {
+                            $content .= showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']);
+                        }
+                        $content .= '</td>
 
-                  <td width="30%" style="padding:8px 5px; font-weight: 700;border:0;text-align:left">';
-                if(  $_GET['defaultCurrencyAmount']  == 1 )  
-                { 
-                    $content .=  getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']);
-                }
+                        <td width="30%" style="padding:8px 5px; font-weight: 700;border:0;">';
+                        if(  $_GET['defaultCurrencyAmount']  == 1 )  
+                        { 
+                            $content .=  getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']);
+                        }
 
-                 $content .= '</td> <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
+                        $content .= '</td> <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
 
                  
 
@@ -211,7 +200,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
             
             </td>
             <td style="text-align: center;padding:8px 5px; font-weight: 700;border:0;">'.$suppliers.'</td>
-            <td>
+            <td style="padding-right:10px;">
 
                 '.$ordDet['ordNumber'].'
             </td>
@@ -226,7 +215,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
          if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1 )  
          {
             $content .= '
-            <td width="34%">
+            <td width="50%">
                 <table style="width: 100%;border-collapse: collapse;">';
             $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                           $resultSet = mysqli_query($con, $sqlSet);
@@ -411,13 +400,13 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         }
 
         $content .= '
-         </table> <td width="66%" align="right" colspan="2">';
+         </table> <td width="50%" align="right" colspan="2">';
         if(  $_GET['supplierInvoice']  == 1)  
                { 
         $content .=   '<table style="width: 100%;">
                    <tr>
                        
-                       <td style="padding: 5px;border:0;text-align:left;">'.$ordDet['invNo'].'</td>
+                       <td style="padding: 5px;border:0;;">'.$ordDet['invNo'].'</td>
                        <td style="padding: 5px;border:0;text-align:right;"># Supplier Invoice</td>
                    </tr>
                </table>';
@@ -702,6 +691,8 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
 
  $content .= '</body>
              </html>';
+        
+            
 // unset($content);
 // $content = '<html>
 // <head>
