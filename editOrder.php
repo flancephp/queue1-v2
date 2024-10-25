@@ -399,17 +399,25 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     .fw-medium{ font-weight:500; }
     .fw-semibold{ font-weight:600; }
     /* @media(min-width:576px){ .container.erdOrder{padding: 1rem 24px 0 24px;} } */
-    @media(min-width:992px){ 
-        html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 50px 0 0; }
-        .nwNxt-Btn1 .btn__box { max-width: 135px !important;margin-left: auto; }
+    .newFeature.col { flex: 0 0 auto;width: 100%;order:3; }
+    @media(min-width:992px){
+        html[dir=rtl] .newFeature.col, html[dir=rtl] .ordInfo { padding: 0 50px 0 42px; }
+        .newFeature.col { flex: 0 0 auto;width: 60%;padding: 0 44px 0 65px;order:2; } 
+        .col.nwNxt-Btn.nwNxt-Btn1 { flex: 0 0 auto;width:15%;order:3; }
+        html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 0px 0 22px; }
+        .nwNxt-Btn1 .btn__box { max-width: 10.875rem !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
         .btn__box .btn-primary { min-height: 44px;display:inline-flex;align-items:center;justify-content:center; }
+        html[dir="rtl"] .nwNxt-Btn.nwNxt-Btn1.ps-lg-4 { padding-left: 0 !important;  }
+        .ordInfo { padding:0 28px 0 0; }
     }
     @media(min-width:1600px){ 
-        .nwNxt-Btn1 .btn__box { max-width: 174px !important; }
+        /* .nwNxt-Btn1 .btn__box { max-width: 174px !important; } */
+        html[dir=rtl] .ordInfo { padding: 0 0px 0 18px; }
     }
     
     @media (max-width:992px) {
+        .newFeature.col { margin-top: 6px; }
         .newFeatures { padding: 1rem 0 0 0; }
         .newFeatures .ms-auto { margin: 0 auto !important; }
         .btn__box { justify-content:flex-start !important; }
@@ -437,14 +445,15 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         html[dir="rtl"] .itmBody > div:first-child { left: auto; right: 0; }
         .update .sltSupp.nwOrd-Num { width: 100% !important; }
         .update .nwNxt-Btn { flex-direction: row-reverse; } 
-        html[dir="rtl"] .update .ordInfo { padding: 0; } 
+        html[dir="rtl"] .update .ordInfo { padding: 0; }
+         
         .col-lg-9.col-xl-10.newFeature { order:3;padding-top: .5rem; }
         .container.pt-5.topOrder {padding:0 !important;}
         .mbFeature .ms-auto.text-center.w-100 { margin: 10px 0 4px auto !important; }
         html[dir="rtl"] .mbFeature .ms-auto.text-center.w-100 { margin: 8px auto 3px 0 !important; }
     }
     @media screen and (max-width: 1024px) {
-        .update .sltSupp.nwOrd-Num { width: 35%; }
+        /* .update .sltSupp.nwOrd-Num { width: 35%; } */
         .ordNum { margin: 0; }
     }
     @media screen and (max-width: 767px) {
@@ -464,7 +473,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .curRow { font-size: 1.125rem; }
         .container.topOrder.erdOrder { margin-top: -1.5rem; } 
     }
-    @media screen and (min-width: 1400px) { 
+    @media screen and (min-width: 992px) { 
         .container.topOrder.erdOrder { margin-top: -1.5rem; }
     }
     @media (max-width: 1700px) {
@@ -484,7 +493,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     .qty-itm, .note-itm { font-size: .875rem; }
     .form-control.qty-itm { font-weight: 700; }
     .ttlCr-Type { font-weight: 600; }
-    .ordInfo { padding:0; }
+    
     .ttlDft-Crcy { margin: auto; }
     .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy,
     .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type { text-align: left !important; }
@@ -504,6 +513,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     @media screen and (min-width: 1600px) { 
         .curRow.padding { padding-left: 20%; }
         html[dir="rtl"] .curRow.padding { padding-left: 5%; }
+        .ordInfo { padding:0 22px 0 0; }
     }
     .featRowParent { max-width:236px; }
     @media (max-width:991px) {
@@ -571,9 +581,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
                                     action="editOrder.php?orderId=<?php echo $_GET['orderId'];?>" method="post"
                                     autocomplete="off">
                                     <div class="row g-0">
-                                        <div class="sltSupp nwOrd-Num position start-0 p-0"
-                                            style="top:1rem; min-width:fit-content;">
-                                            <div class="ord-Box w-100 ms-0 d-flex flex-wrap gap-2">
+                                        <div class="sltSupp nwOrd-Num">
+                                            <div class="ord-Box ms-0 d-flex flex-wrap gap-2  position start-0" style="top:1rem; min-width:fit-content;">
                                                 <div class="ordNum">
                                                     <h4 class="subTittle1 flex-wrap">
                                                         <span><?php echo showOtherLangText('Task no.'); ?>#:</span>
@@ -594,7 +603,7 @@ echo $ordDetResRow['name'];
                                             </div>
 
                                         </div>
-                                        <div class="col-lg-9 col-xl-10 newFeature">
+                                        <div class="col newFeature">
                                             <div class="container">
                                                 <div class="mbFeature">
                                                     <div class="ms-auto text-center w-100 featRowParent">
@@ -725,14 +734,14 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
 
 
 ?>
-                                        <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-between ps-lg-4 ps-xxl-0">
+                                        <div class="col nwNxt-Btn nwNxt-Btn1 d-flex justify-content-between ps-lg-4 ps-xxl-0">
                                             <div class="fetBtn">
                                                 <a href="javascript:void(0)">
                                                     <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                                 </a>
                                             </div>
                                             <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
-                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-3 d-inline-flex align-items-center">
+                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-2 d-inline-flex align-items-center">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
                                                     <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i>
                                                 </a> 
@@ -744,7 +753,7 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                     </div>
                             </div>
                             <div class="container topOrder erdOrder">
-                                <div class="col-lg-9 col-xl-10">
+                                <div class="col-lg-10 col-xl-10">
                                     <div class="row g-0 justify-content-between">
                                         <div class="sltSupp">
                                             <div id="searchBox2" class="input-group srchBx">
