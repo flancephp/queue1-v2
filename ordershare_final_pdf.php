@@ -80,7 +80,7 @@ $content .= '<html dir="'.($getLangType == '1' ?'rtl' : '').'"   lang="'.($getLa
         @page { margin: 10px 10px; }
         th {
             text-align:left;
-        } 
+        }
     </style>
     </head>';
 

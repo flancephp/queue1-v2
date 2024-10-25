@@ -15,6 +15,7 @@ $permissionRow = mysqli_fetch_array($permissionRes);
 if ($permissionRow)
 {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 if(isset($_REQUEST['currencyId'])) 
@@ -141,6 +142,7 @@ if( !empty($_POST['itemName']) )
     orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
     
     echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
+    exit;
 }
 
 
@@ -164,6 +166,7 @@ if( !empty($_POST['feeName']) )
     orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
 
     echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&currencyId='.$ordRow['ordCurId'].' "</script>';
+    exit;
 }
 
 
@@ -360,6 +363,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     orderNetValue($_GET['orderId'],$ordRow['ordCurId']);
     
     echo '<script>window.location="editOrder.php?orderId='.$_GET['orderId'].'&supplierId='.$_SESSION['supplierIdOrd'].'&delete=1"</script>';
+    exit;
 
 }//end 
 

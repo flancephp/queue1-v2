@@ -221,8 +221,8 @@ $(document).ready(function () {
     if ($(window).width() > 992) {
       $(".mb-ReqCode").hide();
     } else {
-      $(".reqBarCode").eq(0).appendTo(".mb-ReqCode");
-      $(".reqStockQty").eq(0).appendTo(".mb-ReqCode");
+      //$(".reqBarCode").eq(0).appendTo(".mb-ReqCode");
+      //$(".reqStockQty").eq(0).appendTo(".mb-ReqCode");
       $(".reqClm-Br").hide();
       $(".reqSt-Qty").hide();
       // $(".recBr-Hide .cloneQty-Code").show();
@@ -234,8 +234,8 @@ $(document).ready(function () {
   if ($(window).width() > 992) {
     $(".mb-ReqCode").hide();
   } else {
-    $(".reqBarCode").eq(0).appendTo(".mb-ReqCode");
-    $(".reqStockQty").eq(0).appendTo(".mb-ReqCode");
+   // $(".reqBarCode").eq(0).appendTo(".mb-ReqCode");
+   // $(".reqStockQty").eq(0).appendTo(".mb-ReqCode");
     $(".reqClm-Br").hide();
     $(".reqSt-Qty").hide();
     // $(".recBr-Hide .cloneQty-Code").show();
