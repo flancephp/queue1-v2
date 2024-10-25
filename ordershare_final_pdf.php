@@ -151,9 +151,9 @@ $content .= '<table style="width: 100%; border-spacing: 0;">
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;">
    
         <tr>
-            <td style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Task No.').'</td>
-            <td style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
-            <td >
+            <td width="25%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Task No.').'</td>
+            <td width="25%" style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
+            <td width="5-%">
                 <table style="width: 100%;">';
          if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1 )    { 
         $content .=   '<tr>
@@ -167,9 +167,9 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
             </td> 
         </tr>
         <tr style="background-color: rgba(122, 137, 255, 0.2);">
-            <td style="padding:8px 5px;font-weight: 700;border:0;">'.$ordDet['ordNumber'].'</td>
-            <td style="text-align: center;padding:8px 5px; font-weight: 700;border:0;">'.$suppliers.'</td>
-            <td>
+            <td width="25%" style="padding:8px 5px;font-weight: 700;border:0;">'.$ordDet['ordNumber'].'</td>
+            <td width="25%" style="text-align: center;padding:8px 5px; font-weight: 700;border:0;">'.$suppliers.'</td>
+            <td width="50%">
                 <table style="width: 100%;">
                     <tr>
                         <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
@@ -188,7 +188,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                     </tr>
                 </table></td>
         </tr>';
-         $content .= '<tr><td width="33%" valign="top">';
+         $content .= '<tr><td width="25%" align="top" style="vertical-align:top;">';
          if(  $_GET['supplierInvoice']  == 1)  
                 { 
          $content .=   '<table style="width: 100%;">
@@ -201,8 +201,8 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         $content .=  '</td>';
              if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1 )  
             {
-            $content .= '<td width="33%"></td>
-            <td width="34%">
+            $content .= '<td width="25%"></td>
+            <td width="50%">
                 <table style="width: 100%;border-collapse: collapse;">';
              $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                              $resultSet = mysqli_query($con, $sqlSet);
@@ -576,8 +576,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
 
 
 
-$content .= '</body>
-             </html>';
+ $content .= '</body> </html>'; 
 // unset($content);
 // $content = '<html>
 // <head>

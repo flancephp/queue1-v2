@@ -74,8 +74,8 @@ $content .= '<head>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         @page { margin: 10px 10px; }
-        th {
-            text-align:right;
+        th, td {
+            text-align:right;background-color: red;
         }
            
     </style>
@@ -751,3 +751,4 @@ $content .='<table width="100%" style="font-size: 12px; line-height: 14px; borde
 
 
  $content .= '</body></html>';
+ 

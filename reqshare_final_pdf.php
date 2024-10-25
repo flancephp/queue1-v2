@@ -697,6 +697,5 @@ $content .='<table width="100%" style="font-size: 12px; line-height: 14px; borde
 
 $content .= '</body>';
 
- $content .= '
-
-</html>';
+ $content .= '</html>';
+ 

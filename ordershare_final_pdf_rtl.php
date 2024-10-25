@@ -156,7 +156,17 @@ if($_GET['address'] == 1)
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;text-align:right;">
    
         <tr>
-            <td width="50%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Total').'</td>
+            <td width="50%" style="font-weight:700;padding: 5px;border:0;">
+                <table width="100%" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="width:30%;"></td>
+                            <td style="width:30%;">'.showOtherLangText('Total').'</td>
+                            <td style="width:40%;"></td>
+                        </tr>
+                    </tbody>
+                </table> 
+            </td>
             <td width="25%" style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
             <td width="25%">
                 <table style="width: 100%;">';
@@ -400,7 +410,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         }
 
         $content .= '
-         </table> <td width="50%" align="right" colspan="2">';
+         </table> <td width="50%" align="right" colspan="2" style="vertical-align:top;">';
         if(  $_GET['supplierInvoice']  == 1)  
                { 
         $content .=   '<table style="width: 100%;">
@@ -688,11 +698,10 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
 }
 
 
-
- $content .= '</body>
+  $content .= '</body>
              </html>';
         
-            
+       
 // unset($content);
 // $content = '<html>
 // <head>

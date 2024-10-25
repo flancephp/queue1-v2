@@ -464,11 +464,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     .requestion__modal__table .table-row .table-cell:nth-child(2),
     .requestion__modal__table .table-row .table-cell:nth-child(3) { width: 20%; }
     .requestion__modal__table .table-row .table-cell:nth-child(4) { width: 40%; }
+ 
+    .remove__parent__padding .modal-table > .table-row .table-cell:nth-child(1),
+    .remove__parent__padding .modal-table > .table-row .table-cell:nth-child(2) { width: 25%; }
+    .remove__parent__padding .modal-table > .table-row .table-cell:nth-child(3) { width: 50%; }
 
-
-    html[dir="rtl"] .remove__parent__padding > .table-row .table-cell:nth-child(1),
-    html[dir="rtl"] .remove__parent__padding > .table-row .table-cell:nth-child(2) { width: 25%; }
-    html[dir="rtl"] .remove__parent__padding > .table-row .table-cell:nth-child(3) { width: 50%; }
+    .table-cell.left__align__text .table-cell { width: 33% !important; }
 </style>
 </head>
 
