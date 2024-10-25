@@ -63,6 +63,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
         //$content  .= '<div style="width:750px" class="container mnPdf_Dv">';
 
         $content  .= '<form action="req_pdf_download.php" target="_blank" method="get">
+        <input type="hidden" name="getLangType" value="0" id="getLangType" value="'.$getLangType.'" />  
         <input type="hidden" name="history_pdf_page" value="0" id="history_pdf_page"/>  
         <input type="hidden" name="orderId" value="'.$_POST['orderId'].'" />
     
