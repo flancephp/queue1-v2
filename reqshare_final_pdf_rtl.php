@@ -75,7 +75,7 @@ $content .= '<head>
     <style>
         @page { margin: 10px 10px; }
         th, td {
-            text-align:right;background-color: red;
+            text-align:right;
         }
            
     </style>
@@ -94,7 +94,7 @@ $content .= '<body style="' . ($getLangType == '1'
         $content .= '<table style="width: 100%; border-spacing: 0;">
     <tr valign="top">';
         
-    $content .= '<td  width="33%" align="left">';
+    $content .= '<td  width="33%" align="left" style="text-align:left;">';
         if($_GET['logo'] == 1)
         {
             if($clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
@@ -118,10 +118,9 @@ $content .= '<body style="' . ($getLangType == '1'
 
 
         $content .= '<td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center;">';
-        if($_GET['orderDetails'] == 1)
-        {
-            $content .= showOtherLangText('Requisition Details');
-        }
+            if($_GET['orderDetails'] == 1) { 
+                $content .= '<b>'.showOtherLangText('Requisition Details').'</b>'; 
+            }
         $content .= '</td>';
 
 
@@ -130,7 +129,7 @@ $content .= '<body style="' . ($getLangType == '1'
             {
                 $content .=  '<table style="width: 100%; border-spacing: 0;">
                     <tr>
-                        <td style="font-size: 14px; line-height: 16px; font-weight: 600;text-align:right;">'.$clientDetRow['accountName'].'</td>
+                        <td style="font-size: 14px; line-height: 16px; font-weight: 600;text-align:right;"></td>
                     </tr>
                 </table>
 
@@ -138,6 +137,7 @@ $content .= '<body style="' . ($getLangType == '1'
                 <table style="width: 100%; border-spacing: 0; margin-top: 5px;">
                     <tr>
                         <td style="font-size: 13px; line-height: 15px; font-weight: 400;text-align:right;">
+                            <b>'.$clientDetRow['accountName'].'</b><br>
                             '.$clientDetRow['address_one'].'<br>
                             '.$clientDetRow['address_two'].'<br>
                             '.$clientDetRow['city'].', '.$clientDetRow['countryName'].'<br>
@@ -166,12 +166,11 @@ $content .= '<body style="' . ($getLangType == '1'
 
        if(  $_GET['amount']  == 1 )  
         { 
-            $content .= '<td>
+            $content .= '<td width="40%">
                 <table style="width: 100%;">
-                    <tr>
-                        <td width="40%" style="padding: 5px;">&nbsp;</td>
-                        <td width="40%" style="font-weight:700;padding: 5px;">'.showOtherLangText('Total').'</td>
-                        <td width="20%" style="padding: 5px;">&nbsp;</td> 
+                    <tr> 
+                        <td width="50%" style="font-weight:700;padding: 5px;">'.showOtherLangText('Total').'</td>
+                        <td width="50%" style="padding: 5px;">&nbsp;</td> 
                     </tr>
                 
                 </table>
@@ -180,12 +179,12 @@ $content .= '<body style="' . ($getLangType == '1'
 
         if(  $_GET['member']  == 1 )  
         {  
-           $content .= '<td style="text-align: center;font-weight:700;padding: 5px;">'.showOtherLangText('Member').'</td>';
+           $content .= '<td width="20%" style="text-align: center;font-weight:700;padding: 5px;">'.showOtherLangText('Member').'</td>';
         }
 
         if(  $_GET['department']  == 1 )  
         {    
-            $content .=    '<td>
+            $content .=    '<td width="20%">
                 <table style="width: 100%;">
                     <tr>
                         <td width="20%" style="padding: 5px;">&nbsp;</td>
@@ -197,7 +196,7 @@ $content .= '<body style="' . ($getLangType == '1'
 
         if(  $_GET['taskNo']  == 1 ) 
         {
-            $content .=   '<td style="font-weight:700;padding: 5px;">'.showOtherLangText('Task No').'</td>';
+            $content .=   '<td width="20%" style="font-weight:700;padding: 5px;">'.showOtherLangText('Task No').'</td>';
         }
         
             
@@ -210,24 +209,23 @@ $content .= '<body style="' . ($getLangType == '1'
 
         if(  $_GET['amount']  == 1 )  
         { 
-             $content .=  '<td>
+             $content .=  '<td width="40%">
             <table style="width: 100%;">
-                <tr>
-                    <td width="40%" style="padding: 5px;">&nbsp;</td>
-                    <td width="40%" style="padding:8px 5px; font-weight: 700;">'.getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</td>
-                    <td width="20%" style="padding: 5px;">&nbsp;</td>
+                <tr> 
+                    <td width="50%" style="padding:8px 5px; font-weight: 700;">'.getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']).'</td>
+                    <td width="50%" style="padding: 5px;">&nbsp;</td>
                 </tr>
             </table></td>';
         }
 
         if(  $_GET['member']  == 1 )  
         {
-            $content .=  '<td style="text-align: center; padding:8px 5px; font-weight: 700;">'.$mebRes['name'].'</td>';
+            $content .=  '<td width="20%"d style="text-align: center; padding:8px 5px; font-weight: 700;">'.$mebRes['name'].'</td>';
         }
 
         if(  $_GET['department']  == 1 )  
         {
-            $content .=  '<td>
+            $content .=  '<td width="20%">
                     <table style="width: 100%;">
                         <tr>
                             <td width="20%" style="padding: 5px;">&nbsp;</td>
@@ -235,11 +233,11 @@ $content .= '<body style="' . ($getLangType == '1'
                         </tr>
                     </table>        
                 </td>';
-        }
+        }  
 
         if(  $_GET['taskNo']  == 1 )  
         {
-                $content .=  '<td style="padding:8px 5px;font-weight: 700;;">'.$ordDet['ordNumber'].'</td>';
+                $content .=  '<td width="20%" style="padding:8px 5px;font-weight: 700;;">'.$ordDet['ordNumber'].'</td>';
         }
             
         
@@ -259,9 +257,8 @@ $content .= '<body style="' . ($getLangType == '1'
             <td width="28%">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
-                        <td width="40%" style="padding: 5px;">Sub Total</td>
-                        <td width="40%" style="padding: 5px;">28.29 $</td>
-                        <td width="20%" style="padding: 5px;">&nbsp;</td>
+                        <td width="50%" style="padding: 5px;">28.29 $</td>
+                        <td width="50%" style="padding: 5px;">Sub Total</td> 
                     </tr>
                 </table>
             </td>
@@ -303,10 +300,9 @@ $content .= '<body style="' . ($getLangType == '1'
                                     $content .='<tr>
                                     <td width="28%">
                                         <table style="width: 100%;border-collapse: collapse;">
-                                            <tr>
-                                                <td width="40%" style="padding: 5px;">&nbsp;</td>
-                                                <td width="40%" style="padding: 5px;">'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'</td>
-                                                <td width="20%" style="padding: 5px;">'.showOtherLangText('Sub Total').'</td>
+                                            <tr> 
+                                                <td width="50%" style="padding: 5px;">'.getPriceWithCur($chargePrice, $getDefCurDet['curCode']).'</td>
+                                                <td width="50%" style="padding: 5px;">'.showOtherLangText('Sub Total').'</td>
                                             </tr>
                                         </table>
                                     </td>
@@ -339,10 +335,9 @@ $content .= '<body style="' . ($getLangType == '1'
 
              <td width="28%">
                 <table style="width: 100%;border-collapse: collapse;">
-                    <tr>
-                        <td width="40%" style="padding: 5px;">&nbsp;</td>
-                        <td width="40%" style="padding: 5px;">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</td>
-                        <td width="20%" style="padding: 5px;">'.$row['feeName'].'</td>
+                    <tr> 
+                        <td width="50%" style="padding: 5px;">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</td>
+                        <td width="50%" style="padding: 5px;">'.$row['feeName'].'</td>
                     </tr>
                 </table>
               </td>
@@ -374,10 +369,9 @@ $content .= '<body style="' . ($getLangType == '1'
                           $content .='<tr>
             <td width="28%">
                 <table style="width: 100%;border-collapse: collapse;">
-                    <tr>
-                        <td width="40%" style="padding: 5px;">&nbsp;</td>
-                        <td width="40%" style="padding: 5px;">'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'</td>
-                        <td width="20%" style="padding: 5px;">'.$row['feeName'].'</td>
+                    <tr> 
+                        <td width="50%" style="padding: 5px;">'.getPriceWithCur($calDiscount, $getDefCurDet['curCode']).'</td>
+                        <td width="50%" style="padding: 5px;">'.$row['feeName'].'</td>
                     </tr>
                 </table>
               </td>
@@ -413,10 +407,9 @@ $content .= '<body style="' . ($getLangType == '1'
                            $content .='<tr>
              <td width="28%">
                 <table style="width: 100%;border-collapse: collapse;">
-                    <tr>
-                        <td width="40%" style="padding: 5px;">&nbsp;</td>
-                        <td width="40%" style="padding: 5px;">'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'</td>
-                        <td width="20%" style="padding: 5px;">'.$row['feeName'].'</td>
+                    <tr> 
+                        <td width="50%" style="padding: 5px;">'.getPriceWithCur($calTax, $getDefCurDet['curCode']).'</td>
+                        <td width="50%" style="padding: 5px;">'.$row['feeName'].'</td>
                     </tr>
                 </table>
               </td>
@@ -445,10 +438,9 @@ $content .= '<body style="' . ($getLangType == '1'
                             $content .='<tr>
             <td width="28%">
                 <table style="width: 100%;border-collapse: collapse;">
-                    <tr>
-                        <td width="40%" style="padding: 5px;">'.showOtherLangText('Grand Total').'</td>
-                        <td width="40%" style="padding: 5px;">'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'</td>
-                        <td width="20%" style="padding: 5px;">&nbsp;</td>
+                    <tr> 
+                        <td width="50%" style="padding: 5px;">'.getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']).'</td>
+                        <td width="50%" style="padding: 5px;">'.showOtherLangText('Grand Total').'</td>
                     </tr>
                 </table>
               </td>
@@ -751,4 +743,5 @@ $content .='<table width="100%" style="font-size: 12px; line-height: 14px; borde
 
 
  $content .= '</body></html>';
+ 
  

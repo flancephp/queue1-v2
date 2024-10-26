@@ -331,10 +331,10 @@ $cond = '';
         .form-control.qty-itm { font-weight: bold;font-size:.875rem; }
         @media(min-width:992px){  
             .container.cntTable.pb-md-4{margin-top: -1.5rem; }
-            html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 10.875rem !important; }
+            html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 9.875rem !important; }
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { position: absolute;left: auto !important;right: 0; } 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { left:auto !important;right:0; }
-            html[dir="rtl"] .ord-Box { padding: 0;border-radius: 15px 0px 0 15px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }
+            html[dir="rtl"] .ord-Box { padding: 4px;border-radius: 10px 0px 0 10px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }
             html[dir="rtl"] .featRow.ms-auto.w-100{margin-left: 0 !important;margin-right: auto;}
             
         }
@@ -353,8 +353,18 @@ $cond = '';
                 align-items: center;
                 display: inline-flex;
             } 
+            html[dir=rtl] .edtreqInfo { padding: 0 50px 0 82px; }
+            html[dir=rtl] .col.newFeature { padding: 0 50px 0 65px; }
+            .col.newFeature { width: 60%;padding: 0 30px 0 65px; }
+            .edtreqInfo { padding: 0 48px 0 61px; }
         }
-        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 3.5rem;} }
+       
+        @media(min-width:1600px){ 
+            .container.cntTable, .nordPrice, .topOrder {padding: 0 3.5rem;} 
+            .col.newFeature { padding: 0 22px 0 65px; }
+            html[dir="rtl"] .col.newFeature { padding: 0 50px 0 60px; }
+            html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 10.875rem !important; }
+        }
         .container.cntTable.header{padding-top: 1rem;}
         @media (min-width:992px) and (max-width:1199px){ 
             .ordInfo { width: 51.75%; }
@@ -384,7 +394,7 @@ $cond = '';
             .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
             .mbFeature .ordFeature > a { padding: 20px 0; }
             .mbFeature .ordFeature:before { height: 37px; }
-            .btn__box .btn-primary { font-size:1rem; }
+            
         }
         .featRow { max-width:118px; }
         
@@ -415,6 +425,8 @@ $cond = '';
             .mbFeature .ordFeature > a { padding: 17px 0; }
             html[dir="rtl"] .ord-Box { padding:4px 1rem !important; }
             .mb-brCode .ord-StockQty { width: 50%; }
+            .col.newFeature { order: 2; }
+            .nwNxt-Btn.nwNxt-Btn1 { order: 1; }
         }
         @media(max-width:1399px) {
             .itmBody, .itmTable { font-size: 13px; }
@@ -533,7 +545,7 @@ $ordRow = mysqli_fetch_array($resultSet);
 
                                 <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->
-                                    <div class="col-lg-9 col-xl-10 newFeature">
+                                    <div class="col newFeature">
                                         <div class="mbFeature">
                                             <div class="">
                                                 <div class="text-center">
@@ -612,7 +624,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                     <div class="col-lg-3 col-xl-2 nwNxt-Btn nwNxt-Btn1 d-flex justify-content-end">
                                         <div class="d-inline-flex flex-lg-column  col gap-3 justify-content-end btn__box"> 
                                             <div class="btnBg w-100">
-                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-end gap-2 d-inline-flex px-md-3 align-items-center">
+                                                <a href="javascript:void(0)" class="btn btn-primary form-submit-btn w-100 justify-content-end gap-2 d-inline-flex px-md-3 px-lg-2 align-items-center">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center m-0"></i>
                                                 </a>
                                             </div>

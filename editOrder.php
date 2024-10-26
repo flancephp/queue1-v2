@@ -405,10 +405,11 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     /* @media(min-width:576px){ .container.erdOrder{padding: 1rem 24px 0 24px;} } */
     .newFeature.col { flex: 0 0 auto;width: 100%;order:3; }
     @media(min-width:992px){
-        html[dir=rtl] .newFeature.col, html[dir=rtl] .ordInfo { padding: 0 50px 0 42px; }
+        html[dir=rtl] .newFeature.col { padding: 0 50px 0 83px; }
+        html[dir=rtl] .ordInfo { padding: 0 50px 0 65px; }
         .newFeature.col { flex: 0 0 auto;width: 60%;padding: 0 44px 0 65px;order:2; } 
         .col.nwNxt-Btn.nwNxt-Btn1 { flex: 0 0 auto;width:15%;order:3; }
-        html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 0px 0 22px; }
+        html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 0px 0 65px; }
         .nwNxt-Btn1 .btn__box { max-width: 10.875rem !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
         .btn__box .btn-primary { min-height: 44px;display:inline-flex;align-items:center;justify-content:center; }
@@ -418,6 +419,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     @media(min-width:1600px){ 
         /* .nwNxt-Btn1 .btn__box { max-width: 174px !important; } */
         html[dir=rtl] .ordInfo { padding: 0 0px 0 18px; }
+        html[dir="rtl"] .newFeature.col { padding: 0 50px 0 44px; }
     }
     
     @media (max-width:992px) {

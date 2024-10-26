@@ -9997,6 +9997,7 @@ img {
 }
 
 .nav-col { width: 200px;padding-right: 50px; display: flex; }
+html[dir=rtl]   .nav-col { padding-right: 0px !important;padding-left: 50px !important; }
 .nav-bar .dropend .dropdown-menu[data-bs-popper] { margin-left: -12px; }
 /* .nav-col .navbar { overflow-y: auto; }
 .nav-col::-webkit-scrollbar { display: none; }
@@ -15304,7 +15305,8 @@ html[dir=rtl] .alert-dismissible .btn-close {
 }
 
 html[dir=rtl] .newOrder {
-  padding: 0 5px 0 25px;
+  padding: 0 5px 0 5px;
+  /* padding: 0 5px 0 25px; */
 }
 
 html[dir=rtl] .prcTable {
