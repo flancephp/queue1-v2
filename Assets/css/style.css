@@ -22247,12 +22247,12 @@ html[dir=rtl] body {
 .issueIn .ttlAmount {font-weight: 600;}
 .issueIn .gr-Out {font-weight: 600;}
 .amountSections { text-align: center;}
-.SummaryItems div:nth-child(3) .sub-table .table-row div:nth-child(2){ text-align: end;}
-.SummaryItems div:nth-child(3) .sub-table .table-row div:nth-child(3) { text-align: end;}
+.SummaryItems div:nth-child(3) .sub-table .table-row div:nth-child(2){ text-align: right;}
+.SummaryItems div:nth-child(3) .sub-table .table-row div:nth-child(3) { text-align: right;}
 .show-smry-cls .thead div:nth-child(3) .table-row { display: flex; padding: 0 5px;}
 .show-smry-cls .thead div:nth-child(3) .table-row div { width: 33.33%;}
-.show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(2) { text-align: end;}
-.show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(3) { text-align: end;}
+.show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(2) { text-align: right;}
+.show-smry-cls .thead div:nth-child(3) .table-row div:nth-child(3) { text-align: right;}
 
 
 

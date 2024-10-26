@@ -262,7 +262,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                     </div>
                                 </div>
                                 <div class="overflow-aut">
-                                <div class="modal-table fs-12 w-100">
+                                <div class="modal-table fs-12 w-100 requestion__modal__table">
                                     <div class="table-row header-row">
                                         <div class="table-cell medium"><span  class="taskNo smryHead">'.showOtherLangText('Task No.').'</span></div>
                                         <div class="table-cell medium"><span  class="department smryHead">'.showOtherLangText('Department').'</span></div>
@@ -303,7 +303,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                         ';
                                     }
 
-                                    $content .= '<div class="table-cell" style="width: 25%;">';
+                                    $content .= '<div class="table-cell" style="width: 25%;"></div><div class="table-cell" style="width: 25%;"></div><div class="table-cell" style="width: 25%;"></div> <div class="table-cell" style="width: 25%;">';
                                     $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                                     $resultSet = mysqli_query($con, $sqlSet);
                                     $chargeRow = mysqli_fetch_array($resultSet);   

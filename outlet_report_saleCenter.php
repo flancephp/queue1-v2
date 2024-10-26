@@ -124,7 +124,8 @@ html[dir=rtl] .otltBd-Unit {
     .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst, .otltBd-Pos, .otltBd-slBar, .otltBd-clStk, .otltBd-usg, .otltBd-var, .usg-p-g, .avg-usg, .usg-lvl {
         width: 9.09% !important;
     }
-    .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst { padding-left: 8px; }
+    /* .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst { padding-left: 8px; } */
+    .otltBd-usg, .otltBd-var { padding-left: 0; }
 }
     </style>
 

@@ -458,6 +458,18 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         .stsBar .btn2 { font-size: 10px; }
     }
     .status-assigned { color:#0d6efd; }
+
+    /* requestion order details pdf */
+    .requestion__modal__table .table-row .table-cell:nth-child(1),
+    .requestion__modal__table .table-row .table-cell:nth-child(2),
+    .requestion__modal__table .table-row .table-cell:nth-child(3) { width: 20%; }
+    .requestion__modal__table .table-row .table-cell:nth-child(4) { width: 40%; }
+ 
+    .remove__parent__padding .modal-table > .table-row .table-cell:nth-child(1),
+    .remove__parent__padding .modal-table > .table-row .table-cell:nth-child(2) { width: 25%; }
+    .remove__parent__padding .modal-table > .table-row .table-cell:nth-child(3) { width: 50%; }
+
+    .table-cell.left__align__text .table-cell { width: 33% !important; }
 </style>
 </head>
 

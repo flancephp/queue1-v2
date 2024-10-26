@@ -284,6 +284,9 @@ foreach($resItemHistory['resRows'] as $item){
             padding: 9px 12px;
         }
     }
+    @media(max-width:1599px) {
+        .view-tblBody, .view-tblBody .vw-clm-4, .itmBody { font-size:14px; }
+    }
     </style>
     <!-- Links for datePicker and dialog popup -->
 
