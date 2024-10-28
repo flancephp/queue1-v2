@@ -286,7 +286,20 @@ foreach($resItemHistory['resRows'] as $item){
     }
     @media(max-width:1599px) {
         .view-tblBody, .view-tblBody .vw-clm-4, .itmBody { font-size:14px; }
+        .heading-Unt { font-size: 15px; }
     }
+    .itmVw-stkbdClm.txtDir1,
+    .tbdy-isuVar .itmVw-outbdClm,
+    .tbdy-isuVar .itmVw-varbdClm,
+    .isu-Varance .itmVw-outClm,
+    .isu-Varance .itmVw-varClm
+     { padding-left: 8px; }
+    html[dir="rtl"] .itmVw-stkbdClm.txtDir1,
+    html[dir="rtl"] .tbdy-isuVar .itmVw-outbdClm,
+    html[dir="rtl"] .tbdy-isuVar .itmVw-varbdClm,
+    html[dir="rtl"] .isu-Varance .itmVw-outClm,
+    html[dir="rtl"] .isu-Varance .itmVw-varClm
+     { padding-left: 0;padding-right: 8px; }
     </style>
     <!-- Links for datePicker and dialog popup -->
 

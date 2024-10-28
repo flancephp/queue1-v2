@@ -262,7 +262,7 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                     </div>
                                 </div>
                                 <div class="overflow-aut">
-                                <div class="modal-table fs-12 w-100 requestion__modal__table">
+                                <div class="modal-table fs-12 w-100 table__cel__alignment requestion__modal__table">
                                     <div class="table-row header-row">
                                         <div class="table-cell medium"><span  class="taskNo smryHead">'.showOtherLangText('Task No.').'</span></div>
                                         <div class="table-cell medium"><span  class="department smryHead">'.showOtherLangText('Department').'</span></div>
@@ -290,20 +290,21 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                                     <div class="table-row">';
                                      if( $ordDet['invNo'] != '')
                                     {
-                                       $content .= '<div class="table-cell" style="width: 25%;">
+                                       $content .= '<div class="table-cell" style="width: 20%;">
                                             <div class="sub-table w-100" style="">
                                                 <div class="table-row">
                                                     <div class="table-cell"># Invoice</div>
                                                     <div class="table-cell">'.$ordDet['invNo'].'</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="table-cell" style="width: 25%;"></div>
-                                        <div class="table-cell" style="width: 25%;"></div>
+                                        </div>  
                                         ';
-                                    }
+                                    } else { $content .= ' <div class="table-cell" style="width: 20%;"></div>'; }
 
-                                    $content .= '<div class="table-cell" style="width: 25%;"></div><div class="table-cell" style="width: 25%;"></div><div class="table-cell" style="width: 25%;"></div> <div class="table-cell" style="width: 25%;">';
+                                    $content .= '  
+                                    <div class="table-cell" style="width: 20%;"></div>
+                                    <div class="table-cell" style="width: 20%;"></div> 
+                                    <div class="table-cell" style="width: 40%;">';
                                     $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_REQUEST['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                                     $resultSet = mysqli_query($con, $sqlSet);
                                     $chargeRow = mysqli_fetch_array($resultSet);   

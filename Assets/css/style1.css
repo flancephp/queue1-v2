@@ -13,12 +13,7 @@ html[dir=rtl]   .dropdown-menu.date_type {
 html[dir=rtl]   .form-control {
   direction: rtl;
 }
-
-
-html[dir=rtl]   .nav-col {
-  padding-right: 0px !important;
-  padding-left: 50px !important;
-}
+ 
 
 
 html[dir=rtl] .brdLft::after {
@@ -288,9 +283,10 @@ html[dir=rtl] #currencyId {
 html[dir=rtl] .stkView .container {
   padding: 28px 11px 0;
 }
+
 html[dir=rtl] .newOrder {
   /* padding: 0 5px 0 25px; */
-  padding: 0 5px 0 5px;
+  /* padding: 0 5px 0 5px; */
 }
 html[dir=rtl] .issueDtl .Variance {
    padding-right: 15px !important; 

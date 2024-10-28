@@ -1516,6 +1516,18 @@ html[dir="rtl"] .pe-2 { padding-right: 0 !important;padding-left: .25rem; }
 }
 .modal .sub-table .table-cell, .modal .left__align__text .table-cell { text-align: left !important; }
 html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__align__text .table-cell { text-align: right !important; }
+
+/* requestion order details pdf */
+.requestion__modal__table .table-row .table-cell:nth-child(1),
+.requestion__modal__table .table-row .table-cell:nth-child(2),
+.requestion__modal__table .table-row .table-cell:nth-child(3) { width: 20%; }
+.requestion__modal__table .table-row .table-cell:nth-child(4) { width: 40%; }
+
+.remove__parent__padding .modal-table > .table-row .table-cell:nth-child(1),
+.remove__parent__padding .modal-table > .table-row .table-cell:nth-child(2) { width: 25%; }
+.remove__parent__padding .modal-table > .table-row .table-cell:nth-child(3) { width: 50%; }
+
+.table-cell.left__align__text .table-cell { width: 33% !important; }
 </style>
 
 
