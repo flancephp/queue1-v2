@@ -1621,19 +1621,19 @@ html[dir=rtl] .modal-footer .btnBg{
 
                     <div class="modal-body  fs-15">
                         <div class="pb-3">
-                            <h2>Convert raw item</h2> 
+                            <h2><?php echo showOtherLangText('Convert raw item') ?></h2> 
                         </div>
                         <div class="table-responsive"> 
                             <table class="issueout2-table w-100 fs-13" style="min-width:700px;">
                                 <tr class="semibold">
-                                    <th class="criCol1">Photo</th>
-                                    <th class="criCol2">Item</th>
-                                    <th class="criCol3">Converted Qyt</th>
-                                    <th class="criCol3">Unit</th>
-                                    <th class="criCol3">Qyt Before</th>
-                                    <th class="criCol3">Qyt After</th>
-                                    <th class="criCol3">Price</th>
-                                    <th class="criCol3">Converted Qyt Value</th>
+                                    <th class="criCol1"><?php echo showOtherLangText('Photo') ?></th>
+                                    <th class="criCol2"><?php echo showOtherLangText('Item') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Converted Qyt') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Unit') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Qyt Before') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Qyt After') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Price') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Converted Qyt Value') ?></th>
                                 </tr>
                                 <tr class="semibold">
                                     <td class="criCols1"><?php
@@ -1682,8 +1682,8 @@ html[dir=rtl] .modal-footer .btnBg{
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-start">
-                        <button type="button" class="btn btn-primary" onClick="approveConvert();">Approve</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onClick="approveConvert();"><?php echo showOtherLangText('Approve') ?></button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo showOtherLangText('Cancel') ?></button>
                     </div>
                 </form>
             </div>

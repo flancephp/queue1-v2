@@ -264,12 +264,12 @@ include_once('script/revenueCenterReport_script.php');
                             <div class="container mb-hisDtl res__mb">
                                 <div class="row">
                                     <div class="col-md-5 is-Incol">
-                                        <p class="sale-Name">Sales</p>
-                                        <p class="ttlAmount">4,322.05 $</p>
+                                        <p class="sale-Name"><?php echo showOtherLangText('Sales'); ?></p>
+                                        <p class="ttlAmount">static</p>
                                     </div>
                                     <div class="col-md-5 is-Outcol">
-                                        <p class="tl-Cst">Total Cost</p>
-                                        <p class="ttlAmount-rec">3,998.06 $</p>
+                                        <p class="tl-Cst"><?php echo showOtherLangText('Total Cost'); ?></p>
+                                        <p class="ttlAmount-rec">static</p>
                                     </div>
                                     <div class="col-md-2 maxBtn">
                                         <a href="javascript:void(0)" class="maxLink">
@@ -378,12 +378,12 @@ include_once('script/revenueCenterReport_script.php');
                                                             </div>
                                                         </div>
                                                         <div class="outlet-Salecst">
-                                                            <p class="mbhead-revCntr">Sales</p>
+                                                            <p class="mbhead-revCntr">'. showOtherLangText('Sales').'</p>
                                                             <p class="bl-Sale">'.getNumFormtPrice($sales,$getDefCurDet['curCode']).'</p>
                                                         </div>
                                                         <div class="outlet-Totalcst d-flex item-items-center">
                                                             <div class="ttlCost-Amt">
-                                                                <p class="mbhead-revCntr">Total Cost</p>
+                                                                <p class="mbhead-revCntr">'. showOtherLangText('Total Cost').'</p>
                                                                 <p class="pr-Tcost">'. ($usage ? getNumFormtPrice($usage,$getDefCurDet['curCode']) : '').'</p>
                                                             </div>
                                                             <div class="ttlCost-Pnage">

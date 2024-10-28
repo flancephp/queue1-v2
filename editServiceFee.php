@@ -93,7 +93,7 @@ $det = mysqli_fetch_array($res);
 
                 <section id="landScape">
                     <div class="container">
-                        <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
+                        <h1 class="h1 text-center"><?php echo showOtherLangText('For better experience, Please use portrait view.'); ?></h1>
                     </div>
                 </section>
 

@@ -123,7 +123,7 @@ $designationRes = mysqli_query($con, $sqlQry);
                                     echo isset($_GET['delete']) ? ' '.showOtherLangText('Title Deleted Successfully').' ' : '';
                                 ?>
                             </p>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo showOtherLangText('Close'); ?>"></button>
                         </div>
                         <?php } ?>
                         <?php if(isset($_GET['error']) || isset($_GET['error_already_exist'])) { ?>

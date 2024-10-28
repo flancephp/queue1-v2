@@ -1578,7 +1578,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
 
                                         ?>
                                     </p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo showOtherLangText('Close'); ?>"></button>
                                 </div>
                             <?php } ?>
 
@@ -1590,7 +1590,7 @@ html[dir="rtl"] .modal .sub-table .table-cell, html[dir="rtl"] .modal .left__ali
 
                                         ?>
                                     </p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo showOtherLangText('Close'); ?>"></button>
                                 </div>
                             <?php } ?>
 

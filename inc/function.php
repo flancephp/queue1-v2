@@ -5599,7 +5599,7 @@ function checkStockQtyRequisition($orderId, $accountId)
     $errorMes .=  '</table></div>';
     $errorMes .= '<div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="submitFinalIssueOut btn btn-primary" >'.showOtherLangText('Approve').'</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">'.showOtherLangText('Cancel').'</button>
                     </div>';
 
 // 	$errorMes = '<div class="modal-body  fs-15">

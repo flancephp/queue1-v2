@@ -92,7 +92,7 @@ $result = mysqli_query($con, $sql);
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Manage Service Fee</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Manage Service Fee'); ?></h1>
                                 </div>
                             </div>
                              <?php require_once('header.php'); ?>
@@ -102,7 +102,7 @@ $result = mysqli_query($con, $sql);
 
                 <section id="landScape">
                     <div class="container">
-                        <h1 class="h1 text-center">For better experience, Please use portrait view.</h1>
+                        <h1 class="h1 text-center"><?php echo showOtherLangText('For better experience, Please use portrait view.'); ?></h1>
                     </div>
                 </section>
 
@@ -204,7 +204,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('Service Fee Edited Successf
                                     <div class="serFeeTbl-body itmBody">
                                         <div class="srvFeeTbl-NmCol d-flex align-items-center">
                                             <div class="tb-bdy feeNum-Clm">
-                                                <p class="feeSrNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
+                                                <p class="feeSrNumber"><span class="mb-UsrSpan"><?php echo showOtherLangText('No.') ?> </span><strong><?php echo $x;?></strong></p>
                                             </div>
                                             <div class="tb-bdy feeName-Clm">
                                                 <p class="suplName"><span><?php echo $row['itemName'];?></span></p>
