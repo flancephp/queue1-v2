@@ -151,10 +151,12 @@ $('body').on('click', '.smryChk-All', function() {
  $('#show-smry').css('display', 'block');
  $('#show-header').css('display', 'none');
  $('#show-itm').css('display', 'none');
-
-
+ 
+ 
  if ($(".smryChk-All:checked").length == 1) {
 
+    $('.sumBreakupAmtText').css('display', 'block');
+    $('.SummaryItems').css('display', 'table-row');
      $('.show-smry-cls').css('display', 'block');
      $('#smrySuplr').css('display', 'block');
      $('#smryPayment').css('display', 'block');
@@ -166,6 +168,11 @@ $('body').on('click', '.smryChk-All', function() {
      $(".smryCheckbox").prop('checked', true);
 
  } else {
+
+     
+
+    $('.SummaryItems').css('display', 'none');
+    $('.sumBreakupAmtText').css('display', 'none');
      $("#summary").prop('checked', false);
      $(".smryCheckbox").prop('checked', false);
      $('.show-smry-cls').css('display', 'none');

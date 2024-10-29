@@ -3438,7 +3438,12 @@ function showHideByClassSummary(targetId) {
 
 </script>
 
-<?php
+
+<?php 
+include_once('orderAndReqJourneyJsCode.php');
+?>
+
+<?php 
 include_once('historyPdfJsCode.php');
 ?>
 
