@@ -127,7 +127,15 @@ html[dir=rtl] .otltBd-Unit {
     /* .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst { padding-left: 8px; } */
     .otltBd-usg, .otltBd-var { padding-left: 0; }
 }
-    </style>
+/* html[dir="rtl"] .otltBd .form-control[type="date"]::-webkit-calendar-picker-indicator {
+    right: auto;
+    left: 0;
+} */
+.form-control[type="date"]::-webkit-calendar-picker-indicator {
+  right: var(--calendar-icon-position, auto);
+  left: var(--calendar-icon-position, 0);
+}
+</style>
 
 </head>
 
@@ -1172,7 +1180,13 @@ $(document).ready(function () {
 
     
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const dateInputs = document.querySelectorAll('html[dir="rtl"] .otltBd .form-control[type="date"]');
 
+  dateInputs.forEach(input => {
+    input.style.setProperty('--calendar-icon-position', 'left');
+  });
+});
 </script>
 </body>
 

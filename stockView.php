@@ -1628,12 +1628,12 @@ html[dir=rtl] .modal-footer .btnBg{
                                 <tr class="semibold">
                                     <th class="criCol1"><?php echo showOtherLangText('Photo') ?></th>
                                     <th class="criCol2"><?php echo showOtherLangText('Item') ?></th>
-                                    <th class="criCol3"><?php echo showOtherLangText('Converted Qyt') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Converted Qty') ?></th>
                                     <th class="criCol3"><?php echo showOtherLangText('Unit') ?></th>
-                                    <th class="criCol3"><?php echo showOtherLangText('Qyt Before') ?></th>
-                                    <th class="criCol3"><?php echo showOtherLangText('Qyt After') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Qty Before') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Qty After') ?></th>
                                     <th class="criCol3"><?php echo showOtherLangText('Price') ?></th>
-                                    <th class="criCol3"><?php echo showOtherLangText('Converted Qyt Value') ?></th>
+                                    <th class="criCol3"><?php echo showOtherLangText('Converted Qty Value') ?></th>
                                 </tr>
                                 <tr class="semibold">
                                     <td class="criCols1"><?php
