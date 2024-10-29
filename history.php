@@ -3413,6 +3413,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 }
 
+function showHideByClassSummary(targetId) {
+
+    if ($('.' + targetId).is(":visible")) {
+        $('.' + targetId).css('display', 'none');
+
+
+    } else {
+        $('.' + targetId).css('display', 'block');
+
+        if (!$('.show-smry-cls').is(":visible")) {
+
+            $('.show-smry-cls').css('display', 'block');
+        }
+
+        if (targetId == 'smryDef_Val' || targetId == 'smryOtr_Val') {
+            $('.sumBreakupAmtText').css('display', 'block');
+        }
+
+
+    }
+
+}
+
 </script>
 
 <?php
