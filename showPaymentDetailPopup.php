@@ -51,6 +51,9 @@ $content = '<!DOCTYPE html>
   <head>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
       <title>'.showOtherLangText('Payment PDF').'</title>
+      <style>
+        th { text-align: left; }
+      </style>
   </head>
   <body style="margin: 0; padding: 0; font-family: inter;">
     <div style="margin: auto; max-width: 800px; position: relative; border-radius: 5px;">
@@ -64,20 +67,20 @@ $content = '<!DOCTYPE html>
    if (isset($_GET['orderId']) && $paymentRow['paymentStatus']==1 ) 
 { 
 
-    $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#596BF3 !important; margin-bottom: 0;">
+    $content .= '<p style="font-size:40px;font-weight:700;line-height:40px;text-align:left;color:#596BF3 !important; margin-bottom: 0;text-transform: uppercase;">
                             '.showOtherLangText('PAID').'</p>';
 }elseif($_GET['paymentStatus']==2) { 
    
-    $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#596BF3 !important; margin-bottom: 0;">
+    $content .= '<p style="font-size:40px;font-weight:700;line-height:40px;text-align:left;color:#596BF3 !important; margin-bottom: 0;text-transform: uppercase;">
                             '.showOtherLangText('REFUNDED').'</p>';
                   
 
                     }else{ 
 
-     $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#596BF3 !important; margin-bottom: 0;">
+     $content .= '<p style="font-size:40px;font-weight:700;line-height:40px;text-align:left;color:#596BF3 !important; margin-bottom: 0;text-transform: uppercase;">
                             '.showOtherLangText('PENDING').'</p>';
                              }
-   $content .= '<p style="font-size:40px;font-weight:700;line-height:48.41px;text-align:left;color:#666C85;margin-top: 0rem;">'.  showOtherLangText('PAYMENT').'</p>';
+   $content .= '<p style="font-size:40px;font-weight:700;line-height:40px;text-align:left;color:#666C85;margin-top: 0rem;text-transform: uppercase;">'.  showOtherLangText('PAYMENT').'</p>';
     $content .= '</td>
           <td style="text-align: right;">';
           $clientQry = " SELECT * FROM tbl_client WHERE id = '".$_SESSION['accountId']."' ";
@@ -126,19 +129,19 @@ $resultRow = mysqli_fetch_array($resSet);
       <table style=" text-align: right; width: 100%; border-collapse: collapse;">
         <tbody>
           <tr>
-            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">'.$clientResultRow['accountName'].'</td>
+            <td style="padding:0;font-size:16px;font-weight:600;line-height:20px;color:#666C85 !important;">'.$clientResultRow['accountName'].'</td>
           </tr>
           <tr>
-            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">'.$clientResultRow['address_one'].','.$clientResultRow['address_two'].'</td>
+            <td style="padding:0;font-size:16px;font-weight:600;line-height:20px;color:#666C85 !important;">'.$clientResultRow['address_one'].','.$clientResultRow['address_two'].'</td>
           </tr>
           <tr>
-            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">'.$clientResultRow['city'].','.$resultRow['name'].'</td>
+            <td style="padding:0;font-size:16px;font-weight:600;line-height:20px;color:#666C85 !important;">'.$clientResultRow['city'].','.$resultRow['name'].'</td>
           </tr>
           <tr>
-            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">'.$clientResultRow['email'].'</td>
+            <td style="padding:0;font-size:16px;font-weight:600;line-height:20px;color:#666C85 !important;">'.$clientResultRow['email'].'</td>
           </tr>
           <tr>
-            <td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:19.36px;color:#666C85 !important;">'.$clientResultRow['phone'].'</td>
+            <td style="padding:0;font-size:16px;font-weight:600;line-height:20px;color:#666C85 !important;">'.$clientResultRow['phone'].'</td>
           </tr>
         </tbody>
       </table>
@@ -168,22 +171,22 @@ $resultRow = mysqli_fetch_array($resSet);
           if ($ordersRow['ordCurId'] > 0) {
                   
 
-                           $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; background:#7A89FF;text-align:center;padding-left:.5rem;">
+                           $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; background:#7A89FF;padding-left:.5rem;">
                                 '. showOtherLangText('Price').'('. $sqlResultRow['curCode'].')</th>';
 
                             }else{
-                                $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; background:#7A89FF;text-align:center;padding-left:.5rem;">
+                                $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; background:#7A89FF;padding-left:.5rem;">
                                 '. showOtherLangText('Price').'('. $getDefCurDet['curCode'].')</th>';
                             }
 
           if ($ordersRow['ordCurId'] > 0) {
 
                                
-                             $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;text-align:center;padding-left:.5rem;">'. showOtherLangText('Total').'('. $sqlResultRow['curCode'].')</th>';
+                             $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;padding-left:.75rem;">'. showOtherLangText('Total').'('. $sqlResultRow['curCode'].')</th>';
                             }else{
 
                                
-                                $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;text-align:center;padding-left:.5rem;">'. showOtherLangText('Total').'('. $getDefCurDet['curCode'].')</th>';
+                                $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;padding-left:.5rem;">'. showOtherLangText('Total').'('. $getDefCurDet['curCode'].')</th>';
 
                             }
          
@@ -199,24 +202,24 @@ $resultRow = mysqli_fetch_array($resSet);
               $x++;
         $content .= '<tr style="height:48px;">
               <td style="font-size: 12px; padding: .5rem;">'.$x.'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center; width: 30%;">'. $showCif['itemName'].'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center;">'. $showCif['unit'].'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center;">1</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center;">1</td>';
+              <td style="font-size: 12px; padding: .5rem; width: 30%;">'. $showCif['itemName'].'</td>
+              <td style="font-size: 12px; padding: .5rem;">'. $showCif['unit'].'</td>
+              <td style="font-size: 12px; padding: .5rem;">1</td>
+              <td style="font-size: 12px; padding: .5rem;">1</td>';
             if ($ordersRow['ordCurId'] > 0) {
 
                              
-                                $content .=  '<td style="font-size: 12px; padding: .5rem;text-align:center;">'. showOtherCur($showCif['amt']*$sqlResultRow['amt'], $ordersRow['ordCurId']).'</td>';
+                                $content .=  '<td style="font-size: 12px; padding: .5rem .5rem .5rem .75rem;">'. showOtherCur($showCif['amt']*$sqlResultRow['amt'], $ordersRow['ordCurId']).'</td>';
 
                             }else{
-                                  $content .=  '<td style="font-size: 12px; padding: .5rem;text-align:center;">'.getPriceWithCur($showCif['amt'],$getDefCurDet['curCode']).'</td>';
+                                  $content .=  '<td style="font-size: 12px; padding: .5rem;">'.getPriceWithCur($showCif['amt'],$getDefCurDet['curCode']).'</td>';
                             }
 
             if ($ordersRow['ordCurId'] > 0) {
 
 
                               
-                                 $content .=  '<td style="font-size: 12px; font-weight: 700; padding:.5rem;">'. showOtherCur($showCif['amt']*$sqlResultRow['amt'], $ordersRow['ordCurId']).'</td>';
+                                 $content .=  '<td style="font-size: 12px; font-weight: 700; padding:.5rem .5rem .5rem .75rem;">'. showOtherCur($showCif['amt']*$sqlResultRow['amt'], $ordersRow['ordCurId']).'</td>';
                             }else{
                                  $content .=  '<td style="font-size: 12px; font-weight: 700; padding:.5rem;">'.getPriceWithCur($showCif['amt'],$getDefCurDet['curCode']).'</td>';
 
@@ -231,17 +234,17 @@ $resultRow = mysqli_fetch_array($resSet);
               $x++;
               $content .= '<tr style="height:48px;">
               <td style="font-size: 12px; padding: .5rem;">'.$x.'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center; width: 30%;">'. $row['itemName'].'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center;">'. $row['purchaseUnit'].'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center;">'. $row['ordQty'].'</td>
-              <td style="font-size: 12px; padding: .5rem;text-align:center;">'. $row['qtyReceived'].'</td>';
+              <td style="font-size: 12px; padding: .5rem; width: 30%;">'. $row['itemName'].'</td>
+              <td style="font-size: 12px; padding: .5rem;">'. $row['purchaseUnit'].'</td>
+              <td style="font-size: 12px; padding: .5rem;">'. $row['ordQty'].'</td>
+              <td style="font-size: 12px; padding: .5rem;">'. $row['qtyReceived'].'</td>';
               if ($ordersRow['ordCurId'] > 0) {
 
-                            $content .=  '<td style="font-size: 12px; padding: .5rem;text-align:center;">'. showOtherCur($row['ordCurPrice']*$row['factor'],($ordersRow['ordCurId'])).'</td>';
+                            $content .=  '<td style="font-size: 12px; padding: .5rem .5rem .5rem .75rem;">'. showOtherCur($row['ordCurPrice']*$row['factor'],($ordersRow['ordCurId'])).'</td>';
 
                             }else{
 
-                             $content .=  '<td style="font-size: 12px; padding: .5rem;text-align:center;">'.getPriceWithCur($row['ordPrice']*$row['factor'],$getDefCurDet['curCode']).'</td>';
+                             $content .=  '<td style="font-size: 12px; padding: .5rem;">'.getPriceWithCur($row['ordPrice']*$row['factor'],$getDefCurDet['curCode']).'</td>';
 
                             }
 
@@ -249,7 +252,7 @@ $resultRow = mysqli_fetch_array($resSet);
 
 
                               
-                            $content .=  '<td style="font-size: 12px; font-weight: 700; padding:.5rem;">'. showOtherCur($row['ordQty']*$row['ordCurPrice']*$row['factor'], ($ordersRow['ordCurId'])).'</td>';
+                            $content .=  '<td style="font-size: 12px; font-weight: 700; padding:.5rem .5rem .5rem .75rem;">'. showOtherCur($row['ordQty']*$row['ordCurPrice']*$row['factor'], ($ordersRow['ordCurId'])).'</td>';
 
                             }else{
 
@@ -266,7 +269,7 @@ $resultRow = mysqli_fetch_array($resSet);
         <br>
   <table style=" width:100%; border-collapse: collapse;">
   <tr>
-    <td style="vertical-align: top; width:50%; ">
+    <td style="vertical-align: top; width:40%; ">
       <p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left; margin-bottom: 0;">'. showOtherLangText('Payment Method').':</p>';
       $sqlSet= " SELECT * FROM tbl_payment WHERE orderId='".$paymentRow['orderId']."'  AND account_id = '".$_SESSION['accountId']."' order by id limit 1 ";
 
@@ -302,8 +305,8 @@ $resultRow = mysqli_fetch_array($resSet);
       $content .= '<p style="margin: 0px; font-size:16px;font-weight:600;line-height:19.36px;text-align:left;color:#666C85; margin-bottom: 0;">'.$accDet['accountName'].'</p>';
                         }
     $content .= '</td>
-    <td style="vertical-align: top; width:50%;">
-      <table style="margin-top:-1rem;min-width:350px;height: 38px; border-collapse: collapse;">
+    <td style="vertical-align: top; width:60%;">
+      <table style="margin-top:-1rem;min-width:350px;height: 38px; border-collapse: collapse;width:100%;">
         <tbody>';
     $curAmtVal = 0;
               if($ordRow['ordCurId'] > 0)
@@ -471,7 +474,7 @@ $resultRow = mysqli_fetch_array($resSet);
           </tr>
         </tbody>';
          }else{
-          $content .= '<tbody><tr style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
+          $content .= '<tbody><tr><td colspan="2" style="padding:4px;"></td></tr><tr style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
             <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">'. showOtherLangText('Grand Total').' ('. $getDefCurDet['curCode'].')</th>
             <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">'.getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
           </tr>
