@@ -293,8 +293,8 @@ $content .= '<div class="modal-header position-relative">
                   if( $ordDet['paymentId'] > 0)
         {
                    $content .=   '<div class="table-row">
-                        <div class="table-cell"><span class="smryPayment smryHead"># Payment11</span></div>
-                        <div class="table-cell"><span class="smryPayment smryHead">001539</span></div>
+                        <div class="table-cell"><span class="smryPayment smryHead"># Payment</span></div>
+                        <div class="table-cell"><span class="smryPayment smryHead">'.$ordDet['paymentId'].'</span></div>
                        </div>';
         }
                  $content .=  '</div>

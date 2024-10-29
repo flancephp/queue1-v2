@@ -189,15 +189,28 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                 </table></td>
         </tr>';
          $content .= '<tr><td width="25%" align="top" style="vertical-align:top;">';
-         if(  $_GET['supplierInvoice']  == 1)  
+                if(  $_GET['supplierInvoice']  == 1)  
                 { 
-         $content .=   '<table style="width: 100%;">
-                    <tr>
-                        <td style="padding: 5px;border:0;"># Supplier Invoice</td>
-                        <td style="padding: 5px;border:0;">'.$ordDet['invNo'].'</td>
-                    </tr>
-                </table>';
+                    $content .=   '<table style="width: 100%;">
+                        <tr>
+                            <td style="padding: 5px;border:0;"># '.showOtherLangText('Supplier Invoice').'</td>
+                            <td style="padding: 5px;border:0;">'.$ordDet['invNo'].'</td>
+                        </tr>
+                    </table>';
                 }
+
+                if(  $_GET['payment']  == 1 && $ordDet['paymentId'] > 0)  
+                { 
+                    $content .=   '<table style="width: 100%;">
+                        <tr>
+                            <td style="padding: 5px;border:0;"># '.showOtherLangText('Payment').'</td>
+                            <td style="padding: 5px;border:0;">'.$ordDet['paymentId'].'</td>
+                        </tr>
+                    </table>';
+                }
+
+                
+
         $content .=  '</td>';
              if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1 )  
             {
@@ -446,7 +459,7 @@ if( $_GET['barcode'] == 1)
   
     if( $_GET['unit'] == 1)
             {
-  $content .=  '<td style="padding: 5px;">box</td>';
+  $content .=  '<td style="padding: 5px;"></td>';
             }
              if( $_GET['qty'] == 1)
             {
