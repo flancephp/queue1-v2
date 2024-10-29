@@ -87,43 +87,43 @@ $content .= '<body style="' . ($getLangType == '1'
     ? 'font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;box-sizing:border-box;' 
     : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
 if($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['orderDetails'] == 1 || $_GET['currentDate'] == 1)
-{
-            $content .= '<table style="width: 100%; border-spacing: 0;">
-            <tr align="top">
-                <td width="33%" style="text-align:left;vertical-align:top;">';
-        //logo and date will go here
+    {
+$content .= '<table style="width: 100%; border-spacing: 0;">
+    <tr align="top">
+        <td width="33%" style="text-align:left;vertical-align:top;">';
+//logo and date will go here
 
-        if($_GET['logo'] == 1)
-        {
-            if($clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
-            {  
-                $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 50px; width: auto;">';
-            }
-            else
-            {
-                $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 50px; width: auto;">';
-            }
+    if($_GET['logo'] == 1)
+    {
+        if($clientDetRow["logo"] !='' && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/clientLogo/".$clientDetRow["logo"] ))
+        {  
+            $content .= '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/clientLogo/'.$clientDetRow['logo'].'" style="object-fit: scale-down; height: 50px; width: auto;">';
         }
-        if($_GET['currentDate'] == 1)
+        else
         {
-            $content .=  '<table style="width: 100%; border-spacing: 0;">
-            <tr>
-            <td style="font-size: 14px; line-height: 16px; text-align: left;border:0;">'.date('d/m/Y').'</td>
-            </tr>
-            </table>';
-        }              
-        //end logo and date here
-
- $content .=  '</td><td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center !important;border:0;vertical-align:top;">';
-  if($_GET['orderDetails'] == 1)
-  {
- $content .=  '
-        <b style="text-align: center; padding:5px; ">'.showOtherLangText('Order Details').'</b>
-             ';
+            $content .= '<img src="'.$siteUrl.'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 50px; width: auto;">';
+        }
     }
+    if($_GET['currentDate'] == 1)
+    {
+        $content .=  '<table style="width: 100%; border-spacing: 0;">
+        <tr>
+        <td style="font-size: 14px; line-height: 16px; text-align: left;border:0;">'.date('d/m/Y').'</td>
+        </tr>
+        </table>';
+    }              
+//end logo and date here
+
+ $content .=  '</td>';
+  if($_GET['orderDetails'] == 1)
+               {
+ $content .=  '<td  width="33%" style="font-size: 18px; line-height: 16px; font-weight: 600; margin: 0; padding: 0; text-align: center !important;border:0;vertical-align:top;">
+        <b style="text-align: center; padding:5px; ">'.showOtherLangText('Order Details').'</b>
+              </td>';
+                 }
 
 //address will go here
- $content .=  ' </td><td  width="33%">';
+ $content .=  '<td  width="33%">';
 
 if($_GET['address'] == 1)
 {
@@ -149,19 +149,15 @@ if($_GET['address'] == 1)
    $content .=  '</td>
     </tr>
 </table>';
-}//end header parts
+   }
 
 
 
 $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;text-align:right;">
    
         <tr>
-            <td width="50%" style="font-weight:700;padding: 5px;border:0;">';
-
-            if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1 )    { 
-
-            
-               $content .= ' <table width="100%" border="0">
+            <td width="50%" style="font-weight:700;padding: 5px;border:0;">
+                <table width="100%" border="0">
                     <tbody>
                         <tr>
                             <td style="width:30%;"></td>
@@ -169,21 +165,19 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                             <td style="width:40%;"></td>
                         </tr>
                     </tbody>
-                </table> ';
-            }
-
-           $content .= ' </td>
+                </table> 
+            </td>
             <td width="25%" style="font-weight:700; text-align: center;padding: 5px;border:0;">'.showOtherLangText('Supplier').'</td>
             <td width="25%">
-                ';
-        
-                $content .=   '<table style="width: 100%;"><tr>
+                <table style="width: 100%;">';
+         if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1 )    { 
+        $content .=   '<tr>
                         <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
                         <td width="60%" style="font-weight:700;padding: 5px;border:0;">'.showOtherLangText('Task No.').'</td> 
-                    </tr></table>';
-        
+                    </tr>';
+         }
                 
-         $content .=   '
+         $content .=   '</table>
             </td> 
         </tr>
         <tr style="background-color: rgba(122, 137, 255, 0.2);">
@@ -191,6 +185,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
              
                 <table style="width: 100%;">
                     <tr> 
+
                         <td width="30%" style="padding:8px 5px; font-weight: 700;">';
                         if( $_GET['secondCurrency']  == 1 )  
                         {
@@ -223,16 +218,14 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         
         
 
-       
+         $content .= '<tr>';
 
          //starts totak breakups charges------------------------------------------------------------------------------------------------------------------
-
-         $content .= '<tr>
-            <td width="50%">';
 
          if(  $_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1 )  
          {
             $content .= '
+            <td width="50%">
                 <table style="width: 100%;border-collapse: collapse;">';
             $sqlSet="SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='".$_GET['orderId']."' AND account_id = '".$_SESSION['accountId']."'  AND (customChargeType='1' OR customChargeType='0')";
                           $resultSet = mysqli_query($con, $sqlSet);
@@ -414,31 +407,19 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
                  </tr>';
                    }
                 
-                   $content .='</table>';
         }
 
         $content .= '
-          <td width="50%" align="right" colspan="2" style="vertical-align:top;">';
+         </table> <td width="50%" align="right" colspan="2" style="vertical-align:top;">';
         if(  $_GET['supplierInvoice']  == 1)  
                { 
         $content .=   '<table style="width: 100%;">
                    <tr>
                        
                        <td style="padding: 5px;border:0;;">'.$ordDet['invNo'].'</td>
-                       <td style="padding: 5px;border:0;text-align:right;"> '.showOtherLangText('Supplier Invoice').' #</td>
+                       <td style="padding: 5px;border:0;text-align:right;"># Supplier Invoice</td>
                    </tr>
                </table>';
-               }
-
-               if(  $_GET['payment']  == 1 && $ordDet['paymentId'] > 0)  
-               { 
-                   $content .=   '<table style="width: 100%;">
-                       <tr>
-                           
-                           <td style="padding: 5px;border:0;">'.$ordDet['paymentId'].'</td>
-                           <td style="padding: 5px;border:0;"> '.showOtherLangText('Payment').' #</td>
-                       </tr>
-                   </table>';
                }
        
 
@@ -453,7 +434,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
          
        
         
-       
+        $content .=  '</td>';
             
 
 
@@ -494,7 +475,7 @@ if( $_GET['unit'] == 1)
     $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Unit').'</th>';
 } 
 
-if( $_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0)
+if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
 {
     $content .=  '<th style="font-weight:700;padding:8px 5px;">'.showOtherLangText('Price').'('.$curDet['curCode'].')</th>';
 }
@@ -518,7 +499,7 @@ if( $_GET['photo'] == 1)
    
 
 
- $content .=    ' <th style="font-weight:700;padding:8px 5px;text-align: right;">#</th></tr>';
+ $content .=    ' <th style="font-weight:700;padding:8px 5px;text-align: left;">#</th></tr>';
 
 
    $i = 0;
@@ -555,7 +536,7 @@ while($row = mysqli_fetch_array($otherChrgQry) )
 
     if( $_GET['unit'] == 1)
     {
-        $content .=  '<td style="padding: 5px;"></td>';
+        $content .=  '<td style="padding: 5px;">box</td>';
     }
 
     if( $_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0)
@@ -627,10 +608,10 @@ while($row = mysqli_fetch_array($proresultSet) )
         $content .=  '<td style="padding: 5px;">'.$row['purchaseUnit'].'</td>';
     } 
 
-    if(  $_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0)
+    if(  $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
     {
         $content .=  '<td style="padding: 5px;">
-                '.getPriceWithCur($row['curAmt']*$row['factor'], $curDet['curCode']).'</td>';
+                '.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</td>';
     } 
 
     if( $_GET['price'] == 1)
@@ -717,7 +698,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
 }
 
 
-   $content .= '</body>
+  $content .= '</body>
              </html>';
         
        
