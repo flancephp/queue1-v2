@@ -1233,11 +1233,11 @@ $.ajax({
 
 function hideCheckbox(targetId) {
 
-if ($('#' + targetId).is(":visible")) {
-$('#' + targetId).css('display', 'none');
-} else {
-$('#' + targetId).css('display', 'block');
-}
+    if ($('#' + targetId).is(":visible")) {
+    $('#' + targetId).css('display', 'none');
+    } else {
+    $('#' + targetId).css('display', 'block');
+    }
 }
 
 $('body').on('change', '.headCheckbox', function() {
@@ -1421,3 +1421,7 @@ $('.itmNote').css('display', 'none');
 
 });
 </script>
+
+<?php 
+include_once('orderAndReqJourneyJsCode.php');
+?>
