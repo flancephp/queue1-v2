@@ -416,6 +416,9 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_POST['orderId']."' AND account
                               $content .= '<div class="table-cell"><span   class="itmTotal">'.showOtherLangText('Total').'('.$getDefCurDet['curCode'].')</span></div>';
                               $content .= '<div class="table-cell"><span   class="itmNote">'.showOtherLangText('Note').'</span></div>';
                               $content .= '</div>';
+
+
+                              
                               while($row = mysqli_fetch_array($proresultSet) )
                         {
                           $i++;
