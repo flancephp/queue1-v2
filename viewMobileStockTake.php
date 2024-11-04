@@ -244,7 +244,7 @@ $result = mysqli_query($con, $sql);
                                                 <a href="stockTake.php?processId=<?php echo $row['id'];?>&stockTakeId=<?php echo $_GET['stockTakeId'];?>" class="userLink sub_CatLnk">
                                                     <img src="Assets/icons/setting.svg" alt="Sub-Category"
                                                         class="usrLnk-Img">
-                                                    <p class="subCat-Lnk">View Approve<span class="dsk-HdCtgry">.</span></p>
+                                                    <p class="subCat-Lnk"><?php echo showOtherLangText('View Approve');?><span class="dsk-HdCtgry">.</span></p>
                                                 </a>
                                                 <a href="javascript:void(0)" class="userLink"
                                                     onClick="getDelNumb('<?php echo $row['id'];?>');">

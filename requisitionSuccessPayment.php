@@ -72,7 +72,7 @@ if ($_POST['refund']=="refundAll")
 
 }
 
-$refund = $_POST['refund']=="refundAll" ? 'Amount and Qty refund' : 'Amount refund only';
+$refund = $_POST['refund']=="refundAll" ? showOtherLangText('Amount and Qty refund') : showOtherLangText('Amount refund only');
 
 $sql = " SELECT * FROM tbl_orders WHERE id = '".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
         $res = mysqli_query($con, $sql);
@@ -86,7 +86,7 @@ $sql = " SELECT * FROM tbl_orders WHERE id = '".$_POST['orderId']."' AND account
             `orderType` = '".$orderDetRow['ordType']."',
             `ordDateTime` = '".date('Y-m-d h:i:s')."',
             `notes` = '".$refund."',
-            `action` = 'Invoice Refunded' ";
+            `action` = '".showOtherLangText('Invoice Refunded')."' ";
             mysqli_query($con, $qry);
             
 

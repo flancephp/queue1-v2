@@ -843,15 +843,15 @@ function getItemType($type)
 {
 	if($type == 1)
 	{
-		$itemType =  'Bar Control';
+		$itemType =  showOtherLangText('Bar Control');
 	}
 	if($type == 2)
 	{
-		$itemType = 'Sales';
+		$itemType = showOtherLangText('Sales');
 	}
 	if($type == 3)
 	{
-		$itemType = 'Usage';
+		$itemType = showOtherLangText('Usage');
 	}	
 	
 	return $itemType;
@@ -2050,7 +2050,7 @@ function finishStockTake($stockTakeId, $stockTakeType, $userId)
 		`otherCurId` = '".$resRowOld['ordCurId']."',
 		`orderType` = '".$resRowOld['ordType']."',
 		`notes` = '".$notes."',
-		`action` = 'Mobile Received' ";
+		`action` = '".showOtherLangText('Mobile Received')."' ";
 		mysqli_query($con, $qry);
 		
 		//this column will be used to check to show/hide edit order page in running task
@@ -2457,7 +2457,8 @@ function issueOutMobile($orderId, $userId)
 		`amount` = '".$ordNetTotal."',
 		`orderType` = '".$resRowOld['ordType']."',
 		`notes` = '".$notes."',
-		`action` = 'Mobile IssueOut' ";
+		`action` = '".showOtherLangText('Mobile IssueOut')."' ";
+
 		mysqli_query($con, $qry);
 
 
@@ -3351,7 +3352,7 @@ function getrequisitionPaymentLink($orderId) {
 </div> -->
 <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
                                                         <a href="requisitionPaymentDetail.php?page=history&action=pay&orderId=<?php echo $orderId;?>">
-                                                            <p class="h3">Inv</p>
+                                                            <p class="h3"><?php echo showOtherLangText('Inv') ?></p>
                                                         </a>
                                                     </div>
 
@@ -3366,7 +3367,7 @@ function getrequisitionPaymentLink($orderId) {
 				?>
                 <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn">
                                                 <a href="requisitionPaymentDetail.php?page=history&action=p&orderId=<?php echo $orderId;?>">
-                                                    <p class="h3">Inv</p>
+                                                    <p class="h3"><?php echo showOtherLangText('Inv') ?></p>
                                                 </a>
                                                     </div>
 
@@ -3381,7 +3382,7 @@ function getrequisitionPaymentLink($orderId) {
 
 <div class="cnfrm text-center d-flex justify-content-center align-items-center pyinvBtn" style="background: #7a89fe21;">
                                                 <a href="requisitionPaymentDetail.php?page=history&action=I&orderId=<?php echo $orderId;?>">
-                                                    <p class="h3">Inv</p>
+                                                    <p class="h3"><?php echo showOtherLangText('Inv') ?></p>
                                                 </a>
                                                     </div>
 
@@ -4937,8 +4938,8 @@ function getOtherText($language_id)
 	$getOtherText = [];
 	while($sqlResult = mysqli_fetch_array($sqlQry))
 	{
-		$mainTextKey = strtolower($sqlResult['main_text_key']);
-		$getOtherText[$mainTextKey] = $sqlResult['other_language_text'];
+		$mainTextKey = trim(strtolower($sqlResult['main_text_key']));
+		$getOtherText[$mainTextKey] = trim($sqlResult['other_language_text']);
 	}
 	return $getOtherText;
 }
@@ -4952,8 +4953,8 @@ if( isset($_SESSION['language_id']) )
 function showOtherLangText($mainLangText){
 
 	global $con, $getOtherTextArr;
-	$mainLangText = strtolower($mainLangText);
-	$mainLangKey = str_replace(' ','_', $mainLangText);
+	$mainLangText = trim(strtolower($mainLangText));
+	$mainLangKey = trim(str_replace(' ','_', $mainLangText));
 
 	return isset($getOtherTextArr[$mainLangKey]) && $getOtherTextArr[$mainLangKey] ? $getOtherTextArr[$mainLangKey] : ucfirst(str_replace('_',' ', $mainLangKey));
 }

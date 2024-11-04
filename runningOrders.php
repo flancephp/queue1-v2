@@ -179,7 +179,7 @@ $qry = " INSERT INTO `tbl_order_journey` SET
 `otherCur` = '".$resRow['ordCurAmt']."',
 `otherCurId` = '".$resRow['ordCurId']."',
 `orderType` = '".$resRow['ordType']."',
-`action` = '".$action."' ";
+`action` = '".showOtherLangText($action)."' ";
 mysqli_query($con, $qry);
 
 $red = ($_GET['confirm'] == 1 || $_GET['confirm'] == 3) ? 'runningOrders.php?status=1' : 'history.php?status=1';
@@ -210,7 +210,7 @@ $qry = " INSERT INTO `tbl_order_journey` SET
 `otherCurId` = '".$resRow['ordCurId']."',
 `orderType` = '".$resRow['ordType']."',
 `notes` = 'All Users unAssigned',
-`action` = 'Unassigned' ";
+ `action` = '".showOtherLangText('Unassigned')."' ";
 mysqli_query($con, $qry);
 
 echo "<script>window.location='runningOrders.php?unAssigned=1'</script>";die();
@@ -258,10 +258,10 @@ $qry = " INSERT INTO `tbl_order_journey` SET
 `otherCurId` = '".$resRow['ordCurId']."',
 `orderType` = '".$resRow['ordType']."',
 `notes` = '".$notes."',
-`action` = 'assigned' ";
+`action` = '".showOtherLangText('assigned')."' ";
 mysqli_query($con, $qry);
 
-echo "<script>window.location='runningOrders.php?assigned=1'</script>";die();
+    echo "<script>window.location='runningOrders.php?assigned=1'</script>";die();
 }
 
 

@@ -287,13 +287,13 @@ $content .= '<div class="modal-header position-relative">
             <div class="table-cell">
                 <div class="sub-table w-100 table-amount-val-same-alignment">
                     <div class="table-row">
-                        <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1 || $_POST['page']=='order') ? 'display:none;' : '').'"> # Supplier Invoice</span></div>
+                        <div class="table-cell"><span class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1 || $_POST['page']=='order') ? 'display:none;' : '').'"> # '.showOtherLangText('Supplier Invoice').'</span></div>
                         <div class="table-cell"><span  class="smrySuplr smryHead" style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'">'.$ordDet['invNo'].'</span></div>
                     </div>';
                   if( $ordDet['paymentId'] > 0)
         {
                    $content .=   '<div class="table-row">
-                        <div class="table-cell"><span class="smryPayment smryHead"># Payment</span></div>
+                        <div class="table-cell"><span class="smryPayment smryHead"># '.showOtherLangText('Payment').'</span></div>
                         <div class="table-cell"><span class="smryPayment smryHead">'.$ordDet['paymentId'].'</span></div>
                        </div>';
         }

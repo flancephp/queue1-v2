@@ -183,7 +183,7 @@ html[dir=rtl] .otltBd-Unit {
                                 <div class="btnBg">
                                     <a href="revenueCenterReport.php" class="btn btn-primary mb-usrBkbtn"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn">Back</span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
 
@@ -644,9 +644,9 @@ $tr = '';
                                                 </div>
 
                                                 <div class="otltBd-hdNote">
-                                                    <p class="mbSale-Head mbHide-Note">Note</p>
+                                                    <p class="mbSale-Head mbHide-Note">'.showOtherLangText('Note').'</p>
                                                     <input type="text" class="form-control note-itm outletNote"  id="note'.$row['pId'].'" onchange="updateNote(this.value,  '.$row['pId'].')" value="'. $note.'"
-                                                        placeholder="Note">
+                                                        placeholder="'.showOtherLangText('Note').'">
                                                 </div>
                                             </div>
                                         </div>
@@ -656,7 +656,7 @@ $tr = '';
                                            <div class="mbFlip-Dtl d-none">
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-stkPrc">
-                                                            <p class="mbSale-Head">Open Stock</p>
+                                                            <p class="mbSale-Head">'.showOtherLangText('Open Stock').'</p>
                                                             <p class="opnStk-BdVal"></p>
                                                         </div>
                                                     </div>
@@ -667,13 +667,13 @@ $tr = '';
                                                         <div class="itmInfo-Otlt">
                                                             <div class="unitBd-div">
                                                         <div class="otltBd-stkPrc otltBd-stkPrc-1">
-                                                            <p class="mbSale-Head">Open Stock</p>
+                                                            <p class="mbSale-Head">'.showOtherLangText('Open Stock').'</p>
                                                             <p class="opnStk-BdVal"></p>
                                                         </div>
                                                                 <div class="otltBd-Unithd">
-                                                                    <p class="untCount mbSale-Head">Count Unit</p>
-                                                                    <p class="untFtr mbSale-Head">Factor </p>
-                                                                    <p class="untSub mbSale-Head">Sub Unit</p>
+                                                                    <p class="untCount mbSale-Head">'.showOtherLangText('Count Unit').'</p>
+                                                                    <p class="untFtr mbSale-Head">'.showOtherLangText('Factor').' </p>
+                                                                    <p class="untSub mbSale-Head">'.showOtherLangText('Sub Unit').'</p>
                                                                 </div>
                                                                 <div class="otltBd-Unit">
                                                                     <p class="untCount">'. $row['countingUnit'].'</p>
@@ -683,21 +683,21 @@ $tr = '';
                                                             </div>
 
                                                             <div class="otltBd-Avr">
-                                                                <p class="mbSale-Head">Avr Usage</p>
-                                                                <p class="mblAvg-Dtl" title="Usage Avg">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
-                                                                <p class="mblAvr-Usg" title="Usage Avg">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
+                                                                <p class="mbSale-Head">'.showOtherLangText('Avr Usage').'</p>
+                                                                <p class="mblAvg-Dtl" title="'.showOtherLangText('Usage Avg').'">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
+                                                                <p class="mblAvr-Usg" title="'.showOtherLangText('Usage Avg').'">'. getNumFormtPrice($usageAvg,$getDefCurDet['curCode'],$decimalPlace).'</p>
                                                             </div>
                                                             <div class="otltBd-Min">
-                                                                <p class="mbSale-Head">Min</p>
-                                                                <p class="mblMinQty" title="Min Qty">'. $row['outletMinQty'].'</p>
+                                                                <p class="mbSale-Head">'.showOtherLangText('Min').'</p>
+                                                                <p class="mblMinQty" title="'.showOtherLangText('Min Qty').'">'. $row['outletMinQty'].'</p>
                                                             </div>
                                                             <div class="otltBd-Max">
-                                                                <p class="mbSale-Head">Max</p>
-                                                                <p class="mblMaxQty" title="Max Qty">'. $row['outletMaxQty'].'</p>
+                                                                <p class="mbSale-Head">'.showOtherLangText('Max').'</p>
+                                                                <p class="mblMaxQty" title="'.showOtherLangText('Max Qty').'">'. $row['outletMaxQty'].'</p>
                                                             </div>
                                                             <div class="otltBd-Req">
-                                                                <p class="mbSale-Head">Requisition</p>
-                                                                <p class="mblReq fw-bold" title="Requisition">'. $requisition.'</p>
+                                                                <p class="mbSale-Head">'.showOtherLangText('Requisition').'</p>
+                                                                <p class="mblReq fw-bold" title="'.showOtherLangText('Requisition').'">'. $requisition.'</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -735,19 +735,19 @@ $tr = '';
                                         <div class="gstNo saleGust">
                                             <div class="guestNum d-flex">
                                                 <div class="text-center">
-                                                    <p class="gst-Head">No. of Guests</p>
+                                                    <p class="gst-Head"><?php echo showOtherLangText('No. of Guests'); ?></p>
                                                     <p class="gst-Var"><?php echo $guestsTotal;?></p>
                                                 </div>
                                             </div>
                                             <div class="sl-Num d-flex">
                                                 <div class="text-center">
-                                                    <p class="sale-Name">Sales</p>
+                                                    <p class="sale-Name"><?php echo showOtherLangText('Sales'); ?></p>
                                                     <p class="sale-Amunt"><?php  showPrice($easySalesAmt,$getDefCurDet['curCode'], '');?></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="ttlCost saleTtl-Cost text-center">
-                                            <p class="tl-Cst">Total Cost</p>
+                                            <p class="tl-Cst"><?php echo showOtherLangText('Total Cost'); ?></p>
                                             <div class="d-flex justify-content-center cst-Value">
                                                 <div class="d-flex">
                                                     <p class="prcntage-Val"><?php  showPrice($usageItemTotalAmt,$getDefCurDet['curCode'], '');?></p>
@@ -757,7 +757,7 @@ $tr = '';
                                             </div>
                                         </div>
                                         <div class="sale-Variance text-center saleVar-Inr">
-                                            <p class="sl-varDtl">Variances</p>
+                                            <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
                                             <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt,$getDefCurDet['curCode'], 0, '');?></p>
                                         </div>
                                     </div>
@@ -769,7 +769,7 @@ $tr = '';
                             <div class="row sp-pad1">
                                 <div class="col-md-6 slCst-Srch gap-3">
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="Search" name="search" id="search"
+                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="<?php echo showOtherLangText('Search'); ?>" name="search" id="search"
                                             aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
@@ -784,11 +784,11 @@ $tr = '';
                                             <img src="Assets/icons/filter.svg" alt="Filter">
                                         </button>
                                         <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>">All</a></li>
+                                        <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>"><?php echo showOtherLangText('All'); ?></a></li>
 
-                                        <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=2">Sales</a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=1">Bar Control</a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=3">Usage</a></li>
+                                        <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=2"><?php echo showOtherLangText('Sales'); ?></a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=1"><?php echo showOtherLangText('Bar Control'); ?></a></li>
+                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId'];?>&fromDate=<?php echo $_GET['fromDate'];?>&toDate=<?php echo $_GET['toDate'];?>&outLetType=3"><?php echo showOtherLangText('Usage'); ?></a></li>
                                         </ul>
                                     </div>
                                     <!-- Filter Btn End -->
@@ -799,7 +799,7 @@ $tr = '';
                                         <a href="javascript:void(0)" class="cstBtn-Sale" data-bs-toggle="modal"
                                             data-bs-target="#adjust">
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
-                                                class="cstBtn-Img"> <span class="cstMb">Adjust</span>
+                                                class="cstBtn-Img"> <span class="cstMb"><?php echo showOtherLangText('Adjust'); ?></span>
                                         </a>
                                         <a id="ShowHideZeroVar" href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
@@ -811,7 +811,7 @@ $tr = '';
                                             <span class="txtSale-Btn">$</span>
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Qty actvSale-Cst">
-                                            <span class="txtSale-Btn">Qyt</span>
+                                            <span class="txtSale-Btn"><?php echo showOtherLangText('Qty'); ?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -828,65 +828,65 @@ $tr = '';
                                     <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
                                         <div class="otlt-hdImg"></div>
                                         <div class="otlt-itm">
-                                            <p>Item</p>
-                                            <p>Totals</p>
+                                            <p><?php echo showOtherLangText('Item'); ?></p>
+                                            <p><?php echo showOtherLangText('Totals'); ?></p>
                                         </div>
 
                                         <div class="otlt-itm-typ hideInMobile">
-                                            <p>Item Type</p>
+                                            <p><?php echo showOtherLangText('Item Type'); ?></p>
                                         </div>
 
                                         <div class="otlt-stkPrc hideInMobile">
-                                                    <p>Stock price</p>
+                                                    <p><?php echo showOtherLangText('Stock price'); ?></p>
                                                 </div>
 
                                         <div class="flipClm-Otlt">
                                             <div class="mbStock">
                                                 <div class="otlt-opnStk">
-                                                    <p>Open Stock</p>
-                                                    <p class="stkVal-Otlt" title="Open Stock Amount"><?php echo getNumFormtPrice($openStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Open Stock'); ?></p>
+                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Open Stock Amount'); ?>"><?php echo getNumFormtPrice($openStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="otlt-isn">
-                                                    <p>Issues In</p>
-                                                    <p class="stkVal-Otlt" title="Issue In Amount"><?php echo getNumFormtPrice($issueInAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Issues In'); ?></p>
+                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Issues In Amount'); ?> "><?php echo getNumFormtPrice($issueInAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="otlt-Ajst">
-                                                    <p>Adjust</p>
+                                                    <p><?php echo showOtherLangText('Adjust'); ?></p>
                                                 </div>
                                                 <div class="otlt-Pos">
-                                                    <p>Sales POS</p>
-                                                    <p class="posValue" title="Sales POS Amount"><?php echo getNumFormtPrice($salesAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Sales POS'); ?></p>
+                                                    <p class="posValue" title="<?php echo showOtherLangText('Sales POS Amount'); ?>"><?php echo getNumFormtPrice($salesAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="otlt-slBar">
-                                                    <p>Sales Bar</p>
-                                                    <p class="posValue" title="Sales Bar Amount"><?php echo getNumFormtPrice($barControlAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Sales Bar'); ?></p>
+                                                    <p class="posValue" title="<?php echo showOtherLangText('Sales Bar Amount'); ?>"><?php echo getNumFormtPrice($barControlAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 <div class="otlt-clStk">
-                                                    <p>Close Stock</p>
-                                                    <p class="stkVal-Otlt" title="Close Stock Amount"><?php echo getNumFormtPrice($closeStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Close Stock'); ?></p>
+                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Close Stock Amount'); ?>"><?php echo getNumFormtPrice($closeStockAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                
                                             
                                                 <div class="otlt-usg">
-                                                    <p>Usage</p>
-                                                    <p class="cstVal-Otlt" title="Usage Amount"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Usage'); ?></p>
+                                                    <p class="cstVal-Otlt" title="<?php echo showOtherLangText('Usage Amount'); ?>"><?php echo getNumFormtPrice($usageAmtTot,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
                                                 
                                                 <div class="otlt-var">
-                                                    <p>Variance</p>
-                                                    <p class="varnVal-Otlt" title="Variance Amount"><?php echo getNumFormtPrice($varienceTotalAmt,$getDefCurDet['curCode'], 2);?></p>
+                                                    <p><?php echo showOtherLangText('Variance'); ?></p>
+                                                    <p class="varnVal-Otlt" title="<?php echo showOtherLangText('Amount'); ?>"><?php echo getNumFormtPrice($varienceTotalAmt,$getDefCurDet['curCode'], 2);?></p>
                                                 </div>
  
                                                 <div class="usg-p-g">
-                                                    <p>Usage/Guest</p>
+                                                    <p><?php echo showOtherLangText('Usage'); ?>/<?php echo showOtherLangText('Guest'); ?></p>
                                                     <p class="stkVal-Otlt"></p>
                                                 </div>
                                                 <div class="avg-usg">
-                                                    <p>Avg Usage</p>
+                                                    <p><?php echo showOtherLangText('Avg Usage'); ?></p>
                                                     <p class="stkVal-Otlt"></p>
                                                 </div>
                                                 <div class="usg-lvl">
-                                                    <p>Usage Level</p>
+                                                    <p><?php echo showOtherLangText('Usage Level'); ?></p>
                                                     <p class="stkVal-Otlt"></p>
                                                 </div>
                                             </div>
@@ -897,21 +897,21 @@ $tr = '';
                                             <div class="mbStock">
                                                 
                                                 <div class="otlt-Unit">
-                                                    <p class="untCount">Count Unit</p>
-                                                    <p class="untFtr">Factor </p>
-                                                    <p class="untSub">Sub Unit</p>
+                                                    <p class="untCount"><?php echo showOtherLangText('Count Unit'); ?></p>
+                                                    <p class="untFtr"><?php echo showOtherLangText('Factor'); ?> </p>
+                                                    <p class="untSub"><?php echo showOtherLangText('Sub Unit'); ?></p>
                                                 </div>
                                                 <div class="otlt-avgUsg">
-                                                    <p>Average Usage</p>
+                                                    <p><?php echo showOtherLangText('Average Usage'); ?></p>
                                                 </div>
                                                 <div class="otlt-Min">
-                                                    <p>Min</p>
+                                                    <p><?php echo showOtherLangText('Min'); ?></p>
                                                 </div>
                                                 <div class="otlt-Max">
-                                                    <p>Max</p>
+                                                    <p><?php echo showOtherLangText('Max'); ?></p>
                                                 </div>
                                                 <div class="otlt-Req">
-                                                    <p>Requisition</p>
+                                                    <p><?php echo showOtherLangText('Requisition'); ?></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -944,7 +944,7 @@ $tr = '';
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1">Adjustment</h1>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Adjustment'); ?></h1>
                 </div>
                 <div class="modal-body">
 
@@ -960,24 +960,24 @@ $tr = '';
                     value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y');?>">
 
 
-                        <input type="text" class="form-control" name="item" id="item" onChange="checkItemtype(this.value);" placeholder="Item">
+                        <input type="text" class="form-control" name="item" id="item" onChange="checkItemtype(this.value);" placeholder="<?php echo showOtherLangText('Item'); ?>">
                         <input type="date" class="form-control" name="adjDate" id="adjDate">
                         <input type="number" class="form-control" name="qty" id="ajstNum" placeholder="1">
 
                         <div style="display:none;" id="barItemAdj" class="my-3">
                             <!-- <div style="width: 35%;"></div> -->
                             <div class="d-flex align-items-center"><input type="checkbox" name="adjForEnptyBottle" value="1" class="form-check-input" />&nbsp;&nbsp;Tick it to adjust
-                                empty bottle(s)</div>
+                            <?php echo showOtherLangText('empty bottle(s)'); ?> </div>
                         </div>
 
      
                 </div>
                 <div class="modal-footer justify-content-start">
                     <div class="btnBg">
-                        <button type="submit" name="saveBtn" class="btn btn-primary">Save</button>
+                        <button type="submit" name="saveBtn" class="btn btn-primary"><?php echo showOtherLangText('Save'); ?></button>
                     </div>
                     <div class="btnBg">
-                        <button type="submit" class="btn btn-primary">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Cancel'); ?></button>
                     </div>
                 </div>
             </div>

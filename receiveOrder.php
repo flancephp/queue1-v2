@@ -363,7 +363,7 @@ if( isset($_POST['barCode']) && !empty($_POST['barCode']) )
     `invoiceNo` = '".$ordResult['invNo']."',
     `orderType` = '".$ordResult['ordType']."',
     `notes` = '".$notes."',
-    `action` = 'Receive' ";
+    `action` = '".showOtherLangText('Receive')."' ";
     mysqli_query($con, $qry);
 
     echo "<script>window.location = 'history.php?updated=1'</script>";

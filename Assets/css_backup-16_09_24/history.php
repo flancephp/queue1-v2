@@ -88,8 +88,8 @@ $qry = " INSERT INTO `tbl_order_journey` SET
 `otherCurId` = '".$resRow['ordCurId']."',
 `invoiceNo` = '" . $resRow['invNo'] . "',
 `orderType` = '" . $resRow['ordType'] . "',
- `notes` = 'Paid',
-`action` = 'payment' ";
+ `notes` = '".showOtherLangText('Paid')."',
+`action` = '".showOtherLangText('payment')."', ";
 mysqli_query($con, $qry);
 
 
@@ -1567,8 +1567,8 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                         <div class="usdCurr text-center">
                                                 <div class="paidIsue d-flex">
                                                     <div class="col-md-3">
-                                                        <p class="pdStatus">Paid</p>
-                                                        <p class="pendStatus">Pending</p>
+                                                        <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
+                                                        <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                     </div>
                                                     <div class="col-md-9 text-center">
                                                         <p class="usd-In">$</p>

@@ -142,7 +142,7 @@ $updatePaymentResult = mysqli_query($con, $updateQry);
 $updatePaymentRow = mysqli_fetch_array($updatePaymentResult);
 
 }
-$refund = $_POST['refund']=="refundAll" ? 'Amount and Qty refund' : 'Amount refund only';
+$refund = $_POST['refund']=="refundAll" ? showOtherLangText('Amount and Qty refund') : showOtherLangText('Amount refund only');
 
 $sql = " SELECT * FROM tbl_orders WHERE id = '".$_POST['orderId']."' AND account_id = '".$_SESSION['accountId']."' ";
         $res = mysqli_query($con, $sql);
@@ -158,7 +158,7 @@ $sql = " SELECT * FROM tbl_orders WHERE id = '".$_POST['orderId']."' AND account
             `orderType` = '".$orderDetRow['ordType']."',
             `ordDateTime` = '".date('Y-m-d h:i:s')."',
             `notes` = '".$refund."',
-            `action` = 'Payment Refunded' ";
+            `action` = '".showOtherLangText('Payment Refunded')."' ";
             mysqli_query($con, $qry);
 
 echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&paymentStatus=2"</script>';

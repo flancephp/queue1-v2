@@ -536,7 +536,7 @@ if (isset($_GET['hotelId'])) {
 
                         <div class="data__table mt-4">
                             <div class="container nordPrice d-block">
-                                <h2 class="fs-6 fw-bold px-2 px-lg-0">Sales items
+                                <h2 class="fs-6 fw-bold px-2 px-lg-0"><?php echo showOtherLangText('Sales Items'); ?>
                                 </h2>
                             </div>
                             <div class="container nordPrice position-relative">
@@ -651,7 +651,7 @@ if (isset($_GET['hotelId'])) {
 
                         <div class="data__table mt-4">
                             <div class="container nordPrice d-block">
-                                <h2 class="fs-6 fw-bold px-2 px-lg-0">Categories</h2>
+                                <h2 class="fs-6 fw-bold px-2 px-lg-0"><?php echo showOtherLangText('Categories'); ?></h2>
                             </div>
                             <div class="container nordPrice position-relative">
                                 <!-- Item Table Head Start -->

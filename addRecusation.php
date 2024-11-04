@@ -266,8 +266,9 @@ if(isset($_POST['placeOrder']))
         `ordDateTime` = '".date('Y-m-d h:i:s')."',
         `amount` = '".$resRow['ordAmt']."',
         `orderType` = '".$resRow['ordType']."',
-        `notes` = 'Added new Requisition',
-        `action` = 'submit' ";
+        `notes` = '".showOtherLangText('Added new Requisition')."',
+        `action` = '".showOtherLangText('submit')."' ";
+        
         mysqli_query($con, $qry);
 
         echo '<script>window.location = "runningOrders.php?requisitionAdded=1&orderId='.$ordId.'"</script>';
@@ -480,8 +481,8 @@ if($_SESSION['deptId'] != '')
                             >
                                 <p>
                                     <?php  
-                                        echo isset($_GET['errorProduct']) ?' '.showOtherLangText('Select atleast one product to make requisition successfully').' ' : '';
-                                        echo isset($_GET['tempDataCleared']) ? ' '.'Temp data has been cleared.'.' ' : '';
+                                        echo isset($_GET['errorProduct']) ?' '.showOtherLangText('Select atleast one product to make requisition successfully.').' ' : '';
+                                        echo isset($_GET['tempDataCleared']) ? ' '.showOtherLangText('Temp data has been cleared.').' ' : '';
                                         echo isset($_GET['added']) ? ' '.showOtherLangText('Item Added Successfully').' ' : '';
                                         echo isset($_GET['imported']) ? ' '.showOtherLangText('Item imported Successfully').' ' : '';
                                         echo isset($_GET['mes']) ? $_GET['mes'] : '';

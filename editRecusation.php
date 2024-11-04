@@ -194,7 +194,7 @@ if(isset($_POST['updateOrder']))
     `amount` = '".$resRow['ordAmt']."',
     `orderType` = '".$resRow['ordType']."',
     `notes` = '".$notes."',
-    `action` = 'edit' ";
+    `action` = '".showOtherLangText('edit')."' ";
     mysqli_query($con, $qry);
 
 		

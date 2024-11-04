@@ -252,8 +252,8 @@ if(isset($_POST['placeOrder']))
   `otherCur` = '".$resRow['ordCurAmt']."',
   `otherCurId` = '".$resRow['ordCurId']."',
   `orderType` = '".$resRow['ordType']."',
-  `notes` = 'Added new order',
-  `action` = 'submit' ";
+  `notes` = '".showOtherLangText('Added new order')."',
+  `action` = '".showOtherLangText('submit')."' ";
   mysqli_query($con, $qry);
 
 

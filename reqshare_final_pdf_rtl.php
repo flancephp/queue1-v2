@@ -196,7 +196,7 @@ $content .= '<body style="' . ($getLangType == '1'
 
         if(  $_GET['taskNo']  == 1 ) 
         {
-            $content .=   '<td width="20%" style="font-weight:700;padding: 5px;">'.showOtherLangText('Task No').'</td>';
+            $content .=   '<td width="20%" style="font-weight:700;padding: 5px;">'.showOtherLangText('Task No.').'</td>';
         }
         
             

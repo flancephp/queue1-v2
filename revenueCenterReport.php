@@ -461,13 +461,13 @@ include_once('script/revenueCenterReport_script.php');
                                             <div class="gstNo">
                                                 <div class="guestNum d-flex">
                                                     <div class="text-center">
-                                                        <p class="gst-Head">No. of Guests</p>
+                                                        <p class="gst-Head"><?php echo showOtherLangText('No. of Guests'); ?></p>
                                                         <p class="gst-Var"> <?php echo getTotalGuestsVal($_GET['fromDate'], $_GET['toDate']);?></p>
                                                     </div>
                                                 </div>
                                                 <div class="sl-Num d-flex">
                                                     <div class="text-center">
-                                                        <p class="sale-Name">Sales</p>
+                                                        <p class="sale-Name"><?php echo showOtherLangText('Sales'); ?></p>
                                                         <p class="sale-Amunt"><?php 
                                                         
                                                         showPrice($salesTotal,$getDefCurDet['curCode']);?></p>
@@ -475,7 +475,7 @@ include_once('script/revenueCenterReport_script.php');
                                                 </div>
                                             </div>
                                             <div class="ttlCost">
-                                                <p class="tl-Cst text-center">Cost</p>
+                                                <p class="tl-Cst text-center"><?php echo showOtherLangText('Cost'); ?></p>
                                                 <div class="d-flex justify-content-end cst-Value">
                                                     <div class="col-md-7 d-flex">
                                                         <p class="prcntage-Val"><?php echo showPrice($usageTotalAmount,$getDefCurDet['curCode']);
@@ -486,7 +486,7 @@ include_once('script/revenueCenterReport_script.php');
                                                 
                                             </div>
                                             <div class="sale-Variance text-center">
-                                                <p class="sl-varDtl">Variances1</p>
+                                                <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
                                                 <p class="sl-varDif"><?php showPrice($allVarianceAmt,$getDefCurDet['curCode']);?></p>
                                                 
                                             </div>
@@ -498,7 +498,7 @@ include_once('script/revenueCenterReport_script.php');
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span class="edIt"></span>
                                                 <p class="btn2 d-flex justify-content-center align-items-center">
-                                                    <span>Get Data</span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span><?php echo showOtherLangText('Get Data'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </p>
                                             </a>
                                             <form action="upload_report.php" id="upload_form" name="upload_form"
@@ -506,12 +506,12 @@ include_once('script/revenueCenterReport_script.php');
     
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)">Enter Guest No.</a>
+                                                        <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)"><?php echo showOtherLangText('Enter Guest No.'); ?></a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item gt-Pos" href="easy.php">Get POS Sales</a>
+                                                        <a class="dropdown-item gt-Pos" href="easy.php"><?php echo showOtherLangText('Get POS Sales'); ?></a>
                                                     </li>
-                                                    <li><a target="_blank" class="dropdown-item imp-Data" href="javascript:void(0)" id="btnFileUpload">Import Data File</a></li>
+                                                    <li><a target="_blank" class="dropdown-item imp-Data" href="javascript:void(0)" id="btnFileUpload"><?php echo showOtherLangText('Import Data File'); ?></a></li>
     
                                                     <input type="file" id="uploadFile" name="uploadFile"
                                                     style="display:none">
@@ -520,7 +520,7 @@ include_once('script/revenueCenterReport_script.php');
                                                     <li>
                                                         <a class="dropdown-item dwn-Sample" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/import-revenueCenter-hebrew-lang.xlsx' : 'excelSampleFile/english/import-revenueCenter-english-lang.xlsx'; ?>"> 
                                                         <i class="fa-solid fa-arrow-down"></i> 
-                                                        <span>Download sample file</span></a>
+                                                        <span><?php echo showOtherLangText('Download sample file'); ?></span></a>
                                                     
                                                         
                                                     </li>
@@ -540,7 +540,7 @@ include_once('script/revenueCenterReport_script.php');
                                             <div class="dropdown d-flex position-relative">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    <span>Revenur Center</span> <i class="fa-solid fa-angle-down"></i>
+                                                    <span><?php echo showOtherLangText('Revenue Center'); ?></span> <i class="fa-solid fa-angle-down"></i>
                                                 </a>
                                                 <ul class="dropdown-menu">
     
@@ -700,7 +700,7 @@ include_once('script/revenueCenterReport_script.php');
                     <div class="modal-body">
                         <div class="row g-3 align-items-center addUser-Form"> 
                             <div class="col-md-4">
-                                <label for="date" class="label">Date</label>
+                                <label for="date" class="label"><?php echo showOtherLangText('Date') ?></label>
                             </div>
                             <div class="col-md-8">
                                 <input 
@@ -760,10 +760,10 @@ include_once('script/revenueCenterReport_script.php');
                     </div><!--.//modal-body -->
                     <div class="modal-footer">
                         <div class="btnBg">
-                            <button type="submit" name="saveBtn"  class="deletelink btn sub-btn std-btn">Save</button>
+                            <button type="submit" name="saveBtn"  class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Save') ?></button>
                         </div>
                         <div class="btnBg">
-                            <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn" id="backBtn">Cancel</button>
+                            <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn" id="backBtn"><?php echo showOtherLangText('Cancel') ?></button>
                         </div>
                     </div>
                 </form>

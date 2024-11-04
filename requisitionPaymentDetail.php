@@ -121,7 +121,7 @@ if( isset($_GET['id']) && $_GET['id'] > 0  && $_GET['feeType']=='openFixedFee' )
                 `orderType` = '".$orderDetRow['ordType']."',
                 `ordDateTime` = '".date('Y-m-d h:i:s')."',
                 `notes` = '".$notes."',
-                `action` = 'Invoice' ";
+                `action` = '".showOtherLangText('Invoice')."' ";
                 mysqli_query($con, $qry);
     }
 }
@@ -142,7 +142,9 @@ if( isset($_GET['id']) && $_GET['id'] > 0 && $_GET['feeType']=='openFixedPerFee'
     $orderDetRow = mysqli_fetch_array($res);
 
     $diffPrice = ($orderDetRow['ordAmt'] - $orderDetRowOld['ordAmt']);
-    $notes = 'Order fee added(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    $orderFeeText = showOtherLangText('Order fee added');
+    $priceDifText = showOtherLangText('Price Diff');
+    $notes = $orderFeeText.'('.$priceDifText.': '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
 
     if($diffPrice != 0)
     {
@@ -156,7 +158,7 @@ if( isset($_GET['id']) && $_GET['id'] > 0 && $_GET['feeType']=='openFixedPerFee'
                 `orderType` = '".$orderDetRow['ordType']."',
                 `ordDateTime` = '".date('Y-m-d h:i:s')."',
                 `notes` = '".$notes."',
-                `action` = 'Invoice' ";
+                `action` = '".showOtherLangText('Invoice')."' ";
                 mysqli_query($con, $qry);
     }
 }
@@ -267,7 +269,7 @@ if(!empty($_POST['itemName']))
                 `orderType` = '".$orderDetRow['ordType']."',
                 `ordDateTime` = '".date('Y-m-d h:i:s')."',
                 `notes` = '".$notes."',
-                `action` = 'Invoice' ";
+               `action` = '".showOtherLangText('Invoice')."' ";
                 mysqli_query($con, $qry);
 
         echo '<script>window.location = "requisitionPaymentDetail.php?page=history&action=pay&orderId='.$orderRow['id'].'"</script>';
@@ -316,7 +318,7 @@ if(!empty($_POST['feeName']))
             `orderType` = '".$orderDetRow['ordType']."',
             `ordDateTime` = '".date('Y-m-d h:i:s')."',
             `notes` = '".$notes."',
-            `action` = 'Invoice' ";
+           `action` = '".showOtherLangText('Invoice')."' ";
             mysqli_query($con, $qry);
 
     echo '<script>window.location = "requisitionPaymentDetail.php?page=history&action=pay&orderId='.$orderRow['id'].'"</script>';
@@ -376,8 +378,8 @@ mysqli_query($con, $updatePayQry);
         `amount` = '".$orderDetRow['ordAmt']."',
         `orderType` = '".$orderDetRow['ordType']."',
         `ordDateTime` = '".date('Y-m-d h:i:s')."',
-        `notes` = 'Paid',
-        `action` = 'Invoice Payment Done' ";
+        `notes` = '".showOtherLangText('Paid')."',
+        `action` = '".showOtherLangText('Invoice Payment Done')."' ";
         mysqli_query($con, $qry);
 
 }
@@ -427,7 +429,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
                     `orderType` = '".$orderDetRow['ordType']."',
                     `ordDateTime` = '".date('Y-m-d h:i:s')."',
                     `notes` = '".$notes."',
-                    `action` = 'Payment' ";
+                    `action` = '".showOtherLangText('Payment')."' ";
                     mysqli_query($con, $qry);
         }
 

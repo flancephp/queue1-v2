@@ -253,7 +253,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 
                                                 <div class="supplier-text pb-3">
                                                     <input type="checkbox" class="form-check-input" id="memberall">
-                                                    <label for="memberall" class="fs-13 semibold">Check all</label>
+                                                    <label for="memberall" class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                 </div>
 
                                                 <div class="row  title-listing-item">

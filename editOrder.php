@@ -317,7 +317,8 @@ if( isset($_POST['updateOrder']) )
 //echo $resRowOld['ordAmt'] .'-'. $resRow['ordAmt'];
 //echo "<br>";
     $diffPrice =  ($resRow['ordAmt'] - $resRowOld['ordAmt']);
-    $notes = 'Order edited(Price Diff: '.getPriceWithCur($diffPrice, $getDefCurDet['curCode']).' )';
+    $priceWithCurValue = getPriceWithCur($diffPrice, $getDefCurDet['curCode']);
+    $notes = showOtherLangText('Order edited').'('.showOtherLangText('Price Diff').': '.$priceWithCurValue.' )';
 
     $qry = " INSERT INTO `tbl_order_journey` SET 
     `account_id` = '".$_SESSION['accountId']."',
@@ -329,7 +330,7 @@ if( isset($_POST['updateOrder']) )
     `otherCurId` = '".$resRow['ordCurId']."',
     `orderType` = '".$resRow['ordType']."',
     `notes` = '".$notes."',
-    `action` = 'edit' ";
+   `action` = '".showOtherLangText('edit')."' ";
     mysqli_query($con, $qry);
 
 

@@ -586,7 +586,7 @@ $deprtOptions .= '</ul>';
                                                             style="display:none">
                                                     </li> 
                                                     <li>
-                                                        <a class="dropdown-item py-2 gt-Pos" id="btnZipFileUpload" onClick="return uploadZip();"  href="javascript:void(0)"><?php echo showOtherLangText('Upload Photos (zip file)') ?></a>
+                                                        <a class="dropdown-item py-2 gt-Pos" id="btnZipFileUpload" onClick="return uploadZip();"  href="javascript:void(0)"><?php echo showOtherLangText('Upload Photos').'('.showOtherLangText('Zip file').')' ?></a>
                                                         <input type="file" id="uploadZipFile" name="uploadZipFile"
                                                             style="display:none">
                                                     </li>  

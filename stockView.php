@@ -1059,7 +1059,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <div class="tb-head stockPriceCol stockPriceCol lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?> <p><?php echo showOtherLangText('Stock  Price'); ?></p>
+                                            <?php } else { ?> <p><?php echo showOtherLangText('Stock Price'); ?></p>
                                                 <span class="dblArrow">
                                                     <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
                                                     <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
@@ -1091,7 +1091,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                         <?php } else { ?>
                                             <div class="dropdown d-flex position-relative w-100">
                                                 <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span id="subcatText"><?php echo showOtherLangText('Sub Catagory'); ?></span>
+                                                    <span id="subcatText"><?php echo showOtherLangText('Sub Category'); ?></span>
                                                     <i class="fa-solid fa-angle-down"></i>
                                                 </a>
 

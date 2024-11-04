@@ -313,7 +313,7 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Category Deleted Successful
                 <div class="modal-body">
                 <input type="hidden" name="parentId" class="form-control"
                             value="<?php echo $_REQUEST['parentId'];?>">
-                <input type="text" class="form-control" id="addSub-Category" name="addSub-Category" required placeholder="Sub Category*">
+                <input type="text" class="form-control" id="addSub-Category" name="addSub-Category" required placeholder="<?php echo showOtherLangText('Sub Category');?>*">
                 </div>
                 <div class="modal-footer">
                     <div class="btnBg">
