@@ -190,7 +190,10 @@ if(isset($_POST['updateOrder']))
 //echo $resRowOld['ordAmt'] .'-'. $resRow['ordAmt'];
 //echo "<br>";
     $diffPrice =  $resRow['ordAmt']-$resRowOld['ordAmt'];
-     $notes = 'Requisition edited(Price Diff: '.$diffPrice .' )';
+
+     $reqEditText = showOtherLangText('Requisition edited');
+     $priceDif = showOtherLangText('Price Diff');
+     $notes = $reqEditText.'('.$priceDif.': '.$diffPrice .' )';
 
     $qry = " INSERT INTO `tbl_order_journey` SET 
     `account_id` = '".$_SESSION['accountId']."',
