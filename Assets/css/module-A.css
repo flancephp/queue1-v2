@@ -458,7 +458,10 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
 .payment__table .dlTe { width: 1.5rem;height: 1.5rem; }
 
 @media(min-width:1200px) and (max-width: 1800px) { 
-  #view_payment_paid_content .payment__table th:nth-child(2), #view_payment_paid_content .payment__table td:nth-child(2) { width: 15% !important; }
+  #view_payment_paid_content .payment__table th:nth-child(2), 
+  #view_payment_paid_content .payment__table td:nth-child(2) { width: 15% !important; }
+  .payment-paid .payment__table th:nth-child(2), 
+  .payment-paid .payment__table td:nth-child(2) { width: 15% !important; }
   .payment__table th:nth-child(3), .payment__table td:nth-child(3) { width: 10%; }
   .payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 20%; }
   .payment__table th:nth-child(5), .payment__table td:nth-child(5) { width: 20%; }

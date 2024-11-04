@@ -340,10 +340,11 @@ if($_SESSION['deptId'] != '')
         .cntTable { color: #232859;font-weight: 400; }
         .reqClm-Ttl.tb-bdy { font-weight:600; }
         @media screen and (min-width: 1600px) {
-            .newFeatures { padding: 0 39px 0 88px; }
+            /* .newFeatures { padding: 0 39px 0 88px; } */
+            .reqInfo { padding-right: 60px; }
         }
-        @media screen and (max-width: 1700px) {
-            .newFeatures { padding-right: 30px !important; }
+        @media screen and (max-width: 1700px) { 
+            .reqInfo { padding-right: 48px; }
             .itmTable, .itmBody { font-size: 14px; }
             .reqImg { width: 4rem; }
             .reqCnt-Fst { width: calc(54% - 8rem); } 

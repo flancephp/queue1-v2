@@ -10497,6 +10497,13 @@ a.sbActive .mb_nvSubIcn {
 .btn-white:hover svg path, .btn-white:focus svg path, .btn-white:active svg path {stroke: var(--color-white);}
 .doc__btn svg { width: 1.5rem;height: 1.5rem; }
 .doc__btn:hover svg path, .doc__btn:hover svg rect {stroke: var(--color-white);}
+.doc__btn.edit:hover svg path:first-child, .doc__btn.edit:focus svg path:first-child {fill: var(--color-white);}
+.doc__btn.receive.receive:hover svg circle, .doc__btn.receive.receive:focus svg circle {fill: var(--color-white);}
+.doc__btn.receive.receive:hover svg path:nth-of-type(2), .doc__btn.receive.receive:focus svg path:nth-of-type(2),
+.doc__btn.receive.receive:hover svg path:nth-of-type(3), .doc__btn.receive.receive:focus svg path:nth-of-type(3),
+.doc__btn.receive.receive:hover svg path:nth-of-type(4), .doc__btn.receive.receive:focus svg path:nth-of-type(4) {fill: var(--color-white);}
+.doc__btn.receive:hover .edt_CatLnk svg path:nth-of-type(2), .doc__btn.receive:focus .edt_CatLnk svg path:nth-of-type(2) {fill: var(--color-white);stroke: transparent; }
+.doc__btn.receive:hover .edt_CatLnk svg circle, .doc__btn.receive:focus .edt_CatLnk svg circle {stroke: var(--color-white);stroke: transparent; }
 .assign__btn svg { width: .75rem;height: 1.067rem; }
 .assign__btn:first svg path, .assign__btn:first svg circle {stroke: var(--color-white) !important;}
 .assign__btn:hover svg path, .assign__btn:hover svg circle {stroke: var(--color-white);}
@@ -22372,4 +22379,16 @@ td.text-right{
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
   border: 1px solid var(--color-primary) !important;
   background: var(--color-primary) !important; 
+}
+
+@supports (contain: paint) and (not (-moz-appearance: none)) {
+  .form-control[type="date"] {
+    padding-left: 1.5em; /* Adjust if needed */
+    text-align: right;
+  }
+  .form-control[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: 1em; /* Adjust if needed */
+    right: auto;
+  }
 }

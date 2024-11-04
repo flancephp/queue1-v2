@@ -421,6 +421,8 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         /* .nwNxt-Btn1 .btn__box { max-width: 174px !important; } */
         html[dir=rtl] .ordInfo { padding: 0 0px 0 18px; }
         html[dir="rtl"] .newFeature.col { padding: 0 50px 0 44px; }
+        .newFeature.col { padding: 0 64px 0 44px; }
+        .ordInfo { padding:0 37px 0 0; }
     }
     
     @media (max-width:992px) {
@@ -475,7 +477,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .edit-order-section .ttlCr-Type.d-flex.align-items-center { flex-wrap: wrap !important; }
     }
     @media screen and (min-width: 1600px) {
-        .ordInfo { padding: 0 0 0 64px; }
+        
         .prcTable { font-size: 1rem; }
         .curRow { font-size: 1.125rem; }
         .container.topOrder.erdOrder { margin-top: -1.5rem; } 
@@ -520,7 +522,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     @media screen and (min-width: 1600px) { 
         .curRow.padding { padding-left: 20%; }
         html[dir="rtl"] .curRow.padding { padding-left: 5%; }
-        .ordInfo { padding:0 22px 0 0; }
+        
     }
     .featRowParent { max-width:236px; }
     @media (max-width:991px) {

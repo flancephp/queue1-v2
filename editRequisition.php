@@ -356,16 +356,17 @@ $cond = '';
                 align-items: center;
                 display: inline-flex;
             } 
-            html[dir=rtl] .edtreqInfo { padding: 0 50px 0 82px; }
-            html[dir=rtl] .col.newFeature { padding: 0 50px 0 65px; }
-            .col.newFeature { width: 60%;padding: 0 30px 0 65px; }
-            .edtreqInfo { padding: 0 48px 0 61px; }
+            html[dir=rtl] .edtreqInfo { padding: 0 50px 0 68px; }
+            html[dir=rtl] .col.newFeature { padding: 0 50px 0 50px; }
+            .col.newFeature { width: 60%;padding: 0 40px 0 65px; }
+            .edtreqInfo { padding: 0 57px 0 61px; }
         }
        
         @media(min-width:1600px){ 
             .container.cntTable, .nordPrice, .topOrder {padding: 0 3.5rem;} 
-            .col.newFeature { padding: 0 22px 0 65px; }
-            html[dir="rtl"] .col.newFeature { padding: 0 50px 0 60px; }
+            .col.newFeature { padding: 0 45px 0 88px; }
+            .edtreqInfo { padding: 0 68px 0 61px; }
+            html[dir="rtl"] .col.newFeature { padding: 0 50px 0 43px; }
             html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 10.875rem !important; }
         }
         .container.cntTable.header{padding-top: 1rem;}
