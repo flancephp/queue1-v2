@@ -145,7 +145,7 @@ include_once('script/revenueCenterReport_script.php');
     
                                     if( isset($_GET['guest']) && $_GET['guest']== 1)
                                     {
-                                        $succ = 'Guest no. updated successfully.';
+                                        $succ = showOtherLangText('Guest no. updated successfully.');
                                     }
     
     

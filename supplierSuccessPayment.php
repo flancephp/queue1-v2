@@ -1144,7 +1144,7 @@ if ($paymentRow['paymentStatus']==1)
                                                 <div class="feeSave feeNrm">
                                                     <input type="checkbox" id="visibility" name="visibility" value="1">
                                                     <label for="visibility">
-                                                        Save to fixed service item list</label><br>
+                                                    <?php echo showOtherLangText('save to fixed service item list'); ?></label><br>
                                                 </div>
                                             </div>
 
@@ -1242,7 +1242,7 @@ if ($paymentRow['paymentStatus']==1)
                                                 </div>
                                                 <div class="feeSave feeNrm">
                                                     <input type="checkbox" id="visibility" name="visibility" value="1">
-                                                    <label for="visibility">Save to fixed service item list </label><br>
+                                                    <label for="visibility"><?php echo showOtherLangText('save to fixed service item list'); ?> </label><br>
                                                 </div>
 
                                             </div>

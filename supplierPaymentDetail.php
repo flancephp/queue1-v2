@@ -1190,14 +1190,14 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                         </ul>
                                                     </div>
                                                 </li>
-                                                <li><a data-bs-toggle="modal" data-bs-target="#new-service-item" class="dropdown-item" href="javascript:void(0)">New service item</a></li>
+                                                <li><a data-bs-toggle="modal" data-bs-target="#new-service-item" class="dropdown-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
 
                                                 <li>
                                                 <li>
                                                     <!-- Default dropend button -->
                                             <div class="btn-group dropend dropdown-hover w-100">
                                                 <a type="button" class="dropdown-item  dropdown-toggle dropdown-toggle-hover  d-j-b" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Fee <i class="fa-solid fa-angle-down"></i>
+                                                            <?php echo showOtherLangText('Fee');?> <i class="fa-solid fa-angle-down"></i>
                                                         </a>
                                            <ul class="dropdown-menu">
                                                             <!-- Dropdown menu links -->
@@ -1340,7 +1340,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
 
                                     <div class="allBtn my-3 d-flex justify-content-between align-items-center w-100">
                                         <div>
-                                            <button class="btn wht-btn" type="button" onclick="window.location.href='history.php'">Back</button>
+                                            <button class="btn wht-btn" type="button" onclick="window.location.href='history.php'"><?php echo showOtherLangText('Back'); ?></button>
                                         </div>
 
                                         <div>
@@ -1404,15 +1404,15 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                                                 <div class="feeSave feeNrm">
                                                     <input type="checkbox" id="visibility" name="visibility" value="1">
                                                     <label for="visibility">
-                                                        Save to fixed service item list</label><br>
+                                                    <?php echo showOtherLangText('save to fixed service item list'); ?></label><br>
                                                 </div>
                                             </div>
 
 
 
                                             <div>
-                                                <div><button class="btn wht-btn" type="submit">Add</button>&nbsp; &nbsp;
-                                                    <button class="btn wht-btn" id="backBtn" type="button">Back</button>
+                                                <div><button class="btn wht-btn" type="submit"><?php echo showOtherLangText('Add'); ?></button>&nbsp; &nbsp;
+                                                    <button class="btn wht-btn" id="backBtn" type="button"><?php echo showOtherLangText('Back'); ?></button>
                                                 </div>
 
                                             </div>
@@ -1455,8 +1455,7 @@ while($row = mysqli_fetch_array($ordQry))//show here order level charges
                         <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
                     <div class="feeSave">
                         <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1504,8 +1503,7 @@ list'); ?></span><br>
                   <div>
                     <div class="feeSave">
                         <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">

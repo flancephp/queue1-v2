@@ -1319,7 +1319,7 @@ while( $accRow = mysqli_fetch_array($resultSet) ){
                                                 <div class="feeSave feeNrm">
                                                     <input type="checkbox" id="visibility" name="visibility" value="1">
                                                     <label for="visibility">
-                                                        Save to fixed service item list</label><br>
+                                                    <?php echo showOtherLangText('save to fixed service item list'); ?></label><br>
                                                 </div>
                                             </div>
 
@@ -1418,7 +1418,7 @@ while( $accRow = mysqli_fetch_array($resultSet) ){
                                                 </div>
                                                 <div class="feeSave feeNrm">
                                                     <input type="checkbox" id="visibility" name="visibility" value="1">
-                                                    <label for="visibility">Save to fixed service item list </label><br>
+                                                    <label for="visibility"><?php echo showOtherLangText('save to fixed service item list'); ?> </label><br>
                                                 </div>
 
                                             </div>
@@ -1496,8 +1496,7 @@ while( $accRow = mysqli_fetch_array($resultSet) ){
                     <div>
                         <div class="feeSave">
                             <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                            <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+                            <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1545,8 +1544,8 @@ list'); ?></span><br>
                             style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
                         <div class="feeSave">
                             <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                            <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+                            <span class="subTittle1" style="vertical-align:text-top;">
+                                <?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
                         </div>
                     </div>
                     <div class="modal-footer">
