@@ -319,7 +319,7 @@ ON(u.id=p.unitP) AND u.account_id = p.account_id
 
 LEFT JOIN tbl_order_items_temp t ON(t.pId = p.id) AND t.account_id = p.account_id AND t.userId='".$_SESSION['id']."' 
 
-WHERE   p.status=1   AND p.account_id = '".$_SESSION['accountId']."' ORDER BY  ".$orderBy;
+WHERE   p.status=1   AND p.account_id = '".$_SESSION['accountId']."' GROUP BY p.id ORDER BY  ".$orderBy;
 
 $proresultSet = mysqli_query($con, $sqlSet);
 
