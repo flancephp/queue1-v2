@@ -1702,8 +1702,7 @@ echo '<div class="newOrdTask">
                             style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
                         <div class="feeSave">
                             <input type="checkbox" id="visibility" name="visibility" value="1">
-                            <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item
-list'); ?></span>
+                            <span class="subTittle1" style="vertical-align:text-top;"> <?php echo showOtherLangText('save to fixed service item list'); ?></span>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -603,8 +603,7 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
                   <div>
                     <div class="feeSave">
                         <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item
-list'); ?></span><br>
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
                     </div>
                 </div>
                 <div class="modal-footer">
