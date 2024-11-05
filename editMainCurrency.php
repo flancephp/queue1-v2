@@ -102,7 +102,7 @@ $curDetRow = mysqli_fetch_array($curResult);
                                         <label for="currency" class="form-label"><?php echo showOtherLangText('Main Currency') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="currency" value="Dollar" disabled>
+                                        <input type="text" class="form-control" id="currency" value="<?php echo $curDetRow['currency'];?>" disabled>
                                     </div>
                                 </div>
 
@@ -111,7 +111,7 @@ $curDetRow = mysqli_fetch_array($curResult);
                                         <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="currencyCode" value="$" disabled>
+                                        <input type="text" class="form-control" id="currencyCode" value="<?php echo $curDetRow['curCode'];?>" disabled>
                                     </div>
                                 </div>
 

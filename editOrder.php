@@ -1403,7 +1403,7 @@ $ordQry = mysqli_query($con, $sql);
                     FROM tbl_products p
                     LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
                     LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
-                    WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' ORDER BY itemName ";
+                    WHERE 1=1 ".$cond." AND p.status=1  AND p.account_id = '".$_SESSION['accountId']."' GROUP BY p.id ORDER BY itemName ";
                     $proresultSet = mysqli_query($con, $sqlSet);
                  ?>
                                 <div class="container nordPrice position-relative">
@@ -1486,13 +1486,13 @@ $y = 0;
 $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
 while($row = mysqli_fetch_array($proresultSet))
 {
-$x++;
-$y++;
-$i=1;
+    $x++;
+    $y++;
+    $i=1;
 
-$stockQty = $row['stockQty'];
-$totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
-$stockQty = $stockQty - $totalProQty;
+    $stockQty = $row['stockQty'];
+    $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
+    $stockQty = $stockQty - $totalProQty;
 ?>
                                         <input type="hidden" name="productIds[]" value="<?php echo $row['id'];?>" />
                                         <input type="hidden" name="suppliersIds[<?php echo $row['id'];?>]"
