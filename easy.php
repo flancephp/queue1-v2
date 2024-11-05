@@ -107,6 +107,16 @@ if (isset($_GET['hotelId'])) {
             width: 25%;
         }
     }
+    @media (min-width: 1200px) {
+        html[dir=rtl] .btns__box { min-width: 220px; }
+        html[dir=rtl] .form-select { background-size: 35px; }
+    }
+    @media (min-width: 1400px) {
+        html[dir=rtl] .btns__box { min-width: 300px; } 
+    }
+    @media (min-width: 1600px) { 
+        html[dir=rtl] .form-select { background-size:  43px; }
+    }
 
     html[dir=rtl] .spaceClass2 {
         position: relative;
@@ -468,7 +478,7 @@ if (isset($_GET['hotelId'])) {
 
                                             </div>
 
-                                            <div class="d-flex justify-content-end gap-2 align-items-end">
+                                            <div class="btns__box d-flex justify-content-end gap-2 align-items-end">
                                                 <a href="javascript:void(0);" class="btn btn-primary update w-lg-100"
                                                     style="max-width: 140px;"
                                                     onClick="document.frm.submit();"><?php echo showOtherLangText('Get data'); ?></a>

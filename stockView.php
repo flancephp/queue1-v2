@@ -1681,9 +1681,9 @@ html[dir=rtl] .modal-footer .btnBg{
                             </table>
                         </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-start">
-                        <button type="button" class="btn btn-primary" onClick="approveConvert();"><?php echo showOtherLangText('Approve') ?></button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo showOtherLangText('Cancel') ?></button>
+                    <div class="modal-footer d-flex justify-content-start gap-3">
+                        <button type="button" class="btn btn-primary m-0" onClick="approveConvert();"><?php echo showOtherLangText('Approve') ?></button>
+                        <button type="button" class="btn btn-primary m-0" data-bs-dismiss="modal"><?php echo showOtherLangText('Cancel') ?></button>
                     </div>
                 </form>
             </div>

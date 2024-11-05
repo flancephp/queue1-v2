@@ -349,6 +349,7 @@ $cond = '';
         }
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder {padding: 0 1.5rem;} html[dir="rtl"] .container.mt-5.topOrder{{padding: 0 1.5rem;}} }
         @media(min-width:992px){ 
+            html[dir="rtl"] .rtl__pr { padding-right: 32px !important; }
             .container.cntTable, .nordPrice, .topOrder {padding: 0 2.5rem;} 
             .btnBg .btn-primary {
                 font-size: 14px; 
@@ -526,7 +527,7 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         <h4 class="subTittle1">23/05/2022</h4>
                                     </div> -->
                                     <div class="ordNum m-0">
-                                            <h4 class="subTittle1">
+                                            <h4 class="subTittle1 rtl__pr">
                                                 <span><?php echo showOtherLangText('Requisition By'); ?>:</span> <span><?php
                                         $sqlSet = " SELECT o.recMemberId, du.* FROM tbl_orders o  
                                         INNER JOIN tbl_deptusers du ON(o.recMemberId=du.id) AND o.account_id=du.account_id
