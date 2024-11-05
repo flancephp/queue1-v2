@@ -375,7 +375,7 @@ function getItemHistory($pId, $params=array())
 	}
 
 
-	 $sqlSet = " SELECT p.proType, o.id AS ordId, o.deptId, o.ordType, o.recMemberId, o.supplierId, o.storeId, du.name AS deptUserName, st.name AS storeName, sp.name AS suppName, DATE(o.setDateTime) AS actDate, od.*   
+	 $sqlSet = " SELECT p.proType, o.id AS ordId, o.ordNumber, o.deptId, o.ordType, o.recMemberId, o.supplierId, o.storeId, du.name AS deptUserName, st.name AS storeName, sp.name AS suppName, DATE(o.setDateTime) AS actDate, od.*   
 	FROM tbl_orders o
 	INNER JOIN tbl_order_details od ON(o.id = od.ordId) AND o.account_id = od.account_id
 	INNER JOIN tbl_products p ON(p.id = od.pId) AND p.account_id = od.account_id	

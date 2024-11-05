@@ -488,7 +488,7 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                         <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Add Item'); ?></span></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span>
                                     </a> 
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn">
+                                    <button type="submit" class="btn btn-primary mb-usrBkbtn" id="subBtnClick">
                                         <span class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> 
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span>
                                     </button>
@@ -574,19 +574,20 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                             <?php        
                                            // }
                                             ?>
-                                            <div class="outletChk" style="display:block;">
+
+                           
+                                            <div class="outletChk" id="revCenId" style="display:<?php echo $sqlResultRow > 0 ? 'block;' : 'none;';?>">
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
                                                         <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                        <?php
-									$revCenQry = "SELECT id, name FROM tbl_revenue_center WHERE account_id= '".$_SESSION['accountId']."' ORDER BY name ";
+                                                    <?php
+                                                    $revCenQry = "SELECT id, name FROM tbl_revenue_center WHERE account_id= '".$_SESSION['accountId']."' ORDER BY name ";
+                                                    $revCenResult = mysqli_query($con, $revCenQry);
 
-									$revCenResult = mysqli_query($con, $revCenQry);
-
-									?>
+                                                    ?>
                                     <select name="revCenter" id="revCenter" class="form-select selectOption"
                                                                 aria-label="Default select example"
                                                 onChange="getrevCenter();">
@@ -659,8 +660,9 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
                                                 </div>
                                                 </div>
                                             </div>
-                                            
+                                           
                                         </div>
+                        
                                         
                                         <div class="acntLg-Upld setOutlet ">
                                         <?php
@@ -1224,6 +1226,14 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
 
     $("#setOutlet").change(function() {
 
+        if( $("#setOutlet").is(':checked') )
+        {
+            $("#revCenId").show();
+        }
+        else
+        {
+            $("#revCenId").hide();
+        }
         var outLetCheck = $("#setOutlet").val();
         var availableProductInOutlet = $('#availableProductInOutlet').val();
 
@@ -1354,4 +1364,6 @@ echo isset($_GET['update']) ? ' '.showOtherLangText('OutLet Updated Successfully
             outletItemModalPopup.style.display = "none";
         }
     }
+
+    
     </script>

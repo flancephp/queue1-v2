@@ -723,15 +723,14 @@ foreach($resItemHistory['resRows'] as $item){
                                 </div>
                                 <div class="tb-head d-flex align-items-center last-Stock">
                                     <div class="itmVw-lstClm">
-                                        <p><?php echo showOtherLangText('Last <br> Price'); ?></p>
+                                        <p><?php echo showOtherLangText('Last Price'); ?></p>
                                     </div>
                                     <div class="itmVw-stkClm">
-                                        <p><?php echo showOtherLangText('Stock <br> Price'); ?></p>
+                                        <p><?php echo showOtherLangText('Stock Price'); ?></p>
                                     </div>
                                 </div>
                                 <div class="tb-head itmVw-qtyClm">
-                                    <p><?php echo showOtherLangText('Stock
-Qty'); ?></p>
+                                    <p><?php echo showOtherLangText('Stock Qty'); ?></p>
                                 </div>
                             </div>
                             <!-- Item Table Head End -->
@@ -784,6 +783,7 @@ Qty'); ?></p>
                                         <div class="tb-bdy d-flex align-items-center tbdy-dtMbr gap-1">
                                             <div class="itmVw-datebdClm">
                                                 <p><?php echo date('d/m/y', strtotime($row['actDate']));?></p>
+                                                <span title="<?php echo showOtherLangText('Task'); ?>">#<?php echo $row['ordNumber'];?></span>
                                             </div>
                                             <div class="itmVw-memberbdClm">
                                                 <?php echo $assignTo;?>

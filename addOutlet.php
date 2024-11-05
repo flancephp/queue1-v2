@@ -57,7 +57,7 @@ if(isset($_POST['name']) && isset($_POST['deptId']) && $_POST['deptId'] > 0)
 	else
 	{
 
-		echo '<script>window.location="addDepartmentUser.php?error='.$_POST['name'].'&deptId='.$_POST['deptId'].'"</script>';	
+		echo '<script>window.location="addOutlet.php?error='.$_POST['name'].'&deptId='.$_POST['deptId'].'"</script>';	
 
 	}
 
@@ -231,6 +231,16 @@ $deptResult = mysqli_query($con, $deptQry);
 
                 <section class="ordDetail userDetail itmMngDetail">
                     <div class="container">
+
+                    <?php if(isset($_GET['error'])){?>
+
+<div class="alert alert-danger alert-dismissible fade show lg__left__margin mb-0  mt-3" role="alert">
+<p><?php echo showOtherLangText('Already exists, try another name.'); ?></p>
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div><br/>
+
+<?php } ?>
+
                     <form role="form" action="" method="post" class="container">
                         <div class="row">
                             <div class="col-md-6 bkOutlet-Btn">
@@ -257,6 +267,8 @@ $deptResult = mysqli_query($con, $deptQry);
                             </div>
                         </div>
                     </div>
+             
+                    
 
                     <div class="container itmMng-Src outletFrm">
                         <div class="row">
@@ -281,7 +293,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="cstmSelect">
-                                                    <select name="deptId" id="deptId" class="form-select selectOption">
+                                                    <select name="deptId" required id="deptId" class="form-select selectOption">
                                                     <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                     <?php
                                                     while($deptRow = mysqli_fetch_array($deptResult))
