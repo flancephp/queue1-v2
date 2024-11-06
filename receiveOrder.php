@@ -1265,7 +1265,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                 $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $productRes['factor']*$productRes['price'];
                 $qty = $receivedRow['qty'];
                 ?> 
-                                    <tr><input type="hidden" id="factor<?php echo $x;?>" name="factor[]vvvvvvvvvvvvvvvv7777777777b6r5tcfxxxxxxxxxxxxxxxxxx">
+                                    <tr><input type="hidden" id="factor<?php echo $x;?>" name="factor[]">
                +                         <input type="hidden" id="supplierId<?php echo $x;?>" name="supplierId[]"
                                             size="5" value="<?php echo $receivedRow['supplierId'];?>">
                                 
