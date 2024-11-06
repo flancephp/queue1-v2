@@ -1220,7 +1220,16 @@ $otherChrgQry=mysqli_query($con, $sql);
                 ?></p>
                                             </div>
                                         </div>
-                                        <div class="recBr-Hide">
+                                        <div class="recBr-Hide"> 
+                                        <div class="recQty-Code cloneQty-Code align-items-center">
+                                            <div class="recItm-brCode tb-bdy">
+                                                <p><?php echo $row['barCode'];?></p>
+                                            </div>
+                                            <div class="qty-Ordred tb-bdy">
+                                                <p><?php echo $row['ordQty'];?></strong> <span class="tabOn-Qty">On stock</span></p>
+                                            </div>
+                                        </div>
+                                           
                                         </div>
                                     </div>
                                     <div class="mbLnk-Order">
@@ -1255,9 +1264,9 @@ $otherChrgQry=mysqli_query($con, $sql);
 
                 $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $productRes['factor']*$productRes['price'];
                 $qty = $receivedRow['qty'];
-                ?>
-                                    <tr><input type="hidden" id="factor<?php echo $x;?>" name="factor[]">
-                                        <input type="hidden" id="supplierId<?php echo $x;?>" name="supplierId[]"
+                ?> 
+                                    <tr><input type="hidden" id="factor<?php echo $x;?>" name="factor[]vvvvvvvvvvvvvvvv7777777777b6r5tcfxxxxxxxxxxxxxxxxxx">
+               +                         <input type="hidden" id="supplierId<?php echo $x;?>" name="supplierId[]"
                                             size="5" value="<?php echo $receivedRow['supplierId'];?>">
                                 
                                  <div class="newOrdTask recOrdTask">
@@ -1285,7 +1294,7 @@ $otherChrgQry=mysqli_query($con, $sql);
                                                 <p> 0 <span class="tabOn-Qty">On stock</span></p>
                                             </div>
                                         </div>
-                                        <div class="recPrc-Unit d-flex">
+                                                      namespacemmnm mn                       <div class="recPrc-Unit d-flex">
                                             <div class="tab-RecItm"></div>
                                             <div class="recItm-Unit tb-bdy">
                                                 <p id="purUnit<?php echo $x;?>"><?php echo $productRes['purchaseUnit'];?></p>

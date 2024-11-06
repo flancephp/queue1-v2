@@ -510,7 +510,7 @@ if($_SESSION['deptId'] != '')
                                         <div class="ordDate ms-0">
                                             <h4 class="subTittle1">
                                                 <!-- #:  332974 -->
-                                                <span><?php echo showOtherLangText('Task'); ?></span>
+                                                <span></span>
                                                 <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
                                             </h4>
                                         </div>
@@ -933,7 +933,10 @@ if($_SESSION['deptId'] != '')
                             </div>
                             <div class="requi-Hide">
                                 <div class="reqClm-Note tb-head">
-                                    <div class="mb-ReqCode"></div>
+                                    <div class="mb-ReqCode">
+
+
+                                    </div>
                                     <p><?php echo showOtherLangText('Note'); ?></p>
                                 </div>
                             </div>
@@ -989,7 +992,11 @@ if($_SESSION['deptId'] != '')
                                     </div>
                                     <div class="requi-Hide">
                                         <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
+                                            <div class="mb-ReqCode">
+
+
+
+                                            </div>
                                             <input type="text" class="form-control note-itm" placeholder="<?php echo showOtherLangText('Note'); ?>"
                                                 autocomplete="off" name="itemNotes[<?php echo $row['id'];?>]">
                                         </div>
@@ -1142,7 +1149,14 @@ if($_SESSION['deptId'] != '')
                                     </div>
                                     <div class="requi-Hide">
                                         <div class="reqClm-Note tb-bdy">
-                                            <div class="mb-ReqCode"></div>
+                                            <div class="mb-ReqCode">
+
+                                            <p class="reqBarCode"><?php echo $row['barCode'];?></p>
+                                            <?php echo ($getColumnPermission['available_quantity'] == 1) ? '
+                                        <p class="reqStockQty">'.$availableQty.'<span class="mbl-ReqStk">On stock</span></p>
+                                   ' : ''; ?>
+
+                                            </div>
                                             <input type="text" name="notes[<?php echo $row['id'];?>]"
                                                 id="notes<?php echo $row['id'];?>" class="form-control note-itm"
                                                 placeholder="<?php echo showOtherLangText('Note'); ?>">

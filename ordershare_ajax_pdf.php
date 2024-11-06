@@ -485,7 +485,7 @@ $content .= '<div class="modal-header position-relative">
                         $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmPrc">'.getPriceWithCur($row['price'], $getDefCurDet['curCode']).'</span></div>';
                         if($ordDet['ordCurId'] > 0)
                         {
-                        $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurPrice">'.getPriceWithCur(($row['curAmt']), $curDet['curCode']).'</span></div>';
+                        $content .=  '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurPrice">'.getPriceWithCur(($row['curAmt']), $curDet['curCode'], $curDet['decPlace']).'</span></div>';
                         }
                         $content .=  '<div class="table-cell"><span    class="itmPrcunit">'.$row['unit'].'</span></div>';
                         $content .=  '<div class="table-cell"><span    class="itmPurqty">1</span></div>';
@@ -497,7 +497,7 @@ $content .= '<div class="modal-header position-relative">
                          if($ordDet['ordCurId'] > 0)
 {
     $content .= '<div class="table-cell">
-<span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurTotal">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</span></div';
+<span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurTotal">'.getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']).'</span></div';
 }
                          $content .= '<div class="table-cell"><span  class="itmNote">'.$row['note'].'</span></div>';
                         $content .=   '</div>';
@@ -519,7 +519,7 @@ $content .= '<div class="modal-header position-relative">
                         $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="itmPrc">'.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</span></div>';
                          if($ordDet['ordCurId'] > 0)
                          {
-                         $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurPrice">'.getPriceWithCur(($row['curPrice']*$row['factor']), $curDet['curCode']).'</span></div>'; 
+                         $content .= '<div class="table-cell"><span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurPrice">'.getPriceWithCur(($row['curPrice']*$row['factor']), $curDet['curCode'], $curDet['decPlace']).'</span></div>'; 
                          }
                         $content .= '<div class="table-cell"><span    class="itmPrcunit">'.$row['purchaseUnit'].'</span></div>';
                         $content .= '<div class="table-cell"><span    class="itmPurqty">'.$row['qty'].'</span></div>';
@@ -528,7 +528,7 @@ $content .= '<div class="modal-header position-relative">
                         if($ordDet['ordCurId'] > 0)
                         {
                         $content .= '<div class="table-cell">
-                        <span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurTotal">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</span></div>';
+                        <span style="'.(($_POST['isSupDet'] == 1) ? 'display:none;' : '').'"   class="otherCurTotal">'.getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']).'</span></div>';
                         }
                          $content .= '<div class="table-cell"><span  class="itmNote">'.$row['note'].'</span></div>';
                         $content .= '</div>';
@@ -565,7 +565,7 @@ $content .= '<div class="modal-header position-relative">
         if($curDet['curCode'] != '')
     {
         $content .=        '<div class="table-cell">'.
-        getPriceWithCur($orderJourney['otherCur'], $curDet['curCode']).'</div>';
+        getPriceWithCur($orderJourney['otherCur'], $curDet['curCode'], $curDet['decPlace']).'</div>';
      } 
         $content .= '<div class="table-cell">
         '.ucfirst($orderJourney['notes']).'</div>

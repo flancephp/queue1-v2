@@ -527,11 +527,11 @@ echo isset($_GET['mes']) ? $_GET['mes'] : '';
 
 if( isset($_GET['delete']) && $_GET['delete'] == 1 )
 {
-echo ' '.showOtherLangText('Item Deleted Successfully').' ';
+    echo ' '.showOtherLangText('Item Deleted Successfully').' ';
 }
 elseif( isset($_GET['delete']) && $_GET['delete'] == 2 )
 {
-echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
+    echo ' '.showOtherLangText('This item is in stock or ordered by someone so cannot be deleted').' ';
 }
 
 ?>
@@ -558,7 +558,7 @@ echo ' '.showOtherLangText('This item is in stock or ordered by someone so canno
     <div class="ordDate">
         <h4 class="subTittle1">
             <!-- #:  332974 -->
-            <span><?php echo showOtherLangText('Task'); ?></span>
+            <span></span>
             <span class="ps-3 ps-md-5 ms-lg-3"><?php echo date("d-m-Y"); ?></span>
         </h4>
     </div>
@@ -1239,7 +1239,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
     <div class="Itm-Name tb-bdy res__label__item" data-text="<?php echo showOtherLangText('Item'); ?>">
         <p><?php echo $row['itemName'];?></p>
     </div>
-    <div class="Itm-brCode tb-bdy">
+    <div class="Itm-brCode tb-bdy" id="barCode<?php echo $row['id'];?>">
         <p class="ord-brCode"><?php echo $row['barCode'];?></p>
     </div>
     <div class="prdtCr-Unit d-flex">
@@ -1261,7 +1261,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
             <p><?php echo $row['purchaseUnit'];?></p>
         </div>
     </div>
-    <div class="prdtStk-Qty tb-bdy">
+    <div class="prdtStk-Qty tb-bdy" id="stockQty<?php echo $row['id'];?>">
         <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
     </div>
     <div  class="prdtCnt-Scnd d-flex align-items-center">
@@ -1290,7 +1290,12 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
     <div class="prdt-Note tb-bdy">
         <div class="row g-0 align-items-center"> 
             <div class="col-12">  
-                <div class="mb-brCode d-block"></div>
+                <div class="mb-brCode d-block test">
+                <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+
+
+                </div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
                 placeholder="<?php echo showOtherLangText('Note'); ?>"
@@ -1301,7 +1306,7 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
 </div>
 </div>
 <div class="mbLnk-Order">
-<a href="javascript:void(0)" class="orderLink">
+<a href="javascript:void(0)" class="orderLink" onclick="showHideExtraData('<?php echo $row['id'];?>');">
     <i class="fa-solid fa-angle-down"></i>
 </a>
 </div>

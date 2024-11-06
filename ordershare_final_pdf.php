@@ -454,7 +454,7 @@ if( $_GET['barcode'] == 1)
   if( $_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0)
             {
   $content .=  '<td style="padding: 5px;">
-                '.getPriceWithCur(($row['curAmt']), $curDet['curCode']).'</td>';
+                '.getPriceWithCur(($row['curAmt']), $curDet['curCode'], $curDet['decPlace']).'</td>';
    } 
   
     if( $_GET['unit'] == 1)
@@ -475,7 +475,7 @@ if( $_GET['barcode'] == 1)
             }
              if($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0)
             {
-  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</td>';
+  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']).'</td>';
             }
         if( $_GET['Note'] == 1)
             {
@@ -516,7 +516,7 @@ if( $_GET['barcode'] == 1)
              if(  $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
             {
   $content .=  '<td style="padding: 5px;">
-                '.getPriceWithCur($row['price']*$row['factor'], $getDefCurDet['curCode']).'</td>';
+                '.getPriceWithCur($row['curPrice']*$row['factor'], $curDet['curCode'], $curDet['decPlace']).'</td>';
             } 
    if( $_GET['unit'] == 1)
             {
@@ -538,7 +538,7 @@ if( $_GET['barcode'] == 1)
             } 
             if( $_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0)
             {
-  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['curAmt'], $curDet['curCode']).'</td>';
+  $content .=  '<td style="padding: 5px;">'.getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']).'</td>';
             } 
             if( $_GET['note'] == 1)
             {
@@ -578,7 +578,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
     if($_GET['secondCurrency'] == 1 && $curDet['curCode'] != '')
                 {
    $content .=  '<td style="padding: 5px;">'.
-                    getPriceWithCur($orderJourney['otherCur'], $curDet['curCode']).'</td>'; 
+                    getPriceWithCur($orderJourney['otherCur'], $curDet['curCode'], $curDet['decPlace']).'</td>'; 
    }                          
  $content .=  '<td style="padding: 5px;">'.ucfirst($orderJourney['notes']).'</td>';
  $content .=   '</tr>';

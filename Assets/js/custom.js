@@ -94,8 +94,8 @@ $(document).ready(function () {
   if ($(window).width() > 992) {
     $(".mb-brCode").hide();
   } else {
-    $(".ord-brCode").eq(0).appendTo(".mb-brCode");
-    $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
+   // $(".ord-brCode").eq(0).appendTo(".mb-brCode");
+   // $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
     $(".Itm-brCode").hide();
     $(".prdtStk-Qty").hide();
     // $(".mb-brCode .ord-brCode").show();
@@ -108,9 +108,9 @@ $(document).ready(function () {
       $(".mb-brCode").hide();
     } else {
       $(".mb-brCode").show(); // Ensure the container is visible on smaller screens
-      $(".mb-brCode").empty(); // Clear existing elements to prevent duplication
-      $(".ord-brCode").eq(0).appendTo(".mb-brCode");
-      $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
+      //$(".mb-brCode").empty(); // Clear existing elements to prevent duplication
+      //$(".ord-brCode").eq(0).appendTo(".mb-brCode");
+     // $(".ord-StockQty").eq(0).appendTo(".mb-brCode");
       $(".Itm-brCode").hide();
       $(".prdtStk-Qty").hide();
     }
@@ -134,49 +134,6 @@ $(".orderLink").click(function () {
 });
 // Order Table End
 
-// Receive Order Page Item Name Clone Start
-$(document).ready(function () {
-  $(window).resize(function () {
-    if ($(window).width() > 992) {
-      $(this).find(".tab-RecItm").hide();
-    } else {
-      $(this).find(".recive-Item").eq(0).appendTo(".tab-RecItm");
-      $(this).find(".recItm-Name").hide();
-    }
-  });
-});
-
-$(document).ready(function () {
-  if ($(window).width() > 992) {
-    $(this).find(".tab-RecItm").hide();
-  } else {
-    $(this).find(".recive-Item").eq(0).appendTo(".tab-RecItm");
-    $(this).find(".recItm-Name").hide();
-  }
-});
-// Receive Order Page Item Name Clone End
-
-// Receive Order Page Qty.Receive Clone Start
-$(document).ready(function () {
-  $(window).resize(function () {
-    if ($(window).width() > 992) {
-      $(this).find(".tabTtl-Price").hide();
-    } else {
-      $(this).find(".recQty-Receive").eq(0).appendTo(".tabTtl-Price");
-      $(this).find(".qty-Rcvd").hide();
-    }
-  });
-});
-
-$(document).ready(function () {
-  if ($(window).width() > 992) {
-    $(this).find(".tabTtl-Price").hide();
-  } else {
-    $(this).find(".recQty-Receive").eq(0).appendTo(".tabTtl-Price");
-    $(this).find(".qty-Rcvd").hide();
-  }
-});
-// Receive Order Page Qty.Receive Clone End
 
 // Receive Order Page Barcode & Qty.Order Clone Start
 $(document).ready(function () {
@@ -184,7 +141,7 @@ $(document).ready(function () {
     if ($(window).width() > 992) {
       $(".recBr-Hide").hide();
     } else {
-      $(".cloneQty-Code").eq(0).appendTo(".recBr-Hide");
+      
       $(".cloneQty-Code").hide();
       $(".recBr-Hide .cloneQty-Code").show();
     }
@@ -195,7 +152,7 @@ $(document).ready(function () {
   if ($(window).width() > 992) {
     $(".recBr-Hide").hide();
   } else {
-    $(".cloneQty-Code").eq(0).appendTo(".recBr-Hide");
+    
     $(".cloneQty-Code").hide();
     $(".recBr-Hide .cloneQty-Code").show();
   }

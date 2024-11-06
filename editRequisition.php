@@ -250,7 +250,7 @@ if( !empty($_POST['itemName']) )
     
     editCustomCharge($_GET['orderId'],1,$itemCharges,$_SESSION['ordDeptId'], 1);
     
-    echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'"</script>';
+    echo '<script>window.location="editRequisition.php?orderId='.$_GET['orderId'].'"</script>';
     exit;
 
 }
@@ -274,7 +274,7 @@ if( !empty($_POST['feeName']) )
     
     editCustomCharge($_GET['orderId'],3,$itemCharges,$_SESSION['ordDeptId'], 1);
     
-    echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'"</script>';
+    echo '<script>window.location="editRequisition.php?orderId='.$_GET['orderId'].'"</script>';
     exit;
 
 }
@@ -298,7 +298,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
     $resultSet= mysqli_query($con, $sql);
     
     
-    echo '<script>window.location="editRecusation.php?orderId='.$_GET['orderId'].'&delete=1"</script>';
+    echo '<script>window.location="editRequisition.php?orderId='.$_GET['orderId'].'&delete=1"</script>';
     exit;
 
 }//end 
@@ -1124,7 +1124,11 @@ $ordRow = mysqli_fetch_array($resultSet);
                                         </div>
                                         <div class="prdt-Hide">
                                             <div class="prdt-Note tb-bdy">
-                                                <div class="mb-brCode" style="display: none;"></div>
+                                                <div class="mb-brCode" style="display: none;">
+                                                    <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                                    <p class="ord-StockQty"><?php echo $availableQty ;?> <span
+                                                    class="tabOn-Stk">On stock</span></p>
+                                                </div>
                                                 <input type="text" class="form-control note-itm" autocomplete="off"
                                                     placeholder="<?php echo showOtherLangText('Note'); ?>" name="notes[<?php echo $row['id'];?>]"
                                                     id="notes<?php echo $row['id'];?>"
@@ -1354,7 +1358,12 @@ $ordRow = mysqli_fetch_array($resultSet);
                             </div>
                             <div class="prdt-Hide">
                                 <div class="prdt-Note tb-bdy">
-                                    <div class="mb-brCode" style="display: none;"></div>
+                                    <div class="mb-brCode" style="display: none;">
+                                        <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                        <p class="ord-StockQty"><?php echo $availableQty ;?> <span class="tabOn-Stk">On
+                                        stock</span></p>
+
+                                    </div>
                                     <input type="text" class="form-control note-itm" autocomplete="off"
                                         name="notes[<?php echo $row['id'];?>]" id="notes<?php echo $row['id'];?>"
                                         onchange="getnotesVal('<?php echo $row['id'] ?>');" placeholder="<?php echo showOtherLangText('Note'); ?>"

@@ -184,10 +184,11 @@ function showPrice($price, $curCode)
 	echo $price ? number_format($price, $checkDecPlace).' '.$curCode : 0;
 }
 
-function getPriceWithCur($price, $curCode)
+function getPriceWithCur($price, $curCode, $decimalPlace=0)
 {
 	global $checkDecPlace;
-	return $price ? number_format($price, $checkDecPlace).' '.$curCode : 0;
+	$decimalPlace = $decimalPlace > 0 ? $decimalPlace : $checkDecPlace;
+	return $price ? number_format($price, $decimalPlace).' '.$curCode : 0;
 }
 
 function getNumFormtPrice($price, $curCode, $decimalPlace=0)

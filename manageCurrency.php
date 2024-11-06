@@ -169,7 +169,7 @@ $curResult = mysqli_query($con, $sql);
                                             <p><?php echo showOtherLangText('Currency') ?></p>
                                         </div>
                                         <div class="tb-head mngRate-Clm">
-                                            <p><?php echo showOtherLangText('Rate For') ?> ($)</p>
+                                            <p><?php echo showOtherLangText('Rate For') ?> (<?php echo $getDefCurDet['curCode'];?>)</p>
                                         </div>
                                         <div class="tb-head mngDcml-Clm">
                                             <p><?php echo showOtherLangText('Decimal digits') ?></p>

@@ -1308,7 +1308,12 @@ $ordQry = mysqli_query($con, $sql);
                                         <div class="prdt-Hide">
                                             <div class="prdt-Note tb-bdy">
                                                 <div class=" stock position-relative" data-text="<?php echo showOtherLangText('Bar code'); ?>" data-text-stock="<?php echo showOtherLangText('S.qty'); ?>"> 
-                                                    <div class="mb-brCode" ></div>
+                                                    <div class="mb-brCode" >
+
+                                                    <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                                    <p class="ord-StockQty <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'min__stock__qty' : '';?>" ><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+
+                                                    </div>
                                                 </div>
                                                 <div class=" " data-text="<?php echo showOtherLangText('Note'); ?>"> 
                                                     <input type="text" class="form-control note-itm" autocomplete="off"
@@ -1571,7 +1576,14 @@ while($row = mysqli_fetch_array($proresultSet))
                                                 </div>
                                                 <div class="prdt-Hide">
                                                     <div class="prdt-Note tb-bdy " data-text="<?php echo showOtherLangText('Note'); ?>">
-                                                        <div class="mb-brCode" style="display: none;"></div>
+                                                        <div class="mb-brCode" style="display: none;">
+
+                                                        <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                                                        <p class="ord-StockQty <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'min__stock__qty' : '';?>">
+                                                        <?php echo round(($stockQty/$row['factor']), 1);?> <span
+                                                            class="tabOn-Stk">On stock</span></p>
+                                                            
+                                                        </div>
 
                                                         <input type="text" class="form-control  note-itm"
                                                             autocomplete="off" id="notes<?php echo $row['id'];?>"
