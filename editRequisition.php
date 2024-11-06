@@ -351,8 +351,7 @@ $cond = '';
         @media(min-width:992px){ 
             html[dir="rtl"] .rtl__pr { padding-right: 32px !important; }
             .container.cntTable, .nordPrice, .topOrder {padding: 0 2.5rem;} 
-            .btnBg .btn-primary {
-                font-size: 14px; 
+            .btnBg .btn-primary { 
                 min-height: 44px;
                 align-items: center;
                 display: inline-flex;
@@ -1198,7 +1197,7 @@ $ordRow = mysqli_fetch_array($resultSet);
     if( mysqli_num_rows($proresultSet) > 0 )
     {
     ?>
-                                            <div class="btnBg text-center text-md-end">
+                                            <div class="text-center text-md-end">
                                                 
                                                 <a href="javascript:void(0);" class="btn btn-primary add_new_items_in_req"><?php echo showOtherLangText('Add New Items In Requisition'); ?></a>
                                             </div>

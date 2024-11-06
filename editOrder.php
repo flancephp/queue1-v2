@@ -490,8 +490,7 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .itmBody { font-size: 14px; }
         .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
         .mbFeature .ordFeature > a { padding: 20px 0; }
-        .mbFeature .ordFeature:before { height: 37px; }
-        .btn__box .btn-primary { font-size:1rem; }
+        .mbFeature .ordFeature:before { height: 37px; } 
     }
     
     .edit-order-section.update .ttlCr-Type .ttlOtr-Crcy, .edit-order-section.update .ttlCr-Type .ttlDft-Crcy, .edit-order-section.update .ttlCr-Type, .edit-order-section.update .ttlCr-Type {

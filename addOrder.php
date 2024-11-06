@@ -455,7 +455,10 @@ html[dir="rtl"] .curRow .p-2 { text-align: right; }
 @media screen and (max-width: 992px) {
   .ttlDft-Crcy, .ttlOtr-Crcy { font-weight: 600;flex: 0 0 100%;}
 }
-@media (min-width: 992px) { html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
+@media (min-width: 992px) { 
+    html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } 
+    .mb-brCode .ord-brCode { display: none;}
+}
 @media (min-width: 768px) { html[dir="rtl"] .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
 @media screen and (max-width: 992px) {
     .ord-Box { width: 100% !important;padding: 14px 1rem !important; }
@@ -1290,11 +1293,10 @@ echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName
     <div class="prdt-Note tb-bdy">
         <div class="row g-0 align-items-center"> 
             <div class="col-12">  
-                <div class="mb-brCode d-block test">
-                <p class="ord-brCode"><?php echo $row['barCode'];?></p>
-                <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
-
-
+                <div class="mb-brCode d-bloc test">
+                    <p class="ord-brCode"><?php echo $row['barCode'];?></p>
+                    <p class="ord-StockQty" <?php echo ( ($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty/$row['factor']) < round($row['minLevel']/$row['factor']))  ) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"';?>><?php echo round(($stockQty/$row['factor']), 1) ;?> <span class="tabOn-Stk">On stock</span></p>
+                      
                 </div>
                 <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->
                 <input type="text" class="form-control note-itm" autocomplete="off" id="notes"
