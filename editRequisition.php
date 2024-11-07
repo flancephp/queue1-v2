@@ -334,7 +334,7 @@ $cond = '';
         .form-control.qty-itm { font-weight: bold;font-size:.875rem; }
         @media(min-width:992px){  
             .container.cntTable.pb-md-4{margin-top: -1.5rem; }
-            html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 9.875rem !important; }
+            html[dir="rtl"] .btn__box, .nwNxt-Btn1 > div { max-width: 132px !important; }
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { position: absolute;left: auto !important;right: 0; } 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position { left:auto !important;right:0; }
             html[dir="rtl"] .ord-Box { padding: 4px;border-radius: 10px 0px 0 10px;border-right-width: 0;border-left: 1px solid #F05D53 !important; }

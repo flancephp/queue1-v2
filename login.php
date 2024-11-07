@@ -107,74 +107,82 @@ if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] 
 
     <div class="container-fluid ">
         <div class="logo pt-3 pb-md-5 pb-3">
-            <img src="Assets/icons/logo_Q.svg" alt="Logo" >            
+            <img src="Assets/icons/logo_Q.svg" alt="Logo">
         </div>
 
 
         <div class="row justify-content-center">
-            
+
             <div class="col-md-8">
                 <div class="login-outer">
 
                     <div>
-                    <h1 class="h1 text-center pb-5"><?php echo showOtherLangText('Login'); ?></h1>
-                    <?php if(isset($msg) && $msg!='') { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($msg) ? $msg:''; ?>
- </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                        <h1 class="h1 text-center pb-5"><?php echo showOtherLangText('Login'); ?></h1>
+                        <?php if(isset($msg) && $msg!='') { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php echo isset($msg) ? $msg:''; ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php } ?>
+                        <form class="login-form" name="loginForm" id="loginForm" role="form" action="" method="post">
+                            <input type="hidden" name="chksubmit" id="chksubmit" value="">
+                            <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="btn"><i class=" fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="<?php echo isset($_COOKIE['usernameChk']) ? $_COOKIE['usernameChk'] : '';?>"
+                                    placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
                             </div>
-                            <?php } ?>
-                    <form class="login-form" name="loginForm" id="loginForm" role="form" action="" method="post">
-                        <input type="hidden" name="chksubmit" id="chksubmit" value="">
-                        <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
-                            <div class="input-group-append">
-                            <span class="btn"><i class=" fa fa-user"></i></span>
+
+
+                            <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="btn"><i class=" fa fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    value="<?php echo isset($_COOKIE['passwordChk']) ? $_COOKIE['passwordChk'] : '';?>"
+                                    placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
+
+                                <div class="input-group-append password-toggle-icon">
+                                    <span class="btn"><i id="togglePassword" class="fa fa-eye-slash"></i></span>
+                                </div>
                             </div>
-                            <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_COOKIE['usernameChk']) ? $_COOKIE['usernameChk'] : '';?>" placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
-                        </div>
 
 
-                        <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
-                            <div class="input-group-append">
-                            <span class="btn"><i class=" fa fa-lock"></i></span>
+                            <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="btn"><b><?php echo showOtherLangText('ID') ?></b></span>
+                                </div>
+                                <input type="text" class="form-control" id="accountNumber" name="accountNumber"
+                                    placeholder="<?php echo showOtherLangText('Account id') ?>" autocomplete="off">
                             </div>
-                            <input type="password" class="form-control" id="password" name="password" value="<?php echo isset($_COOKIE['passwordChk']) ? $_COOKIE['passwordChk'] : '';?>" placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
 
-                            <div class="input-group-append password-toggle-icon">
-                                <span class="btn"><i id="togglePassword" class="fa fa-eye-slash"></i></span>
+                            <div
+                                class="py-3 d-flex align-items-center justify-content-center gap-3 mb-2 login-remember">
+
+                                <label for="remember"><?php echo showOtherLangText('Remember Me') ?></label>
+                                <input type="checkbox" value="1" name="cookieChk" id="cookieChk"
+                                    class="form-check-input"
+                                    <?php echo (isset($_COOKIE['usernameChk']) && $_COOKIE['usernameChk'] != '') ? 'checked="checked"' : '';?>>
+
                             </div>
-                        </div>
 
 
-                        <div class="d-flex gap-2 align-items-center drp-btn input-group mb-2">
-                            <div class="input-group-append">
-                            <span class="btn"><b><?php echo showOtherLangText('ID') ?></b></span>
+                            <div class="text-center">
+                                <button type="submit" onclick="checksubmit();"
+                                    class="btn sub-btn std-btn mb-usrBkbtn fs-20 py-2 px-4 w-auto">
+                                    <span class="dsktp-Btn px-2 d-inline"><?php echo showOtherLangText('Sign In') ?></span></button>
                             </div>
-                            <input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="<?php echo showOtherLangText('Account id') ?>" autocomplete="off">
-                        </div>
-
-                        <div class="py-3 d-flex align-items-center justify-content-center gap-3 mb-2 login-remember">
-
-                            <label for="remember"><?php echo showOtherLangText('Remember Me') ?></label>
-                            <input type="checkbox" value="1" name="cookieChk" id="cookieChk" class="form-check-input" <?php echo (isset($_COOKIE['usernameChk']) && $_COOKIE['usernameChk'] != '') ? 'checked="checked"' : '';?>>
-
-                        </div>
-
-
-                        <div class="text-center">
-                            <button type="submit" onclick="checksubmit();" class="btn sub-btn std-btn mb-usrBkbtn fs-20 py-2 px-4">
-                                <span class="dsktp-Btn px-2 d-inline"><?php echo showOtherLangText('Sign In') ?></span></button>
-                        </div>
 
 
 
-                        <div>
+                            <div>
 
-                        </div>
+                            </div>
 
-                    </form>
+                        </form>
                     </div>
 
                 </div>
@@ -199,18 +207,18 @@ function checksubmit() {
     $('#chksubmit').val('1');
 }
 </script>
-<script> 
-        const togglePassword = document.querySelector('#togglePassword');
-    const togglePasswordclick = document.querySelector('.password-toggle-icon');
-        const password = document.querySelector('#password');
+<script>
+const togglePassword = document.querySelector('#togglePassword');
+const togglePasswordclick = document.querySelector('.password-toggle-icon');
+const password = document.querySelector('#password');
 
-        togglePasswordclick.addEventListener('click', function () {
-            // Toggle the type attribute
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
+togglePasswordclick.addEventListener('click', function() {
+    // Toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
 
-            // Toggle the icon
-            togglePassword.classList.toggle('fa-eye');
-            togglePassword.classList.toggle('fa-eye-slash');
-        });
-    </script>
+    // Toggle the icon
+    togglePassword.classList.toggle('fa-eye');
+    togglePassword.classList.toggle('fa-eye-slash');
+});
+</script>

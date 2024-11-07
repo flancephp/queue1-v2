@@ -399,14 +399,12 @@ if($_SESSION['deptId'] != '')
         }
         .txnmRow { width: 40%; }
         .curRow { width: 50%; }
-        @media screen and (min-width: 1600px) { 
-            .prcTable { font-size: 1rem; } 
-            .nwNxt-Btn .btnBg { max-width:10.875rem;margin-left: auto; }
-            html[dir="rtl"] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
-            .nwNxt-Btn .btnBg .btn { width: 100%; }
-        }
+        
         @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
-        @media(min-width:992px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} }
+        @media(min-width:992px){ 
+            .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} 
+            .nwNxt-Btn .btnBg { max-width: 132px; }
+        }
         @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
         @media screen and (max-width: 767px) {
             .ordFeature {  width: 50%;  }
@@ -422,7 +420,12 @@ if($_SESSION['deptId'] != '')
         }
         @media (min-width: 992px) { html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
         @media (min-width: 768px) { html[dir="rtl"] .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
-
+        @media screen and (min-width: 1600px) { 
+            .prcTable { font-size: 1rem; } 
+            .nwNxt-Btn .btnBg { max-width:10.875rem;margin-left: auto; }
+            html[dir="rtl"] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
+            .nwNxt-Btn .btnBg .btn { width: 100%; }
+        }
         @media(max-width:991px) {
             .innerDrop .dropdown-menu.show { display:block;left: -12rem !important;box-shadow: 0 0 4px rgba(0,0,0,0.1);width: 12rem; }
             html[dir="rtl"] .innerDrop .dropdown-menu.show { right: -12rem !important;left:auto; }

@@ -411,14 +411,14 @@ if( isset($_GET['delId']) && $_GET['orderId'])
         .newFeature.col { flex: 0 0 auto;width: 60%;padding: 0 44px 0 65px;order:2; } 
         .col.nwNxt-Btn.nwNxt-Btn1 { flex: 0 0 auto;width:15%;order:3; }
         html[dir=rtl] .stcPart .reqInfo, html[dir=rtl] .ordInfo { padding: 0 0px 0 65px; }
-        .nwNxt-Btn1 .btn__box { max-width: 10.875rem !important;margin-left: auto; }
+        .nwNxt-Btn1 .btn__box { max-width: 132px !important;margin-left: auto; }
         html[dir="rtl"] .nwNxt-Btn1 .btn__box { margin-left: 0;margin-right: auto; } 
         .btn__box .btn-primary { min-height: 44px;display:inline-flex;align-items:center;justify-content:center; }
         html[dir="rtl"] .nwNxt-Btn.nwNxt-Btn1.ps-lg-4 { padding-left: 0 !important;  }
         .ordInfo { padding:0 28px 0 0; }
     }
     @media(min-width:1600px){ 
-        /* .nwNxt-Btn1 .btn__box { max-width: 174px !important; } */
+        .nwNxt-Btn1 .btn__box { max-width: 10.875rem !important }
         html[dir=rtl] .ordInfo { padding: 0 0px 0 18px; }
         html[dir="rtl"] .newFeature.col { padding: 0 50px 0 44px; }
         .newFeature.col { padding: 0 64px 0 44px; }
@@ -749,9 +749,9 @@ $netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+
                                                 </a>
                                             </div>
                                             <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
-                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-2 d-inline-flex align-items-center">
+                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-2 gap-2 d-inline-flex align-items-center">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span> 
-                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i>
+                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center m-0"></i>
                                                 </a> 
                                                 <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" /> 
                                                 <a href="runningOrders.php" class=" btn  btn-primary update w-100"><?php echo showOtherLangText('Back'); ?></a>

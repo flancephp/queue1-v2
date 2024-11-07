@@ -402,6 +402,9 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
   .filder__btns.col-md-7 { max-width: 428px; }
   .mbFeature .ordFeature:before { height: 37px; }
 }
+@media (min-width: 992px) and (max-width: 1599px) {
+    .nwNxt-Btn .btnBg { max-width:132px; } 
+}
 
 @media (max-width:991px) {
     .smBtn .btn { height:40px;padding:0 16px !important;}
