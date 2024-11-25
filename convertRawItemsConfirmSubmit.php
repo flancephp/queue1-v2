@@ -8,7 +8,9 @@ include('inc/dbConfig.php'); //connection details
 	$ordResult = mysqli_fetch_array($ordQry);
 
 	$ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
-	
+	$sortingNo = getSortingNumber($_SESSION['accountId']);
+
+
 	
 	$sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$_SESSION['convertItemsPost']['rawItem']."' AND account_id = '".$_SESSION['accountId']."'  ";
 	$result = mysqli_query($con, $sql);
@@ -23,6 +25,7 @@ include('inc/dbConfig.php'); //connection details
 				`orderBy`  = '".$_SESSION['id']."',
 				`ordDateTime` = '".date('Y-m-d h:i:s')."',
 				`setDateTime` = '".date('Y-m-d h:i:s')."',
+				`sortingNo`='".$sortingNo."',
 				`ordAmt` = '".$ordPrice."',
 				`account_id` = '".$_SESSION['accountId']."', 
 				`status` = 2	";

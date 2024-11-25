@@ -190,7 +190,7 @@ $resultSet = mysqli_query($con, $sqlSet);
 
 
 $subCatOptions = '<ul class="dropdown-menu subcat_opt">';
-$subCatOptions .= '<li data-id="" data-value=""><a class="dropdown-item" href="javascript:void(0)">' . showOtherLangText('Sub Catagory') . '</a></li>';
+$subCatOptions .= '<li data-id="" data-value=""><a class="dropdown-item" href="javascript:void(0)">' . showOtherLangText('Sub Category') . '</a></li>';
 while ($catRow = mysqli_fetch_array($resultSet)) {
     $sel = isset($_GET['subCatId']) && $_GET['subCatId'] == $catRow['id']  ? 'selected' : '';
 
@@ -254,14 +254,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
-        .strfetCol { width: 310px; } 
-        .storeCol { width: calc(100% - 350px); }
+        .strfetCol {
+            width: 310px;
+        }
+
+        .storeCol {
+            width: calc(100% - 350px);
+        }
 
         .mblCnt {
             border-radius: 20px !important;
             border: 2px solid #FFF;
             background: #7A89FE !important;
-            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54); 
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
             top: -10%;
             left: -10%;
             position: absolute !important;
@@ -279,25 +284,39 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             left: -10%;
             position: absolute !important;
             padding: 4px 11px;
-            color: #fff;font-weight: 600;
+            color: #fff;
+            font-weight: 600;
         }
-        .mView1{display: none;}
-        .dView1{display: block;}
+
+        .mView1 {
+            display: none;
+        }
+
+        .dView1 {
+            display: block;
+        }
 
         @media(max-width:991px) {
             .storeCol {
                 width: 100% !important;
             }
         }
-        
+
 
         @media (max-width: 767px) {
             .storeCol .col-4.stockFeat {
                 width: 33.333% !important;
             }
-            .mView1{display: block;}
-            .dView1{display: none;}
+
+            .mView1 {
+                display: block;
+            }
+
+            .dView1 {
+                display: none;
+            }
         }
+
         @media screen and (max-width: 1599px) {
 
             .container,
@@ -308,8 +327,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .container-xxl {
                 max-width: 1599px;
             }
-            }
-        
+        }
+
         @media screen and (min-width: 1600px) {
 
             .container,
@@ -323,10 +342,16 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         }
 
         @media screen and (min-width: 1600px) {
-            .mblCnt { font-size: 16px !important; }
+            .mblCnt {
+                font-size: 16px !important;
+            }
         }
+
         @media screen and (min-width: 1800px) {
-            .mblCnt { font-size: 18px; }
+            .mblCnt {
+                font-size: 18px;
+            }
+
             .container,
             .container-lg,
             .container-md,
@@ -350,16 +375,37 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             width: 100% !important;
             margin: 0% !important;
         }
-        .counter__col { width: 55px; }
-        .stkItmclm { width: 100%; } 
+
+        .counter__col {
+            width: 55px;
+        }
+
+        .stkItmclm {
+            width: 100%;
+        }
+
         .stkTblhead .stkItmclm,
         .stkTblhead .stkItmclm,
-        .stkTblhead .stkbarclm { width: 61%;  } 
+        .stkTblhead .stkbarclm {
+            width: 61%;
+        }
+
         .stkTblhead .stkNamcol,
-        .cntTable .stkNamcol { width: 50%; } 
-        .page2bdy .stkTblhead .stkNamcol{width: 65% !important;}
-        #page2bdy   .stkTblhead .stkNamcol { width: 63%; } 
-        .page2bdy .cntTable .stkNamcol { width: 63% !important;}
+        .cntTable .stkNamcol {
+            width: 50%;
+        }
+
+        .page2bdy .stkTblhead .stkNamcol {
+            width: 65% !important;
+        }
+
+        #page2bdy .stkTblhead .stkNamcol {
+            width: 63%;
+        }
+
+        .page2bdy .cntTable .stkNamcol {
+            width: 63% !important;
+        }
 
 
         .cntTable1 .stkNamcol {
@@ -367,7 +413,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             justify-content: space-evenly;
         }
 
- 
+
 
         .stkTblhead .stkPrcol {
             width: 25%;
@@ -376,13 +422,17 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .cntTable .stkPrcol {
             width: 50%;
         }
-        .page2bdy   .cntTable .stkPrcol {
+
+        .page2bdy .cntTable .stkPrcol {
             width: 33%;
         }
 
-        .small-font{font-size:9px;}
+        .small-font {
+            font-size: 9px;
+        }
+
         @media (min-width:768px) {
-            
+
             .mbShw .stkPrcol {
                 width: 35% !important;
             }
@@ -405,33 +455,90 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                 width: 20%;
             }
 
-            .cntTable .stkNamcol>div:nth-child(1),.stkTblhead .stkNamcol>div:nth-child(1) {width: 40%;}
-            .cntTable .stkNamcol>div:nth-child(2),.stkTblhead .stkNamcol>div:nth-child(2) {width: 25%;}
-            .cntTable .stkNamcol>div:nth-child(3),.stkTblhead .stkNamcol>div:nth-child(3) {width: 15%;}
-            .cntTable .stkNamcol>div:nth-child(4),.stkTblhead .stkNamcol>div:nth-child(4) {width: 15%;}
-            .cntTable .stkNamcol>div:nth-child(5),.stkTblhead .stkNamcol>div:nth-child(5) {width: 15%;}
+            .cntTable .stkNamcol>div:nth-child(1),
+            .stkTblhead .stkNamcol>div:nth-child(1) {
+                width: 40%;
+            }
+
+            .cntTable .stkNamcol>div:nth-child(2),
+            .stkTblhead .stkNamcol>div:nth-child(2) {
+                width: 25%;
+            }
+
+            .cntTable .stkNamcol>div:nth-child(3),
+            .stkTblhead .stkNamcol>div:nth-child(3) {
+                width: 15%;
+            }
+
+            .cntTable .stkNamcol>div:nth-child(4),
+            .stkTblhead .stkNamcol>div:nth-child(4) {
+                width: 15%;
+            }
+
+            .cntTable .stkNamcol>div:nth-child(5),
+            .stkTblhead .stkNamcol>div:nth-child(5) {
+                width: 15%;
+            }
 
             #page1head .stkNamcol>div:nth-child(2),
             #page1head .stkNamcol>div:nth-child(3),
             #page1head .stkNamcol>div:nth-child(4),
             .page1bdy .cntTable .stkNamcol>div:nth-child(2),
             .page1bdy .cntTable .stkNamcol>div:nth-child(3),
-            .page1bdy .cntTable .stkNamcol>div:nth-child(4){
+            .page1bdy .cntTable .stkNamcol>div:nth-child(4) {
                 width: 20% !important;
             }
-            #page1head .mbShw .stkPrcol .lstPrcol {width: 33% !important;}
-            #page1bdy .mbShw .stkPrcol .lstPrcol {width: 50% !important;}
+
+            #page1head .mbShw .stkPrcol .lstPrcol {
+                width: 33% !important;
+            }
+
+            #page1bdy .mbShw .stkPrcol .lstPrcol {
+                width: 50% !important;
+            }
         }
-        #upload_form .dropStk ul{ opacity: 1 !important;inset: 26px 0px auto auto !important;}
-        .md__33 { width: 33%; }
+
+        #upload_form .dropStk ul {
+            opacity: 1 !important;
+            inset: 26px 0px auto auto !important;
+        }
+
+        .md__33 {
+            width: 33%;
+        }
+
         @media (max-width: 991px) {
-            #upload_form .dropStk ul{ inset: 17px 0px auto auto !important;}
-            .cntTable .stkPrcol { width: 30%; } 
-            .page2bdy .cntTable .stkPrcol { width: 33%;display:block !important; }
-            .md__33{ width: 100%; }
-            #upload_form { max-width:240px; }
-            #upload_form .stockFeat .tabFet { width: 100%;min-height: 57px; }
-            #upload_form .dropStk p span, #upload_form .stockFeat.brdLft .btn2 { white-space: break-spaces;color: #6c6c6c; }
+            #upload_form .dropStk ul {
+                inset: 17px 0px auto auto !important;
+            }
+
+            .cntTable .stkPrcol {
+                width: 30%;
+            }
+
+            .page2bdy .cntTable .stkPrcol {
+                width: 33%;
+                display: block !important;
+            }
+
+            .md__33 {
+                width: 100%;
+            }
+
+            #upload_form {
+                max-width: 240px;
+            }
+
+            #upload_form .stockFeat .tabFet {
+                width: 100%;
+                min-height: 57px;
+            }
+
+            #upload_form .dropStk p span,
+            #upload_form .stockFeat.brdLft .btn2 {
+                white-space: break-spaces;
+                color: #6c6c6c;
+            }
         }
 
         @media screen and (min-device-width: 768px) and (max-device-width: 992px) {
@@ -440,24 +547,65 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
             .page2bdy .cntTable .mbShw {
                 width: 100%;
             }
-  
+
         }
-        .cstBtn-Sale.toggle-page-btn img { width: 13px;height:auto; }
-        @media (max-width: 767px) { 
-            .md__33{ line-height: 20px; }
-            .cntTable .stkNamcol { width: 50%; }
-            .stockView .lstPrcol { width: 100% !important;} 
-            .mbShw { width: 100% !important; }
-            .tb-bdy.stkQtyclm.stkQtybdy, .tb-bdy.stkQtyclm.stkreqbdy, .tb-bdy.stkQtyclm.stkavabdy{ padding-top: 5px;padding-bottom: 5px; }
-            .stkNamcol .tb-bdy .itm-Profile{
-                line-height:28px;
+
+        .cstBtn-Sale.toggle-page-btn img {
+            width: 13px;
+            height: auto;
+        }
+
+        @media (max-width: 767px) {
+            .md__33 {
+                line-height: 20px;
             }
-            .mbLst-value { padding-right: 6px; }
-            #upload_form { max-width:225px; }
-            html[dir="rtl"] #upload_form { max-width:244px; }
-            .cstBtn-Sale.toggle-page-btn { border-radius:8px;padding:5px; }
-            .cstBtn-Sale.toggle-page-btn img { width: 10px;height: auto;min-width: auto; }
-            
+
+            .cntTable .stkNamcol {
+                width: 50%;
+            }
+
+            .stockView .lstPrcol {
+                width: 100% !important;
+            }
+
+            .mbShw {
+                width: 100% !important;
+            }
+
+            .tb-bdy.stkQtyclm.stkQtybdy,
+            .tb-bdy.stkQtyclm.stkreqbdy,
+            .tb-bdy.stkQtyclm.stkavabdy {
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+
+            .stkNamcol .tb-bdy .itm-Profile {
+                line-height: 28px;
+            }
+
+            .mbLst-value {
+                padding-right: 6px;
+            }
+
+            #upload_form {
+                max-width: 225px;
+            }
+
+            html[dir="rtl"] #upload_form {
+                max-width: 244px;
+            }
+
+            .cstBtn-Sale.toggle-page-btn {
+                border-radius: 8px;
+                padding: 5px;
+            }
+
+            .cstBtn-Sale.toggle-page-btn img {
+                width: 10px;
+                height: auto;
+                min-width: auto;
+            }
+
         }
 
         .cntTable1 .stkPrcol {
@@ -467,7 +615,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .w-55 {
             width: 45%;
         }
-        .fa-filter { position: relative;top: -3px; }
+
+        .fa-filter {
+            position: relative;
+            top: -3px;
+        }
+
         .storeCont .h2 {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -494,7 +647,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .stkTblhead .tb-head {
             color: #7a89fe;
         }
- /*        .stkItmclm {
+
+        /*        .stkItmclm {
             color: #000 !important;
             font-size: 11px;
     line-height: 15px;
@@ -504,12 +658,17 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         .tb-bdy {
             padding: 5px 8px;
         }
+
         .tb-bdy {
-                font-size: 16px;
-                font-weight: 400;
-            }
-            .stkQtybdy{}
-         .stkQtybdy span{font-weight: 600;}
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .stkQtybdy {}
+
+        .stkQtybdy span {
+            font-weight: 600;
+        }
 
         @media screen and (min-width: 1600px) {
             .tb-bdy {
@@ -518,124 +677,152 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
         }
 
         @media(max-width:1800px) {
-  .storeCol {
-    max-width: 970px;
-  }
-}
-  @media(max-width:1600px) {
-  .storeCol {
-    max-width: 780px;
-  }
-}
+            .storeCol {
+                max-width: 970px;
+            }
+        }
 
-@media(max-width:1599px) {
-  .storeCol {
-    width: calc(100% - 280px);
-    max-width: 780px;
-  }
-  html[dir="rtl"] #upload_form .dropStk ul { inset: 26px -39px auto auto !important; }
+        @media(max-width:1600px) {
+            .storeCol {
+                max-width: 780px;
+            }
+        }
 
-  .strfetCol {
-  width: 280px;margin-top: 1px;
-    }
+        @media(max-width:1599px) {
+            .storeCol {
+                width: calc(100% - 280px);
+                max-width: 780px;
+            }
 
-  .tb-bdy {
-  font-size: 14px;
-}
-  
-  .mblCnt {
-  font-size: 14px;
-  top: -15%;
-  left: -15%;
-  padding: 2px 6px;
-}
-html[dir="rtl"] .mblCnt {
-  font-size: 14px;
-  top: -10%;
-  left: -12%;
-  padding: 2px 6px;
-}
+            html[dir="rtl"] #upload_form .dropStk ul {
+                inset: 26px -39px auto auto !important;
+            }
 
-}
+            .strfetCol {
+                width: 280px;
+                margin-top: 1px;
+            }
 
-@media(max-width:1480px) {
-  .storeCol {
-    max-width: 770px;
-  }
+            .tb-bdy {
+                font-size: 14px;
+            }
 
-}
-@media(max-width:1366px) {
-  .storeCol {
-    max-width: 690px;
-  }
+            .mblCnt {
+                font-size: 14px;
+                top: -15%;
+                left: -15%;
+                padding: 2px 6px;
+            }
 
-}
-@media(max-width:1280px) {
-  .storeCol {
-    max-width: 600px;
-  }
+            html[dir="rtl"] .mblCnt {
+                font-size: 14px;
+                top: -10%;
+                left: -12%;
+                padding: 2px 6px;
+            }
 
-}
-@media(max-width:1280px) {
-  .storeCol {
-    max-width: 600px;
-  }
+        }
 
-}
+        @media(max-width:1480px) {
+            .storeCol {
+                max-width: 770px;
+            }
 
-@media(max-width:1160px) {
-  .storeCol {
-    max-width: 520px;
-  }
+        }
 
-}
-@media(max-width:1050px) {
-  .storeCol {
-    max-width: 480px;
-  }
+        @media(max-width:1366px) {
+            .storeCol {
+                max-width: 690px;
+            }
 
-}
-@media(max-width:1024px) {
-  .storeCol {
-    max-width: 600px;
-  }
+        }
 
-}
+        @media(max-width:1280px) {
+            .storeCol {
+                max-width: 600px;
+            }
 
-@media screen and (min-device-width: 768px) and (max-device-width: 992px) { 
- 
-    .storeCol {
-    max-width: 100%;width: 100%;
-  }
-  .tb-bdy {
-    font-size: 13px;
-  }
-  #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
-    width: 100% !important;
-  }
+        }
+
+        @media(max-width:1280px) {
+            .storeCol {
+                max-width: 600px;
+            }
+
+        }
+
+        @media(max-width:1160px) {
+            .storeCol {
+                max-width: 520px;
+            }
+
+        }
+
+        @media(max-width:1050px) {
+            .storeCol {
+                max-width: 480px;
+            }
+
+        }
+
+        @media(max-width:1024px) {
+            .storeCol {
+                max-width: 600px;
+            }
+
+        }
+
+        @media screen and (min-device-width: 768px) and (max-device-width: 992px) {
+
+            .storeCol {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .tb-bdy {
+                font-size: 13px;
+            }
+
+            #page2head.stkTblhead .mbShw,
+            .page2bdy .cntTable .mbShw {
+                width: 100% !important;
+            }
 
 
 
 
-}
+        }
 
-@media (max-width: 767px) {  
-    .storeCol { max-width: 100%;width: 100%; } 
-    .tb-bdy { font-size: 14px;font-weight: 400; }
-    .modal-head-row ul.dropdown-menu { padding: 5px !important; }
+        @media (max-width: 767px) {
+            .storeCol {
+                max-width: 100%;
+                width: 100%;
+            }
 
-}
+            .tb-bdy {
+                font-size: 14px;
+                font-weight: 400;
+            }
 
-        
+            .modal-head-row ul.dropdown-menu {
+                padding: 5px !important;
+            }
 
-        #page2head .mbShw .stkPrcol .lstPrcol {width: 33%;} 
+        }
+
+
+
+        #page2head .mbShw .stkPrcol .lstPrcol {
+            width: 33%;
+        }
+
         .storeCont .h2 {
             overflow: hidden !important;
         }
-       
 
-        
-    /*     @media (min-width: 768px) {
+
+
+        /*     @media (min-width: 768px) {
             .stkView .container:not(.large) { max-width: 720px; }
         } 
         @media (min-width: 992px) {
@@ -647,12 +834,12 @@ html[dir="rtl"] .mblCnt {
         }
  */
 
-        
 
 
 
 
-/* @media (min-width: 1200px) {
+
+        /* @media (min-width: 1200px) {
   .stkView .container {
     max-width: 1000px !important;
   }
@@ -663,18 +850,18 @@ html[dir="rtl"] .mblCnt {
     max-width: 1140px  !important;
   }
 }
-      */   
+      */
 
-      /* 04-09-24 sudarshan */
-      @media (max-width: 992px) {
-      .mblCnt {
-            font-size: 14px;
-            padding: 2px 6px;
-            top: -14%;
-            left: -14%;
-        }
+        /* 04-09-24 sudarshan */
+        @media (max-width: 992px) {
+            .mblCnt {
+                font-size: 14px;
+                padding: 2px 6px;
+                top: -14%;
+                left: -14%;
+            }
 
-        /* html[dir="rtl"] .mblCnt {
+            /* html[dir="rtl"] .mblCnt {
   border-radius: 20px !important;
   border: 2px solid #FFF;
   background: #7A89FE !important;
@@ -686,88 +873,120 @@ html[dir="rtl"] .mblCnt {
   color: #fff;
   font-weight: 600;padding: 2px 6px;
 } */
-    }
+        }
 
-      @media (min-width: 768px) {
-    #page2head .stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
-        /* width: 85% !important; */
-    }
-    #page2head.stkTblhead .mbShw, .page2bdy .cntTable .mbShw {
-        width: 85% !important;
-}
-    #page2head .stkTblhead .mbHde, .page2bdy .cntTable .mbHde {
-        width: 15%;
-    }
-    #page2head.stkTblhead .mbHde, .page2bdy .cntTable .mbHde {
-        width: 15%;
-    }
-    
-}
-.stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
-    width: 50% !important;
-}
-@media (max-width:767px) {
-    .small-font{font-size:12px;}
-    .counter__col {
-        display: none;
-    }
-    .stockView .lstPrcol.lstPrcol {
-    width: 100% !important;padding-bottom: 6px;
-    }
-    .tb-bdy.stkImgcol {
-    width: 20%;
-    max-width: 90px;
-    }
-    .mb-srcBox > div {
-    gap: .5rem;
-    }
-    .mbClone-src {
-    flex-grow: 1;
-    }
-    .supStkclm .dropdown-toggle {
-        width: 100%;
-    }
-    .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
-    width: 100% !important; line-height:20px;
-}
-}
+        @media (min-width: 768px) {
+
+            #page2head .stkTblhead .mbShw,
+            .page2bdy .cntTable .mbShw {
+                /* width: 85% !important; */
+            }
+
+            #page2head.stkTblhead .mbShw,
+            .page2bdy .cntTable .mbShw {
+                width: 85% !important;
+            }
+
+            #page2head .stkTblhead .mbHde,
+            .page2bdy .cntTable .mbHde {
+                width: 15%;
+            }
+
+            #page2head.stkTblhead .mbHde,
+            .page2bdy .cntTable .mbHde {
+                width: 15%;
+            }
+
+        }
+
+        .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
+            width: 50% !important;
+        }
+
+        @media (max-width:767px) {
+            .small-font {
+                font-size: 12px;
+            }
+
+            .counter__col {
+                display: none;
+            }
+
+            .stockView .lstPrcol.lstPrcol {
+                width: 100% !important;
+                padding-bottom: 6px;
+            }
+
+            .tb-bdy.stkImgcol {
+                width: 20%;
+                max-width: 90px;
+            }
+
+            .mb-srcBox>div {
+                gap: .5rem;
+            }
+
+            .mbClone-src {
+                flex-grow: 1;
+            }
+
+            .supStkclm .dropdown-toggle {
+                width: 100%;
+            }
+
+            .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
+                width: 100% !important;
+                line-height: 20px;
+            }
+        }
 
 
-#page2head .stkPrcol:has(.tb-head[style*="display: none"]) .tb-head:not([style*="display: none"]) {
-    width: 50% !important;
-}
+        #page2head .stkPrcol:has(.tb-head[style*="display: none"]) .tb-head:not([style*="display: none"]) {
+            width: 50% !important;
+        }
 
 
 
-.stkNamcol01, .page2head .cntTable .stkNamcol {
-    width: 63% !important;
-}
-.stockView .lstPrcol {
-    width: 33.33% !important;
-}
+        .stkNamcol01,
+        .page2head .cntTable .stkNamcol {
+            width: 63% !important;
+        }
 
-.dskAll-str{width: 45px;}
+        .stockView .lstPrcol {
+            width: 33.33% !important;
+        }
+
+        .dskAll-str {
+            width: 45px;
+        }
 
 
-.modal-footer .btnBg{
-    /* padding-right:16px; */
-}
-html[dir=rtl] .modal-footer .btnBg{
-    padding-left: 16px;
-  padding-right: 0px;
-  margin: 0px;
-} 
-.justify-content-start .btn{margin-right:20px;}
-@media screen and (min-width: 1601px) {
-    .cstBtn-Sale.toggle-page-btn { min-width: 42px;min-height: 42px; } 
-}
+        .modal-footer .btnBg {
+            /* padding-right:16px; */
+        }
 
-@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) {
-    .tb-bdy {
-        font-size: 14px;
-    }
-}
-      
+        html[dir=rtl] .modal-footer .btnBg {
+            padding-left: 16px;
+            padding-right: 0px;
+            margin: 0px;
+        }
+
+        .justify-content-start .btn {
+            margin-right: 20px;
+        }
+
+        @media screen and (min-width: 1601px) {
+            .cstBtn-Sale.toggle-page-btn {
+                min-width: 42px;
+                min-height: 42px;
+            }
+        }
+
+        @media screen and (min-device-width: 1024px) and (max-device-width: 1600px) {
+            .tb-bdy {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -799,7 +1018,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <h1 class="h1"><?php echo showOtherLangText('Stock View'); ?></h1>
                                 </div>
                             </div>
-                        <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -930,7 +1149,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div class="chkStore">
                                             <a href="javascript:void(0)" style="height: 20px;" id="toggle-page-btn" class="cstBtn-Sale toggle-page-btn hideBtn-Info ">
-                                                <img src="Assets/icons/info.svg" alt="Information" >
+                                                <img src="Assets/icons/info.svg" alt="Information">
                                             </a>
 
                                         </div>
@@ -1070,16 +1289,16 @@ html[dir=rtl] .modal-footer .btnBg{
 
                                     <div class="tb-head stockValDefault lstPrcol">
                                         <div class="d-flex align-items-center">
-                                        <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
-                                        <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
-                                            <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                            </span>
-                                        <?php } ?>
+                                            <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
+                                            <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
+                                                <span class="dblArrow">
+                                                    <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
+                                            <?php } ?>
                                         </div>
                                     </div>
-                                    
+
 
                                 </div>
 
@@ -1280,8 +1499,8 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <div class="d-flex align-items-center border-bottom itmBody">
                                         <div class="mbShw d-flex align-items-center">
                                             <div class="tb-bdy counter__col">
-                                                   <?php echo $x; ?>
-                                                </div>
+                                                <?php echo $x; ?>
+                                            </div>
                                             <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
                                             <?php } else { ?>
                                                 <div class="tb-bdy stkImgcol">
@@ -1297,7 +1516,7 @@ html[dir=rtl] .modal-footer .btnBg{
                                                     <?php } ?>
                                                 </div>
                                                 <div class="tb-bdy stkQtyclm stkQtybdy">
-                                                    <span class="d-md-none small-font" >Qty:</span>
+                                                    <span class="d-md-none small-font">Qty:</span>
                                                     <?php if (isset($stockUserFilterFields) && !in_array(3, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <span><?php echo $row['stockQty']; ?></span>
@@ -1338,14 +1557,15 @@ html[dir=rtl] .modal-footer .btnBg{
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mainValueSize"><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                    </span></p>
+                                                        <p><span class="mbLst-value lstValueSize">Stock</span><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        </p>
+
                                                     <?php } ?>
                                                 </div>
 
                                             </div>
 
-                                          
+
                                         </div>
                                         <div class="mbHde align-items-center suppData-stk">
                                             <div class="tb-bdy supStkclm">
@@ -1456,8 +1676,8 @@ html[dir=rtl] .modal-footer .btnBg{
                                                     <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
                                                         <p>
-                                                        <span class="mbLst-value">Last</span> 
-                                                        <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                            <span class="mbLst-value">Last</span>
+                                                            <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1470,7 +1690,15 @@ html[dir=rtl] .modal-footer .btnBg{
                                                 <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Value</span><?php echo $row['minLevel']; ?>
+                                                        <p><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
+                                                        </p>
+                                                    <?php } ?>
+                                                </div>
+
+                                                <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
+                                                    <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
+                                                    <?php } else { ?>
+                                                        <p><span class="mbLst-value">Max</span><?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1621,9 +1849,9 @@ html[dir=rtl] .modal-footer .btnBg{
 
                     <div class="modal-body  fs-15">
                         <div class="pb-3">
-                            <h2><?php echo showOtherLangText('Convert raw item') ?></h2> 
+                            <h2><?php echo showOtherLangText('Convert raw item') ?></h2>
                         </div>
-                        <div class="table-responsive"> 
+                        <div class="table-responsive">
                             <table class="issueout2-table w-100 fs-13" style="min-width:700px;">
                                 <tr class="semibold">
                                     <th class="criCol1"><?php echo showOtherLangText('Photo') ?></th>
@@ -1637,23 +1865,23 @@ html[dir=rtl] .modal-footer .btnBg{
                                 </tr>
                                 <tr class="semibold">
                                     <td class="criCols1"><?php
-    
-                                        if ($rawItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $rawItemRow['imgName'])) {
-                                            echo '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $rawItemRow['imgName'] . '" width="60" height="60">';
-                                        }
-                                        ?></td>
+
+                                                            if ($rawItemRow['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $rawItemRow['imgName'])) {
+                                                                echo '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $rawItemRow['imgName'] . '" width="60" height="60">';
+                                                            }
+                                                            ?></td>
                                     <td class="criCols2"><?php echo $rawItemRow['itemName'] !== '' ? $rawItemRow['itemName'] : ''; ?></td>
                                     <td class="criCols3"><?php echo $_POST['qtyToConvert']; ?></td>
                                     <td class="criCols3"><?php echo $rawItemRow['unitC']; ?></td>
-    
+
                                     <td class="criCols3"><?php echo $rawItemRow['stockQty']; ?></td>
-    
+
                                     <td class="criCols3"><?php echo ($rawItemRow['stockQty'] - $_POST['qtyToConvert']); ?></td>
-    
+
                                     <td class="criCols3"><?php
-                                        if ($rawItemRow['price'] !== '') {
-                                            echo showPrice($rawItemRow['price'], $getDefCurDet['curCode']);
-                                        } ?>
+                                                            if ($rawItemRow['price'] !== '') {
+                                                                echo showPrice($rawItemRow['price'], $getDefCurDet['curCode']);
+                                                            } ?>
                                     </td>
                                     <td class="criCols3"><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
                                     </td>
@@ -1667,17 +1895,17 @@ html[dir=rtl] .modal-footer .btnBg{
                                     <td><?php echo $convertItemRow['itemName']; ?></td>
                                     <td><?php echo $_POST['convertedQty']; ?></td>
                                     <td><?php echo $convertItemRow['unitC']; ?></td>
-    
+
                                     <td><?php echo $convertItemRow['stockQty'] > 0 ? $convertItemRow['stockQty'] : 0; ?></td>
-    
+
                                     <td><?php echo $convertItemRow['stockQty'] + $_POST['convertedQty']; ?></td>
-    
+
                                     <td><?php echo showPrice($_POST['unitPrice'], $getDefCurDet['curCode']); ?></td>
                                     <td><?php echo showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']); ?>
                                     </td>
                                 </tr>
-    
-    
+
+
                             </table>
                         </div>
                     </div>
@@ -1951,7 +2179,7 @@ html[dir=rtl] .modal-footer .btnBg{
             button.onclick = function() {
                 fileupload.click();
                 console.log('upload btn clicked');
-                
+
             };
             fileupload.onchange = function() {
                 document.getElementById('upload_form').submit();
@@ -2039,20 +2267,17 @@ html[dir=rtl] .modal-footer .btnBg{
 
 
             //show/hide extra details on info
-            $(".cstBtn-Sale").on("click", function () 
-            {       
-                if ($(".hideBtn-Info").hasClass("actvSale-Cst")) 
-                {
+            $(".cstBtn-Sale").on("click", function() {
+                if ($(".hideBtn-Info").hasClass("actvSale-Cst")) {
                     $(".tmp_qty").hide();
                     $(".stk_val").hide();
-                    
-                } else 
-                {
+
+                } else {
                     $(".tmp_qty").show();
                     $(".stk_val").show();
                 }
-                 
-            });//end show/hide extra details
+
+            }); //end show/hide extra details
 
         });
 
@@ -2083,7 +2308,7 @@ html[dir=rtl] .modal-footer .btnBg{
         }
     </script>
 
-    
+
 </body>
 
 </html>

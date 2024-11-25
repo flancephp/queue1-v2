@@ -140,6 +140,7 @@ if (isset($_SESSION['getVals']['accountNo']) && $_SESSION['getVals']['accountNo'
     
 }
 
+$condWithoutGroup = $cond;
 
 // Date sorting
 if ($_SESSION['getVals']['dateType'] =='') {
@@ -714,7 +715,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     ';
                                      foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
                                     {
-                                        $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-def-curr pendingSection summaryPartCell table-cell"><span class="pendingSection defaultCurSection summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>': '<div></div>';
+                                        $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?'<div class="issue-in-def-curr pendingSection  summaryPartCell table-cell"><span class="pendingSection otherCurSection  summaryPartCell">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</span></div>': '<div></div>';
                                     }
                                 $content .= '</div></div>
                             </div>';
@@ -757,22 +758,19 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                      $sqlSet = " SELECT od.* FROM tbl_order_details od
                         INNER JOIN tbl_orders o
                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                        WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$cond1." ";
+                        WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$condWithoutGroup." ";
                         $resultSet = mysqli_query($con, $sqlSet);
                         while( $resRow = mysqli_fetch_array($resultSet) )
                         {
-                            if ($resRow['qtyReceived'] < $resRow['qty'])
+                            $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+    
+                            if($varaincesVal > 0)
                             {
-                                $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
-                                $variancesPosQtyTot += $varaincesVal;
-                                $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
+                                $variancesPosTot += ($varaincesVal*$resRow['stockPrice']);
                             }
-                            elseif($resRow['qtyReceived'] > $resRow['qty'])
+                            elseif($varaincesVal < 0)
                             {
-                                $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
-                                
-                                $variancesNevQtyTot += $varaincesVal;
-                                $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
+                                $variancesNevTot += ($varaincesVal*$resRow['stockPrice']);
                             }
                                 
                         }
@@ -782,8 +780,8 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                     </div>
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row thead">
-                                        <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>'. getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</div>
-                                        <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>'. getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) .'</div>
+                                        <div class="table-cell text-success"><i class="fa-solid fa-long-arrow-up pe-1"></i>'. getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']).'</div>
+                                        <div class="table-cell text-danger"><i class="fa-solid fa-long-arrow-down pe-1"></i>'. getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']) .'</div>
                                     </div>
                                 </div>
                             </div>

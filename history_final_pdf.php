@@ -107,6 +107,7 @@ if (isset($_SESSION['getVals']['accountNo']) && $_SESSION['getVals']['accountNo'
     
 }
 
+$condWithoutGroup = $cond;
 
 // Date sorting
 if ($_SESSION['getVals']['dateType'] =='') {
@@ -300,23 +301,20 @@ if($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3
         $sqlSet = " SELECT od.* FROM tbl_order_details od
         INNER JOIN tbl_orders o
             ON(o.id=od.ordId) AND o.account_id=od.account_Id
-        WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$cond1." ";
+        WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '".$_SESSION['accountId']."' ".$condWithoutGroup." ";
         $resultSet = mysqli_query($con, $sqlSet);
 
         while( $resRow = mysqli_fetch_array($resultSet) )
         {
-            if ($resRow['qtyReceived'] < $resRow['qty'])
+            $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+    
+            if($varaincesVal > 0)
             {
-                $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
-                $variancesPosQtyTot += $varaincesVal;
-                $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
+                $variancesPosTot += ($varaincesVal*$resRow['stockPrice']);
             }
-            elseif($resRow['qtyReceived'] > $resRow['qty'])
+            elseif($varaincesVal < 0)
             {
-                $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
-                
-                $variancesNevQtyTot += $varaincesVal;
-                $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
+                $variancesNevTot += ($varaincesVal*$resRow['stockPrice']);
             }
                 
         }
@@ -494,38 +492,49 @@ $content = '<!DOCTYPE html>
                         }
                         }
             $content .= '</tr>';
-            $content .=  '<tr>
-                        <td style="padding: 8px 5px;">'.showOtherLangText('Paid').'</td>';
-           // $content .=  '<td style="font-weight:bold; padding: 8px 5px;">2,000 $</td>';
-             $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPaidArr[1][1] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']).'</td>' : '<td style="font-weight: bold;padding: 5px 5px;">&nbsp;</td>';
-            if ($_GET['otherCurrency'] == 1) 
+
+            if( $_GET['paidSection'] == 1)
             {
-             foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
-             { 
-             //$content .=  '<td style="padding: 8px 5px;">1,200 $</td>';
-              $content .= ($otherCurrPaidTotalValueArr[$currencyId] > 0) ?  '<td style="padding: 8px 5px;" class="issue-in-oth-curr">'.showOtherCur($otherCurrPaidTotalValueArr[$currencyId], $currencyId).'</td>' :  '<td style="padding: 8px 5px;">&nbsp;</td>';
+                $content .=  '<tr>
+                            <td style="padding: 8px 5px;">'.showOtherLangText('Paid').'</td>';
+                 // $content .=  '<td style="font-weight:bold; padding: 8px 5px;">2,000 $</td>';
+                $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPaidArr[1][1] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']).'</td>' : '<td style="font-weight: bold;padding: 5px 5px;">&nbsp;</td>';
+                if ($_GET['otherCurrency'] == 1) 
+                {
+                foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                { 
+                //$content .=  '<td style="padding: 8px 5px;">1,200 $</td>';
+                $content .= ($otherCurrPaidTotalValueArr[$currencyId] > 0) ?  '<td style="padding: 8px 5px;" class="issue-in-oth-curr">'.showOtherCur($otherCurrPaidTotalValueArr[$currencyId], $currencyId).'</td>' :  '<td style="padding: 8px 5px;">&nbsp;</td>';
+                }
+                }
+                 $content .=  '</tr>';
             }
-            }
-            $content .=  '</tr><tr>
+
+            if( $_GET['pendingSection'] == 1)
+            {
+
+                $content .=  '<tr>
                         <td style="padding: 8px 5px;">'.showOtherLangText('Pending').'</td>';
 
-            $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPendingArr[1][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']).'</td>' : '<td style="font-weight:bold; padding: 8px 5px;"">&nbsp;</td>';
+                $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPendingArr[1][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']).'</td>' : '<td style="font-weight:bold; padding: 8px 5px;"">&nbsp;</td>';
 
-           if ($_GET['otherCurrency'] == 1) 
-                                        {
-                                            // Issue In other currency total pending
-                                            foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
-                                            {
-                                                $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?  '<td style=" padding: 8px 5px;">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</td>' : '<td style=" padding: 8px 5px;">&nbsp;</td>';
-                                            }
-                                            // End Issue In other currency total pending
-                                        }  
-            $content .=  '</tr>
+                if ($_GET['otherCurrency'] == 1) 
+                {
+                    // Issue In other currency total pending
+                    foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow)
+                    {
+                        $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?  '<td style=" padding: 8px 5px;">'.showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId).'</td>' : '<td style=" padding: 8px 5px;">&nbsp;</td>';
+                    }
+                    // End Issue In other currency total pending
+                }  
+                $content .=  '</tr>';
+            }
+            $content .=  '
                 </table>';
             $content .= '</td>';
               }
-              if ($_GET['issuedOut'] == 1) 
-              {
+        if ($_GET['issuedOut'] == 1) 
+        {
             $content .= '<td style="width: 25%;">
                 <table style="width:100%; margin-right:1%; font-size:12px; border-collapse: collapse;">';
              $content .= '<tr style="font-weight:bold;">
@@ -535,20 +544,29 @@ $content = '<!DOCTYPE html>
              $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
                         <td style="padding: 8px 5px;">'.showOtherLangText('Total').'</td>';
              $content .= ($issueOutTotal > 0) ? '<td style="padding: 8px 5px;">'.getPriceWithCur($issueOutTotal, $getDefCurDet['curCode']).'</td>' : '<td>&nbsp;</td>';
-                       
-            $content .= '</tr>
-                    <tr>
-                        <td style="padding: 8px 5px;">'.showOtherLangText('Received').'</td>';
-            
-            $content .= ($issuedInOutPaidArr[2][1]) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']).'</td>' : '<td>&nbsp;</td>';
-            $content .= '</tr>';
-            $content .= '<tr>
-                        <td style="padding: 8px 5px;">'.showOtherLangText('Pending').'</td>';
-           // $content .= '<td style="font-weight:bold; padding: 8px 5px;">1,279.69 $</td>';
-          
-            $content .= ($issuedInOutPendingArr[2][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']).'</td>' : '<td>&nbsp;</td>';
+           
+            if ($_GET['receiveSection'] == 1) 
+            {
+                $content .= '</tr>
+                        <tr>
+                            <td style="padding: 8px 5px;">'.showOtherLangText('Received').'</td>';
+                
+                $content .= ($issuedInOutPaidArr[2][1]) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']).'</td>' : '<td>&nbsp;</td>';
+                $content .= '</tr>';
+            }
 
-             $content .= '</tr></table></td>';
+            
+                if ($_GET['issueOutPendingSection'] == 1) 
+                {
+                        $content .= '<tr>
+                                    <td style="padding: 8px 5px;">'.showOtherLangText('Pending').'</td>';
+                    // $content .= '<td style="font-weight:bold; padding: 8px 5px;">1,279.69 $</td>';
+                    
+                        $content .= ($issuedInOutPendingArr[2][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">'.getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']).'</td>' : '<td>&nbsp;</td>';
+                        $content .= '</tr>';
+                }
+
+                $content .= '</table></td>';
             }
             
               if ($_GET['variance'] == 1) 
@@ -560,8 +578,8 @@ $content = '<!DOCTYPE html>
                             </tr>';
                
               $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                        <td style="color: #198754; padding: 8px 5px;">&uarr;'.getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</td>
-                        <td style="color: #dc3545; padding: 8px 5px;">&darr;'.getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']).'</td>
+                        <td style="color: #198754; padding: 8px 5px;">'.getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']).'</td>
+                        <td style="color: #dc3545; padding: 8px 5px;">'.getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']).'</td>
                     </tr>
                 </table>
             </td>';
@@ -661,7 +679,7 @@ $content = '<!DOCTYPE html>
 
                             case 3: //stockTake
                             unset( $headerArr[5] );
-                            unset( $headerArr[7] );
+                            //unset( $headerArr[7] );
                             unset( $headerArr[9] );
                             unset( $headerArr[10] );
                             unset( $headerArr[11] );
@@ -914,7 +932,7 @@ $content = '<!DOCTYPE html>
 
                             case 3: //stockTake
                             unset( $colsValArr[5] );
-                            unset( $colsValArr[7] );
+                           // unset( $colsValArr[7] );
                             unset( $colsValArr[9] );
                             unset( $colsValArr[10] );
                             unset( $colsValArr[11] );

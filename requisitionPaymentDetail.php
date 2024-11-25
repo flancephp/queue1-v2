@@ -851,6 +851,7 @@ if(isset($_GET['delId']) && $_GET['orderId'])
 
                                     while($row = mysqli_fetch_array($ordDetResult))//show here order level charges 
                                     {
+                                        $fixedCharges =$row['price'];
                                     ?>
                                     <tr>
                                         <td>

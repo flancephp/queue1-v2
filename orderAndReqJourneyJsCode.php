@@ -1,8 +1,5 @@
 <script>
-   
-
-
-$('body').on('click', '.cstm-Btn', function() {
+    $('body').on('click', '.cstm-Btn', function() {
 
         var allCustomSection = $('.checkRow').css('display');
 
@@ -12,343 +9,346 @@ $('body').on('click', '.cstm-Btn', function() {
             $('.checkRow').css('display', 'block');
         }
 
-});
+    });
 
 
-  
 
 
-   
-    
-   
 
 
-//order journey and requisition code goes here------------------------------------------------------------------------------------------------
 
 
 
 
+    //order journey and requisition code goes here------------------------------------------------------------------------------------------------
 
 
-$('body').on('click', '.header-txt', function() {
- event.stopPropagation();
- $('#show-header').toggle();
- $('#show-smry').css('display', 'none');
- $('#show-itm').css('display', 'none');
-});
 
 
-// Checkbox Check all
-$('body').on('change', '.headCheckbox', function() {
- if ($(".headCheckbox").length == $(".headCheckbox:checked").length)
-     $(".headChk-All").prop('checked', true);
- else
-     $(".headChk-All").prop('checked', false);
-});
-// End
 
 
+    $('body').on('click', '.header-txt', function() {
+        event.stopPropagation();
+        $('#show-header').toggle();
+        $('#show-smry').css('display', 'none');
+        $('#show-itm').css('display', 'none');
+    });
 
 
-//Header parts goes here
-$('body').on('click', '#header', function() {
+    // Checkbox Check all
+    $('body').on('change', '.headCheckbox', function() {
+        if ($(".headCheckbox").length == $(".headCheckbox:checked").length)
+            $(".headChk-All").prop('checked', true);
+        else
+            $(".headChk-All").prop('checked', false);
+    });
+    // End
 
- //$('#show-header').show();
- $('#show-header').css('display', 'block');
 
 
 
- if ($("#header:checked").length == 1) {
-     $(".headChk-All").prop('checked', true);
-     $(".headCheckbox").prop('checked', true);
-     $('.headerTxt').css('display', 'block');
- } else {
-     $(".headChk-All").prop('checked', false);
-     $(".headCheckbox").prop('checked', false);
-     $('.headerTxt').css('display', 'none');
- }
+    //Header parts goes here
+    $('body').on('click', '#header', function() {
 
-});
+        //$('#show-header').show();
+        $('#show-header').css('display', 'block');
 
-$('body').on('click', '.headChk-All', function() {
 
- //$('#show-header').show();
- $('#show-header').css('display', 'block');
 
- if ($(".headChk-All:checked").length == 1) {
-     $("#header").prop('checked', true);
-     $(".headCheckbox").prop('checked', true);
-     $('.headerTxt').css('display', 'block');
- } else {
-     $("#header").prop('checked', false);
-     $(".headCheckbox").prop('checked', false);
-     $('.headerTxt').css('display', 'none');
- }
+        if ($("#header:checked").length == 1) {
+            $(".headChk-All").prop('checked', true);
+            $(".headCheckbox").prop('checked', true);
+            $('.headerTxt').css('display', 'block');
+        } else {
+            $(".headChk-All").prop('checked', false);
+            $(".headCheckbox").prop('checked', false);
+            $('.headerTxt').css('display', 'none');
+        }
 
-});
+    });
 
-$(document).click(function(event) {
- if (!$(event.target).closest('.header-txt, #show-header').length) {
-     $('#show-header').css('display', 'none');
- }
-});
-//End hearder parts end here
+    $('body').on('click', '.headChk-All', function() {
 
-//Summary parts starts here
+        //$('#show-header').show();
+        $('#show-header').css('display', 'block');
 
+        if ($(".headChk-All:checked").length == 1) {
+            $("#header").prop('checked', true);
+            $(".headCheckbox").prop('checked', true);
+            $('.headerTxt').css('display', 'block');
+        } else {
+            $("#header").prop('checked', false);
+            $(".headCheckbox").prop('checked', false);
+            $('.headerTxt').css('display', 'none');
+        }
 
+    });
 
-$(document).click(function(event) {
- if (!$(event.target).closest('.summary-txt, #show-smry').length) {
-     $('#show-smry').css('display', 'none');
- }
-});
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.header-txt, #show-header').length) {
+            $('#show-header').css('display', 'none');
+        }
+    });
+    //End hearder parts end here
 
-$('body').on('click', '.summary-txt', function() {
- event.stopPropagation();
- $('#show-smry').toggle();
- $('#show-header').css('display', 'none');
- $('#show-itm').css('display', 'none');
-});
+    //Summary parts starts here
 
-$('body').on('click', '#summary', function() {
- $('#show-smry').css('display', 'block');
- $('#show-header').css('display', 'none');
- $('#show-itm').css('display', 'none');
 
 
- if ($("#summary:checked").length == 1) {
-     $('.show-smry-cls').css('display', 'block');
-     $('#smrySuplr').css('display', 'block');
-     $('#smryPayment').css('display', 'block');
-     $('.smryHead').css('display', 'block');
-     $('.smryDef_Val').css('display', 'block');
-     $('.smryOtr_Val').css('display', 'block');
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.summary-txt, #show-smry').length) {
+            $('#show-smry').css('display', 'none');
+        }
+    });
 
+    $('body').on('click', '.summary-txt', function() {
+        event.stopPropagation();
+        $('#show-smry').toggle();
+        $('#show-header').css('display', 'none');
+        $('#show-itm').css('display', 'none');
+    });
 
-     $(".smryChk-All").prop('checked', true);
-     $(".smryCheckbox").prop('checked', true);
+    $('body').on('click', '#summary', function() {
+        $('#show-smry').css('display', 'block');
+        $('#show-header').css('display', 'none');
+        $('#show-itm').css('display', 'none');
 
- } else {
-     $(".smryChk-All").prop('checked', false);
-     $(".smryCheckbox").prop('checked', false);
-     $('.show-smry-cls').css('display', 'none');
 
-     $('#smrySuplr').css('display', 'none');
-     $('#smryPayment').css('display', 'none');
-     $('.smryHead').css('display', 'none');
-     $('.smryDef_Val').css('display', 'none');
-     $('.smryOtr_Val').css('display', 'none');
+        if ($("#summary:checked").length == 1) {
+            $('.show-smry-cls').css('display', 'block');
+            $('#smrySuplr').css('display', 'block');
+            $('#smryPayment').css('display', 'block');
+            $('.smryHead').css('display', 'block');
+            $('.smryDef_Val').css('display', 'block');
+            $('.smryOtr_Val').css('display', 'block');
 
 
- }
+            $(".smryChk-All").prop('checked', true);
+            $(".smryCheckbox").prop('checked', true);
 
+        } else {
+            $(".smryChk-All").prop('checked', false);
+            $(".smryCheckbox").prop('checked', false);
+            $('.show-smry-cls').css('display', 'none');
 
-});
+            $('#smrySuplr').css('display', 'none');
+            $('#smryPayment').css('display', 'none');
+            $('.smryHead').css('display', 'none');
+            $('.smryDef_Val').css('display', 'none');
+            $('.smryOtr_Val').css('display', 'none');
 
-$('body').on('click', '.smryChk-All', function() {
 
- $('#show-smry').css('display', 'block');
- $('#show-header').css('display', 'none');
- $('#show-itm').css('display', 'none');
- 
- 
- if ($(".smryChk-All:checked").length == 1) {
+        }
 
-    $('.sumBreakupAmtText').css('display', 'block');
-    $('.SummaryItems').css('display', 'table-row');
-     $('.show-smry-cls').css('display', 'block');
-     $('#smrySuplr').css('display', 'block');
-     $('#smryPayment').css('display', 'block');
-     $('.smryHead').css('display', 'block');
-     $('.smryDef_Val').css('display', 'block');
-     $('.smryOtr_Val').css('display', 'block');
 
-     $("#summary").prop('checked', true);
-     $(".smryCheckbox").prop('checked', true);
+    });
 
- } else {
+    $('body').on('click', '.smryChk-All', function() {
 
-     
+        $('#show-smry').css('display', 'block');
+        $('#show-header').css('display', 'none');
+        $('#show-itm').css('display', 'none');
 
-    $('.SummaryItems').css('display', 'none');
-    $('.sumBreakupAmtText').css('display', 'none');
-     $("#summary").prop('checked', false);
-     $(".smryCheckbox").prop('checked', false);
-     $('.show-smry-cls').css('display', 'none');
-     $('#smrySuplr').css('display', 'none');
-     $('#smryPayment').css('display', 'none');
-     $('.smryHead').css('display', 'none');
-     $('.smryDef_Val').css('display', 'none');
-     $('.smryOtr_Val').css('display', 'none');
 
- }
+        if ($(".smryChk-All:checked").length == 1) {
 
+            $('.sumBreakupAmtText').css('display', 'block');
+            $('.SummaryItems').css('display', 'table-row');
+            $('.show-smry-cls').css('display', 'block');
+            $('#smrySuplr').css('display', 'block');
+            $('#smryPayment').css('display', 'block');
+            $('.smryHead').css('display', 'block');
+            $('.smryDef_Val').css('display', 'block');
+            $('.smryOtr_Val').css('display', 'block');
+            $('.sumMainDiv').css('display', 'table-row');
 
-});
+            $("#summary").prop('checked', true);
+            $(".smryCheckbox").prop('checked', true);
 
 
-// updateVisibility();
-$('body').on('change', '.summary-default-currency, .summary-second-currency', function() {
+        } else {
 
- updateVisibility();
-});
 
+            $('.sumMainDiv').css('display', 'none');
+            $('.SummaryItems').css('display', 'none');
+            $('.sumBreakupAmtText').css('display', 'none');
+            $("#summary").prop('checked', false);
+            $(".smryCheckbox").prop('checked', false);
+            $('.show-smry-cls').css('display', 'none');
+            $('#smrySuplr').css('display', 'none');
+            $('#smryPayment').css('display', 'none');
+            $('.smryHead').css('display', 'none');
+            $('.smryDef_Val').css('display', 'none');
+            $('.smryOtr_Val').css('display', 'none');
 
+        }
 
 
+    });
 
-//End summary parts
 
-//start item parts
-$(document).click(function(event) {
- if (!$(event.target).closest('.itemTable-txt, #show-itm').length) {
-     $('#show-itm').css('display', 'none');
- }
-});
-$('body').on('click', '.itemTable-txt', function() {
- event.stopPropagation();
+    // updateVisibility();
+    $('body').on('change', '.summary-default-currency, .summary-second-currency', function() {
 
- $('#show-header').css('display', 'none');
- $('#show-smry').css('display', 'none');
+        updateVisibility();
+    });
 
- $('#show-itm').toggle();
-});
 
-$('body').on('click', '.pdfFile', function() {
 
- $('#show-itm').css('display', 'none');
- $('#show-header').css('display', 'none');
- $('#show-smry').css('display', 'none');
 
-});
 
-$('body').on('click', '#taskRecord', function() {
- $('#show-itm').css('display', 'none');
- $('#show-header').css('display', 'none');
- $('#show-smry').css('display', 'none');
+    //End summary parts
 
-});
+    //start item parts
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.itemTable-txt, #show-itm').length) {
+            $('#show-itm').css('display', 'none');
+        }
+    });
+    $('body').on('click', '.itemTable-txt', function() {
+        event.stopPropagation();
 
-$('body').on('click', '#taskrecord', function() {
- $('#show-itm').css('display', 'none');
- $('#show-header').css('display', 'none');
- $('#show-smry').css('display', 'none');
+        $('#show-header').css('display', 'none');
+        $('#show-smry').css('display', 'none');
 
-});
+        $('#show-itm').toggle();
+    });
 
-//Item list check/uncheck
-$('body').on('click', '#itemTable', function() {
- $('#show-itm').css('display', 'block');
+    $('body').on('click', '.pdfFile', function() {
 
+        $('#show-itm').css('display', 'none');
+        $('#show-header').css('display', 'none');
+        $('#show-smry').css('display', 'none');
 
- if ($("#itemTable:checked").length == 1) {
-     $(".itemChk-All").prop('checked', true);
-     $(".itmTblCheckbox").prop('checked', true);
-     $('#itemDiv').css('display', 'block');
-     
-     $('.photo').css('display', 'block');
-     $('.itmProd').css('display', 'block');
-     $('.itmCode').css('display', 'block');
+    });
 
-     $('.itmTotal').css('display', 'block');
-     $('.itmPrc').css('display', 'block');
-     $('.otherCurPrice').css('display', 'block');
-     $('.itmPrcunit').css('display', 'block');
-     $('.itmPurqty').css('display', 'block');
-     $('.itmRecqty').css('display', 'block');
-     $('.otherCurTotal').css('display', 'block');
-     $('.itmNote').css('display', 'block');
+    $('body').on('click', '#taskRecord', function() {
+        $('#show-itm').css('display', 'none');
+        $('#show-header').css('display', 'none');
+        $('#show-smry').css('display', 'none');
 
+    });
 
- } else {
-     $(".itemChk-All").prop('checked', false);
-     $(".itmTblCheckbox").prop('checked', false);
-     $('#itemDiv').css('display', 'none');
-    
+    $('body').on('click', '#taskrecord', function() {
+        $('#show-itm').css('display', 'none');
+        $('#show-header').css('display', 'none');
+        $('#show-smry').css('display', 'none');
 
-     $('.photo').css('display', 'none');
-     $('.itmProd').css('display', 'none');
-     $('.itmCode').css('display', 'none');
-     $('.itmTotal').css('display', 'none');
-     $('.itmPrc').css('display', 'none');
-     $('.otherCurPrice').css('display', 'none');
-     $('.itmPrcunit').css('display', 'none');
-     $('.itmPurqty').css('display', 'none');
-     $('.itmRecqty').css('display', 'none');
-     $('.otherCurTotal').css('display', 'none');
-     $('.itmNote').css('display', 'none');
- }
+    });
 
-});
+    //Item list check/uncheck
+    $('body').on('click', '#itemTable', function() {
+        $('#show-itm').css('display', 'block');
 
-$('body').on('click', '.itemChk-All', function() {
 
- $('#show-itm').css('display', 'block');
+        if ($("#itemTable:checked").length == 1) {
+            $(".itemChk-All").prop('checked', true);
+            $(".itmTblCheckbox").prop('checked', true);
+            $('#itemDiv').css('display', 'block');
 
+            $('.photo').css('display', 'block');
+            $('.itmProd').css('display', 'block');
+            $('.itmCode').css('display', 'block');
 
- if ($(".itemChk-All:checked").length == 1) {
+            $('.itmTotal').css('display', 'block');
+            $('.itmPrc').css('display', 'block');
+            $('.otherCurPrice').css('display', 'block');
+            $('.itmPrcunit').css('display', 'block');
+            $('.itmPurqty').css('display', 'block');
+            $('.itmRecqty').css('display', 'block');
+            $('.otherCurTotal').css('display', 'block');
+            $('.itmNote').css('display', 'block');
 
-     
-     $('#itemDiv').css('display', 'block');
-     $("#itemTable").prop('checked', true);
-     $(".itmTblCheckbox").prop('checked', true);
 
-     $('.photo').css('display', 'block');
-     $('.itmProd').css('display', 'block');
-     $('.itmCode').css('display', 'block');
+        } else {
+            $(".itemChk-All").prop('checked', false);
+            $(".itmTblCheckbox").prop('checked', false);
+            $('#itemDiv').css('display', 'none');
 
-     $('.itmTotal').css('display', 'block');
-     $('.itmPrc').css('display', 'block');
-     $('.otherCurPrice').css('display', 'block');
-     $('.itmPrcunit').css('display', 'block');
-     $('.itmPurqty').css('display', 'block');
-     $('.itmRecqty').css('display', 'block');
-     $('.otherCurTotal').css('display', 'block');
-     $('.itmNote').css('display', 'block');
 
+            $('.photo').css('display', 'none');
+            $('.itmProd').css('display', 'none');
+            $('.itmCode').css('display', 'none');
+            $('.itmTotal').css('display', 'none');
+            $('.itmPrc').css('display', 'none');
+            $('.otherCurPrice').css('display', 'none');
+            $('.itmPrcunit').css('display', 'none');
+            $('.itmPurqty').css('display', 'none');
+            $('.itmRecqty').css('display', 'none');
+            $('.otherCurTotal').css('display', 'none');
+            $('.itmNote').css('display', 'none');
+        }
 
- } else {
-     $("#itemTable").prop('checked', false);
-     $(".itmTblCheckbox").prop('checked', false);
+    });
 
-     $('.photo').css('display', 'none');
-     $('.itmProd').css('display', 'none');
-     $('.itmCode').css('display', 'none');
-     $('.itmTotal').css('display', 'none');
-     $('.itmPrc').css('display', 'none');
-     $('.otherCurPrice').css('display', 'none');
-     $('.itmPrcunit').css('display', 'none');
-     $('.itmPurqty').css('display', 'none');
-     $('.itmRecqty').css('display', 'none');
-     $('.otherCurTotal').css('display', 'none');
-     $('.itmNote').css('display', 'none');
- }
+    $('body').on('click', '.itemChk-All', function() {
 
-});
-//end Item list check/uncheck       
+        $('#show-itm').css('display', 'block');
 
 
-//End item parts
+        if ($(".itemChk-All:checked").length == 1) {
 
-//tasks code goes here
 
-$('body').on('click', '#taskRecord', function() {
- $('#show-itm').css('display', 'none');
- $('#show-header').css('display', 'none');
- $('#show-smry').css('display', 'none');
+            $('#itemDiv').css('display', 'block');
+            $("#itemTable").prop('checked', true);
+            $(".itmTblCheckbox").prop('checked', true);
 
-});
+            $('.photo').css('display', 'block');
+            $('.itmProd').css('display', 'block');
+            $('.itmCode').css('display', 'block');
 
-$('body').on('click', '#taskrecord', function() {
- $('#show-itm').css('display', 'none');
- $('#show-header').css('display', 'none');
- $('#show-smry').css('display', 'none');
+            $('.itmTotal').css('display', 'block');
+            $('.itmPrc').css('display', 'block');
+            $('.otherCurPrice').css('display', 'block');
+            $('.itmPrcunit').css('display', 'block');
+            $('.itmPurqty').css('display', 'block');
+            $('.itmRecqty').css('display', 'block');
+            $('.otherCurTotal').css('display', 'block');
+            $('.itmNote').css('display', 'block');
+            $('.itemMainDiv').css('display', 'table-row');
 
-});
 
-//end task code
 
+        } else {
+            $("#itemTable").prop('checked', false);
+            $(".itmTblCheckbox").prop('checked', false);
 
+            $('.photo').css('display', 'none');
+            $('.itmProd').css('display', 'none');
+            $('.itmCode').css('display', 'none');
+            $('.itmTotal').css('display', 'none');
+            $('.itmPrc').css('display', 'none');
+            $('.otherCurPrice').css('display', 'none');
+            $('.itmPrcunit').css('display', 'none');
+            $('.itmPurqty').css('display', 'none');
+            $('.itmRecqty').css('display', 'none');
+            $('.otherCurTotal').css('display', 'none');
+            $('.itmNote').css('display', 'none');
 
+            $('.itemMainDiv').css('display', 'none');
+        }
+
+    });
+    //end Item list check/uncheck       
+
+
+    //End item parts
+
+    //tasks code goes here
+
+    $('body').on('click', '#taskRecord', function() {
+        $('#show-itm').css('display', 'none');
+        $('#show-header').css('display', 'none');
+        $('#show-smry').css('display', 'none');
+
+    });
+
+    $('body').on('click', '#taskrecord', function() {
+        $('#show-itm').css('display', 'none');
+        $('#show-header').css('display', 'none');
+        $('#show-smry').css('display', 'none');
+
+    });
+
+    //end task code
 </script>

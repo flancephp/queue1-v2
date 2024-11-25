@@ -384,7 +384,7 @@ function getItemHistory($pId, $params=array())
 	LEFT JOIN tbl_deptusers du ON(o.recMemberId = du.id) AND o.account_id = du.account_id
 	LEFT JOIN tbl_stores st ON(o.storeId = st.id) AND o.account_id = s.account_id
 	LEFT JOIN tbl_suppliers sp ON(o.supplierId = sp.id) AND o.account_id = sp.account_id						
-	WHERE od.pId = '".$pId."' AND od.account_id = '".$_SESSION['accountId']."' AND o.status = 2 ".$cond." ORDER BY o.setDateTime desc ";
+	WHERE od.pId = '".$pId."' AND od.account_id = '".$_SESSION['accountId']."' AND o.status = 2 ".$cond." ORDER BY o.sortingNo desc ";
 	
 	$resultSet = mysqli_query($con, $sqlSet);
 	
@@ -455,15 +455,26 @@ function getOrdItemVariancesAmt($ordId)
 	$variancesTot = 0;
 	$variancesQtyTot = 0;
 	$varaincesVal = 0;
+	$varPosAmt = 0;
+	$varNegAmt = 0;
 	while( $resRow = mysqli_fetch_array($resultSet) )
 	{
 			$varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
 			
 			$variancesQtyTot += $varaincesVal;
-			$variancesTot += ($varaincesVal*$resRow['lastPrice']);
+			$variancesTot += ($varaincesVal*$resRow['stockPrice']);
+
+			if($varaincesVal > 0)
+			{
+				$varPosAmt += ($varaincesVal*$resRow['stockPrice']);
+			}
+			elseif($varaincesVal < 0)
+			{
+				$varNegAmt += ($varaincesVal*$resRow['stockPrice']);
+			}
 	}
 	
-	return ['variancesQtyTot' => $variancesQtyTot, 'variancesTot' => $variancesTot];
+	return ['variancesQtyTot' => $variancesQtyTot, 'variancesTot' => $variancesTot, 'varPosAmt' => $varPosAmt, 'varNegAmt' => $varNegAmt];
 }
 
 function getOrdItemVariancesAmtNew($ordId)
@@ -486,14 +497,14 @@ function getOrdItemVariancesAmtNew($ordId)
         {
             $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
             $variancesNevQtyTot += $varaincesVal;
-            $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
+            $variancesNevTot += ($varaincesVal*$resRow['stockPrice']);
         }
         elseif($resRow['qtyReceived'] > $resRow['qty'])
         {
             $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
             
             $variancesPosQtyTot += $varaincesVal;
-            $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
+            $variancesPosTot += ($varaincesVal*$resRow['stockPrice']);
         }
     }
 	
@@ -3038,14 +3049,22 @@ function receiveOrdTotal($id,$invNo,$orderId, $excludeUpdate=0){
 		$netTotalAmt= ($chargePrice+$fixedCharges+$totalCalDiscount+$totalTax);
 		$netTotalAmtOther= ($chargePriceOther+$fixedChargesOther+$totalCalDiscountOther+$totalTaxOther);
 
+		
+
 		if($excludeUpdate == 0)
 		{
+			$sortingNo = getSortingNumber($_SESSION['accountId']);
+
+			
+
 			$updateQry = " UPDATE `tbl_orders` SET status=2,
 			`receivedBy` = '".$id."', 
 			`invNo` = '".$invNo."', 
 			`ordAmt` =  '".$netTotalAmt."',
 			`ordCurAmt` = '".$netTotalAmtOther."',
-			`setDateTime` = '".date('Y-m-d h:i:s')."' WHERE id = '".$orderId."'  AND account_id = '".$_SESSION['accountId']."'  ";
+			`setDateTime` = '".date('Y-m-d h:i:s')."',
+			`sortingNo`='".$sortingNo."'
+			 WHERE id = '".$orderId."'  AND account_id = '".$_SESSION['accountId']."'  ";
 			mysqli_query($con, $updateQry);
 		}
 		else{
@@ -5986,5 +6005,25 @@ function isSubMenuActive($page) {
     } else {
         return ""; // Return empty string if it doesn't match
     }
+}
+
+function getSortingNumber($accountId)
+{
+	global $con;
+
+	 $sqlSet = " SELECT * FROM tbl_orders where  `status`=2 AND  account_id = '".$accountId."' order by sortingNo desc limit 1 ";
+	$ordQry = mysqli_query($con, $sqlSet);
+	$ordResult = mysqli_fetch_array($ordQry);
+	
+	$lastSortingNo = 0;
+	if($ordResult)
+	{
+		$lastSortingNo =  $ordResult['sortingNo'];
+	}
+	
+	//Give new sorting number for each new order
+	 $sortingNo = $lastSortingNo > 0 ? ($lastSortingNo+1) : 100000;
+
+	return $sortingNo;
 }
 ?>

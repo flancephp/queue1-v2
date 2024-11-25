@@ -1,90 +1,79 @@
 <?php include('inc/dbConfig.php'); //connection details
 
-if (!isset($_SESSION['adminidusername']))
-{
-echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND type_id = '0' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-echo "<script>window.location='index.php'</script>";
+if ($permissionRow) {
+    echo "<script>window.location='index.php'</script>";
 }
 
-if( isset($_POST['name']) )
-{
+if (isset($_POST['name'])) {
 
-$sqlSet = " SELECT * FROM tbl_revenue_center WHERE name='".$_POST['name']."' AND account_id='".$_SESSION['accountId']."' ";
-$resultSet = mysqli_query($con, $sqlSet);
-$resultSetRow = mysqli_num_rows($resultSet);
+    $sqlSet = " SELECT * FROM tbl_revenue_center WHERE name='" . $_POST['name'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
 
-if ($resultSetRow==0)
-{
+    if ($resultSetRow == 0) {
 
-$sql = "INSERT INTO `tbl_revenue_center` SET 
-`name` = '".$_POST['name']."',
-`email` = '".$_POST['email']."',
-`address` = '".$_POST['address']."',
-`phone` = '".$_POST['phone']."', 
-`account_id` = '".$_SESSION['accountId']."' 	";
-mysqli_query($con, $sql); 
+        $sql = "INSERT INTO `tbl_revenue_center` SET 
+`name` = '" . $_POST['name'] . "',
+`email` = '" . $_POST['email'] . "',
+`address` = '" . $_POST['address'] . "',
+`phone` = '" . $_POST['phone'] . "', 
+`account_id` = '" . $_SESSION['accountId'] . "' 	";
+        mysqli_query($con, $sql);
 
-$revCenterId = mysqli_insert_id($con);
+        $revCenterId = mysqli_insert_id($con);
 
 
 
-$sql = "INSERT INTO `tbl_easymapping` SET
-`hotelId` = '".$_POST['hotelId']."',
-`revId` = '".$revCenterId."',
-`account_id` = '".$_SESSION['accountId']."'  ";
-mysqli_query($con, $sql);
+        $sql = "INSERT INTO `tbl_easymapping` SET
+`hotelId` = '" . $_POST['hotelId'] . "',
+`revId` = '" . $revCenterId . "',
+`account_id` = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
 
-$mapId = mysqli_insert_id($con);
-
-
-
-if(!empty($_POST['catNames']))
-{
-foreach($_POST['catNames'] as $catName)
-{
-$selQry = "SELECT * FROM tbl_map_category WHERE catName = '".$catName."' AND mapId = '".$mapId."' AND revId = '".$revCenterId."' AND account_id = '".$_SESSION['accountId']."' ";
-$result = mysqli_query($con, $selQry);
-$resRow = mysqli_fetch_array($result);
-if ($resRow == 0) {
-
-$sql = "INSERT INTO `tbl_map_category` SET
-`hotelId` = '".$_POST['hotelId']."',
-`mapId` = '".$mapId."',
-`revId` = '".$revCenterId."',
-`catName` = '".$catName."',
-`account_id` = '".$_SESSION['accountId']."'  ";
-
-mysqli_query($con, $sql);
-}
+        $mapId = mysqli_insert_id($con);
 
 
-}
-}
 
-echo '<script>window.location="revenueCenterSetup.php?added=1"</script>';
+        if (!empty($_POST['catNames'])) {
+            foreach ($_POST['catNames'] as $catName) {
+                $selQry = "SELECT * FROM tbl_map_category WHERE catName = '" . $catName . "' AND mapId = '" . $mapId . "' AND revId = '" . $revCenterId . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                $result = mysqli_query($con, $selQry);
+                $resRow = mysqli_fetch_array($result);
+                if ($resRow == 0) {
 
-}else{
+                    $sql = "INSERT INTO `tbl_map_category` SET
+`hotelId` = '" . $_POST['hotelId'] . "',
+`mapId` = '" . $mapId . "',
+`revId` = '" . $revCenterId . "',
+`catName` = '" . $catName . "',
+`account_id` = '" . $_SESSION['accountId'] . "'  ";
 
-echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
+                    mysqli_query($con, $sql);
+                }
+            }
+        }
 
-}
+        echo '<script>window.location="revenueCenterSetup.php?added=1"</script>';
+    } else {
 
+        echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
+    }
 }
 
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -108,7 +97,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -129,7 +118,7 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                                     <h1 class="h1"><?php echo showOtherLangText('Add Revenue Center'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -141,122 +130,123 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
                 </section>
 
                 <section class="ordDetail userDetail">
-                <form  class="container" id="frmEasy" name="frmEasy" action="" method="post" enctype="multipart/form-data">
-                    <div class="usrBtns d-flex align-items-center justify-content-between">
-                        <div class="usrBk-Btn">
-                            <div class="btnBg">
-                                <a href="revenueCenterSetup.php" class="btn btn-primary mb-usrBkbtn"><span
-                                        class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                        class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                    <form class="container" id="frmEasy" name="frmEasy" action="" method="post" enctype="multipart/form-data">
+                        <div class="usrBtns d-flex align-items-center justify-content-between">
+                            <div class="usrBk-Btn">
+                                <div class="btnBg">
+                                    <a href="revenueCenterSetup.php" class="btn btn-primary mb-usrBkbtn"><span
+                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                </div>
+                            </div>
+                            <div class="usrAd-Btn">
+                                <div class="btnBg">
+
+                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                                class="fa-solid fa-plus"></i></span> <span
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a></button>
+                                </div>
                             </div>
                         </div>
-                        <div class="usrAd-Btn">
-                            <div class="btnBg">
 
-                                <button type="submit" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                            class="fa-solid fa-plus"></i></span> <span
-                                        class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="acntStp">
-                        <div class="addUser-Form acntSetup-Form edtRev-cntr row" id="frmEasy" name="frmEasy">
-                            <div class="col-md-6">
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="requiredsign">*</span></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <input type="text"  required class="form-control" name="name" id="name"  placeholder="<?php echo showOtherLangText('Casa') ?>">
-                                    </div>
-                                </div>
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="ezzeAddress" class="form-label"><?php 
-		if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4) {
-		
-			echo showOtherLangText('Assign Ezee Address') . ' :';
-		} ?></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <?php
-		if ($_SESSION['accountId'] == 3) { ?>
-
-			<select name="hotelId"  id="hotelId" class="form-select" aria-label="Default select example">
-				<option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
-				<option value="29624"><?php echo showOtherLangText('Mnarani Beach Hotel(29624)') ?></option>
-			</select>
-
-		<?php }elseif ($_SESSION['accountId'] == 1) { ?>
-
-			<select name="hotelId" id="hotelId" required class="form-select" aria-label="Default select example">
-
-				<option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
-
-				<option value="21866"><?php echo showOtherLangText('Fun Beach Hotel(21866)') ?></option>
-
-				<option value="21930"><?php echo showOtherLangText('Casa Del Mar Hotel(21930)') ?></option>
-
-			</select>
-
-		<?php } ?>
-                                    </div>
-                                </div>
-                                <div class="row align-items-start acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="" class="form-label"><?php echo showOtherLangText('Set Ezee Category') ?></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="setEze-Ctgry">
-                                            <input required type="text" class="form-control"  name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
-                                            <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                    class="fa-solid fa-minus"></i></a>
+                        <div class="acntStp">
+                            <div class="addUser-Form acntSetup-Form edtRev-cntr row" id="frmEasy" name="frmEasy">
+                                <div class="col-md-6">
+                                    <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-3">
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="requiredsign">*</span></label>
                                         </div>
-                                        <div id="additionalContent">
-
+                                        <div class="col-md-9">
+                                            <input type="text" required class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
                                         </div>
-                                        <a href="javascript:void(0)" class="stEze-addLnk"><i
-                                                class="fa-solid fa-plus"></i></a>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-3">
+                                            <label for="ezzeAddress" class="form-label"><?php
+                                                                                        if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4 || $_SESSION['accountId'] == 5) {
 
-                            <div class="col-md-6">
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?></label>
+                                                                                            echo showOtherLangText('Assign Ezee Address') . ' :';
+                                                                                        } ?></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <?php
+                                            if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4 || $_SESSION['accountId'] == 5) { ?>
+
+                                                <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
+                                                    <option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
+                                                    <option value="29624"><?php echo showOtherLangText('Mnarani Beach Hotel(29624)') ?></option>
+                                                </select>
+
+                                            <?php } elseif ($_SESSION['accountId'] == 1) { ?>
+
+                                                <select name="hotelId" id="hotelId" required class="form-select" aria-label="Default select example">
+
+                                                    <option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
+
+                                                    <option value="21866"><?php echo showOtherLangText('Fun Beach Hotel(21866)') ?></option>
+
+                                                    <option value="21930"><?php echo showOtherLangText('Casa Del Mar Hotel(21930)') ?></option>
+
+                                                </select>
+
+                                            <?php } ?>
+                                        </div>
                                     </div>
-                                    <div class="col-md-9">
-                                    <textarea class="form-control" required style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                    <div class="row align-items-start acntStp-Row">
+                                        <div class="col-md-3">
+                                            <label for="" class="form-label"><?php echo showOtherLangText('Set Ezee Category') ?></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="setEze-Ctgry">
+                                                <input required type="text" class="form-control" name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
+                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
+                                                        class="fa-solid fa-minus"></i></a>
+                                            </div>
+                                            <div id="additionalContent">
+
+                                            </div>
+                                            <a href="javascript:void(0)" class="stEze-addLnk"><i
+                                                    class="fa-solid fa-plus"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?></label>
+
+                                <div class="col-md-6">
+                                    <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-3">
+                                            <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" required style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                        </div>
                                     </div>
-                                    <div class="col-md-9">
-                                        <input type="email" required class="form-control" name="email" id="email"
-                                            placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
+                                    <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-3">
+                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="email" required class="form-control" name="email" id="email"
+                                                placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <input type="tel" required class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
+                                    <div class="row align-items-center acntStp-Row">
+                                        <div class="col-md-3">
+                                            <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="tel" required class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
-            </div></div>
-            </section>
-
+            </div>
         </div>
+        </section>
+
+    </div>
     </div>
     </div>
 
@@ -266,24 +256,23 @@ echo '<script>window.location="addRevenueCenter.php?error=1"</script>';
 </body>
 
 </html>
-<?php	$x=0; ?>	
+<?php $x = 0; ?>
 <script>
-    function removeRow(id)
-{
-$('#'+id).remove();
-}
-  $(document).ready(function () {
-    var x=<?php echo $x;?>;
-    $(".stEze-addLnk").on("click", function () {
-        x++;
-      var newContent = '<div id="'+x+'" class="setEze-Ctgry"><input required type="text" id="tags'+x+'" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
-    '<a href="javascript:void(0)" onclick="removeRow('+x+')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
-    '</div>';
-     // Append the new content to the specified element
-      $("#additionalContent").append(newContent);
+    function removeRow(id) {
+        $('#' + id).remove();
+    }
+    $(document).ready(function() {
+        var x = <?php echo $x; ?>;
+        $(".stEze-addLnk").on("click", function() {
+            x++;
+            var newContent = '<div id="' + x + '" class="setEze-Ctgry"><input required type="text" id="tags' + x + '" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
+                '<a href="javascript:void(0)" onclick="removeRow(' + x + ')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
+                '</div>';
+            // Append the new content to the specified element
+            $("#additionalContent").append(newContent);
+        });
+
+
+
     });
-
-
-
-  });
 </script>

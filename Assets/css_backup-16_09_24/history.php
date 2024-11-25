@@ -1679,12 +1679,12 @@ html[dir=rtl]   .dropdown-item .fa-square { padding: 0 0 0 .5rem !important; }
                                             if ($resRow['qtyReceived'] < $resRow['qty']) {
                                 $varaincesVal = $resRow['qty'] - $resRow['qtyReceived'];
                                                 $variancesPosQtyTot += $varaincesVal;
-                                                $variancesPosTot += ($varaincesVal * $resRow['lastPrice']);
+                                                $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
                                             } elseif ($resRow['qtyReceived'] > $resRow['qty']) {
                                                 $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
     
                                                 $variancesNevQtyTot += $varaincesVal;
-                        $variancesNevTot += ($varaincesVal * $resRow['lastPrice']);
+                        $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
                                             }
                                         }
                                     ?>

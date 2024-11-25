@@ -468,7 +468,7 @@ $resultRow = mysqli_fetch_array($resSet);
           </tr>
         </tbody>
         <tbody>
-          <tr style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
+          <tr style="font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
             <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">'. showOtherLangText('Grand Total').' ('. $getDefCurDet['curCode'].')</th>
             <th style="font-size:18px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">'.getPriceWithCur($netTotalAmt,$getDefCurDet['curCode']).'</th>
           </tr>

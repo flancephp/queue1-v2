@@ -104,15 +104,15 @@ $plusvariance = $minusvariance = '';
 $plusqtytot =  $minusqtytot = '';
 foreach($resItemHistory['resRows'] as $item){
    // $variancesQtyTot = '';$amt = '';
-           if($_GET['ordType'] == 4)
+           if($item['ordType'] == 3)
             {
                  $variancesQtyTot = $item['qtyReceived']-$item['qty'];
 
                  $amt = $variancesQtyTot*$item['stockPrice'];
-                if($variancesQtyTot>0)
+                if($variancesQtyTot > 0)
                 {
                      $plusqtytot += $variancesQtyTot;
-                } else {
+                } elseif($variancesQtyTot < 0) {
                     $minusqtytot += $variancesQtyTot;
                 }
 
@@ -508,6 +508,8 @@ foreach($resItemHistory['resRows'] as $item){
                                         <!-- Date Box Start -->
                                         <form name="frm" id="frm" method="get" action="">
                                             <input type="hidden" name="id" id="id" value="<?php echo $_GET['id'];?>" />
+                                            <input type="hidden" name="ordType" id="ordType" value="<?php echo $_GET['ordType'];?>" />
+                                            
                                             <div class="prtDate">
                                                 <div class="hstDate">
                                                     <input type="text" size="10" class="datepicker"

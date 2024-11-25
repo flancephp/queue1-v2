@@ -522,9 +522,8 @@ $i=0;
       
         if( $_GET['itemName'] == 1)
         {
-        $itemName = $row['itemName'];
-        $itemName ='';
-        $content .= '<td style="padding: 5px;">'.$itemName.'</td>';
+            $itemName = $row['itemName'];
+            $content .= '<td style="padding: 5px;">'.$itemName.'</td>';
         }
      
         $content .= '<td style="padding: 5px;"></td>';

@@ -19,12 +19,26 @@ $sql = "SELECT * FROM tbl_orders  WHERE id = '".$_GET['orderId']."' AND account_
             $proresultSet = mysqli_query($con, $sql);
             
             $sumTotal= 0;
+            $posSumTotal = 0;
+            $negSumTotal = 0;
             $resultRows = [];
             while($row = mysqli_fetch_array($proresultSet))
             {
-                $resultRows[] = $row;
-                $sumTotal += ($row['qtyReceived']-$row['qty']) * $row['lastPrice'];
+              $resultRows[] = $row;
+              $sumTotal = ($row['qtyReceived']-$row['qty']) * $row['stockPrice'];
+
+                      if($sumTotal > 0)
+                      {
+                          $posSumTotal += $sumTotal;
+                      }
+                      elseif($sumTotal < 0)
+                      {
+                          $negSumTotal += $sumTotal;
+                      }
             }
+
+            $totalPosNegText = '<span style="color:black">'.getPriceWithCur($posSumTotal, $getDefCurDet['curCode']).'&nbsp;</span>'.
+                                '<span style="color:red">'.getPriceWithCur($negSumTotal, $getDefCurDet['curCode']).'&nbsp;</span>';
 
             
             $sqlSet = " SELECT * FROM tbl_user WHERE id = '".$ordDet['orderBy']."'  AND account_id = '".$_SESSION['accountId']."'  ";
@@ -84,7 +98,7 @@ $content = '
       <td style="padding: 8px 5px;">'.$ordDet['ordNumber'].'</td>
       <td style="padding: 8px 5px;">'.$orderBy['name'].'</td>
       <td style="padding: 8px 5px;">'.date('d-m-y h:i', strtotime($ordDet['ordDateTime']) ).'</td>
-      <td style="padding: 8px 5px;">'.getPriceWithCur($sumTotal,$getDefCurDet['curCode']).'</td>
+      <td style="padding: 8px 5px;">'.$totalPosNegText.'</td>
         </tr>';
      $content .= '</table>';
 
@@ -112,7 +126,7 @@ $content = '
       <td style="padding: 8px 5px;">'.$row['qtyReceived'].'</td>
       <td style="padding: 8px 5px;">
             '.($row['qtyReceived']-$row['qty']).'</td>
-      <td style="padding: 8px 5px;">'.getPriceWithCur( ($row['qtyReceived']-$row['qty']) * $row['lastPrice'], $getDefCurDet['curCode']).'</td>
+      <td style="padding: 8px 5px;">'.getPriceWithCur( ($row['qtyReceived']-$row['qty']) * $row['stockPrice'], $getDefCurDet['curCode']).'</td>
       </tr>';
        }
 

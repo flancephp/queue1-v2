@@ -796,14 +796,14 @@ $clientDetRow = mysqli_fetch_array($result);
                                                         {
                                                             $varaincesVal = $resRow['qty']-$resRow['qtyReceived'];
                                                             $variancesPosQtyTot += $varaincesVal;
-                                                            $variancesPosTot += ($varaincesVal*$resRow['lastPrice']);
+                                                            $variancesPosTot += ($varaincesVal*$resRow['stockPrice']);
                                                         }
                                                         elseif($resRow['qtyReceived'] > $resRow['qty'])
                                                         {
                                                             $varaincesVal = $resRow['qtyReceived']-$resRow['qty'];
                                                             
                                                             $variancesNevQtyTot += $varaincesVal;
-                                                            $variancesNevTot += ($varaincesVal*$resRow['lastPrice']);
+                                                            $variancesNevTot += ($varaincesVal*$resRow['stockPrice']);
                                                         }
                                                             
                                                     }

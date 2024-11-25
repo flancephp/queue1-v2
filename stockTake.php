@@ -142,6 +142,9 @@ $ordQry = mysqli_query($con, $sqlSet);
 $ordResult = mysqli_fetch_array($ordQry);
 $ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
 
+$sortingNo = getSortingNumber($_SESSION['accountId']);
+
+
 $qry = " INSERT INTO `tbl_orders` SET 
 storeId = '".$_SESSION['storeId']."',
 `ordType` = 3,
@@ -149,6 +152,7 @@ storeId = '".$_SESSION['storeId']."',
 `orderBy`  = '".$_SESSION['id']."',
 `ordDateTime` = '".date('Y-m-d h:i:s')."',
 `setDateTime` = '".date('Y-m-d h:i:s')."',
+`sortingNo`='".$sortingNo."',
 `ordAmt` = 0,
 `status` = 2,
 `account_id` = '".$_SESSION['accountId']."' ";
