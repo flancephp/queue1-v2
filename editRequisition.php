@@ -804,10 +804,22 @@ $cond = '';
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <!-- <div class="global__padding"> -->
+                        <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
+                                    <br /><br />
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <p>
+                                            <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
+                                        </p>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        
+                                    </div>
+
+                                <?php } ?>    
                         <div class="stcPart position-relative">
                             <div class="container cntTable header">
 
 
+                            
 
                                 <!-- topOrder edtReq nwOrder-Div-->
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
@@ -850,16 +862,7 @@ $cond = '';
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php } ?>
-                                <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
-                                    <br /><br />
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <p>
-                                            <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </p>
-                                    </div>
-
-                                <?php } ?>
+                                
 
                                 <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->

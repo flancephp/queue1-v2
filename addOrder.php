@@ -367,11 +367,58 @@ $currResultSet = mysqli_query($con, $curQry);
             /* .res__label__item::before {
 content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4;
 } */
+<<<<<<< HEAD
             .mb-brCode .ord-brCode,
             .mb-brCode .ord-StockQty {
                 width: 50% !important;
             }
         }
+=======
+.mb-brCode .ord-brCode, .mb-brCode .ord-StockQty { width: 50% !important; }
+}
+@media screen and (min-width: 1600px) {
+  .itmBody { padding-top: 12px;padding-bottom: 12px; }
+}
+@media(max-width:575px) { 
+.Itm-Name{ width: 100%; } .prdtCr-Unit { width: 70%; }
+.prdtCnt-Scnd { width: 30%; } 
+.col-7 .form-control { font-size:12px; }
+} 
+.Itm-brCode { width: 14%; }
+.prdtCr-Unit { width: 30%; }
+.Itm-Name { width: 18%; }
+.ttlCr-Type { width: 21% !important; }
+.prdtStk-Qty { width: 9%; }
+.prdtCnt-Scnd { width: 8%; }
+.ttlDft-Crcy.tb-bdy { font-weight:600; }
+html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: right; }
+.form-control.qty-itm { font-size:.875rem;font-weight:700; }
+.Itm-Name { font-weight:500; }
+.tb-head, .prdtImg.tb-head { font-weight: 500; }
+.ttlOtr-Crcy.tb-bdy.col { font-weight:600; }
+.cntTable { color: #232859;font-weight: 400; }
+.filder__btns.col-md-7 { max-width:472px; }
+/* .ttlDft-Crcy.tb-head { width: 100%; } */
+.nwNxt-Btn .btnBg { max-width:10.875rem; } 
+@media screen and (min-width: 1600px) {
+  .itmBody { font-size: 1rem;line-height: 1.3; } 
+  .tb-head { padding: 8px 8px 10px; } 
+}
+@media screen and (min-width: 992px) {
+    .nwNxt-Btn .btnBg { margin-left: auto; }
+    html[dir='rtl'] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
+}
+@media screen and (max-width: 1700px) {
+  .itmBody, .itmTable { font-size: 14px; } 
+  .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
+  .mbFeature .ordFeature > a { padding: 20px 0; }
+  .filder__btns.col-md-7 { max-width: 428px; }
+  .mbFeature .ordFeature:before { height: 37px; }
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+    .nwNxt-Btn .btnBg { max-width:132px; } 
+}
+>>>>>>> cab1e1482d995ac9e3b0fb55c06256feadc7c054
 
         @media screen and (min-width: 1600px) {
             .itmBody {
