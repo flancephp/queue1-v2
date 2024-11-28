@@ -1,121 +1,101 @@
 <?php
 include('inc/dbConfig.php'); //connection details
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'physica_storage' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'physical_storage' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
+if (!$permissionRow) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 
-if(isset($_GET['delId']) && $_GET['delId'])
-{
+if (isset($_GET['delId']) && $_GET['delId']) {
 
-	$selQry = " SELECT * FROM tbl_products where storageDeptId = '".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
-	$selRes = mysqli_query($con, $selQry);
-	$selResRow = mysqli_fetch_array($selRes);
+    $selQry = " SELECT * FROM tbl_products where storageDeptId = '" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+    $selRes = mysqli_query($con, $selQry);
+    $selResRow = mysqli_fetch_array($selRes);
 
-	if ($selResRow > 0) {
-		
-		echo "<script>window.location='physicalStorages.php?err=1 '</script>";
+    if ($selResRow > 0) {
 
-	}else{
+        echo "<script>window.location='physicalStorages.php?err=1 '</script>";
+    } else {
 
-		$sql = "DELETE FROM tbl_stores WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-		mysqli_query($con, $sql);
-
-        $sql = "DELETE FROM tbl_designation_sub_section_permission WHERE type_id='".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."' AND type = 'stock' AND designation_id = '".$_SESSION['designation_id']."' AND designation_Section_permission_id = '5' ";
+        $sql = "DELETE FROM tbl_stores WHERE id='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
         mysqli_query($con, $sql);
 
-		echo "<script>window.location='physicalStorages.php?delete=1&page=".$_GET['page']." '</script>";
+        $sql = "DELETE FROM tbl_designation_sub_section_permission WHERE type_id='" . $_GET['delId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' AND type = 'stock' AND designation_id = '" . $_SESSION['designation_id'] . "' AND designation_Section_permission_id = '5' ";
+        mysqli_query($con, $sql);
 
-	}
+        echo "<script>window.location='physicalStorages.php?delete=1&page=" . $_GET['page'] . " '</script>";
+    }
 }
 
 
 
-$sql = "SELECT * FROM tbl_stores WHERE account_id = '".$_SESSION['accountId']."'  ";
+$sql = "SELECT * FROM tbl_stores WHERE account_id = '" . $_SESSION['accountId'] . "'  ";
 $result = mysqli_query($con, $sql);
 
-if( isset($_POST['name']) )
+if (isset($_POST['name'])) {
 
-{
+    if (isset($_POST['name']) && $_POST['name']  && $_POST['id'] > 0) {
 
-	if( isset($_POST['name']) && $_POST['name']  && $_POST['id'] > 0)
+        $sql = "SELECT * FROM tbl_stores WHERE name = '" . trim($_POST['name']) . "' AND id != '" . $_POST['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ";
 
-	{
+        $result = mysqli_query($con, $sql);
 
-		$sql = "SELECT * FROM tbl_stores WHERE name = '".trim($_POST['name'])."' AND id != '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."' ";
+        $res = mysqli_fetch_array($result);
 
-		$result = mysqli_query($con, $sql);
+        if ($res) {
 
-		$res = mysqli_fetch_array($result);
+            echo "<script>window.location='physicalStorages.php?error=" . $_POST['name'] . " '</script>";
+        }
 
-		if($res)
+        $sql = "UPDATE `tbl_stores` SET
+		`name` = '" . $_POST['name'] . "'
+		WHERE id = '" . $_POST['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 
-		{
-			
-			echo "<script>window.location='physicalStorages.php?error=".$_POST['name']." '</script>";
+        mysqli_query($con, $sql);
+        echo "<script>window.location='physicalStorages.php?update=" . $_POST['id'] . " '</script>";
+    } else {
+        $checkStors = " SELECT * FROM tbl_stores WHERE name='" . $_POST['name'] . "' AND account_id='" . $_SESSION['accountId'] . "'  ";
+        $resultSet = mysqli_query($con, $checkStors);
+        $resultRow = mysqli_num_rows($resultSet);
 
-		}
+        if ($resultRow < 1) {
 
-		 $sql = "UPDATE `tbl_stores` SET
-		`name` = '".$_POST['name']."'
-		WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' ";
-       
-		mysqli_query($con, $sql);
-        echo "<script>window.location='physicalStorages.php?update=".$_POST['id']." '</script>";
-	}
-	else
-	{
-		$checkStors = " SELECT * FROM tbl_stores WHERE name='".$_POST['name']."' AND account_id='".$_SESSION['accountId']."'  ";
-		$resultSet = mysqli_query($con, $checkStors);
-		$resultRow = mysqli_num_rows($resultSet);
-
-		if ($resultRow < 1) {
-
-			$sql = "INSERT INTO `tbl_stores` SET `name` = '".$_POST['name']."', `account_id` = '".$_SESSION['accountId']."' ";
-			mysqli_query($con, $sql);
+            $sql = "INSERT INTO `tbl_stores` SET `name` = '" . $_POST['name'] . "', `account_id` = '" . $_SESSION['accountId'] . "' ";
+            mysqli_query($con, $sql);
 
             $storeId = mysqli_insert_id($con);
 
 
             //Insert supplier Details in designation sub section permission table
             $sql = "INSERT INTO `tbl_designation_sub_section_permission` SET 
-                    `designation_id` = '".$_SESSION['designation_id']."',
+                    `designation_id` = '" . $_SESSION['designation_id'] . "',
                     `designation_Section_permission_id` = '5',
                     `type` = 'stock',
-                    `type_id` = '".$storeId."', 
-                    `account_id` = '".$_SESSION['accountId']."'      ";
+                    `type_id` = '" . $storeId . "', 
+                    `account_id` = '" . $_SESSION['accountId'] . "'      ";
             mysqli_query($con, $sql);
-            echo "<script>window.location='physicalStorages.php?update=".$_POST['id']." '</script>";
-		}else{
+            echo "<script>window.location='physicalStorages.php?update=" . $_POST['id'] . " '</script>";
+        } else {
 
-			echo	"<script>window.location='physicalStorages.php?error=".$_POST['name']." '</script>";
-
-		}
-
-		
-	}
-
-	
-	
-	
-
+            echo    "<script>window.location='physicalStorages.php?error=" . $_POST['name'] . " '</script>";
+        }
+    }
 }
 
-?><!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+?>
+<!DOCTYPE html>
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -139,7 +119,7 @@ if( isset($_POST['name']) )
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -160,7 +140,7 @@ if( isset($_POST['name']) )
                                     <h1 class="h1"><?php echo showOtherLangText('Physical Storages') ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -173,37 +153,36 @@ if( isset($_POST['name']) )
 
                 <section class="ordDetail userDetail">
                     <div class="container pb-5">
-                        <?php if(isset($_GET['edit']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <p>
-                                <?php  
-                                    if(isset( $_GET['update']))
-                                    { 
-                                        echo $_GET['update'] > 0 ? ' '.showOtherLangText('Store Edited Successfully').' ' : ' '.showOtherLangText('Store Added Successfully').' ';
+                        <?php if (isset($_GET['edit']) || isset($_GET['update']) || isset($_GET['delete'])) { ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p>
+                                    <?php
+                                    if (isset($_GET['update'])) {
+                                        echo $_GET['update'] > 0 ? ' ' . showOtherLangText('Store Edited Successfully') . ' ' : ' ' . showOtherLangText('Store Added Successfully') . ' ';
                                     }
 
-                                    echo isset($_GET['delete']) ? ' '.showOtherLangText('Store Deleted Successfully').' ' : '';
+                                    echo isset($_GET['delete']) ? ' ' . showOtherLangText('Store Deleted Successfully') . ' ' : '';
 
-                                    echo isset($_GET['err']) ? ' '.showOtherLangText('Storage cannot be deleted as it is being used in some product').' ' : '';
+                                    echo isset($_GET['err']) ? ' ' . showOtherLangText('Storage cannot be deleted as it is being used in some product') . ' ' : '';
 
-                                ?>
-                            </p>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                                    ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                         <?php } ?>
-                        <?php if(isset($_GET['err'])) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <p>
-                                <?php echo isset($_GET['err']) ? ' '.showOtherLangText('Storage cannot be deleted as it is being used in some product').' ' : ''; ?>
-                            </p>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                        <?php if (isset($_GET['err'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p>
+                                    <?php echo isset($_GET['err']) ? ' ' . showOtherLangText('Storage cannot be deleted as it is being used in some product') . ' ' : ''; ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                         <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="setup.php" class="btn btn-primary mb-usrBkbtn">
-                                        <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                        <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span>
                                         <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
                                     </a>
                                 </div>
@@ -244,53 +223,51 @@ if( isset($_POST['name']) )
                                         </div>
                                     </div>
                                 </div>
-                                 <div id="myRecords">
-                                <?php 
+                                <div id="myRecords">
+                                    <?php
 
-                                $x= 0;
+                                    $x = 0;
 
-                                while($row = mysqli_fetch_array($result))
+                                    while ($row = mysqli_fetch_array($result)) {
 
-                                {
+                                        $color = ($x % 2 == 0) ? 'white' : '#FFFFCC';
 
-                                    $color = ($x%2 == 0)? 'white': '#FFFFCC';
-
-                                    $x++;
+                                        $x++;
 
                                     ?>
-                                <div class="userTask">
-                                    <div class="phyStrgTbl-body align-items-center itmBody">
-                                        <div class="phyStrgTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy phyStrgNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
-                                            </div>
-                                            <div class="tb-bdy phyStrgName-Clm">
-                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
-                                                
+                                        <div class="userTask">
+                                            <div class="phyStrgTbl-body align-items-center itmBody">
+                                                <div class="phyStrgTbl-Cnt d-flex align-items-center">
+                                                    <div class="tb-bdy phyStrgNum-Clm">
+                                                        <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x; ?></strong></p>
+                                                    </div>
+                                                    <div class="tb-bdy phyStrgName-Clm">
+                                                        <p class="userName"><span><?php echo $row['name']; ?></span></p>
+
+                                                    </div>
+                                                </div>
+                                                <div class="phyStrgTbl-Icns">
+                                                    <div class="tb-bdy phyStrgOpt-Clm d-flex align-items-center">
+                                                        <a href="javascript:void(0)" data-editid="<?php echo $row['id']; ?>" data-name="<?php echo $row['name']; ?>" class="userLink editicon" data-bs-toggle="modal"
+                                                            data-bs-target="#edit-PhyStorage">
+                                                            <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                        </a>
+                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id']; ?>');" class="userLink">
+                                                            <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="phyStrgTbl-Icns">
-                                            <div class="tb-bdy phyStrgOpt-Clm d-flex align-items-center">
-                                                <a href="javascript:void(0)" data-editid="<?php echo $row['id'];?>" data-name="<?php echo $row['name'];?>" class="userLink editicon" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-PhyStorage">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php 
+                                    <?php
 
                                     }
 
                                     ?>
-                                
 
-                                <!-- Table Body End -->
-                              </div>
+
+                                    <!-- Table Body End -->
+                                </div>
                             </div>
                         </div>
 
@@ -303,67 +280,67 @@ if( isset($_POST['name']) )
 
     <!-- Add Storage Popup Start -->
     <form role="form" action="" method="post" class="addUser-Form row">
-    <div class="modal" tabindex="-1" id="add-PhyStorage" aria-labelledby="add-PhyStorageLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Add store'); ?></h1>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" name="name" id="name" required placeholder="<?php echo showOtherLangText('Name'); ?>*">
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+        <div class="modal" tabindex="-1" id="add-PhyStorage" aria-labelledby="add-PhyStorageLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Add store'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" name="name" id="name" required placeholder="<?php echo showOtherLangText('Name'); ?>*">
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
     <!-- Add Storage Popup End -->
 
     <!-- Edit Storage Popup Start -->
-    <form role="form" action=""  class="addUser-Form row container glbFrm-Cont" method="post">
-    <div class="modal" tabindex="-1" id="edit-PhyStorage" aria-labelledby="edit-PhyStorageLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Edit store'); ?></h1>
-                </div>
-                <div class="modal-body">
-                <input type="hidden" name="id" id="edit-id" value="" /> 
+    <form role="form" action="" class="addUser-Form row container glbFrm-Cont" method="post">
+        <div class="modal" tabindex="-1" id="edit-PhyStorage" aria-labelledby="edit-PhyStorageLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Edit store'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="edit-id" value="" />
                         <input type="text" class="form-control" id="editStore" required name="name" placeholder="<?php echo showOtherLangText('Name'); ?>*">
-                   
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
     <!-- Edit Storage Popup End -->
 
     <div id="dialog" style="display: none;">
-    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
-</div>
-<?php require_once('footer.php');?>
-<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
+    <?php require_once('footer.php'); ?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="btnBg">
                         <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
@@ -379,26 +356,26 @@ if( isset($_POST['name']) )
 
 </html>
 
-<script>  
-$( document ).ready(function() {
-      $('.editicon').click(function(){
-        
-        var editIdValue = this.getAttribute("data-editid");
-        var editnameValue = this.getAttribute("data-name");
-        $('#editStore').val(editnameValue);
-        $('#edit-id').val(editIdValue);
-      });
-});  
- 
- function getDelNumb(delId){
-var newOnClick = "window.location.href='physicalStorages.php?delId=" + delId + "'";
+<script>
+    $(document).ready(function() {
+        $('.editicon').click(function() {
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+            var editIdValue = this.getAttribute("data-editid");
+            var editnameValue = this.getAttribute("data-name");
+            $('#editStore').val(editnameValue);
+            $('#edit-id').val(editIdValue);
+        });
+    });
 
- }  
+    function getDelNumb(delId) {
+        var newOnClick = "window.location.href='physicalStorages.php?delId=" + delId + "'";
 
- jQuery.fn.orderBy = function(keySelector) {
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
+
+    }
+
+    jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
             a = keySelector.apply(a);
             b = keySelector.apply(b);
@@ -411,10 +388,10 @@ var newOnClick = "window.location.href='physicalStorages.php?delId=" + delId + "
     // Function to sort and reorder the .userTask elements
     function sortRows(sort) {
         var uu = $(".userTask").orderBy(function() {
-             var number = +$(this).find(".userNumber").text().replace('No. ', '');
-             return sort === 1 ? number : -number; 
+            var number = +$(this).find(".userNumber").text().replace('No. ', '');
+            return sort === 1 ? number : -number;
         }).appendTo("#myRecords");
 
 
     }
-</script>  
+</script>

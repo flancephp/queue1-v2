@@ -10,7 +10,6 @@ if (!isset($_SESSION['adminidusername'])) {
 $getLangType = getLangType($_SESSION['language_id']);
 
 //check page permission
-$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'], $_SESSION['accountId']);
 
 if (!in_array('4', $checkPermission)) {
     echo "<script>window.location='index.php'</script>";

@@ -18,10 +18,11 @@ if (isset($_SESSION['autoFill'])) {
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-//check New Order page permission for session user
-$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'], $_SESSION['accountId']);
+
+
 if (!in_array('1', $checkPermission)) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 //get supplier permission
@@ -43,12 +44,12 @@ if (isset($_SESSION['currencyId'])) {
 
 //Add item level extra charges in list
 if (isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType'] == '1') {
-    $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+    $_SESSION['itemChargesOrd'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
 }
 
 //Add order level extra charges in list
 if (isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType'] == '3') {
-    $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+    $_SESSION['itemChargesOrd'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
 }
 
 // Set supplier id in session for the first time. again if user change supplier then delete all the record of previous selected supplier, currency, Other charges.
@@ -60,8 +61,8 @@ if ($_REQUEST['supplierId'] != '') {
             unset($_SESSION['currencyId']);
         }
 
-        if (isset($_SESSION['itemCharges'])) {
-            unset($_SESSION['itemCharges']);
+        if (isset($_SESSION['itemChargesOrd'])) {
+            unset($_SESSION['itemChargesOrd']);
         }
     }
 
@@ -88,7 +89,7 @@ if (!empty($_POST['itemName'])) {
     mysqli_query($con, $sql);
     $itemCharges = mysqli_insert_id($con);
 
-    $_SESSION['itemCharges'][1][$itemCharges] = $itemCharges;
+    $_SESSION['itemChargesOrd'][1][$itemCharges] = $itemCharges;
 
     echo '<script>window.location="addOrder.php?currencyId=' . $_POST['currencyPopupForm'] . '"</script>';
 }
@@ -109,7 +110,7 @@ if (!empty($_POST['feeName'])) {
 
     $itemCharges = mysqli_insert_id($con);
 
-    $_SESSION['itemCharges'][3][$itemCharges] = $itemCharges;
+    $_SESSION['itemChargesOrd'][3][$itemCharges] = $itemCharges;
 
     echo '<script>window.location="addOrder.php?currencyId=' . $_POST['currencyPopupForm'] . '"</script>';
 }
@@ -218,8 +219,8 @@ if (isset($_POST['placeOrder'])) {
     orderNetValue($ordId, $currencyId);
 
     unset($_SESSION['productIds']);
-    if (isset($_SESSION['itemCharges']) || isset($_SESSION['supplierId']) || isset($_SESSION['currencyId'])) {
-        unset($_SESSION['itemCharges']);
+    if (isset($_SESSION['itemChargesOrd']) || isset($_SESSION['supplierId']) || isset($_SESSION['currencyId'])) {
+        unset($_SESSION['itemChargesOrd']);
         unset($_SESSION['supplierId']);
         unset($_SESSION['currencyId']);
     }
@@ -249,17 +250,18 @@ if (isset($_POST['placeOrder'])) {
 
 //to delete item/order level charges
 if (isset($_GET['delId']) && $_GET['delId']) {
-    unset($_SESSION['itemCharges'][$_GET['feeType']][$_GET['delId']]);
+    unset($_SESSION['itemChargesOrd'][$_GET['feeType']][$_GET['delId']]);
 
     echo '<script>window.location="addOrder.php?delete=1&supplierId=' . $_SESSION['supplierId'] . '&currencyId=' . $_SESSION['currencyId'] . '"</script>';
 }
 
 if ($_GET['clear'] == 1) {
-    unset($_SESSION['itemCharges']);
+    unset($_SESSION['itemChargesOrd']);
     unset($_SESSION['supplierId']);
     unset($_SESSION['currencyId']);
     deleteOrderTempData($_SESSION['id']);
-    echo '<script>window.location ="addOrder.php"</script>';
+    echo '<script>window.location ="addOrder.php?datacleared=1"</script>';
+    exit;
 }
 
 //Add this part of code in main query where clause if supplier is set
@@ -367,58 +369,11 @@ $currResultSet = mysqli_query($con, $curQry);
             /* .res__label__item::before {
 content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 1.4;
 } */
-<<<<<<< HEAD
             .mb-brCode .ord-brCode,
             .mb-brCode .ord-StockQty {
                 width: 50% !important;
             }
         }
-=======
-.mb-brCode .ord-brCode, .mb-brCode .ord-StockQty { width: 50% !important; }
-}
-@media screen and (min-width: 1600px) {
-  .itmBody { padding-top: 12px;padding-bottom: 12px; }
-}
-@media(max-width:575px) { 
-.Itm-Name{ width: 100%; } .prdtCr-Unit { width: 70%; }
-.prdtCnt-Scnd { width: 30%; } 
-.col-7 .form-control { font-size:12px; }
-} 
-.Itm-brCode { width: 14%; }
-.prdtCr-Unit { width: 30%; }
-.Itm-Name { width: 18%; }
-.ttlCr-Type { width: 21% !important; }
-.prdtStk-Qty { width: 9%; }
-.prdtCnt-Scnd { width: 8%; }
-.ttlDft-Crcy.tb-bdy { font-weight:600; }
-html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: right; }
-.form-control.qty-itm { font-size:.875rem;font-weight:700; }
-.Itm-Name { font-weight:500; }
-.tb-head, .prdtImg.tb-head { font-weight: 500; }
-.ttlOtr-Crcy.tb-bdy.col { font-weight:600; }
-.cntTable { color: #232859;font-weight: 400; }
-.filder__btns.col-md-7 { max-width:472px; }
-/* .ttlDft-Crcy.tb-head { width: 100%; } */
-.nwNxt-Btn .btnBg { max-width:10.875rem; } 
-@media screen and (min-width: 1600px) {
-  .itmBody { font-size: 1rem;line-height: 1.3; } 
-  .tb-head { padding: 8px 8px 10px; } 
-}
-@media screen and (min-width: 992px) {
-    .nwNxt-Btn .btnBg { margin-left: auto; }
-    html[dir='rtl'] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
-}
-@media screen and (max-width: 1700px) {
-  .itmBody, .itmTable { font-size: 14px; } 
-  .fa-angle-right, .fa-angles-left {width: 24px;height:24px; }
-  .mbFeature .ordFeature > a { padding: 20px 0; }
-  .filder__btns.col-md-7 { max-width: 428px; }
-  .mbFeature .ordFeature:before { height: 37px; }
-}
-@media (min-width: 992px) and (max-width: 1599px) {
-    .nwNxt-Btn .btnBg { max-width:132px; } 
-}
->>>>>>> cab1e1482d995ac9e3b0fb55c06256feadc7c054
 
         @media screen and (min-width: 1600px) {
             .itmBody {
@@ -893,13 +848,15 @@ html[dir='rtl'] .ttlDft-Crcy.tb-bdy, html[dir='rtl'] .ttlOtr-Crcy { text-align: 
                 <section class="ordDetail pb-5 pb-sm-4 mb-4 mb-sm-0">
                     <div class="tpBar-grn"></div>
                     <div class="container nordPrice py-0 mt-0">
-                        <?php if (isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes'])) { ?>
+                        <?php if (isset($_GET['datacleared']) || isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete']) || isset($_GET['imported']) || isset($_GET['mes'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
                                 <p>
                                     <?php
                                     echo isset($_GET['edit']) ? ' ' . showOtherLangText('Item Edited Successfully') . ' ' : '';
                                     echo isset($_GET['added']) ? ' ' . showOtherLangText('Item Added Successfully') . ' ' : '';
                                     echo isset($_GET['imported']) ? ' ' . showOtherLangText('Item imported Successfully') . ' ' : '';
+                                    echo isset($_GET['datacleared']) ? ' ' . showOtherLangText('Temp data has been cleared.') . ' ' : '';
+
                                     echo isset($_GET['mes']) ? $_GET['mes'] : '';
 
                                     if (isset($_GET['delete']) && $_GET['delete'] == 1) {
@@ -1138,8 +1095,8 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 
                                     //for custom item fee charges
                                     $customCharge = 0;
-                                    if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
-                                        $itemIds = implode(',', $_SESSION['itemCharges'][1]);
+                                    if (isset($_SESSION['itemChargesOrd'][1]) && count($_SESSION['itemChargesOrd'][1]) > 0) {
+                                        $itemIds = implode(',', $_SESSION['itemChargesOrd'][1]);
 
                                         $sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE id IN(" . $itemIds . ") AND account_id = '" . $_SESSION['accountId'] . "'   ";
                                         $customFeeResult = mysqli_query($con, $sqlSet);
@@ -1156,7 +1113,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                                     <div class="container">
                                         <div class="prcTable">
                                             <?php
-                                            if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) { ?>
+                                            if (isset($_SESSION['itemChargesOrd'][3]) && count($_SESSION['itemChargesOrd'][3]) > 0) { ?>
                                                 <div class="price justify-content-between">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
@@ -1183,8 +1140,8 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                                             $fixedCharges = 0;
                                             $perCharges = 0;
 
-                                            if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) {
-                                                $itemIds = implode(',', $_SESSION['itemCharges'][3]);
+                                            if (isset($_SESSION['itemChargesOrd'][3]) && count($_SESSION['itemChargesOrd'][3]) > 0) {
+                                                $itemIds = implode(',', $_SESSION['itemChargesOrd'][3]);
 
                                                 //start order level fixed discount charges
                                                 $sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(" . $itemIds . ") AND account_id = '" . $_SESSION['accountId'] . "'  AND feeType =2 ";
@@ -1305,7 +1262,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                                             $netTotalValueOther = ($totalChargePriceOther + $totalFixedChargesOther + $totalPerChargesOther + $totalTaxChargesOther);
                                             ?>
                                             <div <?php
-                                                    if (!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0) {
+                                                    if (!isset($_SESSION['itemChargesOrd'][3]) || count($_SESSION['itemChargesOrd'][3]) == 0) {
                                                         echo 'style="border-top: 0px;"';
                                                     } ?> class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
@@ -1336,8 +1293,8 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                     $x = 0;
                     $totalCustomCharges = 0;
                     $countCustomItems = 0;
-                    if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
-                        $itemIds = implode(',', $_SESSION['itemCharges'][1]);
+                    if (isset($_SESSION['itemChargesOrd'][1]) && count($_SESSION['itemChargesOrd'][1]) > 0) {
+                        $itemIds = implode(',', $_SESSION['itemChargesOrd'][1]);
 
                         $sqlSet = " SELECT f.*, i.notes FROM tbl_custom_items_fee f LEFT JOIN
                         tbl_order_items_temp i ON(i.pId = f.id) AND f.account_id = i.account_id AND i.itemType=2
@@ -1436,7 +1393,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                     <div id="boxscroll" class="compact__tb__bdy">
                         <div class="container cntTable">
                             <?php
-                            if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
+                            if (isset($_SESSION['itemChargesOrd'][1]) && count($_SESSION['itemChargesOrd'][1]) > 0) {
                                 while ($row = mysqli_fetch_array($resRows)) //start custom item charge loop
                                 {
                                     $x++;

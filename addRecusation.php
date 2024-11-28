@@ -8,9 +8,14 @@ $checkPermission = permission_denied_for_section_pages($_SESSION['designation_id
 
 if (!isset($_SESSION['adminidusername'])) {
     echo '<script>window.location ="login.php"</script>';
+    exit;
 }
 // Get column permission of requisition
-$getColumnPermission = get_column_permission($_SESSION['designation_id'], $_SESSION['accountId'], 2);
+
+if (!in_array('2', $checkPermission)) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
+}
 
 //get member permission
 // $memberCond = '';
@@ -22,12 +27,12 @@ $getColumnPermission = get_column_permission($_SESSION['designation_id'], $_SESS
 
 //Add item charges in list
 if (isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType'] == '1') {
-    $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+    $_SESSION['itemChargesReq'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
 }
 
 //Add order charges in list
 if (isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType'] == '3') {
-    $_SESSION['itemCharges'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
+    $_SESSION['itemChargesReq'][$_GET['feeType']][$_GET['itemCharges']] = $_GET['itemCharges'];
 }
 
 
@@ -36,8 +41,8 @@ if ($_REQUEST['recMemberId'] != '') {
         deleteRecusitionTempData($_SESSION['id']);
         unset($_SESSION['deptId']);
 
-        if (isset($_SESSION['itemCharges'])) {
-            unset($_SESSION['itemCharges']);
+        if (isset($_SESSION['itemChargesReq'])) {
+            unset($_SESSION['itemChargesReq']);
         }
     }
 
@@ -56,7 +61,7 @@ if (isset($_SESSION['recMemberId'])) {
 
 if (isset($_GET['clearTempPro'])) {
     deleteRecusitionTempData($_SESSION['id']);
-    unset($_SESSION['itemCharges']);
+    unset($_SESSION['itemChargesReq']);
     unset($_SESSION['deptId']);
     unset($_SESSION['recMemberId']);
 
@@ -85,7 +90,7 @@ if (!empty($_POST['itemName'])) {
     `account_id` = '" . $_SESSION['accountId'] . "'  ";
     mysqli_query($con, $sql);
     $itemCharges = mysqli_insert_id($con);
-    $_SESSION['itemCharges'][1][$itemCharges] = $itemCharges;
+    $_SESSION['itemChargesReq'][1][$itemCharges] = $itemCharges;
     echo '<script>window.location = "addRecusation.php"</script>';
 }
 
@@ -105,7 +110,7 @@ if (!empty($_POST['feeName'])) {
 
     $itemCharges = mysqli_insert_id($con);
 
-    $_SESSION['itemCharges'][3][$itemCharges] = $itemCharges;
+    $_SESSION['itemChargesReq'][3][$itemCharges] = $itemCharges;
 
     echo '<script>window.location = "addRecusation.php"</script>';
 }
@@ -226,8 +231,8 @@ if (isset($_POST['placeOrder'])) {
 
     requisitionTotalValue($ordId);
 
-    if (isset($_SESSION['itemCharges']) || isset($_SESSION['deptId']) || isset($_SESSION['recMemberId'])) {
-        unset($_SESSION['itemCharges']);
+    if (isset($_SESSION['itemChargesReq']) || isset($_SESSION['deptId']) || isset($_SESSION['recMemberId'])) {
+        unset($_SESSION['itemChargesReq']);
         unset($_SESSION['deptId']);
         unset($_SESSION['recMemberId']);
     }
@@ -254,7 +259,7 @@ if (isset($_POST['placeOrder'])) {
 
 //delete item/order level charges
 if (isset($_GET['delId']) && $_GET['delId']) {
-    unset($_SESSION['itemCharges'][$_GET['feeType']][$_GET['delId']]);
+    unset($_SESSION['itemChargesReq'][$_GET['feeType']][$_GET['delId']]);
 
     echo '<script>window.location = "addRecusation.php?delete=1&deptId=' . $_SESSION['deptId'] . '"</script>';
 }
@@ -553,7 +558,6 @@ if ($_SESSION['deptId'] != '') {
                 padding-left: 15% !important;
             }
         }
-<<<<<<< HEAD
 
         .txnmRow {
             width: 40%;
@@ -622,17 +626,6 @@ if ($_SESSION['deptId'] != '') {
             }
         }
 
-=======
-        .txnmRow { width: 40%; }
-        .curRow { width: 50%; }
-        
-        @media(min-width:576px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 1.5rem !important;padding-right: 1.5rem !important;} }
-        @media(min-width:992px){ 
-            .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 2.5rem !important;padding-right: 2.5rem !important;} 
-            .nwNxt-Btn .btnBg { max-width: 132px; }
-        }
-        @media(min-width:1600px){ .container.cntTable, .nordPrice, .topOrder, .container.erdOrder, .recPrice, .nwOrder-Div {padding-left: 3.5rem !important;padding-right: 3.5rem !important;} }
->>>>>>> cab1e1482d995ac9e3b0fb55c06256feadc7c054
         @media screen and (max-width: 767px) {
             .ordFeature {
                 width: 50%;
@@ -685,18 +678,7 @@ if ($_SESSION['deptId'] != '') {
                 padding-left: 0 !important;
             }
         }
-<<<<<<< HEAD
 
-=======
-        @media (min-width: 992px) { html[dir="rtl"] .subTittle1 .ms-lg-3 { margin-right: 1rem !important;margin-left: 0 !important; } }
-        @media (min-width: 768px) { html[dir="rtl"] .subTittle1 .ps-md-5 { padding-right: 3rem !important;padding-left: 0 !important; } }
-        @media screen and (min-width: 1600px) { 
-            .prcTable { font-size: 1rem; } 
-            .nwNxt-Btn .btnBg { max-width:10.875rem;margin-left: auto; }
-            html[dir="rtl"] .nwNxt-Btn .btnBg { margin-left: 0;margin-right: auto; }
-            .nwNxt-Btn .btnBg .btn { width: 100%; }
-        }
->>>>>>> cab1e1482d995ac9e3b0fb55c06256feadc7c054
         @media(max-width:991px) {
             .innerDrop .dropdown-menu.show {
                 display: block;
@@ -832,7 +814,8 @@ if ($_SESSION['deptId'] != '') {
                                                                     </a>
                                                                 <?php } else { ?>
 
-                                                                    <a href="javascript:void(0)" class="tabFet">
+                                                                    <a href="javascript:void(0)" style="opacity: 0.5;cursor: default;
+pointer-events: none;" class="tabFet">
                                                                         <span class="autoFill"></span>
                                                                         <p class="btn2">
                                                                             <?php echo showOtherLangText('Auto Fill'); ?></p>
@@ -1015,8 +998,8 @@ if ($_SESSION['deptId'] != '') {
 
                                     //for custom item fee charges
                                     $customCharge = 0;
-                                    if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
-                                        $itemIds = implode(',', $_SESSION['itemCharges'][1]);
+                                    if (isset($_SESSION['itemChargesReq'][1]) && count($_SESSION['itemChargesReq'][1]) > 0) {
+                                        $itemIds = implode(',', $_SESSION['itemChargesReq'][1]);
                                         $sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE id IN(" . $itemIds . ")  AND account_id = '" . $_SESSION['accountId'] . "'  ";
                                         $resRows = mysqli_query($con, $sqlSet);
                                         while ($row = mysqli_fetch_array($resRows)) //start custom item charge loop
@@ -1029,7 +1012,7 @@ if ($_SESSION['deptId'] != '') {
                                     <div class="container">
                                         <div class="prcTable">
                                             <?php
-                                            if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) { ?>
+                                            if (isset($_SESSION['itemChargesReq'][3]) && count($_SESSION['itemChargesReq'][3]) > 0) { ?>
                                                 <div class="price justify-content-between">
                                                     <div class="p-2 delIcn text-center"></div>
                                                     <div class="p-2 txnmRow">
@@ -1047,8 +1030,8 @@ if ($_SESSION['deptId'] != '') {
                                             $taxCharges = 0;
                                             $fixedCharges = 0;
                                             $perCharges = 0;
-                                            if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) {
-                                                $itemIds = implode(',', $_SESSION['itemCharges'][3]);
+                                            if (isset($_SESSION['itemChargesReq'][3]) && count($_SESSION['itemChargesReq'][3]) > 0) {
+                                                $itemIds = implode(',', $_SESSION['itemChargesReq'][3]);
                                                 //start order level item fixed charges
                                                 $sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(" . $itemIds . ") AND account_id = '" . $_SESSION['accountId'] . "'  AND feeType =2 ";
                                                 $resRows = mysqli_query($con, $sqlSet);
@@ -1138,7 +1121,7 @@ if ($_SESSION['deptId'] != '') {
                                             $totalTaxCharges = (($totalChargePrice + $totalFixedCharges + $totalPerCharges) * $taxCharges / 100); //calculating total tax value 
                                             $netTotalValue = ($totalChargePrice + $totalFixedCharges + $totalPerCharges + $totalTaxCharges);
                                             ?>
-                                            <div <?php if (!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0) {
+                                            <div <?php if (!isset($_SESSION['itemChargesReq'][3]) || count($_SESSION['itemChargesReq'][3]) == 0) {
                                                         echo 'style="border-top: 0px;"';
                                                     }  ?> class="price justify-content-between grdTtl-Row">
                                                 <div class="p-2 delIcn text-center"></div>
@@ -1164,8 +1147,8 @@ if ($_SESSION['deptId'] != '') {
                     $totalCustomCharges = 0;
                     $countCustomItems = 0;
                     //$x = 0;
-                    if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
-                        $itemIds = implode(',', $_SESSION['itemCharges'][1]);
+                    if (isset($_SESSION['itemChargesReq'][1]) && count($_SESSION['itemChargesReq'][1]) > 0) {
+                        $itemIds = implode(',', $_SESSION['itemChargesReq'][1]);
 
                         $sqlSet = " SELECT f.*, i.notes FROM tbl_custom_items_fee f
                             LEFT JOIN tbl_recusition_items_temp i ON(i.pId = f.id)

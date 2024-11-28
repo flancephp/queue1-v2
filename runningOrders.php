@@ -3,6 +3,7 @@ include('inc/dbConfig.php'); //connection details
 
 
 if (!isset($_SESSION['adminidusername'])) {
+
     echo "<script>window.location='login.php'</script>";
 }
 
@@ -11,11 +12,10 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 
 //check page permission
-$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'], $_SESSION['accountId']);
-
 
 if (!in_array('3', $checkPermission)) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 

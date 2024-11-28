@@ -3,33 +3,32 @@
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
- 
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'currency' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'currency' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
 }
 
-if( isset($_POST['currency'])  )
-{
-	
-	$sql = "INSERT INTO `tbl_currency` SET 
-	`currency` = '".$_POST['currency']."',
-	`amt` = '".$_POST['amt']."',
-	`curCode` = '".$_POST['curCode']."',
-	`decPlace` = '".$_POST['decPlace']."',
-	`account_id` = '".$_SESSION['accountId']."' ";
-	mysqli_query($con, $sql);
+if (isset($_POST['currency'])) {
 
-	echo "<script>window.location='manageCurrency.php?added=1'</script>";
+    $sql = "INSERT INTO `tbl_currency` SET 
+	`currency` = '" . $_POST['currency'] . "',
+	`amt` = '" . $_POST['amt'] . "',
+	`curCode` = '" . $_POST['curCode'] . "',
+	`decPlace` = '" . $_POST['decPlace'] . "',
+	`account_id` = '" . $_SESSION['accountId'] . "' ";
+    mysqli_query($con, $sql);
+
+    echo "<script>window.location='manageCurrency.php?added=1'</script>";
 }
 
 
-?><!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+?>
+<!DOCTYPE html>
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -53,13 +52,13 @@ if( isset($_POST['currency'])  )
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Add Currency');?></h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Add Currency'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -71,11 +70,11 @@ if( isset($_POST['currency'])  )
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Add Currency');?></h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Add Currency'); ?></h1>
                                 </div>
                             </div>
-                            
-                             <?php require_once('header.php'); ?>
+
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -88,28 +87,28 @@ if( isset($_POST['currency'])  )
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <form  role="form" action="" method="post" class="addUser-Form acntSetup-Form">
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="manageCurrency.php" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back');?></span></a>
+                        <form role="form" action="" method="post" class="addUser-Form acntSetup-Form">
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="manageCurrency.php" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save');?></span></button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="edtSup-Div">
-                             <div class="row align-items-center acntStp-Row">
+                            <div class="edtSup-Div">
+                                <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="currency" class="form-label"><?php echo showOtherLangText('Currency');?></label>
+                                        <label for="currency" class="form-label"><?php echo showOtherLangText('Currency'); ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" name="currency" id="currency" placeholder="EUR">
@@ -118,7 +117,7 @@ if( isset($_POST['currency'])  )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code');?></label>
+                                        <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code'); ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" name="curCode" id="curCode" placeholder="€">
@@ -127,7 +126,7 @@ if( isset($_POST['currency'])  )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against').' ('.$getDefCurDet['curCode'].'1)';?></label>
+                                        <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against') . ' (' . $getDefCurDet['curCode'] . '1)'; ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" id="amt" name="amt" placeholder="0.89">
@@ -136,15 +135,15 @@ if( isset($_POST['currency'])  )
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place');?></label>
+                                        <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place'); ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" required class="form-control" id="decPlace" name="decPlace" placeholder="4">
                                     </div>
                                 </div>
 
-                          
-                        </div>
+
+                            </div>
 
                     </div>
                     </form>
@@ -154,8 +153,8 @@ if( isset($_POST['currency'])  )
         </div>
     </div>
 
-    
-  <?php require_once('footer.php');?>
+
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

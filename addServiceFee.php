@@ -1,98 +1,78 @@
 <?php include('inc/dbConfig.php'); //connection details
 
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'service_item' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'service_item' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
-if( isset($_POST['itemName']) )
-{ 
+if (isset($_POST['itemName'])) {
 
-	if( $_POST['isPopup'] != '')
-	{
-		$showHideInList = isset($_POST['visibility']) ? 1 : 0;
-	}
-	else
-	{
-		$showHideInList = 1;
-	}
-	
-	$sql = " SELECT * FROM tbl_custom_items_fee WHERE `itemName` = '".$_POST['itemName']."' AND account_id = '".$_SESSION['accountId']."' ";
-	$feeQrycheck = mysqli_query($con, $sql);
-	$feeResCheck = mysqli_fetch_array($feeQrycheck);
-	
-	if($feeResCheck)
-	{
-		$error = 'This fee already exist.';
-	}
-	else
-	{
+    if ($_POST['isPopup'] != '') {
+        $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+    } else {
+        $showHideInList = 1;
+    }
 
-			 $sql = "INSERT INTO `tbl_custom_items_fee` SET 
-			`itemName` = '".$_POST['itemName']."',
-			`unit` = '".$_POST['unit']."',
-			`amt` = '".$_POST['amt']."',
-			`visibility` = '".$showHideInList."',
-			`account_id` = '".$_SESSION['accountId']."' 
+    $sql = " SELECT * FROM tbl_custom_items_fee WHERE `itemName` = '" . $_POST['itemName'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+    $feeQrycheck = mysqli_query($con, $sql);
+    $feeResCheck = mysqli_fetch_array($feeQrycheck);
+
+    if ($feeResCheck) {
+        $error = 'This fee already exist.';
+    } else {
+
+        $sql = "INSERT INTO `tbl_custom_items_fee` SET 
+			`itemName` = '" . $_POST['itemName'] . "',
+			`unit` = '" . $_POST['unit'] . "',
+			`amt` = '" . $_POST['amt'] . "',
+			`visibility` = '" . $showHideInList . "',
+			`account_id` = '" . $_SESSION['accountId'] . "' 
 			";
-			mysqli_query($con, $sql);
-			$chargeId = mysqli_insert_id($con);
-			
-			
-			if( !empty($_POST['parentPage'])  )
-			{ 
-				$redPage = $_POST['parentPage'].'.php';
-				if( $_POST['parentPage'] ==  'addOrder' )
-				{
-					$_SESSION['itemCharges'][1][$chargeId] = $chargeId;
-				}
-				elseif( $_POST['parentPage'] ==  'editOrder' )
-				{	
-					editCustomCharge($_POST['orderId'],1, $chargeId);
-					$redPage .= '?orderId='.$_POST['orderId'];
-				}
-				elseif( $_POST['parentPage'] ==  'addRecusation')
-				{
-					$_SESSION['reqItemCharges'][1][$chargeId] = $chargeId;
-				}
-				elseif( $_POST['parentPage'] ==  'editRecusation' )
-				{
-					editCustomCharge($_POST['orderId'],1, $chargeId);
-					$redPage .= '?orderId='.$_POST['orderId'];
-				}
-				elseif( $_POST['parentPage'] ==  'requisitionPaymentDetail' )
-				{ 
-					editCustomCharge($_POST['orderId'],1, $chargeId);
-					$redPage .= '?orderId='.$_POST['orderId'].'&invoiceNumber='.$_REQUEST['invoiceNumber'].'&invoiceName='.$_REQUEST['invoiceName'].'&invoiceAddress='.$_REQUEST['invoiceAddress'].'&invoiceContact='.$_REQUEST['invoiceContact'];
-				}
-				elseif( $_POST['parentPage'] ==  'supplierPaymentDetail' )
-				{
-					editCustomCharge($_POST['orderId'],1, $chargeId);
-					$redPage .= '?orderId='.$_POST['orderId'].'&supplierInvoice='.$_REQUEST['supplierInvoice'].'&supplierName='.$_REQUEST['supplierName'].'&supplierAddress='.$_REQUEST['supplierAddress'].'&supplierContact='.$_REQUEST['supplierContact'];
-				}
-				echo"<script language='javascript'>";
-				echo("window.opener.location.href = '".$redPage."';");
-				echo("window.close();");
-				echo "</script>";
-		
-				die;
-			}
-		
-			echo "<script>window.location ='manageServiceFee.php?added=1'</script>";
-		}//end else here
+        mysqli_query($con, $sql);
+        $chargeId = mysqli_insert_id($con);
+
+
+        if (!empty($_POST['parentPage'])) {
+            $redPage = $_POST['parentPage'] . '.php';
+            if ($_POST['parentPage'] ==  'addOrder') {
+                $_SESSION['itemChargesOrd'][1][$chargeId] = $chargeId;
+            } elseif ($_POST['parentPage'] ==  'editOrder') {
+                editCustomCharge($_POST['orderId'], 1, $chargeId);
+                $redPage .= '?orderId=' . $_POST['orderId'];
+            } elseif ($_POST['parentPage'] ==  'addRecusation') {
+                $_SESSION['itemChargesReq'][1][$chargeId] = $chargeId;
+            } elseif ($_POST['parentPage'] ==  'editRecusation') {
+                editCustomCharge($_POST['orderId'], 1, $chargeId);
+                $redPage .= '?orderId=' . $_POST['orderId'];
+            } elseif ($_POST['parentPage'] ==  'requisitionPaymentDetail') {
+                editCustomCharge($_POST['orderId'], 1, $chargeId);
+                $redPage .= '?orderId=' . $_POST['orderId'] . '&invoiceNumber=' . $_REQUEST['invoiceNumber'] . '&invoiceName=' . $_REQUEST['invoiceName'] . '&invoiceAddress=' . $_REQUEST['invoiceAddress'] . '&invoiceContact=' . $_REQUEST['invoiceContact'];
+            } elseif ($_POST['parentPage'] ==  'supplierPaymentDetail') {
+                editCustomCharge($_POST['orderId'], 1, $chargeId);
+                $redPage .= '?orderId=' . $_POST['orderId'] . '&supplierInvoice=' . $_REQUEST['supplierInvoice'] . '&supplierName=' . $_REQUEST['supplierName'] . '&supplierAddress=' . $_REQUEST['supplierAddress'] . '&supplierContact=' . $_REQUEST['supplierContact'];
+            }
+            echo "<script language='javascript'>";
+            echo ("window.opener.location.href = '" . $redPage . "';");
+            echo ("window.close();");
+            echo "</script>";
+
+            die;
+        }
+
+        echo "<script>window.location ='manageServiceFee.php?added=1'</script>";
+    } //end else here
 }
 
 
@@ -100,7 +80,7 @@ if( isset($_POST['itemName']) )
 ?>
 
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -124,13 +104,13 @@ if( isset($_POST['itemName']) )
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Add Service Fee');?></h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Add Service Fee'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -142,97 +122,96 @@ if( isset($_POST['itemName']) )
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Add Service Fee');?></h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Add Service Fee'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
 
                 <section id="landScape">
                     <div class="container">
-                        <h1 class="h1 text-center"><?php echo showOtherLangText('For better experience, Please use portrait view.');?></h1>
+                        <h1 class="h1 text-center"><?php echo showOtherLangText('For better experience, Please use portrait view.'); ?></h1>
                     </div>
                 </section>
 
                 <section class="ordDetail userDetail">
 
-                <h6 style="color:#FF0000" align="center"><?php 
-				
-				if( isset( $error ) && $error != '' )
-				{ 
-					echo $error;
-				}
+                    <h6 style="color:#FF0000" align="center"><?php
 
-			?></h6>
+                                                                if (isset($error) && $error != '') {
+                                                                    echo $error;
+                                                                }
+
+                                                                ?></h6>
 
                     <div class="container">
 
-                    <form role="form" action="" method="post"  class="addUser-Form acntSetup-Form" enctype="multipart/form-data">
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="manageServiceFee.php" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back');?></span></a>
+                        <form role="form" action="" method="post" class="addUser-Form acntSetup-Form" enctype="multipart/form-data">
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="manageServiceFee.php" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save');?></span></button>
+
+                            <div class="edtSup-Div">
+
+
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?><span class="requiredsign">*</span></label>
+                                    </div>
+                                    <div class="col-md-9">
+
+                                        <input placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>" type="text"
+                                            class="form-control" name="itemName" id="itemName"
+                                            value="<?php echo isset($_POST['itemName']) ? $_POST['itemName'] : ''; ?>"
+                                            autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required />
+
+
+                                    </div>
                                 </div>
+
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $<span class="requiredsign">*</span></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input placeholder="<?php echo showOtherLangText('20'); ?>" type="text" class="form-control" name="amt" id="amt"
+                                            value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>"
+                                            autocomplete="off"
+                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                            onChange="this.setCustomValidity('')" required />
+                                    </div>
+                                </div>
+
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit'); ?><span class="requiredsign">*</span></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input placeholder="<?php echo showOtherLangText('Trip'); ?>" type="text" class="form-control" name="unit" id="unit"
+                                            autocomplete="off" required />
+                                    </div>
+                                </div>
+
+
                             </div>
-                        </div>
-
-                        <div class="edtSup-Div">
-                           
-
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name');?><span class="requiredsign">*</span></label>
-                                    </div>
-                                    <div class="col-md-9">
-
-                                    <input placeholder="<?php echo showOtherLangText('Ace Transport charge');?>" type="text" 
-                                    class="form-control" name="itemName" id="itemName"
-                                                    value="<?php echo isset($_POST['itemName']) ? $_POST['itemName'] : ''; ?>"
-                                                     autocomplete="off"
-                                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                    onChange="this.setCustomValidity('')" required />
-
-                                       
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount');?> $<span class="requiredsign">*</span></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                    <input placeholder="<?php echo showOtherLangText('20');?>" type="text" class="form-control" name="amt" id="amt"
-                                                    value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>"
-                                                     autocomplete="off"
-                                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                    onChange="this.setCustomValidity('')" required />
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center acntStp-Row">
-                                    <div class="col-md-3">
-                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit');?><span class="requiredsign">*</span></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                    <input placeholder="<?php echo showOtherLangText('Trip');?>" type="text" class="form-control" name="unit" id="unit"
-                                                    autocomplete="off" required />
-                                    </div>
-                                </div>
-
-                            
-                        </div>
-                    </form>
+                        </form>
                     </div>
                 </section>
 

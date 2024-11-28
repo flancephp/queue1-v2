@@ -9,10 +9,10 @@ $getLangType = getLangType($_SESSION['language_id']);
 $selQry = " DELETE FROM tbl_order_details_temp WHERE ordId='" . $_GET['orderId'] . "' AND account_id='" . $_SESSION['accountId'] . "' AND editOrdNewItemStatus=1  ";
 mysqli_query($con, $selQry);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_requisition' AND type_id = '0' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_requisition' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow) {
+if (!$permissionRow) {
     echo "<script>window.location='index.php'</script>";
     exit;
 }
@@ -805,21 +805,21 @@ $cond = '';
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <!-- <div class="global__padding"> -->
                         <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
-                                    <br /><br />
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <p>
-                                            <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
-                                        </p>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        
-                                    </div>
+                            <br /><br />
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p>
+                                    <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
-                                <?php } ?>    
+                            </div>
+
+                        <?php } ?>
                         <div class="stcPart position-relative">
                             <div class="container cntTable header">
 
 
-                            
+
 
                                 <!-- topOrder edtReq nwOrder-Div-->
                                 <div class="sltSupp nwOrd-Num position start-0 p-0" style="top:1rem; min-width: fit-content;">
@@ -862,7 +862,7 @@ $cond = '';
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php } ?>
-                                
+
 
                                 <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">
                                     <!-- <div class="ordInfo edtreqInfo newFeatures"> -->

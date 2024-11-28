@@ -1,116 +1,102 @@
 <?php include('inc/dbConfig.php'); //connection details
 
-if (!isset($_SESSION['adminidusername']))
-{
-echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'supplier' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'supplier' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
-if( isset($_POST['name']) )
-{
-   
-if( $_POST['id'] > 0 )
-{
+if (isset($_POST['name'])) {
 
-$sql = "SELECT * FROM tbl_suppliers WHERE name = '".trim($_POST['name'])."' AND id != '".$_POST['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+    if ($_POST['id'] > 0) {
 
-$result = mysqli_query($con, $sql);
+        $sql = "SELECT * FROM tbl_suppliers WHERE name = '" . trim($_POST['name']) . "' AND id != '" . $_POST['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
 
-$res = mysqli_fetch_array($result);
+        $result = mysqli_query($con, $sql);
+
+        $res = mysqli_fetch_array($result);
 
 
 
-if($res)
-{
+        if ($res) {
 
-echo '<script>window.location="addEditSupplier.php?error=1&id='.$_POST['id'].'"</script>';
-}
-
-
-$sql = "UPDATE `tbl_suppliers` SET
-`name` = '".$_POST['name']."',
-`address` = '".$_POST['address']."',
-`email` = '".$_POST['email']."',
-`phone` = '".$_POST['phone']."'
-WHERE id = '".$_POST['id']."'
-AND account_id = '".$_SESSION['accountId']."'  ";
-
-}
-else
-{
-
-$sql = "SELECT * FROM tbl_suppliers WHERE name = '".trim($_POST['name'])."'  AND account_id = '".$_SESSION['accountId']."'  ";
-$result = mysqli_query($con, $sql);
-$res = mysqli_fetch_array($result);
+            echo '<script>window.location="addEditSupplier.php?error=1&id=' . $_POST['id'] . '"</script>';
+        }
 
 
-if($res)
-{
+        $sql = "UPDATE `tbl_suppliers` SET
+`name` = '" . $_POST['name'] . "',
+`address` = '" . $_POST['address'] . "',
+`email` = '" . $_POST['email'] . "',
+`phone` = '" . $_POST['phone'] . "'
+WHERE id = '" . $_POST['id'] . "'
+AND account_id = '" . $_SESSION['accountId'] . "'  ";
+    } else {
 
-echo '<script>window.location="addEditSupplier.php?error=1&id='.$_POST['id'].'"</script>';
-die;
+        $sql = "SELECT * FROM tbl_suppliers WHERE name = '" . trim($_POST['name']) . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        $result = mysqli_query($con, $sql);
+        $res = mysqli_fetch_array($result);
 
-}
 
-$sql = "INSERT INTO `tbl_suppliers` SET 
-        `name` = '".$_POST['name']."',
-		`address` = '".$_POST['address']."',
-		`email` = '".$_POST['email']."',
-		`phone` = '".$_POST['phone']."', 
-		`account_id` = '".$_SESSION['accountId']."' 	 ";
+        if ($res) {
+
+            echo '<script>window.location="addEditSupplier.php?error=1&id=' . $_POST['id'] . '"</script>';
+            die;
+        }
+
+        $sql = "INSERT INTO `tbl_suppliers` SET 
+        `name` = '" . $_POST['name'] . "',
+		`address` = '" . $_POST['address'] . "',
+		`email` = '" . $_POST['email'] . "',
+		`phone` = '" . $_POST['phone'] . "', 
+		`account_id` = '" . $_SESSION['accountId'] . "' 	 ";
         mysqli_query($con, $sql);
         $supplierId = mysqli_insert_id($con);
 
 
-//Insert supplier Details in designation sub section permission table
-$sql = "INSERT INTO `tbl_designation_sub_section_permission` SET 
-        `designation_id` = '".$_SESSION['designation_id']."',
+        //Insert supplier Details in designation sub section permission table
+        $sql = "INSERT INTO `tbl_designation_sub_section_permission` SET 
+        `designation_id` = '" . $_SESSION['designation_id'] . "',
         `designation_Section_permission_id` = '1',
         `type` = 'order_supplier',
-        `type_id` = '".$supplierId."', 
-        `account_id` = '".$_SESSION['accountId']."'      ";
-mysqli_query($con, $sql);
+        `type_id` = '" . $supplierId . "', 
+        `account_id` = '" . $_SESSION['accountId'] . "'      ";
+        mysqli_query($con, $sql);
 
 
 
-echo '<script>window.location="manageSuppliers.php?added=1"</script>';
-}
+        echo '<script>window.location="manageSuppliers.php?added=1"</script>';
+    }
 
-if (isset($_GET['id']))
-{
+    if (isset($_GET['id'])) {
 
-$sql = "UPDATE `tbl_suppliers` SET
+        $sql = "UPDATE `tbl_suppliers` SET
 
-		`name` = '".$_POST['name']."',
-	 	`address` = '".$_POST['address']."',
-	 	`email` = '".$_POST['email']."',
-	 	`phone` = '".$_POST['phone']."'
-		WHERE id = '".$_GET['id']."'
-		AND account_id = '".$_SESSION['accountId']."'  ";
-		mysqli_query($con, $sql);
-		
-		
-echo '<script>window.location="manageSuppliers.php?update='.$_POST['id'].'"</script>';
+		`name` = '" . $_POST['name'] . "',
+	 	`address` = '" . $_POST['address'] . "',
+	 	`email` = '" . $_POST['email'] . "',
+	 	`phone` = '" . $_POST['phone'] . "'
+		WHERE id = '" . $_GET['id'] . "'
+		AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
 
 
-}
-
-
+        echo '<script>window.location="manageSuppliers.php?update=' . $_POST['id'] . '"</script>';
+    }
 }
 
 
 
-$sql = "SELECT * FROM tbl_suppliers WHERE id = '".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+$sql = "SELECT * FROM tbl_suppliers WHERE id = '" . $_GET['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
 
 $result = mysqli_query($con, $sql);
 
@@ -120,7 +106,7 @@ $res = mysqli_fetch_array($result);
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -144,15 +130,15 @@ $res = mysqli_fetch_array($result);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
                             <h1 class="h1">
-                                <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit').' ' : ' '.showOtherLangText('Add').' ';?>
-                                <?php echo showOtherLangText('Supplier');?>
+                                <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' ' . showOtherLangText('Edit') . ' ' : ' ' . showOtherLangText('Add') . ' '; ?>
+                                <?php echo showOtherLangText('Supplier'); ?>
                             </h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
@@ -166,11 +152,11 @@ $res = mysqli_fetch_array($result);
                                 </div>
                                 <div class="mbpg-name">
                                     <h1 class="h1">
-                                        <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' '.showOtherLangText('Edit Supplier').' ' : ' '.showOtherLangText('Add Supplier').' ';?>
+                                        <?php echo (isset($_GET['id']) && $_GET['id'] > 0) ? ' ' . showOtherLangText('Edit Supplier') . ' ' : ' ' . showOtherLangText('Add Supplier') . ' '; ?>
                                     </h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -183,26 +169,26 @@ $res = mysqli_fetch_array($result);
 
                 <section class="ordDetail userDetail">
                     <form class="addUser-Form acntSetup-Form" role="form" action="" method="post" class="container">
-                        <input type="hidden" name="id" value="<?php echo $res['id'];?>" />
+                        <input type="hidden" name="id" value="<?php echo $res['id']; ?>" />
                         <div class="container">
-                            <?php if(isset($_GET['error'])) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('Supplier already exist').' ' : ''; ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p><?php echo isset($_GET['error']) ? ' ' . showOtherLangText('Supplier already exist') . ' ' : ''; ?></p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
                             <?php } ?>
                             <div class="usrBtns d-flex align-items-center justify-content-between">
                                 <a href="manageSuppliers.php" class="btn btn-primary">
-                                    <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
+                                    <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span>
                                     <span class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span>
                                 </a>
-                                
+
                                 <button type="submit" class="btn btn btn-primary">
-                                    <span class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> 
+                                    <span class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span>
                                     <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span>
                                 </button>
-                                
+
                             </div>
 
                             <div class="edtSup-Div">
@@ -211,7 +197,7 @@ $res = mysqli_fetch_array($result);
                                         <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="<?php echo $res['name'];?>"
+                                        <input type="text" class="form-control" value="<?php echo $res['name']; ?>"
                                             id="name" name="name" required placeholder="<?php echo showOtherLangText('Supplier') ?>">
                                     </div>
                                 </div>
@@ -223,7 +209,7 @@ $res = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-9">
                                         <textarea class="form-control" id="address" name="address"
-                                            placeholder="DC Janakpuri"><?php echo $res['address'];?></textarea>
+                                            placeholder="DC Janakpuri"><?php echo $res['address']; ?></textarea>
                                     </div>
                                 </div>
 
@@ -233,7 +219,7 @@ $res = mysqli_fetch_array($result);
                                             class="form-label"><?php echo showOtherLangText('Email'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="email" value="<?php echo $res['email'];?>" class="form-control"
+                                        <input type="email" value="<?php echo $res['email']; ?>" class="form-control"
                                             id="email" name="email" placeholder="<?php echo showOtherLangText('Logitech@gmail.com') ?>">
                                     </div>
                                 </div>
@@ -244,7 +230,7 @@ $res = mysqli_fetch_array($result);
                                             class="form-label"><?php echo showOtherLangText('Phone'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="tel" value="<?php echo $res['phone'];?>" class="form-control"
+                                        <input type="tel" value="<?php echo $res['phone']; ?>" class="form-control"
                                             id="phone" name="phone" placeholder="<?php echo showOtherLangText('+99994341000'); ?>">
                                     </div>
                                 </div>
@@ -259,7 +245,7 @@ $res = mysqli_fetch_array($result);
         </div>
     </div>
 
-    <?php require_once('footer.php');?>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

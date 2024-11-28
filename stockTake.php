@@ -3,18 +3,17 @@ include('inc/dbConfig.php'); //connection details
 
 //for excel file upload with Other language
 use Shuchkin\SimpleXLSX;
+
 require_once 'SimpleXLSX.php';
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-if( isset($_POST['storeId']) )
-{
-    $_SESSION['storeId'] = $_POST['storeId'];   
+if (isset($_POST['storeId'])) {
+    $_SESSION['storeId'] = $_POST['storeId'];
 }
 
-if( isset($_GET['processId']) && $_GET['stockTakeId'])
-{   
+if (isset($_GET['processId']) && $_GET['stockTakeId']) {
     $_SESSION['processId'] = $_GET['processId'];
     $_SESSION['storeId'] = $_GET['stockTakeId'];
 }
@@ -22,32 +21,28 @@ if( isset($_GET['processId']) && $_GET['stockTakeId'])
 $fileDataRows = [];
 $barCodesArr = [];
 
-if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' )
-{
+if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '') {
 
     $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
 
     $notFoundProducts = [];
 
-    $i=0;
-    foreach($xlsx->rows() as $row)
-    {
-        if($i == 0)
-        {
+    $i = 0;
+    foreach ($xlsx->rows() as $row) {
+        if ($i == 0) {
             $i++;
             continue;
-        }           
+        }
 
         $rows[] = [
-        'BarCode' => $row[0],
-        'StockTake' => $row[1]
+            'BarCode' => $row[0],
+            'StockTake' => $row[1]
         ];
     }
 
-//----------------------------------------------
+    //----------------------------------------------
 
-    if( is_array($rows) && !empty($rows) )
-    {       
+    if (is_array($rows) && !empty($rows)) {
 
         $_SESSION['stockTake'] = $rows;
 
@@ -55,31 +50,28 @@ if( isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '' 
         $pageName = 'stockTake';
 
         $insQry = " INSERT INTO tbl_log SET 
-        accountId = '".$_SESSION['accountId']."',
-        section = '".$pageName."',
+        accountId = '" . $_SESSION['accountId'] . "',
+        section = '" . $pageName . "',
         subSection = '',
-        logData = '".$jsonData."',
-        userId = '".$_SESSION['id']."',
-        date = '".date('Y-m-d H:i:s')."'  ";
+        logData = '" . $jsonData . "',
+        userId = '" . $_SESSION['id'] . "',
+        date = '" . date('Y-m-d H:i:s') . "'  ";
         mysqli_query($con, $insQry);
-        
     }
 }
 
 $backLink = 'stockView.php';
-if( isset($_SESSION['processId']) && isset($_SESSION['storeId']) )
-{   
-    $backLink = 'viewMobileStockTake.php?stockTakeId='.$_SESSION['storeId'];
+if (isset($_SESSION['processId']) && isset($_SESSION['storeId'])) {
+    $backLink = 'viewMobileStockTake.php?stockTakeId=' . $_SESSION['storeId'];
 
-    $sql=" SELECT t.*, p.barCode BarCode FROM  tbl_mobile_items_temp t 
+    $sql = " SELECT t.*, p.barCode BarCode FROM  tbl_mobile_items_temp t 
     INNER JOIN tbl_products p ON(p.id = t.pId) AND (p.account_id = t.account_id)
 
-    WHERE t.processId = '".$_SESSION['processId']."'  AND t.account_id = '".$_SESSION['accountId']."'  AND t.`stockTakeType` = 1 AND t.status=1 ";
+    WHERE t.processId = '" . $_SESSION['processId'] . "'  AND t.account_id = '" . $_SESSION['accountId'] . "'  AND t.`stockTakeType` = 1 AND t.status=1 ";
     $result = mysqli_query($con, $sql);
 
     $pIdArr = [];
-    while($stockTakeRes = mysqli_fetch_array($result) )
-    {
+    while ($stockTakeRes = mysqli_fetch_array($result)) {
         $fileDataRows[$stockTakeRes['BarCode']] = $stockTakeRes['qty'];
         $pIdArr[] = $stockTakeRes['pId'];
     }
@@ -87,32 +79,25 @@ if( isset($_SESSION['processId']) && isset($_SESSION['storeId']) )
     $sql = "SELECT p.*, s.qty stockQty, IF(u.name!='',u.name,p.unitC) unitC  FROM tbl_stocks s 
     INNER JOIN tbl_products p ON(s.pId = p.id) AND (s.account_id = p.account_id) 
     LEFT JOIN tbl_units u ON(u.id=p.unitC) AND (u.account_id = p.account_id)
-    WHERE p.id IN( ".implode(',', $pIdArr)." )  AND p.account_id = '".$_SESSION['accountId']."' ";
+    WHERE p.id IN( " . implode(',', $pIdArr) . " )  AND p.account_id = '" . $_SESSION['accountId'] . "' ";
     $importQry = mysqli_query($con, $sql);
-
 }
 
-if( isset($_SESSION['stockTake']) )
-{
-    if( is_array($_SESSION['stockTake']) && !empty($_SESSION['stockTake']) )
-    {
-        foreach($_SESSION['stockTake'] as $row)
-        {
+if (isset($_SESSION['stockTake'])) {
+    if (is_array($_SESSION['stockTake']) && !empty($_SESSION['stockTake'])) {
+        foreach ($_SESSION['stockTake'] as $row) {
 
             $row['BarCode'] = trim($row['BarCode']);
 
             $fileDataRows[$row['BarCode']] = trim($row['StockTake']);
 
-            $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '".$row['BarCode']."' AND storageDeptId = '".$_SESSION['storeId']."'   AND account_id = '".$_SESSION['accountId']."' ";
-           $resultSet = mysqli_query($con, $sqlSet);
-           $productRes = mysqli_fetch_array($resultSet);
-            if(!$productRes)
-            {
-               $notFoundProducts[] = $row['BarCode'];
-            }
-            else
-            {
-               $barCodesArr[] = $row['BarCode'];
+            $sqlSet = " SELECT * FROM tbl_products WHERE barCode = '" . $row['BarCode'] . "' AND storageDeptId = '" . $_SESSION['storeId'] . "'   AND account_id = '" . $_SESSION['accountId'] . "' ";
+            $resultSet = mysqli_query($con, $sqlSet);
+            $productRes = mysqli_fetch_array($resultSet);
+            if (!$productRes) {
+                $notFoundProducts[] = $row['BarCode'];
+            } else {
+                $barCodesArr[] = $row['BarCode'];
             }
         }
 
@@ -120,176 +105,162 @@ if( isset($_SESSION['stockTake']) )
         $sql = "SELECT p.*, s.qty stockQty, IF(u.name!='',u.name,p.unitC) unitC FROM tbl_stocks s 
         INNER JOIN tbl_products p ON(s.pId = p.id) AND s.account_id = p.account_id 
         LEFT JOIN tbl_units u ON(u.id=p.unitC) AND (u.account_id = p.account_id)
-        WHERE p.barCode IN( ".implode(',', $barCodesArr)." ) AND p.account_id = '".$_SESSION['accountId']."'  ";
+        WHERE p.barCode IN( " . implode(',', $barCodesArr) . " ) AND p.account_id = '" . $_SESSION['accountId'] . "'  ";
         $importQry = mysqli_query($con, $sql);
 
 
-        if (!isset($_SESSION['newStockTakeVal'])) 
-        {
+        if (!isset($_SESSION['newStockTakeVal'])) {
             $_SESSION['newStockTakeVal'] = $_SESSION['stockTake'];
         }
-        unset($_SESSION['stockTake']);
-
+        // unset($_SESSION['stockTake']);
     }
 }
 
 
-if( isset($_POST['stockTakeData']) && count($_POST['stockTakeData']) > 0 )
-{
+if (isset($_POST['stockTakeData']) && count($_POST['stockTakeData']) > 0) {
 
-$sqlSet = " SELECT ordNumber FROM tbl_orders WHERE account_id = '".$_SESSION['accountId']."'  ORDER BY id DESC LIMIT 1 ";
-$ordQry = mysqli_query($con, $sqlSet);
-$ordResult = mysqli_fetch_array($ordQry);
-$ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber']+1) : 100000;
+    $sqlSet = " SELECT ordNumber FROM tbl_orders WHERE account_id = '" . $_SESSION['accountId'] . "'  ORDER BY id DESC LIMIT 1 ";
+    $ordQry = mysqli_query($con, $sqlSet);
+    $ordResult = mysqli_fetch_array($ordQry);
+    $ordNumber = $ordResult['ordNumber'] > 0 ? ($ordResult['ordNumber'] + 1) : 100000;
 
-$sortingNo = getSortingNumber($_SESSION['accountId']);
+    $sortingNo = getSortingNumber($_SESSION['accountId']);
 
 
-$qry = " INSERT INTO `tbl_orders` SET 
-storeId = '".$_SESSION['storeId']."',
+    $qry = " INSERT INTO `tbl_orders` SET 
+storeId = '" . $_SESSION['storeId'] . "',
 `ordType` = 3,
-`ordNumber` = '".$ordNumber."',
-`orderBy`  = '".$_SESSION['id']."',
-`ordDateTime` = '".date('Y-m-d h:i:s')."',
-`setDateTime` = '".date('Y-m-d h:i:s')."',
-`sortingNo`='".$sortingNo."',
+`ordNumber` = '" . $ordNumber . "',
+`orderBy`  = '" . $_SESSION['id'] . "',
+`ordDateTime` = '" . date('Y-m-d h:i:s') . "',
+`setDateTime` = '" . date('Y-m-d h:i:s') . "',
+`sortingNo`='" . $sortingNo . "',
 `ordAmt` = 0,
 `status` = 2,
-`account_id` = '".$_SESSION['accountId']."' ";
-mysqli_query($con, $qry);
-$ordId = mysqli_insert_id($con);
+`account_id` = '" . $_SESSION['accountId'] . "' ";
+    mysqli_query($con, $qry);
+    $ordId = mysqli_insert_id($con);
 
-$ordAmt = 0;
-foreach($_POST['stockTakeData'] as $productId=>$stockTake)
-{   
+    $ordAmt = 0;
+    foreach ($_POST['stockTakeData'] as $productId => $stockTake) {
 
-    $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '".$productId."'  AND account_id = '".$_SESSION['accountId']."'  ";
-    $result = mysqli_query($con, $sql);
-    $stockRow = mysqli_fetch_array($result);
-
+        $sql = "SELECT *  FROM tbl_stocks  WHERE pId = '" . $productId . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        $result = mysqli_query($con, $sql);
+        $stockRow = mysqli_fetch_array($result);
 
 
-$insertQry = " INSERT INTO `tbl_order_details` (`id`, `account_id`,`ordId`, `pId`, `qty`, `qtyReceived`, `price`, `lastPrice`, `stockPrice`, `stockQty`) VALUES  (NULL, 
-    '".$_SESSION['accountId']."', 
-    '".$ordId."', 
-    '".$productId."', 
-    '".$stockRow['qty']."',
-    '".$stockTake."',
-    '".$stockRow['lastPrice']."',
-    '".$stockRow['lastPrice']."',
-    '".$stockRow['stockPrice']."',
-    '".$stockTake."') ";
-mysqli_query($con, $insertQry);
-            
-                
-    $upQry = " UPDATE  `tbl_stocks` SET
-     `qty` = ".$stockTake.",
-      `stockValue` = ".($stockTake*$stockRow['stockPrice'])." 
-    WHERE id = '".$stockRow['id']."'   AND account_id = '".$_SESSION['accountId']."'  ";
-    mysqli_query($con, $upQry);
 
+        $insertQry = " INSERT INTO `tbl_order_details` (`id`, `account_id`,`ordId`, `pId`, `qty`, `qtyReceived`, `price`, `lastPrice`, `stockPrice`, `stockQty`) VALUES  (NULL, 
+    '" . $_SESSION['accountId'] . "', 
+    '" . $ordId . "', 
+    '" . $productId . "', 
+    '" . $stockRow['qty'] . "',
+    '" . $stockTake . "',
+    '" . $stockRow['lastPrice'] . "',
+    '" . $stockRow['lastPrice'] . "',
+    '" . $stockRow['stockPrice'] . "',
+    '" . $stockTake . "') ";
+        mysqli_query($con, $insertQry);
+
+
+        $upQry = " UPDATE  `tbl_stocks` SET
+     `qty` = " . $stockTake . ",
+      `stockValue` = " . ($stockTake * $stockRow['stockPrice']) . " 
+    WHERE id = '" . $stockRow['id'] . "'   AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $upQry);
+    }
+
+    if (isset($_SESSION['processId']) || (isset($_GET['stockedit']) && $_GET['stockedit'] == 1)) {
+
+        $sql = " DELETE FROM tbl_mobile_time_track WHERE id = '" . $_SESSION['processId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
+
+        $sql = " DELETE FROM tbl_mobile_items_temp WHERE processId = '" . $_SESSION['processId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+        mysqli_query($con, $sql);
+
+        unset($_SESSION['processId']);
+    }
+
+    if (isset($_SESSION['newStockTakeVal'])) {
+        unset($_SESSION['newStockTakeVal']);
+    }
+    if (isset($_SESSION['stockTake'])) {
+        unset($_SESSION['stockTake']);
+    }
+
+
+    echo "<script>window.location = 'stockView.php?stockTake=1'</script>";
+    exit;
 }
 
-if( isset($_SESSION['processId']) || (isset($_GET['stockedit']) && $_GET['stockedit'] == 1) )
-{
 
-$sql = " DELETE FROM tbl_mobile_time_track WHERE id = '".$_SESSION['processId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-mysqli_query($con, $sql);
-
-$sql = " DELETE FROM tbl_mobile_items_temp WHERE processId = '".$_SESSION['processId']."' AND account_id = '".$_SESSION['accountId']."' ";
-mysqli_query($con, $sql);
-
-unset($_SESSION['processId']);          
-}
-
-echo "<script>window.location = 'stockView.php?stockTake=1'</script>";
-
-}
-
-
-$sqlSet = " SELECT * FROM tbl_stores WHERE id = '".$_SESSION['storeId']."'  AND account_id = '".$_SESSION['accountId']."'  ";
+$sqlSet = " SELECT * FROM tbl_stores WHERE id = '" . $_SESSION['storeId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
 $storeQry = mysqli_query($con, $sqlSet);
 $storeRow = mysqli_fetch_array($storeQry);
 
 $error = '';
-if( isset($_POST['btnSbt']) )
-{   
+if (isset($_POST['btnSbt'])) {
 
-    if( !isset($_SESSION['stockTakeLoggedIn']) )
-    { 
+    if (!isset($_SESSION['stockTakeLoggedIn'])) {
         //-------------------------------------------------------------------
-            $query ="SELECT * FROM tbl_user WHERE password = '" . $_POST['pass'] . "' AND status = 1 AND account_id = '".$_SESSION['accountId']."'  ";
-            $result = mysqli_query($con, $query);
-            $res = mysqli_fetch_array($result);
-            
-            if ( !empty($res) ) {
+        $query = "SELECT * FROM tbl_user WHERE password = '" . $_POST['pass'] . "' AND status = 1 AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        $result = mysqli_query($con, $query);
+        $res = mysqli_fetch_array($result);
 
-                $_SESSION['stockTakeLoggedIn'] = 1;
-            
-            }
-            else
-            {
-                  $url = "stockTake.php?passworderr=1";
-                 header("Location:$url");
-            }
+        if (!empty($res)) {
+
+            $_SESSION['stockTakeLoggedIn'] = 1;
+        } else {
+            $url = "stockTake.php?passworderr=1";
+            header("Location:$url");
+        }
     }
-    
-    
-    if( isset($_SESSION['stockTake']) &&  isset($_SESSION['stockTakeLoggedIn']) )
-    {
-        if( is_array($_SESSION['stockTake']) && !empty($_SESSION['stockTake']) )
-        {
-            foreach($_SESSION['stockTake'] as $key=>$row)
-            {
-                if( trim($row['BarCode']) == $_POST['barCode'] )
-                {   
-                    $_SESSION['stockTake'][$key] = ['BarCode'=>$row['BarCode'], 'StockTake'=>$_POST['itemCount']];
+
+
+    if (isset($_SESSION['stockTake']) &&  isset($_SESSION['stockTakeLoggedIn'])) {
+        if (is_array($_SESSION['stockTake']) && !empty($_SESSION['stockTake'])) {
+            foreach ($_SESSION['stockTake'] as $key => $row) {
+                if (trim($row['BarCode']) == $_POST['barCode']) {
+                    $_SESSION['stockTake'][$key] = ['BarCode' => $row['BarCode'], 'StockTake' => $_POST['itemCount']];
                 }
             }
         }
-        
+
         $url = "stockTake.php?stockedit=1";
-    
-         header("Location:$url");
-        
+
+        header("Location:$url");
+
         exit;
     }
-    
-    if( isset($_SESSION['processId']) && isset($_SESSION['storeId']) &&  isset($_SESSION['stockTakeLoggedIn']) )
-    {   
-        
-        $sql=" SELECT t.*, p.barCode BarCode  FROM  tbl_mobile_items_temp t 
+
+    if (isset($_SESSION['processId']) && isset($_SESSION['storeId']) &&  isset($_SESSION['stockTakeLoggedIn'])) {
+
+        $sql = " SELECT t.*, p.barCode BarCode  FROM  tbl_mobile_items_temp t 
                                 INNER JOIN tbl_products p ON(p.id = t.pId) AND p.account_id = t.account_id 
-                        WHERE t.processId = '".$_SESSION['processId']."' AND t.account_id = '".$_SESSION['accountId']."'   AND t.`stockTakeType` = 1 AND t.status=1 ";
+                        WHERE t.processId = '" . $_SESSION['processId'] . "' AND t.account_id = '" . $_SESSION['accountId'] . "'   AND t.`stockTakeType` = 1 AND t.status=1 ";
         $result = mysqli_query($con, $sql);
-        
+
         $pIdArr = [];
-        while($stockTakeRes = mysqli_fetch_array($result) )
-        {
-            
-            if( trim($stockTakeRes['BarCode']) == $_POST['barCode'] )
-            {   
-                 $sql=" UPDATE  tbl_mobile_items_temp  SET qty = '".$_POST['itemCount']."'
-                        WHERE processId = '".$_SESSION['processId']."'  AND account_id = '".$_SESSION['accountId']."'  AND `stockTakeType` = 1 AND status=1 AND pId='".$stockTakeRes['pId']."' ";
+        while ($stockTakeRes = mysqli_fetch_array($result)) {
+
+            if (trim($stockTakeRes['BarCode']) == $_POST['barCode']) {
+                $sql = " UPDATE  tbl_mobile_items_temp  SET qty = '" . $_POST['itemCount'] . "'
+                        WHERE processId = '" . $_SESSION['processId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  AND `stockTakeType` = 1 AND status=1 AND pId='" . $stockTakeRes['pId'] . "' ";
                 mysqli_query($con, $sql);
-                
-                
+
+
                 $url = "stockTake.php?stockedit=1";
-    
+
                 header("Location:$url");
-                
+
                 exit;
             }
         }
-        
-        
     }
-        
-    
 }
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -306,18 +277,49 @@ if( isset($_POST['btnSbt']) )
     <link rel="stylesheet" href="Assets/css/style.css">
     <style>
         @media screen and (max-width: 992px) {
-            .supTbl-IcnCol { order: 2;width: 15%; }
-            .supTbl-NmCol { width: 85%; }
+            .supTbl-IcnCol {
+                order: 2;
+                width: 15%;
+            }
+
+            .supTbl-NmCol {
+                width: 85%;
+            }
         }
-        .res__label { font-size:.625rem; }
+
+        .res__label {
+            font-size: .625rem;
+        }
+
         /* .overwrite__btn { font-size:1rem;line-height: 1.2;} */
         @media (max-width: 575px) {
-            .overwrite__btn { width: 8rem; }
-            .res__info__box { padding-top: 3rem; }
-            .res__info__box .mid__info { position: absolute;top:-1rem;left:0;width:100%;text-align:center; }
-            .res__info__box .mid__info h3 { margin-bottom: 0; }
-            .Fwt{font-weight:400;}
-            .Fwt span{font-weight:400;}
+            .overwrite__btn {
+                width: 8rem;
+            }
+
+            .res__info__box {
+                padding-top: 3rem;
+            }
+
+            .res__info__box .mid__info {
+                position: absolute;
+                top: -1rem;
+                left: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .res__info__box .mid__info h3 {
+                margin-bottom: 0;
+            }
+
+            .Fwt {
+                font-weight: 400;
+            }
+
+            .Fwt span {
+                font-weight: 400;
+            }
         }
     </style>
 </head>
@@ -327,7 +329,7 @@ if( isset($_POST['btnSbt']) )
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -348,7 +350,7 @@ if( isset($_POST['btnSbt']) )
                                     <h1 class="h1"><?php echo showOtherLangText('Stock view') ?></h1>
                                 </div>
                             </div>
-                               <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -361,220 +363,215 @@ if( isset($_POST['btnSbt']) )
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['stockedit']) || isset($_GET['update']) || isset($_GET['delete'])) {?>
+                        <?php if (isset($_GET['stockedit']) || isset($_GET['update']) || isset($_GET['delete'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
+                                <p><?php
 
-echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited successfully').' ' : '';
- ?>
+                                    echo isset($_GET['stockedit']) ? ' ' . showOtherLangText('Stock Take Count edited successfully') . ' ' : '';
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['passworderr'])) { ?>
+                        <?php } ?>
+                        <?php if (isset($_GET['passworderr'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['passworderr']) ? ' '.showOtherLangText('Password Error').' ' : '';
- ?></p>
+                                <p><?php echo isset($_GET['passworderr']) ? ' ' . showOtherLangText('Password Error') . ' ' : '';
+                                    ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
-                             <form method="post" action="">
+                        <?php } ?>
+                        <form method="post" action="">
 
 
 
-                    <input type="hidden" name="storeId" value="<?php echo $_SESSION['storeId'];?>" />
+                            <input type="hidden" name="storeId" value="<?php echo $_SESSION['storeId']; ?>" />
 
-                        <div class="usrBtns res__info__box position-relative d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="<?php echo $backLink; ?>" class="btn btn-primary mb-usrBkbtn">
-                                        <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> 
-                                        <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="usrBk-Btn mid__info">
-                                <div class="btnBg">
-                                  <h3 style="text-align: center;"> <?php echo showOtherLangText('Stock Take'); ?></h3>
-                                </div>
-                                <div class="btnBg">
-                                  <strong><?php echo date('m/d/Y');?> <?php echo $storeRow['name'];?></strong> 
-                                </div>
-                            </div>
-                            <div class="usrAd-Btn">
-                                <button type="submit" class="btn btn-primary mb-usrBkbtn overwrite__btn"> 
-                                    <?php echo showOtherLangText('Overwrite and Save') ?>
-                                </button> 
-                            </div>
-
-                        </div>
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <?php if( isset($_GET['showVar']) ) 
-                            { ?>
-                                <div class="btnBg">
-                                  <a style="color:#000000; text-decoration:underline" href="stockTake.php"><?php echo showOtherLangText('Show All Variances') ?></a>
-                                </div>
-                            <?php } else {?>
-                                <div class="btnBg">
-                                  <a style="color:#000000; text-decoration:underline" href="stockTake.php?showVar"><?php echo showOtherLangText('Hide (0) Variances') ?></a>
-                                </div>
-                            <?php } ?>
-                            </div>
-                            
-                            <div class="itmMng-Src usrAd-Btn">
-                                <div class="btnBg">
-                                    <div class="d-flex align-items-center itmMng-xlIcn gap-3">
-                                        <div class="chkStore">
-                                            <a href="stocktake_excel.php" target="_blank">
-                                                <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
-                                            </a>
-                                        </div>
-                                        <div class="chkStore">
-                                            <a href="stocktake_pdf_download.php" target="_blank">
-                                                <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
-                                            </a>
-                                        </div>
-
+                            <div class="usrBtns res__info__box position-relative d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="<?php echo $backLink; ?>" class="btn btn-primary mb-usrBkbtn">
+                                            <span class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span>
+                                            <span class="dsktp-Btn"><?php echo showOtherLangText('Back') ?></span>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="usrBk-Btn mid__info">
+                                    <div class="btnBg">
+                                        <h3 style="text-align: center;"> <?php echo showOtherLangText('Stock Take'); ?></h3>
+                                    </div>
+                                    <div class="btnBg">
+                                        <strong><?php echo date('m/d/Y'); ?> <?php echo $storeRow['name']; ?></strong>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <button type="submit" class="btn btn-primary mb-usrBkbtn overwrite__btn">
+                                        <?php echo showOtherLangText('Overwrite and Save') ?>
+                                    </button>
+                                </div>
 
-                        <div class="suplrTable">
-                            <div class="container">
-                                <!-- Table Head Start -->
-                                <div class="suppTbl-Head align-items-center itmTable">
-                                    <div class="supTbl-NmCol d-flex align-items-center">
-                                        <div class="tb-head supNum-Clm">
-                                            <div class="d-flex align-items-center">
-                                                <p><?php echo showOtherLangText('#') ?></p>
-                                                <span class="dblArrow">
-                                                    <a href="javascript:void(0)" onclick="sortRows(1);" class="d-block aglStock"><i
-                                                            class="fa-solid fa-angle-up"></i></a>
-                                                    <a href="javascript:void(0)" onclick="sortRows(0);" class="d-block aglStock"><i
-                                                            class="fa-solid fa-angle-down"></i></a>
-                                                </span>
+                            </div>
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <?php if (isset($_GET['showVar'])) { ?>
+                                        <div class="btnBg">
+                                            <a style="color:#000000; text-decoration:underline" href="stockTake.php"><?php echo showOtherLangText('Show All Variances') ?></a>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="btnBg">
+                                            <a style="color:#000000; text-decoration:underline" href="stockTake.php?showVar"><?php echo showOtherLangText('Hide (0) Variances') ?></a>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+
+                                <div class="itmMng-Src usrAd-Btn">
+                                    <div class="btnBg">
+                                        <div class="d-flex align-items-center itmMng-xlIcn gap-3">
+                                            <div class="chkStore">
+                                                <a href="stocktake_excel.php" target="_blank">
+                                                    <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
+                                                </a>
                                             </div>
-                                        </div>
-                                        <div class="tb-head supName-Clm">
-                                            <p><?php echo showOtherLangText('Photo'); ?></p>
-                                        </div>
-                                        <div class="tb-head supAdd-Clm">
-                                            <p><?php echo showOtherLangText('Item') ?></p>
-                                        </div>
-                                        <div class="tb-head supEml-Clm">
-                                            <p><?php echo showOtherLangText('Bar Code') ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="supTbl-EmCol d-flex align-items-center">
-                                        
-                                        <div class="tb-head supPhn-Clm">
-                                            <p><?php echo showOtherLangText('Unit'); ?></p>
-                                        </div>
-                                        <div class="tb-head supPhn-Clm">
-                                            <p><?php echo showOtherLangText('Qty'); ?></p>
-                                        </div>
-                                         <div class="tb-head supPhn-Clm">
-                                            <p><?php echo showOtherLangText('Stock Take'); ?></p>
-                                        </div>
-                                         <div class="tb-head supPhn-Clm">
-                                            <p><?php echo showOtherLangText('Variances'); ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="supTbl-IcnCol">
-                                        <div class="tb-head supOpt-Clm">
-                                            <p><?php echo showOtherLangText('Options') ?></p>
+                                            <div class="chkStore">
+                                                <a href="stocktake_pdf_download.php" target="_blank">
+                                                    <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
+                                                </a>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                 <div id="myRecords">
-                                <?php 
+                            </div>
 
-								$x= 0;
-
-							 while($row = mysqli_fetch_array($importQry))
-
-								{
-
-									$x++;
-                        
-                                    if( isset($_GET['showVar']) && ($fileDataRows[$row['barCode']]-$row['stockQty']) == 0 )
-                                    {
-                                        continue;
-                                    }
-
-									?>
-                                    <input type="hidden" name="stockTakeData[<?php echo $row['id'];?>]"
-                                value="<?php echo $fileDataRows[$row['barCode']];?>" />
-                                <div class="suplrTask">
-                                    <div class="suplrTbl-body itmBody">
+                            <div class="suplrTable">
+                                <div class="container">
+                                    <!-- Table Head Start -->
+                                    <div class="suppTbl-Head align-items-center itmTable">
                                         <div class="supTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy supNum-Clm sc1">
-                                                <p class="suplNumber"><span class="mb-UsrSpan">No. </span><?php echo $x;?></p>
+                                            <div class="tb-head supNum-Clm">
+                                                <div class="d-flex align-items-center">
+                                                    <p><?php echo showOtherLangText('#') ?></p>
+                                                    <span class="dblArrow">
+                                                        <a href="javascript:void(0)" onclick="sortRows(1);" class="d-block aglStock"><i
+                                                                class="fa-solid fa-angle-up"></i></a>
+                                                        <a href="javascript:void(0)" onclick="sortRows(0);" class="d-block aglStock"><i
+                                                                class="fa-solid fa-angle-down"></i></a>
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="tb-bdy supName-Clm sc2">
-                                                <p class="suplName"><?php 
-                     if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
-                     {  
-                        echo '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
-                        //echo '<img src="'.$siteUrl.'uploads/'.$row['imgName'].'" width="60" height="60">';
-                     }
-                    ?></p>
+                                            <div class="tb-head supName-Clm">
+                                                <p><?php echo showOtherLangText('Photo'); ?></p>
                                             </div>
-                                            <div class="tb-bdy supAdd-Clm sc3">
-                                                <span class="d-lg-none res__label">Item: </span>
-                                                <span class="suplAdrs"><?php echo $row['itemName'];?></span>
+                                            <div class="tb-head supAdd-Clm">
+                                                <p><?php echo showOtherLangText('Item') ?></p>
                                             </div>
-                                            <div class="tb-head supEml-Clm sc4">
-                                                <span class="d-lg-none res__label">Bar code: </span>
-                                                <span><?php echo $row['barCode'];?></span>
+                                            <div class="tb-head supEml-Clm">
+                                                <p><?php echo showOtherLangText('Bar Code') ?></p>
                                             </div>
                                         </div>
-                                        <div class="supTbl-EmCol align-items-center dirClass">
-                                            
-                                            <div class="tb-head supPhn-Clm Fwt dirClass2" style="font-weight: 400;">
-                                                <span class="d-lg-none res__label">Unit: </span>
-                                                <span><?php echo $row['unitC'];?></span>
+                                        <div class="supTbl-EmCol d-flex align-items-center">
+
+                                            <div class="tb-head supPhn-Clm">
+                                                <p><?php echo showOtherLangText('Unit'); ?></p>
                                             </div>
-                                            <div class="tb-head supPhn-Clm dirClass2">
-                                                <span class="d-lg-none res__label">Qty: </span>
-                                                <span><?php echo $row['stockQty'];?></span>
+                                            <div class="tb-head supPhn-Clm">
+                                                <p><?php echo showOtherLangText('Qty'); ?></p>
                                             </div>
-                                            <div class="tb-head supPhn-Clm dirClass2">
-                                                <span class="d-lg-none res__label">Stock take: </span>
-                                                <span><?php echo $fileDataRows[$row['barCode']];?></span>
+                                            <div class="tb-head supPhn-Clm">
+                                                <p><?php echo showOtherLangText('Stock Take'); ?></p>
                                             </div>
-                                            <div class="tb-head supPhn-Clm dirClass2">
-                                                <span class="d-lg-none res__label">Variances: </span>
-                                                <span><?php echo $fileDataRows[$row['barCode']]-$row['stockQty'];?></span>
+                                            <div class="tb-head supPhn-Clm">
+                                                <p><?php echo showOtherLangText('Variances'); ?></p>
                                             </div>
                                         </div>
                                         <div class="supTbl-IcnCol">
-                                            <div class="tb-bdy supOpt-Clm d-flex align-items-center">
-                                                <a onclick="editStockTake('<?php echo $row['barCode'];?>');" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                
+                                            <div class="tb-head supOpt-Clm">
+                                                <p><?php echo showOtherLangText('Options') ?></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="align-items-center mbTask-Splr">
-                                        <a href="javascript:void(0)" class="suplrLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
+                                    <div id="myRecords">
+                                        <?php
+
+                                        $x = 0;
+
+                                        while ($row = mysqli_fetch_array($importQry)) {
+
+                                            $x++;
+
+                                            if (isset($_GET['showVar']) && ($fileDataRows[$row['barCode']] - $row['stockQty']) == 0) {
+                                                continue;
+                                            }
+
+                                        ?>
+                                            <input type="hidden" name="stockTakeData[<?php echo $row['id']; ?>]"
+                                                value="<?php echo $fileDataRows[$row['barCode']]; ?>" />
+                                            <div class="suplrTask">
+                                                <div class="suplrTbl-body itmBody">
+                                                    <div class="supTbl-NmCol d-flex align-items-center">
+                                                        <div class="tb-bdy supNum-Clm sc1">
+                                                            <p class="suplNumber"><span class="mb-UsrSpan">No. </span><?php echo $x; ?></p>
+                                                        </div>
+                                                        <div class="tb-bdy supName-Clm sc2">
+                                                            <p class="suplName"><?php
+                                                                                if ($row['imgName'] != ''  && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
+                                                                                    echo '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'] . '" width="60" height="60">';
+                                                                                    //echo '<img src="'.$siteUrl.'uploads/'.$row['imgName'].'" width="60" height="60">';
+                                                                                }
+                                                                                ?></p>
+                                                        </div>
+                                                        <div class="tb-bdy supAdd-Clm sc3">
+                                                            <span class="d-lg-none res__label">Item: </span>
+                                                            <span class="suplAdrs"><?php echo $row['itemName']; ?></span>
+                                                        </div>
+                                                        <div class="tb-head supEml-Clm sc4">
+                                                            <span class="d-lg-none res__label">Bar code: </span>
+                                                            <span><?php echo $row['barCode']; ?></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="supTbl-EmCol align-items-center dirClass">
+
+                                                        <div class="tb-head supPhn-Clm Fwt dirClass2" style="font-weight: 400;">
+                                                            <span class="d-lg-none res__label">Unit: </span>
+                                                            <span><?php echo $row['unitC']; ?></span>
+                                                        </div>
+                                                        <div class="tb-head supPhn-Clm dirClass2">
+                                                            <span class="d-lg-none res__label">Qty: </span>
+                                                            <span><?php echo $row['stockQty']; ?></span>
+                                                        </div>
+                                                        <div class="tb-head supPhn-Clm dirClass2">
+                                                            <span class="d-lg-none res__label">Stock take: </span>
+                                                            <span><?php echo $fileDataRows[$row['barCode']]; ?></span>
+                                                        </div>
+                                                        <div class="tb-head supPhn-Clm dirClass2">
+                                                            <span class="d-lg-none res__label">Variances: </span>
+                                                            <span><?php echo $fileDataRows[$row['barCode']] - $row['stockQty']; ?></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="supTbl-IcnCol">
+                                                        <div class="tb-bdy supOpt-Clm d-flex align-items-center">
+                                                            <a onclick="editStockTake('<?php echo $row['barCode']; ?>');" class="userLink">
+                                                                <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="align-items-center mbTask-Splr">
+                                                    <a href="javascript:void(0)" class="suplrLink"><i
+                                                            class="fa-solid fa-angle-down"></i></a>
+                                                </div>
+                                            </div>
+                                        <?php
+
+                                        }
+
+                                        ?>
+                                        <!-- Table Body End -->
                                     </div>
                                 </div>
-                                <?php 
-
-								}
-
-								?>
-                                <!-- Table Body End -->
-                               </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                 </section>
@@ -586,102 +583,101 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>
     <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
-    <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
-                </div>
-                <div class="modal-body">
-                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name');?> *" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount').' '.$getDefCurDet['curCode']; ?> *" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                    <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                </div>
-                  <div>
-                    <div class="feeSave">
-                        <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
-                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
+        <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg extra-mrg ">
-                        <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                    <div class="modal-body">
+                        <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                        <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                        <input type="text" required class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                            onChange="this.setCustomValidity('')" required>
+                    </div>
+                    <div>
+                        <div class="feeSave">
+                            <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                            <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg extra-mrg ">
+                            <button type="submit" id="addFee" name="addFee" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
-    <?php require_once('footer.php');?>
+    <?php require_once('footer.php'); ?>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-   <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
-   <div class="modal" tabindex="-1" id="order_details" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
+        <div class="modal" tabindex="-1" id="order_details" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
 
-            <div id="order_details_supplier" class="modal-content">
+                <div id="order_details_supplier" class="modal-content">
 
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Stock take edit'); ?></h1>
-                </div>
-               
-                <form method="post" id="stocksubmit" action="editStockTakeItemCount.php?barCode=<?php echo $_GET['barCode']; ?>" autocomplete="off">
-            
-                 <input type="hidden" name="barCode" id="barCode" value="<?php echo $_GET['barCode'];?>"/>
-                 <input type="hidden" name="returnUrl" value="<?php echo $_GET['returnUrl'];?>"/>
-                <div class="modal-body">
-                    <?php 
-                    if( !isset($_SESSION['stockTakeLoggedIn']) )
-                    {
-                    ?><input type="password" required class="form-control" id="pass" name="pass" placeholder="<?php echo showOtherLangText('Password'); ?> *" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                    <?php } ?>
-                    <input type="text" required class="form-control" id="itemCount" name="itemCount" placeholder="<?php echo showOtherLangText('Stock take');?> *" autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required>
-                   
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg extra-mrg">
-                        <button type="submit" name="btnSbt" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Stock take edit'); ?></h1>
                     </div>
-                    <div class="btnBg">
-                      <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('Cancel'); ?></button>
-                    </div>
-                </div>
+
+                    <form method="post" id="stocksubmit" action="editStockTakeItemCount.php?barCode=<?php echo $_GET['barCode']; ?>" autocomplete="off">
+
+                        <input type="hidden" name="barCode" id="barCode" value="<?php echo $_GET['barCode']; ?>" />
+                        <input type="hidden" name="returnUrl" value="<?php echo $_GET['returnUrl']; ?>" />
+                        <div class="modal-body">
+                            <?php
+                            if (!isset($_SESSION['stockTakeLoggedIn'])) {
+                            ?><input type="password" required class="form-control" id="pass" name="pass" placeholder="<?php echo showOtherLangText('Password'); ?> *" autocomplete="off"
+                                    oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                    onChange="this.setCustomValidity('')" required>
+                            <?php } ?>
+                            <input type="text" required class="form-control" id="itemCount" name="itemCount" placeholder="<?php echo showOtherLangText('Stock take'); ?> *" autocomplete="off"
+                                oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                                onChange="this.setCustomValidity('')" required>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btnBg extra-mrg">
+                                <button type="submit" name="btnSbt" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                            </div>
+                            <div class="btnBg">
+                                <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('Cancel'); ?></button>
+                            </div>
+                        </div>
                     </form>
+                </div>
             </div>
         </div>
-    </div>
     </form>
-   
+
 </body>
 
 </html>
-<script>  
-//  function getDelNumb(delId){
-// var newOnClick = "window.location.href='manageSuppliers.php?delId=" + delId + "'";
+<script>
+    //  function getDelNumb(delId){
+    // var newOnClick = "window.location.href='manageSuppliers.php?delId=" + delId + "'";
 
-//       $('.deletelink').attr('onclick', newOnClick);
-//      $('#delete-popup').modal('show');
+    //       $('.deletelink').attr('onclick', newOnClick);
+    //      $('#delete-popup').modal('show');
 
-//  }  
+    //  }  
 
- jQuery.fn.orderBy = function(keySelector) {
+    jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
             a = keySelector.apply(a);
             b = keySelector.apply(b);
-            console.log('a',a,'b',b);
+            console.log('a', a, 'b', b);
             if (a > b) return 1;
             if (a < b) return -1;
             return 0;
@@ -691,40 +687,41 @@ echo isset($_GET['stockedit']) ? ' '.showOtherLangText('Stock Take Count edited 
     // Function to sort and reorder the .userTask elements
     function sortRows(sort) {
         var uu = $(".suplrTask").orderBy(function() {
-             var number = +$(this).find(".suplNumber").text().replace('No. ', '');
-             return sort === 1 ? number : -number; 
+            var number = +$(this).find(".suplNumber").text().replace('No. ', '');
+            return sort === 1 ? number : -number;
         }).appendTo("#myRecords");
 
 
     }
-     function getDelNumb(canId, ordType){
-var newOnClick = "window.location.href='runningOrders.php?canId=" + canId + "&type=" + ordType+ "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+    function getDelNumb(canId, ordType) {
+        var newOnClick = "window.location.href='runningOrders.php?canId=" + canId + "&type=" + ordType + "'";
 
- }
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
+
+    }
+
     function editStockTake(barCode) {
-     
+
         $('#barCode').val(barCode);
-        let url = 'stockTake.php?barCode='+barCode;
-        $('#addServiceFeeFrm').attr('action',url);
+        let url = 'stockTake.php?barCode=' + barCode;
+        $('#addServiceFeeFrm').attr('action', url);
         $('#order_details').modal('show');
 
-       
 
-}
- <?php if(isset($_GET['passworderr'])) { ?> 
+
+    }
+    <?php if (isset($_GET['passworderr'])) { ?>
         let url = location.href;
         let qryparameter = 'passworderr';
-       let newurl = removeQueryParameter(url,qryparameter);
-       history.pushState(null, "", newurl);
-      <?php } ?> 
-      <?php if(isset($_GET['stockedit'])) { ?> 
+        let newurl = removeQueryParameter(url, qryparameter);
+        history.pushState(null, "", newurl);
+    <?php } ?>
+    <?php if (isset($_GET['stockedit'])) { ?>
         let url = location.href;
         let qryparameter = 'stockedit';
-       let newurl = removeQueryParameter(url,qryparameter);
-       history.pushState(null, "", newurl);
-      <?php } ?> 
-  
+        let newurl = removeQueryParameter(url, qryparameter);
+        history.pushState(null, "", newurl);
+    <?php } ?>
 </script>

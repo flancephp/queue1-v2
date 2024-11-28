@@ -7,11 +7,12 @@ if (!isset($_SESSION['adminidusername'])) {
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND type_id = '0' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow) {
+if (!$permissionRow) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 if (isset($_POST['name'])) {

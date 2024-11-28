@@ -5,48 +5,38 @@ include('inc/dbConfig.php'); //connection details
 $getLangType = getLangType($_SESSION['language_id']);
 
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'currency' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'currency' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
 }
 
-if( isset($_GET['delId']) && $_GET['delId'] )
-{
-	$ordQry = " SELECT * FROM tbl_orders WHERE ordCurId='".$_GET['delId']."' ";
-	$ordResult = mysqli_query($con, $ordQry);
-	 $ordResultRow = mysqli_num_rows($ordResult); 
+if (isset($_GET['delId']) && $_GET['delId']) {
+    $ordQry = " SELECT * FROM tbl_orders WHERE ordCurId='" . $_GET['delId'] . "' ";
+    $ordResult = mysqli_query($con, $ordQry);
+    $ordResultRow = mysqli_num_rows($ordResult);
 
-	if ($ordResultRow > 0)
-	{	
+    if ($ordResultRow > 0) {
 
-		echo "<script>window.location='manageCurrency.php?error=1'</script>";
+        echo "<script>window.location='manageCurrency.php?error=1'</script>";
+    } else {
 
-	}
-	else
-	{
-		
-		$sql = "DELETE FROM tbl_currency WHERE id = '".$_GET['delId']."'  AND account_id = '".$_SESSION['accountId']."'";
-		$result = mysqli_query($con, $sql);
-		
+        $sql = "DELETE FROM tbl_currency WHERE id = '" . $_GET['delId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'";
+        $result = mysqli_query($con, $sql);
 
-		echo "<script>window.location='manageCurrency.php?delete=1'</script>";
 
-	}
-
-	
-	
+        echo "<script>window.location='manageCurrency.php?delete=1'</script>";
+    }
 }
 
 //////////////////Pagination goes here/////////////////////////////////////////
-$sql = "SELECT * FROM tbl_currency WHERE is_default != '1' AND account_id = '".$_SESSION['accountId']."' order by id desc ";
+$sql = "SELECT * FROM tbl_currency WHERE is_default != '1' AND account_id = '" . $_SESSION['accountId'] . "' order by id desc ";
 $curResult = mysqli_query($con, $sql);
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -71,7 +61,7 @@ $curResult = mysqli_query($con, $sql);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                  <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -92,7 +82,7 @@ $curResult = mysqli_query($con, $sql);
                                     <h1 class="h1"><?php echo showOtherLangText('Manage Currency') ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -105,32 +95,32 @@ $curResult = mysqli_query($con, $sql);
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['edit']) || isset($_GET['added']) || isset($_GET['delete']) || isset($_GET['mainCurEdit'])) {?>
+                        <?php if (isset($_GET['edit']) || isset($_GET['added']) || isset($_GET['delete']) || isset($_GET['mainCurEdit'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
+                                <p><?php
 
-                            echo isset($_GET['edit']) ? ' '.showOtherLangText('Currency Edited Successfully').' ' : '';
+                                    echo isset($_GET['edit']) ? ' ' . showOtherLangText('Currency Edited Successfully') . ' ' : '';
 
-							echo isset($_GET['mainCurEdit']) ? ' '.showOtherLangText('Main Currency Edited Successfully').' ' : '';
+                                    echo isset($_GET['mainCurEdit']) ? ' ' . showOtherLangText('Main Currency Edited Successfully') . ' ' : '';
 
-							echo isset($_GET['added']) ? ' '.showOtherLangText('Currency Added Successfully').' ' : '';
+                                    echo isset($_GET['added']) ? ' ' . showOtherLangText('Currency Added Successfully') . ' ' : '';
 
-							echo isset($_GET['delete']) ? ' '.showOtherLangText('Currency Deleted Successfully').' ' : '';
+                                    echo isset($_GET['delete']) ? ' ' . showOtherLangText('Currency Deleted Successfully') . ' ' : '';
 
-?>
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['error']) || isset($_GET['error_already_exist'])) { ?>
+                        <?php } ?>
+                        <?php if (isset($_GET['error']) || isset($_GET['error_already_exist'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['error']) ? ' '.showOtherLangText('This Currency is used in order so it cannot be deleted.').' ' : ''; ?>
- </p>
+                                <p><?php echo isset($_GET['error']) ? ' ' . showOtherLangText('This Currency is used in order so it cannot be deleted.') . ' ' : ''; ?>
+                                </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
+                        <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -145,7 +135,7 @@ $curResult = mysqli_query($con, $sql);
                                         <a href="editMainCurrency.php?currencyType=1" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                                 class="mb-UsrBtn"><i class="fa-solid fa-ellipsis"></i>
                                                 <span class="nstdSpan"><?php echo showOtherLangText('Main Currency'); ?></span></span> <span
-                                                class="dsktp-Btn"><?php echo showOtherLangText('Edit Main Currency');?></span></a>
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Edit Main Currency'); ?></span></a>
                                     </div>
                                     <div class="btnBg">
                                         <a href="addCurrency.php" class="btn btn-primary mb-usrBkbtn"><span
@@ -161,15 +151,15 @@ $curResult = mysqli_query($con, $sql);
                                 <!-- Table Head Start -->
                                 <div class="mngCurTbl-Head align-items-center itmTable">
                                     <div class="mngCurTbl-Cnt d-flex align-items-center">
-                                    <div class="tb-head mngCur-Clm">
+                                        <div class="tb-head mngCur-Clm">
                                             <p><?php echo showOtherLangText('#') ?></p>
-                                            
+
                                         </div>
                                         <div class="tb-head mngCur-Clm">
                                             <p><?php echo showOtherLangText('Currency') ?></p>
                                         </div>
                                         <div class="tb-head mngRate-Clm">
-                                            <p><?php echo showOtherLangText('Rate For') ?> (<?php echo $getDefCurDet['curCode'];?>)</p>
+                                            <p><?php echo showOtherLangText('Rate For') ?> (<?php echo $getDefCurDet['curCode']; ?>)</p>
                                         </div>
                                         <div class="tb-head mngDcml-Clm">
                                             <p><?php echo showOtherLangText('Decimal digits') ?></p>
@@ -184,55 +174,54 @@ $curResult = mysqli_query($con, $sql);
                                 <!-- Table Head End -->
 
                                 <!-- Table Body Start -->
-                                <?php 
-								$x= 0;
-								while($curRow = mysqli_fetch_array($curResult))
-								{
-									$color = ($x%2 == 0)? 'white': '#FFFFCC';
-									$x++;
+                                <?php
+                                $x = 0;
+                                while ($curRow = mysqli_fetch_array($curResult)) {
+                                    $color = ($x % 2 == 0) ? 'white' : '#FFFFCC';
+                                    $x++;
 
-									?>
-                                <div class="mngCurTask">
-                                    <div class="mngCurTbl-body align-items-center itmBody">
-                                        <div class="mngCurTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy mngCur-Clm">
-                                                <p><strong><?php echo $x;?></strong></p>
+                                ?>
+                                    <div class="mngCurTask">
+                                        <div class="mngCurTbl-body align-items-center itmBody">
+                                            <div class="mngCurTbl-Cnt d-flex align-items-center">
+                                                <div class="tb-bdy mngCur-Clm">
+                                                    <p><strong><?php echo $x; ?></strong></p>
+                                                </div>
+                                                <div class="tb-bdy mngCur-Clm">
+                                                    <p><span class="currencyBold"><span><?php echo $curRow['currency']; ?></span></span></p>
+                                                </div>
+                                                <div class="tb-bdy mngRate-Clm">
+                                                    <p class="mngCr-Rate"> <span class="mb-MngCr">Rate (S)</span> <?php echo $curRow['amt']; ?></p>
+                                                </div>
+                                                <div class="tb-bdy mngDcml-Clm">
+                                                    <p class="mngDcm-Dgt"> <span class="mb-MngCr">Decimal digits</span> <?php echo $curRow['decPlace']; ?>
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="tb-bdy mngCur-Clm">
-                                                <p><span class="currencyBold"><span><?php echo $curRow['currency'];?></span></span></p>
-                                            </div>
-                                            <div class="tb-bdy mngRate-Clm">
-                                                <p class="mngCr-Rate"> <span class="mb-MngCr">Rate (S)</span> <?php echo $curRow['amt'];?></p>
-                                            </div>
-                                            <div class="tb-bdy mngDcml-Clm">
-                                                <p class="mngDcm-Dgt"> <span class="mb-MngCr">Decimal digits</span> <?php echo $curRow['decPlace'];?>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="mngCurTbl-Icns">
-                                            <div class="tb-bdy mngCurOpt-Clm d-flex align-items-center">
-                                                <a href="editCurrency.php?id=<?php echo $curRow['id'];?>" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $curRow['id'];?>');" class="userLink">
-                                                    <img src="Assets/icons/delete.svg"  alt="Delete" class="usrLnk-Img">
-                                                </a>
+                                            <div class="mngCurTbl-Icns">
+                                                <div class="tb-bdy mngCurOpt-Clm d-flex align-items-center">
+                                                    <a href="editCurrency.php?id=<?php echo $curRow['id']; ?>" class="userLink">
+                                                        <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                    </a>
+                                                    <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $curRow['id']; ?>');" class="userLink">
+                                                        <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <?php 
-								}
-								?>  
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+                                <?php
+                                }
+                                ?>
+
+
+
+
+
+
+
+
+
                                 <!-- Table Body End -->
 
                             </div>
@@ -245,40 +234,41 @@ $curResult = mysqli_query($con, $sql);
         </div>
     </div>
     <div id="dialog" style="display: none;">
-    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>
-    <?php require_once('footer.php');?>
+    <?php require_once('footer.php'); ?>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+            </div>
+
+            <div class="modal-footer">
+                <div class="btnBg">
+                    <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
                 </div>
-                
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
-                    </div>
-                    <div class="btnBg">
-                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                    </div>
+                <div class="btnBg">
+                    <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 </html>
 
-<script>  
- function getDelNumb(delId){
+<script>
+    function getDelNumb(delId) {
 
-   var newOnClick = "window.location.href='manageCurrency.php?delId=" + delId + "'";
+        var newOnClick = "window.location.href='manageCurrency.php?delId=" + delId + "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
-}  
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
+    }
 </script>

@@ -92,8 +92,8 @@ if (isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 
 	//for custom item fee charges
 	$customCharge = 0;
-	if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
-		$itemIds = implode(',', $_SESSION['itemCharges'][1]);
+	if (isset($_SESSION['itemChargesOrd'][1]) && count($_SESSION['itemChargesOrd'][1]) > 0) {
+		$itemIds = implode(',', $_SESSION['itemChargesOrd'][1]);
 
 		$sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE id IN(" . $itemIds . ") AND account_id = '" . $_SESSION['accountId'] . "'   ";
 		$resRows = mysqli_query($con, $sqlSet);
@@ -114,7 +114,7 @@ if (isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 	//--------------------------------------------------------------------------------------------
 	$resHtml = '<div class="container">
                                         <div class="prcTable">';
-	if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) {
+	if (isset($_SESSION['itemChargesOrd'][3]) && count($_SESSION['itemChargesOrd'][3]) > 0) {
 		$resHtml .=                           '<div class="price justify-content-between">
                                                 <div class="p-2 delIcn text-center"></div>
                                                 <div class="p-2 txnmRow">
@@ -137,8 +137,8 @@ if (isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 	$taxCharges = 0;
 	$fixedCharges = 0;
 	$perCharges = 0;
-	if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) {
-		$itemIds = implode(',', $_SESSION['itemCharges'][3]);
+	if (isset($_SESSION['itemChargesOrd'][3]) && count($_SESSION['itemChargesOrd'][3]) > 0) {
+		$itemIds = implode(',', $_SESSION['itemChargesOrd'][3]);
 		//start order level item fixed charges
 		$sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(" . $itemIds . ") AND account_id = '" . $_SESSION['accountId'] . "'  AND feeType =2 ";
 		$resRows = mysqli_query($con, $sqlSet);
@@ -242,7 +242,7 @@ if (isset($_POST['pId']) && $_POST['pId'] > 0  && $_REQUEST['supplierId'] > 0 &&
 	$netTotalValue = ($totalChargePrice + $totalFixedCharges + $totalPerCharges + $totalTaxCharges);
 	$netTotalValueOther = ($totalChargePriceOther + $totalFixedChargesOther + $totalPerChargesOther + $totalTaxChargesOther);
 	$stylegrand = '';
-	if (!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0) {
+	if (!isset($_SESSION['itemChargesOrd'][3]) || count($_SESSION['itemChargesOrd'][3]) == 0) {
 		$stylegrand = 'style="border-top: 0px;"';
 	}
 	$resHtml .= '<div ' . $stylegrand . ' class="price justify-content-between grdTtl-Row">

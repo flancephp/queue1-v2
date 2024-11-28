@@ -1,47 +1,43 @@
-<?php 
+<?php
 include('inc/dbConfig.php'); //connection details
 
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'service_item' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'service_item' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
-}  
-
-if( isset($_POST['itemName'])   )
-{	
-
-		$sql = "UPDATE  `tbl_custom_items_fee` SET 
-			`itemName` = '".$_POST['itemName']."',
-			`amt` = '".$_POST['amt']."',
-			`unit` = '".$_POST['unit']."'
-			
-		WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' 	";
-	
-		mysqli_query($con, $sql);
-		
-		echo "<script>window.location='manageServiceFee.php?update=1'</script>";
-		
-	
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
-$res = mysqli_query($con, " select * from tbl_custom_items_fee WHERE id='".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."' ");
+if (isset($_POST['itemName'])) {
+
+    $sql = "UPDATE  `tbl_custom_items_fee` SET 
+			`itemName` = '" . $_POST['itemName'] . "',
+			`amt` = '" . $_POST['amt'] . "',
+			`unit` = '" . $_POST['unit'] . "'
+			
+		WHERE id = '" . $_POST['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' 	";
+
+    mysqli_query($con, $sql);
+
+    echo "<script>window.location='manageServiceFee.php?update=1'</script>";
+}
+
+$res = mysqli_query($con, " select * from tbl_custom_items_fee WHERE id='" . $_GET['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ");
 $det = mysqli_fetch_array($res);
 ?>
 
 
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -65,7 +61,7 @@ $det = mysqli_fetch_array($res);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -86,7 +82,7 @@ $det = mysqli_fetch_array($res);
                                     <h1 class="h1"><?php echo showOtherLangText('Edit Service Fee'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -98,45 +94,44 @@ $det = mysqli_fetch_array($res);
                 </section>
 
                 <section class="ordDetail userDetail">
-                <h6 style="color:#FF0000"><?php 
-					
-					if( isset( $error ) && $error != '' )
-					{ 
-						echo $error;
-					}
-					?></h6>
+                    <h6 style="color:#FF0000"><?php
+
+                                                if (isset($error) && $error != '') {
+                                                    echo $error;
+                                                }
+                                                ?></h6>
 
                     <div class="container">
-                    <form class="addUser-Form acntSetup-Form" action="editServiceFee.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id"  value="<?php echo $_GET['id'];?>" />
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="manageServiceFee.php" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                        <form class="addUser-Form acntSetup-Form" action="editServiceFee.php" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="manageServiceFee.php" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-regular fa-pen-to-square"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Edit'); ?></span></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-pen-to-square"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Edit'); ?></span></button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="edtSup-Div">
-                           
+                            <div class="edtSup-Div">
+
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
                                         <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?></label>
                                     </div>
                                     <div class="col-md-9">
 
-                                    <input placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>" type="text" class="form-control"
-                                     name="itemName" id="itemName" value="<?php echo isset($det['itemName']) ? $det['itemName'] : ''; ?>"  autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required />
-                                        
+                                        <input placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>" type="text" class="form-control"
+                                            name="itemName" id="itemName" value="<?php echo isset($det['itemName']) ? $det['itemName'] : ''; ?>" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required />
+
                                     </div>
                                 </div>
 
@@ -145,7 +140,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $</label>
                                     </div>
                                     <div class="col-md-9">
-                                    <input placeholder="20" type="text" class="form-control" name="amt" id="amt" value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>"   autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required  />
+                                        <input placeholder="20" type="text" class="form-control" name="amt" id="amt" value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required />
                                     </div>
                                 </div>
 
@@ -154,12 +149,12 @@ $det = mysqli_fetch_array($res);
                                         <label for="unit" class="form-label"><?php echo showOtherLangText('Unit'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                    <input type="text"  placeholder="<?php echo showOtherLangText('Trip'); ?>"    class="form-control" name="unit" id="unit"  value="<?php echo isset($det['unit']) ? $det['unit'] : ''; ?>"   autocomplete="off"   />
+                                        <input type="text" placeholder="<?php echo showOtherLangText('Trip'); ?>" class="form-control" name="unit" id="unit" value="<?php echo isset($det['unit']) ? $det['unit'] : ''; ?>" autocomplete="off" />
                                     </div>
                                 </div>
 
-                            
-                        </div>
+
+                            </div>
                         </form>
                     </div>
                 </section>

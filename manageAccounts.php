@@ -1,9 +1,8 @@
 <?php include('inc/dbConfig.php'); //connection details
 
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
     exit;
 }
 
@@ -11,56 +10,50 @@ if (!isset($_SESSION['adminidusername']))
 $getLangType = getLangType($_SESSION['language_id']);
 
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'account' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'account' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
 }
 
 
-if( isset($_GET['delId']) && $_GET['delId'] )
-{
+if (isset($_GET['delId']) && $_GET['delId']) {
 
-	$selQry = " SELECT * FROM tbl_payment WHERE bankAccountId = '".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $selQry = " SELECT * FROM tbl_payment WHERE bankAccountId = '" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 
-	$res = mysqli_query($con, $selQry);
-	$resRow = mysqli_fetch_array($res);
-
-
-	$selQry = " SELECT * FROM tbl_req_payment WHERE bankAccountId = '".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
-
-	$result = mysqli_query($con, $selQry);
-	$resultRow = mysqli_fetch_array($result);
+    $res = mysqli_query($con, $selQry);
+    $resRow = mysqli_fetch_array($res);
 
 
-	if ($resRow > 0 || $resultRow > 0) {
-		
-		echo '<script>window.location="manageAccounts.php?err=1"</script>';
+    $selQry = " SELECT * FROM tbl_req_payment WHERE bankAccountId = '" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 
-	}else{
-
-		$sql = "DELETE FROM tbl_accounts WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-		mysqli_query($con, $sql);
-		
-		echo "<script>window.location='manageAccounts.php?delete=1'</script>";
-
-	}
+    $result = mysqli_query($con, $selQry);
+    $resultRow = mysqli_fetch_array($result);
 
 
+    if ($resRow > 0 || $resultRow > 0) {
+
+        echo '<script>window.location="manageAccounts.php?err=1"</script>';
+    } else {
+
+        $sql = "DELETE FROM tbl_accounts WHERE id='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
+
+        echo "<script>window.location='manageAccounts.php?delete=1'</script>";
+    }
 }
 
 
 
-$sql = "SELECT * FROM tbl_accounts WHERE account_id='".$_SESSION['accountId']."' ";
-$result = mysqli_query($con, $sql);			
+$sql = "SELECT * FROM tbl_accounts WHERE account_id='" . $_SESSION['accountId'] . "' ";
+$result = mysqli_query($con, $sql);
 
 
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -84,7 +77,7 @@ $result = mysqli_query($con, $sql);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -105,7 +98,7 @@ $result = mysqli_query($con, $sql);
                                     <h1 class="h1"><?php echo showOtherLangText('Manage Accounts'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -118,44 +111,44 @@ $result = mysqli_query($con, $sql);
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['update']) || isset($_GET['added']) || isset($_GET['delete']) || isset($_GET['mainCurEdit'])) {?>
+                        <?php if (isset($_GET['update']) || isset($_GET['added']) || isset($_GET['delete']) || isset($_GET['mainCurEdit'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <p><?php
 
-echo isset($_GET['update']) > 0 ? ' '.showOtherLangText('Account Edited Successfully').' ' : '';
+                                    echo isset($_GET['update']) > 0 ? ' ' . showOtherLangText('Account Edited Successfully') . ' ' : '';
 
-echo isset($_GET['added']) ? ' '.showOtherLangText('Account Added Successfully').' ' : '';
+                                    echo isset($_GET['added']) ? ' ' . showOtherLangText('Account Added Successfully') . ' ' : '';
 
-echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfully').' ' : '';
+                                    echo isset($_GET['delete']) ? ' ' . showOtherLangText('Account Deleted Successfully') . ' ' : '';
 
 
-?>
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['err']) || isset($_GET['error_invalid_pass'])) { ?>
+                        <?php } ?>
+                        <?php if (isset($_GET['err']) || isset($_GET['error_invalid_pass'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Account cannot be deleted as it is being used in some order.').' ' : ''; ?><?php echo isset($_GET['error_invalid_pass']) ? ' '.showOtherLangText('Invalid Password').' ' : ''; ?>
- </p>
+                                <p><?php echo isset($_GET['err']) ? ' ' . showOtherLangText('Account cannot be deleted as it is being used in some order.') . ' ' : ''; ?><?php echo isset($_GET['error_invalid_pass']) ? ' ' . showOtherLangText('Invalid Password') . ' ' : ''; ?>
+                                </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
+                        <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
                                     <a href="setup.php" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
                                                 class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back');?></span></a>
+                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
                                 </div>
                             </div>
                             <div class="usrAd-Btn">
                                 <div class="btnBg">
                                     <a href="addAccount.php" class="btn btn-primary mb-usrBkbtn res__w__auto"><span
                                             class="mb-UsrBtn"><i class="fa-solid fa-plus"></i>
-                                            <span class="nstdSpan"><?php echo showOtherLangText('Account');?></span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
+                                            <span class="nstdSpan"><?php echo showOtherLangText('Account'); ?></span></span> <span class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a>
                                 </div>
                             </div>
                         </div>
@@ -199,55 +192,54 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
                                 </div>
                                 <!-- Table Head End -->
                                 <div id="myRecords">
-                                <!-- Table Body Start -->
-                                <?php 
-    								$x= 0;
-    								while($row = mysqli_fetch_array($result))
-    								{ 
-                                     	$x++;
-    									$curDet = getCurrencyDet($row['currencyId']);
-    									?>
-                                <div class="mngAcntTask">
-                                    <div class="mngAcntTbl-body itmBody">
-                                        <div class="mngAcntTbl-NmCol d-flex align-items-center">
-                                            <div class="tb-bdy acntSrNum-Clm">
-                                                <p class="acntSrNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
+                                    <!-- Table Body Start -->
+                                    <?php
+                                    $x = 0;
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $x++;
+                                        $curDet = getCurrencyDet($row['currencyId']);
+                                    ?>
+                                        <div class="mngAcntTask">
+                                            <div class="mngAcntTbl-body itmBody">
+                                                <div class="mngAcntTbl-NmCol d-flex align-items-center">
+                                                    <div class="tb-bdy acntSrNum-Clm">
+                                                        <p class="acntSrNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x; ?></strong></p>
+                                                    </div>
+                                                    <div class="tb-bdy acntName-Clm">
+                                                        <p class="suplName"><span><?php echo $row['accountName']; ?></span></p>
+                                                    </div>
+                                                    <div class="tb-bdy acntNbr-Clm">
+                                                        <p class="suplAdrs"><?php echo $row['accountNumber']; ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mngAcntTbl-BlCol align-items-center">
+                                                    <div class="tb-head acntCur-Clm">
+                                                        <p><?php echo $curDet['currency']; ?></p>
+                                                    </div>
+                                                    <div class="tb-head acntBlnc-Clm">
+                                                        <p><?php echo number_format($row['balanceAmt'], $getDefCurDet['decPlace']); ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mngAcntTbl-IcnCol">
+                                                    <div class="tb-bdy mgAcntOpt-Clm d-flex align-items-center">
+                                                        <a href="editAccount.php?id=<?php echo $row['id']; ?>" class="userLink">
+                                                            <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                        </a>
+                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id']; ?>');" class="userLink">
+                                                            <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="tb-bdy acntName-Clm">
-                                                <p class="suplName"><span><?php echo $row['accountName'];?></span></p>
-                                            </div>
-                                            <div class="tb-bdy acntNbr-Clm">
-                                                <p class="suplAdrs"><?php echo $row['accountNumber'];?></p>
+                                            <div class="align-items-center mbTask-Acnt">
+                                                <a href="javascript:void(0)" class="mgAcntLink"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
                                             </div>
                                         </div>
-                                        <div class="mngAcntTbl-BlCol align-items-center">
-                                            <div class="tb-head acntCur-Clm">
-                                                <p><?php echo $curDet['currency'];?></p>
-                                            </div>
-                                            <div class="tb-head acntBlnc-Clm">
-                                                <p><?php echo number_format($row['balanceAmt'],$getDefCurDet['decPlace']);?></p>
-                                            </div>
-                                        </div>
-                                        <div class="mngAcntTbl-IcnCol">
-                                            <div class="tb-bdy mgAcntOpt-Clm d-flex align-items-center">
-                                                <a href="editAccount.php?id=<?php echo $row['id'];?>" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center mbTask-Acnt">
-                                        <a href="javascript:void(0)" class="mgAcntLink"><i
-                                                class="fa-solid fa-angle-down"></i></a>
-                                    </div>
-                                </div>
-                                <?php 
-    								}
-    								?>
-                                
+                                    <?php
+                                    }
+                                    ?>
+
                                 </div>
 
                                 <!-- Table Body End -->
@@ -262,20 +254,20 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
         </div>
     </div>
     <div id="dialog" style="display: none;">
-    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
-</div>
-<?php require_once('footer.php');?>
-<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
+    <?php require_once('footer.php'); ?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="btnBg">
                         <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
@@ -291,16 +283,16 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Account Deleted Successfull
 
 </html>
 
-<script>  
-  function getDelNumb(delId){
-var newOnClick = "window.location.href='manageAccounts.php?delId=" + delId + "'";
+<script>
+    function getDelNumb(delId) {
+        var newOnClick = "window.location.href='manageAccounts.php?delId=" + delId + "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
 
- }  
+    }
 
- jQuery.fn.orderBy = function(keySelector) {
+    jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
             a = keySelector.apply(a);
             b = keySelector.apply(b);
@@ -308,13 +300,14 @@ var newOnClick = "window.location.href='manageAccounts.php?delId=" + delId + "'"
             if (a < b) return -1;
             return 0;
         });
-    };  
- function sortRows(sort) {
+    };
+
+    function sortRows(sort) {
         var uu = $(".mngAcntTask").orderBy(function() {
-             var number = +$(this).find(".acntSrNumber").text().replace('No. ', '');
-             return sort === 1 ? number : -number; 
+            var number = +$(this).find(".acntSrNumber").text().replace('No. ', '');
+            return sort === 1 ? number : -number;
         }).appendTo("#myRecords");
 
 
-    } 
-</script> 
+    }
+</script>

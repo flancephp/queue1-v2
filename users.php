@@ -4,48 +4,42 @@ include('inc/dbConfig.php'); //connection details
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-if ( !isset($_SESSION['adminidusername']))
-{
-echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'user' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'user' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
-if( isset($_GET['delId']) && $_GET['delId'] )
-{
+if (isset($_GET['delId']) && $_GET['delId']) {
 
-    $sql = "SELECT * FROM tbl_orders WHERE orderBy ='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+    $sql = "SELECT * FROM tbl_orders WHERE orderBy ='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
     $sqlResult = mysqli_query($con, $sql);
 
-    $sql = "SELECT * FROM tbl_mobile_time_track WHERE userId ='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+    $sql = "SELECT * FROM tbl_mobile_time_track WHERE userId ='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
     $result = mysqli_query($con, $sql);
 
-    if (mysqli_num_rows($sqlResult) > '0' || mysqli_num_rows($result) > '0') 
-    {
+    if (mysqli_num_rows($sqlResult) > '0' || mysqli_num_rows($result) > '0') {
         echo "<script>window.location='users.php?error=1'</script>";
-    }
-    else
-    {
-        $sql = "DELETE FROM tbl_user WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+    } else {
+        $sql = "DELETE FROM tbl_user WHERE id='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
         mysqli_query($con, $sql);
 
         echo "<script>window.location='users.php?delete=1'</script>";
     }
-
 }
 
-$sql = "SELECT * FROM tbl_user WHERE isAdmin = 0 AND isOwner = 0 AND account_id = '".$_SESSION['accountId']."'  ";
+$sql = "SELECT * FROM tbl_user WHERE isAdmin = 0 AND isOwner = 0 AND account_id = '" . $_SESSION['accountId'] . "'  ";
 $result = mysqli_query($con, $sql);
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -65,10 +59,10 @@ $result = mysqli_query($con, $sql);
 </head>
 
 <body class="mb-Bgbdy">
-       <div class="container-fluid newOrder">
+    <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -101,30 +95,30 @@ $result = mysqli_query($con, $sql);
                 </section>
 
                 <section class="ordDetail userDetail">
-                <div class="alrtMessage">
+                    <div class="alrtMessage">
                         <div class="container">
-                      
-			 <?php if(isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
-                     echo isset($_GET['added']) ? ' '.showOtherLangText('User Added Successfully').' ' : '';
-                     echo isset($_GET['edit']) ? ' '.showOtherLangText('User Edited Successfully').' ' : '';
-                     echo isset($_GET['delete']) ? ' '.showOtherLangText('User Deleted Successfully').' ' : ''; ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
+
+                            <?php if (isset($_GET['added']) || isset($_GET['edit']) || isset($_GET['delete'])) { ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <p><?php
+                                        echo isset($_GET['added']) ? ' ' . showOtherLangText('User Added Successfully') . ' ' : '';
+                                        echo isset($_GET['edit']) ? ' ' . showOtherLangText('User Edited Successfully') . ' ' : '';
+                                        echo isset($_GET['delete']) ? ' ' . showOtherLangText('User Deleted Successfully') . ' ' : ''; ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
                             <?php } ?>
-                            <?php if(isset($_GET['error'])) { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo showOtherLangText('User can not be deleted as it is being used in order'); ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            
+                            <?php if (isset($_GET['error'])) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p><?php echo showOtherLangText('User can not be deleted as it is being used in order'); ?></p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+
                             <?php } ?>
                         </div>
-                           </div>
+                    </div>
                     <div class="container pb-5">
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
@@ -177,53 +171,52 @@ $result = mysqli_query($con, $sql);
                                     </div>
                                 </div>
                                 <div id="myRecords">
-                                <?php 
-				$x= 0;
-                
-				while($row = mysqli_fetch_array($result))
-				{
-					$x++;
+                                    <?php
+                                    $x = 0;
 
-					$sql = " SELECT * FROM tbl_designation WHERE id = '".$row['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
-					$resSet = mysqli_query($con, $sql);
-					$resRow = mysqli_fetch_array($resSet);
-					$designationName = $resRow['designation_name']
-					?>
-                                <div class="userTask">
-                                    <div class="usrTbl-body align-items-center itmBody">
-                                        <div class="usrTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy usrNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
-                                            </div>
-                                            <div class="tb-bdy usrName-Clm">
-                                                <p class="userName"><span><?php echo $row['username'];?></span></p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle"><?php echo $designationName;?></p>
-                                            </div>
-                                            <div class="tb-bdy usrTtl-Clm">
-                                                <p class="userTittle"><?php echo $row['userType'] == 0 ? 'Web User' : 'Mobile User' ;?></p>
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $x++;
+
+                                        $sql = " SELECT * FROM tbl_designation WHERE id = '" . $row['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                        $resSet = mysqli_query($con, $sql);
+                                        $resRow = mysqli_fetch_array($resSet);
+                                        $designationName = $resRow['designation_name']
+                                    ?>
+                                        <div class="userTask">
+                                            <div class="usrTbl-body align-items-center itmBody">
+                                                <div class="usrTbl-Cnt d-flex align-items-center">
+                                                    <div class="tb-bdy usrNum-Clm">
+                                                        <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x; ?></strong></p>
+                                                    </div>
+                                                    <div class="tb-bdy usrName-Clm">
+                                                        <p class="userName"><span><?php echo $row['username']; ?></span></p>
+                                                    </div>
+                                                    <div class="tb-bdy usrTtl-Clm">
+                                                        <p class="userTittle"><?php echo $designationName; ?></p>
+                                                    </div>
+                                                    <div class="tb-bdy usrTtl-Clm">
+                                                        <p class="userTittle"><?php echo $row['userType'] == 0 ? 'Web User' : 'Mobile User'; ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="usrTbl-Icns">
+                                                    <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
+                                                        <a href="editUser.php?id=<?php echo $row['id']; ?>" class="userLink">
+                                                            <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                        </a>
+                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id']; ?>');" class="userLink">
+                                                            <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="usrTbl-Icns">
-                                            <div class="tb-bdy usrOpt-Clm d-flex align-items-center">
-                                                <a href="editUser.php?id=<?php echo $row['id'];?>" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php
+                                    }
+                                    ?>
+
+
+                                    <!-- Table Body End -->
                                 </div>
-                                <?php 
-			     	}
-			    	?>
-                                
-
-                                <!-- Table Body End -->
-                            </div>
                             </div>
                         </div>
 
@@ -234,14 +227,14 @@ $result = mysqli_query($con, $sql);
         </div>
     </div>
     <div id="dialog" style="display: none;">
-    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
-   </div>
-    <?php require_once('footer.php');?>
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
+    <?php require_once('footer.php'); ?>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-   <!-- Add department Popup Start -->
-   
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!-- Add department Popup Start -->
+
     <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -249,7 +242,7 @@ $result = mysqli_query($con, $sql);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
                 </div>
-                
+
                 <div class="modal-footer">
                     <div class="btnBg">
                         <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
@@ -261,20 +254,20 @@ $result = mysqli_query($con, $sql);
             </div>
         </div>
     </div>
- 
+
 </body>
 
 </html>
-<script>  
- function getDelNumb(delId){
-var newOnClick = "window.location.href='users.php?delId=" + delId + "'";
+<script>
+    function getDelNumb(delId) {
+        var newOnClick = "window.location.href='users.php?delId=" + delId + "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
 
- }  
+    }
 
- jQuery.fn.orderBy = function(keySelector) {
+    jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
             a = keySelector.apply(a);
             b = keySelector.apply(b);
@@ -287,8 +280,8 @@ var newOnClick = "window.location.href='users.php?delId=" + delId + "'";
     // Function to sort and reorder the .userTask elements
     function sortRows(sort) {
         var uu = $(".userTask").orderBy(function() {
-             var number = +$(this).find(".userNumber").text().replace('No. ', '');
-             return sort === 1 ? number : -number; 
+            var number = +$(this).find(".userNumber").text().replace('No. ', '');
+            return sort === 1 ? number : -number;
         }).appendTo("#myRecords");
 
 

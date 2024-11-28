@@ -1,44 +1,40 @@
-<?php 
+<?php
 include('inc/dbConfig.php'); //connection details
 
-if (!isset($_SESSION['adminidusername']))
-{
-echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'additional_fee' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'additional_fee' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
-if( isset($_POST['feeName'])   )
-{
+if (isset($_POST['feeName'])) {
 
-$sql = "UPDATE `tbl_order_fee` SET 
-`feeName` = '".$_POST['feeName']."',
-`feeType` = '".$_POST['feeType']."',
-`amt` = '".$_POST['amt']."'
+    $sql = "UPDATE `tbl_order_fee` SET 
+`feeName` = '" . $_POST['feeName'] . "',
+`feeType` = '" . $_POST['feeType'] . "',
+`amt` = '" . $_POST['amt'] . "'
 
-WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' 	";
+WHERE id = '" . $_POST['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' 	";
 
-mysqli_query($con, $sql);
+    mysqli_query($con, $sql);
 
-echo "<script>window.location='manageAdditionalFee.php?update=1'</script>";
-
-
+    echo "<script>window.location='manageAdditionalFee.php?update=1'</script>";
 }
 
-$res = mysqli_query($con, " select * from tbl_order_fee WHERE id='".$_GET['id']."'  AND account_id = '".$_SESSION['accountId']."' ");
+$res = mysqli_query($con, " select * from tbl_order_fee WHERE id='" . $_GET['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ");
 $det = mysqli_fetch_array($res);
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -62,7 +58,7 @@ $det = mysqli_fetch_array($res);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -83,7 +79,7 @@ $det = mysqli_fetch_array($res);
                                     <h1 class="h1"><?php echo showOtherLangText('Edit Additional Fee'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -96,70 +92,70 @@ $det = mysqli_fetch_array($res);
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <form role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="manageAdditionalFee.php" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                        <form role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="manageAdditionalFee.php" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="edtSup-Div">
-                          
+                            <div class="edtSup-Div">
+
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name');?></label>
+                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="feeName" id="feeName" required value="<?php echo isset($det['feeName']) ? $det['feeName'] : ''; ?>"
-                                            placeholder="<?php echo showOtherLangText('Ace Transport charge');?>">
+                                            placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeType" class="form-label"><?php echo showOtherLangText('Fee Type');?></label>
+                                        <label for="feeType" class="form-label"><?php echo showOtherLangText('Fee Type'); ?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <select class="form-select" aria-label="Default select example" name="feeType" id="feeType" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" required>
-                                <option value="1"
-                                    <?php echo $det['feeType'] == 1 ? 'selected="selected"' : ''; ?>>
-                                    <?php echo showOtherLangText('Tax') ?></option>
-                                <option value="2"
-                                    <?php echo $det['feeType'] == 2 ? 'selected="selected"' : ''; ?>>
-                                    <?php echo showOtherLangText('Fixed Discount') ?></option>
-                                <option value="3"
-                                    <?php echo $det['feeType'] == 3 ? 'selected="selected"' : ''; ?>>
-                                    <?php echo showOtherLangText('Percentage Discount').' (%)' ?>
-                                      </option>
-                                     </select>
+                                            <option value="1"
+                                                <?php echo $det['feeType'] == 1 ? 'selected="selected"' : ''; ?>>
+                                                <?php echo showOtherLangText('Tax') ?></option>
+                                            <option value="2"
+                                                <?php echo $det['feeType'] == 2 ? 'selected="selected"' : ''; ?>>
+                                                <?php echo showOtherLangText('Fixed Discount') ?></option>
+                                            <option value="3"
+                                                <?php echo $det['feeType'] == 3 ? 'selected="selected"' : ''; ?>>
+                                                <?php echo showOtherLangText('Percentage Discount') . ' (%)' ?>
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Fee Amount').' '.$getDefCurDet['curCode'] ?></label>
+                                        <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Fee Amount') . ' ' . $getDefCurDet['curCode'] ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control"name="amt" id="amt" required placeholder="<?php echo showOtherLangText('10');?>" 
-                                value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off" >
-                                     </div>
+                                        <input type="text" class="form-control" name="amt" id="amt" required placeholder="<?php echo showOtherLangText('10'); ?>"
+                                            value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off">
+                                    </div>
                                 </div>
 
-                           
-                        </div>
+
+                            </div>
                         </form>
                     </div>
                 </section>

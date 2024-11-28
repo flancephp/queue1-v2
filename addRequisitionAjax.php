@@ -71,8 +71,8 @@ if (isset($_POST['pId']) && !isset($_POST['notes'])) {
 
 	//for custom item fee charges
 	$customCharge = 0;
-	if (isset($_SESSION['itemCharges'][1]) && count($_SESSION['itemCharges'][1]) > 0) {
-		$itemIds = implode(',', $_SESSION['itemCharges'][1]);
+	if (isset($_SESSION['itemChargesReq'][1]) && count($_SESSION['itemChargesReq'][1]) > 0) {
+		$itemIds = implode(',', $_SESSION['itemChargesReq'][1]);
 
 		$sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE id IN(" . $itemIds . ")  AND account_id = '" . $_SESSION['accountId'] . "'  ";
 		$resRows = mysqli_query($con, $sqlSet);
@@ -86,7 +86,7 @@ if (isset($_POST['pId']) && !isset($_POST['notes'])) {
 
 	//--------------------------------------------------------------------------------------------
 	$resHtml = '<div class="container"><div class="prcTable">';
-	if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) {
+	if (isset($_SESSION['itemChargesReq'][3]) && count($_SESSION['itemChargesReq'][3]) > 0) {
 		$resHtml .= '<div class="price justify-content-between"><div class="p-2 delIcn text-center"></div>';
 		$resHtml .= '<div class="p-2 txnmRow"><p>' . showOtherLangText('Sub Total') . '</p>
                                                 </div><div class="d-flex align-items-center justify-content-end curRow">
@@ -98,8 +98,8 @@ if (isset($_POST['pId']) && !isset($_POST['notes'])) {
 	$taxCharges = 0;
 	$fixedCharges = 0;
 	$perCharges = 0;
-	if (isset($_SESSION['itemCharges'][3]) && count($_SESSION['itemCharges'][3]) > 0) {
-		$itemIds = implode(',', $_SESSION['itemCharges'][3]);
+	if (isset($_SESSION['itemChargesReq'][3]) && count($_SESSION['itemChargesReq'][3]) > 0) {
+		$itemIds = implode(',', $_SESSION['itemChargesReq'][3]);
 
 		//start order level item fixed charges
 		$sqlSet = " SELECT * FROM tbl_order_fee WHERE id IN(" . $itemIds . ")  AND account_id = '" . $_SESSION['accountId'] . "' AND feeType ='2' ";
@@ -170,7 +170,7 @@ if (isset($_POST['pId']) && !isset($_POST['notes'])) {
 	$netTotalValue = ($totalChargePrice + $totalFixedCharges + $totalPerCharges + $totalTaxCharges);
 
 	$stylegrand = '';
-	if (!isset($_SESSION['itemCharges'][3]) || count($_SESSION['itemCharges'][3]) == 0) {
+	if (!isset($_SESSION['itemChargesReq'][3]) || count($_SESSION['itemChargesReq'][3]) == 0) {
 		$stylegrand = 'style="border-top: 0px;"';
 	}
 

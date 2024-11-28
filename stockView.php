@@ -10,11 +10,9 @@ $rightSideLanguage = ($getLangType == 1) ? 1 : 0;
 
 //check page permission
 
-// test comments
-$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'], $_SESSION['accountId']);
-
 if (!in_array('5', $checkPermission)) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 if (isset($_SESSION['checkDublicateClick']) && $_SESSION['checkDublicateClick'] == 1) {

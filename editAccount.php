@@ -2,63 +2,55 @@
 include('inc/dbConfig.php'); //connection details
 
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'account' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'account' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
-if( isset($_POST['accountName'])   )
-{
-	
-	$error = '';
-	if(isset($_POST['balanceAmt']) &&  isset($_POST['pass']) )
-	{
-		$query ="SELECT * FROM tbl_user WHERE id = '" . $_SESSION['id'] . "'  AND account_id = '".$_SESSION['accountId']."' AND password = '" . $_POST['pass'] . "' AND status = 1 ";
-		$result = mysqli_query($con, $query);
-		$res = mysqli_fetch_array($result);
-		
-		if ( empty($res) )
-		{
-			$error = ' '.showOtherLangText('Invalid Password').' ';
-		}
-		
-	}
-	
-	if($error == '')
-	{
+if (isset($_POST['accountName'])) {
 
-		$sql = "UPDATE  `tbl_accounts` SET 
-		`accountName` = '".$_POST['accountName']."',
-		`accountNumber` = '".$_POST['accountNumber']."',
-		`currencyId` = '".$_POST['currencyId']."',
-		`balanceAmt` = '".$_POST['balanceAmt']."'
+    $error = '';
+    if (isset($_POST['balanceAmt']) &&  isset($_POST['pass'])) {
+        $query = "SELECT * FROM tbl_user WHERE id = '" . $_SESSION['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' AND password = '" . $_POST['pass'] . "' AND status = 1 ";
+        $result = mysqli_query($con, $query);
+        $res = mysqli_fetch_array($result);
 
-		WHERE id = '".$_POST['id']."' AND account_id = '".$_SESSION['accountId']."' 	";
+        if (empty($res)) {
+            $error = ' ' . showOtherLangText('Invalid Password') . ' ';
+        }
+    }
 
-		mysqli_query($con, $sql);
+    if ($error == '') {
 
-		echo "<script>window.location='manageAccounts.php?update=1'</script>";
+        $sql = "UPDATE  `tbl_accounts` SET 
+		`accountName` = '" . $_POST['accountName'] . "',
+		`accountNumber` = '" . $_POST['accountNumber'] . "',
+		`currencyId` = '" . $_POST['currencyId'] . "',
+		`balanceAmt` = '" . $_POST['balanceAmt'] . "'
 
-	}
-	
+		WHERE id = '" . $_POST['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' 	";
+
+        mysqli_query($con, $sql);
+
+        echo "<script>window.location='manageAccounts.php?update=1'</script>";
+    }
 }
 
-$res = mysqli_query($con, " select * from tbl_accounts WHERE id='".$_GET['id']."' ");
+$res = mysqli_query($con, " select * from tbl_accounts WHERE id='" . $_GET['id'] . "' ");
 $det = mysqli_fetch_array($res);
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -82,13 +74,13 @@ $det = mysqli_fetch_array($res);
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
-          <div class="cntArea">
+            <div class="cntArea">
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Edit Account');?></h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Edit Account'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -100,10 +92,10 @@ $det = mysqli_fetch_array($res);
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Edit Account');?></h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Edit Account'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -116,31 +108,31 @@ $det = mysqli_fetch_array($res);
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                        <form  role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="manageAccounts.php" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back');?></span></a>
+                        <form role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="manageAccounts.php" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Save');?></span></button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="edtSup-Div">
-                              <div class="row align-items-center acntStp-Row">
+                            <div class="edtSup-Div">
+                                <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
                                         <label for="accountName" class="form-label"><?php echo showOtherLangText('Account  Name') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control"  name="accountName" id="accountName"
+                                        <input type="text" required class="form-control" name="accountName" id="accountName"
                                             placeholder="Main Sale USD" value="<?php echo isset($det['accountName']) ? $det['accountName'] : ''; ?>">
                                     </div>
                                 </div>
@@ -160,20 +152,20 @@ $det = mysqli_fetch_array($res);
                                         <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        
+
                                         <?php
-											$sqlSet = " SELECT * FROM tbl_currency WHERE account_id = '".$_SESSION['accountId']."'  order by id  ";
-											$resultSet = mysqli_query($con, $sqlSet);
-											?>				
-											<select required name="currencyId" id="currencyId" class="form-select" aria-label="Default select example"
-                                             class="form-control">
-												<option value=""><?php echo showOtherLangText('Select'); ?></option>
-												<?php while( $cur = mysqli_fetch_array($resultSet) ){
-													$sel = $det['currencyId'] == $cur['id'] ? 'selected="selected"' : '';
-													?> 
-													<option value="<?php echo $cur['id'];?>" <?php echo $sel;?> ><?php echo $cur['currency'];?></option>
-												<?php } ?>
-											</select>
+                                        $sqlSet = " SELECT * FROM tbl_currency WHERE account_id = '" . $_SESSION['accountId'] . "'  order by id  ";
+                                        $resultSet = mysqli_query($con, $sqlSet);
+                                        ?>
+                                        <select required name="currencyId" id="currencyId" class="form-select" aria-label="Default select example"
+                                            class="form-control">
+                                            <option value=""><?php echo showOtherLangText('Select'); ?></option>
+                                            <?php while ($cur = mysqli_fetch_array($resultSet)) {
+                                                $sel = $det['currencyId'] == $cur['id'] ? 'selected="selected"' : '';
+                                            ?>
+                                                <option value="<?php echo $cur['id']; ?>" <?php echo $sel; ?>><?php echo $cur['currency']; ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -182,14 +174,14 @@ $det = mysqli_fetch_array($res);
                                         <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="hidden" name="id"  value="<?php echo $_GET['id'];?>" />
-                                        <input type="text" required value="<?php echo $det['balanceAmt']; ?>" class="form-control"  name="balanceAmt" id="balanceAmt"
+                                        <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+                                        <input type="text" required value="<?php echo $det['balanceAmt']; ?>" class="form-control" name="balanceAmt" id="balanceAmt"
                                             placeholder="3220.7939">
                                     </div>
                                 </div>
 
-                           
-                        </div>
+
+                            </div>
                         </form>
                     </div>
                 </section>

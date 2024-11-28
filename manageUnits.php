@@ -1,103 +1,89 @@
 <?php
 include('inc/dbConfig.php'); //connection details
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'unit' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'unit' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
-  echo "<script>window.location='index.php'</script>";
+if (!$permissionRow) {
+    echo "<script>window.location='index.php'</script>";
 }
 
 
 
-if( isset($_GET['delId']) && $_GET['delId'])
-{
-	$selQry = " SELECT * FROM tbl_products WHERE (unitP = '".$_GET['delId']."' || unitC = '".$_GET['delId']."') AND account_id = '".$_SESSION['accountId']."' ";
+if (isset($_GET['delId']) && $_GET['delId']) {
+    $selQry = " SELECT * FROM tbl_products WHERE (unitP = '" . $_GET['delId'] . "' || unitC = '" . $_GET['delId'] . "') AND account_id = '" . $_SESSION['accountId'] . "' ";
 
-	$res = mysqli_query($con, $selQry);
-	$resRow = mysqli_fetch_array($res);
+    $res = mysqli_query($con, $selQry);
+    $resRow = mysqli_fetch_array($res);
 
 
-	$selQry = " SELECT * FROM tbl_outlet_items WHERE subUnit = '".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."' ";
+    $selQry = " SELECT * FROM tbl_outlet_items WHERE subUnit = '" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 
-	$result = mysqli_query($con, $selQry);
-	$resultRow = mysqli_fetch_array($result);
+    $result = mysqli_query($con, $selQry);
+    $resultRow = mysqli_fetch_array($result);
 
-	if ($resRow > 0 || $resultRow > 0) {
-		
-		echo '<script>window.location="manageUnits.php?err=1"</script>';
+    if ($resRow > 0 || $resultRow > 0) {
 
-	}else{
+        echo '<script>window.location="manageUnits.php?err=1"</script>';
+    } else {
 
-		$sql = "DELETE FROM tbl_units  WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
+        $sql = "DELETE FROM tbl_units  WHERE id='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
 
-		mysqli_query($con, $sql);
+        mysqli_query($con, $sql);
 
-		echo '<script>window.location="manageUnits.php?delete=1"</script>';
-
-	}
-
-	
+        echo '<script>window.location="manageUnits.php?delete=1"</script>';
+    }
 }
 
 
 
-$sql = " SELECT * FROM tbl_units WHERE account_id = '".$_SESSION['accountId']."'  order by name ";
+$sql = " SELECT * FROM tbl_units WHERE account_id = '" . $_SESSION['accountId'] . "'  order by name ";
 $result = mysqli_query($con, $sql);
 
 
-if (isset($_POST['name']))
-{
+if (isset($_POST['name'])) {
 
-	$unitQry = " SELECT * FROM tbl_units WHERE name='".$_POST['name']."' AND account_id='".$_SESSION['accountId']."' ";
-	$unitResult = mysqli_query($con, $unitQry);
-	$unitRow = mysqli_num_rows($unitResult);
+    $unitQry = " SELECT * FROM tbl_units WHERE name='" . $_POST['name'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $unitResult = mysqli_query($con, $unitQry);
+    $unitRow = mysqli_num_rows($unitResult);
 
-	if ($unitRow==0)
-	{
-		$insQry = " INSERT INTO tbl_units SET name='".$_POST['name']."', account_id='".$_SESSION['accountId']."' ";
-		mysqli_query($con, $insQry);
-		echo '<script>window.location="manageUnits.php?added=1"</script>';
-	}
-	else
-	{
-		echo '<script>window.location="manageUnits.php?error=1&name='.$_POST['name'].' "</script>';
-	}
+    if ($unitRow == 0) {
+        $insQry = " INSERT INTO tbl_units SET name='" . $_POST['name'] . "', account_id='" . $_SESSION['accountId'] . "' ";
+        mysqli_query($con, $insQry);
+        echo '<script>window.location="manageUnits.php?added=1"</script>';
+    } else {
+        echo '<script>window.location="manageUnits.php?error=1&name=' . $_POST['name'] . ' "</script>';
+    }
 }
 
-if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0)
-{
-	
-	$unitQry = " SELECT * FROM tbl_units WHERE id ='".$_POST['id']."' AND account_id='".$_SESSION['accountId']."' ";
-	
+if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
+
+    $unitQry = " SELECT * FROM tbl_units WHERE id ='" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+
     $unitResult = mysqli_query($con, $unitQry);
-	$unitRow = mysqli_num_rows($unitResult);
+    $unitRow = mysqli_num_rows($unitResult);
 
-	if ($unitRow > 0)
-	{
+    if ($unitRow > 0) {
 
-		$updateQry = " UPDATE tbl_units SET name='".$_POST['editUnit']."' WHERE id='".$_POST['id']."' AND account_id='".$_SESSION['accountId']."' ";
-		mysqli_query($con, $updateQry);
+        $updateQry = " UPDATE tbl_units SET name='" . $_POST['editUnit'] . "' WHERE id='" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+        mysqli_query($con, $updateQry);
 
 
-		echo '<script>window.location="manageUnits.php?edit=1"</script>';
-
-	}
+        echo '<script>window.location="manageUnits.php?edit=1"</script>';
+    }
 }
 
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -121,7 +107,7 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0)
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -155,30 +141,30 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0)
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['added']) || isset($_GET['update']) || isset($_GET['edit']) || isset($_GET['delete'])) {?>
+                        <?php if (isset($_GET['added']) || isset($_GET['update']) || isset($_GET['edit']) || isset($_GET['delete'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
+                                <p><?php
 
-echo isset($_GET['edit']) ? ' '.showOtherLangText('Unit Edited Successfully').' ' : '';
+                                    echo isset($_GET['edit']) ? ' ' . showOtherLangText('Unit Edited Successfully') . ' ' : '';
 
-echo isset($_GET['added']) ? ' '.showOtherLangText('Unit Added Successfully').' ' : '';
+                                    echo isset($_GET['added']) ? ' ' . showOtherLangText('Unit Added Successfully') . ' ' : '';
 
-echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully').' ' : '';
+                                    echo isset($_GET['delete']) ? ' ' . showOtherLangText('Unit Deleted Successfully') . ' ' : '';
 
-?>
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['err'])) { ?>
+                        <?php } ?>
+                        <?php if (isset($_GET['err'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Unit cannot be delete as it is being used in product').' ' : '';
- ?></p>
+                                <p><?php echo isset($_GET['err']) ? ' ' . showOtherLangText('Unit cannot be delete as it is being used in product') . ' ' : '';
+                                    ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
+                        <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -225,50 +211,49 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                                 </div>
                                 <!-- Table Head End -->
                                 <div id="myRecords">
-                                <!-- Table Body Start -->
-                                <?php 
+                                    <!-- Table Body Start -->
+                                    <?php
 
-								$pageNo = $pn-1;
+                                    $pageNo = $pn - 1;
 
-								$x= isset($_GET['page']) ? ( ($pageNo*$limit)  ) : 0;
+                                    $x = isset($_GET['page']) ? (($pageNo * $limit)) : 0;
 
-								while($row = mysqli_fetch_array($result))
-								{
+                                    while ($row = mysqli_fetch_array($result)) {
 
-									$color = ($x%2 == 0)? 'white': '#FFFFCC';
-									$x++;
-									?>
-                                <div class="userTask">
-                                    <div class="mng-UntTbl-body align-items-center itmBody">
-                                        <div class="mng-UntTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy mng-UntNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x;?></strong></p>
-                                            </div>
-                                            <div class="tb-bdy mng-UntName-Clm">
-                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
+                                        $color = ($x % 2 == 0) ? 'white' : '#FFFFCC';
+                                        $x++;
+                                    ?>
+                                        <div class="userTask">
+                                            <div class="mng-UntTbl-body align-items-center itmBody">
+                                                <div class="mng-UntTbl-Cnt d-flex align-items-center">
+                                                    <div class="tb-bdy mng-UntNum-Clm">
+                                                        <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x; ?></strong></p>
+                                                    </div>
+                                                    <div class="tb-bdy mng-UntName-Clm">
+                                                        <p class="userName"><span><?php echo $row['name']; ?></span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mng-UntTbl-Icns">
+                                                    <div class="tb-bdy mng-UntOpt-Clm d-flex align-items-center">
+                                                        <a href="javascript:void(0)" data-editid="<?php echo $row['id']; ?>" data-name="<?php echo $row['name']; ?>" class="userLink editicon" data-bs-toggle="modal"
+                                                            data-bs-target="#edit-Unit">
+                                                            <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                        </a>
+                                                        <a href="javascript:void(0)" class="userLink editicon" onClick="getDelNumb('<?php echo $row['id']; ?>');">
+                                                            <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="mng-UntTbl-Icns">
-                                            <div class="tb-bdy mng-UntOpt-Clm d-flex align-items-center">
-                                                <a href="javascript:void(0)" data-editid="<?php echo $row['id'];?>" data-name="<?php echo $row['name'];?>" class="userLink editicon" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-Unit">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" class="userLink editicon" onClick="getDelNumb('<?php echo $row['id'];?>');">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php
+
+                                    }
+
+                                    ?>
+
+                                    <!-- Table Body End -->
                                 </div>
-                                <?php 
-
-                                }
-
-                                ?>  
-
-                                <!-- Table Body End -->
-                              </div>
                             </div>
                         </div>
 
@@ -289,16 +274,16 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Add Unit') ?></h1>
                 </div>
                 <form class="addUser-Form row" id="unitfrm" name="unitfrm" action="" method="post">
-                <div class="modal-body">
-                    
+                    <div class="modal-body">
+
                         <input required type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name') ?>*">
-                   
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add') ?></button>
+
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Add') ?></button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -306,78 +291,79 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Unit Deleted Successfully')
     <!-- Add Unit Popup End -->
 
     <!-- Edit Unit Popup Start -->
-    <form role="form" action=""  class="addUser-Form row container glbFrm-Cont" method="post">
-    <div class="modal" tabindex="-1" id="edit-Unit" aria-labelledby="edit-UnitLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Edit Unit'); ?></h1>
-                </div>
-                <div class="modal-body">
-                    
+    <form role="form" action="" class="addUser-Form row container glbFrm-Cont" method="post">
+        <div class="modal" tabindex="-1" id="edit-Unit" aria-labelledby="edit-UnitLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Edit Unit'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+
                         <input type="text" required class="form-control" id="editUnit" name="editUnit" placeholder="<?php echo showOtherLangText('Name') ?>*">
-                    
-                    <input type="hidden" name="id" id="edit-id" value="" /> 
-                </div>
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+
+                        <input type="hidden" name="id" id="edit-id" value="" />
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" class="btn sub-btn std-btn"><?php echo showOtherLangText('Save'); ?></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Edit Unit Popup End -->
-    <div id="dialog" style="display: none;">
-    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
-    </div>
-    <?php require_once('footer.php');?>
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-   <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
-                </div>
-                
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+        <!-- Edit Unit Popup End -->
+        <div id="dialog" style="display: none;">
+            <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+        </div>
+        <?php require_once('footer.php'); ?>
+        <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
                     </div>
-                    <div class="btnBg">
-                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                        </div>
+                        <div class="btnBg">
+                            <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>
 
-<script>  
-$( document ).ready(function() {
-      $('.editicon').click(function(){
-        
-        var editIdValue = this.getAttribute("data-editid");
-        var editnameValue = this.getAttribute("data-name");
-        $('#editUnit').val(editnameValue);
-        $('#edit-id').val(editIdValue);
-      });
-});
- function getDelNumb(delId){
-var newOnClick = "window.location.href='manageUnits.php?delId=" + delId + "'";
+<script>
+    $(document).ready(function() {
+        $('.editicon').click(function() {
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+            var editIdValue = this.getAttribute("data-editid");
+            var editnameValue = this.getAttribute("data-name");
+            $('#editUnit').val(editnameValue);
+            $('#edit-id').val(editIdValue);
+        });
+    });
 
- }  
+    function getDelNumb(delId) {
+        var newOnClick = "window.location.href='manageUnits.php?delId=" + delId + "'";
 
- jQuery.fn.orderBy = function(keySelector) {
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
+
+    }
+
+    jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
             a = keySelector.apply(a);
             b = keySelector.apply(b);
@@ -390,10 +376,10 @@ var newOnClick = "window.location.href='manageUnits.php?delId=" + delId + "'";
     // Function to sort and reorder the .userTask elements
     function sortRows(sort) {
         var uu = $(".userTask").orderBy(function() {
-             var number = +$(this).find(".userNumber").text().replace('No. ', '');
-             return sort === 1 ? number : -number; 
+            var number = +$(this).find(".userNumber").text().replace('No. ', '');
+            return sort === 1 ? number : -number;
         }).appendTo("#myRecords");
 
 
-    }  
+    }
 </script>

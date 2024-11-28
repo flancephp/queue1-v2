@@ -1,90 +1,83 @@
 <?php include('inc/dbConfig.php'); //connection details
 
 
-if (!isset($_SESSION['adminidusername']))
-{
+if (!isset($_SESSION['adminidusername'])) {
     echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'user' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'user' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
+if (!$permissionRow) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
 
 $accountId = $_SESSION['accountId'];
 
-if (isset($_POST['userType']) && $_POST['userType'] !='') {
+if (isset($_POST['userType']) && $_POST['userType'] != '') {
 
-    $sqlQry = " SELECT * FROM tbl_designation WHERE account_id = '".$accountId."' AND is_mobile = '".$_POST['userType']."' ";
+    $sqlQry = " SELECT * FROM tbl_designation WHERE account_id = '" . $accountId . "' AND is_mobile = '" . $_POST['userType'] . "' ";
     $designationRes = mysqli_query($con, $sqlQry);
 
     $selTitle = '<select class="form-select" id="designationTitle" name="designation_title" aria-label="Default select example" required="">';
 
-        $selTitle .= '<option value="">'. showOtherLangText('Designation Title').'</option>';
+    $selTitle .= '<option value="">' . showOtherLangText('Designation Title') . '</option>';
 
-        while($desRow = mysqli_fetch_array($designationRes))
-        {
-                $selTitle .= '<option value='.$desRow['id'].'>'.$desRow['designation_name'].'</option>';
-        }
-                                                        
+    while ($desRow = mysqli_fetch_array($designationRes)) {
+        $selTitle .= '<option value=' . $desRow['id'] . '>' . $desRow['designation_name'] . '</option>';
+    }
+
     $selTitle .= '</select>';
 
     echo $selTitle;
-    
+
     die;
 }
 
-if( isset($_POST['user_name']) )
-{
+if (isset($_POST['user_name'])) {
 
     if ($_POST['mobile_user'] == 1) {
         $userType = '1';
-    }
-    else
-    {
+    } else {
         $userType = '0';
     }
 
-    if($_FILES["imgName"]["name"] != '')
-    {
+    if ($_FILES["imgName"]["name"] != '') {
 
-        $target_dir = dirname(__FILE__)."/uploads/".$accountImgPath.'/users/';
-        $fileName = time(). basename($_FILES["imgName"]["name"]);
+        $target_dir = dirname(__FILE__) . "/uploads/" . $accountImgPath . '/users/';
+        $fileName = time() . basename($_FILES["imgName"]["name"]);
         $target_file = $target_dir . $fileName;
-        
+
         move_uploaded_file($_FILES["imgName"]["tmp_name"], $target_file);
-        
-        resize_image($target_file, $target_file, 100,100);
-      
+
+        resize_image($target_file, $target_file, 100, 100);
     }
 
-     $sql = "INSERT INTO `tbl_user` SET
-    `designation_id` = '".$_POST['designation_title']."',
-    `name` = '".$_POST['user_name']."',
-    `username` = '".$_POST['user_name']."',
-    `userType` = '".$userType."',
-    `email` = '".$_POST['email']."',
-    `phone` = '".$_POST['phone']."',
+    $sql = "INSERT INTO `tbl_user` SET
+    `designation_id` = '" . $_POST['designation_title'] . "',
+    `name` = '" . $_POST['user_name'] . "',
+    `username` = '" . $_POST['user_name'] . "',
+    `userType` = '" . $userType . "',
+    `email` = '" . $_POST['email'] . "',
+    `phone` = '" . $_POST['phone'] . "',
     `status` = '1',
-    `password` = '".$_POST['password']."',
-    `logo` = '".$fileName."',
-    `account_id` = '".$accountId."' ";
-     
+    `password` = '" . $_POST['password'] . "',
+    `logo` = '" . $fileName . "',
+    `account_id` = '" . $accountId . "' ";
+
     mysqli_query($con, $sql);
-    
+
     echo "<script>window.location='users.php?added=1'</script>";
 }
 
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -100,7 +93,7 @@ if( isset($_POST['user_name']) )
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-     
+
 </head>
 
 <body class="mb-Bgbdy">
@@ -108,7 +101,7 @@ if( isset($_POST['user_name']) )
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -182,14 +175,14 @@ if( isset($_POST['user_name']) )
                                                         class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <div class="d-flex flex-wrap gap-2 align-items-center spaceAddUser1" style="min-height: 2.65rem;"> 
-                                                    <div class="form-check rtlClass"> 
+                                                <div class="d-flex flex-wrap gap-2 align-items-center spaceAddUser1" style="min-height: 2.65rem;">
+                                                    <div class="form-check rtlClass">
                                                         <input type="radio" name="mobile_user" class="userTypeWeb form-check-input" value="0"
                                                             onclick="get_mobile_User(this.value)" autocomplete="new-password"
                                                             required id="webUser">
                                                         <label class="me-3 form-check-label mee-3" for="webUser"><?php echo showOtherLangText('Web') ?></label>
                                                     </div>
-                                                    <div class="form-check rtlClass"> 
+                                                    <div class="form-check rtlClass">
                                                         <input type="radio" name="mobile_user" class="userTypeMob form-check-input" value="1"
                                                             onclick="get_mobile_User(this.value)" autocomplete="new-password"
                                                             required id="mobUser">
@@ -279,85 +272,84 @@ if( isset($_POST['user_name']) )
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.userTypeWeb').prop('checked', true);
+        $(document).ready(function() {
+            $('.userTypeWeb').prop('checked', true);
 
-        if ($('.userTypeWeb').is(':checked')) {
+            if ($('.userTypeWeb').is(':checked')) {
 
-            var userType = $('.userTypeWeb').val();
+                var userType = $('.userTypeWeb').val();
+                $.ajax({
+                        method: "POST",
+                        url: "addUser.php",
+                        data: {
+                            userType: userType
+                        }
+                    })
+                    .done(function(val) {
+                        $('.setTitle').html(val);
+                    })
+            }
+
+            $(".toggle-password").click(function() {
+
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $($(this).attr("toggle"));
+                if (input.attr("type") == "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
+
+        });
+
+        function get_mobile_User(mobileUserVal) {
             $.ajax({
                     method: "POST",
                     url: "addUser.php",
                     data: {
-                        userType: userType
+                        userType: mobileUserVal
                     }
                 })
                 .done(function(val) {
                     $('.setTitle').html(val);
                 })
+
         }
-
-        $(".toggle-password").click(function() {
-
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
-        });
-
-    });
-
-    function get_mobile_User(mobileUserVal) {
-        $.ajax({
-                method: "POST",
-                url: "addUser.php",
-                data: {
-                    userType: mobileUserVal
-                }
-            })
-            .done(function(val) {
-                $('.setTitle').html(val);
-            })
-
-    }
     </script>
     <script>
-    function previewFile() {
-        var preview = document.querySelector('#preview');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+        function previewFile() {
+            var preview = document.querySelector('#preview');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
 
-        reader.onloadend = function() {
-            preview.src = reader.result;
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+
         }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-        }
-
-    }
     </script>
     <style type="text/css">
-    .field-icon {
-        float: right;
-        margin-left: -25px;
-        margin-top: -28px;
-        position: relative;
-        z-index: 2;
-        margin-right: 8px;
-    }
+        .field-icon {
+            float: right;
+            margin-left: -25px;
+            margin-top: -28px;
+            position: relative;
+            z-index: 2;
+            margin-right: 8px;
+        }
 
-html[dir=rtl] .field-icon {
-  float: left;
-  margin-top: -28px;
-  right: -31px;
-}
-
+        html[dir=rtl] .field-icon {
+            float: left;
+            margin-top: -28px;
+            right: -31px;
+        }
     </style>
 </body>
 

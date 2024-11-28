@@ -4,53 +4,22 @@ include('inc/dbConfig.php'); //connection details
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-if (!isset($_SESSION['adminidusername'])) 
-{
-    echo "<script>window.location='login.php'</script>";    
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 
 //check page permission
-$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'],$_SESSION['accountId']);
+$checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'], $_SESSION['accountId']);
 
-if (!in_array('8',$checkPermission))
-{
+if (!in_array('8', $checkPermission)) {
     echo "<script>window.location='index.php'</script>";
 }
 
-$accessAccountSetup = access_account_setup($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessDesignation = access_designation($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessUser = access_user($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessOutlet = access_outlet($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessSupplier = access_supplier($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessRevenueCenter = access_revenue_center($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessPhysicalStorage = access_physical_storage($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessDepartmentType = access_department_type($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessCategory = access_category($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessUnit = access_unit($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessItemManager = access_item_manager($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessCurrency = access_currency($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessAccount = access_account($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessServiceItem = access_service_item($_SESSION['designation_id'],$_SESSION['accountId']);
-
-$accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSION['accountId']);
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -74,7 +43,7 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-                  <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -95,7 +64,7 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
                                     <h1 class="h1"><?php echo showOtherLangText('Setup'); ?></h1>
                                 </div>
                             </div>
-                               <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -122,27 +91,39 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
                                 <div class="stup-SubMenu">
                                     <div class="triangle-down"></div>
                                     <div class="subMenu-Dtl">
-                                        <a href="accountSetup.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/Account-setup.svg" alt="<?php echo showOtherLangText('Account Setup'); ?>">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Account Setup'); ?></p>
-                                        </a>
-                                        <a href="users.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-user.svg" alt="Setup User">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Users') ?></p>
-                                        </a>
-                                        <a href="listDesignation.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-service.svg" alt="Service item">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Title') ?></p>
-                                        </a>
+
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'account_setup')) {
+                                        ?>
+                                            <a href="accountSetup.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/Account-setup.svg" alt="<?php echo showOtherLangText('Account Setup'); ?>">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Account Setup'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'user')) {
+                                        ?>
+                                            <a href="users.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-user.svg" alt="Setup User">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Users') ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'designation')) {
+                                        ?>
+                                            <a href="listDesignation.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-service.svg" alt="Service item">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Title') ?></p>
+                                            </a>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="stup-clm-2">
                                 <div class="stup-UsrAcnt">
                                     <a href="javascript:void(0)" class="usrAcnt-Dtl">
@@ -156,24 +137,33 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
                                 <div class="stup-SubMenu">
                                     <div class="triangle-down"></div>
                                     <div class="subMenu-Dtl">
-                                        <a href="manageSuppliers.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-supplier.svg" alt="Suppliers">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Suppliers') ?></p>
-                                        </a>
-                                        <a href="manageOutlets.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-outlet.svg" alt="Outlets">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Outlets') ?></p>
-                                        </a>
-                                        <a href="revenueCenterSetup.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-revnue.svg" alt="Revenue Centers">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Revenue Centers'); ?></p>
-                                        </a>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'supplier')) {
+                                        ?>
+                                            <a href="manageSuppliers.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-supplier.svg" alt="Suppliers">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Suppliers') ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'outlet')) {
+                                        ?>
+                                            <a href="manageOutlets.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-outlet.svg" alt="Outlets">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Outlets') ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'revenue_center')) {
+                                        ?>
+                                            <a href="revenueCenterSetup.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-revnue.svg" alt="Revenue Centers">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Revenue Centers'); ?></p>
+                                            </a>
+                                        <?php } ?>
                                         <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/contactstup.svg" alt="Contact List">
@@ -214,30 +204,43 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
                                 <div class="stup-SubMenu">
                                     <div class="triangle-down"></div>
                                     <div class="subMenu-Dtl">
-                                        <a href="physicalStorages.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-storage.svg" alt="Physical Storages">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Physical Storages'); ?></p>
-                                        </a>
-                                        <a href="manageDepartments.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-department.svg" alt="Departments Type">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Departments Type'); ?></p>
-                                        </a>
-                                        <a href="categories.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-category.svg" alt="Categories">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Categories'); ?></p>
-                                        </a>
-                                        <a href="manageUnits.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-unit.svg" alt="Units">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Units'); ?></p>
-                                        </a>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'physical_storage')) {
+                                        ?>
+                                            <a href="physicalStorages.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-storage.svg" alt="Physical Storages">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Physical Storages'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'department_type')) {
+                                        ?>
+                                            <a href="manageDepartments.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-department.svg" alt="Departments Type">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Departments Type'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'category')) {
+                                        ?>
+                                            <a href="categories.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-category.svg" alt="Categories">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Categories'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'unit')) {
+                                        ?>
+                                            <a href="manageUnits.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-unit.svg" alt="Units">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Units'); ?></p>
+                                            </a>
+                                        <?php } ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -254,36 +257,52 @@ $accessAdditionalFee = access_additional_fee($_SESSION['designation_id'],$_SESSI
                                 <div class="stup-SubMenu">
                                     <div class="triangle-down"></div>
                                     <div class="subMenu-Dtl">
-                                        <a href="manageCurrency.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-currency.svg" alt="Currency">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Currency'); ?></p>
-                                        </a>
-                                        <a href="manageAccounts.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-account.svg" alt="Accounts">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Accounts'); ?></p>
-                                        </a>
-                                        <a href="manageServiceFee.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-service.svg" alt="Service item">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Service item'); ?></p>
-                                        </a>
-                                        <a href="manageAdditionalFee.php" class="sbMnu-acntStup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-additional.svg" alt="Additional Fees">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Additional Fees'); ?></p>
-                                        </a>
-                                        <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
-                                            <div class="sub-Icns">
-                                                <img src="Assets/icons/setup-department.svg" alt="Payments Type">
-                                            </div>
-                                            <p class="sub-Text"><?php echo showOtherLangText('Payments Type'); ?></p>
-                                        </a>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'currency')) {
+                                        ?>
+                                            <a href="manageCurrency.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-currency.svg" alt="Currency">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Currency'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'account')) {
+                                        ?>
+                                            <a href="manageAccounts.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-account.svg" alt="Accounts">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Accounts'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'service_item')) {
+                                        ?>
+                                            <a href="manageServiceFee.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-service.svg" alt="Service item">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Service item'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'additional_fee')) {
+                                        ?>
+                                            <a href="manageAdditionalFee.php" class="sbMnu-acntStup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-additional.svg" alt="Additional Fees">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Additional Fees'); ?></p>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'account_setup')) {
+                                        ?>
+                                            <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
+                                                <div class="sub-Icns">
+                                                    <img src="Assets/icons/setup-department.svg" alt="Payments Type">
+                                                </div>
+                                                <p class="sub-Text"><?php echo showOtherLangText('Payments Type'); ?></p>
+                                            </a>
+                                        <?php } ?>
+
                                     </div>
                                 </div>
                             </div>

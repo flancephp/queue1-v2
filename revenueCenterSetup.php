@@ -1,53 +1,45 @@
-<?php 
+<?php
 include('inc/dbConfig.php'); //connection details
 
 
-if (!isset($_SESSION['adminidusername']))
-{
-	echo "<script>window.location='login.php'</script>";
+if (!isset($_SESSION['adminidusername'])) {
+    echo "<script>window.location='login.php'</script>";
 }
 
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND type_id = '0' AND designation_id = '".$_SESSION['designation_id']."' AND account_id = '".$_SESSION['accountId']."' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'revenue_center' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
-if ($permissionRow)
-{
+if (!$permissionRow) {
     echo "<script>window.location='index.php'</script>";
-}	
+}
 
 
-if (isset($_GET['delId']) && $_GET['delId'] > 0) 
-{
+if (isset($_GET['delId']) && $_GET['delId'] > 0) {
 
-	$sqlSet = " SELECT * FROM tbl_revenue_center_departments WHERE revCenterId='".$_GET['delId']."' AND account_id='".$_SESSION['accountId']."' ";
-	$resultSet = mysqli_query($con, $sqlSet);
-	$setRow = mysqli_fetch_array($resultSet);
+    $sqlSet = " SELECT * FROM tbl_revenue_center_departments WHERE revCenterId='" . $_GET['delId'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $setRow = mysqli_fetch_array($resultSet);
 
-	if ($setRow)
-	{
+    if ($setRow) {
 
-		echo "<script>window.location='revenueCenterSetup.php?err=1'</script>";
-
-	}
-	else
-	{
+        echo "<script>window.location='revenueCenterSetup.php?err=1'</script>";
+    } else {
 
 
-		$sql = "DELETE FROM tbl_revenue_center WHERE id='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-		mysqli_query($con, $sql);
+        $sql = "DELETE FROM tbl_revenue_center WHERE id='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
 
-		$sql = "DELETE FROM tbl_easymapping WHERE revId='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-		mysqli_query($con, $sql);
+        $sql = "DELETE FROM tbl_easymapping WHERE revId='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
 
-		$sql = "DELETE FROM tbl_map_category WHERE revId='".$_GET['delId']."' AND account_id = '".$_SESSION['accountId']."'  ";
-		mysqli_query($con, $sql);
+        $sql = "DELETE FROM tbl_map_category WHERE revId='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+        mysqli_query($con, $sql);
 
-		echo "<script>window.location='revenueCenterSetup.php?delete=1'</script>";
-	}
-
+        echo "<script>window.location='revenueCenterSetup.php?delete=1'</script>";
+    }
 }
 
 //////////////////Pagination goes here/////////////////////////////////////////
@@ -55,7 +47,7 @@ if (isset($_GET['delId']) && $_GET['delId'] > 0)
 
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -79,7 +71,7 @@ if (isset($_GET['delId']) && $_GET['delId'] > 0)
     <div class="container-fluid newOrder">
         <div class="row">
             <div class="nav-col flex-wrap align-items-stretch" id="nav-col">
-            <?php require_once('nav.php');?>
+                <?php require_once('nav.php'); ?>
             </div>
             <div class="cntArea">
                 <section class="usr-info">
@@ -100,7 +92,7 @@ if (isset($_GET['delId']) && $_GET['delId'] > 0)
                                     <h1 class="h1"><?php echo showOtherLangText('Revenue Centers Setup'); ?></h1>
                                 </div>
                             </div>
-                             <?php require_once('header.php'); ?>
+                            <?php require_once('header.php'); ?>
                         </div>
                     </div>
                 </section>
@@ -113,29 +105,29 @@ if (isset($_GET['delId']) && $_GET['delId'] > 0)
 
                 <section class="ordDetail userDetail">
                     <div class="container">
-                    <?php if(isset($_GET['edit']) || isset($_GET['added']) || isset($_GET['delete'])) {?>
+                        <?php if (isset($_GET['edit']) || isset($_GET['added']) || isset($_GET['delete'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <p><?php 
+                                <p><?php
 
-echo isset($_GET['edit']) ? ' '.showOtherLangText('Revenue Center Edited Successfully').' ' : '';
-echo isset($_GET['added']) ? ' '.showOtherLangText('Revenue Center Added Successfully').' ' : '';
-echo isset($_GET['delete']) ? ' '.showOtherLangText('Revenue Center Deleted Successfully').' ' : '';
+                                    echo isset($_GET['edit']) ? ' ' . showOtherLangText('Revenue Center Edited Successfully') . ' ' : '';
+                                    echo isset($_GET['added']) ? ' ' . showOtherLangText('Revenue Center Added Successfully') . ' ' : '';
+                                    echo isset($_GET['delete']) ? ' ' . showOtherLangText('Revenue Center Deleted Successfully') . ' ' : '';
 
-?>
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
-                            <?php if(isset($_GET['err'])) { ?>
+                        <?php } ?>
+                        <?php if (isset($_GET['err'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' '.showOtherLangText('Revenue Center can not be deleted as it has assigned member').' ' : '';
- ?><?php echo isset($_GET['error_already_exist']) ? ' '.showOtherLangText('Category already exist').' ' : '';
- ?></p>
+                                <p><?php echo isset($_GET['err']) ? ' ' . showOtherLangText('Revenue Center can not be deleted as it has assigned member') . ' ' : '';
+                                    ?><?php echo isset($_GET['error_already_exist']) ? ' ' . showOtherLangText('Category already exist') . ' ' : '';
+                                        ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <?php } ?>
+                        <?php } ?>
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -180,44 +172,43 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Revenue Center Deleted Succ
                                     </div>
                                 </div>
                                 <!-- Table Head End -->
-                                 <div id="myRecords">
-                                <!-- Table Body Start -->
-                                <?php 
-								$x= 0;
-								$sql = "SELECT * FROM tbl_revenue_center WHERE account_id = '".$_SESSION['accountId']."' order by name ";
-								$result = mysqli_query($con, $sql);
-								while($row = mysqli_fetch_array($result))
-								{
-									$color = ($x%2 == 0)? 'white': '#FFFFCC';
-									$x++;
+                                <div id="myRecords">
+                                    <!-- Table Body Start -->
+                                    <?php
+                                    $x = 0;
+                                    $sql = "SELECT * FROM tbl_revenue_center WHERE account_id = '" . $_SESSION['accountId'] . "' order by name ";
+                                    $result = mysqli_query($con, $sql);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $color = ($x % 2 == 0) ? 'white' : '#FFFFCC';
+                                        $x++;
 
-									?>
-                                <div class="userTask">
-                                    <div class="revstpTbl-body align-items-center itmBody">
-                                        <div class="revstpTbl-Cnt d-flex align-items-center">
-                                            <div class="tb-bdy revstpNum-Clm">
-                                                <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x; ?></strong></p>
-                                            </div>
-                                            <div class="tb-bdy revstpName-Clm">
-                                                <p class="userName"><span><?php echo $row['name'];?></span></p>
+                                    ?>
+                                        <div class="userTask">
+                                            <div class="revstpTbl-body align-items-center itmBody">
+                                                <div class="revstpTbl-Cnt d-flex align-items-center">
+                                                    <div class="tb-bdy revstpNum-Clm">
+                                                        <p class="userNumber"><span class="mb-UsrSpan">No. </span><strong><?php echo $x; ?></strong></p>
+                                                    </div>
+                                                    <div class="tb-bdy revstpName-Clm">
+                                                        <p class="userName"><span><?php echo $row['name']; ?></span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="revstpTbl-Icns">
+                                                    <div class="tb-bdy revstpOpt-Clm d-flex align-items-center">
+                                                        <a href="editRevenueCenter.php?id=<?php echo $row['id']; ?>" class="userLink">
+                                                            <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
+                                                        </a>
+                                                        <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id']; ?>');" class="userLink">
+                                                            <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="revstpTbl-Icns">
-                                            <div class="tb-bdy revstpOpt-Clm d-flex align-items-center">
-                                                <a href="editRevenueCenter.php?id=<?php echo $row['id'];?>" class="userLink">
-                                                    <img src="Assets/icons/dots.svg" alt="Dots" class="usrLnk-Img">
-                                                </a>
-                                                <a href="javascript:void(0)" onClick="getDelNumb('<?php echo $row['id'];?>');" class="userLink">
-                                                    <img src="Assets/icons/delete.svg" alt="Delete" class="usrLnk-Img">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
-                                <?php 
-								}
-								?>
-                                  </div>
                                 <!-- Table Body End -->
 
                             </div>
@@ -230,49 +221,50 @@ echo isset($_GET['delete']) ? ' '.showOtherLangText('Revenue Center Deleted Succ
         </div>
     </div>
     <div id="dialog" style="display: none;">
-    <?php echo showOtherLangText('Are you sure to delete this record?') ?>  
-</div>
+        <?php echo showOtherLangText('Are you sure to delete this record?') ?>
+    </div>
 
-<?php require_once('footer.php');?>
-<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <?php require_once('footer.php'); ?>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+            </div>
+
+            <div class="modal-footer">
+                <div class="btnBg">
+                    <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
                 </div>
-                
-                <div class="modal-footer">
-                    <div class="btnBg">
-                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
-                    </div>
-                    <div class="btnBg">
-                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
-                    </div>
+                <div class="btnBg">
+                    <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 </html>
 
-<script>  
- function getDelNumb(delId){
-var newOnClick = "window.location.href='revenueCenterSetup.php?delId=" + delId + "'";
+<script>
+    function getDelNumb(delId) {
+        var newOnClick = "window.location.href='revenueCenterSetup.php?delId=" + delId + "'";
 
-      $('.deletelink').attr('onclick', newOnClick);
-     $('#delete-popup').modal('show');
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
 
- }  
+    }
 
- jQuery.fn.orderBy = function(keySelector) {
+    jQuery.fn.orderBy = function(keySelector) {
         return this.sort(function(a, b) {
             a = keySelector.apply(a);
             b = keySelector.apply(b);
-            console.log('a',a,'b',b);
+            console.log('a', a, 'b', b);
             if (a > b) return 1;
             if (a < b) return -1;
             return 0;
@@ -282,11 +274,10 @@ var newOnClick = "window.location.href='revenueCenterSetup.php?delId=" + delId +
     // Function to sort and reorder the .userTask elements
     function sortRows(sort) {
         var uu = $(".userTask").orderBy(function() {
-             var number = +$(this).find(".userNumber").text().replace('No. ', '');
-             return sort === 1 ? number : -number; 
+            var number = +$(this).find(".userNumber").text().replace('No. ', '');
+            return sort === 1 ? number : -number;
         }).appendTo("#myRecords");
 
 
     }
 </script>
- 
