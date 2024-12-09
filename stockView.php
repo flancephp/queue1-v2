@@ -1446,17 +1446,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         <?php } ?>
                                     </div>
                                 </div>
-                                <div class="tb-head stk_val stk_val supStkclm d-none d-lg-block">
-                                    <div class="d-flex align-items-center">
-                                        <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
-                                        <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
-                                            <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newStockTask1', '.stk_val','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                <a onclick="sortTableByColumn('.newStockTask1', '.stk_val','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                            </span>
-                                        <?php } ?>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <!-- Item Table Head End -->
@@ -1539,7 +1529,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <div class="stkPrcol d-md-flex align-items-center">
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?> <p><span class="mbLst-value lstValueSize">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                    <?php } else { ?> <p><span class="mbLst-value lstValueSize">S. Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1547,7 +1537,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Stock">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value lstValueSize">Stock</span><?php echo getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        <p><span class="mbLst-value lstValueSize">S. Price</span><?php echo getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1555,7 +1545,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value lstValueSize">Stock</span><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                        <p><span class="mbLst-value lstValueSize">S. Value</span><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
 
                                                     <?php } ?>
@@ -1682,13 +1672,13 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 <div class="department tb-bdy lstPrco stkPrcbdy mb-Stock md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Stock</span><?php echo $deptNames; ?></p>
+                                                        <p><?php echo $deptNames; ?></p>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
+                                                        <p style="text-align:right;"><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
@@ -1696,10 +1686,11 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                                 <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
-                                                        <p><span class="mbLst-value">Max</span><?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?>
+                                                        <p><span class="mbLst-value">Max<?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></span>
                                                         </p>
                                                     <?php } ?>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div class="mbHde align-items-center suppData-stk">

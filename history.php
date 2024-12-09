@@ -3418,16 +3418,16 @@ if ($getTxtById == 'storeId') {
                                                                                                                                                 getrequisitionPaymentLink($orderRow['id']);
                                                                                                                                             } else {
                                                                                                                                             ?><span style="width: 66%;">&nbsp;</span><?php
-                                                                                                                                                }
-                                                                                                                                            } else {
-                                                                                                                                                    ?><span style="width: 66%;">&nbsp;</span><?php
-                                                                                                                                                                    }
-                                                                                                                                                                } else {
+                                                                                                                                                                                    }
+                                                                                                                                                                                } else {
+                                                                                                                                                                                        ?><span style="width: 66%;">&nbsp;</span><?php
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                            } else {
 
-                                                                                                                                                                    echo '<div class="cnfrm" style=" border: none; background: transparent !important; box-shadow: none;"></div>';
-                                                                                                                                                                }
+                                                                                                                                                                                                                                echo '<div class="cnfrm" style=" border: none; background: transparent !important; box-shadow: none;"></div>';
+                                                                                                                                                                                                                            }
 
-                                                                                                                                                                        ?>
+                                                                                                                                                                                                                                    ?>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
                                                             <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

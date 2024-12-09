@@ -9,7 +9,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 $selQry = " DELETE FROM tbl_order_details_temp WHERE ordId='" . $_GET['orderId'] . "' AND account_id='" . $_SESSION['accountId'] . "' AND editOrdNewItemStatus=1  ";
 mysqli_query($con, $selQry);
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_requisition' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'edit_requisition' AND designation_Section_permission_id = '3' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
 if (!$permissionRow) {

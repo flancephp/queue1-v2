@@ -15,7 +15,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 $rightSideLanguage = ($getLangType == 1) ? 1 : 0;
 
 
-$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'receive_order' AND designation_Section_permission_id = '8' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = 'receive_order' AND designation_Section_permission_id = '3' AND designation_id = '" . $_SESSION['designation_id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
 if (!$permissionRow) {

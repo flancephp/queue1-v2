@@ -12,6 +12,7 @@ if (isset($_REQUEST['supplierId']) && $_SESSION['supplierId'] != $_REQUEST['supp
     unset($_SESSION['autoFill']);
 }
 
+
 if (isset($_SESSION['autoFill'])) {
     $_GET['autoFill'] = $_SESSION['autoFill'];
 }
@@ -68,6 +69,9 @@ if ($_REQUEST['supplierId'] != '') {
 
     $_SESSION['supplierId'] = $_REQUEST['supplierId'];
 }
+
+$disableClickClass = !isset($_SESSION['supplierId']) ? 'disableClick' : '';
+
 
 $ordRowsTemp = getOrderTempData($_SESSION['id']);
 $proTempRows = [];
@@ -906,7 +910,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
                                                                 if (checkSupplierForMinLevelProducts($_SESSION['supplierId']) > 0) {
                                                                 ?>
 
-                                                                    <a href="addOrder.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId']; ?>&currencyId=<?php echo $_SESSION['currencyId'] ?>" class="tabFet">
+                                                                    <a href="addOrder.php?autoFill=1&supplierIdVal=<?php echo $_SESSION['supplierId']; ?>&currencyId=<?php echo $_SESSION['currencyId'] ?>" class="tabFet <?php echo $disableClickClass; ?>">
                                                                         <span class="autoFill"></span>
                                                                         <p class="btn2">
                                                                             <?php echo showOtherLangText('Auto Fill'); ?></p>
@@ -915,8 +919,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
                                                                 } else {
                                                                 ?>
 
-                                                                    <a style="opacity: 0.5;cursor: default;
-pointer-events: none;" href="javascript:void(0)" class="tabFet">
+                                                                    <a href="javascript:void(0)" class="tabFet disableClick">
                                                                         <span class="autoFill"></span>
                                                                         <p class="btn2">
                                                                             <?php echo showOtherLangText('Auto Fill'); ?></p>
@@ -928,14 +931,14 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
                                                             </div>
 
                                                             <div class="col-md-3 ordFeature "><a href="javascript:void(0)" onClick="getClearNumb('<?php echo $_SESSION['supplierId'] ?>')"
-                                                                    class="tabFet">
+                                                                    class="tabFet <?php echo $disableClickClass; ?>">
                                                                     <span class="clear"></span>
                                                                     <p class="btn2"><?php echo showOtherLangText('Clear'); ?></p>
                                                                 </a></div>
 
                                                             <div
                                                                 class="col-md-3 ordFeature dropdown drpCurr position-relative">
-                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet"
+                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet <?php echo $disableClickClass; ?>"
                                                                     role="button" data-bs-toggle="dropdown"
                                                                     aria-expanded="false">
                                                                     <span class="currency"></span>
@@ -961,7 +964,7 @@ pointer-events: none;" href="javascript:void(0)" class="tabFet">
 
                                                             </div>
                                                             <div class="col-md-3 ordFeature drpFee position-relative">
-                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet" id="dropBtn"
+                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet <?php echo $disableClickClass; ?>" id="dropBtn"
                                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="fee"></span>
                                                                     <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i

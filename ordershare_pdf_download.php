@@ -3,10 +3,10 @@
 
 
 // Include autoloader 
-require_once 'dompdf/autoload.inc.php'; 
- 
+require_once 'dompdf/autoload.inc.php';
+
 // Reference the Dompdf namespace 
-use Dompdf\Dompdf; 
+use Dompdf\Dompdf;
 
 // Instantiate and use the dompdf class 
 $dompdf = new Dompdf();
@@ -22,19 +22,15 @@ include($pdfFile); // Include history_final_pdf.php file to get content variable
 // Add this line of code to show image
 $dompdf->set_option('isRemoteEnabled', true); // By default isRemoteEnable is false that's why image is not shown.
 
-$dompdf->loadHtml($content); 
- 
+$dompdf->loadHtml($content);
+
 // (Optional) Setup the paper size and orientation 
-$dompdf->setPaper('A4', 'portrait'); 
- 
+$dompdf->setPaper('A4', 'portrait');
+
 // Render the HTML as PDF 
 $dompdf->render();
 $date = date('d-m-y-h-i-s');
 
 
 // Output the generated PDF (1 = download and 0 = preview) 
-$dompdf->stream("Order_details('".$date."').pdf", array("Attachment" => 0));
-
-
-
-?>
+$dompdf->stream("Order_details('" . $date . "').pdf", array("Attachment" => 0));

@@ -230,7 +230,7 @@ AND account_id = '" . $_SESSION['accountId'] . "' GROUP BY account_id ";
     $res = mysqli_query($con, $sql);
     $userRow = mysqli_fetch_array($res);
 
-    $notes = 'Assigned To: ' . $userRow['names'];
+    $notes = showOtherLangText('Assigned To') . ': ' . $userRow['names'];
     $qry = " INSERT INTO `tbl_order_journey` SET 
 `account_id` = '" . $_SESSION['accountId'] . "',
 `orderId` = '" . $resRow['id'] . "',

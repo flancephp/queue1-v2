@@ -73,7 +73,8 @@ if (isset($_POST['name']) && isset($_POST['deptId'])) {
 `receive_inv` = '" . $_POST['receiveInv'] . "',
 `email` = '" . $_POST['email'] . "',
 `address` = '" . $_POST['address'] . "',
-`phone` = '" . $_POST['phone'] . "'
+`phone` = '" . $_POST['phone'] . "',
+`isAddressCheck` = '" . $_POST['addressCheck'] . "'
 WHERE id='" . $_GET['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
 
     mysqli_query($con, $updateQry);
@@ -274,8 +275,10 @@ if (isset($_POST['itemRowId']) && $_POST['itemRowId'] > 0 && $_POST['ajaxData'] 
     $maxQty = $itemDet['maxQty'];
     $itemType = $itemDet['itemType'];
     $unit = $itemDet['subUnit'];
+    $status = $itemDet['status'];
 
-    $responseArr = ['itemName' => $itemName, 'factor' => $factor, 'minQty' => $minQty, 'maxQty' => $maxQty, 'itemType' => $itemType, 'unit' => $unit];
+
+    $responseArr = ['itemName' => $itemName, 'factor' => $factor, 'minQty' => $minQty, 'maxQty' => $maxQty, 'itemType' => $itemType, 'unit' => $unit, 'status' => $status];
 
     echo json_encode($responseArr);
     die;
@@ -308,7 +311,8 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
 			`subUnit` = '" . $_POST['subUnit'] . "', 
 			`factor` = '" . $_POST['factor'] . "', 
 			`minQty` = '" . $_POST['minQty'] . "', 
-			`maxQty` = '" . $_POST['maxQty'] . "'
+			`maxQty` = '" . $_POST['maxQty'] . "',
+            `status` = '" . $_POST['outLetItemStatus'] . "'
 			WHERE id = '" . $_POST['itemRowId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ";
             mysqli_query($con, $sql);
 
@@ -325,7 +329,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
 			`maxQty` = '" . $_POST['maxQty'] . "', 
 			`daysCount` = '" . $_POST['daysCount'] . "', 
 			`creationDate` = NOW(),
-            `status` = 1,
+            `status` = '" . $_POST['status'] . "',
 			`account_id` = '" . $_SESSION['accountId'] . "' ";
             mysqli_query($con, $sql);
 
@@ -643,7 +647,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                     <div class="row align-items-center acntStp-Row">
                                                         <div class="col-md-4 colDisable">&nbsp;</div>
                                                         <div class="col-8">
-                                                            <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
+                                                            <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" <?php echo $deptUserRow['isAddressCheck'] == 1 ? 'checked="checked"' : ''; ?> value="1"
                                                                 onclick="showRevCenterAddress();">
                                                             <span style="padding-left:7px;"><label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label></span>
                                                         </div>
@@ -691,6 +695,10 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                     <div class="container outlet-Tblhead position-relative">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
+                            <div class="tb-head imgOlt-Clm">
+                                <p><?php echo mysqli_num_rows($outLetItemsQry); ?>#</p>
+                            </div>
+
                             <div class="tb-head imgOlt-Clm">
                                 <p><?php echo showOtherLangText('Photo'); ?></p>
                             </div>
@@ -740,6 +748,8 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                             ?>
                                 <div class="d-flex align-items-center border-bottom itmBody outletBdy-Task">
                                     <div class="itmTask-Mng oltTsk-Dtl align-items-center">
+                                        <div class="tb-bdy imgOlt-Clm"><?php echo $x; ?></div>
+
                                         <div class="tb-bdy imgOlt-Clm">
                                             <?php $img = '';
 
@@ -851,6 +861,21 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                         <input type="text" class="form-control" name="factor" id="factor" placeholder="<?php echo showOtherLangText('Factor'); ?>" required />
                         <input type="text" class="form-control" name="minQty" id="minQty" placeholder="<?php echo showOtherLangText('Min Qty'); ?>" value="" />
                         <input type="text" class="form-control" name="maxQty" id="maxQty" placeholder="<?php echo showOtherLangText('Max Qty'); ?>" value="" />
+
+                        <div class="col-md-10 col-8" style="margin-top:10px;font-size:16px;">
+
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="stock-radio enableMobileSection">
+                                    <input type="radio" name="status" id="status" class="mobile-section-enable form-check-input" value="1" checked="checked">
+                                    <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
+                                </div>
+                                <div class="stock-radio desableMobileSection">
+                                    <input type="radio" name="status" id="status" class="mobile-section-disable form-check-input" value="0">
+                                    <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
@@ -928,6 +953,21 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                         <input type="text" class="form-control" name="factor" id="factor" placeholder="<?php echo showOtherLangText('Factor'); ?>" required />
                         <input type="text" class="form-control" name="minQty" id="minQty" placeholder="<?php echo showOtherLangText('Min Qty'); ?>" value="" />
                         <input type="text" class="form-control" name="maxQty" id="maxQty" placeholder="<?php echo showOtherLangText('Max Qty'); ?>" value="" />
+
+                        <div class="col-md-10 col-8" style="margin-top:10px;font-size:16px;">
+
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="stock-radio enableMobileSection">
+                                    <input type="radio" name="outLetItemStatus" id="statusEnable" class="mobile-section-enable form-check-input" value="1">
+                                    <label class="fs-13">Enable</label>
+                                </div>
+                                <div class="stock-radio desableMobileSection">
+                                    <input type="radio" name="outLetItemStatus" id="statusDisabled" class="mobile-section-disable form-check-input" value="0">
+                                    <label class="fs-13">Disable</label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
@@ -942,11 +982,35 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
     <div id="dialog1" style="display: none;">
         <?php echo showOtherLangText('Are you sure to delete this record?') ?>
     </div>
+
+
     <div id="outletItemModalPopup" class="modal"></div>
     <?php require_once('footer.php'); ?>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?> </h1>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('No'); ?></button>
+                    </div>
+                    <div class="btnBg">
+                        <button type="button" onclick="" class="deletelink btn sub-btn std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
@@ -962,29 +1026,14 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
 
     function getDelNumb(delId, id, revCenDeptId, deptId) {
 
-        $("#dialog1").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Yes') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                    window.location.href = 'editOutlet.php?delId=' + delId + '&id=' + id +
-                        '&revCenDeptId=' + revCenDeptId + '&deptId=' + deptId;
-                },
+        var newOnClick = "window.location.href='editOutlet.php?delId=" + delId + "&id=" + id + "&revCenDeptId=" + revCenDeptId + "&deptId=" + deptId + " '";
 
-                '<?php echo showOtherLangText('No') ?>': function() {
-                    //Do whatever you want to do when No clicked
-                    $(this).dialog('close');
-                }
-            }
-        });
 
-        $("#dialog1").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
+
+
     }
 
 
@@ -1283,6 +1332,14 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                 $('#edit-PhyStorage #factor').val(responseObj.factor);
                 $('#edit-PhyStorage #minQty').val(responseObj.minQty);
                 $('#edit-PhyStorage #maxQty').val(responseObj.maxQty);
+
+                var outLetItemStatus = responseObj.status;
+
+                if (outLetItemStatus == 1) {
+                    $('#statusEnable').prop("checked", true);
+                } else {
+                    $('#statusDisabled').prop("checked", true);
+                }
             });
 
         $('#edit-PhyStorage #itemRowId').val(itemRowId);

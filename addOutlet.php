@@ -28,6 +28,10 @@ if (isset($_POST['name']) && isset($_POST['deptId']) && $_POST['deptId'] > 0) {
 
     if ($resultRow == 0) {
 
+        $sql = "ALTER TABLE `tbl_deptusers` ADD `isAddressCheck` TINYINT(1) NOT NULL COMMENT '0=no, 1=yes' AFTER `newOldId`";
+
+        mysqli_query($con, $sql);
+
         $sql = "INSERT INTO `tbl_deptusers` SET
 		`deptId` = '" . $_POST['deptId'] . "',
 		`name` = '" . $_POST['name'] . "',
@@ -35,6 +39,7 @@ if (isset($_POST['name']) && isset($_POST['deptId']) && $_POST['deptId'] > 0) {
 		`email` = '" . $_POST['email'] . "',
 		`address` = '" . $_POST['address'] . "',
 		`phone` = '" . $_POST['phone'] . "', 
+        `isAddressCheck` = '" . $_POST['addressCheck'] . "',
 		`account_id` = '" . $_SESSION['accountId'] . "'  ";
         mysqli_query($con, $sql);
         $deptId = mysqli_insert_id($con);
@@ -420,36 +425,37 @@ $deptResult = mysqli_query($con, $deptQry);
     </div>
     </div>
     </div>
-    <div id="dialog" style="display: none;">
-        <?php echo showOtherLangText('Select Revenue Center First') ?>
-    </div>
+
     <?php require_once('footer.php'); ?>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>s
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <div class="modal" tabindex="-1" id="note-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Please select Revenue Center first.') ?> </h1>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btnBg">
+                        <button type="button" data-bs-dismiss="modal" class="btn sub-btn std-btn"><?php echo showOtherLangText('Ok'); ?></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
 <script>
     function showMsg() {
 
-        $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            //title     : "Title",
-            buttons: {
-                '<?php echo showOtherLangText('Ok') ?>': function() {
-                    //Do whatever you want to do when Yes clicked
-                    $(this).dialog('close');
-                }
-
-            }
-        });
-
-        $("#dialog").dialog("open");
-        $('.custom-header-text').remove();
-        $('.ui-dialog-content').prepend(
-            '<div class="custom-header-text"><span><?php echo showOtherLangText('Queue1.com Says') ?></span></div>');
+        $('#note-popup').modal('show');
     }
 </script>
 
@@ -540,7 +546,6 @@ $deptResult = mysqli_query($con, $deptQry);
             return false;
         }
 
-        console.log('addressCheck', addressCheck);
         if (revenueCenterAddress != '' && (addressCheck == '' || addressCheck == 0)) {
 
             $('#addressCheck').val(1);

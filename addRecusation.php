@@ -17,6 +17,9 @@ if (!in_array('2', $checkPermission)) {
     exit;
 }
 
+// Get column permission of requisition
+$getColumnPermission = get_column_permission($_SESSION['designation_id'], $_SESSION['accountId'], 2);
+
 //get member permission
 // $memberCond = '';
 // if (!empty(get_member_permission($_SESSION['designation_id'], $_SESSION['accountId']))) {
@@ -67,6 +70,8 @@ if (isset($_GET['clearTempPro'])) {
 
     echo '<script>window.location = "addRecusation.php?tempDataCleared=1"</script>';
 }
+
+$disableClickClass = !isset($_SESSION['recMemberId']) ? 'disableClick' : '';
 
 
 //add item fee & custom fee modal box 
@@ -808,14 +813,13 @@ if ($_SESSION['deptId'] != '') {
 
                                                                     <a href="addRecusation.php?autoFill=1"
                                                                         class="tabFet">
-                                                                        <span class="autoFill"></span>
+                                                                        <span class="autoFill <?php echo $disableClickClass; ?>"></span>
                                                                         <p class="btn2">
                                                                             <?php echo showOtherLangText('Auto Fill'); ?></p>
                                                                     </a>
                                                                 <?php } else { ?>
 
-                                                                    <a href="javascript:void(0)" style="opacity: 0.5;cursor: default;
-pointer-events: none;" class="tabFet">
+                                                                    <a href="javascript:void(0)" class="tabFet disableClick">
                                                                         <span class="autoFill"></span>
                                                                         <p class="btn2">
                                                                             <?php echo showOtherLangText('Auto Fill'); ?></p>
@@ -828,14 +832,14 @@ pointer-events: none;" class="tabFet">
 
                                                         <div class="featRow p-0 row g-0 w-100">
                                                             <div class="col-6 ordFeature ">
-                                                                <a href="javascript:void(0)" onClick="clearTempItem()" class="tabFet">
+                                                                <a href="javascript:void(0)" onClick="clearTempItem()" class="tabFet <?php echo $disableClickClass; ?>">
                                                                     <span class="clear"></span>
                                                                     <p class="btn2">
                                                                         <?php echo showOtherLangText('Clear'); ?></p>
                                                                 </a>
                                                             </div>
                                                             <div class="col-6 ordFeature drpFee position-relative">
-                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet" id="dropBtn"
+                                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet <?php echo $disableClickClass; ?>" id="dropBtn"
                                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <span class="fee"></span>
                                                                     <p class="btn2"><?php echo showOtherLangText('Fee'); ?>
@@ -1179,9 +1183,13 @@ pointer-events: none;" class="tabFet">
                                 <div class="reqClm-Br tb-head">
                                     <p><?php echo showOtherLangText('Bar Code'); ?></p>
                                 </div>
-                                <div class="reqClm-Prc tb-head">
-                                    <p><?php echo showOtherLangText('Price'); ?></p>
-                                </div>
+
+                                <?php if ($getColumnPermission['item_price'] == 1) { ?>
+                                    <div class="reqClm-Prc tb-head">
+                                        <p><?php echo showOtherLangText('Price'); ?></p>
+                                    </div>
+                                <?php } ?>
+
                                 <div class="reqClm-Unit tb-head">
                                     <p>
                                     <p><?php echo showOtherLangText('C.Unit'); ?></p>
@@ -1203,9 +1211,11 @@ pointer-events: none;" class="tabFet">
                                         </span>
                                     </div>
                                 </div>
-                                <div class="reqClm-Ttl tb-head">
-                                    <p><?php echo showOtherLangText('Total'); ?></p>
-                                </div>
+                                <?php if ($getColumnPermission['item_price'] == 1) { ?>
+                                    <div class="reqClm-Ttl tb-head">
+                                        <p><?php echo showOtherLangText('Total'); ?></p>
+                                    </div>
+                                <?php } ?>
                             </div>
                             <div class="requi-Hide">
                                 <div class="reqClm-Note tb-head">
@@ -1396,7 +1406,7 @@ pointer-events: none;" class="tabFet">
                                                     <p class="reqBarCode"><?php echo $row['barCode']; ?></p>
                                                 </div>
                                                 <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Br tb-bdy">
-                                            <p class="reqBarCode">' . getPriceWithCur($row['stockPrice'], $getDefCurDet['curCode']) . '</p></div>' : ''; ?>
+                                            ' . getPriceWithCur($row['stockPrice'], $getDefCurDet['curCode']) . '</div>' : ''; ?>
                                                 <div class="reqClm-Unit tb-bdy">
                                                     <p><?php echo $row['countingUnit']; ?></p>
                                                 </div>

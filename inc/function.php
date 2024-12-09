@@ -181,19 +181,29 @@ function showPrice($price, $curCode)
 	echo $price ? number_format($price, $checkDecPlace) . ' ' . $curCode : 0;
 }
 
-function getPriceWithCur($price, $curCode, $decimalPlace = 0)
+function getPriceWithCur($price, $curCode, $decimalPlace = 0, $rtlPdf = 0)
 {
 	global $checkDecPlace;
 	$decimalPlace = $decimalPlace > 0 ? $decimalPlace : $checkDecPlace;
-	return $price ? number_format($price, $decimalPlace) . ' ' . $curCode : 0;
+
+	if ($rtlPdf) { //for RTL pdf page only
+		return $price ? $curCode . ' ' . number_format($price, $decimalPlace) : 0;
+	} else {
+		return $price ? number_format($price, $decimalPlace) . ' ' . $curCode : 0;
+	}
 }
 
-function getNumFormtPrice($price, $curCode, $decimalPlace = 0)
+function getNumFormtPrice($price, $curCode, $decimalPlace = 0, $rtlPdf = 0)
 {
 	global $checkDecPlace;
 
 	$decimalPlace = $decimalPlace > 0 ? $decimalPlace : $checkDecPlace;
-	return  $price ? number_format($price, $decimalPlace) . ' ' . $curCode : '';
+
+	if ($rtlPdf) { //for RTL pdf page only
+		return $price ? $curCode . ' ' . number_format($price, $decimalPlace) : 0;
+	} else {
+		return  $price ? number_format($price, $decimalPlace) . ' ' . $curCode : '';
+	}
 }
 
 function getPrice($price)
@@ -1717,11 +1727,15 @@ function getNumberFormat($val, $num)
 	return number_format($val, $num);
 }
 
-function showOtherCur($amt, $curId)
+function showOtherCur($amt, $curId, $rtlPdfPage = 0)
 {
 	$curDet = getCurrencyDet($curId);
 
-	return $amt ?  getNumberFormat($amt, $curDet['decPlace']) . ' ' . html_entity_decode($curDet['curCode'])  : '';
+	if ($rtlPdfPage) {
+		return $amt ?   html_entity_decode($curDet['curCode']) . ' ' . getNumberFormat($amt, $curDet['decPlace'])   : '';
+	} else {
+		return $amt ?  getNumberFormat($amt, $curDet['decPlace']) . ' ' . html_entity_decode($curDet['curCode'])  : '';
+	}
 }
 
 function getMappedOutLetsByHotelId($hotelId)
@@ -4660,6 +4674,34 @@ if (isset($_SESSION['language_id'])) {
 	$getOtherTextArr = getOtherText($_SESSION['language_id']);
 }
 
+
+function reverseRTLTextForPdf($text)
+{
+	// check if the line contains Hebrew characters from the start too
+	// to avoid flipping dates etc.
+	if (isset($_GET['getLangType']) &&  $_GET['getLangType']  == 1) {
+
+		preg_match_all('/./us', $text, $ar);
+
+		// reverse the whole line
+		$text = join('', array_reverse($ar[0]));
+
+		// flip english back to ltr
+		$words = explode(' ', $text);
+		foreach ($words as $i => $word):
+			if (!preg_match("/\p{Hebrew}/u", $word)):
+				$words[$i] = implode('', array_reverse(str_split($word)));
+			endif;
+		endforeach;
+
+		return $text = implode(' ', $words);
+	} else {
+
+		return $text;
+	}
+}
+
+
 function showOtherLangText($mainLangText)
 {
 
@@ -4667,7 +4709,9 @@ function showOtherLangText($mainLangText)
 	$mainLangText = trim(strtolower($mainLangText));
 	$mainLangKey = trim(str_replace(' ', '_', $mainLangText));
 
-	return isset($getOtherTextArr[$mainLangKey]) && $getOtherTextArr[$mainLangKey] ? $getOtherTextArr[$mainLangKey] : ucfirst(str_replace('_', ' ', $mainLangKey));
+	$text =  isset($getOtherTextArr[$mainLangKey]) && $getOtherTextArr[$mainLangKey] ? $getOtherTextArr[$mainLangKey] : ucfirst(str_replace('_', ' ', $mainLangKey));
+
+	return reverseRTLTextForPdf($text);
 }
 
 
