@@ -1,5 +1,5 @@
 <?php include('inc/dbConfig.php'); //connection details
-
+//test
 
 if (!isset($_SESSION['adminidusername'])) {
     echo "<script>window.location='login.php'</script>";
