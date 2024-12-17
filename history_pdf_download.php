@@ -3,16 +3,18 @@
 
 
 // Include autoloader 
-require_once 'dompdf/autoload.inc.php'; 
- 
+require_once 'dompdf/autoload.inc.php';
+
 // Reference the Dompdf namespace 
-use Dompdf\Dompdf; 
+use Dompdf\Dompdf;
 
 // Instantiate and use the dompdf class 
 $dompdf = new Dompdf();
 
+$rtlPdfFile = $_GET['getLangType'] ? 'history_final_pdf_rtl.php' : 'history_final_pdf.php';
 
-include('history_final_pdf.php'); // Include history_final_pdf.php file to get content variable
+include($rtlPdfFile);
+
 // echo $content;
 // exit;
 // Load content from html file 
@@ -22,11 +24,11 @@ include('history_final_pdf.php'); // Include history_final_pdf.php file to get c
 // Add this line of code to show image
 $dompdf->set_option('isRemoteEnabled', true); // By default isRemoteEnable is false that's why image is not shown.
 
-$dompdf->loadHtml($content); 
- 
+$dompdf->loadHtml($content);
+
 // (Optional) Setup the paper size and orientation 
-$dompdf->setPaper('A4', 'portrait'); 
- 
+$dompdf->setPaper('A4', 'portrait');
+
 // Render the HTML as PDF 
 $dompdf->render();
 $date = date('d-m-y-h-i-s');
@@ -35,8 +37,4 @@ $date = date('d-m-y-h-i-s');
 
 // die(); 
 // Output the generated PDF (1 = download and 0 = preview) 
-$dompdf->stream("history_pdf('".$date."').pdf", array("Attachment" => 0));
-
-
-
-?>
+$dompdf->stream("history_pdf('" . $date . "').pdf", array("Attachment" => 0));

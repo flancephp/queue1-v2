@@ -1718,19 +1718,19 @@ $cond = '';
                     <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
                     <input type="text" class="form-control" name="feeName" id="feeName" value="" autocomplete="off"
                         placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
-                        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                        onChange="this.setCustomValidity('')" required />
+
+                        onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
                     <select class="form-control" name="feeType" id="typeOfFee"
                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                        onChange="this.setCustomValidity('')" required>
+                        onChange="this.setCustomValidity('')">
                         <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
                         <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
                         </option>
                     </select>
                     <input type="text" class="form-control" id="amt" name="amt" value="" autocomplete="off"
                         placeholder="<?php echo showOtherLangText('Fee Amount') . ' ' . $getDefCurDet['curCode']; ?>"
-                        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                        onChange="this.setCustomValidity('')" required />
+
+                        onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
 
                 </div>
                 <div class="feeSave">
@@ -1765,19 +1765,19 @@ $cond = '';
                     <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
                 </div>
                 <div class="modal-body">
-                    <input type="text" required class="form-control" id="itemName" name="itemName"
+                    <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="itemName" name="itemName"
                         placeholder="<?php echo showOtherLangText('Service Name'); ?>" autocomplete="off"
-                        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                        onChange="this.setCustomValidity('')" required>
-                    <input type="number" required class="form-control" id="feeAmt" name="itemFeeAmt"
+
+                        onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                    <input type="number" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="feeAmt" name="itemFeeAmt"
                         placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?>"
                         autocomplete="off"
-                        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                        onChange="this.setCustomValidity('')" required>
-                    <input type="text" required class="form-control" id="unit" name="unit"
+
+                        onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                    <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="unit" name="unit"
                         placeholder="<?php echo showOtherLangText('Unit'); ?>" autocomplete="off"
-                        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                        onChange="this.setCustomValidity('')" required>
+
+                        onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
                 </div>
                 <div>
                     <div class="feeSave">

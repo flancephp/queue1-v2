@@ -375,7 +375,7 @@ class GD implements Canvas
 
         $c = $this->_allocate_color($color);
 
-        // Convert the style array if required
+        // Convert the style array if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
         if (is_array($style) && count($style) > 0) {
             $gd_style = [];
 
@@ -460,7 +460,7 @@ class GD implements Canvas
 
         $c = $this->_allocate_color($color);
 
-        // Convert the style array if required
+        // Convert the style array if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
         if (is_array($style) && count($style) > 0) {
             $gd_style = [];
 
@@ -635,7 +635,7 @@ class GD implements Canvas
 
         $c = $this->_allocate_color($color);
 
-        // Convert the style array if required
+        // Convert the style array if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
         if (is_array($style) && count($style) > 0 && !$fill) {
             $gd_style = [];
 
@@ -684,7 +684,7 @@ class GD implements Canvas
 
         $c = $this->_allocate_color($color);
 
-        // Convert the style array if required
+        // Convert the style array if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
         if (is_array($style) && count($style) > 0 && !$fill) {
             $gd_style = [];
 

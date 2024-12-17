@@ -197,7 +197,7 @@ if (
         $content .=  '<td width="40%">
             <table style="width: 100%;">
                 <tr> 
-                    <td width="50%" style="padding:8px 5px; font-weight: 700;">' . getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']) . '</td>
+                    <td width="50%" style="padding:8px 5px; font-weight: 700;">' . getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode'], 0, 1) . '</td>
                     <td width="50%" style="padding: 5px;">&nbsp;</td>
                 </tr>
             </table></td>';
@@ -468,7 +468,7 @@ if (
     }
     if ($_GET['unit'] == 1) {
         $unit = showOtherLangText('C.Unit');
-        $content .= '<th style="font-weight:700;padding:8px 5px;">' . reverseRTLTextForPdf($unit) . '</th>';
+        $content .= '<th style="font-weight:700;padding:8px 5px;">' . ($unit) . '</th>';
     }
     if ($_GET['price'] == 1) {
         $Price = '(' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Price');

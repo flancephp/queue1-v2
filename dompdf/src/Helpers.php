@@ -668,7 +668,7 @@ class Helpers
     public static function imagecreatefrombmp($filename, $context = null)
     {
         if (!function_exists("imagecreatetruecolor")) {
-            trigger_error("The PHP GD extension is required, but is not installed.", E_ERROR);
+            trigger_error("The PHP GD extension is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')", but is not installed.", E_ERROR);
             return false;
         }
 

@@ -1,10 +1,12 @@
 <?php
+
 /**
  * @package dompdf
  * @link    http://dompdf.github.com/
  * @author  Benj Carson <benjcarson@digitaljunkies.ca>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\Adapter\CPDF;
@@ -50,9 +52,7 @@ abstract class AbstractFrameReflower
         $this->_min_max_cache = null;
     }
 
-    function dispose()
-    {
-    }
+    function dispose() {}
 
     /**
      * @return Dompdf
@@ -93,7 +93,7 @@ abstract class AbstractFrameReflower
 
         // Collapse vertical margins:
         $n = $frame->get_next_sibling();
-        if ( $n && !$n->is_block() & !$n->is_table() ) {
+        if ($n && !$n->is_block() & !$n->is_table()) {
             while ($n = $n->get_next_sibling()) {
                 if ($n->is_block() || $n->is_table()) {
                     break;
@@ -118,13 +118,13 @@ abstract class AbstractFrameReflower
         // Collapse our first child's margin, if there is no border or padding
         if ($style->border_top_width == 0 && $style->length_in_pt($style->padding_top) == 0) {
             $f = $this->_frame->get_first_child();
-            if ( $f && !$f->is_block() && !$f->is_table() ) {
-                while ( $f = $f->get_next_sibling() ) {
-                    if ( $f->is_block() || $f->is_table() ) {
+            if ($f && !$f->is_block() && !$f->is_table()) {
+                while ($f = $f->get_next_sibling()) {
+                    if ($f->is_block() || $f->is_table()) {
                         break;
                     }
 
-                    if ( !$f->get_first_child() ) {
+                    if (!$f->get_first_child()) {
                         $f = null;
                         break;
                     }
@@ -137,7 +137,7 @@ abstract class AbstractFrameReflower
                 $f_t = (float)$f_style->length_in_pt($f_style->margin_top, $cb["h"]);
 
                 $t = $this->_get_collapsed_margin_length($t, $f_t);
-                $style->margin_top = $t."pt";
+                $style->margin_top = $t . "pt";
                 $f_style->margin_top = "0pt";
             }
         }
@@ -145,13 +145,13 @@ abstract class AbstractFrameReflower
         // Collapse our last child's margin, if there is no border or padding
         if ($style->border_bottom_width == 0 && $style->length_in_pt($style->padding_bottom) == 0) {
             $l = $this->_frame->get_last_child();
-            if ( $l && !$l->is_block() && !$l->is_table() ) {
-                while ( $l = $l->get_prev_sibling() ) {
-                    if ( $l->is_block() || $l->is_table() ) {
+            if ($l && !$l->is_block() && !$l->is_table()) {
+                while ($l = $l->get_prev_sibling()) {
+                    if ($l->is_block() || $l->is_table()) {
                         break;
                     }
 
-                    if ( !$l->get_last_child() ) {
+                    if (!$l->get_last_child()) {
                         $l = null;
                         break;
                     }
@@ -164,7 +164,7 @@ abstract class AbstractFrameReflower
                 $l_b = (float)$l_style->length_in_pt($l_style->margin_bottom, $cb["h"]);
 
                 $b = $this->_get_collapsed_margin_length($b, $l_b);
-                $style->margin_bottom = $b."pt";
+                $style->margin_bottom = $b . "pt";
                 $l_style->margin_bottom = "0pt";
             }
         }
@@ -184,11 +184,11 @@ abstract class AbstractFrameReflower
         if ($length1 < 0 && $length2 < 0) {
             return min($length1, $length2); // min(x, y) = - max(abs(x), abs(y)), if x < 0 && y < 0
         }
-        
+
         if ($length1 < 0 || $length2 < 0) {
             return $length1 + $length2; // x + y = x - abs(y), if y < 0
         }
-        
+
         return max($length1, $length2);
     }
 
@@ -199,7 +199,7 @@ abstract class AbstractFrameReflower
     abstract function reflow(Block $block = null);
 
     /**
-     * Required for table layout: Returns an array(0 => min, 1 => max, "min"
+     * oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" for table layout: Returns an array(0 => min, 1 => max, "min"
      * => min, "max" => max) of the minimum and maximum widths of this frame.
      * This provides a basic implementation.  Child classes should override
      * this if necessary.
@@ -215,12 +215,14 @@ abstract class AbstractFrameReflower
         $style = $this->_frame->get_style();
 
         // Account for margins & padding
-        $dims = [$style->padding_left,
+        $dims = [
+            $style->padding_left,
             $style->padding_right,
             $style->border_left_width,
             $style->border_right_width,
             $style->margin_left,
-            $style->margin_right];
+            $style->margin_right
+        ];
 
         $cb_w = $this->_frame->get_containing_block("w");
         $delta = (float)$style->length_in_pt($dims, $cb_w);
@@ -228,7 +230,8 @@ abstract class AbstractFrameReflower
         // Handle degenerate case
         if (!$this->_frame->get_first_child()) {
             return $this->_min_max_cache = [
-                $delta, $delta,
+                $delta,
+                $delta,
                 "min" => $delta,
                 "max" => $delta,
             ];
@@ -306,13 +309,20 @@ abstract class AbstractFrameReflower
             $string = trim($string, "'\"");
         }
 
-        $string = str_replace(["\\\n", '\\"', "\\'"],
-            ["", '"', "'"], $string);
+        $string = str_replace(
+            ["\\\n", '\\"', "\\'"],
+            ["", '"', "'"],
+            $string
+        );
 
         // Convert escaped hex characters into ascii characters (e.g. \A => newline)
-        $string = preg_replace_callback("/\\\\([0-9a-fA-F]{0,6})/",
-            function ($matches) { return \Dompdf\Helpers::unichr(hexdec($matches[1])); },
-            $string);
+        $string = preg_replace_callback(
+            "/\\\\([0-9a-fA-F]{0,6})/",
+            function ($matches) {
+                return \Dompdf\Helpers::unichr(hexdec($matches[1]));
+            },
+            $string
+        );
         return $string;
     }
 
@@ -410,7 +420,6 @@ abstract class AbstractFrameReflower
                     $p = $this->_frame->lookup_counter_frame($counter_id);
 
                     $text .= $p->counter_value($counter_id, $type);
-
                 } else if (strtolower($args[1]) == 'counters') {
                     // counters(name, string [,style])
                     if (isset($args[5])) {
@@ -439,7 +448,6 @@ abstract class AbstractFrameReflower
                     // countertops?
                     continue;
                 }
-
             } else if (isset($match[4]) && $match[4] !== "") {
                 // String match
                 $text .= $this->_parse_string($match[4]);

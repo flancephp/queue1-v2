@@ -310,7 +310,7 @@ class Text extends AbstractFrameReflower
                 // Layout the new line
                 $add_line = $this->_layout_line();
             } else if ($split < mb_strlen($frame->get_text())) {
-                // split the line if required
+                // split the line if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
                 $frame->split_text($split);
 
                 $t = $frame->get_text();

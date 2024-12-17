@@ -208,7 +208,7 @@ if ($hotelId > 0) {
                                     <div class="col-md-6 gap-r">
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
+                                                <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name']; ?>" placeholder="<?php echo showOtherLangText('Casa') ?>">
@@ -237,11 +237,16 @@ if ($hotelId > 0) {
                                                 <?php
                                                 } elseif ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 4) { ?>
 
-                                                    <select name="hotelId" id="hotelId" class="form-select">
+                                                    <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
                                                         <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
                                                         </option>
-                                                        <option value="29624" <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : ''; ?>>
-                                                            <?php echo showOtherLangText('Mnarani Beach Hotel(29624)'); ?>
+                                                        <option value="21866"
+                                                            <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : ''; ?>>
+                                                            <?php echo showOtherLangText('Fun Beach Hotel(21866)'); ?>
+                                                        </option>
+                                                        <option value="21930"
+                                                            <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : ''; ?>>
+                                                            <?php echo showOtherLangText('Casa Del Mar Hotel(21930)'); ?>
                                                         </option>
                                                     </select>
                                                 <?php
@@ -351,7 +356,8 @@ if ($hotelId > 0) {
         var x = <?php echo $x; ?>;
         $(".stEze-addLnk").on("click", function() {
             x++;
-            var newContent = '<div id="' + x + '" class="setEze-Ctgry"><input required type="text" id="tags' + x + '" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
+            var newContent = '<div id="' + x + '" class="setEze-Ctgry"><input oninvalid="this.setCustomValidity('
+            <?php echo showOtherLangText('Please fill out this field.') ?> ')" type="text" id="tags' + x + '" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
                 '<a href="javascript:void(0)" onclick="removeRow(' + x + ')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
                 '</div>';
             // Append the new content to the specified element

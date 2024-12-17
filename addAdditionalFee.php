@@ -178,7 +178,7 @@ if (isset($_POST['feeName'])) {
                                         <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="feeName" id="feeName"
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="feeName" id="feeName"
                                             value="<?php echo isset($_POST['feeName']) ? $_POST['feeName'] : ''; ?>" placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>">
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@ if (isset($_POST['feeName'])) {
                                         <label for="feeType" class="form-label"><?php echo showOtherLangText('Fee Type'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <select class="form-select" name="feeType" id="feeType" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required>
+                                        <select class="form-select" name="feeType" id="feeType" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
                                             <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?>
                                             </option>
                                             <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
@@ -202,7 +202,7 @@ if (isset($_POST['feeName'])) {
                                         <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="amt" value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="<?php echo showOtherLangText('10'); ?>">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="amt" value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="<?php echo showOtherLangText('10'); ?>">
                                     </div>
                                 </div>
                                 <?php

@@ -159,10 +159,17 @@ if ($_GET['clearSearch'] == 1) {
 $cond = '';
 $cond1 = '';
 $condWithoutGroup = '';
-if (isset($_GET['fromDate']) && isset($_GET['toDate'])) {
+if (isset($_GET['fromDate']) && isset($_GET['toDate']) && $_GET['fromDate'] && $_GET['toDate']) {
     $_SESSION['fromDate'] = $_GET['fromDate'];
     $_SESSION['toDate'] = $_GET['toDate'];
+} elseif (isset($_GET['fromDateMobile']) && isset($_GET['toDateMobile']) && $_GET['fromDateMobile'] && $_GET['toDateMobile']) {
+    $_SESSION['fromDate'] = $_GET['fromDateMobile'];
+    $_SESSION['toDate'] = $_GET['toDateMobile'];
 }
+
+
+
+
 if (isset($_SESSION['fromDate']) && $_SESSION['fromDate'] != '' && $_SESSION['toDate'] != '') {
 
     $cond = " AND DATE(o.setDateTime) BETWEEN '" . date('Y-m-d', strtotime($_SESSION['fromDate'])) . "' AND '" . date('Y-m-d', strtotime($_SESSION['toDate'])) . "'  ";
@@ -2458,10 +2465,10 @@ if ($getTxtById == 'storeId') {
                                     <div class="col-md-6">
                                         <div class="hstCal">
                                             <div class="his-featBtn">
-                                                <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+                                                <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                                     <i class="fa-regular fa-calendar p-0"></i>
                                                 </button>
-                                                <div class="cal-Ender d-none d-lg-block">
+                                                <div class="cal-Ender d-none d-lg-inline-block">
                                                     <a href="javascript:void(0)">
                                                         <i class="fa-regular fa-calendar"></i>
                                                     </a>
@@ -2535,6 +2542,28 @@ if ($getTxtById == 'storeId') {
                                         </div>
                                     <?php } ?>
                                 </div> -->
+                                </div>
+
+                                <div class="collapse" id="collapseExample">
+                                    <div class="mt-4 d-flex gap-2 res__search__box">
+                                        <div class="hstDate p-0 border-0">
+                                            <input type="text" size="10" class="datepicker"
+                                                placeholder="15/01/2023" name="fromDateMobile" id="fromDateMobile"
+                                                autocomplete="off" value="<?php echo isset($_SESSION['fromDate']) ? $_SESSION['fromDate'] : $_GET['fromDateMobile']; ?>">
+                                            <span>-</span>
+                                            <input type="text" size="10" class="datepicker"
+                                                placeholder="15/02/2023" name="toDateMobile" id="toDateMobile"
+                                                autocomplete="off" value="<?php echo isset($_SESSION['toDate']) ? $_SESSION['toDate'] : $_GET['toDateMobile']; ?>">
+                                        </div>
+                                        <div class="reloadBtn m-0">
+                                            <a onClick="document.frm.submit();" href="javascript:void(0)"><i
+                                                    class="fa-solid fa-arrows-rotate"></i></a>
+                                        </div>
+                                        <div class="reloadBtn m-0">
+                                            <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'"
+                                                href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -3527,19 +3556,8 @@ if ($getTxtById == 'storeId') {
 
     <script type="text/javascript" src="cdn_js/jquery-ui-1.12.1.js"></script>
 
-    <script>
-        jQuery(document).ready(function() {
-            jQuery('#datepickerTest').datepicker({
-                format: 'dd-mm-yyyy',
-            });
 
-            $("#datepickerTest").change(function() {
-                var selectedDate = $(this).val();
-                $('.dateVal').html(selectedDate);
-            });
 
-        });
-    </script>
 
     <script>
         $(function() {
@@ -4201,36 +4219,41 @@ parentClasses.forEach(parentClass => {
 
     <script>
         // set filter box responsive class remove script 
-        var closeBtn = document.getElementById("closeResFilterBox");
-        var closeBox = document.getElementById("resFilterBox");
-        closeBtn.addEventListener('click', function() {
-            closeBox.classList.remove('hstTable-show');
-        })
+        if (document.getElementById("resFilterBox")) {
+            var closeBtn = document.getElementById("closeResFilterBox");
+            var closeBox = document.getElementById("resFilterBox");
+            closeBtn.addEventListener('click', function() {
+                closeBox.classList.remove('hstTable-show');
+            });
+
+        }
     </script>
     <script>
-        // Add a click event listener to the toggle-currency-btn button
-        document.querySelector('.toggle-currency-btn').addEventListener('click', function() {
-            // Loop through all .issueIn elements
-            document.querySelectorAll('.issueDtl').forEach(function(issueInElement) {
-                // Check all .usdCurr elements within the current .issueIn element
-                const usdCurrElements = issueInElement.querySelectorAll('.usdCurr');
+        if (document.querySelector('.toggle-currency-btn')) {
+            // Add a click event listener to the toggle-currency-btn button
+            document.querySelector('.toggle-currency-btn').addEventListener('click', function() {
+                // Loop through all .issueIn elements
+                document.querySelectorAll('.issueDtl').forEach(function(issueInElement) {
+                    // Check all .usdCurr elements within the current .issueIn element
+                    const usdCurrElements = issueInElement.querySelectorAll('.usdCurr');
 
-                // If any .usdCurr has display: none, add the class .issueIn1 to the parent .issueIn
-                let isHidden = false;
-                usdCurrElements.forEach(function(usdCurrElement) {
-                    if (window.getComputedStyle(usdCurrElement).display === 'none') {
-                        isHidden = true;
+                    // If any .usdCurr has display: none, add the class .issueIn1 to the parent .issueIn
+                    let isHidden = false;
+                    usdCurrElements.forEach(function(usdCurrElement) {
+                        if (window.getComputedStyle(usdCurrElement).display === 'none') {
+                            isHidden = true;
+                        }
+                    });
+
+                    // Add the class .issueIn1 if the condition is met
+                    if (isHidden) {
+                        issueInElement.classList.remove('issueDtl1');
+                    } else {
+                        issueInElement.classList.add('issueDtl1');
                     }
                 });
-
-                // Add the class .issueIn1 if the condition is met
-                if (isHidden) {
-                    issueInElement.classList.remove('issueDtl1');
-                } else {
-                    issueInElement.classList.add('issueDtl1');
-                }
             });
-        });
+        }
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

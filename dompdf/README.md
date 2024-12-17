@@ -53,7 +53,7 @@ Follow us on [![Twitter](http://twitter-badges.s3.amazonaws.com/twitter-a.png)](
  * php-font-lib
  * php-svg-lib
  
-Note that some required dependencies may have further dependencies 
+Note that some oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" dependencies may have further dependencies 
 (notably php-svg-lib requires sabberworm/php-css-parser).
 
 ### Recommendations

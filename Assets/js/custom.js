@@ -351,7 +351,7 @@ $(document).ready(function () {
   function handleResize() {
     if ($(window).width() > 1024) {
       $(".mb-hisDate .date-flx").hide();
-    } else {
+    } else if( $(".datepicker").length ) {
       $(".mb-hisDate .date-flx").show();
       $(".prtDate").remove().clone().appendTo(".mb-hisDate .date-flx");
       $(".mb-hisDate .date-flx .datepicker").datepicker(); // Reinitialize the datepicker after cloning
@@ -713,7 +713,7 @@ $(document).ready(function () {
   if ($(window).width() < 992) {
     var get_catogery_length = $(".setEze-Ctgry").length;
 
-    if (get_catogery_length > 3) {
+    if (get_catogery_length > 0) {
       $(".setEze-Ctgry:lt(3)").css("display", "flex");
       $(".ezeCat-All").css("display", "block");
 
@@ -755,7 +755,8 @@ $(".selectOption option").click(function () {
 
 // Add/Edit Outlet Page Toggle Start
 $(".mb-oltLnk").click(function () {
-  $(this).parent().parent().parent().find(".unitOlt-Clm").slideToggle("slow");
+ 
+  $(this).parent().siblings().find('.unitOlt-Clm').slideToggle("slow");
 });
 // Add/Edit Outlet Page Toggle End
 

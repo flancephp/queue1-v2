@@ -13,7 +13,13 @@ $getLangType = getLangType($_SESSION['language_id']);
 if (isset($_GET['hotelId'])) {
     $merchantId = $hotelsArr[$_GET['hotelId']];
 
-    $date = isset($_GET['date']) ? date('Y-m-d', strtotime($_GET['date'])) : '2021-11-10';
+
+    if (isset($_GET['date'])) {
+        $date = isset($_GET['date']) ? date('Y-m-d', strtotime($_GET['date'])) : '2021-11-10';
+    } elseif (isset($_GET['dateMobile'])) {
+        $date = isset($_GET['dateMobile']) ? date('Y-m-d', strtotime($_GET['dateMobile'])) : '2021-11-10';
+    }
+
     $postData['Date'] = $date;
     $easyData = getPosData($merchantId, $postData);
     $easyData  = json_decode($easyData, true);
@@ -46,92 +52,16 @@ if (isset($_GET['hotelId'])) {
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 
     <style>
-    .outlet__box {
-        width: 20%;
-    }
-
-    .middle__info {
-        width: 50%;
-    }
-
-    .right__box {
-        width: 30%;
-    }
-
-    .middle__info .sales__box {
-        width: 25%;
-    }
-
-    .middle__info .product__box {
-        width: 50%;
-    }
-
-    .middle__info .cate__box {
-        width: 25%;
-    }
-
-    @media (min-width: 992px) {
-        .sales__table .outlet__box {
-            width: 15%;
-        }
-
-        .sales__table .middle__info {
-            width: 50%;
-        }
-
-        .sales__table .right__box {
-            width: 35%;
-        }
-
-        .sales__table .middle__info .sales__box {
+        .outlet__box {
             width: 20%;
         }
 
-        .sales__table .middle__info .product__box {
-            width: 50%;
-        }
-
-        .sales__table .middle__info .cate__box {
-            width: 30%;
-        }
-
-        .category__table .outlet__box {
-            width: 50%;
-        }
-
-        .category__table .middle__info {
-            width: 25%;
-        }
-
-        .category__table .right__box {
-            width: 25%;
-        }
-    }
-    @media (min-width: 1200px) {
-        html[dir=rtl] .btns__box { min-width: 220px; }
-        html[dir=rtl] .form-select { background-size: 35px; }
-    }
-    @media (min-width: 1400px) {
-        html[dir=rtl] .btns__box { min-width: 300px; } 
-    }
-    @media (min-width: 1600px) { 
-        html[dir=rtl] .form-select { background-size:  43px; }
-    }
-
-    html[dir=rtl] .spaceClass2 {
-        position: relative;
-        right: -8px;
-    }
-
-    @media (max-width: 991px) {
-
-
-        .outlet__box {
-            width: 25%;
-        }
-
         .middle__info {
-            width: 75%;
+            width: 50%;
+        }
+
+        .right__box {
+            width: 30%;
         }
 
         .middle__info .sales__box {
@@ -139,224 +69,321 @@ if (isset($_GET['hotelId'])) {
         }
 
         .middle__info .product__box {
-            width: 45%;
+            width: 50%;
         }
 
         .middle__info .cate__box {
-            width: 30%;
+            width: 25%;
         }
 
-        .right__box {
-            width: 100%;
+        @media (min-width: 992px) {
+            .sales__table .outlet__box {
+                width: 15%;
+            }
+
+            .sales__table .middle__info {
+                width: 50%;
+            }
+
+            .sales__table .right__box {
+                width: 35%;
+            }
+
+            .sales__table .middle__info .sales__box {
+                width: 20%;
+            }
+
+            .sales__table .middle__info .product__box {
+                width: 50%;
+            }
+
+            .sales__table .middle__info .cate__box {
+                width: 30%;
+            }
+
+            .category__table .outlet__box {
+                width: 50%;
+            }
+
+            .category__table .middle__info {
+                width: 25%;
+            }
+
+            .category__table .right__box {
+                width: 25%;
+            }
         }
 
-        .res__label__item::before {
-            content: attr(data-text);
-            display: block;
-            font-size: 9px;
-            color: #777;
-            line-height: 1.4;
+        @media (min-width: 1200px) {
+            html[dir=rtl] .btns__box {
+                min-width: 220px;
+            }
+
+            html[dir=rtl] .form-select {
+                background-size: 35px;
+            }
         }
 
-        .category__table .outlet__box {
-            width: 50%;
+        @media (min-width: 1400px) {
+            html[dir=rtl] .btns__box {
+                min-width: 300px;
+            }
         }
 
-        .category__table .middle__info {
-            width: 50%;
-        }
-    }
-
-    .select-pop {
-        height: 50px;
-        padding: 6px 30px 6px 12px;
-        overflow: hidden;
-        border-radius: 8px;
-        border: 1px solid #d5d6dd;
-    }
-
-    html[dir="rtl"] .select-pop {
-        direction: ltr;
-        padding: 6px 12px 6px 30px;
-        text-align: right;
-    }
-
-    @media(max-width:1599px) {
-        .select-pop {
-            height: 42px;
-        }
-    }
-
-    @media (min-width: 993px) {
-        html[dir="rtl"] .text-lg-end { text-align: left !important; }
-    }
-
-    @media(max-width:991px) {
-        .select-pop {
-            height: 44px;
-        }
-    }
-
-    @media (max-width: 767px) {
-        html[dir="rtl"] .spaceClass2 {
-            padding-bottom: 8px;
+        @media (min-width: 1600px) {
+            html[dir=rtl] .form-select {
+                background-size: 43px;
+            }
         }
 
-        .spaceClass2 {
-            padding-bottom: 8px;
-        }
-
-        .right__box {
-            width: 100%;
-            margin-top: 4px;
-        }
-
-        .outlet__box {
-            margin-bottom: 9px;
-        }
-
-        .outlet__box {
-            width: 50%;
-        }
-
-        .middle__info {
-            width: 50%;
-            position: relative;
-            min-height: 64px;
-            flex-direction: column;
-        }
-
-        .middle__info .sales__box {
-            width: 100%;
-        }
-
-        .middle__info .product__box {
-            width: 100%;
-            position: relative;
-            bottom: -7px;
-            left: -100%;
-        }
-
-        html[dir="rtl"] .middle__info .product__box {
-            left: 0 !important;bottom: 0;
-        }
-
-        .middle__info .cate__box {
-            width: 100%;
-            position: relative;
-            bottom: 0px;margin-top: -20%;
-            left: 0%;
-        }
-
-        html[dir=rtl] .middle__info .cate__box {
-            width: 100%;
-            position: relative;margin-top: -40px;
-            left: 100%;
-        } 
-
-        .category__table .middle__info {
-            min-height: auto;
-        }
-    }
-
-    @media (max-width: 554px) {
-
-
-        .spaceClass1 {
-            position: relative;
-            left: -8px;
-        }
-
-        html[dir=rtl] .spaceClass1 {
+        html[dir=rtl] .spaceClass2 {
             position: relative;
             right: -8px;
         }
 
-    }
+        @media (max-width: 991px) {
 
-    @media (max-width: 429px) {
-        .spaceClass4 {
-            position: relative;
-            left: -8px;
-        }
 
-        .spaceClass1 {
-            position: relative;
-            left: -16px;
-        }
-        .middle__info .cate__box {
-            margin-top: 0%; 
-        }
-        html[dir=rtl] .middle__info .cate__box {
-            margin-top: 0%; 
-        }
-    }
+            .outlet__box {
+                width: 25%;
+            }
 
-    @media (max-width: 326px) {
-        .spaceClass4 {
-            position: relative;
-            left: 0px;
-        }
+            .middle__info {
+                width: 75%;
+            }
 
-        .spaceClass1 {
-            position: relative;
-            left: -8px;
-        }
-    }
+            .middle__info .sales__box {
+                width: 25%;
+            }
 
-    @media (max-width: 420px) {
-        .middle__info .product__box {
-            width: 100%;
-            position: absolute;
-            bottom: 0px;
-            left: -100%;
-        }
-        html[dir="rtl"] .middle__info .product__box { 
-            left: 0%;bottom: -14px;
-        }
+            .middle__info .product__box {
+                width: 45%;
+            }
 
-        .itmBody>div:first-child p {
-            font-size: 13px;
+            .middle__info .cate__box {
+                width: 30%;
+            }
+
+            .right__box {
+                width: 100%;
+            }
+
+            .res__label__item::before {
+                content: attr(data-text);
+                display: block;
+                font-size: 9px;
+                color: #777;
+                line-height: 1.4;
+            }
+
+            .category__table .outlet__box {
+                width: 50%;
+            }
+
+            .category__table .middle__info {
+                width: 50%;
+            }
         }
 
-        .right__box {
-            width: 100%;
-            margin-top: 20px;
-            position: relative;
-            bottom: -10px;
+        .select-pop {
+            height: 50px;
+            padding: 6px 30px 6px 12px;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #d5d6dd;
         }
 
-        .newOrd-CntPrt {
-            border-bottom: none !important;
-            width: 90%;
-            padding: 10px 10px 35px 10px;
-            flex-wrap: wrap;
+        html[dir="rtl"] .select-pop {
+            direction: ltr;
+            padding: 6px 12px 6px 30px;
+            text-align: right;
         }
 
-        .res__label__item p {
-            font-size: 13px;
-            font-weight: 400;
+        @media(max-width:1599px) {
+            .select-pop {
+                height: 42px;
+            }
         }
 
-    }
-
-    @media (min-width:576px) and (max-width: 992px) {
-        .revnueParent-sec {
-            border: 0;
-            background: transparent;
-            border-radius: 10px;
-            padding: 0;
-            box-shadow: none;
+        @media (min-width: 993px) {
+            html[dir="rtl"] .text-lg-end {
+                text-align: left !important;
+            }
         }
 
-        .revnueParent-sec .revCenter {
-            padding: 14px;
+        @media(max-width:991px) {
+            .select-pop {
+                height: 44px;
+            }
         }
-    }
 
-    .hstDate .datepicker {
-        height: 29px;
-    }
+        @media (max-width: 767px) {
+            html[dir="rtl"] .spaceClass2 {
+                padding-bottom: 8px;
+            }
+
+            .spaceClass2 {
+                padding-bottom: 8px;
+            }
+
+            .right__box {
+                width: 100%;
+                margin-top: 4px;
+            }
+
+            .outlet__box {
+                margin-bottom: 9px;
+            }
+
+            .outlet__box {
+                width: 50%;
+            }
+
+            .middle__info {
+                width: 50%;
+                position: relative;
+                min-height: 64px;
+                flex-direction: column;
+            }
+
+            .middle__info .sales__box {
+                width: 100%;
+            }
+
+            .middle__info .product__box {
+                width: 100%;
+                position: relative;
+                bottom: -7px;
+                left: -100%;
+            }
+
+            html[dir="rtl"] .middle__info .product__box {
+                left: 0 !important;
+                bottom: 0;
+            }
+
+            .middle__info .cate__box {
+                width: 100%;
+                position: relative;
+                bottom: 0px;
+                margin-top: -20%;
+                left: 0%;
+            }
+
+            html[dir=rtl] .middle__info .cate__box {
+                width: 100%;
+                position: relative;
+                margin-top: -40px;
+                left: 100%;
+            }
+
+            .category__table .middle__info {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 554px) {
+
+
+            .spaceClass1 {
+                position: relative;
+                left: -8px;
+            }
+
+            html[dir=rtl] .spaceClass1 {
+                position: relative;
+                right: -8px;
+            }
+
+        }
+
+        @media (max-width: 429px) {
+            .spaceClass4 {
+                position: relative;
+                left: -8px;
+            }
+
+            .spaceClass1 {
+                position: relative;
+                left: -16px;
+            }
+
+            .middle__info .cate__box {
+                margin-top: 0%;
+            }
+
+            html[dir=rtl] .middle__info .cate__box {
+                margin-top: 0%;
+            }
+        }
+
+        @media (max-width: 326px) {
+            .spaceClass4 {
+                position: relative;
+                left: 0px;
+            }
+
+            .spaceClass1 {
+                position: relative;
+                left: -8px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .middle__info .product__box {
+                width: 100%;
+                position: absolute;
+                bottom: 0px;
+                left: -100%;
+            }
+
+            html[dir="rtl"] .middle__info .product__box {
+                left: 0%;
+                bottom: -14px;
+            }
+
+            .itmBody>div:first-child p {
+                font-size: 13px;
+            }
+
+            .right__box {
+                width: 100%;
+                margin-top: 20px;
+                position: relative;
+                bottom: -10px;
+            }
+
+            .newOrd-CntPrt {
+                border-bottom: none !important;
+                width: 90%;
+                padding: 10px 10px 35px 10px;
+                flex-wrap: wrap;
+            }
+
+            .res__label__item p {
+                font-size: 13px;
+                font-weight: 400;
+            }
+
+        }
+
+        @media (min-width:576px) and (max-width: 992px) {
+            .revnueParent-sec {
+                border: 0;
+                background: transparent;
+                border-radius: 10px;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .revnueParent-sec .revCenter {
+                padding: 14px;
+            }
+        }
+
+        .hstDate .datepicker {
+            height: 29px;
+        }
     </style>
 </head>
 
@@ -427,26 +454,26 @@ if (isset($_GET['hotelId'])) {
                                     <form name="frm" id="frm" method="get" action="">
                                         <div class="hstCal gap-2" style=" flex-wrap:wrap;">
                                             <div style="width: 250px;" class="">
-                                                <?php if($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4){?>
-                                                <select name="hotelId" id="hotelId" class="form-select select-pop"
-                                                    aria-label="Default select example">
+                                                <?php if ($_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4) { ?>
+                                                    <select name="hotelId" id="hotelId" class="form-select select-pop"
+                                                        aria-label="Default select example">
 
-                                                    <option value="21866"
-                                                        <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : '';?>>
-                                                        Fun Beach Hotel(21866)</option>
-                                                    <option value="21930"
-                                                        <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : '';?>>
-                                                        Casa Del Mar Hotel(21930)</option>
-                                                </select>
-                                                <?php }elseif($_SESSION['accountId'] == 3){?>
+                                                        <option value="21866"
+                                                            <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : ''; ?>>
+                                                            Fun Beach Hotel(21866)</option>
+                                                        <option value="21930"
+                                                            <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : ''; ?>>
+                                                            Casa Del Mar Hotel(21930)</option>
+                                                    </select>
+                                                <?php } elseif ($_SESSION['accountId'] == 3) { ?>
 
-                                                <select name="hotelId" id="hotelId" class="form-select select-pop"
-                                                    aria-label="Default select example">
+                                                    <select name="hotelId" id="hotelId" class="form-select select-pop"
+                                                        aria-label="Default select example">
 
-                                                    <option value="29624"
-                                                        <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : '';?>>
-                                                        Mnarani Beach Hotel(29624)</option>
-                                                </select>
+                                                        <option value="29624"
+                                                            <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : ''; ?>>
+                                                            Mnarani Beach Hotel(29624)</option>
+                                                    </select>
                                                 <?php } ?>
                                             </div>
                                             <div class="his-featBtn">
@@ -466,7 +493,7 @@ if (isset($_GET['hotelId'])) {
                                                 <div class="hstDate m-0" style="min-height: 38px;">
                                                     <input type="text" size="10" class="datepicker"
                                                         placeholder="15/01/2023" name="date" id="date"
-                                                        autocomplete="off" value="<?php echo $date;?>">
+                                                        autocomplete="off" value="<?php echo $date; ?>">
 
                                                 </div>
                                                 <!--<div class="reloadBtn">
@@ -484,7 +511,7 @@ if (isset($_GET['hotelId'])) {
                                                     onClick="document.frm.submit();"><?php echo showOtherLangText('Get data'); ?></a>
                                                 <a class="btn btn-primary update w-lg-100 text-nowrap"
                                                     style="max-width: 200px;"
-                                                    href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId'];?>&date=<?php echo $_GET['date'];?>"
+                                                    href="syncEasyData.php?hotelId=<?php echo $_GET['hotelId']; ?>&date=<?php echo $_GET['date']; ?>"
                                                     onClick="return confirm('<?php echo showOtherLangText('Are you sure to sync the data?'); ?>');"><?php echo showOtherLangText('Sync to report'); ?></a>
                                             </div>
 
@@ -493,18 +520,29 @@ if (isset($_GET['hotelId'])) {
 
 
                                         </div>
+
+                                        <div class="collapse" id="collapseSearch">
+                                            <div class="mt-4 d-flex gap-2 res__search__box">
+                                                <div class="hstDate p-0 border-0">
+                                                    <input type="text" size="10" class="datepicker" placeholder="15/01/2023"
+                                                        name="dateMobile" id="dateMobile" autocomplete="off" value="<?php echo $date; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </form>
                                 </div><!-- /.col -->
 
                             </div><!-- /.row -->
-                            <div class="collapse" id="collapseSearch">
+                            <!--<div class="collapse" id="collapseSearch">
                                 <div class="mt-4 d-flex gap-2 res__search__box">
                                     <div class="hstDate p-0 border-0">
                                         <input type="text" size="10" class="datepicker" placeholder="15/01/2023"
-                                            name="date" id="date" autocomplete="off" value="<?php echo $date;?>">
+                                            name="date" id="date" autocomplete="off" value="<?php echo $date; ?>">
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
+
                         </div>
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">
@@ -570,49 +608,49 @@ if (isset($_GET['hotelId'])) {
                                                 $x++;
 
                                     ?>
-                                    <div class="newReqTask">
+                                                <div class="newReqTask">
 
 
-                                        <div
-                                            class="d-flex flex-wrap flex-row align-items-start align-items-md-center border-bottom itmBody newOrd-CntPrt">
-                                            <div class="outlet__box tb-bdy res__label__item"
-                                                data-text="<?php echo showOtherLangText('Outlet'); ?>">
-                                                <p><?php echo $row['Outlet']; ?></p>
-                                            </div>
-                                            <div class="middle__info d-flex align-items-start align-items-md-center">
-                                                <div class="sales__box tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Sales'); ?>">
-                                                    <?php showPrice($row['Sales'], $getDefCurDet['curCode']); ?>
-                                                </div>
-                                                <div class="product__box tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Product'); ?>">
-                                                    <?php echo $itemData['ItemName']; ?>
-                                                </div>
-                                                <div class="cate__box tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Category'); ?>">
-                                                    <?php echo $itemData['Category']; ?>
-                                                </div>
-                                            </div>
-                                            <div class="right__box prdt-Hide">
-                                                <div class="d-flex">
-                                                    <div class="col tb-bdy res__label__item"
-                                                        data-text="<?php echo showOtherLangText('Sale barcode'); ?>">
-                                                        <p><?php echo $itemData['ItemCode']; ?></p>
+                                                    <div
+                                                        class="d-flex flex-wrap flex-row align-items-start align-items-md-center border-bottom itmBody newOrd-CntPrt">
+                                                        <div class="outlet__box tb-bdy res__label__item"
+                                                            data-text="<?php echo showOtherLangText('Outlet'); ?>">
+                                                            <p><?php echo $row['Outlet']; ?></p>
+                                                        </div>
+                                                        <div class="middle__info d-flex align-items-start align-items-md-center">
+                                                            <div class="sales__box tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Sales'); ?>">
+                                                                <?php showPrice($row['Sales'], $getDefCurDet['curCode']); ?>
+                                                            </div>
+                                                            <div class="product__box tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Product'); ?>">
+                                                                <?php echo $itemData['ItemName']; ?>
+                                                            </div>
+                                                            <div class="cate__box tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Category'); ?>">
+                                                                <?php echo $itemData['Category']; ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="right__box prdt-Hide">
+                                                            <div class="d-flex">
+                                                                <div class="col tb-bdy res__label__item"
+                                                                    data-text="<?php echo showOtherLangText('Sale barcode'); ?>">
+                                                                    <p><?php echo $itemData['ItemCode']; ?></p>
+                                                                </div>
+                                                                <div class="col tb-bdy res__label__item"
+                                                                    data-text="<?php echo showOtherLangText('Quantity'); ?>">
+                                                                    <p><?php echo $itemData['Quantity']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col tb-bdy res__label__item"
-                                                        data-text="<?php echo showOtherLangText('Quantity'); ?>">
-                                                        <p><?php echo $itemData['Quantity']; ?></p>
+                                                    <div class="mbLnk-Order">
+                                                        <a href="javascript:void(0)" class="orderLink">
+                                                            <i class="fa-solid fa-angle-down"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="mbLnk-Order">
-                                            <a href="javascript:void(0)" class="orderLink">
-                                                <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!--.//newReqTask-->
+                                                <!--.//newReqTask-->
                                     <?php
                                             }
                                         }
@@ -685,52 +723,52 @@ if (isset($_GET['hotelId'])) {
 
 
 
-                                    <div class="newReqTask">
-                                        <div
-                                            class="d-flex flex-wrap flex-row align-items-start align-items-md-center border-bottom itmBody newOrd-CntPrt sales__table">
-                                            <div class="outlet__box tb-bdy res__label__item"
-                                                data-text="<?php echo showOtherLangText('Outlet'); ?>">
-                                                <p><?php echo $row['Outlet']; ?></p>
-                                            </div>
-                                            <div class="middle__info d-flex align-items-start align-items-md-center">
-                                                <div class="sales__box tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Sales'); ?>">
-                                                    <?php showPrice($row['Sales'], $getDefCurDet['curCode']); ?>
-                                                </div>
-                                                <div class="product__box tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Product'); ?>">
-                                                    <?php echo $itemData['Name']; ?>
-                                                </div>
-                                                <div class="cate__box tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Category'); ?>">
-                                                    <?php echo $itemData['Category']; ?>
-                                                </div>
-                                            </div>
-                                            <div class="right__box prdt-Hide">
-                                                <div class="d-flex">
-                                                    <div class="col tb-bdy res__label__item"
-                                                        data-text="<?php echo showOtherLangText('Salesbarcode'); ?>">
-                                                        <p><?php echo $itemData['SalesBarCode']; ?></p>
+                                                <div class="newReqTask">
+                                                    <div
+                                                        class="d-flex flex-wrap flex-row align-items-start align-items-md-center border-bottom itmBody newOrd-CntPrt sales__table">
+                                                        <div class="outlet__box tb-bdy res__label__item"
+                                                            data-text="<?php echo showOtherLangText('Outlet'); ?>">
+                                                            <p><?php echo $row['Outlet']; ?></p>
+                                                        </div>
+                                                        <div class="middle__info d-flex align-items-start align-items-md-center">
+                                                            <div class="sales__box tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Sales'); ?>">
+                                                                <?php showPrice($row['Sales'], $getDefCurDet['curCode']); ?>
+                                                            </div>
+                                                            <div class="product__box tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Product'); ?>">
+                                                                <?php echo $itemData['Name']; ?>
+                                                            </div>
+                                                            <div class="cate__box tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Category'); ?>">
+                                                                <?php echo $itemData['Category']; ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="right__box prdt-Hide">
+                                                            <div class="d-flex">
+                                                                <div class="col tb-bdy res__label__item"
+                                                                    data-text="<?php echo showOtherLangText('Salesbarcode'); ?>">
+                                                                    <p><?php echo $itemData['SalesBarCode']; ?></p>
+                                                                </div>
+                                                                <div class="col tb-bdy res__label__item"
+                                                                    data-text="<?php echo showOtherLangText('Text'); ?>">
+                                                                    <p><?php echo $itemData['Count']; ?></p>
+                                                                </div>
+                                                                <div class="col tb-bdy res__label__item"
+                                                                    data-text="<?php echo showOtherLangText('Value'); ?>">
+                                                                    <p><?php showPrice($itemData['Value'], $getDefCurDet['curCode']); ?>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col tb-bdy res__label__item"
-                                                        data-text="<?php echo showOtherLangText('Text'); ?>">
-                                                        <p><?php echo $itemData['Count']; ?></p>
-                                                    </div>
-                                                    <div class="col tb-bdy res__label__item"
-                                                        data-text="<?php echo showOtherLangText('Value'); ?>">
-                                                        <p><?php showPrice($itemData['Value'], $getDefCurDet['curCode']); ?>
-                                                        </p>
+                                                    <div class="mbLnk-Order">
+                                                        <a href="javascript:void(0)" class="orderLink">
+                                                            <i class="fa-solid fa-angle-down"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="mbLnk-Order">
-                                            <a href="javascript:void(0)" class="orderLink">
-                                                <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!--.//newReqTask-->
+                                                <!--.//newReqTask-->
 
 
                                     <?php
@@ -794,35 +832,35 @@ if (isset($_GET['hotelId'])) {
 
                                     ?>
 
-                                    <div class="newReqTask">
-                                        <div
-                                            class="d-flex flex-wrap flex-row align-items-start align-items-md-center border-bottom itmBody newOrd-CntPrt category__table">
-                                            <div class="outlet__box tb-bdy res__label__item"
-                                                data-text="<?php echo showOtherLangText('Outlet'); ?>">
-                                                <p><?php echo $catData['Name']; ?></p>
-                                            </div>
-                                            <div class="middle__info d-flex align-items-start align-items-md-center">
-                                                <div class="tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Count'); ?>">
-                                                    <?php echo $catData['Count']; ?>
-                                                </div>
+                                                <div class="newReqTask">
+                                                    <div
+                                                        class="d-flex flex-wrap flex-row align-items-start align-items-md-center border-bottom itmBody newOrd-CntPrt category__table">
+                                                        <div class="outlet__box tb-bdy res__label__item"
+                                                            data-text="<?php echo showOtherLangText('Outlet'); ?>">
+                                                            <p><?php echo $catData['Name']; ?></p>
+                                                        </div>
+                                                        <div class="middle__info d-flex align-items-start align-items-md-center">
+                                                            <div class="tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Count'); ?>">
+                                                                <?php echo $catData['Count']; ?>
+                                                            </div>
 
-                                            </div>
-                                            <div class="right__box prdt-Hide">
-                                                <div class="col tb-bdy res__label__item"
-                                                    data-text="<?php echo showOtherLangText('Values'); ?>">
-                                                    <p><?php showPrice($catData['Value'], $getDefCurDet['curCode']); ?>
-                                                    </p>
+                                                        </div>
+                                                        <div class="right__box prdt-Hide">
+                                                            <div class="col tb-bdy res__label__item"
+                                                                data-text="<?php echo showOtherLangText('Values'); ?>">
+                                                                <p><?php showPrice($catData['Value'], $getDefCurDet['curCode']); ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mbLnk-Order">
+                                                        <a href="javascript:void(0)" class="orderLink">
+                                                            <i class="fa-solid fa-angle-down"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="mbLnk-Order">
-                                            <a href="javascript:void(0)" class="orderLink">
-                                                <i class="fa-solid fa-angle-down"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!--.//newReqTask-->
+                                                <!--.//newReqTask-->
                                     <?php
                                             }
                                         }
@@ -858,17 +896,17 @@ if (isset($_GET['hotelId'])) {
     <script type="text/javascript" src="Assets/js/custom.js"></script>
 
     <script>
-    $(function() {
-        $(".datepicker").datepicker({
-            dateFormat: 'dd-mm-yy'
+        $(function() {
+            $(".datepicker").datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
         });
-    });
     </script>
 
     <script>
-    function syncToReport() {
+        function syncToReport() {
 
-    }
+        }
     </script>
 </body>
 

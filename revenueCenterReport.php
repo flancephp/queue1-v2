@@ -198,7 +198,11 @@ include_once('script/revenueCenterReport_script.php');
                                         unset($_SESSION['barCodesNotFound']);
                                     } elseif (isset($_GET['easyOutLetError'])) {
                                         $error = ' ' . showOtherLangText('Outlet name did not match.') . ' ';
+                                    } elseif (isset($_GET['import'])) {
+                                        $succ = ' ' . showOtherLangText('Data imported successfully.') . ' ';
                                     }
+
+
 
                                     if (isset($_GET['guest']) && $_GET['guest'] == 1) {
                                         $succ = showOtherLangText('Guest no. updated successfully.');
@@ -247,7 +251,7 @@ include_once('script/revenueCenterReport_script.php');
                                                 </div>
                                                 <!-- Filter Btn End -->
                                             </div>
-                                            <!-- Date Box Start -->
+                                            <!-- Date Box Start for web veiw-->
                                             <form action="revenueCenterReport.php" id="frm" name="frm" method="get">
                                                 <div class="prtDate">
                                                     <div class="hstDate">
@@ -290,24 +294,25 @@ include_once('script/revenueCenterReport_script.php');
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="collapse" id="collapseSearch">
-                                    <div class="mt-4 d-flex gap-2 res__search__box">
-                                        <div class="hstDate p-0 border-0">
-                                            <input type="text" size="10" class="datepicker"
-                                                name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
-                                            <span>-</span>
-                                            <input type="text" size="10" class="datepicker"
-                                                name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
-                                        </div>
-                                        <div class="reloadBtn m-0">
-                                            <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
-                                        </div>
-                                        <div class="reloadBtn m-0">
-                                            <a href="javascript:void(0)" onClick="window.location.href='revenueCenterReport.php';"><i class="fa-solid fa-xmark"></i></a>
+                                <form action="revenueCenterReport.php" id="frmMobile" name="frmMobile" method="get">
+                                    <div class="collapse" id="collapseSearch">
+                                        <div class="mt-4 d-flex gap-2 res__search__box">
+                                            <div class="hstDate p-0 border-0">
+                                                <input type="text" size="10" class="datepicker"
+                                                    name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
+                                                <span>-</span>
+                                                <input type="text" size="10" class="datepicker"
+                                                    name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
+                                            </div>
+                                            <div class="reloadBtn m-0">
+                                                <a href="javascript:void(0)" onClick="return loaderFrmMobile();"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                            </div>
+                                            <div class="reloadBtn m-0">
+                                                <a href="javascript:void(0)" onClick="window.location.href='revenueCenterReport.php';"><i class="fa-solid fa-xmark"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
 
                             </div>
                             <!-- Mobile Date Box Start -->
@@ -1177,6 +1182,14 @@ include_once('script/revenueCenterReport_script.php');
                 document.getElementById('frm').submit();
                 return true;
             }
+
+            function loaderFrmMobile() {
+
+                document.getElementById('frmMobile').submit();
+                return true;
+            }
+
+
 
 
 

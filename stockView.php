@@ -1529,7 +1529,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <div class="stkPrcol d-md-flex align-items-center">
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?> <p><span class="mbLst-value lstValueSize">S. Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                    <?php } else { ?> <p><span class="mbLst-value lstValueSize">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
                                                         </p>
                                                     <?php } ?>
                                                 </div>

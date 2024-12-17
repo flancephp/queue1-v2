@@ -1,4 +1,5 @@
 <?php
+
 namespace Dompdf;
 
 class Options
@@ -14,7 +15,7 @@ class Options
      * The location of a temporary directory.
      *
      * The directory specified must be writable by the webserver process.
-     * The temporary directory is required to download remote images and when
+     * The temporary directory is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" to download remote images and when
      * using the PFDLib back end.
      *
      * @var string
@@ -164,7 +165,7 @@ class Options
      * Enable remote file access
      *
      * If this setting is set to true, DOMPDF will access remote sites for
-     * images and CSS files as required.
+     * images and CSS files as oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')".
      *
      * ==== IMPORTANT ====
      * This can be a security risk, in particular in combination with isPhpEnabled and

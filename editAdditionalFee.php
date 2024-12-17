@@ -119,7 +119,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="feeName" id="feeName" required value="<?php echo isset($det['feeName']) ? $det['feeName'] : ''; ?>"
+                                        <input type="text" class="form-control" name="feeName" id="feeName" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" value="<?php echo isset($det['feeName']) ? $det['feeName'] : ''; ?>"
                                             placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>">
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="feeType" class="form-label"><?php echo showOtherLangText('Fee Type'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <select class="form-select" aria-label="Default select example" name="feeType" id="feeType" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" required>
+                                        <select class="form-select" aria-label="Default select example" name="feeType" id="feeType" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
                                             <option value="1"
                                                 <?php echo $det['feeType'] == 1 ? 'selected="selected"' : ''; ?>>
                                                 <?php echo showOtherLangText('Tax') ?></option>
@@ -149,7 +149,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Fee Amount') . ' ' . $getDefCurDet['curCode'] ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="amt" id="amt" required placeholder="<?php echo showOtherLangText('10'); ?>"
+                                        <input type="text" class="form-control" name="amt" id="amt" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" placeholder="<?php echo showOtherLangText('10'); ?>"
                                             value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off">
                                     </div>
                                 </div>

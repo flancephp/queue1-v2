@@ -430,7 +430,7 @@ class PDFLib implements Canvas
         $start = $this->_objs[$object]["start_page"];
         $where = $this->_objs[$object]["where"];
 
-        // Place the object on this page if required
+        // Place the object on this page if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
         if ($this->_page_number >= $start &&
             (($this->_page_number % 2 == 0 && $where === "even") ||
                 ($this->_page_number % 2 == 1 && $where === "odd") ||
@@ -453,7 +453,7 @@ class PDFLib implements Canvas
             $start = $props["start_page"];
             $where = $props["where"];
 
-            // Place the object on this page if required
+            // Place the object on this page if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
             if ($this->_page_number >= $start &&
                 (($this->_page_number % 2 == 0 && $where === "even") ||
                     ($this->_page_number % 2 == 1 && $where === "odd") ||

@@ -130,7 +130,7 @@ $det = mysqli_fetch_array($res);
                                     <div class="col-md-9">
 
                                         <input placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>" type="text" class="form-control"
-                                            name="itemName" id="itemName" value="<?php echo isset($det['itemName']) ? $det['itemName'] : ''; ?>" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required />
+                                            name="itemName" id="itemName" value="<?php echo isset($det['itemName']) ? $det['itemName'] : ''; ?>" autocomplete="off" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
 
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input placeholder="20" type="text" class="form-control" name="amt" id="amt" value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required />
+                                        <input placeholder="20" type="text" class="form-control" name="amt" id="amt" value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
                                     </div>
                                 </div>
 

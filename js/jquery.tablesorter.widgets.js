@@ -1,8 +1,8 @@
 /*** This file is dynamically generated ***
-¦¦¦¦¦_ _¦¦¦¦_   ¦¦¦¦¦_ _¦¦¦¦_ ¦¦¦¦¦¦   ¦¦¦¦¦¦¦_ _¦¦¦¦_ ¦¦¦¦¦_ ¦¦ ¦¦¦¦¦¦ ¦¦  ¦¦
-¦¦  ¦¦ ¦¦  ¦¦   ¦¦  ¦¦ ¦¦  ¦¦   ¦¦     ¦¦ ¦¦ ¦¦ ¦¦  ¦¦ ¦¦  ¦¦ ¦¦ ¦¦__   ¦¦__¦¦
-¦¦  ¦¦ ¦¦  ¦¦   ¦¦  ¦¦ ¦¦  ¦¦   ¦¦     ¦¦ ¦¦ ¦¦ ¦¦  ¦¦ ¦¦  ¦¦ ¦¦ ¦¦¯¯    ¯¯¯¦¦
-¦¦¦¦¦¯ ¯¦¦¦¦¯   ¦¦  ¦¦ ¯¦¦¦¦¯   ¦¦     ¦¦ ¦¦ ¦¦ ¯¦¦¦¦¯ ¦¦¦¦¦¯ ¦¦ ¦¦     ¦¦¦¦¦¯
+ï¿½ï¿½ï¿½ï¿½ï¿½_ _ï¿½ï¿½ï¿½ï¿½_   ï¿½ï¿½ï¿½ï¿½ï¿½_ _ï¿½ï¿½ï¿½ï¿½_ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ _ï¿½ï¿½ï¿½ï¿½_ ï¿½ï¿½ï¿½ï¿½ï¿½_ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½
+ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½   ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½   ï¿½ï¿½     ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½__   ï¿½ï¿½__ï¿½ï¿½
+ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½   ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½   ï¿½ï¿½     ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½    ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½     ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 /*! tablesorter (FORK) - updated 2020-03-03 (v2.31.3)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
@@ -138,7 +138,7 @@
 			sortAsc      : '',
 			sortDesc     : '',
 			active       : '', // applied when column is sorted
-			hover        : '', // custom css required - a defined bootstrap style may not override other classes
+			hover        : '', // custom css oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" - a defined bootstrap style may not override other classes
 			// icon class names
 			icons        : '', // add 'bootstrap-icon-white' to make them white; this icon class is added to the <i> in the header
 			iconSortNone : 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted

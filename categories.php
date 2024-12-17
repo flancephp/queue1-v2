@@ -74,7 +74,7 @@ if (isset($_POST['category']) && $_POST['category']) {
     echo "<script>window.location='" . $red . "'</script>";
 } elseif (isset($_POST['category'])) {
 
-    $error = ' ' . showOtherLangText('Please enter or select all required data') . ' ';
+    $error = ' ' . showOtherLangText('Please enter or select all oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" data') . ' ';
 }
 
 if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0) {
@@ -108,7 +108,7 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
 
     $_GET['id'] = $_POST['id'];
 
-    $error = ' ' . showOtherLangText('Please enter/select all required data.') . ' ';
+    $error = ' ' . showOtherLangText('Please enter/select all oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" data.') . ' ';
 }
 
 // $sql = "SELECT * FROM tbl_category WHERE id = '".$_REQUEST['parentId']."' ";
@@ -312,7 +312,7 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                         <h1 class="modal-title h1"><?php echo showOtherLangText('Add Category'); ?></h1>
                     </div>
                     <div class="modal-body">
-                        <input type="text" required class="form-control" id="category" name="category" placeholder="<?php echo showOtherLangText('Category'); ?>*">
+                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="category" name="category" placeholder="<?php echo showOtherLangText('Category'); ?>*">
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
@@ -337,7 +337,7 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                     <div class="modal-body">
 
                         <input type="hidden" name="id" id="edit-id" value="" />
-                        <input type="text" class="form-control" name="editCategory" id="editCategory" required placeholder="<?php echo showOtherLangText('Category'); ?>*">
+                        <input type="text" class="form-control" name="editCategory" id="editCategory" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" placeholder="<?php echo showOtherLangText('Category'); ?>*">
 
                     </div>
                     <div class="modal-footer">

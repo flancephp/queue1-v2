@@ -1,10 +1,12 @@
 <?php
+
 /**
  * @package dompdf
  * @link    http://dompdf.github.com/
  * @author  Benj Carson <benjcarson@digitaljunkies.ca>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
+
 namespace Dompdf\FrameDecorator;
 
 use Dompdf\Css\Style;
@@ -157,7 +159,7 @@ class Page extends AbstractFrameDecorator
     }
 
     /**
-     * Check if a forced page break is required before $frame.  This uses the
+     * Check if a forced page break is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" before $frame.  This uses the
      * frame's page_break_before property as well as the preceeding frame's
      * page_break_after property.
      *
@@ -349,7 +351,6 @@ class Page extends AbstractFrameDecorator
             Helpers::dompdf_debug("page-break", "block: break allowed");
 
             return true;
-
         } // Inline frames (2):
         else {
             if (in_array($display, Style::$INLINE_TYPES)) {
@@ -407,7 +408,7 @@ class Page extends AbstractFrameDecorator
 
                 return true;
 
-            // Table-rows
+                // Table-rows
             } else {
                 if ($display === "table-row") {
                     // Simply check if the parent table's page_break_inside property is
@@ -446,7 +447,6 @@ class Page extends AbstractFrameDecorator
 
                         // Disallow breaks at row-groups: only split at row boundaries
                         return false;
-
                     } else {
                         Helpers::dompdf_debug("page-break", "? " . $frame->get_style()->display . "");
 
@@ -476,7 +476,9 @@ class Page extends AbstractFrameDecorator
         do {
             $display = $p->get_style()->display;
             if ($display == "table-row") {
-                if ($p->_already_pushed) { return false; }
+                if ($p->_already_pushed) {
+                    return false;
+                }
             }
         } while ($p = $p->get_parent());
 

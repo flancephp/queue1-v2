@@ -171,7 +171,7 @@ if (isset($_POST['itemName'])) {
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?><span class="requiredsign">*</span></label>
+                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
 
@@ -179,8 +179,8 @@ if (isset($_POST['itemName'])) {
                                             class="form-control" name="itemName" id="itemName"
                                             value="<?php echo isset($_POST['itemName']) ? $_POST['itemName'] : ''; ?>"
                                             autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required />
+
+                                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
 
 
                                     </div>
@@ -188,24 +188,24 @@ if (isset($_POST['itemName'])) {
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $<span class="requiredsign">*</span></label>
+                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $<span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input placeholder="<?php echo showOtherLangText('20'); ?>" type="text" class="form-control" name="amt" id="amt"
                                             value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>"
                                             autocomplete="off"
-                                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                            onChange="this.setCustomValidity('')" required />
+
+                                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit'); ?><span class="requiredsign">*</span></label>
+                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input placeholder="<?php echo showOtherLangText('Trip'); ?>" type="text" class="form-control" name="unit" id="unit"
-                                            autocomplete="off" required />
+                                            autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
                                     </div>
                                 </div>
 

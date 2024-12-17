@@ -5,11 +5,6 @@ include('inc/dbConfig.php'); //connection details
 $getLangType = getLangType($_SESSION['language_id']);
 
 
-if (!isset($_SESSION['adminidusername'])) {
-
-    echo "<script>window.location = 'login.php'</script>";
-}
-
 
 
 if (isset($_POST['orderId'])) {
@@ -49,7 +44,7 @@ $checkRow = mysqli_fetch_array($resultSet);
 $content .= '<div class="modal-header"> 
                       <div class="mb-modal-close-icon">  <button type="button" class="btn-close m-0 d-lg-none" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="mvv0xh"></button></div>
                     <div class="d-flex align-items-center justify-content-end w-100">
-                        <a href="payment_pdf_download.php?orderId=' . $_POST['orderId'] . '" class="btn btn-primary dwnBtn" target="_blank"><span class="align-middle">Press</span> <i class="fa-solid fa-download ps-1"></i></a>
+                        <a href="payment_pdf_download.php?getLangType=' . $getLangType . '&orderId=' . $_POST['orderId'] . '" class="btn btn-primary dwnBtn" target="_blank"><span class="align-middle">' . showOtherLangText('Press') . '</span> <i class="fa-solid fa-download ps-1"></i></a>
                     </div>
                 </div>
                 <div class="modal-body p-0">
@@ -161,7 +156,7 @@ $content .= '<div class="col-md-6">
 
                             <br>
                             <div class="paymentto-p mt-3">
-                                <p class="f-02 mb-2">' . showOtherLangText('Payment To:') . '</p>
+                                <p class="f-02 mb-2">' . showOtherLangText('Payment To') . ':</p>
                                 <p class="f-03 in-val-p mb-1">' . $checkRow['supplierName'] . '</p>
                                 <p class="f-03 in-val-p mb-1">' . nl2br($checkRow['supplierAddress']) . '</p>
                                 <p class="f-03 in-val-p mb-1">' . $checkRow['supplierEmail'] . '</p>

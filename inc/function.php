@@ -187,6 +187,11 @@ function getPriceWithCur($price, $curCode, $decimalPlace = 0, $rtlPdf = 0)
 	$decimalPlace = $decimalPlace > 0 ? $decimalPlace : $checkDecPlace;
 
 	if ($rtlPdf) { //for RTL pdf page only
+
+		if ($price < 0) {
+			return $curCode . ' ' . number_format(str_replace('-', '', $price), $decimalPlace) . '-';
+		}
+
 		return $price ? $curCode . ' ' . number_format($price, $decimalPlace) : 0;
 	} else {
 		return $price ? number_format($price, $decimalPlace) . ' ' . $curCode : 0;
@@ -200,6 +205,11 @@ function getNumFormtPrice($price, $curCode, $decimalPlace = 0, $rtlPdf = 0)
 	$decimalPlace = $decimalPlace > 0 ? $decimalPlace : $checkDecPlace;
 
 	if ($rtlPdf) { //for RTL pdf page only
+
+		if ($price < 0) {
+			return $curCode . ' ' . number_format(str_replace('-', '', $price), $decimalPlace) . '-';
+		}
+
 		return $price ? $curCode . ' ' . number_format($price, $decimalPlace) : 0;
 	} else {
 		return  $price ? number_format($price, $decimalPlace) . ' ' . $curCode : '';
@@ -1732,6 +1742,11 @@ function showOtherCur($amt, $curId, $rtlPdfPage = 0)
 	$curDet = getCurrencyDet($curId);
 
 	if ($rtlPdfPage) {
+
+		if ($amt < 0) {
+			return html_entity_decode($curDet['curCode']) . ' ' . number_format(str_replace('-', '', $amt), $curDet['decPlace']) . '-';
+		}
+
 		return $amt ?   html_entity_decode($curDet['curCode']) . ' ' . getNumberFormat($amt, $curDet['decPlace'])   : '';
 	} else {
 		return $amt ?  getNumberFormat($amt, $curDet['decPlace']) . ' ' . html_entity_decode($curDet['curCode'])  : '';
@@ -4674,7 +4689,7 @@ if (isset($_SESSION['language_id'])) {
 	$getOtherTextArr = getOtherText($_SESSION['language_id']);
 }
 
-
+//this must be used only for pdf and not for other pages
 function reverseRTLTextForPdf($text)
 {
 	// check if the line contains Hebrew characters from the start too

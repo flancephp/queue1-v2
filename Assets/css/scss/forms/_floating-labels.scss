@@ -14,7 +14,7 @@
     height: 100%; // allow textareas
     padding: $form-floating-padding-y $form-floating-padding-x;
     pointer-events: none;
-    border: $input-border-width solid transparent; // Required for aligning label's text with the input as it affects inner box model
+    border: $input-border-width solid transparent; // oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" for aligning label's text with the input as it affects inner box model
     transform-origin: 0 0;
     @include transition($form-floating-transition);
   }

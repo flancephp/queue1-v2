@@ -527,7 +527,7 @@ $content .=  '<div id="taskDiv" class="px-2" style="' . (($_POST['isSupDet'] == 
                                 <div class="table-cell">' . showOtherLangText('Status') . '</div>
                                 <div class="table-cell">' . showOtherLangText('Date') . '</div>
                                 <div class="table-cell">' . showOtherLangText('User') . '</div>
-                                <div class="table-cell">' . showOtherLangText('Price') . '($)</div>';
+                                <div class="table-cell">' . showOtherLangText('Price') . '(' . $getDefCurDet['curCode'] . ')</div>';
 if ($curDet['curCode'] != '') {
     $content .=  '<div class="table-cell">' . showOtherLangText('Price') . '(' . $curDet['curCode'] . ')</div>';
 }

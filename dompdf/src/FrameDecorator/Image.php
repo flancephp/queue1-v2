@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package dompdf
  * @link    http://dompdf.github.com/
@@ -6,6 +7,7 @@
  * @author  Fabien Ménager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
+
 namespace Dompdf\FrameDecorator;
 
 use Dompdf\Dompdf;
@@ -39,7 +41,7 @@ class Image extends AbstractFrameDecorator
      * Class constructor
      *
      * @param Frame $frame the frame to decorate
-     * @param DOMPDF $dompdf the document's dompdf object (required to resolve relative & remote urls)
+     * @param DOMPDF $dompdf the document's dompdf object (oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" to resolve relative & remote urls)
      */
     function __construct(Frame $frame, Dompdf $dompdf)
     {
@@ -59,7 +61,8 @@ class Image extends AbstractFrameDecorator
             $dompdf
         );
 
-        if (Cache::is_broken($this->_image_url) &&
+        if (
+            Cache::is_broken($this->_image_url) &&
             $alt = $frame->get_node()->getAttribute("alt")
         ) {
             $style = $frame->get_style();
@@ -87,5 +90,4 @@ class Image extends AbstractFrameDecorator
     {
         return $this->_image_msg;
     }
-
 }

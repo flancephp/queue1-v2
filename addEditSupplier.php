@@ -198,7 +198,7 @@ $res = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="<?php echo $res['name']; ?>"
-                                            id="name" name="name" required placeholder="<?php echo showOtherLangText('Supplier') ?>">
+                                            id="name" name="name" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" placeholder="<?php echo showOtherLangText('Supplier') ?>">
                                     </div>
                                 </div>
 

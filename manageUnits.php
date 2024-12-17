@@ -276,7 +276,7 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
                 <form class="addUser-Form row" id="unitfrm" name="unitfrm" action="" method="post">
                     <div class="modal-body">
 
-                        <input required type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name') ?>*">
+                        <input oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" type="text" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Name') ?>*">
 
                     </div>
                     <div class="modal-footer">
@@ -301,7 +301,7 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
                     </div>
                     <div class="modal-body">
 
-                        <input type="text" required class="form-control" id="editUnit" name="editUnit" placeholder="<?php echo showOtherLangText('Name') ?>*">
+                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="editUnit" name="editUnit" placeholder="<?php echo showOtherLangText('Name') ?>*">
 
                         <input type="hidden" name="id" id="edit-id" value="" />
                     </div>

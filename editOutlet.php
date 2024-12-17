@@ -712,6 +712,12 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                 <div class="tb-head typOlt-Clm">
                                     <p><?php echo showOtherLangText('Type'); ?></p>
                                 </div>
+
+                                <div class="tb-head typOlt-Clm">
+                                    <p><?php echo showOtherLangText('Status'); ?></p>
+                                </div>
+
+
                             </div>
                             <div class="align-items-center unitOlt-Clm">
                                 <div class="tb-head sbUnOlt-Clm">
@@ -765,22 +771,30 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                 <p><?php echo $outLetItemRow['barCode']; ?></p>
                                             </div>
                                             <div class="tb-bdy typOlt-Clm">
-                                                <p><?php echo $outLetItemRow['itemType'] == 1 ? 'Bar Control' : ($outLetItemRow['itemType'] == 2 ? 'Sales' : 'Usage'); ?></p>
+                                                <p><?php $itemTypeText = $outLetItemRow['itemType'] == 1 ? 'Bar Control' : ($outLetItemRow['itemType'] == 2 ? 'Sales' : 'Usage');
+                                                    echo showOtherLangText($itemTypeText);
+                                                    ?></p>
                                             </div>
+
+                                            <div class="tb-bdy typOlt-Clm">
+                                                <p><?php $statusText =  $outLetItemRow['status'] == 1 ? 'Active' :  'In Active';
+                                                    echo showOtherLangText($statusText); ?></p>
+                                            </div>
+
                                         </div>
                                         <div class="unitOlt-Clm">
                                             <div class="d-flex align-items-center flex-wrap mblFlx-Olt">
                                                 <div class="tb-bdy sbUnOlt-Clm">
-                                                    <p><span class="mblOlt-head">Sub Unit</span> <?php echo $outLetItemRow['subUnit']; ?></p>
+                                                    <p><span class="mblOlt-head"><?php echo showOtherLangText('Sub Unit'); ?></span> <?php echo $outLetItemRow['subUnit']; ?></p>
                                                 </div>
                                                 <div class="tb-bdy fctOlt-Clm">
-                                                    <p><span class="mblOlt-head">Factor</span><?php echo $outLetItemRow['factor']; ?></p>
+                                                    <p><span class="mblOlt-head"><?php echo showOtherLangText('Factor'); ?></span><?php echo $outLetItemRow['factor']; ?></p>
                                                 </div>
                                                 <div class="tb-bdy minOlt-Clm">
-                                                    <p><span class="mblOlt-head">Min Qyt</span><?php echo $outLetItemRow['minQty']; ?></p>
+                                                    <p><span class="mblOlt-head"><?php echo showOtherLangText('Min Qyt'); ?></span><?php echo $outLetItemRow['minQty']; ?></p>
                                                 </div>
                                                 <div class="tb-bdy maxOlt-Clm">
-                                                    <p><span class="mblOlt-head">Max Qyt</span><?php echo $outLetItemRow['maxQty']; ?></p>
+                                                    <p><span class="mblOlt-head"><?php echo showOtherLangText('Max Qyt'); ?></span><?php echo $outLetItemRow['maxQty']; ?></p>
                                                 </div>
                                             </div>
                                         </div>

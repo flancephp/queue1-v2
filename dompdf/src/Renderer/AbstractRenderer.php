@@ -74,7 +74,7 @@ abstract class AbstractRenderer
     protected function _background_image($url, $x, $y, $width, $height, $style)
     {
         if (!function_exists("imagecreatetruecolor")) {
-            throw new \Exception("The PHP GD extension is required, but is not installed.");
+            throw new \Exception("The PHP GD extension is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')", but is not installed.");
         }
 
         $sheet = $style->get_stylesheet();

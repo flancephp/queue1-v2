@@ -111,7 +111,7 @@ if (isset($_POST['currency'])) {
                                         <label for="currency" class="form-label"><?php echo showOtherLangText('Currency'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="currency" id="currency" placeholder="EUR">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="currency" id="currency" placeholder="EUR">
                                     </div>
                                 </div>
 
@@ -120,7 +120,7 @@ if (isset($_POST['currency'])) {
                                         <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="curCode" id="curCode" placeholder="€">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="curCode" id="curCode" placeholder="€">
                                     </div>
                                 </div>
 
@@ -129,7 +129,7 @@ if (isset($_POST['currency'])) {
                                         <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against') . ' (' . $getDefCurDet['curCode'] . '1)'; ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" id="amt" name="amt" placeholder="0.89">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="amt" name="amt" placeholder="0.89">
                                     </div>
                                 </div>
 
@@ -138,7 +138,7 @@ if (isset($_POST['currency'])) {
                                         <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place'); ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" id="decPlace" name="decPlace" placeholder="4">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="decPlace" name="decPlace" placeholder="4">
                                     </div>
                                 </div>
 

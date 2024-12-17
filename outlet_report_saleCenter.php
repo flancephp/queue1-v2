@@ -358,76 +358,42 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div class="chkStore">
                                             <a href="javascript:void(0)">
-                                                <img src="Assets/icons/history-stock.svg" alt="history stock">
+                                                <img src="Assets/icons/history-stock.svg" alt="<?php echo showOtherLangText('history stock'); ?>">
                                             </a>
                                         </div>
                                         <div class="chkStore">
                                             <a href="javascript:void(0)">
-                                                <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
+                                                <img src="Assets/icons/stock-xcl.svg" alt="<?php echo showOtherLangText('Stock Xcl'); ?>">
                                             </a>
                                         </div>
                                         <div class="chkStore">
                                             <a href="javascript:void(0)">
-                                                <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
+                                                <img src="Assets/icons/stock-pdf.svg" alt="<?php echo showOtherLangText('Stock PDF'); ?>">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <form action="outlet_report_saleCenter.php" id="frmMobile" name="frmMobile" method="get">
 
-                            <div class="collapse" id="collapseSearch">
-                                <div class="mt-4 d-flex gap-2 res__search__box">
-                                    <div class="hstDate p-0 border-0">
-                                        <input type="text" size="10" class="datepicker"
-                                            name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
-                                        <span>-</span>
-                                        <input type="text" size="10" class="datepicker"
-                                            name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
-                                    </div>
-                                    <div class="reloadBtn m-0">
-                                        <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Mobile Date Box Start -->
-                        <div class="container mb-hisDate">
-                            <div class="date-flx"></div>
-                        </div>
-                        <!-- Mobile Date Box End -->
-
-                        <div class="container mb-hisDtl">
-                            <div class="row">
-                                <div class="col-md-5 ttl-Cstcol">
-                                    <p class="tl-Cst">Total Cost</p>
-                                    <div class="d-flex justify-content-center cst-Value">
-                                        <div class="d-flex flex-wrap justify-content-center">
-                                            <p class="prcntage-Val">360.44 $</p>
-                                            <p class="cst-Prcntage">48.57%</p>
+                                <input type="hidden" name="outLetId" id="outLetId"
+                                    value="<?php echo $_GET['outLetId']; ?>" />
+                                <div class="collapse" id="collapseSearch">
+                                    <div class="mt-4 d-flex gap-2 res__search__box">
+                                        <div class="hstDate p-0 border-0">
+                                            <input type="text" size="10" class="datepicker"
+                                                name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
+                                            <span>-</span>
+                                            <input type="text" size="10" class="datepicker"
+                                                name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
+                                        </div>
+                                        <div class="reloadBtn m-0">
+                                            <a href="javascript:void(0)" onClick="document.frmMobile.submit();"><i class="fa-solid fa-arrows-rotate"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5 var-Cstcol">
-                                    <p class="sl-varDtl">Variances</p>
-                                    <p class="sl-varDif">-18.3 $</p>
-                                </div>
-                                <div class="col-md-2 maxBtn">
-                                    <a href="javascript:void(0)" class="maxLink">
-                                        <img src="Assets/icons/maximize.svg" alt="Maximize">
-                                    </a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-
-                        <!-- <div class="container mbguest-Data">
-
-                        </div> -->
-
-
-
-
-
-
 
 
                         <?php
@@ -827,6 +793,52 @@ include_once('script/outlet_report_saleCenter_script.php');
                                 </div>';
                         } //end while 
                         ?>
+
+
+
+
+
+
+
+
+                        <!-- Mobile Date Box Start -->
+                        <div class="container mb-hisDate">
+                            <div class="date-flx"></div>
+                        </div>
+
+
+
+                        <!-- Mobile Date Box End -->
+
+
+                        <div class="container mb-hisDtl">
+                            <div class="row">
+                                <div class="col-md-5 ttl-Cstcol">
+                                    <p class="tl-Cst"><?php echo showOtherLangText('Total Cost'); ?></p>
+                                    <div class="d-flex justify-content-center cst-Value">
+                                        <div class="d-flex flex-wrap justify-content-center">
+                                            <p class="prcntage-Val"><?php showPrice($usageItemTotalAmt, $getDefCurDet['curCode'], ''); ?></p>
+                                            <p class="cst-Prcntage"><?php echo  $easySalesAmt > 0 ? ('(' . get2DecimalVal(($usageItemTotalAmt / $easySalesAmt) * 100) . '%)') : '';
+                                                                    ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 var-Cstcol">
+                                    <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
+                                    <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?></p>
+                                </div>
+                                <div class="col-md-2 maxBtn">
+                                    <a href="javascript:void(0)" class="maxLink">
+                                        <img src="Assets/icons/maximize.svg" alt="Maximize">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="container mbguest-Data">
+
+                        </div> -->
+
 
 
 

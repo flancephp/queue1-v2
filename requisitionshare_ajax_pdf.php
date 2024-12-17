@@ -468,7 +468,7 @@ $content .=  '</div>
                                         <div class="table-cell">' . showOtherLangText('Status') . '</div>
                                         <div class="table-cell">' . showOtherLangText('Date') . '</div>
                                         <div class="table-cell">' . showOtherLangText('User') . '</div>
-                                        <div class="table-cell">' . showOtherLangText('Price') . '($)</div>
+                                        <div class="table-cell">' . showOtherLangText('Price') . '(' . $getDefCurDet['curCode'] . ')</div>
                                         <div class="table-cell">' . showOtherLangText('Note') . '</div>
                                     </div>';
 while ($orderJourney = mysqli_fetch_array($orderJourneyQry)) {

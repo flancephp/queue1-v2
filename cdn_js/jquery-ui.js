@@ -905,7 +905,7 @@ $.widget("ui.mouse", {
 			$.removeData(event.target, this.widgetName + ".preventClickEvent");
 		}
 
-		// these delegates are required to keep context
+		// these delegates are oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" to keep context
 		this._mouseMoveDelegate = function(event) {
 			return that._mouseMove(event);
 		};

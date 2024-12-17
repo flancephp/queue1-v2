@@ -589,27 +589,31 @@ foreach ($resItemHistory['resRows'] as $item) {
                                     </div>
                                 </div>-->
                             </div>
-                            <div class="collapse" id="collapseExample">
-                                <div class="mt-4 d-flex gap-2 res__search__box">
-                                    <div class="hstDate p-0 border-0">
-                                        <input type="text" size="10" class="datepicker"
-                                            placeholder="15/01/2023" name="fromDate" id="fromDate"
-                                            autocomplete="off" value="<?php echo $_GET['fromDate']; ?>">
-                                        <span>-</span>
-                                        <input type="text" size="10" class="datepicker"
-                                            placeholder="15/02/2023" name="toDate" id="toDate"
-                                            autocomplete="off" value="<?php echo $_GET['toDate']; ?>">
-                                    </div>
-                                    <div class="reloadBtn m-0">
-                                        <a onClick="document.frm.submit();" href="javascript:void(0)"><i
-                                                class="fa-solid fa-arrows-rotate"></i></a>
-                                    </div>
-                                    <div class="reloadBtn m-0">
-                                        <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'"
-                                            href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                            <form name="frmMobile" id="frmMobile" method="get" action="">
+                                <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']; ?>" />
+                                <input type="hidden" name="ordType" id="ordType" value="<?php echo $_GET['ordType']; ?>" />
+                                <div class="collapse" id="collapseExample">
+                                    <div class="mt-4 d-flex gap-2 res__search__box">
+                                        <div class="hstDate p-0 border-0">
+                                            <input type="text" size="10" class="datepicker"
+                                                placeholder="15/01/2023" name="fromDate" id="fromDate"
+                                                autocomplete="off" value="<?php echo $_GET['fromDate']; ?>">
+                                            <span>-</span>
+                                            <input type="text" size="10" class="datepicker"
+                                                placeholder="15/02/2023" name="toDate" id="toDate"
+                                                autocomplete="off" value="<?php echo $_GET['toDate']; ?>">
+                                        </div>
+                                        <div class="reloadBtn m-0">
+                                            <a onClick="document.frmMobile.submit();" href="javascript:void(0)"><i
+                                                    class="fa-solid fa-arrows-rotate"></i></a>
+                                        </div>
+                                        <div class="reloadBtn m-0">
+                                            <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'"
+                                                href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <!-- Mobile Date Box Start -->
                         <div class="container mb-hisDate">

@@ -15410,7 +15410,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 .edit-product{font-weight: 400; font-size: 16px; width: 80%;}
 
-.requiredsign {
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
   color: #FD3737;
   display: inline;
 }
@@ -21681,7 +21681,7 @@ html[dir=rtl] .modal-head-row .btn {
 .adUsr-Div-full {
   width: 100%;
 }
-.requiredsign {
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
   color: #FD3737;
   display: inline;
 }

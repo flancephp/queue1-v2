@@ -1027,8 +1027,8 @@ $orderQry = mysqli_query($con, $sql);
                                                     <p class="flex-fill flex-grow-0 flex-shrink-0"><?php echo showOtherLangText('Invoice No'); ?>: </p>
                                                     <input class="form-control invNum" type="text" name="invNo" id="invNo"
                                                         autocomplete="off" value="<?php echo $ordRow['invNo'] ?>"
-                                                        oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
-                                                        onChange="getInvNo(),this.setCustomValidity('')" required />
+
+                                                        onChange="getInvNo(),this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
                                                 </div>
                                                 <div class="error" id="invError"></div>
                                             </div>

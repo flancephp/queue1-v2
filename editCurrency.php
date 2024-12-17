@@ -115,7 +115,7 @@ $det = mysqli_fetch_array($res);
                                     </div>
                                     <div class="col-md-9">
                                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
-                                        <input type="text" required class="form-control" value="<?php echo $det['currency']; ?>" name="currency" id="currency" placeholder="EUR">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" value="<?php echo $det['currency']; ?>" name="currency" id="currency" placeholder="EUR">
                                     </div>
                                 </div>
 
@@ -124,7 +124,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="curCode" value="<?php echo $det['curCode']; ?>" id="currencyCode" placeholder="€">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="curCode" value="<?php echo $det['curCode']; ?>" id="currencyCode" placeholder="€">
                                     </div>
                                 </div>
 
@@ -133,7 +133,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against') . ' (' . $getDefCurDet['curCode'] . '1)'; ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" name="amt" value="<?php echo $det['amt']; ?>" id="amountAgainst" placeholder="0.89">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="amt" value="<?php echo $det['amt']; ?>" id="amountAgainst" placeholder="0.89">
                                     </div>
                                 </div>
 
@@ -142,7 +142,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" required class="form-control" value="<?php echo $det['decPlace']; ?>" name="decPlace" id="decPlace" placeholder="4">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" value="<?php echo $det['decPlace']; ?>" name="decPlace" id="decPlace" placeholder="4">
                                     </div>
                                 </div>
 
