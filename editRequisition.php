@@ -341,7 +341,7 @@ $cond = '';
 
             html[dir="rtl"] .btn__box,
             .nwNxt-Btn1>div {
-                max-width: 9.875rem !important;
+                max-width: 8.875rem !important;
             }
 
             html[dir="rtl"] .sltSupp.nwOrd-Num.position {
@@ -755,6 +755,11 @@ $cond = '';
                 padding-right: 10px;
             }
         }
+        @media (min-width: 768px) {
+            html[dir="rtl"] .text-md-end {
+                text-align: left !important;
+            }
+        }
     </style>
 
 </head>
@@ -804,17 +809,18 @@ $cond = '';
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <!-- <div class="global__padding"> -->
-                        <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
-                            <br /><br />
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p>
-                                    <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="container cntTable pt-3">
 
-                            </div>
-
-                        <?php } ?>
+                            <?php if (isset($_GET['selectAtleastOneProduct'])) { ?> 
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p>
+                                        <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    
+                                </div> 
+                            <?php } ?>
+                        </div>
                         <div class="stcPart position-relative">
                             <div class="container cntTable header">
 

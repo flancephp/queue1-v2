@@ -10384,7 +10384,11 @@ a.sbActive .mb_nvSubIcn {
 .adUsr-Div-full {
   width: 100%;
 }
+<<<<<<< HEAD
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredsign {
+=======
 .requiredsign {
+>>>>>>> c7541f233eca52679ac9db00997d29575a2a1c10
   color: #FD3737;
   display: inline;
 }
@@ -15602,7 +15606,11 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 .edit-product{font-weight: 400; font-size: 16px; width: 80%;}
 
+<<<<<<< HEAD
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredsign {
+=======
 .requiredsign {
+>>>>>>> c7541f233eca52679ac9db00997d29575a2a1c10
   color: #FD3737;
   display: inline;
 }

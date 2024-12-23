@@ -2271,6 +2271,9 @@ if ($getTxtById == 'storeId') {
                 left: 4rem;
             }
         }
+        @media (max-width: 991px) {
+            .paidIsue { align-items: flex-end; }
+        }
 
         html[dir="rtl"] .ps-1 {
             padding-left: 0 !important;
@@ -3144,9 +3147,9 @@ if ($getTxtById == 'storeId') {
 
                                         $varPosAmt = $variances[$orderRow['id']]['varPosAmt'];
                                         $varNegAmt = $variances[$orderRow['id']]['varNegAmt'];
-
-                                        $varianceAmtText = '<span style="color:black">' . getNumFormtPrice($varPosAmt, $getDefCurDet['curCode']) . '</span><br>';
-                                        $varianceAmtText .= '<span style="color:red">' . getNumFormtPrice($varNegAmt, $getDefCurDet['curCode']) . '</span>';
+                                        //style="color:black"
+                                        $varianceAmtText = '<span >' . getNumFormtPrice($varPosAmt, $getDefCurDet['curCode']) . '</span><br>';
+                                        $varianceAmtText .= '<span style="color:#F37870;">' . getNumFormtPrice($varNegAmt, $getDefCurDet['curCode']) . '</span>';
 
 
                                         $ordType = showOtherLangText('Stock Take');

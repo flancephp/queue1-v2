@@ -290,7 +290,8 @@ WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
 $result = mysqli_query($con, $sqlSet);
 
 // ==========================================
-
+$svg='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#198754" d="m12 4l-.707-.707l.707-.707l.707.707zm1 15a1 1 0 1 1-2 0zM5.293 9.293l6-6l1.414 1.414l-6 6zm7.414-6l6 6l-1.414 1.414l-6-6zM13 4v15h-2V4z" /></svg>';
+$svgDown='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#dc3545" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 19l6-6m-6 6l-6-6m6 6V5" /></svg>';
 
 $content = '<!DOCTYPE html>
 <html lang="he">
@@ -415,7 +416,7 @@ if ($checkIfPermissionToNewReqSec == 0 || ($_SESSION['getVals']['ordType'] != ''
 if (($_SESSION['getVals']['ordType'] != '' && $_SESSION['getVals']['ordType'] != 3)) {
     $_GET['variance'] = 0;
 }
-$content .= '<table style="font-size:12px;" width="98%">
+$content .= '<table style="font-size:12px;" width="100%">
         <tr style="vertical-align: baseline;">';
 
 //variance sections starts here
@@ -427,9 +428,9 @@ if ($_GET['variance'] == 1) {
                             </tr>';
 
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                            <td style="color: #dc3545; padding: 8px 5px;text-align:right;">' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode'], 0, 1) . '</td>
+                            <td style="color: #dc3545; padding: 8px 5px;text-align:right;"><img src="data:image/svg+xml;base64,'.base64_encode($svgDown).'" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode'], 0, 1) . '</td>
 
-                        <td style="color: #198754; padding: 8px 5px;text-align:right;">' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode'], 0, 1) . '</td>
+                        <td style="color: #198754; padding: 8px 5px;text-align:right;"><img src="data:image/svg+xml;base64,'.base64_encode($svg).'" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode'], 0, 1) . '</td>
                     </tr>
                 </table>
             </td>';

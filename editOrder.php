@@ -455,7 +455,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
             }
 
             .nwNxt-Btn1 .btn__box {
-                max-width: 10.875rem !important;
+                max-width: 9.875rem !important;
                 margin-left: auto;
             }
 
@@ -481,7 +481,9 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
         }
 
         @media(min-width:1600px) {
-
+            .nwNxt-Btn1 .btn__box {
+                max-width: 10.875rem !important; 
+            }
             /* .nwNxt-Btn1 .btn__box { max-width: 174px !important; } */
             html[dir=rtl] .ordInfo {
                 padding: 0 0px 0 18px;
@@ -749,7 +751,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
             text-align: left !important;
 
         }
-
+         
         .edit-order-section .ttlCr-Type {
             text-align: right;
         }

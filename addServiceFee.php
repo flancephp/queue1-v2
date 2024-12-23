@@ -138,13 +138,23 @@ if (isset($_POST['itemName'])) {
 
                 <section class="ordDetail userDetail">
 
-                    <h6 style="color:#FF0000" align="center"><?php
+               
+ 
+                        <?php
 
                                                                 if (isset($error) && $error != '') {
-                                                                    echo $error;
+                                                                    echo '
+                                                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                         <p>'.$error.'</p>
+                                                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                                         </div>
+                                                                    ';
+                                                                    
+                                                                     
                                                                 }
 
-                                                                ?></h6>
+                                                                ?>
+                                                                
 
                     <div class="container">
 
