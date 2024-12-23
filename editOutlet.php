@@ -369,6 +369,11 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                 padding-left: calc(var(--bs-gutter-x) * 0.5);
             }
         }
+        @media screen and (max-width: 767px) {
+            .icnOlt-Clm {
+                width: 10%;
+            }
+        }
     </style>
 </head>
 

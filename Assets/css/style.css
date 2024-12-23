@@ -10384,7 +10384,7 @@ a.sbActive .mb_nvSubIcn {
 .adUsr-Div-full {
   width: 100%;
 }
-.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
+.requiredsign {
   color: #FD3737;
   display: inline;
 }
@@ -15602,7 +15602,7 @@ html[dir=rtl] .curExt-Btn .btnBg:first-child {
 
 .edit-product{font-weight: 400; font-size: 16px; width: 80%;}
 
-.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
+.requiredsign {
   color: #FD3737;
   display: inline;
 }
@@ -22391,11 +22391,11 @@ td.text-right{
 }
 
 @supports (contain: paint) and (not (-moz-appearance: none)) {
-  .form-control[type="date"] {
+  html[dir="rtl"] .form-control[type="date"] {
     padding-left: 1.5em; /* Adjust if needed */
     text-align: right;
   }
-  .form-control[type="date"]::-webkit-calendar-picker-indicator {
+  html[dir="rtl"] .form-control[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 1em; /* Adjust if needed */
     right: auto;

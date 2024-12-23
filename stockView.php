@@ -873,6 +873,19 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 } */
         }
 
+        @media (min-width: 992px) { 
+            #page2head.stkTblhead .mbShw,
+            .page2bdy .cntTable .mbShw {
+                width: 85% !important;
+            } 
+
+            #page2head.stkTblhead .mbHde,
+            .page2bdy .cntTable .mbHde {
+                width: 15%;
+            }
+
+        }
+
         @media (min-width: 768px) {
 
             #page2head .stkTblhead .mbShw,
@@ -882,7 +895,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
             #page2head.stkTblhead .mbShw,
             .page2bdy .cntTable .mbShw {
-                width: 85% !important;
+                width: 90% !important;
             }
 
             #page2head .stkTblhead .mbHde,
@@ -892,10 +905,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
             #page2head.stkTblhead .mbHde,
             .page2bdy .cntTable .mbHde {
-                width: 15%;
+                width: 10%;
             }
 
         }
+
+        
 
         .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
             width: 50% !important;
@@ -1435,7 +1450,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 </div>
                             </div>
                             <div class="mbHde align-items-center supData-Head">
-                                <div class="tb-head supStkclm d-none d-lg-block">
+                                <div class="tb-head supStkclm d-none d-lg-block w-100">
                                     <div class="d-flex align-items-center">
                                         <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
                                         <?php } else { ?> <p><?php echo showOtherLangText('Max Qty'); ?></p>

@@ -403,6 +403,11 @@ if ($_SESSION['deptId'] != '') {
                 height: 37px;
             }
         }
+        @media screen and (max-width: 991px) {
+            .reqInfo {
+                padding-right: 0;
+            }
+        }
 
         @media screen and (max-width: 1024px) {
             .newFeatures {
@@ -541,7 +546,7 @@ if ($_SESSION['deptId'] != '') {
 
         .form-control.qty-itm {
             font-weight: 700;
-            font-size: .875rem;
+            font-size: .875rem;max-width: 5rem;
         }
 
         .curRow .p-2 {
@@ -1197,12 +1202,12 @@ if ($_SESSION['deptId'] != '') {
                                 </div>
                             </div>
                             <div class="reqSt-Qty tb-head">
-                                <p><?php echo showOtherLangText('S.Quantity'); ?></p>
+                                <p><?php echo showOtherLangText('S.qty'); ?></p>
                             </div>
                             <div class="reqCnt-Scnd d-flex align-items-center flex-wrap">
                                 <div class="reqClm-Qty tb-head">
                                     <div class="d-flex align-items-center">
-                                        <p><?php echo showOtherLangText('Quantity'); ?></p>
+                                        <p><?php echo showOtherLangText('Qty'); ?></p>
                                         <span class="dblArrow">
                                             <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
                                                     class="fa-solid fa-angle-up"></i></a>
