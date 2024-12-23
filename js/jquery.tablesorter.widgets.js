@@ -138,7 +138,7 @@
 			sortAsc      : '',
 			sortDesc     : '',
 			active       : '', // applied when column is sorted
-			hover        : '', // custom css oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" - a defined bootstrap style may not override other classes
+			hover        : '', // custom css oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required - a defined bootstrap style may not override other classes
 			// icon class names
 			icons        : '', // add 'bootstrap-icon-white' to make them white; this icon class is added to the <i> in the header
 			iconSortNone : 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted

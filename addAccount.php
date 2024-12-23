@@ -148,34 +148,34 @@ if (isset($_POST['accountName'])) {
                             <div class="edtSup-Div">
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name'); ?> <span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name'); ?> <span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" name="accountName" id="accountName" value="<?php echo isset($_POST['accountName']) ? $_POST['accountName'] : ''; ?>"
+                                        <input type="text" class="form-control" autocomplete="off"  name="accountName" id="accountName" value="<?php echo isset($_POST['accountName']) ? $_POST['accountName'] : ''; ?>" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
                                             placeholder="Main Sale USD">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?> <span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?> <span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="accountNumber" id="accountNumber" value="<?php echo isset($_POST['accountNumber']) ? $_POST['accountNumber'] : ''; ?>" onChange="this.setCustomValidity('')" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" placeholder="0003">
+                                        <input type="text" class="form-control" name="accountNumber" id="accountNumber" value="<?php echo isset($_POST['accountNumber']) ? $_POST['accountNumber'] : ''; ?>" onChange="this.setCustomValidity('')" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required placeholder="0003">
                                     </div>
                                 </div>
 
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency'); ?> <span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency'); ?> <span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <?php
                                         $sqlSet = " SELECT * FROM tbl_currency WHERE account_id='" . $_SESSION['accountId'] . "' order by id  ";
                                         $resultSet = mysqli_query($con, $sqlSet);
                                         ?>
-                                        <select class="form-select" aria-label="Default select example" name="currencyId" id="currencyId">
+                                        <select class="form-select" aria-label="Default select example" name="currencyId" id="currencyId" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" required onChange="this.setCustomValidity('')" autocomplete="off" >
                                             <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
                                             <?php while ($cur = mysqli_fetch_array($resultSet)) {
@@ -191,11 +191,11 @@ if (isset($_POST['accountName'])) {
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance'); ?> <span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance'); ?> <span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" onChange="showHidePass(this.value);" name="balanceAmt" id="balanceAmt" autocomplete="off" id="accountBalance"
-                                            placeholder="3220.7939">
+                                        <input type="text" class="form-control" onChange="showHidePass(this.value);" name="balanceAmt" id="balanceAmt" autocomplete="off" id="accountBalance"   placeholder="3220.7939">
+                                           
                                     </div>
                                 </div>
                                 <div id="password" style="display:none;" class="row align-items-center acntStp-Row">
@@ -232,8 +232,7 @@ if (isset($_POST['accountName'])) {
         } else {
 
             $('#password').show();
-            $("#passArea").html('<input type="password" name="pass" id="pass" class="form-control"   autocomplete="off" oninvalid="this.setCustomValidity(<?php echo showOtherLangText('Please fill out this field.'); ?>)" onchange="this.setCustomValidity(<?php echo showOtherLangText('Please fill out this field.'); ?>)" oninvalid="this.setCustomValidity('
-                <?php echo showOtherLangText('Please fill out this field.') ?> ')"  />');
+            $("#passArea").html('<input type="password" name="pass" id="pass" class="form-control"   autocomplete="off" oninvalid="this.setCustomValidity(<?php echo showOtherLangText('Please fill out this field.'); ?>)" onchange="this.setCustomValidity(<?php echo showOtherLangText('Please fill out this field.'); ?>)" required />');
         }
     }
 </script>

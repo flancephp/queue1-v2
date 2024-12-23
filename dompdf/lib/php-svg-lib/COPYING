@@ -114,7 +114,7 @@ the following:
        Version.
 
    e) Provide Installation Information, but only if you would otherwise
-   be oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" to provide such information under section 6 of the
+   be oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required to provide such information under section 6 of the
    GNU GPL, and only to the extent that such information is
    necessary to install and execute a modified version of the
    Combined Work produced by recombining or relinking the

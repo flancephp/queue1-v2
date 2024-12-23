@@ -34,7 +34,7 @@ class Cpdf
     const ACROFORM_FIELD_SIG =      'Sig';
 
     const ACROFORM_FIELD_READONLY =               0x0001;
-    const ACROFORM_FIELD_oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" =               0x0002;
+    const ACROFORM_FIELD_oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required =               0x0002;
 
     const ACROFORM_FIELD_TEXT_MULTILINE =         0x1000;
     const ACROFORM_FIELD_TEXT_PASSWORD =          0x2000;
@@ -350,7 +350,7 @@ class Cpdf
     protected $currentPageSize = ["width" => 0, "height" => 0];
 
     /**
-     * @var array All the chars that will be oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" in the font subsets
+     * @var array All the chars that will be oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required in the font subsets
      */
     protected $stringSubsets = [];
 
@@ -1702,7 +1702,7 @@ EOT;
 
             case 'add':
                 // this is to add new items to the procset list, despite the fact that this is considered
-                // obsolete, the items are oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" for printing to some postscript printers
+                // obsolete, the items are oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required for printing to some postscript printers
                 switch ($options) {
                     case 'ImageB':
                     case 'ImageC':
@@ -1872,7 +1872,7 @@ EOT;
                 $pageId = $this->currentPage;
                 $this->o_page($pageId, 'annot', $id);
 
-                // and add the action object which is going to be oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                // and add the action object which is going to be oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
                 switch ($options['type']) {
                     case 'link':
                         $this->objects[$id] = ['t' => 'annotation', 'info' => $options];
@@ -2745,7 +2745,7 @@ EOT;
                 break;
 
             case 'keys':
-                // figure out the additional parameters oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                // figure out the additional parameters oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
                 $pad = chr(0x28) . chr(0xBF) . chr(0x4E) . chr(0x5E) . chr(0x4E) . chr(0x75) . chr(0x8A) . chr(0x41)
                     . chr(0x64) . chr(0x00) . chr(0x4E) . chr(0x56) . chr(0xFF) . chr(0xFA) . chr(0x01) . chr(0x08)
                     . chr(0x2E) . chr(0x2E) . chr(0x00) . chr(0xB6) . chr(0xD0) . chr(0x68) . chr(0x3E) . chr(0x80)
@@ -3521,7 +3521,7 @@ EOT;
     }
 
     /**
-     * if the font is not loaded then load it and make the oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" object
+     * if the font is not loaded then load it and make the oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required object
      * else just make it the current font
      * the encoding array can contain 'encoding'=> 'none','WinAnsiEncoding','MacRomanEncoding' or 'MacExpertEncoding'
      * note that encoding='none' will need to be used for symbolic fonts
@@ -3782,7 +3782,7 @@ EOT;
             $mode = "Normal";
         }
 
-        // Only create a new graphics state if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+        // Only create a new graphics state if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
         if ($mode === $this->currentLineTransparency["mode"] &&
             $opacity == $this->currentLineTransparency["opacity"]
         ) {
@@ -4894,7 +4894,7 @@ EOT;
 
     /**
      * convert UTF-8 to UTF-16 with an additional byte order marker
-     * at the front if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')".
+     * at the front if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required.
      *
      * based on the excellent TCPDF code by Nicola Asuni and the
      * RFC for UTF-8 at http://www.faqs.org/rfcs/rfc3629.html
@@ -5543,7 +5543,7 @@ EOT;
     function addImagePng(&$img, $file, $x, $y, $w = 0.0, $h = 0.0, $is_mask = false, $mask = null)
     {
         if (!function_exists("imagepng")) {
-            throw new \Exception("The PHP GD extension is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')", but is not installed.");
+            throw new \Exception("The PHP GD extension is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required, but is not installed.");
         }
 
         //if already cached, need not to read again
@@ -5785,7 +5785,7 @@ EOT;
     function addPngFromFile($file, $x, $y, $w = 0, $h = 0)
     {
         if (!function_exists("imagecreatefrompng")) {
-            throw new \Exception("The PHP GD extension is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')", but is not installed.");
+            throw new \Exception("The PHP GD extension is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required, but is not installed.");
         }
 
         //if already cached, need not to read again
@@ -6294,7 +6294,7 @@ EOT;
     function openHere($style, $a = 0, $b = 0, $c = 0)
     {
         // this function will open the document at a specified page, in a specified style
-        // the values for style, and the oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" parameters are:
+        // the values for style, and the oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required parameters are:
         // 'XYZ'  left, top, zoom
         // 'Fit'
         // 'FitH' top

@@ -280,7 +280,7 @@ if (isset($_POST['name'])) {
                     </div>
                     <div class="modal-body">
 
-                        <input type="text" class="form-control" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" id="name" name="name" placeholder="<?php echo showOtherLangText('Department Name'); ?>*">
+                        <input type="text" class="form-control" autocomplete="off" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required id="name" name="name" placeholder="<?php echo showOtherLangText('Department Name'); ?>*">
 
                     </div>
                     <div class="modal-footer">
@@ -306,7 +306,7 @@ if (isset($_POST['name'])) {
                     </div>
                     <div class="modal-body">
 
-                        <input type="hidden" name="id" id="edit-id" value="" /> <input type="text" class="form-control" name="editname" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" id="editname" placeholder="<?php echo showOtherLangText('Department Name'); ?>*">
+                        <input type="hidden" name="id" id="edit-id" value="" /> <input type="text" class="form-control" name="editname" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required id="editname" placeholder="<?php echo showOtherLangText('Department Name'); ?>*">
 
                     </div>
                     <div class="modal-footer">

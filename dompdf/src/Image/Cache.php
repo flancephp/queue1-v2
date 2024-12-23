@@ -17,7 +17,7 @@ use Dompdf\Exception\ImageException;
 
 /**
  * Static class that resolves image urls and downloads and caches
- * remote images if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')".
+ * remote images if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required.
  *
  * @package dompdf
  */

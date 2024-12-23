@@ -208,7 +208,7 @@ if ($hotelId > 0) {
                                     <div class="col-md-6 gap-r">
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name']; ?>" placeholder="<?php echo showOtherLangText('Casa') ?>">

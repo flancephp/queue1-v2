@@ -396,7 +396,7 @@ class Table extends AbstractFrameReflower
         // inside tds.)
         $page->table_reflow_start();
 
-        // Collapse vertical margins, if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+        // Collapse vertical margins, if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
         $this->_collapse_margins();
 
         $frame->position();

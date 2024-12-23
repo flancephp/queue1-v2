@@ -415,44 +415,44 @@ while ($row = mysqli_fetch_array($otherChrgQry)) {
 
     if ($showData) {
         $content .=   '<tr>';
-        $content .=   '<td style="padding: 5px;text-align:right">' . $i . '</td>';
+        $content .=   '<td style="padding: 5px;">' . $i . '</td>';
     }
 
     if ($_GET['photo'] == 1) {
-        $content .= '<td style="padding: 5px;text-align:right"></td>';
+        $content .= '<td style="padding: 5px;"></td>';
     }
     if ($_GET['itemName'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['itemName'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['itemName'] . '</td>';
     }
     if ($_GET['barcode'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right"></td>';
+        $content .=  '<td style="padding: 5px;"></td>';
     }
     if ($_GET['price'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</td>';
+        $content .=  '<td style="padding: 5px;">' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</td>';
     }
 
     if ($_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur(($row['curAmt']), $curDet['curCode'], $curDet['decPlace']) . '</td>';
     }
 
     if ($_GET['unit'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right"></td>';
+        $content .=  '<td style="padding: 5px;"></td>';
     }
     if ($_GET['qty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">1</td>';
+        $content .=  '<td style="padding: 5px;">1</td>';
     }
     if ($_GET['receivedQty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">1</td>';
+        $content .=  '<td style="padding: 5px;">1</td>';
     }
     if ($_GET['total'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</td>';
+        $content .=  '<td style="padding: 5px;">' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</td>';
     }
     if ($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
+        $content .=  '<td style="padding: 5px;">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
     }
     if ($_GET['note'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['note'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['note'] . '</td>';
     }
 
     if ($showData) {
@@ -468,7 +468,7 @@ while ($row = mysqli_fetch_array($proresultSet)) {
 
     if ($showData) {
         $content .=   '<tr>';
-        $content .=   '<td style="padding: 5px;text-align:right">' . $i . '</td>';
+        $content .=   '<td style="padding: 5px;">' . $i . '</td>';
     }
 
 
@@ -478,42 +478,42 @@ while ($row = mysqli_fetch_array($proresultSet)) {
         if ($row['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
             $img = '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'] . '" width="60" height="60">';
         }
-        $content .= '<td style="padding: 5px;text-align:right">' . $img . '</td>';
+        $content .= '<td style="padding: 5px;">' . $img . '</td>';
     }
 
     if ($_GET['itemName'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['itemName'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['itemName'] . '</td>';
     }
     if ($_GET['barcode'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['barCode'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['barCode'] . '</td>';
     }
     if ($_GET['price'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur($row['price'] * $row['factor'], $getDefCurDet['curCode']) . '</td>';
     }
     if ($_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur($row['curPrice'] * $row['factor'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
     }
     if ($_GET['unit'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['purchaseUnit'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['purchaseUnit'] . '</td>';
     }
     if ($_GET['qty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['qty'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['qty'] . '</td>';
     }
     if ($_GET['receivedQty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;">
                 ' . $row['qtyReceived'] . '</td>';
     }
     if ($_GET['total'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']) . '</td>';
     }
     if ($_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
+        $content .=  '<td style="padding: 5px;">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
     }
     if ($_GET['note'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['note'] . '</td>';
+        $content .=  '<td style="padding: 5px;">' . $row['note'] . '</td>';
     }
     if ($showData) {
         $content .=  '</tr>';

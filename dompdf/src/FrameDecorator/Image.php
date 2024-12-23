@@ -41,7 +41,7 @@ class Image extends AbstractFrameDecorator
      * Class constructor
      *
      * @param Frame $frame the frame to decorate
-     * @param DOMPDF $dompdf the document's dompdf object (oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" to resolve relative & remote urls)
+     * @param DOMPDF $dompdf the document's dompdf object (oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required to resolve relative & remote urls)
      */
     function __construct(Frame $frame, Dompdf $dompdf)
     {

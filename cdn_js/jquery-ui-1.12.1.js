@@ -1308,7 +1308,7 @@ var disableSelection = $.fn.extend( {
 //>>label: Effects Core
 //>>group: Effects
 // jscs:disable maximumLineLength
-//>>description: Extends the internal jQuery effects. Includes morphing and easing. oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" by all other effects.
+//>>description: Extends the internal jQuery effects. Includes morphing and easing. oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required by all other effects.
 // jscs:enable maximumLineLength
 //>>docs: http://api.jqueryui.com/category/effects-core/
 //>>demos: http://jqueryui.com/effect/
@@ -9373,7 +9373,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 			$.removeData( event.target, this.widgetName + ".preventClickEvent" );
 		}
 
-		// These delegates are oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" to keep context
+		// These delegates are oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required to keep context
 		this._mouseMoveDelegate = function( event ) {
 			return that._mouseMove( event );
 		};

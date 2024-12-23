@@ -155,32 +155,32 @@ WHERE id='" . $_SESSION['accountId'] . "' ";
                                     <div class="acnt-Div">
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="accountName" class="form-label"><?php echo showOtherLangText('Account Name'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="accountName" id="accountName" value="<?php echo $resRow['accountName']; ?>"
                                                     autocomplete="off"
-                                                    placeholder="Our Zanz" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    placeholder="Our Zanz" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required>
                                             </div>
                                         </div>
 
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="ownerName" class="form-label"><?php echo showOtherLangText('Owner Name'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="ownerName" class="form-label"><?php echo showOtherLangText('Owner Name'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" value="<?php echo $resRow['name']; ?>" name="ownerName"
-                                                    class="form-control" id="ownerName" placeholder="Queue" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    class="form-control" id="ownerName" placeholder="Queue" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required>
                                             </div>
                                         </div>
 
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="streetAdd-1" class="form-label"><?php echo showOtherLangText('Street address 1'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="streetAdd-1" class="form-label"><?php echo showOtherLangText('Street address 1'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
-                                                <textarea class="form-control" id="address1" name="address1"
-                                                    placeholder="P.o Box 4146" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"><?php echo $resRow['address_one']; ?></textarea>
+                                                <textarea class="form-control" id="address1" name="address1" value=""
+                                                    placeholder="P.o Box 4146" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required><?php echo $resRow['address_one']; ?></textarea>
                                             </div>
                                         </div>
 
@@ -206,22 +206,22 @@ WHERE id='" . $_SESSION['accountId'] . "' ";
 
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="inputCity" class="form-label"><?php echo showOtherLangText('City'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="inputCity" class="form-label"><?php echo showOtherLangText('City'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" value="<?php echo $resRow['city']; ?>" name="city" id="city"
-                                                    placeholder="Zanzibar" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    placeholder="Zanzibar" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required>
                                             </div>
                                         </div>
 
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="selectCountry" class="form-label"><?php echo showOtherLangText('Country'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="selectCountry" class="form-label"><?php echo showOtherLangText('Country'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <select name="country" id="country" class="form-control"
                                                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                    onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    onchange="this.setCustomValidity('')" required>
                                                     <option value=""><?php echo showOtherLangText('Select'); ?>
                                                     </option>
                                                     <?php
@@ -244,11 +244,11 @@ WHERE id='" . $_SESSION['accountId'] . "' ";
 
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="email" class="form-label"><?php echo showOtherLangText('Email'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="email" class="form-label"><?php echo showOtherLangText('Email'); ?><span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="email" class="form-control" name="email" id="email" value="<?php echo $resRow['email']; ?>"
-                                                    placeholder="inventory@our-zanzibar.com" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    placeholder="inventory@our-zanzibar.com" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required>
                                             </div>
                                         </div>
 
@@ -258,7 +258,7 @@ WHERE id='" . $_SESSION['accountId'] . "' ";
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $resRow['phone']; ?>"
-                                                    placeholder="+255743419217" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    placeholder="+255743419217" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required>
                                             </div>
                                         </div>
 
@@ -268,7 +268,7 @@ WHERE id='" . $_SESSION['accountId'] . "' ";
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="taxId" id="taxId" value="<?php echo $resRow['taxId']; ?>"
-                                                    placeholder="1001/4567892" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                    placeholder="1001/4567892" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required>
                                             </div>
                                         </div>
                                     </div>

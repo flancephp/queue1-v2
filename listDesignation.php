@@ -243,7 +243,7 @@ $designationRes = mysqli_query($con, $sqlQry);
                         <h1 class="modal-title h1"><?php echo showOtherLangText('Add Category'); ?></h1>
                     </div>
                     <div class="modal-body">
-                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="category" name="category"
+                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" id="category" name="category"
                             placeholder="<?php echo showOtherLangText('Category'); ?>">
                     </div>
                     <div class="modal-footer">
@@ -270,7 +270,7 @@ $designationRes = mysqli_query($con, $sqlQry);
                     <div class="modal-body">
 
                         <input type="hidden" name="id" id="edit-id" value="" />
-                        <input type="text" class="form-control" name="editCategory" id="editCategory" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                        <input type="text" class="form-control" name="editCategory" id="editCategory" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
                             placeholder="<?php echo showOtherLangText('Category'); ?>">
 
                     </div>

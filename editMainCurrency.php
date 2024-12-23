@@ -119,7 +119,7 @@ $curDetRow = mysqli_fetch_array($curResult);
                                         <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place') ?></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="decPlace" value="<?php echo $curDetRow['decPlace']; ?>" autocomplete="off" id="decPlace" onchange="this.setCustomValidity('')" placeholder="4">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="decPlace" value="<?php echo $curDetRow['decPlace']; ?>" autocomplete="off" id="decPlace" onchange="this.setCustomValidity('')" placeholder="4">
                                     </div>
                                 </div>
 

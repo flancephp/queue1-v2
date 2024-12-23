@@ -39,7 +39,11 @@ if (isset($_GET['delId']) && $_GET['delId']) {
 
 //////////////////Pagination goes here/////////////////////////////////////////
 
-$sql = "select * FROM tbl_category WHERE parentId = 0  AND account_id = '" . $_SESSION['accountId'] . "' order by id desc ";
+$sql = "select p.*, GROUP_CONCAT(c.name) subCats FROM tbl_category p INNER JOIN tbl_category c
+
+ON(p.id = c.parentId) and p.account_id=c.account_id
+WHERE p.account_id = '" . $_SESSION['accountId'] . "' 
+GROUP BY p.id order by id desc ";
 $result = mysqli_query($con, $sql);
 
 
@@ -74,7 +78,7 @@ if (isset($_POST['category']) && $_POST['category']) {
     echo "<script>window.location='" . $red . "'</script>";
 } elseif (isset($_POST['category'])) {
 
-    $error = ' ' . showOtherLangText('Please enter or select all oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" data') . ' ';
+    $error = ' ' . showOtherLangText('Please enter or select all  data') . ' ';
 }
 
 if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0) {
@@ -108,7 +112,7 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
 
     $_GET['id'] = $_POST['id'];
 
-    $error = ' ' . showOtherLangText('Please enter/select all oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" data.') . ' ';
+    $error = ' ' . showOtherLangText('Please enter/select all  data.') . ' ';
 }
 
 // $sql = "SELECT * FROM tbl_category WHERE id = '".$_REQUEST['parentId']."' ";
@@ -240,6 +244,10 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                                         <div class="tb-head catgryName-Clm">
                                             <p><?php echo showOtherLangText('Category'); ?></p>
                                         </div>
+
+                                        <div class="tb-head catgryName-Clm">
+                                            <p><?php echo showOtherLangText('Sub Category'); ?></p>
+                                        </div>
                                     </div>
                                     <div class="catgryTbl-Icns">
                                         <div class="tb-head outOpt-Clm text-center">
@@ -264,6 +272,9 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                                                     </div>
                                                     <div class="tb-bdy catgryName-Clm">
                                                         <p class="userName"><span><?php echo $row['name']; ?></span></p>
+                                                    </div>
+                                                    <div class="tb-bdy catgryName-Clm">
+                                                        <p class="userName"><span><?php echo $row['subCats']; ?></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="catgryTbl-Icns">
@@ -312,7 +323,7 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                         <h1 class="modal-title h1"><?php echo showOtherLangText('Add Category'); ?></h1>
                     </div>
                     <div class="modal-body">
-                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="category" name="category" placeholder="<?php echo showOtherLangText('Category'); ?>*">
+                        <input type="text" class="form-control" id="category" name="category" placeholder="<?php echo showOtherLangText('Category'); ?>*">
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
@@ -337,7 +348,7 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                     <div class="modal-body">
 
                         <input type="hidden" name="id" id="edit-id" value="" />
-                        <input type="text" class="form-control" name="editCategory" id="editCategory" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" placeholder="<?php echo showOtherLangText('Category'); ?>*">
+                        <input type="text" class="form-control" name="editCategory" id="editCategory" placeholder="<?php echo showOtherLangText('Category'); ?>*">
 
                     </div>
                     <div class="modal-footer">

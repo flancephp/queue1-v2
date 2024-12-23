@@ -20,7 +20,7 @@ $getLangType = getLangType($_SESSION['language_id']);
             <div class="col-10">
                 <select name="rawItem" id="rawItem" class="form-select mt-0 w-100"
                     oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                    onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                    onchange="this.setCustomValidity('')" required>
                     <option value=""><?php echo showOtherLangText('Select Raw item'); ?></option>
                     <?php
                     $rawProducts = getAllProducts(['proType' => 3]);
@@ -41,7 +41,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                 <div id="convertItemTxt">
                     <select name="convertItem" class="form-select mt-0 w-100"
                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                        onchange="this.setCustomValidity('')" required>
                         <option><?php echo showOtherLangText('Select'); ?></option>
                     </select>
                 </div>

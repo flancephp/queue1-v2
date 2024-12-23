@@ -211,26 +211,26 @@ if (isset($_POST['user_name'])) {
                                     <div class="col-md-6 col-lg-5 adUsr-Div-Left">
                                         <div class="form-field row align-items-center">
                                             <div class="col-lg-3">
-                                                <label class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
+                                                <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
                                             </div>
                                         </div>
                                         <div class="form-field row align-items-center edispace01">
                                             <div class="col-lg-3">
-                                                <label for="receiveInvoice" class="form-label semibold fs-13"><?php echo showOtherLangText('User Type') ?>:<span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label for="receiveInvoice" class="form-label semibold fs-13"><?php echo showOtherLangText('User Type') ?>:<span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <input type="radio" name="mobile_user" class="userTypeWeb" value="0" <?php echo ($userRow['userType'] != '1') ? 'checked="checked"' : ''; ?> onclick="get_mobile_User(this.value)" autocomplete="new-password" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                <input type="radio" name="mobile_user" class="userTypeWeb" value="0" <?php echo ($userRow['userType'] != '1') ? 'checked="checked"' : ''; ?> onclick="get_mobile_User(this.value)" autocomplete="new-password" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
                                                 <label class="meee-3"><?php echo showOtherLangText('Web') ?></label>
-                                                <input type="radio" <?php echo ($userRow['userType'] == '1') ? 'checked="checked"' : ''; ?> name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                <input type="radio" <?php echo ($userRow['userType'] == '1') ? 'checked="checked"' : ''; ?> name="mobile_user" class="userTypeMob" value="1" onclick="get_mobile_User(this.value)" autocomplete="new-password" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
                                                 <label class="meee-3"><?php echo showOtherLangText('Mobile') ?></label>
                                             </div>
                                         </div>
                                         <div class="form-field row align-items-center">
                                             <div class="col-lg-3">
-                                                <label class="semibold fs-13"><?php echo showOtherLangText('Designation Title'); ?>:<span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                <label class="semibold fs-13"><?php echo showOtherLangText('Designation Title'); ?>:<span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
                                                 <div class="setTitle"></div>

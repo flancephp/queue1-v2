@@ -139,7 +139,7 @@ if (!$permissionRow) {
                                         <div class="col-md-10">
                                             <input type="text" name="designation_name" class="form-control"
 
-                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                         </div>
                                     </div>
 

@@ -2451,8 +2451,21 @@ if ($getTxtById == 'storeId') {
                                                                                         echo $_GET['userId'];
                                                                                     } ?>">
                             <?php
+
+
+                            $col_class_one = 0;
+                            $col_class_two = 0;
+
                             if (isset($historyUserFilterFields)) {
                                 foreach ($historyUserFilterFields as $key => $val) {
+
+                                    if (in_array($val, [1, 2, 3, 4, 7])) {
+                                        $col_class_one++;
+                                    }
+
+                                    if (in_array($val, [14, 15, 16, 17])) {
+                                        $col_class_two++;
+                                    }
                             ?>
                                     <input type="hidden" name="showFields[<?php echo $key; ?>]" <?php echo $sel; ?> value="<?php echo $val; ?>">
 
@@ -2851,7 +2864,7 @@ if ($getTxtById == 'storeId') {
                                     </svg>
                                 </button>
                                 <div class="align-items-center d-flex dropdnbtns">
-                                    <div class="numRef numRef1 align-items-center">
+                                    <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
                                         <div class="tb-bdy srHisclm">
                                             <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
                                         </div>
@@ -2964,7 +2977,7 @@ if ($getTxtById == 'storeId') {
 
 
 
-                                    <div class="stsHiscol d-flex align-items-center">
+                                    <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
 
                                         <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
 

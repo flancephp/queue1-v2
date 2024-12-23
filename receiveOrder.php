@@ -1028,7 +1028,7 @@ $orderQry = mysqli_query($con, $sql);
                                                     <input class="form-control invNum" type="text" name="invNo" id="invNo"
                                                         autocomplete="off" value="<?php echo $ordRow['invNo'] ?>"
 
-                                                        onChange="getInvNo(),this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onChange="getInvNo(),this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                                 <div class="error" id="invError"></div>
                                             </div>

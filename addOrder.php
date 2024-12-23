@@ -1709,10 +1709,9 @@ supplierId = '" . $_SESSION['supplierId'] . "'
                             autocomplete="off"
                             placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
 
-                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                         <select class="form-control" name="feeType" id="typeOfFee"
-                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required>
                             <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
                             <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
                             </option>
@@ -1721,7 +1720,7 @@ supplierId = '" . $_SESSION['supplierId'] . "'
                             autocomplete="off"
                             placeholder="<?php echo showOtherLangText('Fee Amount') . ' ' . $getDefCurDet['curCode']; ?>"
 
-                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
 
                     </div>
                     <div>
@@ -1750,15 +1749,15 @@ supplierId = '" . $_SESSION['supplierId'] . "'
                         <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
                     </div>
                     <div class="modal-body">
-                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="itemName" name="itemName" placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
+                        <input type="text" class="form-control" id="itemName" name="itemName" value="" placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
 
-                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
-                        <input type="number" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="feeAmt" name="itemFeeAmt" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
+                        <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value="" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
 
-                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
-                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="unit" name="unit" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
+                        <input type="text"  class="form-control" id="unit" name="unit" value="" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
 
-                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
                     </div>
                     <div>
                         <div class="feeSave">
@@ -2014,7 +2013,7 @@ supplierId = '" . $_SESSION['supplierId'] . "'
 
     $(document).ready(function() {
         $("#feesave_add").submit(function(e) {
-            // Validate oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" fields
+            // Validate oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required fields
             e.preventDefault();
         });
     });

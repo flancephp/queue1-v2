@@ -107,6 +107,15 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
             $result = mysqli_query($con, $sql);
             $res = mysqli_fetch_array($result);
 
+            $sql = "select * FROM  tbl_units WHERE name = '" . trim($row['PUnit']) . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+            $result = mysqli_query($con, $sql);
+            $unitPRes = mysqli_fetch_array($result);
+
+            $sql = "select * FROM  tbl_units WHERE name = '" . trim($row['CUnit']) . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+            $result = mysqli_query($con, $sql);
+            $unitCRes = mysqli_fetch_array($result);
+
+
             $imgFiled = '';
 
             //photo section goes here
@@ -162,9 +171,9 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
             $sql = $insrtOrUpdate . " `tbl_products` SET
 		`itemName` = '" . $row['Item'] . "',
 		`barCode` = '" . $row['BarCode'] . "',
-		`unitP` = '" . $row['PUnit'] . "',
+		`unitP` = '" . $unitPRes['id'] . "',
 		`factor` = '" . $row['Factor'] . "',
-		`unitC` = '" . $row['CUnit'] . "',
+		`unitC` = '" . $unitCRes['id'] . "',
 		`storageDeptId` = '" . $storageDeptRow['id'] . "',
 		`parentCatId` = '" . $parentCattRow['id'] . "',
 		`catId` = '" . $childCattRow['id'] . "',
@@ -172,6 +181,7 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
 		`minLevel` = '" . $row['MinLevel'] . "',
 		`maxLevel` = '" . $row['MaxLevel'] . "',
 		`status` = 1,
+        `proType` = 1,
 		account_id = '" . $_SESSION['accountId'] . "' 
 		
 		"

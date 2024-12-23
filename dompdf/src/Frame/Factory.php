@@ -69,7 +69,7 @@ class Factory
     static function decorate_frame(Frame $frame, Dompdf $dompdf, Frame $root = null)
     {
         if (is_null($dompdf)) {
-            throw new Exception("The DOMPDF argument is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"");
+            throw new Exception("The DOMPDF argument is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required");
         }
 
         $style = $frame->get_style();

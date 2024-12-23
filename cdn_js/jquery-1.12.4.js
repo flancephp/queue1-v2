@@ -346,7 +346,7 @@ jQuery.extend( {
 			// We use an anonymous function so that context is window
 			// rather than jQuery in Firefox
 			( window.execScript || function( data ) {
-				window[ "eval" ].call( window, data ); // jscs:ignore oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"otNotation
+				window[ "eval" ].call( window, data ); // jscs:ignore oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredotNotation
 			} )( data );
 		}
 	},
@@ -649,7 +649,7 @@ var i,
 		return -1;
 	},
 
-	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"|scoped",
+	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required|scoped",
 
 	// Regular expressions
 
@@ -4321,7 +4321,7 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 		initial = currentValue(),
 		unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
 
-		// Starting value computation is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" for potential unit mismatches
+		// Starting value computation is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required for potential unit mismatches
 		initialInUnit = ( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
 			rcssNum.exec( jQuery.css( elem, prop ) );
 
@@ -9328,7 +9328,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 				if ( conv !== true ) {
 
 					// Unless errors are allowed to bubble, catch and return them
-					if ( conv && s[ "throws" ] ) { // jscs:ignore oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"otNotation
+					if ( conv && s[ "throws" ] ) { // jscs:ignore oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredotNotation
 						response = conv( response );
 					} else {
 						try {

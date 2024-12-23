@@ -20585,7 +20585,7 @@ body .ui-widget-content {
 
 /* =========== 29/04/2024============= */
 
-.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredsign {
   color: #FD3737;
   display: inline;
 }
@@ -20610,7 +20610,7 @@ img.previewImg {
 .adUsr-Div-full {
   width: 100%;
 }
-.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredsign {
   color: #FD3737;
   display: inline;
 }

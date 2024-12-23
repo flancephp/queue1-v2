@@ -1071,7 +1071,7 @@ var i,
 		return -1;
 	},
 
-	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"|scoped",
+	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required|scoped",
 
 	// Regular expressions
 
@@ -8823,7 +8823,7 @@ var fxNow, timerId,
 				parts = rfxnum.exec( value ),
 				unit = parts && parts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
 
-				// Starting value computation is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" for potential unit mismatches
+				// Starting value computation is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required for potential unit mismatches
 				start = ( jQuery.cssNumber[ prop ] || unit !== "px" && +target ) &&
 					rfxnum.exec( jQuery.css( tween.elem, prop ) ),
 				scale = 1,

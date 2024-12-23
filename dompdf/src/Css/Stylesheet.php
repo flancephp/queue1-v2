@@ -826,7 +826,7 @@ class Stylesheet
 
                     }
 
-                    // Read the attribute value, if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+                    // Read the attribute value, if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
                     if ($op != "") {
                         $j++;
                         while ($j < $tok_len) {

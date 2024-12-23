@@ -20040,7 +20040,7 @@ border-radius:3px;
 .adUsr-Div {
   width: 100%;
 }
-.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign {
+.oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredsign {
   color: #FD3737;
   display: inline;
 }

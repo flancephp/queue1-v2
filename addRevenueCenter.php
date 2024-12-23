@@ -155,10 +155,10 @@ if (isset($_POST['name'])) {
                                 <div class="col-md-6">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
+                                            <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
@@ -188,7 +188,7 @@ if (isset($_POST['name'])) {
 
                                             <?php } elseif ($_SESSION['accountId'] == 1) { ?>
 
-                                                <select name="hotelId" id="hotelId" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-select" aria-label="Default select example">
+                                                <select name="hotelId" id="hotelId" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-select" aria-label="Default select example">
 
                                                     <option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
 
@@ -207,7 +207,7 @@ if (isset($_POST['name'])) {
                                         </div>
                                         <div class="col-md-9">
                                             <div class="setEze-Ctgry">
-                                                <input oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" type="text" class="form-control" name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
+                                                <input type="text" class="form-control" name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
                                                 <a href="javascript:void(0)" class="stEze-Lnk"><i
                                                         class="fa-solid fa-minus"></i></a>
                                             </div>
@@ -226,7 +226,7 @@ if (isset($_POST['name'])) {
                                             <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                            <textarea class="form-control" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" cols="20" rows="2" autocomplete="off"></textarea>
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
@@ -234,7 +234,7 @@ if (isset($_POST['name'])) {
                                             <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="email" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="email" id="email"
+                                            <input type="email" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required value="" class="form-control" name="email" id="email"
                                                 placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
                                         </div>
                                     </div>
@@ -243,7 +243,7 @@ if (isset($_POST['name'])) {
                                             <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="tel" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
+                                            <input type="tel" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
                                         </div>
                                     </div>
                                 </div>

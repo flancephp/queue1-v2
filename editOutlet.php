@@ -458,10 +458,13 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                     </div>
                                     <div class="col-md-6 addOutlet-Btn">
                                         <div class="itmLnk-Row">
-                                            <a href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto" data-bs-toggle="modal" data-bs-target="#add-Item">
+
+                                            <a style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>" href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto showHideRevData" data-bs-toggle="modal" data-bs-target="#add-Item">
                                                 <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Add Item'); ?></span></span>
                                                 <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span>
                                             </a>
+
+
                                             <button type="submit" class="btn btn-primary mb-usrBkbtn" id="subBtnClick">
                                                 <span class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span>
                                                 <span class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span>
@@ -644,9 +647,9 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                 ?>
                                                 <div class="padLeft40" style="width:100%;">
 
-                                                    <div class="row align-items-center acntStp-Row">
+                                                    <div class="row align-items-center acntStp-Row showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>">
                                                         <div class="col-md-4 colDisable">&nbsp;</div>
-                                                        <div class="col-8">
+                                                        <div class="col-8 ">
                                                             <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" <?php echo $deptUserRow['isAddressCheck'] == 1 ? 'checked="checked"' : ''; ?> value="1"
                                                                 onclick="showRevCenterAddress();">
                                                             <span style="padding-left:7px;"><label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?></label></span>
@@ -690,9 +693,9 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                         </div>
                     </form>
                     <div class="container">
-                        <p class="subTittle1 flowItm"><?php echo showOtherLangText('Follow Items List'); ?></p>
+                        <p class="subTittle1 flowItm showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>"><?php echo showOtherLangText('Follow Items List'); ?></p>
                     </div>
-                    <div class="container outlet-Tblhead position-relative">
+                    <div class="container outlet-Tblhead position-relative showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>">
                         <!-- Item Table Head Start -->
                         <div class="d-flex align-items-center itmTable">
                             <div class="tb-head imgOlt-Clm">
@@ -1212,6 +1215,14 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
 
     //for save btn and back button
     function showRevOutLetItems() {
+
+
+        if ($("#setOutlet").prop('checked') == true) {
+            $(".showHideRevData").show();
+        } else {
+            $(".showHideRevData").hide();
+        }
+
         var availableProductInOutlet = $('#availableProductInOutlet').val();
 
         if (availableProductInOutlet == 1) {

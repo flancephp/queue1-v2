@@ -780,7 +780,7 @@ class Block extends AbstractFrameReflower
         // Generated content
         $this->_set_content();
 
-        // Collapse margins if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"
+        // Collapse margins if oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
         $this->_collapse_margins();
 
         $style = $this->_frame->get_style();

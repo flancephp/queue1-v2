@@ -129,27 +129,27 @@ $det = mysqli_fetch_array($res);
                             <div class="edtSup-Div">
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account  Name') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountName" class="form-label"><?php echo showOtherLangText('Account  Name') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" name="accountName" id="accountName"
-                                            placeholder="Main Sale USD" value="<?php echo isset($det['accountName']) ? $det['accountName'] : ''; ?>">
+                                        <input type="text" class="form-control" name="accountName" id="accountName"
+                                            placeholder="Main Sale USD" value="<?php echo isset($det['accountName']) ? $det['accountName'] : ''; ?>"  oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required >
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" value="<?php echo isset($det['accountNumber']) ? $det['accountNumber'] : ''; ?>" name="accountNumber" id="accountNumber" placeholder="0003">
+                                        <input type="text"  class="form-control" value="<?php echo isset($det['accountNumber']) ? $det['accountNumber'] : ''; ?>" name="accountNumber" id="accountNumber" placeholder="0003" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')"  required >
                                     </div>
                                 </div>
 
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountCurrency" class="form-label"><?php echo showOtherLangText('Account Currency') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
 
@@ -157,7 +157,7 @@ $det = mysqli_fetch_array($res);
                                         $sqlSet = " SELECT * FROM tbl_currency WHERE account_id = '" . $_SESSION['accountId'] . "'  order by id  ";
                                         $resultSet = mysqli_query($con, $sqlSet);
                                         ?>
-                                        <select oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" name="currencyId" id="currencyId" class="form-select" aria-label="Default select example"
+                                        <select  name="currencyId" id="currencyId" class="form-select" aria-label="Default select example" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required
                                             class="form-control">
                                             <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                             <?php while ($cur = mysqli_fetch_array($resultSet)) {
@@ -171,11 +171,11 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                        <label for="accountBalance" class="form-label"><?php echo showOtherLangText('Balance') ?><span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" value="<?php echo $det['balanceAmt']; ?>" class="form-control" name="balanceAmt" id="balanceAmt"
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required value="<?php echo $det['balanceAmt']; ?>" class="form-control" name="balanceAmt" id="balanceAmt"
                                             placeholder="3220.7939">
                                     </div>
                                 </div>

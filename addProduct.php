@@ -241,13 +241,7 @@ if (isset($_POST['itemName'])) {
                                     aria-label="Close"></button>
                             </div>
                         <?php } ?>
-                        <?php if (isset($msg) && $msg != '') { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo $msg; ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        <?php } ?>
+
                         <div class="row">
                             <div class="col-md-12 oltCol-8">
                                 <div class="">
@@ -255,30 +249,30 @@ if (isset($_POST['itemName'])) {
                                         <div class="col-md-6 nmOutlet">
                                             <div class="row align-items-center acntStp-Row1">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Item'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Item'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="itemName" id="itemName"
                                                         value="<?php echo $_POST['itemName']; ?>" autocomplete="off"
 
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Bar Code'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Bar Code'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="barCode" id="barCode"
                                                         value="<?php echo $_POST['barCode']; ?>" autocomplete="off"
                                                         onfocusout="checkBarCode(this.value)"
 
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
-                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Status') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Status') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="rdoBtn-New d-flex gap-2">
@@ -286,14 +280,14 @@ if (isset($_POST['itemName'])) {
                                                             <input type="radio" class="form-check-input mt-0" name="status" id="status"
                                                                 value="1" autocomplete="off" checked="checked"
 
-                                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                                onchange="this.setCustomValidity('')" />
                                                             <?php echo showOtherLangText('Active') ?>
                                                         </span>
                                                         <span class="fs-13 d-flex align-items-center gap-1 ms-2">
                                                             <input type="radio" class="form-check-input mt-0" name="status" id="status"
                                                                 value="0" autocomplete="off"
 
-                                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                                onchange="this.setCustomValidity('')" />
                                                             <?php echo showOtherLangText('InActive') ?>
                                                         </span>
                                                     </div>
@@ -301,31 +295,25 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row chkOlt-Row1">
                                                 <div class="col-md-4">
-                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="receiveInvoice" class="form-label"><?php echo showOtherLangText('Type') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="rdoBtn-New d-flex gap-2">
                                                         <span class="fs-13 d-flex align-items-center gap-1">
                                                             <input type="radio" class="form-check-input mt-0" name="proType" value="1"
                                                                 onClick="showOtherItems(1);" autocomplete="off"
-                                                                checked="checked"
-
-                                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                                checked="checked" />
                                                             <?php echo showOtherLangText('Normal') ?>
                                                         </span>
                                                         <span class="fs-13 d-flex align-items-center gap-1">
                                                             <input type="radio" class="form-check-input mt-0" name="proType" value="2"
-                                                                onClick="showOtherItems(2);" autocomplete="off"
-
-                                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                                onClick="showOtherItems(2);" autocomplete="off" />
                                                             <?php echo showOtherLangText('Dividable') ?>
                                                         </span>
                                                         <span class="fs-13 d-flex align-items-center gap-1">
                                                             <input type="radio" class="form-check-input mt-0" name="proType"
                                                                 value="3" onClick="showOtherItems(3);" autocomplete="off"
-                                                                id="rawType"
-
-                                                                onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                                id="rawType" />
                                                             <?php echo showOtherLangText('Raw') ?>
                                                         </span>
                                                     </div>
@@ -333,7 +321,7 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div style="display:none;" id="chooseProducts" class="row align-items-start acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label pt-2"><?php echo showOtherLangText('Select product'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label pt-2"><?php echo showOtherLangText('Select product'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8 after-add-more">
                                                     <div class=" d-flex gap-3">
@@ -344,7 +332,7 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Images'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Images'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="file" class="form-control" name="imgName" id="logo"
@@ -357,12 +345,12 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Storage'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Storage'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <select name="storageDeptId" id="storageDeptId" class="form-control"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                        onchange="this.setCustomValidity('')" required>
                                                         <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                         <?php
 
@@ -384,7 +372,7 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Parent category'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Parent category'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <?php
@@ -394,7 +382,7 @@ if (isset($_POST['itemName'])) {
 
                                                     <select name="parentId" id="parentId" class="form-control"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                        onchange="this.setCustomValidity('')" required>
                                                         <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                         <?php
                                                         while ($catRows = mysqli_fetch_array($resultSet)) {
@@ -411,12 +399,12 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Subcategory'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Subcategory'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <select name="catId" id="catId" class="form-control"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                        onchange="this.setCustomValidity('')" required>
 
                                                         <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
@@ -440,7 +428,7 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Purchase unit'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Purchase unit'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <?php
@@ -449,7 +437,7 @@ if (isset($_POST['itemName'])) {
                                                     ?>
                                                     <select name="unitP" id="unitP" class="form-control"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                        onchange="this.setCustomValidity('')" required>
                                                         <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                         <?php
                                                         while ($unitsRows = mysqli_fetch_array($resultSet)) {
@@ -467,18 +455,18 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Factor'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Factor'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="factor" id="factor"
                                                         value="<?php echo $_POST['factor']; ?>" autocomplete="off"
 
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Counting unit'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Counting unit'); ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <?php
                                                 $sqlSet = " SELECT * FROM tbl_units WHERE account_id = '" . $_SESSION['accountId'] . "' ";
@@ -487,7 +475,7 @@ if (isset($_POST['itemName'])) {
                                                 <div class="col-md-8">
                                                     <select name="unitC" id="unitC" class="form-control"
                                                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
+                                                        onchange="this.setCustomValidity('')" required>
                                                         <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                         <?php
                                                         while ($unitsRows = mysqli_fetch_array($resultSet)) {
@@ -503,41 +491,41 @@ if (isset($_POST['itemName'])) {
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('C.Price') . '(' . $getDefCurDet['curCode'] . ')'; ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('C.Price') . '(' . $getDefCurDet['curCode'] . ')'; ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="price" id="price"
                                                         value="<?php echo $_POST['price']; ?>" autocomplete="off"
 
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Min Level') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Min Level') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="minLevel" id="minLevel"
                                                         value="<?php echo $_POST['minLevel']; ?>" autocomplete="off"
 
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Max Level') ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Max Level') ?><span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="maxLevel" id="maxLevel"
                                                         value="<?php echo $_POST['maxLevel']; ?>" autocomplete="off"
 
-                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" />
+                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                                 </div>
                                             </div>
                                             <div class="outletChk" style="display:none;">
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect  fs-14">
@@ -566,7 +554,7 @@ if (isset($_POST['itemName'])) {
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect  fs-14">
@@ -586,7 +574,7 @@ if (isset($_POST['itemName'])) {
                                         <div class="col-md-6 setOutlet ps-lg-4">
                                             <div class="row align-items-start acntStp-Row chkOlt-Row">
                                                 <!-- <div class="col-md-4">
-                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?><span class="oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                    <label for="setOutlet" class="form-label"><?php echo showOtherLangText('Use Revenue Center Address'); ?><span class="oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                 <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" value=""
@@ -596,7 +584,7 @@ if (isset($_POST['itemName'])) {
                                             <div>
                                                 <div class="row  acntStp-Row">
                                                     <div class="col-md-3">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="cstmSelect  fs-14">
@@ -627,7 +615,7 @@ if (isset($_POST['itemName'])) {
                                                 </div>
                                                 <div class="row acntStp-Row">
                                                     <div class="col-md-3">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Department'); ?><span class="oninvalid=" this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"sign">*</span></label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Department'); ?><span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-9">
 

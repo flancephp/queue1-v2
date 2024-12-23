@@ -159,7 +159,7 @@ class Page extends AbstractFrameDecorator
     }
 
     /**
-     * Check if a forced page break is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" before $frame.  This uses the
+     * Check if a forced page break is oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required before $frame.  This uses the
      * frame's page_break_before property as well as the preceeding frame's
      * page_break_after property.
      *
