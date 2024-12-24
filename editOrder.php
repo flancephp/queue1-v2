@@ -455,7 +455,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
             }
 
             .nwNxt-Btn1 .btn__box {
-                max-width: 9.875rem !important;
+                max-width: 8.875rem !important;
                 margin-left: auto;
             }
 
@@ -922,7 +922,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
 
                     <section class="ordDetail edit-order-section update">
                         <div class="tpBar-grn"></div>
-                        <div class="container erdOrder">
+                        <div class="container erdOrder pt-0">
                         <?php if (isset($_GET['newItemsAdded'])) { ?> 
                             <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
                                 <p><?php echo showOtherLangText('New items added successfully.'); ?>

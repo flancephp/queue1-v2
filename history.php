@@ -1219,6 +1219,31 @@ if ($getTxtById == 'storeId') {
                 width: initial;
             }
 
+            /* dynamic class styles */
+            .numRef.colSize3 > div { width: 33% !important; }
+            .numRef.colSize2 > div { width: 50% !important; }
+            .numRef.colSize1 > div { width: 100% !important; }
+            .numRef.colSize3 > div:first-child, .numRef.colSize2 > div:first-child, .numRef.colSize1 > div:first-child { width: 4rem !important; }
+            .stsHiscol.colSize4 > div.tb-bdy { width: 25% !important;max-width: 100%; }
+            .stsHiscol.colSize3 > div.tb-bdy { width: 33% !important;max-width: 100%; }
+            .stsHiscol.colSize2 > div.tb-bdy { width: 50% !important;max-width: 100%; }
+
+            .stsHiscol.colSize2 .hisStatusclm .dropdown-toggle,
+            .stsHiscol.colSize3 .hisStatusclm .dropdown-toggle { width: 100% !important;max-width: 122px !important; }
+            .dropdnbtns.colSize5.colSize2 .numRef, .cntTableData .colSize5.colSize2 .numRef { width: calc(77% - 195px) !important; }
+
+            .fgcolSize3.colSize4 .hisValclm { width: 10% !important; }
+            .fgcolSize3.colSize4.dropdnbtns .numRef, .cntTableData .fgcolSize3.colSize4 .numRef {
+                width: calc(50% - 195px) !important;
+            }
+
+            .dropdnbtns.fgcolSize2 .numRef, .cntTableData .fgcolSize2 .numRef { width: calc(46% - 195px) !important; }
+            .fgcolSize2 .hisValclm { width: 12% !important; } 
+            
+            .dropdnbtns.fgcolSize1 .numRef, .cntTableData .fgcolSize1 .numRef { width: calc(30% - 195px) !important; }
+            .fgcolSize1 .hisValclm { width: 15% !important; } 
+            .dropdnbtns.fgcolSize1 .stsHiscol, .cntTableData .fgcolSize1 .stsHiscol { width: 40% !important; }
+            .dropdnbtns.fgcolSize0 .numRef, .cntTableData .fgcolSize0 .numRef { width: 0% !important; }
         }
 
         /*       .hisTblbody1 .numRef .tb-bdy,
@@ -1927,7 +1952,7 @@ if ($getTxtById == 'storeId') {
         }
 
         /* Apply styles for exactly 2 divs */
-        .stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3))) {
+        /* .stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3))) {
             display: flex;
             justify-content: space-around;
             width: 15% !important;
@@ -1935,10 +1960,10 @@ if ($getTxtById == 'storeId') {
 
         .stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3)))>div {
             width: 50% !important;
-        }
+        } */
 
         /* Apply styles for exactly 1 div */
-        .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) {
+        /* .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) {
             display: flex;
             justify-content: space-around;
             width: 10% !important;
@@ -1946,7 +1971,7 @@ if ($getTxtById == 'storeId') {
 
         .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2)))>div {
             width: 100% !important;
-        }
+        } */
 
 
         .issueDtl_accntDtl_main>div:only-child {
@@ -2345,6 +2370,12 @@ if ($getTxtById == 'storeId') {
 
         .table-cell.left__align__text .table-cell {
             width: 33% !important;
+        }
+        .total__th { font-size: 1.125rem; }
+        @media (max-width: 1700px) {
+            .total__th {
+                font-size: 14px;
+            }
         }
     </style>
 
@@ -2756,7 +2787,7 @@ if ($getTxtById == 'storeId') {
                                                         <div class="col-md-9 text-center fw-normal">
                                                             <p class="usd-In"><?php echo ($otherCurrRow['curCode']); ?></p>
                                                             <p class="ttlAmount"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
-                                                            <p class="pdAmount"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '&nbsp;'; ?></p>
+                                                            <p class="pdAmount"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '0 &nbsp;'; ?></p>
                                                             <p class="pendAmount"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
                                                         </div>
                                                     </div>
@@ -2866,7 +2897,7 @@ if ($getTxtById == 'storeId') {
                                         <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
                                     </svg>
                                 </button>
-                                <div class="align-items-center d-flex dropdnbtns">
+                                <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> colSize<?php echo $col_class_two; ?>">
                                     <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
                                         <div class="tb-bdy srHisclm">
                                             <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
@@ -3322,8 +3353,8 @@ if ($getTxtById == 'storeId') {
                                                                             echo 'mt-2';
                                                                         } ?>">
                                         <div class="<?php echo $mclass; ?>">&nbsp;</div>
-                                        <div class="align-items-center itmBody">
-                                            <div class="numRef numRef2 align-items-center">
+                                        <div class="align-items-center itmBody fgcolSize<?php echo $col_class_one; ?> colSize<?php echo $col_class_two; ?>">
+                                            <div class="numRef numRef2 align-items-center colSize<?php echo $col_class_one; ?>">
                                                 <div class="tb-bdy srHisclm" style="min-width: fit-content;">
                                                     <p class="serial"><?php echo $x; ?></p>
                                                 </div>
@@ -3400,7 +3431,7 @@ if ($getTxtById == 'storeId') {
                                                 </div>
                                             <?php } ?>
 
-                                            <div class="stsHiscol d-flex align-items-center lg_w_35">
+                                            <div class="stsHiscol d-flex align-items-center lg_w_35 colSize<?php echo $col_class_two; ?>">
 
                                                 <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields)) { ?>
                                                     <div class="tb-bdy flex hisStatusclm ps-0 lg_pr_8">

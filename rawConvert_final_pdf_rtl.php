@@ -54,8 +54,8 @@ $content = '
 $content .= '<body style="font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;">';
 $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
         <tr>
-           <td>
-            <h4 style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859;font-size: 23px;padding-right:16%;">' . showOtherLangText('Raw Convert Item Details') . '</h4>
+           <td> 
+            <h4 style="font-weight: 600;line-height: 1.2; color: #232859;font-size: 23px;display:block;padding-right:26%;text-align:center;">' . showOtherLangText('Raw Convert Item Details') . '</h4>
            </td>
         </tr>
     </table>';
@@ -113,7 +113,8 @@ while ($row = mysqli_fetch_array($proresultSet)) {
         </tr>';
 }
 
-$content .= '</table>
+ $content .= '</table>
 
    </body>
 </html>';
+ 
