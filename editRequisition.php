@@ -809,16 +809,23 @@ $cond = '';
                     <div class="tpBar-grn tpBar-red"></div>
                     <form action="" id="frm" name="frm" method="post" autocomplete="off">
                         <!-- <div class="global__padding"> -->
-                        <div class="container cntTable pt-3">
+                        <div class="container cntTable">
 
                             <?php if (isset($_GET['selectAtleastOneProduct'])) { ?> 
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show mt-3 mb-0" role="alert">
                                     <p>
                                         <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
                                     </p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     
                                 </div> 
+                            <?php } ?>
+                            <?php if (isset($_GET['newItemsAdded'])) { ?> 
+                                <div class="alert alert-success alert-dismissible fade show mt-3 mb-0" role="alert">
+                                    <p><?php echo showOtherLangText('New items added successfully.'); ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             <?php } ?>
                         </div>
                         <div class="stcPart position-relative">
@@ -860,14 +867,7 @@ $cond = '';
 
                                 </div>
 
-                                <?php if (isset($_GET['newItemsAdded'])) { ?>
-                                    <br /><br />
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <p><?php echo showOtherLangText('New items added successfully.'); ?>
-                                        </p>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                <?php } ?>
+                                
 
 
                                 <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">

@@ -922,24 +922,24 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
 
                     <section class="ordDetail edit-order-section update">
                         <div class="tpBar-grn"></div>
-                        <?php if (isset($_GET['newItemsAdded'])) { ?>
-                            <br />
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="container erdOrder">
+                        <?php if (isset($_GET['newItemsAdded'])) { ?> 
+                            <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
                                 <p><?php echo showOtherLangText('New items added successfully.'); ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php } ?>
-                        <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
-                            <br />
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php if (isset($_GET['selectAtleastOneProduct'])) { ?> 
+                            <div class="alert alert-danger alert-dismissible fade show mb-0 mt-3" role="alert">
                                 <p>
                                     <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
 
                         <?php } ?>
+                        </div>
 
                         <div class="stcPart position-relative">
 
