@@ -1227,6 +1227,7 @@ if ($getTxtById == 'storeId') {
             .stsHiscol.colSize4 > div.tb-bdy { width: 25% !important;max-width: 100%; }
             .stsHiscol.colSize3 > div.tb-bdy { width: 33% !important;max-width: 100%; }
             .stsHiscol.colSize2 > div.tb-bdy { width: 50% !important;max-width: 100%; }
+            .stsHiscol.colSize1 > div.tb-bdy { width: 100% !important;max-width: 100%; }
 
             .stsHiscol.colSize2 .hisStatusclm .dropdown-toggle,
             .stsHiscol.colSize3 .hisStatusclm .dropdown-toggle { width: 100% !important;max-width: 122px !important; }
@@ -1244,6 +1245,14 @@ if ($getTxtById == 'storeId') {
             .fgcolSize1 .hisValclm { width: 15% !important; } 
             .dropdnbtns.fgcolSize1 .stsHiscol, .cntTableData .fgcolSize1 .stsHiscol { width: 40% !important; }
             .dropdnbtns.fgcolSize0 .numRef, .cntTableData .fgcolSize0 .numRef { width: 0% !important; }
+
+            .dropdnbtns.lgcolSize1 .stsHiscol, .cntTableData .lgcolSize1 .stsHiscol { width: 10% !important; }
+            .dropdnbtns.lgcolSize1.fgcolSize3 .stsHiscol, .cntTableData .lgcolSize1.fgcolSize3 .stsHiscol { width: 10% !important; }
+            .dropdnbtns.lgcolSize1 .numRef, .cntTableData .lgcolSize1 .numRef { width: calc(74% - 185px) !important; }
+            .dropdnbtns.lgcolSize1.fgcolSize3 .numRef, .cntTableData .lgcolSize1.fgcolSize3 .numRef { width: calc(74% - 185px) !important; }
+            .dropdnbtns.lgcolSize2 .stsHiscol, .cntTableData .lgcolSize2 .stsHiscol { width: 24% !important; }
+            .lgcolSize2 .hisValclm { width: 11% !important; }
+            .lgcolSize1.fgcolSize3 .hisValclm { width: 11% !important; }
         }
 
         /*       .hisTblbody1 .numRef .tb-bdy,
@@ -2897,7 +2906,7 @@ if ($getTxtById == 'storeId') {
                                         <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
                                     </svg>
                                 </button>
-                                <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> colSize<?php echo $col_class_two; ?>">
+                                <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
                                     <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
                                         <div class="tb-bdy srHisclm">
                                             <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
@@ -3353,7 +3362,7 @@ if ($getTxtById == 'storeId') {
                                                                             echo 'mt-2';
                                                                         } ?>">
                                         <div class="<?php echo $mclass; ?>">&nbsp;</div>
-                                        <div class="align-items-center itmBody fgcolSize<?php echo $col_class_one; ?> colSize<?php echo $col_class_two; ?>">
+                                        <div class="align-items-center itmBody fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
                                             <div class="numRef numRef2 align-items-center colSize<?php echo $col_class_one; ?>">
                                                 <div class="tb-bdy srHisclm" style="min-width: fit-content;">
                                                     <p class="serial"><?php echo $x; ?></p>

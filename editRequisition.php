@@ -334,7 +334,18 @@ $cond = '';
             font-size: .875rem;
         }
 
-        @media(min-width:992px) {
+        .btn__box {
+            max-width: 8.875rem;
+        }
+        .btn__box .btn-primary { width: 100%; }
+        
+        @media screen and (min-width: 1600px) {
+            .btn__box {
+                max-width: 10.875rem;
+            } 
+        }
+
+        @media (min-width:992px) {
             .container.cntTable.pb-md-4 {
                 margin-top: -1.5rem;
             }
