@@ -105,7 +105,6 @@ $ordQry = mysqli_query($con, $sql);
             $x = 0;
             while ($row = mysqli_fetch_array($ordQry)) {
                 $x++;
-                $curDet = getCurrencyDet($row['currencyId']);
 
                 $productImage = 'https://cdn-icons-png.flaticon.com/512/68/68958.png';
                 if ($row['imgName'] != '') {
@@ -137,22 +136,25 @@ $ordQry = mysqli_query($con, $sql);
 
                             ///echo $getDefCurDet['id'] . '==' . $curDet['id'];
 
-                            if (isset($tempItemRows[$row['id']]) &&  ($getDefCurDet['id'] == $curDet['id']) && $curDet['id'] == 0) {
-                                $price = $tempItemRows[$row['id']]['amt'] * $tempItemRows[$row['id']]['qty'];
+                            if (isset($tempItemRows[$row['id']])) { //if single currency
 
-                                echo '<p class="recOrd-Price">' . getPrice($price * $curRes['amt']) . ' ' . $curRes['curCode'] . '</p>';
-                            } elseif (isset($tempItemRows[$row['id']]) &&  ($getDefCurDet['id'] != $curDet['id']) && $curDet['id'] > 0) {
+                                if ($row['currencyId'] > 0) { //two currency
 
-                                $price = $tempItemRows[$row['id']]['amt'] * $tempItemRows[$row['id']]['qty'];
+                                    $price = $tempItemRows[$row['id']]['amt'] * $tempItemRows[$row['id']]['qty'];
 
-                                echo '<p class="recOrd-Price">' . getPrice($price / $curRes['amt']) . ' ' . $getDefCurDet['curCode'] . '</p>';
+                                    $defaultPriceVal = $getDefCurDet['id'] == $tempItemRows[$row['id']]['curId'] ? ($price) : ($price / $curRes['amt']);
+                                    $ootherPriceVal = $getDefCurDet['id'] == $tempItemRows[$row['id']]['curId'] ? ($price * $curRes['amt']) : ($price);
 
-                                echo '<p class="recOrd-Price">' . getPrice($price) . ' ' . $curRes['curCode'] . '</p>';
-                            } elseif (isset($tempItemRows[$row['id']]) && $curDet['id'] == 0) {
-                                $price = $tempItemRows[$row['id']]['amt'] * $tempItemRows[$row['id']]['qty'];
 
-                                echo '<p class="recOrd-Price">' . getPrice($price) . ' ' . $getDefCurDet['curCode'] . '</p>';
-                            } else {
+                                    echo '<p class="recOrd-Price">' . getPrice($defaultPriceVal) . ' ' . $getDefCurDet['curCode'] . '</p>';
+
+                                    echo '<p class="recOrd-Price">' . getPrice($ootherPriceVal) . ' ' . $curRes['curCode'] . '</p>';
+                                } else { //if single currency
+                                    $price = $tempItemRows[$row['id']]['amt'] * $tempItemRows[$row['id']]['qty'];
+
+                                    echo '<p class="recOrd-Price">' . getPrice($price) . ' ' . $getDefCurDet['curCode'] . '</p>';
+                                }
+                            } else { //if multi currency
 
                                 echo  '<p class="recOrd-Price">' . getPrice($row['totalAmt']) . ' ' . $getDefCurDet['curCode'] . '</p>';
 

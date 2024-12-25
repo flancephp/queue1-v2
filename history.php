@@ -2271,8 +2271,11 @@ if ($getTxtById == 'storeId') {
                 left: 4rem;
             }
         }
+
         @media (max-width: 991px) {
-            .paidIsue { align-items: flex-end; }
+            .paidIsue {
+                align-items: flex-end;
+            }
         }
 
         html[dir="rtl"] .ps-1 {
@@ -3323,7 +3326,7 @@ if ($getTxtById == 'storeId') {
                                                                         } ?>">
                                         <div class="<?php echo $mclass; ?>">&nbsp;</div>
                                         <div class="align-items-center itmBody">
-                                            <div class="numRef numRef2 align-items-center">
+                                            <div class="numRef numRef2 align-items-center colSize<?php echo $col_class_one; ?>">
                                                 <div class="tb-bdy srHisclm" style="min-width: fit-content;">
                                                     <p class="serial"><?php echo $x; ?></p>
                                                 </div>
@@ -3400,7 +3403,7 @@ if ($getTxtById == 'storeId') {
                                                 </div>
                                             <?php } ?>
 
-                                            <div class="stsHiscol d-flex align-items-center lg_w_35">
+                                            <div class="stsHiscol d-flex align-items-center lg_w_35 colSize<?php echo $col_class_two; ?>">
 
                                                 <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields)) { ?>
                                                     <div class="tb-bdy flex hisStatusclm ps-0 lg_pr_8">
