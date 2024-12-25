@@ -466,10 +466,13 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
 
         /* .ttlDft-Crcy.tb-head { width: 100%; } */
         .nwNxt-Btn .btnBg {
-            max-width: 10.875rem;
+            max-width: 8.875rem;
         }
-
+        
         @media screen and (min-width: 1600px) {
+            .nwNxt-Btn .btnBg {
+                max-width: 10.875rem;
+            }
             .itmBody {
                 font-size: 1rem;
                 line-height: 1.3;

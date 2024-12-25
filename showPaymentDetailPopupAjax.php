@@ -470,8 +470,8 @@ if ($ordersRow['ordCurId'] > 0) {
 
 
 $content .= '<tr ' . $defaultClass . '  style=" max-height: 38px;">
-                                        <th style="padding: .5rem .625rem;">' . showOtherLangText('Grand Total') . ' (' . $getDefCurDet['curCode'] . ')</th>
-                                        <th style="padding: .5rem .625rem;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']) . '</th>
+                                        <th class="total__th" style="padding: .5rem .625rem;">' . showOtherLangText('Grand Total') . ' (' . $getDefCurDet['curCode'] . ')</th>
+                                        <th class="total__th" style="padding: .5rem .625rem;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']) . '</th>
                                     </tr>
                                     <tr></tr>';
 
