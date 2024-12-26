@@ -1112,9 +1112,9 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
                                                 </a>
                                             </div>
                                             <div class="d-inline-flex flex-lg-column nwNxt-Btn2  col gap-3 justify-content-end btn__box">
-                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-2 d-inline-flex align-items-center">
+                                                <a href="javascript:void(0)" class=" btn btn-primary orderupdate w-100 justify-content-end px-2 d-inline-flex align-items-center gap-2">
                                                     <span class="align-middle"><?php echo showOtherLangText('Update'); ?></span>
-                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center"></i>
+                                                    <i class="fa-solid fa-angle-right d-none d-lg-inline-flex justify-content-center align-items-center m-0"></i>
                                                 </a>
                                                 <input type="hidden" name="updateOrder" value="<?php echo showOtherLangText('Update Order'); ?>" />
                                                 <a href="runningOrders.php" class=" btn  btn-primary update w-100"><?php echo showOtherLangText('Back'); ?></a>

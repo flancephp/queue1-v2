@@ -1240,6 +1240,8 @@ if ($getTxtById == 'storeId') {
 
             .dropdnbtns.fgcolSize2 .numRef, .cntTableData .fgcolSize2 .numRef { width: calc(46% - 195px) !important; }
             .fgcolSize2 .hisValclm { width: 12% !important; } 
+            .dropdnbtns.fgcolSize2.lgcolSize2 .numRef, .cntTableData .fgcolSize2.lgcolSize2 .numRef { width: calc(60% - 195px) !important; }
+            .dropdnbtns.fgcolSize2.lgcolSize2 .stsHiscol.colSize2 { width: 40% !important; }
             
             .dropdnbtns.fgcolSize1 .numRef, .cntTableData .fgcolSize1 .numRef { width: calc(30% - 195px) !important; }
             .fgcolSize1 .hisValclm { width: 15% !important; } 
@@ -1253,6 +1255,11 @@ if ($getTxtById == 'storeId') {
             .dropdnbtns.lgcolSize2 .stsHiscol, .cntTableData .lgcolSize2 .stsHiscol { width: 24% !important; }
             .lgcolSize2 .hisValclm { width: 11% !important; }
             .lgcolSize1.fgcolSize3 .hisValclm { width: 11% !important; }
+
+            .lgcolSize0 .stsHiscol.colSize0, .lgcolSize0 .stsHiscol.colSize0 { width: 0% !important; }
+            .dropdnbtns.lgcolSize0 .numRef, .cntTableData .lgcolSize0 .numRef {
+                width: calc(70% - 195px) !important;
+            }
         }
 
         /*       .hisTblbody1 .numRef .tb-bdy,
