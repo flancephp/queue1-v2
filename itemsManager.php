@@ -390,17 +390,7 @@ $deprtOptions .= '</ul>';
     <link rel="stylesheet" href="Assets/css/style1.css">
     <style>
         @media screen and (max-width: 992px) {
-
-            .bkItm-MngBtn,
-            .fetItm-Mng {
-                width: 50%;
-            }
-
-            .bkItm-MngBtn {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
+ 
 
             .imgItm-MngClm:first-child {
                 width: 10%;
@@ -436,6 +426,28 @@ $deprtOptions .= '</ul>';
                 padding: 6px 13px;
             }
         }
+        @media screen and (max-width: 1025px) {
+            .brItm-MngClm {
+                width: 50%; 
+            }
+            .mbItm-MngIcns {
+                width: 33.33%;
+            }
+            .bkItm-MngBtn,
+            .fetItm-Mng {
+                width: 50%;
+            }
+            .bkItm-MngBtn {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        @media screen and (max-width: 575px) {
+            .itmMng-xlIcn { gap: 8px; }
+        }
+       
+
     </style>
 
 
