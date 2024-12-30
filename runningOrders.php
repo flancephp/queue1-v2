@@ -677,7 +677,7 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
         }
 
         .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3) {
-            width: 50%;
+            width: 50%;display: table-cell !important;
         }
 
         .table-cell.left__align__text .table-cell {
