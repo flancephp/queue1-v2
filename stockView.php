@@ -1138,8 +1138,6 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                     <div class="stkSrcicn">
                         <div class="container">
                             <div class="row">
-
-
                                 <div class="col-md-6 mbCol-stk">
                                     <!-- Search Box Start -->
                                     <div class="input-group srchBx">
@@ -1148,21 +1146,11 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <button class="btn" type="button">
                                                 <i class="fa fa-search"></i>
                                             </button>
-
                                         </div>
-
-
                                     </div>
-
-
-
-
                                     <!-- Search Box End -->
                                     <!-- Feature Btn Start -->
                                     <div class="fetBtn">
-
-
-
                                         <a href="javascript:void(0)">
                                             <img src="Assets/icons/dashboard.svg" alt="dashboard">
                                         </a>

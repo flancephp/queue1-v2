@@ -208,15 +208,15 @@ if ($hotelId > 0) {
                                     <div class="col-md-6 gap-r">
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
+                                                <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name']; ?>" placeholder="<?php echo showOtherLangText('Casa') ?>">
+                                                <input type="text" class="form-control" name="name" id="name" value="<?php echo $revCentArr['name']; ?>" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required placeholder="<?php echo showOtherLangText('Casa') ?>">
                                             </div>
                                         </div>
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="ezzeAddress" class="form-label"><?php echo showOtherLangText('Assign Ezee Address'); ?></label>
+                                                <label for="ezzeAddress" class="form-label"><?php echo showOtherLangText('Assign Ezee Address'); ?>:</label>
                                             </div>
                                             <div class="col-md-9">
 
@@ -305,7 +305,7 @@ if ($hotelId > 0) {
                                     <div class="col-md-6 gap-l">
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="address" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
+                                                <label for="address" class="form-label"><?php echo showOtherLangText('Address'); ?>:</label>
                                             </div>
                                             <div class="col-md-9">
                                                 <textarea class="form-control" style="resize: vertical;" name="address" id="address" cols="20" rows="2" autocomplete="off"><?php echo $revCentArr['address']; ?></textarea>
@@ -313,7 +313,7 @@ if ($hotelId > 0) {
                                         </div>
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="email" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
+                                                <label for="email" class="form-label"><?php echo showOtherLangText('Email'); ?>:</label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="email" class="form-control" name="email" id="email" value="<?php echo $revCentArr['email']; ?>" autocomplete="off"
@@ -322,7 +322,7 @@ if ($hotelId > 0) {
                                         </div>
                                         <div class="row align-items-center acntStp-Row">
                                             <div class="col-md-3">
-                                                <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number'); ?></label>
+                                                <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number'); ?>:</label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $revCentArr['phone']; ?>" autocomplete="off"

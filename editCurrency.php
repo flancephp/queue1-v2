@@ -111,38 +111,38 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="currency" class="form-label"><?php echo showOtherLangText('Currency') ?></label>
+                                        <label for="currency" class="form-label"><?php echo showOtherLangText('Currency') ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" value="<?php echo $det['currency']; ?>" name="currency" id="currency" placeholder="EUR">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" value="<?php echo $det['currency']; ?>" name="currency" id="currency" placeholder="EUR">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code') ?></label>
+                                        <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code') ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="curCode" value="<?php echo $det['curCode']; ?>" id="currencyCode" placeholder="€">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="curCode" value="<?php echo $det['curCode']; ?>" id="currencyCode" placeholder="€">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against') . ' (' . $getDefCurDet['curCode'] . '1)'; ?></label>
+                                        <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against') . ' (' . $getDefCurDet['curCode'] . '1)'; ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="amt" value="<?php echo $det['amt']; ?>" id="amountAgainst" placeholder="0.89">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="amt" value="<?php echo $det['amt']; ?>" id="amountAgainst" placeholder="0.89">
                                     </div>
                                 </div>
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place') ?></label>
+                                        <label for="noDecimal" class="form-label"><?php echo showOtherLangText('No. of Decimal Place') ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" value="<?php echo $det['decPlace']; ?>" name="decPlace" id="decPlace" placeholder="4">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" value="<?php echo $det['decPlace']; ?>" name="decPlace" id="decPlace" placeholder="4">
                                     </div>
                                 </div>
 

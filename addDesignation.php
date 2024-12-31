@@ -134,10 +134,11 @@ if (!$permissionRow) {
 
                                     <div class="row align-items-center acntStp-Row w-50">
                                         <div class="col-md-2">
-                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span
+                                            class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="text" name="designation_name" class="form-control"
+                                            <input type="text" name="designation_name" class="form-control" value=""
 
                                                 onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
                                         </div>

@@ -116,7 +116,7 @@ $det = mysqli_fetch_array($res);
                                     <div class="btnBg">
                                         <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
                                                 class="mb-UsrBtn"><i class="fa-regular fa-pen-to-square"></i></span> <span
-                                                class="dsktp-Btn"><?php echo showOtherLangText('Edit'); ?></span></button>
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?></label>
+                                        <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
 
@@ -137,7 +137,7 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $</label>
+                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input placeholder="20" type="text" class="form-control" name="amt" id="amt" value="<?php echo isset($det['amt']) ? $det['amt'] : ''; ?>" autocomplete="off" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
@@ -146,10 +146,10 @@ $det = mysqli_fetch_array($res);
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit'); ?></label>
+                                        <label for="unit" class="form-label"><?php echo showOtherLangText('Unit'); ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" placeholder="<?php echo showOtherLangText('Trip'); ?>" class="form-control" name="unit" id="unit" value="<?php echo isset($det['unit']) ? $det['unit'] : ''; ?>" autocomplete="off" />
+                                        <input type="text" placeholder="<?php echo showOtherLangText('Trip'); ?>" class="form-control" name="unit" id="unit" value="<?php echo isset($det['unit']) ? $det['unit'] : ''; ?>" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required autocomplete="off" />
                                     </div>
                                 </div>
 

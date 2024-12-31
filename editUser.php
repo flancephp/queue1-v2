@@ -34,7 +34,7 @@ if (isset($_POST['userType']) && $_POST['userType'] != '') {
     $returnResult = mysqli_fetch_array($result);
     $titleId = $returnResult['designation_id'];
 
-    $selTitle = '<select name="designation_title" class="form-select" id="designationTitle">';
+    $selTitle = '<select name="designation_title" class="form-select" id="designationTitle" aria-label="Default select example" required="">';
 
     $selTitle .= '<option value="">' . showOtherLangText('Select Designation Title') . '</option>';
 
@@ -214,7 +214,7 @@ if (isset($_POST['user_name'])) {
                                                 <label class="semibold fs-13"><?php echo showOtherLangText('User Name'); ?>:<span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
+                                                <input type="text" value="<?php echo $userRow['name'] ?>" class="form-control" id="user_name" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
                                             </div>
                                         </div>
                                         <div class="form-field row align-items-center edispace01">
@@ -240,10 +240,10 @@ if (isset($_POST['user_name'])) {
                                     <div class="col-md-6 col-lg-5">
                                         <div class="form-field row align-items-center">
                                             <div class="col-lg-3">
-                                                <label class="semibold fs-13"><?php echo showOtherLangText('Password') ?>:</label>
+                                                <label class="semibold fs-13"><?php echo showOtherLangText('Password') ?>:<span class="requiredsign">*</span></label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <input type="password" class="form-control" id="password" name="password" value="<?php echo $userRow['password'] ?>" placeholder="<?php echo showOtherLangText('Password') ?>">
+                                                <input type="password" class="form-control" id="password" name="password" value="<?php echo $userRow['password'] ?>" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required placeholder="<?php echo showOtherLangText('Password') ?>">
                                                 <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                                             </div>
                                         </div>

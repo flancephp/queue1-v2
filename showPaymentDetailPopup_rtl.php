@@ -115,7 +115,7 @@ $content .= '<td>
             <td style="padding:0;font-size:16px;line-height:20px;color:#666C85 !important;">' . reverseRTLTextForPdf($clientResultRow['email']) . '</td>
           </tr>
           <tr>
-            <td style="padding:0;font-size:16px;line-height:20px;color:#666C85 !important;">' . ($clientResultRow['phone']) . '</td>
+            <td style="padding:0;font-size:16px;line-height:20px;color:#666C85 !important;">' . reverseRTLTextForPdf($clientResultRow['phone']) . '</td>
           </tr>
         </tbody>
       </table>

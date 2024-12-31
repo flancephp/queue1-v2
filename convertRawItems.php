@@ -42,7 +42,7 @@ $getLangType = getLangType($_SESSION['language_id']);
                     <select name="convertItem" class="form-select mt-0 w-100"
                         oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
                         onchange="this.setCustomValidity('')" required>
-                        <option><?php echo showOtherLangText('Select'); ?></option>
+                        <option value=""><?php echo showOtherLangText('Select'); ?></option>
                     </select>
                 </div>
             </div>
@@ -52,15 +52,17 @@ $getLangType = getLangType($_SESSION['language_id']);
         </div>
         <div class="d-flex align-items-center">
             <div class="col-10">
-                <input type="text" name="qtyToConvert" class="form-control mt-0 w-100" onChange="showUnitPrice()"
+                <input type="text" name="qtyToConvert" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please enter1 quantity to convert') ?>')"
+                    required class="form-control mt-0 w-100" onChange="showUnitPrice();this.setCustomValidity('')"
                     placeholder="<?php echo showOtherLangText('Quantity to Convert'); ?>" id="qtyToConvert" />
             </div>
             <div style="width:6rem;"></div>
         </div>
         <div class="d-flex align-items-center">
             <div class="col-10">
-                <input type="text" name="convertedQty" class="form-control mt-0 w-100" id="convertedQty"
-                    placeholder="<?php echo showOtherLangText('Converted Quantity'); ?>" onChange="showUnitPrice()" />
+                <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please enter converted quantity') ?>')"
+                    required name="convertedQty" class="form-control mt-0 w-100" id="convertedQty"
+                    placeholder="<?php echo showOtherLangText('Converted Quantity'); ?>" onChange="showUnitPrice();this.setCustomValidity('')" />
             </div>
             <div class="col-2"></div>
         </div>

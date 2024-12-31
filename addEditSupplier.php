@@ -194,7 +194,7 @@ $res = mysqli_fetch_array($result);
                             <div class="edtSup-Div">
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?><span class="text-danger">*</span></label>
+                                        <label for="supplierName" class="form-label"><?php echo showOtherLangText('Supplier Name'); ?>:<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="<?php echo $res['name']; ?>"

@@ -129,7 +129,8 @@ include_once('script/editDesignation.php');
 
                                     <div class="row align-items-center acntStp-Row w-50">
                                         <div class="col-md-2">
-                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span
+                                            class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="text" value="<?php echo $designationName; ?>" name="designation_name" class="form-control"

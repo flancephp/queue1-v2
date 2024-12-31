@@ -131,34 +131,45 @@ if (isset($_POST['name'])) {
                 </section>
 
                 <section class="ordDetail userDetail">
-                    <form class="container" id="frmEasy" name="frmEasy" action="" method="post" enctype="multipart/form-data">
-                        <div class="usrBtns d-flex align-items-center justify-content-between">
-                            <div class="usrBk-Btn">
-                                <div class="btnBg">
-                                    <a href="revenueCenterSetup.php" class="btn btn-primary mb-usrBkbtn"><span
-                                            class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
-                                </div>
-                            </div>
-                            <div class="usrAd-Btn">
-                                <div class="btnBg">
+                    <div class="container">
 
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
-                                                class="fa-solid fa-plus"></i></span> <span
-                                            class="dsktp-Btn"><?php echo showOtherLangText('Add'); ?></span></a></button>
+                        <?php if (isset($_GET['error'])) { ?>
+
+                            <div class="alert alert-danger alert-dismissible fade show lg__left__margin mb-0  mt-3" role="alert">
+                                <p><?php echo showOtherLangText('Already exists, try another name.'); ?></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div><br />
+
+                        <?php } ?>
+                        <form class="container" id="frmEasy" name="frmEasy" action="" method="post" enctype="multipart/form-data">
+                            <div class="usrBtns d-flex align-items-center justify-content-between">
+                                <div class="usrBk-Btn">
+                                    <div class="btnBg">
+                                        <a href="revenueCenterSetup.php" class="btn btn-primary mb-usrBkbtn"><span
+                                                class="mb-UsrBtn"><i class="fa-solid fa-arrow-left"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Back'); ?></span></a>
+                                    </div>
+                                </div>
+                                <div class="usrAd-Btn">
+                                    <div class="btnBg">
+
+                                        <button type="submit" class="btn btn-primary mb-usrBkbtn"><span class="mb-UsrBtn"><i
+                                                    class="fa-solid fa-plus"></i></span> <span
+                                                class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></a></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                    </div>    
 
                         <div class="acntStp">
                             <div class="addUser-Form acntSetup-Form edtRev-cntr row" id="frmEasy" name="frmEasy">
                                 <div class="col-md-6">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?><span class="requiredsign">*</span></label>
+                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?>:<span class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
+                                            <input type="text" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
@@ -188,7 +199,7 @@ if (isset($_POST['name'])) {
 
                                             <?php } elseif ($_SESSION['accountId'] == 1) { ?>
 
-                                                <select name="hotelId" id="hotelId" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-select" aria-label="Default select example">
+                                                <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
 
                                                     <option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
 
@@ -223,27 +234,27 @@ if (isset($_POST['name'])) {
                                 <div class="col-md-6">
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?></label>
+                                            <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?>:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" cols="20" rows="2" autocomplete="off"></textarea>
+                                            <textarea class="form-control" style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?></label>
+                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?>:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="email" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required value="" class="form-control" name="email" id="email"
+                                            <input type="email" class="form-control" name="email" id="email"
                                                 placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
                                         </div>
                                     </div>
                                     <div class="row align-items-center acntStp-Row">
                                         <div class="col-md-3">
-                                            <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?></label>
+                                            <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?>:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="tel" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
+                                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
                                         </div>
                                     </div>
                                 </div>

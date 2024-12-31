@@ -468,11 +468,12 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
         .nwNxt-Btn .btnBg {
             max-width: 8.875rem;
         }
-        
+
         @media screen and (min-width: 1600px) {
             .nwNxt-Btn .btnBg {
                 max-width: 10.875rem;
             }
+
             .itmBody {
                 font-size: 1rem;
                 line-height: 1.3;
@@ -1432,7 +1433,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
                                                         <?php
                                                         if (!empty($curDet)) {
                                                             $newCurAmt = ($row['amt'] * $curDet['amt']);
-                                                            $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+                                                            $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
                                                             echo '<div class="othr-Currency tb-bdy w-auto col ps-0"><p>' . $newCurAmt . '</p></div>';
                                                         } ?>
                                                     </div>
@@ -1458,7 +1459,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
 
                                                     if (!empty($curDet)) {
                                                         $newCurAmt = ($row['amt'] * $curDet['amt']);
-                                                        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id'], 1) : $newCurAmt;
+                                                        $newCurAmt = $newCurAmt > 0 ? showOtherCur($newCurAmt, $curDet['id']) : $newCurAmt;
                                                         echo '<div class="ttlDft-Crcy tb-bdy col">
                     <p>' . $newCurAmt . '</p>
                 </div>';
@@ -1575,7 +1576,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
                                                     </div>
                                                 </div>
                                                 <div class="prdtStk-Qty tb-bdy" id="stockQty<?php echo $row['id']; ?>">
-                                                    <p class="ord-StockQty" <?php echo (($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty / $row['factor']) < round($row['minLevel'] / $row['factor']))) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"'; ?>><?php echo round(($stockQty / $row['factor']), 1); ?> <span class="tabOn-Stk">On stock</span></p>
+                                                    <p class="ord-StockQty" <?php echo (($stockQty < $row['minLevel']) || (round($stockQty / $row['factor']) < round($row['minLevel'] / $row['factor']))) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"'; ?>><?php echo round(($stockQty / $row['factor']), 1); ?> <span class="tabOn-Stk">On stock</span></p>
                                                 </div>
                                                 <div class="prdtCnt-Scnd d-flex align-items-center">
                                                     <div class="itm-Quantity tb-bdy w-100 res__label__item" data-text="<?php echo showOtherLangText('Qty'); ?>">
@@ -1594,7 +1595,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
                                                     <?php
                                                     if (!empty($curDet)) {
                                                         $newCurAmt = ($totalPriceVal * $curDet['amt']);
-                                                        echo '<div id="totalPriceOther' . $x . '" class="ttlOtr-Crcy tb-bdy col"><p>' . showOtherCur($newCurAmt, $curDet['id'], 1) . '</p></div>';
+                                                        echo '<div id="totalPriceOther' . $x . '" class="ttlOtr-Crcy tb-bdy col"><p>' . showOtherCur($newCurAmt, $curDet['id']) . '</p></div>';
                                                     }
                                                     ?>
                                                 </div>
@@ -1605,7 +1606,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
                                                         <div class="col-12">
                                                             <div class="mb-brCode d-bloc test">
                                                                 <p class="ord-brCode"><?php echo $row['barCode']; ?></p>
-                                                                <p class="ord-StockQty" <?php echo (($row['minLevel'] == 0 && $stockQty < $row['minLevel']) || (round($stockQty / $row['factor']) < round($row['minLevel'] / $row['factor']))) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"'; ?>><?php echo round(($stockQty / $row['factor']), 1); ?> <span class="tabOn-Stk">On stock</span></p>
+                                                                <p class="ord-StockQty" <?php echo (($stockQty < $row['minLevel']) || (round($stockQty / $row['factor']) < round($row['minLevel'] / $row['factor']))) ? 'style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: pink;width: 43px;text-align: center;height: 30px;"' : 'style="width:43px;"'; ?>><?php echo round(($stockQty / $row['factor']), 1); ?> <span class="tabOn-Stk">On stock</span></p>
 
                                                             </div>
                                                             <!-- <input type="text" class="form-control note-itm" placeholder="Note"> -->

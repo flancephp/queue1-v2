@@ -492,21 +492,21 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
 
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?></label>
+                                                        <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input required type="text" class="form-control" name="name" id="name"
+                                                        <input oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required type="text" class="form-control" name="name" id="name"
                                                             value="<?php echo $deptUserRow['name']; ?>"
                                                             placeholder="Casa Kitchen">
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?></label>
+                                                        <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?>:<span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                            <select name="deptId" id="deptId" class="form-select selectOption" required>
+                                                            <select name="deptId" id="deptId" class="form-select selectOption" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required>
 
                                                                 <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
@@ -561,7 +561,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                 <div class="outletChk" id="revCenId" style="display:<?php echo $sqlResultRow > 0 ? 'block;' : 'none;'; ?>">
                                                     <div class="row align-items-center acntStp-Row">
                                                         <div class="col-md-4">
-                                                            <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?></label>
+                                                            <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?>:<span class="requiredsign">*</span></label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div class="cstmSelect">
@@ -591,7 +591,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                     </div>
                                                     <div class="row align-items-center acntStp-Row">
                                                         <div class="col-md-4">
-                                                            <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?></label>
+                                                            <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?>:<span class="requiredsign">*</span></label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div class="cstmSelect">
@@ -851,10 +851,10 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                         <h1 class="modal-title h1"><?php echo showOtherLangText('Add Follow Item') ?></h1>
                     </div>
                     <div class="modal-body">
-                        <input type="text" class="form-control" name="itemName" id="tags" required placeholder="<?php echo showOtherLangText('Assign Item'); ?>">
+                        <input type="text" class="form-control" name="itemName" id="tags" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required placeholder="<?php echo showOtherLangText('Assign Item'); ?>">
                         <input type="hidden" name="outLetId" value="<?php echo $_GET['revCenDeptId']; ?>" />
                         <input type="hidden" name="itemRowId" id="itemRowId" value="" />
-                        <select name="itemType" id="itemType" class="form-control" required>
+                        <select name="itemType" id="itemType" class="form-control" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required>
                             <option value=""><?php echo showOtherLangText('Select'); ?> <?php echo showOtherLangText('Item Type'); ?>
                             </option>
                             <?php
@@ -867,7 +867,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                             }
                             ?>
                         </select>
-                        <select class="form-control" name="subUnit" id="subUnit" required>
+                        <select class="form-control" name="subUnit" id="subUnit" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required>
                             <option value=""><?php echo showOtherLangText('Select'); ?> <?php echo showOtherLangText('Sub Unit'); ?>
                             </option>
 
@@ -880,7 +880,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
 
                             ?>
                         </select>
-                        <input type="text" class="form-control" name="factor" id="factor" placeholder="<?php echo showOtherLangText('Factor'); ?>" required />
+                        <input type="text" class="form-control" name="factor" id="factor" placeholder="<?php echo showOtherLangText('Factor'); ?>" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required />
                         <input type="text" class="form-control" name="minQty" id="minQty" placeholder="<?php echo showOtherLangText('Min Qty'); ?>" value="" />
                         <input type="text" class="form-control" name="maxQty" id="maxQty" placeholder="<?php echo showOtherLangText('Max Qty'); ?>" value="" />
 

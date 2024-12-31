@@ -295,7 +295,7 @@ if (isset($_POST['editSub-Category']) && $_POST['editSub-Category']  && $_POST['
                     <div class="modal-body">
                         <input type="hidden" name="parentId" class="form-control"
                             value="<?php echo $_REQUEST['parentId']; ?>">
-                        <input type="text" class="form-control" id="addSub-Category" name="addSub-Category" required placeholder="<?php echo showOtherLangText('Sub Category'); ?>*">
+                        <input type="text" class="form-control" id="addSub-Category" name="addSub-Category" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required placeholder="<?php echo showOtherLangText('Sub Category'); ?>*">
                     </div>
                     <div class="modal-footer">
                         <div class="btnBg">
@@ -321,7 +321,7 @@ if (isset($_POST['editSub-Category']) && $_POST['editSub-Category']  && $_POST['
 
                         <input type="hidden" name="id" id="edit-id" value="" />
                         <input type="hidden" name="parentId" id="parent-id" value="" />
-                        <input type="text" required class="form-control" id="editSub-Category" value="" name="editSub-Category" placeholder="<?php echo showOtherLangText('Sub Category*'); ?>">
+                        <input type="text" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" id="editSub-Category" value="" name="editSub-Category" placeholder="<?php echo showOtherLangText('Sub Category*'); ?>">
 
                     </div>
                     <div class="modal-footer">

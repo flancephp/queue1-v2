@@ -45,6 +45,10 @@ $curDetData = getCurrencyDet($ordRow['ordCurId']);
 
 $fileDataRows = [];
 if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '') {
+
+
+
+
     $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
 
 
@@ -130,6 +134,8 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
 
     }
 } elseif (isset($_POST['updateReceiving'])) {
+
+
     $sqlSet = " SELECT * FROM tbl_orders where id = '" . $_POST['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
     $ordQry = mysqli_query($con, $sqlSet);
     $ordResult = mysqli_fetch_array($ordQry);
@@ -338,7 +344,10 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
     mysqli_query($con, $qry);
 
     echo "<script>window.location = 'history.php?updated=1'</script>";
+    exit;
 } // end of elseif condition
+
+
 
 
 $sql = "SELECT cif.itemName, cif.unit, tod.* FROM " . $tbl_order_main_or_temp . " tod 
@@ -354,6 +363,45 @@ $sql = "SELECT tp.*, cm.amt curAmtMaster, od.price ordPrice, od.curPrice ordCurP
     
     WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "'   ";
 $orderQry = mysqli_query($con, $sql);
+
+$curDet = [];
+if ($ordRow['ordCurId'] > 0) {
+    $res = mysqli_query($con, " select * from tbl_currency WHERE id='" . $ordRow['ordCurId'] . "' ");
+    $curDet = mysqli_fetch_array($res);
+}
+
+// do this for net total for mobile receiving only --------------------------------------------------------
+$orderQryClone  = mysqli_query($con, $sql);
+$subTotalAmtDol = 0;
+$subTotalAmtOther = 0;
+$mobileStockPidArr = [];
+
+while ($row = mysqli_fetch_array($orderQryClone)) {
+
+    $sql = " SELECT * FROM  tbl_mobile_items_temp WHERE stockTakeId = '" . $ordRow['id'] . "'
+        AND account_id = '" . $_SESSION['accountId'] . "'   AND stockTakeType=3  AND status=1 AND pId = '" . $row['id'] . "'  ";
+    $itemTempQry = mysqli_query($con, $sql);
+    $itemTempRes = mysqli_fetch_array($itemTempQry);
+
+    if ($itemTempRes) {
+        $qtyVal = $itemTempRes['qty'];
+        $ordQty = $itemTempRes['qty'];
+        $mobileStockPidArr[] = $row['id'];
+
+        if ($itemTempRes['curId'] > 0 && $itemTempRes['curId'] != $curDet['id']) //default currency set in mobile version
+        {
+            $boxPrice = $itemTempRes['amt'];
+            $boxPriceOther = $itemTempRes['amt'] * $curDet['amt'];
+        } else {
+            $boxPrice = ($itemTempRes['curId'] > 0 && $curDet['is_default'] == 0 && $curDet['amt']) ? ($itemTempRes['amt'] / $curDet['amt']) : $itemTempRes['amt'];
+            $boxPriceOther = $itemTempRes['curId'] > 0 ? $itemTempRes['amt'] : (($itemTempRes['amt'] * $curDet['amt']));
+        }
+
+        $subTotalAmtDol += ($boxPrice * $qtyVal);
+        $subTotalAmtOther += ($boxPriceOther * $qtyVal);
+    }
+}
+//end ------------------------------------------------------------------------------------------------------
 
 ?>
 <!DOCTYPE html>
@@ -976,7 +1024,7 @@ $orderQry = mysqli_query($con, $sql);
                                                                                 <span><?php echo showOtherLangText('Download Sample File'); ?></span>
                                                                             </a>
                                                                         </li>
-                                                                        <input type="file" id="uploadFile" name="uploadFile" style="display:none">
+
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -1039,15 +1087,38 @@ $orderQry = mysqli_query($con, $sql);
                                                 <div class="prcTable">
                                                     <?php
 
-                                                    //get the sum of all product and item level charges 
+                                                    //get the sum of all product and item level charges in case not mobile receiving
+
+                                                    $subTotCond = '';
+                                                    if (!empty($mobileStockPidArr) && $subTotalAmtDol > 0) {
+
+                                                        $subTotCond = " AND  pId NOT IN(" . implode(',', $mobileStockPidArr) . ")  ";
+                                                    }
+
                                                     $sqlSet = "SELECT *, SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM " . $tbl_order_main_or_temp . " 
 
-                        WHERE account_id = '" . $_SESSION['accountId'] . "' AND ordId='" . $_GET['orderId'] . "' AND (customChargeType='1' OR customChargeType='0')";
+                        WHERE account_id = '" . $_SESSION['accountId'] . "' AND ordId='" . $_GET['orderId'] . "' AND customChargeType='0' 
+                        
+                        " . $subTotCond;
 
                                                     $resultSet = mysqli_query($con, $sqlSet);
                                                     $chargeRow = mysqli_fetch_array($resultSet);
-                                                    $chargePrice = $chargeRow['sum1'];
-                                                    $chargePriceOther = $chargeRow['totalAmtOther'];
+
+                                                    //needed to run two code for now since product id of main and custom its may be same
+                                                    $sqlSet = "SELECT *, SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM " . $tbl_order_main_or_temp . " 
+
+                        WHERE account_id = '" . $_SESSION['accountId'] . "' AND ordId='" . $_GET['orderId'] . "' AND  customChargeType='1'
+                        
+                        ";
+
+                                                    $resultSet = mysqli_query($con, $sqlSet);
+                                                    $customChargeRow = mysqli_fetch_array($resultSet);
+
+
+                                                    $chargePrice = $chargeRow['sum1'] + $customChargeRow['sum1'] + $subTotalAmtDol;
+                                                    $chargePriceOther = $chargeRow['totalAmtOther'] + $customChargeRow['totalAmtOther'] + $subTotalAmtOther;
+
+
 
                                                     //to find order level charge
                                                     $ordCount = "SELECT * from " . $tbl_order_main_or_temp . " where ordId='" . $_GET['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' AND customChargeType='2' ";
@@ -1277,8 +1348,7 @@ $orderQry = mysqli_query($con, $sql);
                                     </div>
                                     <?php
                                     if ($ordRow['ordCurId'] > 0) {
-                                        $res = mysqli_query($con, " select * from tbl_currency WHERE id='" . $ordRow['ordCurId'] . "' ");
-                                        $curDet = mysqli_fetch_array($res);
+
 
                                     ?>
                                         <div class="recCr-Type d-flex align-items-center">
@@ -1304,9 +1374,9 @@ $orderQry = mysqli_query($con, $sql);
                                     <div class="dflt-RecPrc tb-head">
                                         <p><?php echo showOtherLangText('P.Price'); ?>(<?php echo $getDefCurDet['curCode'] ?>)</p>
                                     </div>
-                                    <div class="othr-RecPrc tb-head">
+                                    <!--<div class="othr-RecPrc tb-head">
                                         <p></p>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                             <div class="recTtlPrc-Type d-flex align-items-center">
@@ -1397,9 +1467,9 @@ $orderQry = mysqli_query($con, $sql);
                                                 <p><?php echo showOtherCur($showCif['curAmt'], $showCif['currencyId']); ?></p>
                                             </div>
                                         </div>
-                                    <?php } else { ?>
+                                    <?php }  ?>
 
-                                    <?php } ?>
+
                                     <div class="recBr-Hide">
                                     </div>
                                 </div>
@@ -1439,8 +1509,16 @@ $orderQry = mysqli_query($con, $sql);
                                 $qtyVal = $itemTempRes['qty'];
                                 $ordQty = $itemTempRes['qty'];
 
-                                $boxPrice = ($itemTempRes['curId'] > 0 && $curDet['is_default'] == 0 && $curDet['amt']) ? ($itemTempRes['amt'] / $curDet['amt']) : $itemTempRes['amt'];
-                                $boxPriceOther = $itemTempRes['curId'] > 0 ? $itemTempRes['amt'] : (($itemTempRes['amt'] * $curDet['amt']));
+
+                                if ($itemTempRes['curId'] > 0 && $itemTempRes['curId'] != $curDet['id']) //default currency set in mobile version
+                                {
+                                    $boxPrice = $itemTempRes['amt'];
+                                    $boxPriceOther = $itemTempRes['amt'] * $curDet['amt'];
+                                } else {
+                                    $boxPrice = ($itemTempRes['curId'] > 0 && $curDet['is_default'] == 0 && $curDet['amt']) ? ($itemTempRes['amt'] / $curDet['amt']) : $itemTempRes['amt'];
+                                    $boxPriceOther = $itemTempRes['curId'] > 0 ? $itemTempRes['amt'] : (($itemTempRes['amt'] * $curDet['amt']));
+                                }
+
                                 $subTotalAmtDol += ($boxPrice * $qtyVal);
                                 $subTotalAmtOther += ($boxPriceOther * $qtyVal);
                             } else {
@@ -1502,7 +1580,7 @@ $orderQry = mysqli_query($con, $sql);
                                                     onChange="showTotal('<?php echo $x; ?>')" class="form-control qty-itm" placeholder="1"><?php echo $getDefCurDet['curCode'] ?>
                                             </div>
                                             <?php
-                                            if (isset($curDet)) {
+                                            if ($ordRow['ordCurId'] > 0) {
                                                 $showOtherCurrency = showOtherCur($boxPriceOther, $curDet['id']);
                                                 $showOtherCurrency = trim($showOtherCurrency, $curDet['curCode']);
 
@@ -1523,14 +1601,17 @@ $orderQry = mysqli_query($con, $sql);
                                         <div class="ttlDft-RecPrc tb-bdy">
                                             <p id="totalPrice<?php echo $x; ?>"><?php echo showPrice($boxPrice * $qtyVal, $getDefCurDet['curCode']); ?></p>
                                         </div>
-                                        <div class="ttlOtr-RecPrc tb-bdy">
-                                            <p id="totalPrice<?php echo $x; ?>"><?php
-                                                                                if (isset($curDet)) {
-                                                                                    $newCurAmt = ($boxPriceOther * $qtyVal);
-                                                                                    echo '<span id="totalPriceOther' . $x . '" style="font-weight: bold;">' . showOtherCur($newCurAmt, $curDet['id']) . '</span>';
-                                                                                }
-                                                                                ?></p>
-                                        </div>
+                                        <?php
+                                        if ($ordRow['ordCurId'] > 0) { ?>
+                                            <div class="ttlOtr-RecPrc tb-bdy">
+                                                <p id="totalPrice<?php echo $x; ?>">
+                                                    <?php $newCurAmt = ($boxPriceOther * $qtyVal);
+                                                    echo '<span id="totalPriceOther' . $x . '" style="font-weight: bold;">' . showOtherCur($newCurAmt, $curDet['id']) . '</span>';
+                                                    ?>
+                                                </p>
+                                            </div>
+                                        <?php }
+                                        ?>
                                     </div>
                                     <div class="recBr-Hide">
                                         <div class="recQty-Code cloneQty-Code align-items-center">

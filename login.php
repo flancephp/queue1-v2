@@ -1,77 +1,91 @@
 <?php
 include('inc/dbConfig.php'); //connection details
 
-if (isset($_SESSION['adminidusername'])) {
-    echo "<script>window.location='index.php'</script>";
-    exit;
+if (isset($_SESSION['adminidusername'])) 
+{
+  echo "<script>window.location='index.php'</script>";
+  exit;
 }
 
 
-if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
-    $url = 'mobileNew/index.php';
-    echo "<script>window.location.href='" . $url . "';</script>";
-    exit;
+if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1)
+{
+	$url = 'mobileNew/index.php';
+	echo "<script>window.location.href='".$url."';</script>";
+	exit;
 }
+		
 
 
+if (isset($_POST['languageType'])) 
+{
+	
+	$_SESSION['languageType'] = $_POST['languageType'];
 
-if (isset($_POST['languageType'])) {
+	if (isset($_SESSION['languageType'])) {
+		$getOtherTextArr = getOtherText($_SESSION['languageType']);
+		$getLangType = getLangType($_SESSION['languageType']);
+	}
 
-    $_SESSION['languageType'] = $_POST['languageType'];
-
-    if (isset($_SESSION['languageType'])) {
-        $getOtherTextArr = getOtherText($_SESSION['languageType']);
-        $getLangType = getLangType($_SESSION['languageType']);
-    }
 }
 
 $msg = ""; //initial status
 
-if (isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] > 0) {
-    // Retrieve username and password from database according to user's input, preventing sql injection
-    $query = " SELECT c.language_id, u.* FROM tbl_client c INNER JOIN tbl_user
+if(isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit'] > 0)
+{
+	// Retrieve username and password from database according to user's input, preventing sql injection
+	$query =" SELECT c.language_id, u.* FROM tbl_client c INNER JOIN tbl_user
 	u ON(u.account_Id = c.id) AND u.account_Id = c.id WHERE u.
-	username='" . $_POST['username'] . "' AND (u.password='" . $_POST['password'] . "' OR u.password='" . md5($_POST['password']) . "') AND u.status = '1'  AND c.accountNumber='" . $_POST['accountNumber'] . "' ";
-    $result = mysqli_query($con, $query);
-    $res = mysqli_fetch_array($result);
+	username='".$_POST['username']."' AND (u.password='".$_POST['password']."' OR u.password='".md5($_POST['password'])."') AND u.status = '1'  AND c.accountNumber='". $_POST['accountNumber']."' ";
+	$result = mysqli_query($con, $query);
+ 	$res = mysqli_fetch_array($result);
 
 
-    // Check username and password match
-    if (!empty($res)) {
-        // Set username session variable
-        $_SESSION['adminidusername'] = $_POST['username'];
-        $_SESSION['id'] = $res['id'];
-        $_SESSION['designation_id'] = $res['designation_id'];
-        $_SESSION['isAdmin'] = $res['userType'];
-        $_SESSION['adminUser'] = $res['isAdmin'];
-        $_SESSION['language_id'] = $res['language_id'];
-        $_SESSION['name'] = $res['name'];
-        $_SESSION['accountId'] = $res['account_id'];
+	// Check username and password match
+	if (!empty($res)) 
+	{
+		// Set username session variable
+		$_SESSION['adminidusername'] = $_POST['username'];
+		$_SESSION['id'] = $res['id'];
+		$_SESSION['designation_id'] = $res['designation_id'];
+		$_SESSION['isAdmin'] = $res['userType'];
+		$_SESSION['adminUser'] = $res['isAdmin'];
+		$_SESSION['language_id'] = $res['language_id']; 
+		$_SESSION['name'] = $res['name']; 
+    $_SESSION['accountId'] = $res['account_id'];
+		
+		if(isset($_POST['cookieChk']) && $_POST['cookieChk'] !='')
+		{
+			setcookie('usernameChk', $_POST['username'], time() + (86400 * 30 * 30), "/"); // 86400 = 1 day
+			setcookie('passwordChk', $_POST['password'], time() + (86400 * 30 * 30), "/"); // 86400 = 1 day
+		}
+		else
+		{
+			setcookie('usernameChk', '', time() - (86400 * 30 * 30), "/"); // 86400 = 1 day
+			setcookie('passwordChk', '', time() - (86400 * 30 * 30), "/"); // 86400 = 1 day
+		}
+		
+		$url = 'runningOrders.php';
 
-        if (isset($_POST['cookieChk']) && $_POST['cookieChk'] != '') {
-            setcookie('usernameChk', $_POST['username'], time() + (86400 * 30 * 30), "/"); // 86400 = 1 day
-            setcookie('passwordChk', $_POST['password'], time() + (86400 * 30 * 30), "/"); // 86400 = 1 day
-        } else {
-            setcookie('usernameChk', '', time() - (86400 * 30 * 30), "/"); // 86400 = 1 day
-            setcookie('passwordChk', '', time() - (86400 * 30 * 30), "/"); // 86400 = 1 day
-        }
+		if($res['userType'] == 1)
+		{
+			$url = 'mobileNew/index.php';
+		}
+		echo "<script>window.location.href='".$url."';</script>";
+			
+	}
+	else
+	{
+		$msg = ' '.showOtherLangText('Username And Password Not Matched Or May Be Your Account Is Inactive.').' ';
+	}
 
-        $url = 'runningOrders.php';
-
-        if ($res['userType'] == 1) {
-            $url = 'mobileNew/index.php';
-        }
-        echo "<script>window.location.href='" . $url . "';</script>";
-    } else {
-        $msg = ' ' . showOtherLangText('Username And Password Not Matched Or May Be Your Account Is Inactive.') . ' ';
-    }
-}
+} 
 
 
 ?>
 
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -104,12 +118,12 @@ if (isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit']
 
                     <div>
                         <h1 class="h1 text-center pb-5"><?php echo showOtherLangText('Login'); ?></h1>
-                        <?php if (isset($msg) && $msg != '') { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($msg) ? $msg : ''; ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                        <?php if(isset($msg) && $msg!='') { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php echo isset($msg) ? $msg:''; ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <?php } ?>
                         <form class="login-form" name="loginForm" id="loginForm" role="form" action="" method="post">
                             <input type="hidden" name="chksubmit" id="chksubmit" value="">
@@ -118,7 +132,7 @@ if (isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit']
                                     <span class="btn"><i class=" fa fa-user"></i></span>
                                 </div>
                                 <input type="text" class="form-control" id="username" name="username"
-                                    value="<?php echo isset($_COOKIE['usernameChk']) ? $_COOKIE['usernameChk'] : ''; ?>"
+                                    value="<?php echo isset($_COOKIE['usernameChk']) ? $_COOKIE['usernameChk'] : '';?>"
                                     placeholder="<?php echo showOtherLangText('Username') ?>" autocomplete="off">
                             </div>
 
@@ -128,7 +142,7 @@ if (isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit']
                                     <span class="btn"><i class=" fa fa-lock"></i></span>
                                 </div>
                                 <input type="password" class="form-control" id="password" name="password"
-                                    value="<?php echo isset($_COOKIE['passwordChk']) ? $_COOKIE['passwordChk'] : ''; ?>"
+                                    value="<?php echo isset($_COOKIE['passwordChk']) ? $_COOKIE['passwordChk'] : '';?>"
                                     placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="off">
 
                                 <div class="input-group-append password-toggle-icon">
@@ -151,7 +165,7 @@ if (isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit']
                                 <label for="remember"><?php echo showOtherLangText('Remember Me') ?></label>
                                 <input type="checkbox" value="1" name="cookieChk" id="cookieChk"
                                     class="form-check-input"
-                                    <?php echo (isset($_COOKIE['usernameChk']) && $_COOKIE['usernameChk'] != '') ? 'checked="checked"' : ''; ?>>
+                                    <?php echo (isset($_COOKIE['usernameChk']) && $_COOKIE['usernameChk'] != '') ? 'checked="checked"' : '';?>>
 
                             </div>
 
@@ -189,22 +203,22 @@ if (isset($_POST['username']) && $_POST['username'] != '' && $_POST['chksubmit']
 
 </html>
 <script>
-    function checksubmit() {
-        $('#chksubmit').val('1');
-    }
+function checksubmit() {
+    $('#chksubmit').val('1');
+}
 </script>
 <script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const togglePasswordclick = document.querySelector('.password-toggle-icon');
-    const password = document.querySelector('#password');
+const togglePassword = document.querySelector('#togglePassword');
+const togglePasswordclick = document.querySelector('.password-toggle-icon');
+const password = document.querySelector('#password');
 
-    togglePasswordclick.addEventListener('click', function() {
-        // Toggle the type attribute
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
+togglePasswordclick.addEventListener('click', function() {
+    // Toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
 
-        // Toggle the icon
-        togglePassword.classList.toggle('fa-eye');
-        togglePassword.classList.toggle('fa-eye-slash');
-    });
+    // Toggle the icon
+    togglePassword.classList.toggle('fa-eye');
+    togglePassword.classList.toggle('fa-eye-slash');
+});
 </script>

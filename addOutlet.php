@@ -273,20 +273,20 @@ $deptResult = mysqli_query($con, $deptQry);
 
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?><span class="requiredsign">*</span></label>
+                                                    <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="name" id="name" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
+                                                    <input type="text" class="form-control" name="name" id="name" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required
                                                         placeholder="<?php echo showOtherLangText('Casa Kitchen'); ?>">
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
                                                 <div class="col-md-4">
-                                                    <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?><span class="requiredsign">*</span></label>
+                                                    <label for="Department" class="form-label"><?php echo showOtherLangText('Department'); ?>:<span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="cstmSelect">
-                                                        <select name="deptId" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required id="deptId" class="form-select selectOption">
+                                                        <select name="deptId" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required id="deptId" class="form-select selectOption">
                                                             <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                                             <?php
                                                             while ($deptRow = mysqli_fetch_array($deptResult)) {
@@ -318,7 +318,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                             <div class="outletChk" style="display:none;">
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?><span class="requiredsign">*</span></label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?>:<span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
@@ -329,8 +329,8 @@ $deptResult = mysqli_query($con, $deptQry);
 
                                                             ?>
                                                             <select name="revCenter" id="revCenter" class="form-select selectOption"
-                                                                aria-label="Default select example" id="selectRvcntr"
-                                                                onchange="getrevCenter();">
+                                                                aria-label="Default select example" id="selectRvcntr" 
+                                                                onchange="getrevCenter();" >
 
                                                                 <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
@@ -347,11 +347,11 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?><span class="requiredsign">*</span></label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Outlet Type'); ?>:<span class="requiredsign">*</span></label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                            <select name="outLetType" id="outLetType" class="form-select selectOption"
+                                                            <select name="outLetType" id="outLetType" class="form-select selectOption" 
                                                                 onchange="getOutletType();">
 
                                                                 <option value=""><?php echo showOtherLangText('Select'); ?></option>
@@ -379,7 +379,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 <div class="row align-items-center acntStp-Row">
 
                                                     <div class="col-md-4">
-                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Address'); ?></label>
+                                                        <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Address'); ?>:</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
@@ -389,7 +389,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row">
                                                     <div class="col-md-4">
-                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Email'); ?></label>
+                                                        <label for="outletType" class="form-label"><?php echo showOtherLangText('Email'); ?>:</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="email" class="form-control" name="email" id="email"
@@ -398,7 +398,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                 </div>
                                                 <div class="row align-items-center acntStp-Row chkOlt-Row">
                                                     <div class="col-md-4 phone__number">
-                                                        <label for="asgnEzcat" class="form-label"><?php echo showOtherLangText('Phone number'); ?></label>
+                                                        <label for="asgnEzcat" class="form-label"><?php echo showOtherLangText('Phone number'); ?>:</label>
                                                     </div>
                                                     <div class="col-md-8 phone__number">
                                                         <input type="text" class="form-control" name="phone" id="phone"
