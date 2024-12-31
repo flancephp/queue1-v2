@@ -374,6 +374,11 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                 width: 10%;
             }
         }
+        @media screen (min-width: 768px) and (max-width: 1025px) {
+            .icnOlt-Clm {
+                width: 7%;
+            }
+        }
     </style>
 </head>
 
@@ -464,7 +469,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                     <div class="col-md-6 addOutlet-Btn">
                                         <div class="itmLnk-Row">
 
-                                            <a style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>" href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto showHideRevData" data-bs-toggle="modal" data-bs-target="#add-Item">
+                                            <a style="display:<?php echo $sqlResultRow > 0 ? 'inline-flex' : 'none'; ?>" href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto showHideRevData" data-bs-toggle="modal" data-bs-target="#add-Item">
                                                 <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Add Item'); ?></span></span>
                                                 <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span>
                                             </a>
@@ -480,7 +485,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                             </div>
                         </div>
                         <div class="container itmMng-Src outletFrm">
-                            <div class="row">
+                            <div class="row g-0">
                                 <!--  <div class="col-xl-8 oltCol-8"> -->
                                 <div>
                                     <div class="acntStp padRight40">
@@ -698,11 +703,11 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                         </div>
                     </form>
                     <div class="container">
-                        <p class="subTittle1 flowItm showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>"><?php echo showOtherLangText('Follow Items List'); ?></p>
+                        <p class="subTittle1 flowItm showHideRevData d-none d-lg-block" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>"><?php echo showOtherLangText('Follow Items List'); ?></p>
                     </div>
                     <div class="container outlet-Tblhead position-relative showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>">
                         <!-- Item Table Head Start -->
-                        <div class="d-flex align-items-center itmTable">
+                        <div class="d-none d-lg-flex align-items-center itmTable">
                             <div class="tb-head imgOlt-Clm">
                                 <p><?php echo mysqli_num_rows($outLetItemsQry); ?>#</p>
                             </div>
