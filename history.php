@@ -1220,44 +1220,141 @@ if ($getTxtById == 'storeId') {
             }
 
             /* dynamic class styles */
-            .numRef.colSize3 > div { width: 33% !important; }
-            .numRef.colSize2 > div { width: 50% !important; }
-            .numRef.colSize1 > div { width: 100% !important; }
-            .numRef.colSize3 > div:first-child, .numRef.colSize2 > div:first-child, .numRef.colSize1 > div:first-child { width: 4rem !important; }
-            .stsHiscol.colSize4 > div.tb-bdy { width: 25% !important;max-width: 100%; }
-            .stsHiscol.colSize3 > div.tb-bdy { width: 33% !important;max-width: 100%; }
-            .stsHiscol.colSize2 > div.tb-bdy { width: 50% !important;max-width: 100%; }
-            .stsHiscol.colSize1 > div.tb-bdy { width: 100% !important;max-width: 100%; }
+            .numRef.colSize3>div {
+                width: 33% !important;
+            }
+
+            .numRef.colSize2>div {
+                width: 50% !important;
+            }
+
+            .numRef.colSize1>div {
+                width: 100% !important;
+            }
+
+            .numRef.colSize3>div:first-child,
+            .numRef.colSize2>div:first-child,
+            .numRef.colSize1>div:first-child {
+                width: 4rem !important;
+            }
+
+            .stsHiscol.colSize4>div.tb-bdy {
+                width: 25% !important;
+                max-width: 100%;
+            }
+
+            .stsHiscol.colSize3>div.tb-bdy {
+                width: 33% !important;
+                max-width: 100%;
+            }
+
+            .stsHiscol.colSize2>div.tb-bdy {
+                width: 50% !important;
+                max-width: 100%;
+            }
+
+            .stsHiscol.colSize1>div.tb-bdy {
+                width: 100% !important;
+                max-width: 100%;
+            }
 
             .stsHiscol.colSize2 .hisStatusclm .dropdown-toggle,
-            .stsHiscol.colSize3 .hisStatusclm .dropdown-toggle { width: 100% !important;max-width: 122px !important; }
-            .dropdnbtns.colSize5.colSize2 .numRef, .cntTableData .colSize5.colSize2 .numRef { width: calc(77% - 195px) !important; }
+            .stsHiscol.colSize3 .hisStatusclm .dropdown-toggle {
+                width: 100% !important;
+                max-width: 122px !important;
+            }
 
-            .fgcolSize3.colSize4 .hisValclm { width: 10% !important; }
-            .fgcolSize3.colSize4.dropdnbtns .numRef, .cntTableData .fgcolSize3.colSize4 .numRef {
+            .dropdnbtns.colSize5.colSize2 .numRef,
+            .cntTableData .colSize5.colSize2 .numRef {
+                width: calc(77% - 195px) !important;
+            }
+
+            .fgcolSize3.colSize4 .hisValclm {
+                width: 10% !important;
+            }
+
+            .fgcolSize3.colSize4.dropdnbtns .numRef,
+            .cntTableData .fgcolSize3.colSize4 .numRef {
                 width: calc(50% - 195px) !important;
             }
 
-            .dropdnbtns.fgcolSize2 .numRef, .cntTableData .fgcolSize2 .numRef { width: calc(46% - 195px) !important; }
-            .fgcolSize2 .hisValclm { width: 12% !important; } 
-            .dropdnbtns.fgcolSize2.lgcolSize2 .numRef, .cntTableData .fgcolSize2.lgcolSize2 .numRef { width: calc(60% - 195px) !important; }
-            .dropdnbtns.fgcolSize2.lgcolSize2 .stsHiscol.colSize2 { width: 40% !important; }
-            
-            .dropdnbtns.fgcolSize1 .numRef, .cntTableData .fgcolSize1 .numRef { width: calc(30% - 195px) !important; }
-            .fgcolSize1 .hisValclm { width: 15% !important; } 
-            .dropdnbtns.fgcolSize1 .stsHiscol, .cntTableData .fgcolSize1 .stsHiscol { width: 40% !important; }
-            .dropdnbtns.fgcolSize0 .numRef, .cntTableData .fgcolSize0 .numRef { width: 0% !important; }
+            .dropdnbtns.fgcolSize2 .numRef,
+            .cntTableData .fgcolSize2 .numRef {
+                width: calc(46% - 195px) !important;
+            }
 
-            .dropdnbtns.lgcolSize1 .stsHiscol, .cntTableData .lgcolSize1 .stsHiscol { width: 10% !important; }
-            .dropdnbtns.lgcolSize1.fgcolSize3 .stsHiscol, .cntTableData .lgcolSize1.fgcolSize3 .stsHiscol { width: 10% !important; }
-            .dropdnbtns.lgcolSize1 .numRef, .cntTableData .lgcolSize1 .numRef { width: calc(74% - 185px) !important; }
-            .dropdnbtns.lgcolSize1.fgcolSize3 .numRef, .cntTableData .lgcolSize1.fgcolSize3 .numRef { width: calc(74% - 185px) !important; }
-            .dropdnbtns.lgcolSize2 .stsHiscol, .cntTableData .lgcolSize2 .stsHiscol { width: 24% !important; }
-            .lgcolSize2 .hisValclm { width: 11% !important; }
-            .lgcolSize1.fgcolSize3 .hisValclm { width: 11% !important; }
+            .fgcolSize2 .hisValclm {
+                width: 12% !important;
+            }
 
-            .lgcolSize0 .stsHiscol.colSize0, .lgcolSize0 .stsHiscol.colSize0 { width: 0% !important; }
-            .dropdnbtns.lgcolSize0 .numRef, .cntTableData .lgcolSize0 .numRef {
+            .dropdnbtns.fgcolSize2.lgcolSize2 .numRef,
+            .cntTableData .fgcolSize2.lgcolSize2 .numRef {
+                width: calc(60% - 195px) !important;
+            }
+
+            .dropdnbtns.fgcolSize2.lgcolSize2 .stsHiscol.colSize2 {
+                width: 40% !important;
+            }
+
+            .dropdnbtns.fgcolSize1 .numRef,
+            .cntTableData .fgcolSize1 .numRef {
+                width: calc(30% - 195px) !important;
+            }
+
+            .fgcolSize1 .hisValclm {
+                width: 15% !important;
+            }
+
+            .dropdnbtns.fgcolSize1 .stsHiscol,
+            .cntTableData .fgcolSize1 .stsHiscol {
+                width: 40% !important;
+            }
+
+            .dropdnbtns.fgcolSize0 .numRef,
+            .cntTableData .fgcolSize0 .numRef {
+                width: 0% !important;
+            }
+
+            .dropdnbtns.lgcolSize1 .stsHiscol,
+            .cntTableData .lgcolSize1 .stsHiscol {
+                width: 10% !important;
+            }
+
+            .dropdnbtns.lgcolSize1.fgcolSize3 .stsHiscol,
+            .cntTableData .lgcolSize1.fgcolSize3 .stsHiscol {
+                width: 10% !important;
+            }
+
+            .dropdnbtns.lgcolSize1 .numRef,
+            .cntTableData .lgcolSize1 .numRef {
+                width: calc(74% - 185px) !important;
+            }
+
+            .dropdnbtns.lgcolSize1.fgcolSize3 .numRef,
+            .cntTableData .lgcolSize1.fgcolSize3 .numRef {
+                width: calc(74% - 185px) !important;
+            }
+
+            .dropdnbtns.lgcolSize2 .stsHiscol,
+            .cntTableData .lgcolSize2 .stsHiscol {
+                width: 24% !important;
+            }
+
+            .lgcolSize2 .hisValclm {
+                width: 11% !important;
+            }
+
+            .lgcolSize1.fgcolSize3 .hisValclm {
+                width: 11% !important;
+            }
+
+            .lgcolSize0 .stsHiscol.colSize0,
+            .lgcolSize0 .stsHiscol.colSize0 {
+                width: 0% !important;
+            }
+
+            .dropdnbtns.lgcolSize0 .numRef,
+            .cntTableData .lgcolSize0 .numRef {
                 width: calc(70% - 195px) !important;
             }
         }
@@ -2312,8 +2409,11 @@ if ($getTxtById == 'storeId') {
                 left: 4rem;
             }
         }
+
         @media (max-width: 991px) {
-            .paidIsue { align-items: flex-end; }
+            .paidIsue {
+                align-items: flex-end;
+            }
         }
 
         html[dir="rtl"] .ps-1 {
@@ -2387,7 +2487,11 @@ if ($getTxtById == 'storeId') {
         .table-cell.left__align__text .table-cell {
             width: 33% !important;
         }
-        .total__th { font-size: 1.125rem; }
+
+        .total__th {
+            font-size: 1.125rem;
+        }
+
         @media (max-width: 1700px) {
             .total__th {
                 font-size: 14px;
@@ -2623,8 +2727,8 @@ if ($getTxtById == 'storeId') {
                                                     class="fa-solid fa-arrows-rotate"></i></a>
                                         </div>
                                         <div class="reloadBtn m-0">
-                                            <a onClick="window.location.href='itemHistoryView.php?id=<?php echo $_GET['id']; ?>'"
-                                                href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                            <a
+                                                href="history.php?clearSearch=1"><i class="fa-solid fa-xmark"></i></a>
                                         </div>
                                     </div>
                                 </div>

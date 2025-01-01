@@ -342,9 +342,7 @@ if ($res['proType'] == 3) {
                                                                     <input type="radio" class="form-check-input mt-0" name="proType"
                                                                         <?php echo $res['proType'] == 3 ? 'checked="checked"' : ''; ?>
                                                                         value="3" onClick="showOtherItems(3);" autocomplete="off"
-                                                                        id="rawType"
-
-                                                                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
+                                                                        id="rawType" />
                                                                     <?php echo showOtherLangText('Raw') ?>
                                                                 </span>
                                                             </div>

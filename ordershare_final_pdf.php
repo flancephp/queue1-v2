@@ -386,7 +386,7 @@ if ($_GET['barcode'] == 1) {
 if ($_GET['price'] == 1) {
     $content .=  '<th style="font-weight:700;padding:8px 5px;">' . showOtherLangText('Price') . '(' . $getDefCurDet['curCode'] . ')</th>';
 }
-if ($_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0) {
+if ($_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0) {
     $content .=  '<th style="font-weight:700;padding:8px 5px;">' . showOtherLangText('Price') . '(' . $curDet['curCode'] . ')</th>';
 }
 if ($_GET['unit'] == 1) {
@@ -401,7 +401,7 @@ if ($_GET['receivedQty'] == 1) {
 if ($_GET['total'] == 1) {
     $content .=  '<th style="font-weight:700;padding:8px 5px;">' . showOtherLangText('Total') . '(' . $getDefCurDet['curCode'] . ')</th>';
 }
-if ($_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0) {
+if ($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0) {
     $content .=  '<th style="font-weight:700;padding:8px 5px;">' . showOtherLangText('Total') . '(' . $curDet['curCode'] . ')</th>';
 }
 if ($_GET['note'] == 1) {
@@ -491,7 +491,7 @@ while ($row = mysqli_fetch_array($proresultSet)) {
         $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur($row['price'] * $row['factor'], $getDefCurDet['curCode']) . '</td>';
     }
-    if ($_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0) {
+    if ($_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0) {
         $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur($row['curPrice'] * $row['factor'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
     }
@@ -509,7 +509,7 @@ while ($row = mysqli_fetch_array($proresultSet)) {
         $content .=  '<td style="padding: 5px;">
                 ' . getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']) . '</td>';
     }
-    if ($_GET['secondCurrency'] == 1 && $ordDet['ordCurId'] > 0) {
+    if ($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0) {
         $content .=  '<td style="padding: 5px;">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace']) . '</td>';
     }
     if ($_GET['note'] == 1) {

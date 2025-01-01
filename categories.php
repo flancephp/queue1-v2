@@ -261,6 +261,9 @@ if (isset($_POST['editCategory']) && $_POST['editCategory']  && $_POST['id'] > 0
                                     <?php
                                     $x = 0;
                                     while ($row = mysqli_fetch_array($result)) {
+                                        if ($row['parentId']) {
+                                            continue;
+                                        }
                                         $color = ($x % 2 == 0) ? 'white' : '#FFFFCC';
                                         $x++;
                                     ?>

@@ -94,31 +94,43 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
 
 
         //update excel data
-        $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
+        $fileDataRowsTemp = [];
+        if (isset($fileDataRows[$row['barCode']])) {
+
+            $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
                          FROM " . $tbl_order_main_or_temp . " od 
 
                         INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
 
                         LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
 
-                        WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "'   ";
+                        WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' AND tp.barCode IN(" . $row['barCode'] . ")  ";
 
-        $ordQry = mysqli_query($con, $sql);
+            $ordQry = mysqli_query($con, $sql);
 
-        while ($row = mysqli_fetch_array($ordQry)) {
-            if (isset($fileDataRows[$row['barCode']])) {
+            $updatedPriceTempArr = [];
+
+
+            while ($row = mysqli_fetch_array($ordQry)) {
+
 
                 $receivedRow = $fileDataRows[$row['barCode']];
                 $qtyVal = $receivedRow['qty'];
                 $ordQty = $receivedRow['qty'];
-                $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor'] * $row['ordPrice'];
+                $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] :  $row['ordPrice'];
+
+                $updatedPriceTempArr['boxPrice'] = $boxPrice;
+
 
                 $boxPriceOther = ($boxPrice * $curDetData['amt']);
 
                 if ($row['currencyId'] > 0) {
 
-                    $curPrice = (($boxPrice / $row['ordFactor']) * $curDetData['amt']);
-                    $curAmt = ($curPrice * $row['ordFactor'] * $ordQty);
+                    $curPrice = $boxPrice * $curDetData['amt'];
+                    $curAmt = $curPrice * $ordQty;
+
+                    $fileDataRows[$row['barCode']]['curPrice'] = $curPrice;
+                    $fileDataRows[$row['barCode']]['curAmt'] = $curAmt;
                 }
 
                 $upQry = " UPDATE " . $tbl_order_main_or_temp . " SET 
@@ -129,7 +141,10 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
                                 `curAmt` = '" . $curAmt . "' 
                                 WHERE ordId = '" . $row['ordId'] . "' AND pId = '" . $row['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
                 mysqli_query($con, $upQry);
+
+                $fileDataRowsTemp = $fileDataRows;
             }
+            unset($fileDataRows);
         }  //update excel data
 
     }
@@ -1271,7 +1286,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                                 <?php
                                                                 if ($ordRow['ordCurId'] > 0) { ?>
                                                                     <div class="p-2 otherCurr">
-                                                                        <p>11.362 €</p>
+                                                                        <p>static data need to fix</p>
                                                                     </div>
                                                                 <?php } ?>
                                                             </div>
@@ -1496,15 +1511,15 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                             $itemTempQry = mysqli_query($con, $sql);
                             $itemTempRes = mysqli_fetch_array($itemTempQry);
 
-                            if (isset($fileDataRows[$row['barCode']])) {
-                                $receivedRow = $fileDataRows[$row['barCode']];
+                            if (isset($fileDataRowsTemp[$row['barCode']])) {
+                                $receivedRow = $fileDataRowsTemp[$row['barCode']];
                                 $qtyVal = $receivedRow['qty'];
                                 $ordQty = $receivedRow['qty'];
                                 $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor'] * $row['ordPrice'];
 
-                                $boxPriceOther = $receivedRow['priceOther'] > 0 ? $receivedRow['priceOther'] : $row['ordFactor'] * $row['curPrice'];
+                                $boxPriceOther = $receivedRow['curPrice'] > 0 ? $receivedRow['curPrice'] : 0;
 
-                                unset($fileDataRows[$row['barCode']]);
+                                unset($fileDataRowsTemp[$row['barCode']]);
                             } elseif ($itemTempRes) {
                                 $qtyVal = $itemTempRes['qty'];
                                 $ordQty = $itemTempRes['qty'];
@@ -1569,7 +1584,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                             <input type="text" id="qty<?php echo $x; ?>"
                                                 name="qty[<?php echo $row['id']; ?>]" autocomplete="off"
                                                 onChange="showTotal('<?php echo $x; ?>')"
-                                                value="<?php echo  $ordQty; ?>" class="form-control qty-itm recQty-Receive"
+                                                value="<?php echo  $qtyVal; ?>" class="form-control qty-itm recQty-Receive"
                                                 placeholder="1">
                                         </div>
                                         <div class="recCr-Type d-flex align-items-center">
@@ -1636,8 +1651,8 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
 
 
                         $notFoundProducts = [];
-                        if (isset($fileDataRows) && !empty($fileDataRows)) {
-                            foreach ($fileDataRows as $barCode => $receivedRow) {
+                        if (isset($fileDataRowsTemp) && !empty($fileDataRowsTemp)) {
+                            foreach ($fileDataRowsTemp as $barCode => $receivedRow) {
                                 $x++;
 
 
@@ -1655,7 +1670,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                 $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $productRes['factor'] * $productRes['price'];
                                 $qty = $receivedRow['qty'];
                             ?>
-                                <tr><input type="hidden" id="factor<?php echo $x; ?>" name="factor[]vvvvvvvvvvvvvvvv7777777777b6r5tcfxxxxxxxxxxxxxxxxxx">
+                                <tr><input type="hidden" id="factor<?php echo $x; ?>" name="factor[]">
                                     + <input type="hidden" id="supplierId<?php echo $x; ?>" name="supplierId[]"
                                         size="5" value="<?php echo $receivedRow['supplierId']; ?>">
 
@@ -1683,7 +1698,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                     <p> 0 <span class="tabOn-Qty">On stock</span></p>
                                                 </div>
                                             </div>
-                                            namespacemmnm mn <div class="recPrc-Unit d-flex">
+                                            <div class="recPrc-Unit d-flex">
                                                 <div class="tab-RecItm"></div>
                                                 <div class="recItm-Unit tb-bdy">
                                                     <p id="purUnit<?php echo $x; ?>"><?php echo $productRes['purchaseUnit']; ?></p>

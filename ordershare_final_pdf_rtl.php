@@ -243,7 +243,7 @@ if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
 
         $content .= '<td style="padding: 5px;width:30%;text-align: right;">';
         if ($_GET['secondCurrency']  == 1) {
-            $content .= showOtherCur($chargePriceOther, $ordDet['ordCurId']);
+            $content .= showOtherCur($chargePriceOther, $ordDet['ordCurId'], 1);
         }
         $content .= '</td>';
 
@@ -275,7 +275,7 @@ if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
                        
                         <td style="padding: 5px;border:0;width:30%;text-align: right;">';
         if ($_GET['secondCurrency']  == 1) {
-            $content .= showOtherCur($row['curAmt'], $ordDet['ordCurId']);
+            $content .= showOtherCur($row['curAmt'], $ordDet['ordCurId'], 1);
         }
         $content .=  '</td>
 
@@ -311,7 +311,7 @@ if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
                      
                      <td style="padding: 5px;border:0;width:30%;text-align: right;">';
         if ($_GET['secondCurrency']  == 1) {
-            $content .= showOtherCur($calDiscountOther, $ordDet['ordCurId']);
+            $content .= showOtherCur($calDiscountOther, $ordDet['ordCurId'], 1);
         }
         $content .=  '</td>
 
@@ -352,7 +352,7 @@ if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
                      
                      <td style="padding: 5px;border:0;width:30%;text-align: right;">';
         if ($_GET['secondCurrency']  == 1) {
-            $content .= showOtherCur($calTaxOther, $ordDet['ordCurId']);
+            $content .= showOtherCur($calTaxOther, $ordDet['ordCurId'], 1);
         }
         $content .=  '</td>
 
@@ -378,7 +378,7 @@ if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
                      
                      <td style="padding: 5px;border:0;width:30%;text-align: right;">';
         if ($_GET['secondCurrency']  == 1) {
-            $content .= showOtherCur($netTotalAmtOther, $ordDet['ordCurId']);
+            $content .= showOtherCur($netTotalAmtOther, $ordDet['ordCurId'], 1);
         }
         $content .=  '</td>
                          <td style="padding: 5px;border:0;width:30%;text-align: right;">';
