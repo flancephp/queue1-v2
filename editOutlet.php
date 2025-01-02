@@ -374,10 +374,12 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                 width: 10%;
             }
         }
-        @media screen (min-width: 768px) and (max-width: 1025px) {
+        @media (min-width: 768px) and (max-width: 1025px) {
             .icnOlt-Clm {
                 width: 7%;
             }
+            .icnOlt-Clm { width: 7%; }
+            .icnOlt-Clm > .tb-bdy { padding: 10px 0; }
         }
     </style>
 </head>

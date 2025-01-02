@@ -683,6 +683,7 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
         .table-cell.left__align__text .table-cell {
             width: 33% !important;
         }
+        .amountSections { text-align: right; }
     </style>
 </head>
 

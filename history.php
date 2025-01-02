@@ -1091,10 +1091,10 @@ if ($getTxtById == 'storeId') {
             }
 
             /* .hisStatusclm,
-        .hisAcntclm {
-            width: 25% !important;
-            padding-left:0px;
-        } */
+            .hisAcntclm {
+                width: 25% !important;
+                padding-left:0px;
+            } */
 
 
 
@@ -1106,7 +1106,7 @@ if ($getTxtById == 'storeId') {
             /* .hisRefrclm {min-width:150px;} */
             /* .hisDateclm {min-width: 65px;} */
             /* .numItmclm {min-width: 70px;}
-        .srHisclm {min-width: 35px !important;} */
+            .srHisclm {min-width: 35px !important;} */
             .stsHiscol,
             .numRe {
                 flex-grow: 1;
@@ -1203,7 +1203,7 @@ if ($getTxtById == 'storeId') {
             /* .hisStatusclm, .hisAcntclm {
             width: 30% !important;
             padding-left: 0px;
-        } */
+            } */
             .numRef3.numRef3 {
                 width: 15% !important;
                 flex-grow: 0 !important;
@@ -1230,6 +1230,7 @@ if ($getTxtById == 'storeId') {
 
             .numRef.colSize1>div {
                 width: 100% !important;
+                max-width: 400px;
             }
 
             .numRef.colSize3>div:first-child,
@@ -1357,6 +1358,9 @@ if ($getTxtById == 'storeId') {
             .cntTableData .lgcolSize0 .numRef {
                 width: calc(70% - 195px) !important;
             }
+            .fgcolSize0 .numRef.colSize0 { width: 0% !important; }
+
+
         }
 
         /*       .hisTblbody1 .numRef .tb-bdy,

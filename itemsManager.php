@@ -439,9 +439,11 @@ $deprtOptions .= '</ul>';
             .fetItm-Mng { width: 50%;  }
             .bkItm-MngBtn { display: flex;justify-content: space-between;align-items: center; }
             .prcItm-MngClm > div { width: 33%;display: inline-block; }
+            
         }
         @media (min-width:992px) and (max-width: 1025px) {
             .mbItm-MngIcns { top:8.5rem; } 
+            .prcItm-MngClm { margin-left: 30%; }
         }
         @media screen and (max-width: 575px) {
             .itmMng-xlIcn { gap: 8px; }
