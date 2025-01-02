@@ -684,6 +684,8 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
             width: 33% !important;
         }
         .amountSections { text-align: right; }
+        .sumBreakupAmtText { text-align: left; }
+        html[dir="rtl"] .sumBreakupAmtText { text-align: right; }
     </style>
 </head>
 

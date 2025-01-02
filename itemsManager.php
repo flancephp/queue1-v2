@@ -444,6 +444,7 @@ $deprtOptions .= '</ul>';
         @media (min-width:992px) and (max-width: 1025px) {
             .mbItm-MngIcns { top:8.5rem; } 
             .prcItm-MngClm { margin-left: 30%; }
+            .prcItm-MngClm > div { width: 27%;display: inline-block; }
         }
         @media screen and (max-width: 575px) {
             .itmMng-xlIcn { gap: 8px; }
