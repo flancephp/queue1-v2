@@ -386,7 +386,8 @@ echo '<script>window.location = "history.php?orderId='.$_POST['orderId'].'&payme
                         ?>
 
                                     <p class="f-01 mb-0 payment-status-text">
-                                        <?php echo showOtherLangText('PENDING'); ?></h3>
+                                        <?php // echo showOtherLangText('PENDING'); ?> 
+                                        <?php echo showOtherLangText('RECEIVED'); ?></h3>
                                     </p>
 
                                     <?php 
