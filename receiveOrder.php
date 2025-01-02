@@ -94,32 +94,29 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
 
 
         //update excel data
-        $fileDataRowsTemp = [];
-        if (isset($fileDataRows[$row['barCode']])) {
 
-            $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
+
+
+        $sql = "SELECT tp.*, od.price ordPrice, od.curPrice ordCurPrice, od.ordId, od.currencyId,  od.curPrice curPrice, od.curAmt curAmt, od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitP) purchaseUnit
                          FROM " . $tbl_order_main_or_temp . " od 
 
                         INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
 
                         LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
 
-                        WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' AND tp.barCode IN(" . $row['barCode'] . ")  ";
+                        WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "'   ";
 
-            $ordQry = mysqli_query($con, $sql);
-
-            $updatedPriceTempArr = [];
+        $ordQry = mysqli_query($con, $sql);
 
 
-            while ($row = mysqli_fetch_array($ordQry)) {
+        while ($row = mysqli_fetch_array($ordQry)) {
 
-
+            if (isset($fileDataRows[$row['barCode']])) {
                 $receivedRow = $fileDataRows[$row['barCode']];
                 $qtyVal = $receivedRow['qty'];
                 $ordQty = $receivedRow['qty'];
                 $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] :  $row['ordPrice'];
 
-                $updatedPriceTempArr['boxPrice'] = $boxPrice;
 
 
                 $boxPriceOther = ($boxPrice * $curDetData['amt']);
@@ -141,10 +138,7 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
                                 `curAmt` = '" . $curAmt . "' 
                                 WHERE ordId = '" . $row['ordId'] . "' AND pId = '" . $row['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
                 mysqli_query($con, $upQry);
-
-                $fileDataRowsTemp = $fileDataRows;
             }
-            unset($fileDataRows);
         }  //update excel data
 
     }
@@ -1511,15 +1505,15 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                             $itemTempQry = mysqli_query($con, $sql);
                             $itemTempRes = mysqli_fetch_array($itemTempQry);
 
-                            if (isset($fileDataRowsTemp[$row['barCode']])) {
-                                $receivedRow = $fileDataRowsTemp[$row['barCode']];
+                            if (isset($fileDataRows[$row['barCode']])) {
+                                $receivedRow = $fileDataRows[$row['barCode']];
                                 $qtyVal = $receivedRow['qty'];
                                 $ordQty = $receivedRow['qty'];
                                 $boxPrice = $receivedRow['price'] > 0 ? $receivedRow['price'] : $row['ordFactor'] * $row['ordPrice'];
 
                                 $boxPriceOther = $receivedRow['curPrice'] > 0 ? $receivedRow['curPrice'] : 0;
 
-                                unset($fileDataRowsTemp[$row['barCode']]);
+                                unset($fileDataRows[$row['barCode']]);
                             } elseif ($itemTempRes) {
                                 $qtyVal = $itemTempRes['qty'];
                                 $ordQty = $itemTempRes['qty'];
@@ -1651,8 +1645,8 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
 
 
                         $notFoundProducts = [];
-                        if (isset($fileDataRowsTemp) && !empty($fileDataRowsTemp)) {
-                            foreach ($fileDataRowsTemp as $barCode => $receivedRow) {
+                        if (isset($fileDataRows) && !empty($fileDataRows)) {
+                            foreach ($fileDataRows as $barCode => $receivedRow) {
                                 $x++;
 
 
