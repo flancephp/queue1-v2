@@ -369,17 +369,25 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                 padding-left: calc(var(--bs-gutter-x) * 0.5);
             }
         }
+
         @media screen and (max-width: 767px) {
             .icnOlt-Clm {
                 width: 10%;
             }
         }
+
         @media (min-width: 768px) and (max-width: 1025px) {
             .icnOlt-Clm {
                 width: 7%;
             }
-            .icnOlt-Clm { width: 7%; }
-            .icnOlt-Clm > .tb-bdy { padding: 10px 0; }
+
+            .icnOlt-Clm {
+                width: 7%;
+            }
+
+            .icnOlt-Clm>.tb-bdy {
+                padding: 10px 0;
+            }
         }
     </style>
 </head>
@@ -882,7 +890,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                             $untQry = " SELECT * FROM tbl_units WHERE account_id='" . $_SESSION['accountId'] . "' ";
                             $untResult = mysqli_query($con, $untQry);
                             while ($untRow = mysqli_fetch_array($untResult)) {
-                                echo "<option value='" . $untRow['id'] . "'>" . $untRow['name'] . "</option>";
+                                echo "<option value='" . $untRow['id'] . "'>" . $untRow['name'] . "</option>"; //
                             }
 
                             ?>

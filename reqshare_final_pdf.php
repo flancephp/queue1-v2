@@ -168,7 +168,7 @@ if (
         $amountColsPan--;
     }
     if ($_GET['amount']  == 1) {
-        $content .=  '<td  colspan="' . $amountColsPan . '">&nbsp;</td>';
+        $content .= $amountColsPan > 0 ? '<td  colspan="' . $amountColsPan . '">&nbsp;</td>' : '';
         $content .= '<td width="40%"  align="right">
                 <table style="width: 100%;">
                     <tr>
@@ -199,7 +199,7 @@ if (
     }
     if ($_GET['amount']  == 1) {
 
-        $content .=  '<td  colspan="' . $amountColsPan . '">&nbsp;</td>';
+        $content .= $amountColsPan > 0 ? '<td  colspan="' . $amountColsPan . '">&nbsp;</td>' : '';
         $content .=  '<td width="40%">
                 <table style="width: 100%;">
                     <tr>
@@ -491,7 +491,10 @@ if (
             $content .= '<td style="padding: 5px;">' . $itemName . '</td>';
         }
 
-        $content .= '<td style="padding: 5px;"></td>';
+        if ($_GET['barcode'] == 1) {
+            $content .= '<td style="padding: 5px;"></td>';
+        }
+
         $price = '';
         if ($_GET['price'] == 1 && $getColumnPermission['item_price'] == 1) {
             $price = getPriceWithCur($row['price'], $getDefCurDet['curCode']);

@@ -177,6 +177,8 @@ if (isset($_SESSION['fromDate']) && $_SESSION['fromDate'] != '' && $_SESSION['to
 } else {
     $_GET['fromDate'] = date('d-m-Y', strtotime('-3 days'));
     $_GET['toDate'] = date('d-m-Y');
+    $_SESSION['fromDate'] = $_GET['fromDate'];
+    $_SESSION['toDate'] = $_GET['toDate'];
 
     $cond = " AND DATE(o.setDateTime) BETWEEN '" . date('Y-m-d', strtotime($_GET['fromDate'])) . "' AND '" . date('Y-m-d', strtotime($_GET['toDate'])) . "' ";
     $cond1 = $cond;
@@ -1358,7 +1360,10 @@ if ($getTxtById == 'storeId') {
             .cntTableData .lgcolSize0 .numRef {
                 width: calc(70% - 195px) !important;
             }
-            .fgcolSize0 .numRef.colSize0 { width: 0% !important; }
+
+            .fgcolSize0 .numRef.colSize0 {
+                width: 0% !important;
+            }
 
 
         }
