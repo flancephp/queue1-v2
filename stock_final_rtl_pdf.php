@@ -140,21 +140,21 @@ if ($_GET['logo'] == 1) {
         $content .= '<img src="' . $siteUrl . 'uploads/pdf-logo-sample.png" alt="Logo" style="object-fit: scale-down; height: 60px; width: auto;">';
     }
 }
-$content .= '</td><td width="65%">&nbsp;</td>';
+$content .= '</td><td width="45%">&nbsp;</td>';
 
-$content .= '<td width="15%" style="text-align:right;" >';
+$content .= '<td width="35%" style="text-align:right;" >';
 if ($_GET['address'] == 1) {
-    $content .= '<table style="width: 100%; border-spacing: 0;">
+    $content .= '<table style="width: 100%; border-spacing: 0;text-align:right;">
                      <tbody>
-                        <tr>
-                           <td style="font-size: 14px; line-height: 16px; font-weight: 600;">' . $clientDetRow['accountName'] . '</td>
+                        <tr> 
+                           <td style="font-size: 14px; line-height: 16px; font-weight: 600;width: 100%;">' . $clientDetRow['accountName'] . '</td>
                         </tr>
                      </tbody>
                   </table>
                   <table style="width: 100%; border-spacing: 0; margin-top: 5px;">
                      <tbody>
                         <tr>
-                           <td style="font-size: 13px; line-height: 15px; font-weight: 400;">
+                           <td style="font-size: 13px; line-height: 15px; font-weight: 400;text-align:right;">
                               ' . reverseRTLTextForPdf($clientDetRow['address_one']) . ' <br>' . reverseRTLTextForPdf($clientDetRow['address_two']) . '
                               ' . reverseRTLTextForPdf($clientDetRow['city']) . ', ' . reverseRTLTextForPdf($clientDetRow['countryName']) . '<br>
                               ' . reverseRTLTextForPdf($clientDetRow['email']) . '<br>

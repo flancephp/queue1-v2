@@ -1293,11 +1293,7 @@ if ($getTxtById == 'storeId') {
             .dropdnbtns.fgcolSize2.lgcolSize2 .numRef,
             .cntTableData .fgcolSize2.lgcolSize2 .numRef {
                 width: calc(60% - 195px) !important;
-            }
-
-            .dropdnbtns.fgcolSize2.lgcolSize2 .stsHiscol.colSize2 {
-                width: 40% !important;
-            }
+            } 
 
             .dropdnbtns.fgcolSize1 .numRef,
             .cntTableData .fgcolSize1 .numRef {
@@ -1338,7 +1334,11 @@ if ($getTxtById == 'storeId') {
                 width: calc(74% - 185px) !important;
             }
 
-            .dropdnbtns.lgcolSize2 .stsHiscol,
+            .dropdnbtns.lgcolSize2 .stsHiscol.colSize2 {
+                width: 40% !important;
+            }
+
+            .dropdnbtns.lgcolSize2 .stsHiscol.colSize2,
             .cntTableData .lgcolSize2 .stsHiscol {
                 width: 24% !important;
             }
