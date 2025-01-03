@@ -2506,6 +2506,16 @@ if ($getTxtById == 'storeId') {
                 font-size: 14px;
             }
         }
+        @media (min-width: 1023px) and (max-width: 1100px) {
+            .update .itmBody>div:first-child p, .update .hisTask .tb-bdy {
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 1022px) {
+            .update .itmBody>div:first-child p, .update .hisTask .tb-bdy {
+                font-size: 1rem;
+            }
+        }
     </style>
 
 
