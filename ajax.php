@@ -98,7 +98,7 @@ if (isset($_POST['rawItemId']) && $_POST['rawItemId'] > 0) {
 	$res = mysqli_fetch_array($qry);
 
 	if ($res) {
-		echo round((($res['lastPrice'] * $_POST['qtyToCont']) / $_POST['qtyCont']), 2);
+		echo round((($res['stockPrice'] * $_POST['qtyToCont']) / $_POST['qtyCont']), 2);
 	} else {
 		echo '0';
 	}

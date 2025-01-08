@@ -615,7 +615,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                             ' . getItemType($row['outletItemType']) . '
                                         </div>
 
-                                        <div class="otltBd-stkPrc" title="Stock Price hideInMobile">
+                                        <div class="otlt-stkPrc" title="Stock Price hideInMobile">
                                             ' . getNumFormtPrice($stockPrice, $getDefCurDet['curCode'], $decimalPlace) . '
                                         </div>
 
@@ -1291,6 +1291,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                     $(".otlt-avgUsg").hide();
 
                 } else {
+                    $(".otlt-stkPrc").show();
                     $(".otltBd-Avr").show();
                     $(".otlt-avgUsg").show();
                 }

@@ -1884,11 +1884,11 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     <td class="criCols3"><?php echo ($rawItemRow['stockQty'] - $_POST['qtyToConvert']); ?></td>
 
                                     <td class="criCols3"><?php
-                                                            if ($rawItemRow['price'] !== '') {
-                                                                echo showPrice($rawItemRow['price'], $getDefCurDet['curCode']);
+                                                            if ($rawItemRow['stockPrice'] !== '') {
+                                                                echo showPrice($rawItemRow['stockPrice'], $getDefCurDet['curCode']);
                                                             } ?>
                                     </td>
-                                    <td class="criCols3"><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']) ?>
+                                    <td class="criCols3"><?php showPrice($_POST['qtyToConvert'] * $rawItemRow['stockPrice'], $getDefCurDet['curCode']) ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1906,7 +1906,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     <td><?php echo $convertItemRow['stockQty'] + $_POST['convertedQty']; ?></td>
 
                                     <td><?php echo showPrice($_POST['unitPrice'], $getDefCurDet['curCode']); ?></td>
-                                    <td><?php echo showPrice($_POST['qtyToConvert'] * $rawItemRow['price'], $getDefCurDet['curCode']); ?>
+                                    <td><?php echo showPrice($_POST['qtyToConvert'] * $rawItemRow['stockPrice'], $getDefCurDet['curCode']); ?>
                                     </td>
                                 </tr>
 
