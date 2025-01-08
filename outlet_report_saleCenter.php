@@ -609,10 +609,10 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         
                                         <div class="otltBd-itm">
-                                            <p>' . $row['itemName'] . '</p>
+                                            <p>' . $row['itemName'] .  '<br>' . $row['barCode'] . '</p>
                                         </div>
                                         <div class="otltBd-itm-typ">
-                                            ' . getItemType($row['outletItemType']) . '<br>' . $row['barCode'] . '
+                                            ' . getItemType($row['outletItemType']) . '
                                         </div>
 
                                         <div class="otltBd-stkPrc" title="Stock Price hideInMobile">
@@ -825,7 +825,15 @@ include_once('script/outlet_report_saleCenter_script.php');
                                 </div>
                                 <div class="col-md-5 var-Cstcol">
                                     <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                    <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?></p>
+                                    <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
+                                        <?php
+                                        if ($varPosAmt > 0 || $varNegAmt < 0) {
+                                            echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>, ' . $varPosAmt . $getDefCurDet['curCode'] . ')';
+                                        }
+                                        ?>
+                                    </p>
+
+
                                 </div>
                                 <div class="col-md-2 maxBtn">
                                     <a href="javascript:void(0)" class="maxLink">
@@ -883,7 +891,14 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         <div class="sale-Variance text-center saleVar-Inr">
                                             <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                            <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?></p>
+                                            <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
+
+                                                <?php
+                                                if ($varPosAmt > 0 || $varNegAmt < 0) {
+                                                    echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>, ' . $varPosAmt . $getDefCurDet['curCode'] . ')';
+                                                }
+                                                ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -953,12 +968,12 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
                                         <div class="otlt-hdImg"></div>
                                         <div class="otlt-itm">
-                                            <p><?php echo showOtherLangText('Item'); ?></p>
+                                            <p><?php echo showOtherLangText('Item'); ?>/<?php echo showOtherLangText('Bar Code'); ?></p>
                                             <p><?php echo showOtherLangText('Totals'); ?></p>
                                         </div>
 
                                         <div class="otlt-itm-typ hideInMobile">
-                                            <p><?php echo showOtherLangText('Type/Bar Code'); ?></p>
+                                            <p><?php echo showOtherLangText('Type'); ?></p>
                                         </div>
 
                                         <div class="otlt-stkPrc hideInMobile">

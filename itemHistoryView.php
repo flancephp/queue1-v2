@@ -5,7 +5,7 @@ include('inc/dbConfig.php'); //connection details
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
-$sql = "SELECT p.*, pc.name parentCatName, IFNULL(c.name, 'z') childCatName, s.qty stockQty, s.stockValue, IF(uc.name!='', uc.name,p.unitC) countingUnit, IF(up.name!='', up.name,p.unitC) purchaseUnit
+$sql = "SELECT p.*, pc.name parentCatName, IFNULL(c.name, 'z') childCatName, s.qty stockQty, s.stockValue, s.stockPrice stkPrice, s.lastPrice, IF(uc.name!='', uc.name,p.unitC) countingUnit, IF(up.name!='', up.name,p.unitC) purchaseUnit
 FROM tbl_products p
 LEFT JOIN tbl_units uc 
     ON(uc.id = p.unitC) AND uc.account_id=p.account_Id
@@ -421,7 +421,7 @@ foreach ($resItemHistory['resRows'] as $item) {
                                     <p class="vwBdy-ttl"><?php echo showOtherLangText('Last Purchase Price'); ?></p>
                                 </div>
                                 <div class="vw-clm-4">
-                                    <p class="viewLst-prc"><?php showPrice($res['price'], $getDefCurDet['curCode']); ?>
+                                    <p class="viewLst-prc"><?php showPrice($res['lastPrice'], $getDefCurDet['curCode']); ?>
                                     </p>
                                 </div>
                             </div>
@@ -431,7 +431,7 @@ foreach ($resItemHistory['resRows'] as $item) {
                                 </div>
                                 <div class="vw-clm-4">
                                     <p class="viewStock-prc">
-                                        <?php showPrice($res['stockPrice'], $getDefCurDet['curCode']); ?></p>
+                                        <?php showPrice($res['stkPrice'], $getDefCurDet['curCode']); ?></p>
                                 </div>
                             </div>
 

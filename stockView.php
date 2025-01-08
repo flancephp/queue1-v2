@@ -873,11 +873,12 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 } */
         }
 
-        @media (min-width: 992px) { 
+        @media (min-width: 992px) {
+
             #page2head.stkTblhead .mbShw,
             .page2bdy .cntTable .mbShw {
                 width: 85% !important;
-            } 
+            }
 
             #page2head.stkTblhead .mbHde,
             .page2bdy .cntTable .mbHde {
@@ -910,7 +911,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
         }
 
-        
+
 
         .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
             width: 50% !important;

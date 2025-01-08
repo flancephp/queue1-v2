@@ -7,6 +7,7 @@ $getLangType = getLangType($_SESSION['language_id']);
 if (!isset($_SESSION['adminidusername'])) {
 
     echo "<script>window.location='login.php'</script>";
+    exit;
 }
 
 if (isset($_GET['delId']) && $_GET['delId']) {
@@ -18,6 +19,7 @@ if (isset($_GET['delId']) && $_GET['delId']) {
     mysqli_query($con, $sql);
 
     echo "<script>window.location='viewMobileStockTake.php?delete=1&stockTakeId=" . $_GET['stockTakeId'] . "'</script>";
+    exit;
 }
 
 
