@@ -2351,6 +2351,8 @@ function issueOutMobile($orderId, $userId)
 function showOrderCharge($chargeDet)
 {
 
+	global  $getDefCurDet;
+
 	if ($chargeDet['feeType'] == 1) {
 		showPrice($chargeDet['amt'], $getDefCurDet['curCode'], 2);
 	} else {
@@ -5340,9 +5342,9 @@ function ActiveReqAutoFill($cond)
 
 
 //Check stock quantity while issue out
-function checkStockQtyRequisition($orderId, $accountId)
+function checkStockQtyRequisition($orderId, $accountId, $errorStockPriceChanged = '')
 {
-	global $con;
+	global $con, $getDefCurDet;
 
 	$errorMes = '';
 
@@ -5357,68 +5359,76 @@ function checkStockQtyRequisition($orderId, $accountId)
 	$result = mysqli_query($con, $sql);
 	$qryRow = mysqli_fetch_array($result);
 
-	$productNames = [];
+	$productNamesData = '';
 	while ($ordRow = mysqli_fetch_array($ordQry)) {
 
-		$productNames[] = '<tr>
+		$productNamesData .= '<tr>
                                 <td>' . $ordRow['itemName'] . '</td>
                                 <td>' . $ordRow['qtyInStock'] . '</td>
                                 <td><input type="number" name="reqQty[' . $ordRow['pId'] . ']" value=' . $ordRow['orderedQty'] . '></td>
                             </tr>';
-
-		// 	$productNames[] =    '<div class="modal-body">
-		// <div style="display: inline-block;width: 28%;">'. $ordRow['itemName'] .'</div>
-		// <div style="display: inline-block;width: 20%;">'. $ordRow['qtyInStock'] .'</div>
-		// <div style="display: inline-block;width: 25%;"><input type="text" class="form-control" name="reqQty['.$ordRow['pId'].']" value='.$ordRow['orderedQty'].'></div>
-		// <input type="hidden" name="orderId" value='.$orderId.'></div>';
 	}
 
-	$errorMes = '<div class="modal-body  fs-15"><div class="pb-3">
-                            <p class="modal-title fs-4 lh-sm mt-3 mb-4">' . showOtherLangText('Below items has less stocks than added in this requisition so please edit it:') . '</p>
-                            <p class="mt-3"># ' . $qryRow['ordNumber'] . '</p> <input type="hidden" name="orderId" class="issueOutOrdId" value="' . $orderId . '">
+	if ($productNamesData) {
+		$errorMes .= '<div class="modal-body  fs-15">
+							<div class="pb-3">
+								<p class="modal-title fs-4 lh-sm mt-3 mb-4">' . showOtherLangText('Below items has less stocks than added in this requisition so please edit it:') . '</p>
+								<p class="mt-3"># ' . $qryRow['ordNumber'] . '</p> <input type="hidden" name="orderId" class="issueOutOrdId" value="' . $orderId . '">
+							</div>';
+		$errorMes .= '<table class="issueout2-table w-100 fs-13">
+								<tr class="semibold">
+									<th>' . showOtherLangText('Item') . '</th>
+									<th>' . showOtherLangText('S.Qty') . '</th>
+									<th>' . showOtherLangText('Qty') . '</th>
+								</tr>';
+		$errorMes .= $productNamesData;
+		$errorMes .=  '</table></div>';
+	}
+
+	//check if stock price changed
+	if ($errorStockPriceChanged) {
+
+
+		$sql = "SELECT p.id AS pId, p.itemName, s.stockPrice, od.price  FROM tbl_order_details od 
+		INNER JOIN tbl_stocks s ON(od.pId = s.pId) AND od.account_id = s.account_id
+		INNER JOIN tbl_products p ON(p.id = s.pId) AND s.account_id = p.account_id
+
+	    WHERE od.ordId = '" . $orderId . "'  AND od.account_id = '" . $accountId . "' AND FLOOR(s.stockPrice) != FLOOR(od.price) ";
+		$ordQry = mysqli_query($con, $sql);
+
+		$productNamesData = '';
+		while ($ordRow = mysqli_fetch_array($ordQry)) {
+
+			$productNamesData .= '<tr>
+									<td>' . $ordRow['itemName'] . '</td>
+									<td>' . getNumFormtPrice($ordRow['price'], $getDefCurDet['curCode']) . '</td>
+									<td>' . getNumFormtPrice($ordRow['stockPrice'], $getDefCurDet['curCode']) . '</td>
+                            	</tr><input type="hidden" name="stockPriceChangedConfirmedPids[]" class="issueOutOrdId" value="' . $ordRow['pId'] . '">';
+		}
+
+		$errorMes .= '<div class="modal-body  fs-15"><input type="hidden" name="stockPriceChangedConfirmedOrdId" class="issueOutOrdId" value="' . $orderId . '">
+		
+						<div class="pb-3">
+                            <p class="modal-title fs-4 lh-sm mt-3 mb-4">' . showOtherLangText('Below items stock price has changed so please Approve or Cancel:') . '</p>
                         </div>';
-	$errorMes .= '<table class="issueout2-table w-100 fs-13">
+		$errorMes .= '<table class="issueout2-table w-100 fs-13">
                             <tr class="semibold">
                                 <th>' . showOtherLangText('Item') . '</th>
-                                <th>' . showOtherLangText('S.Qty') . '</th>
-                                <th>' . showOtherLangText('Qty') . '</th>
+                                <th>' . showOtherLangText('Old S.Price') . '</th>
+                                <th>' . showOtherLangText('New S.Price') . '</th>
                             </tr>';
-	$errorMes .= implode('', $productNames);
-	$errorMes .=  '</table></div>';
+		$errorMes .= $productNamesData;
+		$errorMes .=  '</table></div>';
+	} //end stock price price changed condition
+
+
+
 	$errorMes .= '<div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="submitFinalIssueOut btn btn-primary" >' . showOtherLangText('Approve') . '</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">' . showOtherLangText('Cancel') . '</button>
                     </div>';
 
-	// 	$errorMes = '<div class="modal-body  fs-15">
-	//                             <p>Below items has less stocks than added in this requisition so please edit it:</p>
-	//                             <p class="mt-3"># 123119</p>
-	//                         </div><div class="modal-header">
-	//                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	//                     <h1 class="modal-title h1">'.showOtherLangText('Below items has less stocks than added in this requisition so please edit it:').'</h1>
-	//                 </div>
-	//                 <div class="modal-body">
-	//                     <div># '.$qryRow['ordNumber'].'</div>
-	//                     <div>
-	//                     <input type="hidden" name="orderId" class="issueOutOrdId" value="">
 
-	//                 </div>
-	//             <div class="modal-body">
-	//     <div style="display: inline-block;width: 28%;">'. showOtherLangText('Item') .'</div>
-	//     <div style="display: inline-block;width: 20%;">'. showOtherLangText('S.Qty') .'</div>
-	//     <div style="display: inline-block;width: 25%;">'. showOtherLangText('Qty') .'</div>
-	//     <div style="display: inline-block;">
-
-	//     </div>
-	// </div>
-	//      </div>';
-	//           $errorMes .= implode('',$productNames);
-
-	//          $errorMes .=       '<div class="modal-footer">
-	//                     <div class="btnBg">
-	//                         <button type="button" class="submitFinalIssueOut btn sub-btn std-btn">'.showOtherLangText('Approve').'</button></div>
-	//                     </div>
-	//                 </div>';
 
 	echo '<div class="modal-content">' . $errorMes . '</div>';
 } //End Check stock quantity while issue out

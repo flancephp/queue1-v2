@@ -9,6 +9,7 @@ if (!isset($_SESSION['adminidusername'])) {
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
+$date = date('d-m-Y');
 
 if (isset($_GET['hotelId'])) {
     $merchantId = $hotelsArr[$_GET['hotelId']];
@@ -493,7 +494,7 @@ if (isset($_GET['hotelId'])) {
                                                 <div class="hstDate m-0" style="min-height: 38px;">
                                                     <input type="text" size="10" class="datepicker"
                                                         placeholder="15/01/2023" name="date" id="date"
-                                                        autocomplete="off" value="<?php echo $date; ?>">
+                                                        autocomplete="off" value="<?php echo  date('d-m-Y', strtotime($date)); ?>">
 
                                                 </div>
                                                 <!--<div class="reloadBtn">

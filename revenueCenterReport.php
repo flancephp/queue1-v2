@@ -610,6 +610,7 @@ include_once('script/revenueCenterReport_script.php');
                                                 WHERE rc.account_id = '" . $_SESSION['accountId'] . "'
                                                 GROUP BY rc.id order by rc.name desc ";
                                                     $resultSet = mysqli_query($con, $sql);
+                                                    echo  '<li><a class="dropdown-item" href="revenueCenterReport.php?fromDate=' . $_GET['fromDate'] . '&toDate=' . $_GET['toDate'] . '">All</a> </li>';
 
                                                     while ($revRow = mysqli_fetch_array($resultSet)) {
                                                         $sel = isset($_GET['centerId']) && $_GET['centerId'] == $revRow['id']  ? 'selected="selected"' : '';
@@ -792,6 +793,7 @@ include_once('script/revenueCenterReport_script.php');
                                     $optionsRevCenters = '<select class="form-select m-0" id="centerId" class="centerId" name="centerId">';
                                     $optionsRevCenters .= '<option value="">' . showOtherLangText('Revenue Center') . '</option>';
                                     while ($revRow = mysqli_fetch_array($resultSet)) {
+
                                         $sel = isset($_GET['centerId']) && $_GET['centerId'] == $revRow['id']  ? 'selected="selected"' : '';
                                         $optionsRevCenters .= '<option value="' . $revRow['id'] . '" ' . $sel . '>' . $revRow['name'] . '</option>';
                                     }

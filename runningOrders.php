@@ -21,6 +21,7 @@ if (!in_array('3', $checkPermission)) {
 
 if (isset($_POST['clickApproveBtn']) || isset($_POST['clickBackBtn']) || isset($_POST['clickAnywhere']) && ($_POST['clickApproveBtn'] == 1 || $_POST['clickBackBtn'] == 1 || $_POST['clickAnywhere'] == 1)) {
     unset($_SESSION['errorQty']);
+    unset($_SESSION['errorStockPriceChanged']);
     unset($_SESSION['errorQtyOrderId']);
     die();
 }
@@ -61,18 +62,40 @@ if (isset($_GET['orderId']) && isset($_GET['confirm'])) {
     {
         //this is for light box popup once quanity is being updated 
 
+        $updateNetTotal = false;
         if (isset($_POST['reqQty']) && !empty($_POST['reqQty'])) {
 
             foreach ($_POST['reqQty'] as $productId => $qty) {
                 $sql = " UPDATE tbl_order_details SET qty = '" . $qty . "',
-			totalAmt = price*$qty WHERE pId = '" . $productId . "' AND ordId = '" . $_POST['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+			totalAmt = (price*$qty) WHERE pId = '" . $productId . "' AND ordId = '" . $_POST['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
                 mysqli_query($con, $sql);
             }
 
-            requisitionTotalValue($_POST['orderId']);
+            $updateNetTotal = true;
         }
 
+        if (isset($_POST['stockPriceChangedConfirmedOrdId']) && !empty($_POST['stockPriceChangedConfirmedPids'])) {
 
+            foreach ($_POST['stockPriceChangedConfirmedPids'] as $pId) {
+                $sql = "SELECT * FROM tbl_stocks WHERE pId = '" . $pId . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                $stkQry = mysqli_query($con, $sql);
+                $stkRow = mysqli_fetch_array($stkQry);
+
+                $stockPrice = $stkRow['stockPrice'];
+                $sql = " UPDATE tbl_order_details SET price = '" . $stkRow['stockPrice'] . "',stockPrice = '" . $stkRow['stockPrice'] . "',
+                lastPrice = '" . $stkRow['lastPrice'] . "',
+                totalAmt = ($stockPrice*qty) WHERE pId = '" . $pId . "' AND ordId = '" . $_POST['stockPriceChangedConfirmedOrdId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                mysqli_query($con, $sql);
+            }
+            $updateNetTotal = true;
+
+            unset($_SESSION['errorStockPriceChanged']);
+            unset($_SESSION['errorQtyOrderId']);
+        }
+
+        if ($updateNetTotal) {
+            requisitionTotalValue($_POST['orderId']);
+        }
 
 
         $sqlSet = " SELECT * FROM tbl_orders where id = '" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
@@ -88,23 +111,40 @@ if (isset($_GET['orderId']) && isset($_GET['confirm'])) {
         $ordQry = mysqli_query($con, $sql);
 
         $productIds = [];
+        $errorQtyOrPriceChanged = false;
         while ($ordRow = mysqli_fetch_array($ordQry)) {
             $sql = "SELECT * FROM tbl_stocks WHERE pId = '" . $ordRow['pId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
             $stkQry = mysqli_query($con, $sql);
             $stkRow = mysqli_fetch_array($stkQry);
 
             $productIds[$ordRow['pId']]['qty'] = $ordRow['qty'];
-            $stkRow['pId'];
 
-            if ($stkRow['pId'] > 0) {
+            $pId = $stkRow['pId'];
+
+            if ($pId > 0) {
+
+FLOOR
+                //check if stock price in order details and current stock differ
+                if (floor($ordRow['price']) != floor($stkRow['stockPrice']) && !isset($_POST['stockPriceChangedConfirmedOrdId'])) {
+
+                    $_SESSION['errorStockPriceChanged'] = 1;
+                    $_SESSION['errorQtyOrderId'] = $_GET['orderId'];
+                    $errorQtyOrPriceChanged = true;
+                }
+                //end --------------------------------------------
                 if ($stkRow['qty'] < $ordRow['qty']) {
                     $_SESSION['errorQty'] = 1;
                     $_SESSION['errorQtyOrderId'] = $_GET['orderId'];
-                    echo "<script>window.location='runningOrders.php'</script>";
-                    die();
+                    $errorQtyOrPriceChanged = true;
                 }
             }
         } //End of loop
+
+        if ($errorQtyOrPriceChanged) {
+            echo "<script>window.location='runningOrders.php?orderId=" . $_GET['orderId'] . "'</script>";
+            die();
+        }
+
 
 
         //Give new sorting number for each new order
@@ -172,7 +212,14 @@ if (isset($_GET['orderId']) && isset($_GET['confirm'])) {
 
     $red = ($_GET['confirm'] == 1 || $_GET['confirm'] == 3) ? 'runningOrders.php?status=1' : 'history.php?status=1';
 
-
+    if (isset($_SESSION['errorStockPriceChanged'])) {
+        unset($_SESSION['errorStockPriceChanged']);
+        unset($_SESSION['errorQtyOrderId']);
+    }
+    if (isset($_SESSION['errorQty'])) {
+        unset($_SESSION['errorQty']);
+        unset($_SESSION['errorQtyOrderId']);
+    }
 
     echo "<script>window.location='" . $red . "&error=" . $error . " '</script>";
     die();
@@ -677,15 +724,25 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
         }
 
         .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3) {
-            width: 50%;display: table-cell !important;
+            width: 50%;
+            display: table-cell !important;
         }
 
         .table-cell.left__align__text .table-cell {
             width: 33% !important;
         }
-        .amountSections { text-align: right; }
-        .sumBreakupAmtText { text-align: left; }
-        html[dir="rtl"] .sumBreakupAmtText { text-align: right; }
+
+        .amountSections {
+            text-align: right;
+        }
+
+        .sumBreakupAmtText {
+            text-align: left;
+        }
+
+        html[dir="rtl"] .sumBreakupAmtText {
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -1155,8 +1212,10 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
 
 
                 <?php
-                if (isset($_SESSION['errorQty']) && $_SESSION['errorQty'] == 1) {
-                    checkStockQtyRequisition($_SESSION['errorQtyOrderId'], $_SESSION['accountId']);
+                if ((isset($_SESSION['errorQty']) && $_SESSION['errorQty'] == 1) || (isset($_SESSION['errorStockPriceChanged']) && $_SESSION['errorStockPriceChanged'] == 1)) {
+
+                    $errorStockPriceChanged = isset($_SESSION['errorStockPriceChanged']) ? $_SESSION['errorStockPriceChanged'] : '';
+                    checkStockQtyRequisition($_SESSION['errorQtyOrderId'], $_SESSION['accountId'], $errorStockPriceChanged);
                 }
                 ?>
 
@@ -1353,7 +1412,12 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
         });
 
         var errorQty = '<?php echo $_SESSION['errorQty'] ?>';
-        if (errorQty != '' && errorQty == 1) {
+        var errorStockPriceChnd = '<?php echo $_SESSION['errorStockPriceChanged']; ?>';
+        var errorQtyOrderId = '<?php echo $_SESSION['errorQtyOrderId']; ?>';
+        var orderId = '<?php echo $_GET['orderId']; ?>';
+
+
+        if (orderId == errorQtyOrderId && (errorQty == 1 || errorStockPriceChnd == 1)) {
             $('#errorQtyModal').modal('show');
         }
 
