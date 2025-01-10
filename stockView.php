@@ -236,6 +236,44 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 }
 
 ?>
+
+
+<?php
+
+
+
+$sql = "SELECT * FROM tbl_user  WHERE id = '" . $_SESSION['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
+$result = mysqli_query($con, $sql);
+$userDetails = mysqli_fetch_array($result);
+$stockUserFilterFields = $userDetails['stockUserFilterFields'] ?    explode(',', $userDetails['stockUserFilterFields']) : null;
+
+
+$col_class_one = 0;
+$col_class_two = 0;
+
+$col_class_one_info = 0;
+$col_class_two_info = 0;
+if (isset($stockUserFilterFields)) {
+    foreach ($stockUserFilterFields as $key => $val) {
+
+        if (in_array($val, [2, 3, 4, 5])) {
+            $col_class_one++;
+        }
+
+        if (in_array($val, [6, 7, 8])) {
+            $col_class_two++;
+        }
+
+        if (in_array($val, [2, 10, 11, 12, 13])) {
+            $col_class_one_info++;
+        }
+
+        if (in_array($val, [14, 15, 16])) {
+            $col_class_two_info++;
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 
@@ -1225,7 +1263,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <?php } else { ?>
                                     <div class="tb-bdy stkImgcol"><?php echo showOtherLangText('Photo'); ?></div>
                                 <?php } ?>
-                                <div class="stkNamcol d-flex align-items-center">
+                                <div class="stkNamcol d-flex align-items-center colSize<?php echo $col_class_one; ?>">
                                     <div class="tb-head stkItmclm skt-font">
                                         <div class="d-flex align-items-center w-20">
                                             <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
@@ -1276,7 +1314,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                     </div>
 
                                 </div>
-                                <div class="stkPrcol d-flex align-items-center">
+                                <div class="stkPrcol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
                                     <div class="tb-head lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
@@ -1350,6 +1388,9 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                         </div>
                         <!-- Item Table Head End -->
                     </div>
+
+
+
                     <div class="container  stkTblhead position-relative tbl-head-page-1 page2head1" id="page2head" style="display: none;">
                         <!-- Item Table Head Start -->
                         <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
@@ -1358,7 +1399,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                 <div class="tb-bdy stkImgcol">
                                     <p><?php echo showOtherLangText('Photo'); ?></p>
                                 </div>
-                                <div class="stkNamcol stkNamcol01 d-flex align-items-center">
+                                <div class="stkNamcol stkNamcol01 d-flex align-items-center colSize<?php echo $col_class_one_info; ?>">
                                     <div class="tb-head stkItmclm">
                                         <div class="d-inline-flex align-items-center" style="color:#1c2047 !important;">
                                             <p style="font-weight:400;"><?php echo showOtherLangText('Item'); ?></p>
@@ -1414,7 +1455,7 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="stkPrcol d-flex align-items-center">
+                                <div class="stkPrcol d-flex align-items-center colSize<?php echo $col_class_two_info; ?>">
                                     <div class="tb-head tmp_qty tmp_qty lstPrcol">
                                         <div class="d-flex align-items-center">
                                             <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
@@ -1599,6 +1640,8 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                     <div id="boxscroll" class="page2bdy" style="display: none; margin-top:0px;">
                         <div class="container cntTable cntTableData1">
 
+
+
                             <?php
                             //get confirmed requsitions total qty of each productd
                             $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
@@ -1642,7 +1685,10 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
                                             <!-- <div class="tb-bdy stkImgcol">
                                             <?php //echo $row['barCode']; 
                                             ?>
-                                        </div> -->
+                                        </div>Test -->
+
+
+
                                             <div class="stkNamcol d-flex align-items-center">
                                                 <div class="tb-bdy">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
@@ -1805,25 +1851,6 @@ if (isset($_POST['rawItem']) && $_POST['rawItem'] > 0) {
 
                         <br>
 
-                        <!-- <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="1">&nbsp;Photo<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="2">&nbsp;Item<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="3">&nbsp;Quantity<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="4">&nbsp;Available Quantity<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="5">&nbsp;Request Quantity<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="6">&nbsp;Last Price<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="7">&nbsp;Stock Price<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="8">&nbsp;Sub-Category<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="8">&nbsp;Supplier<br>
-                                                <hr style="margin: .5rem -2rem .5rem -2rem;">
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="9">&nbsp;Barcode<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="10">&nbsp;Unit.p<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="11">&nbsp;Factor<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="12">&nbsp;Unit.c<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="13">&nbsp;Tmp qty<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="14">&nbsp;Department<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="15">&nbsp;Min Qty<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="16">&nbsp;Max Qty<br>
-                                                <input type="checkbox" id="optionCheck" class="optionCheck" name="showFieldsStock[]" checked="checked" value="17">&nbsp;Stock Value<br> -->
                         <?php foreach ($colsArr as $key => $colArr) {
 
                             if (isset($stockUserFilterFields)) {

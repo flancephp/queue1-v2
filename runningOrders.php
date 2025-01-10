@@ -123,7 +123,7 @@ if (isset($_GET['orderId']) && isset($_GET['confirm'])) {
 
             if ($pId > 0) {
 
-FLOOR
+
                 //check if stock price in order details and current stock differ
                 if (floor($ordRow['price']) != floor($stkRow['stockPrice']) && !isset($_POST['stockPriceChangedConfirmedOrdId'])) {
 
