@@ -690,7 +690,7 @@ foreach ($resItemHistory['resRows'] as $item) {
                                                 <?php showPrice($resItemHistory['convertedTot'], $getDefCurDet['curCode']); ?>
                                             </p>
                                             <p class="varMinus-countUnt ">
-                                                <?php echo $resItemHistory['convertedQtyTot']; ?><?php echo $res['countingUnit']; ?>
+                                                <?php echo $resItemHistory['convertedQtyTot']; ?> <?php echo $res['countingUnit']; ?>
                                             </p>
                                         </div>
                                     </div>

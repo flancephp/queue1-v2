@@ -10277,8 +10277,9 @@ a.sbActive .mb_nvSubIcn {
   padding: 0;
   border: none;
   text-align: left;
+  max-width: 322px;
 }
-
+.glb-btn .btn.body3 span { max-width: 257px;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
 .drp-btn {
   padding: 3px 3px 3px 10px !important;
   background: #ffffff;
@@ -15302,10 +15303,17 @@ html[dir=rtl] .logo {
 html[dir=rtl] .form-select {
   background-image: url("../icons/select-rtl.svg");
   background-position: 3px;
+  padding-left: 42px !important;
 }
 
 html[dir=rtl] .form-select:focus {
   background-image: url("../icons/select-new-rtl.svg");
+}
+@media (min-width: 1601px) {
+  html[dir=rtl] .form-select { 
+    padding-left: 56px !important;
+  }
+  
 }
 
 html[dir=rtl] .alert {

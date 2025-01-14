@@ -336,20 +336,33 @@ if (isset($_GET['hotelId'])) {
                 position: absolute;
                 bottom: 0px;
                 left: -100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 1;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                white-space: normal;
+                min-height: 32px;
             }
 
             html[dir="rtl"] .middle__info .product__box {
                 left: 0%;
-                bottom: -14px;
+                /* bottom: -14px; */
             }
 
             .itmBody>div:first-child p {
                 font-size: 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 1;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                white-space: normal;
             }
 
             .right__box {
                 width: 100%;
-                margin-top: 20px;
+                /* margin-top: 20px; */
                 position: relative;
                 bottom: -10px;
             }
@@ -357,7 +370,7 @@ if (isset($_GET['hotelId'])) {
             .newOrd-CntPrt {
                 border-bottom: none !important;
                 width: 90%;
-                padding: 10px 10px 35px 10px;
+                padding: 10px 10px 10px 10px;
                 flex-wrap: wrap;
             }
 
