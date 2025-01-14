@@ -687,8 +687,8 @@ if (isset($stockUserFilterFields)) {
         /*        .stkItmclm {
             color: #000 !important;
             font-size: 11px;
-    line-height: 15px;
-    font-weight: 500;
+            line-height: 15px;
+            font-weight: 500;
         } */
 
         .tb-bdy {
@@ -868,7 +868,7 @@ if (isset($stockUserFilterFields)) {
         @media (min-width: 1350px) {
         .stkView  .container:not(.large) {max-width: 1140px;}
         }
- */
+        */
 
 
 
@@ -876,17 +876,17 @@ if (isset($stockUserFilterFields)) {
 
 
         /* @media (min-width: 1200px) {
-  .stkView .container {
-    max-width: 1000px !important;
-  }
-}
+        .stkView .container {
+            max-width: 1000px !important;
+        }
+        }
 
-@media (min-width: 1400px) {
-  .stkView .container {
-    max-width: 1140px  !important;
-  }
-}
-      */
+        @media (min-width: 1400px) {
+        .stkView .container {
+            max-width: 1140px  !important;
+        }
+        }
+            */
 
         /* 04-09-24 sudarshan */
         @media (max-width: 992px) {
@@ -898,17 +898,17 @@ if (isset($stockUserFilterFields)) {
             }
 
             /* html[dir="rtl"] .mblCnt {
-  border-radius: 20px !important;
-  border: 2px solid #FFF;
-  background: #7A89FE !important;
-  box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
-  font-size: 14px;
-  top: -10%;
-  left: -15%;
-  position: absolute !important;
-  color: #fff;
-  font-weight: 600;padding: 2px 6px;
-} */
+            border-radius: 20px !important;
+            border: 2px solid #FFF;
+            background: #7A89FE !important;
+            box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+            font-size: 14px;
+            top: -10%;
+            left: -15%;
+            position: absolute !important;
+            color: #fff;
+            font-weight: 600;padding: 2px 6px;
+            } */
         }
 
         @media (min-width: 992px) {
@@ -1038,6 +1038,9 @@ if (isset($stockUserFilterFields)) {
             .tb-bdy {
                 font-size: 14px;
             }
+        }
+        @media (min-width: 1025px) {
+            .lgcolSize1 .mbShw .stkPrcol { width: 20% !important; }
         }
     </style>
 </head>
@@ -1256,7 +1259,7 @@ if (isset($stockUserFilterFields)) {
 
                     <div class="container stkTblhead  position-relative tbl-head-page-1" id="page1head">
                         <!-- Item Table Head Start -->
-                        <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
+                        <div class="d-none d-md-flex align-items-center itmTable fgcolSize<?php echo $col_class_one_info; ?> lgcolSize<?php echo $col_class_two_info; ?>" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy counter__col"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
@@ -1315,42 +1318,44 @@ if (isset($stockUserFilterFields)) {
 
                                 </div>
                                 <div class="stkPrcol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
+                                    <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?>
                                     <div class="tb-head lstPrcol">
                                         <div class="d-flex align-items-center">
-                                            <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?>
-                                                <p><?php echo showOtherLangText('Last Price'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                            <?php } ?>
+                                            <p><?php echo showOtherLangText('Last Price'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
+                                    <?php } ?>
+                                    <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?> 
                                     <div class="tb-head stockPriceCol stockPriceCol lstPrcol">
                                         <div class="d-flex align-items-center">
-                                            <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?> <p><?php echo showOtherLangText('Stock Price'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                            <?php } ?>
+                                            <p><?php echo showOtherLangText('Stock Price'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
+                                    <?php } ?>
 
+                                    <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?> 
                                     <div class="tb-head stockValDefault lstPrcol">
                                         <div class="d-flex align-items-center">
-                                            <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?> <p><?php echo showOtherLangText('Stock Value'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                            <?php } ?>
+                                            <p><?php echo showOtherLangText('Stock Value'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
-
+                                    <?php } ?>
+                                        
 
                                 </div>
 
@@ -1393,7 +1398,7 @@ if (isset($stockUserFilterFields)) {
 
                     <div class="container  stkTblhead position-relative tbl-head-page-1 page2head1" id="page2head" style="display: none;">
                         <!-- Item Table Head Start -->
-                        <div class="d-none d-md-flex align-items-center itmTable" style="min-height: 70px;">
+                        <div class="d-none d-md-flex align-items-center itmTable fgcolSize<?php echo $col_class_one_info; ?> lgcolSize<?php echo $col_class_two_info; ?>" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy counter__col"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
                                 <div class="tb-bdy stkImgcol">
@@ -1456,39 +1461,42 @@ if (isset($stockUserFilterFields)) {
                                     </div>
                                 </div>
                                 <div class="stkPrcol d-flex align-items-center colSize<?php echo $col_class_two_info; ?>">
+                                    <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?>
                                     <div class="tb-head tmp_qty tmp_qty lstPrcol">
                                         <div class="d-flex align-items-center">
-                                            <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?><p><?php echo showOtherLangText('Tmp qty'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.tmp_qty','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.tmp_qty','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                            <?php } ?>
+                                            <p><?php echo showOtherLangText('Tmp qty'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.tmp_qty','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.tmp_qty','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
+                                    <?php } ?>
+                                    <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?>
                                     <div class="tb-head lstPrcol">
                                         <div class="d-flex align-items-center">
-                                            <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?><p><?php echo showOtherLangText('Department'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.department','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.department','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                            <?php } ?>
+                                            <p><?php echo showOtherLangText('Department'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.department','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.department','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
+                                    <?php } ?>
+                                    <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?>
                                     <div class="tb-head lstPrcol">
                                         <div class="d-flex align-items-center">
-                                            <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
-                                            <?php } else { ?><p><?php echo showOtherLangText('Min Qty'); ?></p>
-                                                <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.min_qty','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.min_qty','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                </span>
-                                            <?php } ?>
+                                            <p><?php echo showOtherLangText('Min Qty'); ?></p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.min_qty','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                <a onclick="sortTableByColumn('.newStockTask1', '.min_qty','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                            </span>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="mbHde align-items-center supData-Head">
@@ -1553,7 +1561,7 @@ if (isset($stockUserFilterFields)) {
                                                 </div>
                                             <?php } ?>
 
-                                            <div class="stkNamcol d-md-flex align-items-center">
+                                            <div class="stkNamcol d-md-flex align-items-center colSize<?php echo $col_class_one_info; ?>">
                                                 <div class="tb-bdy stkItmclm">
                                                     <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
                                                     <?php } else { ?>
@@ -1583,31 +1591,27 @@ if (isset($stockUserFilterFields)) {
                                                 </div>
 
                                             </div>
-                                            <div class="stkPrcol d-md-flex align-items-center">
+                                            <div class="stkPrcol d-md-flex align-items-center  colSize<?php echo $col_class_two_info; ?>">
+                                                <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?> 
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(6, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?> <p><span class="mbLst-value lstValueSize">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                        </p>
-                                                    <?php } ?>
+                                                    <p><span class="mbLst-value lstValueSize">Last</span><?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?></p>
                                                 </div>
+                                                <?php } ?>
 
+                                                <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Stock">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(7, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><span class="mbLst-value lstValueSize">S. Price</span><?php echo getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                        </p>
-                                                    <?php } ?>
+                                                    <p><span class="mbLst-value lstValueSize">S. Price</span><?php echo getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode']; ?></p>
                                                 </div>
+                                                <?php } ?>
 
+                                                <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><span class="mbLst-value lstValueSize">S. Value</span><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                        </p>
-
-                                                    <?php } ?>
+                                                        <p><span class="mbLst-value lstValueSize">S. Value</span><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?></p> 
                                                 </div>
-
+                                                <?php } ?> 
                                             </div>
 
 
