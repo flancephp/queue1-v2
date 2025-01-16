@@ -437,7 +437,7 @@ foreach ($resItemHistory['resRows'] as $item) {
 
                             <div>
                                 <div class="vw-clm-8">
-                                    <p class="vwBdy-ttl">Stock Value</p>
+                                    <p class="vwBdy-ttl"><?php echo showOtherLangText('Stock Value'); ?></p>
                                 </div>
                                 <div class="vw-clm-4">
                                     <p class="viewStock-prc">

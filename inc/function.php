@@ -3791,6 +3791,19 @@ function access_history_accounts_detail($designation_id, $accountId)
 }
 
 
+function access__history_permissions($designation_id, $accountId)
+{
+
+	global $con;
+
+	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '4' AND account_id = '" . $accountId . "' AND type = 'access_delete_history' ";
+	$accessPermission = mysqli_query($con, $sql);
+	$accessPermissionRow = mysqli_fetch_array($accessPermission);
+
+	if ($accessPermissionRow['type_id'] == 1) {
+	}
+}
+
 function access_delete_history_file($designation_id, $accountId, $orderId)
 {
 

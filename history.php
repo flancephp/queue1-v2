@@ -2709,6 +2709,8 @@ if ($getTxtById == 'storeId') {
                                                     <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
                                                 </a>
                                             </div>
+
+
                                             <div class="chkStore">
                                                 <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" onclick="showOrdersHistory();">
                                                     <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">

@@ -1463,19 +1463,28 @@ if (isset($stockUserFilterFields)) {
                         <div class="d-none d-md-flex align-items-center itmTable fgcolSize<?php echo $col_class_one_info; ?> lgcolSize<?php echo $col_class_two_info; ?>" style="min-height: 70px;">
                             <div class="mbShw d-flex align-items-center">
                                 <div class="tb-bdy counter__col"><?php echo mysqli_num_rows($stockMainQry) > 0 ? mysqli_num_rows($stockMainQry) : ''; ?></div>
-                                <div class="tb-bdy stkImgcol">
-                                    <p><?php echo showOtherLangText('Photo'); ?></p>
-                                </div>
-                                <div class="stkNamcol stkNamcol01 d-flex align-items-center colSize<?php echo $col_class_one_info; ?>">
-                                    <div class="tb-head stkItmclm">
-                                        <div class="d-inline-flex align-items-center" style="color:#1c2047 !important;">
-                                            <p style="font-weight:400;"><?php echo showOtherLangText('Item'); ?></p>
-                                            <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up" style="color: #000;"></i></a>
-                                                <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down" style="color: #000;"></i></a>
-                                            </span>
-                                        </div>
+
+                                <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
+                                <?php } else { ?>
+                                    <div class="tb-bdy stkImgcol">
+                                        <p><?php echo showOtherLangText('Photo'); ?></p>
                                     </div>
+                                <?php } ?>
+                                <div class="stkNamcol stkNamcol01 d-flex align-items-center colSize<?php echo $col_class_one_info; ?>">
+
+                                    <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
+                                    <?php } else { ?>
+                                        <div class="tb-head stkItmclm">
+                                            <div class="d-inline-flex align-items-center" style="color:#1c2047 !important;">
+                                                <p style="font-weight:400;"><?php echo showOtherLangText('Item'); ?></p>
+                                                <span class="dblArrow">
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up" style="color: #000;"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down" style="color: #000;"></i></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
                                     <?php if (isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields)) { ?>
                                     <?php } else { ?>
                                         <div class="tb-head stkbarclm">
@@ -1847,6 +1856,8 @@ if (isset($stockUserFilterFields)) {
         5 => ['lable' => '' . showOtherLangText('Request Quantity') . ''],
         6 => ['lable' => '' . showOtherLangText('Last Price') . ''],
         7 => ['lable' => '' . showOtherLangText('Stock Price') . ''],
+        18 => ['lable' => '' . showOtherLangText('Stock Value') . ''],
+
         8 => ['lable' => '' . showOtherLangText('Sub-Category') . ''],
         9 => ['lable' => '' . showOtherLangText('Supplier') . ''],
 
@@ -1858,7 +1869,7 @@ if (isset($stockUserFilterFields)) {
         15 => ['lable' => '' . showOtherLangText('Department') . ''],
         16 => ['lable' => '' . showOtherLangText('Min Qty') . ''],
         17 => ['lable' => '' . showOtherLangText('Max Qty') . ''],
-        18 => ['lable' => '' . showOtherLangText('Stock Value') . ''],
+
     ];
     ?>
 

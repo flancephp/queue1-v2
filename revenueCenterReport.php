@@ -13,7 +13,7 @@ include_once('script/revenueCenterReport_script.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title> Revenue Centers - Queue1</title>
+    <title> <?php echo showOtherLangText('Revenue Centers'); ?> - Queue1</title>
     <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,7 +147,7 @@ include_once('script/revenueCenterReport_script.php');
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Revenue Centers</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Revenue Centers'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -159,7 +159,7 @@ include_once('script/revenueCenterReport_script.php');
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Revenue Centers</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Revenue Centers'); ?></h1>
                                 </div>
                             </div>
                             <?php require_once('header.php'); ?>
