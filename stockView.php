@@ -537,6 +537,16 @@ if (isset($stockUserFilterFields)) {
             #page1bdy .mbShw .stkPrcol .lstPrcol {
                 width: 50% !important;
             }
+
+            /* fiilter classes styles */
+            .stkTblhead .stkNamcol.colSize3>div.tb-head,
+            .cntTable .stkNamcol.colSize3>div.tb-bdy { width: 33% !important; }
+            
+            .stkTblhead .stkNamcol.colSize2,
+            .page2bdy .cntTable .fhcolSize2 .stkNamcol { width: 50% !important; }
+            
+            .page2bdy .cntTable .fhcolSize2 .tb-bdy.stkImgcol,
+            .itemTable.fgcolSize2 .tb-bdy.stkImgcol { width: 23% !important; }
         }
 
         #upload_form .dropStk ul {
@@ -956,9 +966,9 @@ if (isset($stockUserFilterFields)) {
 
 
 
-        .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
+        /* .stkPrcol11:has(.tb-bdy[style*="display: none"]) .tb-bdy:not([style*="display: none"]) {
             width: 50% !important;
-        }
+        } */
 
         @media (max-width:767px) {
             .small-font {
@@ -998,9 +1008,9 @@ if (isset($stockUserFilterFields)) {
         }
 
 
-        #page2head .stkPrcol:has(.tb-head[style*="display: none"]) .tb-head:not([style*="display: none"]) {
+        /* #page2head .stkPrcol:has(.tb-head[style*="display: none"]) .tb-head:not([style*="display: none"]) {
             width: 50% !important;
-        }
+        } */
 
 
 
@@ -1520,7 +1530,7 @@ if (isset($stockUserFilterFields)) {
                                     <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                     <?php } else { ?>
                                         <div class="tb-head lstPrcol">
-                                            <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center justify-content-end">
                                                 <p><?php echo showOtherLangText('Min Qty'); ?></p>
                                                 <span class="dblArrow">
                                                     <a onclick="sortTableByColumn('.newStockTask1', '.min_qty','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
@@ -1705,7 +1715,7 @@ if (isset($stockUserFilterFields)) {
 
                             ?>
                                 <div class="newStockTask1">
-                                    <div class="d-flex align-items-center border-bottom itmBody">
+                                    <div class="d-flex align-items-center border-bottom itmBody fhcolSize<?php echo $col_class_one_info; ?> fhscolSize<?php echo $col_class_two_info; ?>">
                                         <div class="mbShw d-flex align-items-center">
                                             <div class="tb-bdy counter__col"><?php echo $x; ?></div>
                                             <?php if (isset($stockUserFilterFields) && !in_array(1, $stockUserFilterFields)) { ?>
@@ -1722,85 +1732,83 @@ if (isset($stockUserFilterFields)) {
 
 
                                             <div class="stkNamcol d-flex align-items-center colSize<?php echo $col_class_one_info; ?>">
+                                                <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="tb-bdy">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(2, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <a href="itemHistoryView.php?id=<?php echo $row['id']; ?>" class="itm-Profile"><?php echo $row['itemName']; ?></a>
-                                                    <?php } ?>
+                                                    <a href="itemHistoryView.php?id=<?php echo $row['id']; ?>" class="itm-Profile"><?php echo $row['itemName']; ?></a>
                                                 </div>
+                                                <?php } ?>
+                                                <?php if (isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="tb-bdy stkItmclm">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(10, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <?php echo $row['barCode']; ?>
-                                                    <?php } ?>
+                                                    <?php echo $row['barCode']; ?>
                                                 </div>
+                                                <?php } ?>
+                                                <?php if (isset($stockUserFilterFields) && !in_array(11, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="tb-bdy stkQtyclm stkQtybdy unit_p">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(11, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><?php echo $row['purchaseUnit']; ?></p>
-                                                    <?php } ?>
+                                                    <p><?php echo $row['purchaseUnit']; ?></p>
                                                 </div>
+                                                <?php } ?>
+                                                <?php if (isset($stockUserFilterFields) && !in_array(12, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="factor tb-bdy stkQtyclm stkQtybdy">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(12, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><?php echo $row['factor']; ?></p>
-                                                    <?php } ?>
+                                                    <p><?php echo $row['factor']; ?></p>
                                                 </div>
+                                                <?php } ?>
+                                                <?php if (isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="unit_c tb-bdy stkQtyclm stkQtybdy">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><?php echo $row['countingUnit']; ?></p>
-                                                    <?php } ?>
+                                                    <p><?php echo $row['countingUnit']; ?></p>
                                                 </div>
+                                                <?php } ?>
                                             </div>
                                             <div class="stkPrcol stkPrcol11 d-flex align-items-center colSize<?php echo $col_class_two_info; ?>">
+                                                <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="tmp_qty tb-bdy lstPrco stkPrcbdy mb-Last md__33">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(14, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p>
-                                                            <span class="mbLst-value">Last</span>
-                                                            <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                        </p>
-                                                    <?php } ?>
+                                                    <p>
+                                                        <span class="mbLst-value">Last</span>
+                                                        <?php echo getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode']; ?>
+                                                    </p>
                                                 </div>
+                                                <?php } ?>
+                                                <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="department tb-bdy lstPrco stkPrcbdy mb-Stock md__33">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(15, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><?php echo $deptNames; ?></p>
-                                                    <?php } ?>
+                                                    <p><?php echo $deptNames; ?></p>
                                                 </div>
+                                                <?php } ?>
+                                                <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p style="text-align:right;"><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
-                                                        </p>
-                                                    <?php } ?>
+                                                    <p style="text-align:right;"><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
+                                                    </p>
                                                 </div>
+                                                <?php } ?>
 
+                                                <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
+                                                <?php } else { ?>
                                                 <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
-                                                    <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
-                                                    <?php } else { ?>
-                                                        <p><span class="mbLst-value">Max<?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></span>
-                                                        </p>
-                                                    <?php } ?>
+                                                    <p><span class="mbLst-value">Max<?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></span></p>
                                                 </div>
+                                                <?php } ?>
 
                                             </div>
                                         </div>
                                         <div class="mbHde align-items-center suppData-stk">
+                                            <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
+                                            <?php } else { ?>
                                             <div class="max_qty tb-bdy supStkclm">
-                                                <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
-                                                <?php } else { ?>
-                                                    <p><?php echo $row['maxLevel']; ?></p>
-                                                <?php } ?>
+                                                <p><?php echo $row['maxLevel']; ?></p>
                                             </div>
+                                            <?php } ?>
+                                            <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
+                                            <?php } else { ?>
                                             <div class="stk_val tb-bdy supStkclm">
-                                                <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
-                                                <?php } else { ?>
-                                                    <p><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?>
-                                                    </p>
-                                                <?php } ?>
+                                                <p><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?></p>
                                             </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
