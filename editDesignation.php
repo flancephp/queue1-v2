@@ -130,7 +130,7 @@ include_once('script/editDesignation.php');
                                     <div class="row align-items-center acntStp-Row w-50">
                                         <div class="col-md-2">
                                             <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span
-                                            class="requiredsign">*</span></label>
+                                                    class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="text" value="<?php echo $designationName; ?>" name="designation_name" class="form-control"
@@ -164,6 +164,7 @@ include_once('script/editDesignation.php');
 
                                             <div>
                                                 <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newOrder">
+
                                                     <input type="checkbox" name="section_check[]" class="form-check-input" id="new-order-section" <?php echo (in_array('1', $selectedSectionArr) && in_array('0', $checkSectionVersion)) ? 'checked="checked"' : ''; ?> value="1">
                                                     <label class="medium" for="new_order"><?php echo showOtherLangText('New Order') ?></label>
                                                 </div>
@@ -225,7 +226,7 @@ include_once('script/editDesignation.php');
                                                                 <div class="d-flex align-items-center gap-3">
                                                                     <div class="order-radio enableOrder">
                                                                         <input type="radio" name="<?php echo $orderArrSubRow['name']; ?>"
-                                                                            class="order-enable form-check-input" value="1" <?php echo $accessOrderRow['type_id'] == 1 ? 'checked="checked"' : ''; ?> checked>
+                                                                            class="order-enable form-check-input" value="1" <?php echo $accessOrderRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
                                                                     </div>
                                                                     <div class="order-radio desableOrder">
@@ -282,47 +283,66 @@ include_once('script/editDesignation.php');
                                                     </div>
 
 
+                                                    <?php
+                                                    $checkAll = true;
+                                                    $unCheckAll = true;
+                                                    $radioOptions = '';
+                                                    foreach ($requisitionArr as $requisitionArrSubRow) {
+                                                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $requisitionArrSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                        $accessReqRes = mysqli_query($con, $sql);
+                                                        $accessReqRow = mysqli_fetch_array($accessReqRes);
+
+                                                        ////echo '=' . $accessReqRow['type_id'] . '=<br>';
+                                                        if ($accessReqRow['type_id'] == 0) {
+                                                            $checkAll = false;
+                                                        }
+
+                                                        if ($accessReqRow['type_id'] == 1) {
+                                                            $unCheckAll = false;
+                                                        }
+
+
+
+                                                        $radioOptions .= '<div class="row align-items-center pb-2">
+                                                            <div class="col-md-2 col-4">
+                                                                <p class="semibold fs-13">' . showOtherLangText($requisitionArrSubRow['title']) . ':</p>
+                                                            </div>
+                                                            <div class="col-md-10 col-8">
+
+                                                                <div class="d-flex align-items-center gap-3">
+                                                                    <div class="requisition-radio enableRequisition">
+                                                                        <input type="radio" name="' . $requisitionArrSubRow['name'] . '" class="requisition-enable form-check-input" value="1"  ' . ($accessReqRow['type_id'] == 1 ? 'checked="checked"' : "") . '>
+                                                                        <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                    </div>
+                                                                    <div class="requisition-radio desableRequisition">
+                                                                        <input type="radio" name="' . $requisitionArrSubRow['name'] . '" class="requisition-disable form-check-input" ' . ($accessReqRow['type_id'] == 0 ? 'checked="checked"' : '') . ' value="0">
+                                                                        <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                    }
+                                                    ?>
+
                                                     <div class="row pb-2  py-3 mt-2">
                                                         <div class="col-md-2 col-4"></div>
                                                         <div class="col-md-10 col-8">
                                                             <div class="d-flex align-items-center gap-3">
                                                                 <div>
-                                                                    <input type="checkbox" class="form-check-input" id="checkallRequisition" name="check_all" checked>
+                                                                    <input type="checkbox" class="form-check-input" id="checkallRequisition" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>>
                                                                     <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="checkbox" class="form-check-input" id="uncheckallRequisition" name="uncheck_all">
+                                                                    <input type="checkbox" class="form-check-input" id="uncheckallRequisition" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                     <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <?php
-                                                    foreach ($requisitionArr as $requisitionArrSubRow) {
-                                                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $requisitionArrSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                        $accessReqRes = mysqli_query($con, $sql);
-                                                        $accessReqRow = mysqli_fetch_array($accessReqRes);
-                                                    ?>
-                                                        <div class="row align-items-center pb-2">
-                                                            <div class="col-md-2 col-4">
-                                                                <p class="semibold fs-13"><?php echo showOtherLangText($requisitionArrSubRow['title']); ?>:</p>
-                                                            </div>
-                                                            <div class="col-md-10 col-8">
 
-                                                                <div class="d-flex align-items-center gap-3">
-                                                                    <div class="requisition-radio enableRequisition">
-                                                                        <input type="radio" name="<?php echo $requisitionArrSubRow['name']; ?>" class="requisition-enable form-check-input" value="1" <?php echo $accessReqRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
-                                                                        <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                    </div>
-                                                                    <div class="requisition-radio desableRequisition">
-                                                                        <input type="radio" name="<?php echo $requisitionArrSubRow['name']; ?>" class="requisition-disable form-check-input" <?php echo $accessReqRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
-                                                                        <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php
-                                                    }
+                                                    //show here all check boxes
+                                                    echo $radioOptions;
                                                     ?>
                                                 </div>
 
@@ -338,6 +358,43 @@ include_once('script/editDesignation.php');
                                                 </div>
                                                 <div class="collapse py-4" id="show-runningTask-detail">
 
+                                                    <?php
+                                                    $checkAll = true;
+                                                    $unCheckAll = true;
+                                                    $radioOptions = '';
+                                                    foreach ($runningTaskArr as $runningTaskSubRow) {
+                                                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $runningTaskSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                        $accessRunningtaskRes = mysqli_query($con, $sql);
+                                                        $AccessRunningtaskRow = mysqli_fetch_array($accessRunningtaskRes);
+
+                                                        if ($AccessRunningtaskRow['type_id'] == 0) {
+                                                            $checkAll = false;
+                                                        }
+
+                                                        if ($AccessRunningtaskRow['type_id'] == 1) {
+                                                            $unCheckAll = false;
+                                                        }
+
+                                                        $radioOptions .= '<div class="row align-items-center pb-2">
+                                                            <div class="col-md-2 col-4">
+                                                                <p class="semibold fs-13">' . showOtherLangText($runningTaskSubRow['title']) . ':</p>
+                                                            </div>
+                                                            <div class="col-md-10 col-8">
+
+                                                                <div class="d-flex align-items-center gap-3">
+                                                                    <div class="runningtask-radio enableRunningtask">
+                                                                        <input type="radio" name="' . $runningTaskSubRow['name'] . '" class="runningtask-enable form-check-input" value="1" ' . ($AccessRunningtaskRow['type_id'] == 1 ? 'checked="checked"' : '') . '>
+                                                                        <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                    </div>
+                                                                    <div class="runningtask-radio desableRunningtask">
+                                                                        <input type="radio" name="' . $runningTaskSubRow['name'] . '" class="runningtask-disable form-check-input" ' . ($AccessRunningtaskRow['type_id'] == 0 ? 'checked="checked"' : '') . ' value="0">
+                                                                        <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                    } ?>
+
 
                                                     <div class="row pb-2">
                                                         <div class="col-md-2 col-4"></div>
@@ -345,45 +402,24 @@ include_once('script/editDesignation.php');
                                                             <div class="d-flex align-items-center gap-3">
                                                                 <div>
                                                                     <input type="checkbox" class="form-check-input"
-                                                                        id="checkallRunningtask" name="check_all" checked>
-                                                                    <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
+                                                                        id="checkallRunningtask" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>
+                                                                        <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="checkbox" class="form-check-input" id="uncheckallRunningtask" name="uncheck_all">
+                                                                    <input type="checkbox" class="form-check-input" id="uncheckallRunningtask" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                     <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+
+
+
+
                                                     <?php
-                                                    foreach ($runningTaskArr as $runningTaskSubRow) {
-                                                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $runningTaskSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                        $accessRunningtaskRes = mysqli_query($con, $sql);
-                                                        $AccessRunningtaskRow = mysqli_fetch_array($accessRunningtaskRes);
-                                                    ?>
-
-                                                        <div class="row align-items-center pb-2">
-                                                            <div class="col-md-2 col-4">
-                                                                <p class="semibold fs-13"><?php echo showOtherLangText($runningTaskSubRow['title']); ?>:</p>
-                                                            </div>
-                                                            <div class="col-md-10 col-8">
-
-                                                                <div class="d-flex align-items-center gap-3">
-                                                                    <div class="runningtask-radio enableRunningtask">
-                                                                        <input type="radio" name="<?php echo $runningTaskSubRow['name']; ?>" class="runningtask-enable form-check-input" value="1" <?php echo $AccessRunningtaskRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
-                                                                        <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                    </div>
-                                                                    <div class="runningtask-radio desableRunningtask">
-                                                                        <input type="radio" name="<?php echo $runningTaskSubRow['name']; ?>" class="runningtask-disable form-check-input" <?php echo $AccessRunningtaskRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
-                                                                        <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php
-
-                                                    }
-
+                                                    //show radio options here for running tasks
+                                                    echo $radioOptions;
                                                     ?>
                                                 </div>
 
@@ -397,18 +433,56 @@ include_once('script/editDesignation.php');
                                                     <label class="medium" for="t_history"><?php echo showOtherLangText('History'); ?></label>
                                                 </div>
                                                 <div class="collapse py-4" id="show-history-detail">
+                                                    <?php
+                                                    $checkAll = true;
+                                                    $unCheckAll = true;
+                                                    $radioOptions = '';
+                                                    foreach ($historyArr as $historySubRow) {
 
+
+                                                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $historySubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                        $accesshistoryRes = mysqli_query($con, $sql);
+                                                        $accesshistoryRow = mysqli_fetch_array($accesshistoryRes);
+
+                                                        if ($accesshistoryRow['type_id'] == 0) {
+                                                            $checkAll = false;
+                                                        }
+
+                                                        if ($accesshistoryRow['type_id'] == 1) {
+                                                            $unCheckAll = false;
+                                                        }
+
+                                                        $radioOptions .= '<div class="row align-items-center pb-2">
+                                                            <div class="col-md-2 col-4">
+                                                                <p class="semibold fs-13">' . showOtherLangText($historySubRow['title']) . ':</p>
+                                                            </div>
+                                                            <div class="col-md-10 col-8">
+
+                                                                <div class="d-flex align-items-center gap-3">
+                                                                    <div class="history-radio enableHistory">
+                                                                        <input type="radio" name="' . $historySubRow['name'] . '" ' . ($accesshistoryRow['type_id'] == 1 ? 'checked="checked"' : '') . ' class="form-check-input history-enable" value="1">
+                                                                        <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                    </div>
+                                                                    <div class="history-radio desableHistory">
+                                                                        <input type="radio" name="' . $historySubRow['name'] . '" ' . ($accesshistoryRow['type_id'] == 0 ? 'checked="checked"' : '') . ' class="form-check-input history-disable" value="0">
+                                                                        <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                    }
+                                                    ?>
 
                                                     <div class="row pb-2">
                                                         <div class="col-md-2 col-4"></div>
                                                         <div class="col-md-10 col-8">
                                                             <div class="d-flex align-items-center gap-3">
                                                                 <div>
-                                                                    <input type="checkbox" class="form-check-input" id="checkallHistory" name="check_all">
+                                                                    <input type="checkbox" class="form-check-input" id="checkallHistory" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>>
                                                                     <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="checkbox" class="form-check-input" id="uncheckallHistory" name="uncheck_all">
+                                                                    <input type="checkbox" class="form-check-input" id="uncheckallHistory" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                     <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                 </div>
                                                             </div>
@@ -416,31 +490,8 @@ include_once('script/editDesignation.php');
                                                     </div>
                                                     <?php
 
-                                                    foreach ($historyArr as $historySubRow) {
-                                                        $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $historySubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                        $accesshistoryRes = mysqli_query($con, $sql);
-                                                        $accesshistoryRow = mysqli_fetch_array($accesshistoryRes);
-                                                    ?>
-                                                        <div class="row align-items-center pb-2">
-                                                            <div class="col-md-2 col-4">
-                                                                <p class="semibold fs-13"><?php echo showOtherLangText($historySubRow['title']); ?>:</p>
-                                                            </div>
-                                                            <div class="col-md-10 col-8">
-
-                                                                <div class="d-flex align-items-center gap-3">
-                                                                    <div class="history-radio enableHistory">
-                                                                        <input type="radio" name="<?php echo $historySubRow['name']; ?>" <?php echo $accesshistoryRow['type_id'] == 1 ? 'checked="checked"' : ''; ?> class="form-check-input history-enable" value="1">
-                                                                        <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                    </div>
-                                                                    <div class="history-radio desableHistory">
-                                                                        <input type="radio" name="<?php echo $historySubRow['name']; ?>" <?php echo $accesshistoryRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> class="form-check-input history-disable" value="0">
-                                                                        <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php
-                                                    }
+                                                    //history radio opitons
+                                                    echo $radioOptions;
                                                     ?>
 
 
@@ -477,17 +528,53 @@ include_once('script/editDesignation.php');
 
                                                         </div>
 
+                                                        <?php
+                                                        $checkAll = true;
+                                                        $unCheckAll = true;
+                                                        $radioOptions = '';
+                                                        foreach ($stockArr as $stockSubRow) {
+                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $stockSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                            $accessStockRes = mysqli_query($con, $sql);
+                                                            $accessStockRow = mysqli_fetch_array($accessStockRes);
 
+                                                            if ($accessStockRow['type_id'] == 0) {
+                                                                $checkAll = false;
+                                                            }
+
+                                                            if ($accessStockRow['type_id'] == 1) {
+                                                                $unCheckAll = false;
+                                                            }
+
+                                                            $radioOptions .= '<div class="row align-items-center pb-2">
+                                                                <div class="col-md-2 col-4">
+                                                                    <p class="semibold fs-13">' . showOtherLangText($stockSubRow['title']) . ':</p>
+                                                                </div>
+                                                                <div class="col-md-10 col-8">
+
+                                                                    <div class="d-flex align-items-center gap-3">
+                                                                        <div class="stock-radio enableStock">
+                                                                            <input type="radio" name="' . $stockSubRow['name'] . '" class="stock-enable form-check-input" value="1" ' . ($accessStockRow['type_id'] == 1 ? 'checked="checked"' : '') . '>
+                                                                            <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                        </div>
+                                                                        <div class="stock-radio desableStock">
+                                                                            <input type="radio" name="' . $stockSubRow['name'] . '" class="form-check-input stock-disable" value="0" ' . ($accessStockRow['type_id'] == 0 ? 'checked="checked"' : '') . '>
+                                                                            <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
+                                                        }
+                                                        ?>
                                                         <div class="row pb-2 mt-2  py-3 ">
                                                             <div class="col-md-2 col-4"></div>
                                                             <div class="col-md-10 col-8">
                                                                 <div class="d-flex align-items-center gap-3">
                                                                     <div>
-                                                                        <input type="checkbox" class="form-check-input" id="checkallStock" name="check_all" checked>
+                                                                        <input type="checkbox" class="form-check-input" id="checkallStock" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                     </div>
                                                                     <div>
-                                                                        <input type="checkbox" class="form-check-input" id="uncheckallStock" name="uncheck_all">
+                                                                        <input type="checkbox" class="form-check-input" id="uncheckallStock" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                     </div>
                                                                 </div>
@@ -495,31 +582,8 @@ include_once('script/editDesignation.php');
                                                         </div>
                                                         <?php
 
-                                                        foreach ($stockArr as $stockSubRow) {
-                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $stockSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                            $accessStockRes = mysqli_query($con, $sql);
-                                                            $accessStockRow = mysqli_fetch_array($accessStockRes);
-                                                        ?>
-                                                            <div class="row align-items-center pb-2">
-                                                                <div class="col-md-2 col-4">
-                                                                    <p class="semibold fs-13"><?php echo showOtherLangText($stockSubRow['title']) ?>:</p>
-                                                                </div>
-                                                                <div class="col-md-10 col-8">
-
-                                                                    <div class="d-flex align-items-center gap-3">
-                                                                        <div class="stock-radio enableStock">
-                                                                            <input type="radio" name="<?php echo $stockSubRow['name'] ?>" class="stock-enable form-check-input" value="1" <?php echo $accessStockRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                        </div>
-                                                                        <div class="stock-radio desableStock">
-                                                                            <input type="radio" name="<?php echo $stockSubRow['name'] ?>" class="form-check-input stock-disable" value="0" <?php echo $accessStockRow['type_id'] == 0 ? 'checked="checked"' : ''; ?>>
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
+                                                        //stock radion options
+                                                        echo $radioOptions;
                                                         ?>
 
 
@@ -529,7 +593,7 @@ include_once('script/editDesignation.php');
                                                 </div>
 
 
-
+                                                <!--
                                                 <div>
                                                     <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#show-stocktake-detail">
                                                         <input type="checkbox" name="section_check[]" class="form-check-input" id="new-stocktake-section" <?php echo (in_array('6', $selectedSectionArr) && in_array('0', $checkSectionVersion)) ? 'checked="checked"' : ''; ?> value="6">
@@ -537,52 +601,67 @@ include_once('script/editDesignation.php');
                                                     </div>
                                                     <div class="collapse py-4" id="show-stocktake-detail">
 
+                                                        <?php
+                                                        $checkAll = true;
+                                                        $unCheckAll = true;
+                                                        $radioOptions = '';
+                                                        foreach ($newStockTakeArr as $newStockTakeSubRow) {
+                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $newStockTakeSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                            $accessNewStockTakeRes = mysqli_query($con, $sql);
+                                                            $accessNewStockTakeRow = mysqli_fetch_array($accessNewStockTakeRes);
 
+                                                            if ($accessNewStockTakeRow['type_id'] == 0) {
+                                                                $checkAll = false;
+                                                            }
+
+                                                            if ($accessNewStockTakeRow['type_id'] == 1) {
+                                                                $unCheckAll = false;
+                                                            }
+
+                                                            $radioOptions .= '<div class="row align-items-center pb-2">
+                                                                <div class="col-md-2 col-4">
+                                                                    <p class="semibold fs-13"> ' . showOtherLangText($newStockTakeSubRow['title']) . '</p>
+                                                                </div>
+                                                                <div class="col-md-10 col-8">
+
+                                                                    <div class="d-flex align-items-center gap-3">
+                                                                        <div class="newStockTake-radio enableNewStockTake">
+                                                                            <input type="radio" name="' . $newStockTakeSubRow['name'] . '" class="form-check-input" value="1" ' . ($accessNewStockTakeRow['type_id'] == 1 ? 'checked="checked"' : '') . '>
+                                                                            <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                        </div>
+                                                                        <div class="newStockTake-radio desableNewStockTake">
+                                                                            <input type="radio" name="' . $newStockTakeSubRow['name'] . '" class="form-check-input" ' . ($accessNewStockTakeRow['type_id'] == 0 ? 'checked="checked"' : '') . ' value="0">
+                                                                            <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
+                                                        }
+                                                        ?>
                                                         <div class="row pb-2">
                                                             <div class="col-md-2 col-4"></div>
                                                             <div class="col-md-10 col-8">
                                                                 <div class="d-flex align-items-center gap-3">
                                                                     <div class="newStockTake-radio enableNewStockTake">
-                                                                        <input type="checkbox" class="form-check-input" id="checkallNewStockTake" name="check_all" checked>
+                                                                        <input type="checkbox" class="form-check-input" id="checkallNewStockTake" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                     </div>
                                                                     <div class="newStockTake-radio desableNewStockTake">
-                                                                        <input type="checkbox" class="form-check-input" id="uncheckallNewStockTake" name="uncheck_all">
+                                                                        <input type="checkbox" class="form-check-input" id="uncheckallNewStockTake" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <?php
-                                                        foreach ($newStockTakeArr as $newStockTakeSubRow) {
-                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $newStockTakeSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                            $accessNewStockTakeRes = mysqli_query($con, $sql);
-                                                            $accessNewStockTakeRow = mysqli_fetch_array($accessNewStockTakeRes);
-                                                        ?>
-                                                            <div class="row align-items-center pb-2">
-                                                                <div class="col-md-2 col-4">
-                                                                    <p class="semibold fs-13"> <?php echo showOtherLangText($newStockTakeSubRow['title']) ?>:</p>
-                                                                </div>
-                                                                <div class="col-md-10 col-8">
 
-                                                                    <div class="d-flex align-items-center gap-3">
-                                                                        <div class="newStockTake-radio enableNewStockTake">
-                                                                            <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" value="1" <?php echo $accessNewStockTakeRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                        </div>
-                                                                        <div class="newStockTake-radio desableNewStockTake">
-                                                                            <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" <?php echo $accessNewStockTakeRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
+                                                        //new stock take radio options
+
+                                                        echo $radioOptions;
                                                         ?>
                                                     </div>
 
-                                                </div>
+                                                </div>-->
 
 
                                                 <div>
@@ -592,17 +671,54 @@ include_once('script/editDesignation.php');
                                                     </div>
                                                     <div class="collapse py-4" id="show-revenueCenter-detail">
 
+                                                        <?php
+                                                        $checkAll = true;
+                                                        $unCheckAll = true;
+                                                        $radioOptions = '';
+                                                        foreach ($revCenterArr as $revCenterSubRow) {
+                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $revCenterSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                            $accessRevCenterRes = mysqli_query($con, $sql);
+                                                            $accessRevCenterRow = mysqli_fetch_array($accessRevCenterRes);
+                                                            //  print_r($accessRevCenterRow);
 
+                                                            if ($accessRevCenterRow['type_id'] == 0) {
+                                                                $checkAll = false;
+                                                            }
+
+                                                            if ($accessRevCenterRow['type_id'] == 1) {
+                                                                $unCheckAll = false;
+                                                            }
+
+                                                            $radioOptions .= '<div class="row align-items-center pb-2">
+                                                                <div class="col-md-2 col-4">
+                                                                    <p class="semibold fs-13">' . showOtherLangText($revCenterSubRow['title']) . ':</p>
+                                                                </div>
+                                                                <div class="col-md-10 col-8">
+
+                                                                    <div class="d-flex align-items-center gap-3">
+                                                                        <div class="revenueCenter-radio enableRevenueCenter">
+                                                                            <input type="radio" name="' . $revCenterSubRow['name'] . '" class="revenueCenter-enable form-check-input" value="1" ' . ($accessRevCenterRow['type_id'] == 1 ? 'checked="checked"' : '') . '>
+                                                                            <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                        </div>
+                                                                        <div class="revenueCenter-radio desableRevenueCenter">
+                                                                            <input type="radio" name="' . $revCenterSubRow['name'] . '" class="revenueCenter-disable form-check-input" ' . ($accessRevCenterRow['type_id'] == 0 ? 'checked="checked"' : '') . ' value="0">
+                                                                            <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
+                                                        }
+                                                        ?>
                                                         <div class="row pb-2">
                                                             <div class="col-md-2 col-4"></div>
                                                             <div class="col-md-10 col-8">
                                                                 <div class="d-flex align-items-center gap-3">
                                                                     <div>
-                                                                        <input type="checkbox" class="form-check-input" id="checkallRevenueCenter" name="check_all">
+                                                                        <input type="checkbox" class="form-check-input" id="checkallRevenueCenter" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                     </div>
                                                                     <div>
-                                                                        <input type="checkbox" class="form-check-input" id="uncheckallRevenueCenter" name="uncheck_all">
+                                                                        <input type="checkbox" class="form-check-input" id="uncheckallRevenueCenter" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                     </div>
                                                                 </div>
@@ -610,31 +726,10 @@ include_once('script/editDesignation.php');
                                                         </div>
                                                         <?php
 
-                                                        foreach ($revCenterArr as $RevCenterSubRow) {
-                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $revCenterSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                            $accessRevCenterRes = mysqli_query($con, $sql);
-                                                            $accessRevCenterRow = mysqli_fetch_array($accessRevCenterRes);
-                                                        ?>
-                                                            <div class="row align-items-center pb-2">
-                                                                <div class="col-md-2 col-4">
-                                                                    <p class="semibold fs-13"><?php echo showOtherLangText($RevCenterSubRow['title']) ?>:</p>
-                                                                </div>
-                                                                <div class="col-md-10 col-8">
 
-                                                                    <div class="d-flex align-items-center gap-3">
-                                                                        <div class="revenueCenter-radio enableRevenueCenter">
-                                                                            <input type="radio" name="<?php echo $RevCenterSubRow['name'] ?>" class="revenueCenter-enable form-check-input" value="1" <?php echo $accessRevCenterRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                        </div>
-                                                                        <div class="revenueCenter-radio desableRevenueCenter">
-                                                                            <input type="radio" name="<?php echo $RevCenterSubRow['name'] ?>" class="revenueCenter-disable form-check-input" <?php echo $accessRevCenterRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
+                                                        //revenue center
+
+                                                        echo $radioOptions;
                                                         ?>
                                                     </div>
 
@@ -647,18 +742,55 @@ include_once('script/editDesignation.php');
                                                         <label class="medium" for="setup1"><?php echo showOtherLangText('Setup'); ?></label>
                                                     </div>
                                                     <div class="collapse py-4" id="show-setup-detail">
+                                                        <?php
+                                                        $checkAll = true;
+                                                        $unCheckAll = true;
+                                                        $radioOptions = '';
+                                                        foreach ($setupArr as $setupSubRow) {
+                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $setupSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+                                                            $accessSetupRes = mysqli_query($con, $sql);
+                                                            $accessSetupRow = mysqli_fetch_array($accessSetupRes);
 
+
+                                                            if ($accessRevCenterRow['type_id'] == 0) {
+                                                                $checkAll = false;
+                                                            }
+
+                                                            if ($accessRevCenterRow['type_id'] == 1) {
+                                                                $unCheckAll = false;
+                                                            }
+
+                                                            $radioOptions .= '<div class="row align-items-center pb-2">
+                                                                <div class="col-md-2 col-4">
+                                                                    <p class="semibold fs-13"> ' . showOtherLangText($setupSubRow['title']) . ':</p>
+                                                                </div>
+                                                                <div class="col-md-10 col-8">
+
+                                                                    <div class="d-flex align-items-center gap-3">
+                                                                        <div class="stock-radio enableSetup">
+                                                                            <input type="radio" name="' . $setupSubRow['name'] . '" class="form-check-input setup-enable" value="1" ' . ($accessSetupRow['type_id'] == 1 ? 'checked="checked"' : '') . '>
+                                                                            <label class="fs-13">' . showOtherLangText('Enable') . '</label>
+                                                                        </div>
+                                                                        <div class="stock-radio desableSetup">
+                                                                            <input type="radio" name="' . $setupSubRow['name'] . '" class="form-check-input setup-disable" ' . ($accessSetupRow['type_id'] == 0 ? 'checked="checked"' : '') . ' value="0">
+                                                                            <label class="fs-13">' . showOtherLangText('Disable') . '</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
+                                                        }
+                                                        ?>
 
                                                         <div class="row pb-2">
                                                             <div class="col-md-2 col-4"></div>
                                                             <div class="col-md-10 col-8">
                                                                 <div class="d-flex align-items-center gap-3">
                                                                     <div>
-                                                                        <input type="checkbox" class="form-check-input" id="checkallSetup" name="check_all" checked>
+                                                                        <input type="checkbox" class="form-check-input" id="checkallSetup" name="check_all" <?php echo $checkAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                                     </div>
                                                                     <div>
-                                                                        <input type="checkbox" class="form-check-input" id="uncheckallSetup" name="uncheck_all">
+                                                                        <input type="checkbox" class="form-check-input" id="uncheckallSetup" name="uncheck_all" <?php echo $unCheckAll ? 'checked="checked"' : ''; ?>>
                                                                         <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
                                                                     </div>
                                                                 </div>
@@ -666,31 +798,8 @@ include_once('script/editDesignation.php');
                                                         </div>
                                                         <?php
 
-                                                        foreach ($setupArr as $setupSubRow) {
-                                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE type = '" . $setupSubRow['name'] . "' AND designation_id = '" . $_GET['id'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
-                                                            $accessSetupRes = mysqli_query($con, $sql);
-                                                            $accessSetupRow = mysqli_fetch_array($accessSetupRes);
-                                                        ?>
-                                                            <div class="row align-items-center pb-2">
-                                                                <div class="col-md-2 col-4">
-                                                                    <p class="semibold fs-13"> <?php echo showOtherLangText($setupSubRow['title']) ?>:</p>
-                                                                </div>
-                                                                <div class="col-md-10 col-8">
-
-                                                                    <div class="d-flex align-items-center gap-3">
-                                                                        <div class="stock-radio enableSetup">
-                                                                            <input type="radio" name="<?php echo $setupSubRow['name'] ?>" class="form-check-input setup-enable" value="1" <?php echo $accessSetupRow['type_id'] == 1 ? 'checked="checked"' : ''; ?>>
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                        </div>
-                                                                        <div class="stock-radio desableSetup">
-                                                                            <input type="radio" name="<?php echo $setupSubRow['name'] ?>" class="form-check-input setup-disable" <?php echo $accessSetupRow['type_id'] == 0 ? 'checked="checked"' : ''; ?> value="0">
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
+                                                        //setup radio options
+                                                        echo $radioOptions;
                                                         ?>
 
 
@@ -845,52 +954,77 @@ include_once('script/editDesignation.php');
         } else {
             $("#type_web").click();
         }
-        if ($('#new-order-section').attr('checked')) {
 
-            $('#newOrder').addClass('show');
+        //new order sections starts
 
-            $("#supplierCheckall").on('click', function() {
 
-                $('.supplierCheckbox:checkbox').not(this).prop('checked', this.checked);
-            });
+        $("#supplierCheckall").on('click', function() {
+            console.log('tested');
+            if ($("#supplierCheckall").prop('checked') == true) {
+                $('.supplierCheckbox').prop('checked', true);
+            } else {
+                $('.supplierCheckbox').prop('checked', false);
+            }
+
+        });
+
+        var totalCount = $('.supplierCheckbox').length;
+
+        var totalCheckedCount = $('.supplierCheckbox:checked').length;
+
+
+        if (totalCount == totalCheckedCount) {
+            console.log('totalCount', totalCount, totalCheckedCount);
+            $('#supplierCheckall').prop('checked', true);
+        } else {
+            $('#supplierCheckall').prop('checked', false);
+        }
+
+        $('.supplierCheckbox').click(function() {
 
             var totalCount = $('.supplierCheckbox').length;
 
             var totalCheckedCount = $('.supplierCheckbox:checked').length;
 
-
             if (totalCount == totalCheckedCount) {
-                console.log('totalCount', totalCount, totalCheckedCount);
+
                 $('#supplierCheckall').prop('checked', true);
             } else {
                 $('#supplierCheckall').prop('checked', false);
             }
 
-            $('.supplierCheckbox').click(function() {
+        });
 
-                var totalCount = $('.supplierCheckbox').length;
+        //check whether enable/disable is checked or not
+        var totalCount = $('.order-enable').length;
 
-                var totalCheckedCount = $('.supplierCheckbox:checked').length;
+        var totalEnableCheckedCount = $('.order-enable:checked').length;
 
-                if (totalCount == totalCheckedCount) {
+        var totalDisableCheckedCount = $('.order-disable:checked').length;
 
-                    $('#supplierCheckall').prop('checked', true);
-                } else {
-                    $('#supplierCheckall').prop('checked', false);
-                }
 
-            });
+        if (totalCount == totalEnableCheckedCount) {
 
-            //check whether enable/disable is checked or not
+            $('#checkallOrder').prop('checked', true);
+        } else {
+            $('#checkallOrder').prop('checked', false);
+        }
+
+        if (totalCount == totalDisableCheckedCount) {
+            $('#uncheckallOrder').prop('checked', true);
+        } else {
+            $('#uncheckallOrder').prop('checked', false);
+        }
+
+        $('.order-enable, .order-disable').click(function() {
+
             var totalCount = $('.order-enable').length;
 
             var totalEnableCheckedCount = $('.order-enable:checked').length;
 
             var totalDisableCheckedCount = $('.order-disable:checked').length;
 
-
             if (totalCount == totalEnableCheckedCount) {
-
                 $('#checkallOrder').prop('checked', true);
             } else {
                 $('#checkallOrder').prop('checked', false);
@@ -902,44 +1036,37 @@ include_once('script/editDesignation.php');
                 $('#uncheckallOrder').prop('checked', false);
             }
 
-            $('.order-enable, .order-disable').click(function() {
+        });
+        //end order sections
 
-                var totalCount = $('.order-enable').length;
-
-                var totalEnableCheckedCount = $('.order-enable:checked').length;
-
-                var totalDisableCheckedCount = $('.order-disable:checked').length;
-
-                if (totalCount == totalEnableCheckedCount) {
-                    $('#checkallOrder').prop('checked', true);
-                } else {
-                    $('#checkallOrder').prop('checked', false);
-                }
-
-                if (totalCount == totalDisableCheckedCount) {
-                    $('#uncheckallOrder').prop('checked', true);
-                } else {
-                    $('#uncheckallOrder').prop('checked', false);
-                }
-
-            });
-        };
+        //new requisition starts here
 
 
-        if ($('#new-requisition-section').attr('checked')) {
+        ///$('#show-requisition-detail').css('display', 'block');
+        $('#show-requisition-detail').addClass('show');
 
-            ///$('#show-requisition-detail').css('display', 'block');
-            $('#show-requisition-detail').addClass('show');
+        $("#memberCheckall").on('click', function() {
 
-            $("#memberCheckall").on('click', function() {
+            $('.requisitionCheckbox:checkbox').not(this).prop('checked', this.checked);
+        });
 
-                $('.requisitionCheckbox:checkbox').not(this).prop('checked', this.checked);
-            });
+        var totalCount = $('.requisitionCheckbox').length;
+
+        var totalCheckedCount = $('.requisitionCheckbox:checked').length;
+
+
+        if (totalCount == totalCheckedCount) {
+
+            $('#memberCheckall').prop('checked', true);
+        } else {
+            $('#memberCheckall').prop('checked', false);
+        }
+
+        $('.requisitionCheckbox').click(function() {
 
             var totalCount = $('.requisitionCheckbox').length;
 
             var totalCheckedCount = $('.requisitionCheckbox:checked').length;
-
 
             if (totalCount == totalCheckedCount) {
 
@@ -948,31 +1075,38 @@ include_once('script/editDesignation.php');
                 $('#memberCheckall').prop('checked', false);
             }
 
-            $('.requisitionCheckbox').click(function() {
+        });
 
-                var totalCount = $('.requisitionCheckbox').length;
+        //check whether enable/disable is checked or not
+        var totalCount = $('.requisition-enable').length;
 
-                var totalCheckedCount = $('.requisitionCheckbox:checked').length;
+        var totalEnableCheckedCount = $('.requisition-enable:checked').length;
 
-                if (totalCount == totalCheckedCount) {
+        var totalDisableCheckedCount = $('.requisition-disable:checked').length;
 
-                    $('#memberCheckall').prop('checked', true);
-                } else {
-                    $('#memberCheckall').prop('checked', false);
-                }
 
-            });
+        if (totalCount == totalEnableCheckedCount) {
 
-            //check whether enable/disable is checked or not
+            $('#checkallRequisition').prop('checked', true);
+        } else {
+            $('#checkallRequisition').prop('checked', false);
+        }
+
+        if (totalCount == totalDisableCheckedCount) {
+            $('#uncheckallRequisition').prop('checked', true);
+        } else {
+            $('#uncheckallRequisition').prop('checked', false);
+        }
+
+        $('.requisition-enable, .requisition-disable').click(function() {
+
             var totalCount = $('.requisition-enable').length;
 
             var totalEnableCheckedCount = $('.requisition-enable:checked').length;
 
             var totalDisableCheckedCount = $('.requisition-disable:checked').length;
 
-
             if (totalCount == totalEnableCheckedCount) {
-
                 $('#checkallRequisition').prop('checked', true);
             } else {
                 $('#checkallRequisition').prop('checked', false);
@@ -984,28 +1118,8 @@ include_once('script/editDesignation.php');
                 $('#uncheckallRequisition').prop('checked', false);
             }
 
-            $('.requisition-enable, .requisition-disable').click(function() {
-
-                var totalCount = $('.requisition-enable').length;
-
-                var totalEnableCheckedCount = $('.requisition-enable:checked').length;
-
-                var totalDisableCheckedCount = $('.requisition-disable:checked').length;
-
-                if (totalCount == totalEnableCheckedCount) {
-                    $('#checkallRequisition').prop('checked', true);
-                } else {
-                    $('#checkallRequisition').prop('checked', false);
-                }
-
-                if (totalCount == totalDisableCheckedCount) {
-                    $('#uncheckallRequisition').prop('checked', true);
-                } else {
-                    $('#uncheckallRequisition').prop('checked', false);
-                }
-
-            });
-        }
+        });
+        //end new requisition
 
 
         $("#checkallRequisition").on('click', function() {

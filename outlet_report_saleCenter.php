@@ -512,6 +512,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                             //-------------------------------------------------------------------------------
 
                             $img = '';
+
                             if ($row['imgName'] != ''  && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
                                 $img = $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'];
                             } else {
@@ -632,7 +633,7 @@ include_once('script/outlet_report_saleCenter_script.php');
 
                                                             <div class="otltBd-opnStk">
                                                                 <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale" title="Open Stock">' . showValue($openStock) . '</p>
+                                                                <p class="mblStock-Sale" title="Open Stock">' . ($openStock) . '</p>
                                                             </div>
                                                             <div class="otltBd-isn">
                                                                 <p class="mbSale-Head">Issues In</p>

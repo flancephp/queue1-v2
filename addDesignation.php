@@ -135,7 +135,7 @@ if (!$permissionRow) {
                                     <div class="row align-items-center acntStp-Row w-50">
                                         <div class="col-md-2">
                                             <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span
-                                            class="requiredsign">*</span></label>
+                                                    class="requiredsign">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="text" name="designation_name" class="form-control" value=""
@@ -701,7 +701,7 @@ if (!$permissionRow) {
 
                                             <div>
                                                 <div class="checkbox-list border-bottom pt-3 pb-2">
-                                                    <input type="checkbox" class="form-check-input" name="section_check[]" id="mobile-section" value="1" checked>
+                                                    <input type="checkbox" class="form-check-input" name="section_check[]" id="mobile-section" value="1">
                                                     <label class="medium" for="revenue_center"><?php echo showOtherLangText('Mobile Section'); ?></label>
                                                 </div>
                                                 <div class="py-4">

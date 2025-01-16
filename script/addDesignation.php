@@ -290,6 +290,7 @@ if (isset($_POST['designation_name'])) {
 		} //End of section_check foreach
 
 		echo "<script>window.location='listDesignation.php?added=1'</script>";
+		exit;
 	}
 }
 

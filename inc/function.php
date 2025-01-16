@@ -32,7 +32,8 @@ $runningTaskArr = [
 	['title' => 'Receive Order', 'name' => 'receive_order'],
 	['title' => 'Issue Out', 'name' => 'issue_out'],
 	['title' => 'Assign To Mobile', 'name' => 'assign_mobile'],
-	['title' => 'Access Delete Function', 'name' => 'access_delete_runningtask']
+	['title' => 'Access Delete Function', 'name' => 'access_delete_runningtask'],
+	['title' => 'Confirm', 'name' => 'confirm_ord_req']
 
 ];
 
@@ -3552,7 +3553,7 @@ function get_editRequisition_permission($designation_id, $accountId, $orderId)
 			</a>
 			';
 	} else {
-		echo '<span style="display:inline-block;width: 9%;">ddd&nbsp;</span>';
+		echo '<span style="display:inline-block;width: 9%;">&nbsp;</span>';
 	}
 }
 
@@ -3577,14 +3578,41 @@ function get_receiveOrder_permission($designation_id, $accountId, $orderId)
 	}
 }
 
+
+function get_confirmOrder_permission($orderType, $designation_id, $accountId, $orderId, $orderStatus)
+{
+
+	global $con;
+
+	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '3' AND account_id = '" . $accountId . "' AND type = 'confirm_ord_req' ";
+	$editOrderPermissionRes = mysqli_query($con, $sql);
+	$editOrderPermissionRow = mysqli_fetch_array($editOrderPermissionRes);
+
+	$confirmVal = $orderType == 1 ? 1 : 3;
+	if ((($orderType == 1 && $orderStatus == 0) || ($orderType == 2 && $orderStatus == 1))  && $editOrderPermissionRow['type_id'] == 1) {
+		echo '<a href="runningOrders.php?orderId=' . $orderId . '&confirm=' . $confirmVal . '" class="cnfrm text-center d-flex justify-content-center align-items-center doc__btn complete">
+				<span class="runLink">
+					<!-- <span class="isuOut"></span> -->
+					<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">
+						<path d="m9.5 10 3.3 2.4q.7.6 1.3-.1L20.5 5" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
+						<path d="M21.5 12a9 9 0 1 1-6.7-8.7" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
+					</svg>
+					<p class="btn2 cn-btn">' . showOtherLangText('Confirm') . '</p>
+		</span>
+		</a>';
+	} else {
+		echo '<span style="display: inline-block;width: 23%;">&nbsp;</span>';
+	}
+}
+
 function get_assignOrder_permission($designation_id, $accountId, $orderId, $orderType)
 {
 
 	global $con;
 
-	$sql = " SELECT * FROM 
-	tbl_designation_sub_section_permission WHERE
-	designation_id = '" . $designation_id . "' AND designation_section_permission_id = '3' AND account_id ='" . $accountId . "' AND type = 'assign_mobile' ";
+	$sql = " SELECT * FROM
+		tbl_designation_sub_section_permission WHERE
+		designation_id = '" . $designation_id . "' AND designation_section_permission_id = '3' AND account_id ='" . $accountId . "' AND type = 'assign_mobile' ";
 	$editOrderPermissionRes = mysqli_query($con, $sql);
 	$editOrderPermissionRow = mysqli_fetch_array($editOrderPermissionRes);
 
@@ -3592,31 +3620,39 @@ function get_assignOrder_permission($designation_id, $accountId, $orderId, $orde
 
 		if ($orderType == 1) {
 			echo '<a class="cnfrm text-center d-flex justify-content-center align-items-center p-0 editicon edt_CatLnk runLink assign__btn" data-bs-toggle="modal" onClick="AssignOrder(' . $orderType . ', ' . $orderId . ')" data-bs-target="#assign-order" href="javascript:void(0)">
-					<span>
-							<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="12" height="19" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
-							<p class="btn2 cn-btn">' . showOtherLangText('Assign') . '</p>
-						</span>
-					</a>';
+			<span>
+				<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="12" height="19" viewBox="0 0 15 21">
+					<path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7" />
+					<circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2" />
+					<path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+				<p class="btn2 cn-btn">' . showOtherLangText('Assign') . '</p>
+			</span>
+		</a>';
 		}
 
 		if ($orderType == 2) {
 
 			echo '<a class="cnfrm text-center d-flex justify-content-center align-items-center p-0 editicon edt_CatLnk runLink assign__btn" data-bs-toggle="modal" onClick="AssignOrder(' . $orderType . ', ' . $orderId . ')" data-bs-target="#assign-order" href="javascript:void(0)">
-					<span class="" >
-						<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="12" height="19" viewBox="0 0 15 21"><path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7"/><circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2"/><path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round"/></svg>
-						<span class="btn2 cn-btn d-block">' . showOtherLangText('Assign') . '</span>
-					</span>
-				</a>';
+			<span class="">
+				<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="12" height="19" viewBox="0 0 15 21">
+					<path d="M12.8 19.5a1 1 0 1 0 2 0zm1-6h1v-.2l-.1-.1zm-12-2-.4.9 1.7 1 .5-1zm13 8v-6h-2v6zm-.1-6.3C13.6 9.8 11.1 8 8.5 7.8A7 7 0 0 0 2 11.5l1.7 1c1-2 3-2.8 4.8-2.7 1.7.2 3.5 1.4 4.4 4z" fill="#8C8FA7" />
+					<circle cx="8" cy="3.8" r="2.3" stroke="#8C8FA7" stroke-width="2" />
+					<path d="M1.3 17h7m-2.5-2.5 2.1 2.1q.3.4 0 .8l-2.2 2.1" stroke="#8C8FA7" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+				<span class="btn2 cn-btn d-block">' . showOtherLangText('Assign') . '</span>
+			</span>
+		</a>';
 		}
 	} else {
 
 		// if ($orderType == 1) {
 
-		// 	echo '<span style="display:inline-block; width: 21%;">&nbsp;</span>';
+		// echo '<span style="display:inline-block; width: 21%;">&nbsp;</span>';
 
 		// }elseif ($orderType == 2) {
 
-		// 	echo '<span style="display:inline-block; width: 22%;">&nbsp;</span>';
+		// echo '<span style="display:inline-block; width: 22%;">&nbsp;</span>';
 		// }
 
 	}
@@ -4352,18 +4388,11 @@ function get_all_order_action_of_order_type($orderType, $orderStatus, $checkOrdA
 
 
 		} else {
+
+			get_confirmOrder_permission($orderType, $designation_id, $accountId, $orderId, $orderStatus);
 		?>
 
-			<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=1" class="cnfrm text-center d-flex justify-content-center align-items-center doc__btn complete">
-				<span class="runLink">
-					<!-- <span class="isuOut"></span> -->
-					<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">
-						<path d="m9.5 10 3.3 2.4q.7.6 1.3-.1L20.5 5" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-						<path d="M21.5 12a9 9 0 1 1-6.7-8.7" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-					</svg>
-					<p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p>
-				</span>
-			</a>
+
 
 		<?php
 
@@ -4463,34 +4492,7 @@ function get_all_order_action_of_requisition_type($orderType, $orderStatus, $che
 
 
 		} else {
-		?>
-			<!-- <a style="width: 20%;display: inline-block;text-align: center;"
-    href="runningOrders.php?orderId=<?php //echo $orderId 
-									?>&confirm=3"><?php //echo showOtherLangText('Confirm') 
-													?></a> -->
-
-			<!-- <span style="width: 23%;display: inline-block;text-align: center;">&nbsp;</span> -->
-			<!-- <div class="cnfrm text-center d-flex justify-content-center align-items-center">
-    <a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="runLink">
-        <span class="conFirm"></span>
-        <p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p>
-    </a>
-</div> -->
-
-			<a href="runningOrders.php?orderId=<?php echo $orderId ?>&confirm=3" class="cnfrm text-center d-flex justify-content-center align-items-center doc__btn complete">
-				<span class="runLink">
-					<!-- <span class="isuOut"></span> -->
-					<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">
-						<path d="m9.5 10 3.3 2.4q.7.6 1.3-.1L20.5 5" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-						<path d="M21.5 12a9 9 0 1 1-6.7-8.7" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-					</svg>
-					<p class="btn2 cn-btn"><?php echo showOtherLangText('Confirm') ?></p>
-				</span>
-			</a>
-		<?php
-
-			//get_editRequisition_permission($designation_id,$accountId,$orderId);
-
+			get_confirmOrder_permission($orderType, $designation_id, $accountId, $orderId, $orderStatus);
 		}
 	}
 }

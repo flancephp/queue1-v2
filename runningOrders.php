@@ -212,16 +212,9 @@ if (isset($_GET['orderId']) && isset($_GET['confirm'])) {
 
     $red = ($_GET['confirm'] == 1 || $_GET['confirm'] == 3) ? 'runningOrders.php?status=1' : 'history.php?status=1';
 
-    if (isset($_SESSION['errorStockPriceChanged'])) {
-        unset($_SESSION['errorStockPriceChanged']);
-        unset($_SESSION['errorQtyOrderId']);
-    }
-    if (isset($_SESSION['errorQty'])) {
-        unset($_SESSION['errorQty']);
-        unset($_SESSION['errorQtyOrderId']);
-    }
 
-    echo "<script>window.location='" . $red . "&error=" . $error . " '</script>";
+
+    echo "<script>window.location='" . $red . "'</script>";
     die();
 }
 
