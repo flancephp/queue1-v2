@@ -15630,7 +15630,9 @@ img.previewImg {
   }
 
 
-
+.form-select { 
+  padding-right: 46px !important;
+}
 
 
 @media(min-width:1601px) {
@@ -15647,6 +15649,7 @@ img.previewImg {
   }
   .form-select {
     background-size: 50px 42px;
+    padding-right: 58px !important;
   }
 }
 
