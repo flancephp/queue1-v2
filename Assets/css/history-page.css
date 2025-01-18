@@ -1,0 +1,1542 @@
+.modal-md {
+    max-width: 800px;
+}
+
+.modal-address p {
+    padding-bottom: 2px;
+}
+
+.site-modal .modal-content {
+    background: #f0f0f0;
+}
+
+.site-modal .modal-body {
+    background: #ffffff;
+}
+
+.site-modal thead tr th {
+    font-weight: 500;
+    padding: 8px 5px;
+}
+
+.site-modal tr.thead td {
+    font-weight: 500;
+    padding: 8px 5px;
+}
+
+.site-modal .thead {
+    border-top: 0;
+}
+
+.site-modal .thead+tr {
+    border-top: 0;
+}
+
+.site-modal thead,
+.site-modal .thead {
+    background-color: rgb(122 137 255 / 20%);
+}
+
+.site-modal tbody tr+tr {
+    border-top: 0;
+}
+
+.site-modal tbody tr td {
+    padding: 8px 5px;
+}
+
+/* .modal-header .btn {
+background-color: #7a89ff;
+color: #fff;
+border-radius: 6px;
+font-size: 14px;
+}
+
+.modal-header .btn {
+background-color: #7a89ff;
+color: #fff;
+border-radius: 6px;
+font-size: 14px;
+border-color: #7a89ff;
+} */
+
+.modal-head-row .btn {
+    font-size: 13px;
+    height: 34px;
+}
+
+.modal-head-row ul.dropdown-menu {
+    box-shadow: 0 0 10px #d5d5d5;
+}
+
+html[dir="rtl"] .modal-head-row ul.dropdown-menu {
+    text-align: right;
+    padding: 5px 9px !important;
+}
+
+.modal-head-row .btn i {
+    font-size: 10px;
+}
+
+.issueDtl {
+    min-height: 160px !important;
+}
+
+@media screen and (min-width: 1601px) {
+
+    .paidIsue,
+    .usdCurr,
+    .otrCurr,
+    .recIsue,
+    .Variance,
+    .accntDtl p:last-child {
+        font-size: 16px;
+    }
+}
+
+.accntDtl {
+    max-height: 160px !important;
+    overflow-y: scroll;
+}
+
+@media (min-width: 1025px) {
+    .cntArea { width: calc(100% - 200px); }
+    .overflow-x-auto { overflow-x:auto; } 
+    .issueIn { width: 34% !important; }
+    .issueDtl1 .issueIn { width: 750px !important;min-width: 750px; }
+    .issueDtl1 .issueOut { width: 281px !important;min-width: 281px; }
+    .issueDtl1.issueDtl .Variance { width: 180px !important;min-width: 180px; } 
+    .issueDtl .Variance { width: 33% !important; }
+
+    .usdCurr { display: none; width: 16.5%; min-width: 7rem; }
+    .dspBlk {
+        width: 100%;
+    }
+     
+    .issueDtl1 .dspBlk {
+        width: 35%;
+        min-width: 14rem;
+    }
+
+    .issueDtl.issueDtl1 .Variance {
+        width: 14% !important;
+    }
+    
+}
+@media(min-width:1400px) {
+    .issueDtl1 .issueIn { width: 839px !important;min-width: 839px; }
+}
+
+@media (min-width:1137px) {
+
+    /* 29 date tabel css */
+    .hisTypclm .dropdown-toggle,
+    .hisRefrclm .dropdown-toggle {
+        width: 100% !important;
+    }
+
+    .hisTypclm .dropdown,
+    .hisRefrclm .dropdown {
+        width: 100% !important;
+    }
+
+    .hisStatusclm .dropdown-toggle {
+        width: auto !important;
+        max-width: 85px !important;
+    }
+
+    /* .hisStatusclm,
+    .hisAcntclm {
+        width: 25% !important;
+        padding-left:0px;
+    } */
+
+
+
+    .hisTask .tb-bdy {
+        padding-left: 0;
+    }
+
+    /* spacing css */
+    /* .hisRefrclm {min-width:150px;} */
+    /* .hisDateclm {min-width: 65px;} */
+    /* .numItmclm {min-width: 70px;}
+    .srHisclm {min-width: 35px !important;} */
+    .stsHiscol,
+    .numRe {
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+
+    .itmTable1 .numRef,
+    .hisTblbody1 .numRef {
+        width: auto;
+        justify-content: space-between;
+        flex-grow: 1;
+        gap: .5rem
+    }
+
+
+
+    .hisTblbody1 .hisStatusclm,
+    .itmTable1 .hisStatusclm {
+        max-width: 75px;
+    }
+
+    .numItmclm {
+        width: 15% !important;
+    }
+
+    .hisValclm {
+        width: 8% !important;
+        padding-left: 0;
+        flex-grow: 0.5;
+    }
+
+    .hisDateclm,
+    .user-dpd {
+        width: 18%;
+    }
+
+    .date-dpd,
+    .hisDateclm.date {
+        width: 15%;
+    }
+
+    .type-dpd,
+    .update .hisTask .hisTypclm {
+        width: 20%;
+    }
+
+    .refer-to-dpd,
+    .update .hisTask .hisRefrclm {
+        width: 32%;
+    }
+
+    .dropdnbtns .stsHiscol,
+    .cntTableData .stsHiscol {
+        width: 30% !important;
+    }
+
+
+    
+
+    
+
+
+    .paidIsue .col-md-3 {
+        width: fit-content !important;
+    }
+
+
+
+
+
+    /* .hisStatusclm, .hisAcntclm {
+    width: 30% !important;
+    padding-left: 0px;
+    } */
+    .numRef3.numRef3 {
+        width: 15% !important;
+        flex-grow: 0 !important;
+        justify-content: unset !important;
+    }
+
+    .numRef4.numRef4 {
+        width: 25% !important;
+        flex-grow: 0 !important;
+    }
+
+    .numRef4 .hisTypclm {
+        width: initial;
+    }
+
+    /* dynamic class styles */
+    .numRef.colSize3>div {
+        width: 33% !important;
+    }
+
+    .numRef.colSize2>div {
+        width: 50% !important;
+    }
+
+    .numRef.colSize1>div {
+        width: 100% !important;
+        max-width: 400px;
+    }
+
+    .numRef.colSize3>div:first-child,
+    .numRef.colSize2>div:first-child,
+    .numRef.colSize1>div:first-child {
+        width: 4rem !important;
+    }
+
+    .stsHiscol.colSize4>div.tb-bdy {
+        width: 25% !important;
+        max-width: 100%;
+    }
+
+    .stsHiscol.colSize3>div.tb-bdy {
+        width: 33% !important;
+        max-width: 100%;
+    }
+
+    .stsHiscol.colSize2>div.tb-bdy {
+        width: 50% !important;
+        max-width: 100%;
+    }
+
+    .stsHiscol.colSize1>div.tb-bdy {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .stsHiscol.colSize2 .hisStatusclm .dropdown-toggle,
+    .stsHiscol.colSize3 .hisStatusclm .dropdown-toggle {
+        width: 100% !important;
+        max-width: 122px !important;
+    }
+
+    .dropdnbtns.colSize5.colSize2 .numRef,
+    .cntTableData .colSize5.colSize2 .numRef {
+        width: calc(77% - 195px) !important;
+    }
+
+    .fgcolSize3.colSize4 .hisValclm {
+        width: 10% !important;
+    }
+
+    .fgcolSize3.colSize4.dropdnbtns .numRef,
+    .cntTableData .fgcolSize3.colSize4 .numRef {
+        width: calc(50% - 195px) !important;
+    }
+
+    .dropdnbtns.fgcolSize2 .numRef,
+    .cntTableData .fgcolSize2 .numRef {
+        width: calc(46% - 195px) !important;
+    }
+
+    .fgcolSize2 .hisValclm {
+        width: 12% !important;
+    }
+
+    .dropdnbtns.fgcolSize2.lgcolSize2 .numRef,
+    .cntTableData .fgcolSize2.lgcolSize2 .numRef {
+        width: calc(60% - 195px) !important;
+    }
+
+    .dropdnbtns.fgcolSize1 .numRef,
+    .cntTableData .fgcolSize1 .numRef {
+        width: calc(30% - 195px) !important;
+    }
+
+    .fgcolSize1 .hisValclm {
+        width: 15% !important;
+    }
+
+    .dropdnbtns.fgcolSize1 .stsHiscol,
+    .cntTableData .fgcolSize1 .stsHiscol {
+        width: 40% !important;
+    }
+
+    .dropdnbtns.fgcolSize0 .numRef,
+    .cntTableData .fgcolSize0 .numRef {
+        width: 0% !important;
+    }
+
+    .dropdnbtns.lgcolSize1 .stsHiscol,
+    .cntTableData .lgcolSize1 .stsHiscol {
+        width: 10% !important;
+    }
+
+    .dropdnbtns.lgcolSize1.fgcolSize3 .stsHiscol,
+    .cntTableData .lgcolSize1.fgcolSize3 .stsHiscol {
+        width: 10% !important;
+    }
+
+    .dropdnbtns.lgcolSize1 .numRef,
+    .cntTableData .lgcolSize1 .numRef {
+        width: calc(74% - 185px) !important;
+    }
+
+    .dropdnbtns.lgcolSize1.fgcolSize3 .numRef,
+    .cntTableData .lgcolSize1.fgcolSize3 .numRef {
+        width: calc(74% - 185px) !important;
+    }
+
+    .dropdnbtns.lgcolSize2 .stsHiscol.colSize2 {
+        width: 40% !important;
+    }
+
+    .dropdnbtns.lgcolSize2 .stsHiscol.colSize2,
+    .cntTableData .lgcolSize2 .stsHiscol {
+        width: 24% !important;
+    }
+
+    .lgcolSize2 .hisValclm {
+        width: 11% !important;
+    }
+
+    .lgcolSize1.fgcolSize3 .hisValclm {
+        width: 11% !important;
+    }
+
+    .lgcolSize0 .stsHiscol.colSize0,
+    .lgcolSize0 .stsHiscol.colSize0 {
+        width: 0% !important;
+    }
+
+    .dropdnbtns.lgcolSize0 .numRef,
+    .cntTableData .lgcolSize0 .numRef {
+        width: calc(70% - 195px) !important;
+    }
+
+    .fgcolSize0 .numRef.colSize0 {
+        width: 0% !important;
+    }
+
+
+}
+
+/*       .hisTblbody1 .numRef .tb-bdy,
+.hstTbl-head1 .numRef .tb-bdy{
+flex-grow: 1;
+width: auto !important;
+} */
+
+.itmTable .tb-bdy {
+    padding-left: 0;
+}
+
+.itmTable .dropdown {
+    width: 100%;
+}
+
+.itmTable .dropdown a span {
+    overflow: hidden;
+}
+
+.itmTable .dropdown-toggle {
+    color: #666c85;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border: 1px solid #dfe0e8;
+    border-radius: 10px;
+    padding: 7px 12px;
+    font-weight: 700;
+    width: 100%;
+}
+
+.itmTable .dropdown-menu {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+.cn-btn {
+    color: #232859;
+}
+
+.cnfrm,
+.doc-bx,
+.dlt-bx {
+    margin: 0;
+}
+
+.hisTask .cnfrm,
+.hisTask .doc-bx,
+.hisTask .dlt-bx {
+    height: 55px;
+    border-radius: 6px;
+}
+
+.hisTask .dlt-bx {
+    width: 35px;
+}
+
+.fa.fa-filter {
+    position: relative;
+    top: -4px;
+}
+
+.modal.show .modal-dialog {
+    margin-top: 2rem;
+}
+
+@media (max-width:1024px) {
+    .issueDtl1 .issueIn {
+        width: 55% !important;
+        overflow-x: auto;
+    }
+
+    .numRef {
+        width: 100%;
+    }
+
+    .hisTask .itmBody {
+        gap: 3px;
+    }
+
+    .hisTask .itmBody .hisValclm {
+        width: 49% !important;
+    }
+
+    .hisTask .itmBody .hisValclm .dolValcurr {
+        text-align: start !important;
+    }
+
+    .stsHiscol {
+        padding: 0 8px;
+    }
+
+    .tb-bdy.hisStatusclm p {
+        text-align: start !important;
+    }
+
+    .dropdnbtns {
+        flex-direction: column;
+    }
+
+    .hstTbl-head .stsHiscol {
+        flex-wrap: nowrap;
+    }
+
+}
+
+.toggle-currency-btn {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    color: #666C85;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.36px;
+    border: 1px solid #A9B0C0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.toggle-currency-btn:hover {
+    color: #fff !important;
+    background-color: #7a89ff;
+    border-color: #7a89ff;
+}
+
+/* .pdAmount, .pendAmount { font-weight:600; } */
+/* .paidIsue .pdAmount,
+.paidIsue .pendAmount,
+.recIsue .pdAmount-rec,
+.recIsue .pendAmount-rec {
+font-weight: 400 !important;
+} */
+
+.pdAmount-rec,
+.pendAmount-rec {
+    font-weight: 400;
+}
+
+/* hover effects */
+.reloadBtn a:hover {
+    color: #fff !important;
+    background-color: #7a89ff;
+    border-color: #7a89ff;
+}
+
+.chkStore a:hover img {
+    scale: 1.1;
+}
+
+.negetive__margin {
+    margin-top: -30px;
+}
+
+.numItmclm,
+.hisDateclm,
+.hisValclm,
+.numItmclm a,
+.hisDateclm a,
+.hisValclm a,
+.hisStatusclm p,
+.numItmclm p,
+.action-column-p p {
+    font-weight: 600;
+}
+
+#itemDiv,
+#taskDiv {
+    background-color: #fff !important;
+}
+
+.issueDtl {
+    padding: 9px 10px;
+    position: relative;
+}
+
+.issueDtl .Variance {
+    padding-right: 0px !important;
+    width: 14% !important;
+}
+
+.issueOut {
+    width: 31% !important;
+}
+
+/* .issueIn {
+    width: 55% !important;
+} */
+
+.detailPrice {
+    padding: 11px 30px 0 !important;
+}
+
+.fa-filter::after {
+    margin: -.5rem -.1rem;
+}
+
+@media(max-width:991px) {
+    .account-name-section {
+        position: absolute;
+        top: 1rem;
+        right: 9rem;
+    }
+
+    .issueIn {
+        padding-right: 2rem;
+    }
+
+    html[dir="rtl"] .modal-header {
+        padding-right: 0 !important;
+    }
+
+    .chkStore img {
+        width: 24px;
+    }
+}
+
+@media(max-width:575px) {
+    .account-name-section {
+        top: 4rem;
+        right: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .container.hisData {
+        margin-top: 1rem;
+    }
+
+    .issueIn {
+        padding-right: 0;
+        width: 100% !important;
+        margin-bottom: 2rem;
+    }
+
+    .issueOut {
+        width: 100% !important;
+    }
+
+    .issueDtl .Variance {
+        width: 100% !important;
+    }
+
+    .issueDtl1 .issueIn {
+        width: 100% !important;
+    }
+}
+
+/* ---- Responsive Filterbox styles start -------- */
+.res__filter__box .itmTable {
+    border: none;
+    box-shadow: none;
+    border-radius: 10px 10px 0 0;
+    padding: 0 16px;
+}
+
+.res__filter__box .his-Paybtn {
+    width: 17%;
+}
+
+@media (min-width: 992px) {
+
+    .res__filter__box .label__box {
+        width: 155px;
+    }
+
+    .res__filter__box .lg__70 {
+        max-width: 70%;
+    }
+
+    .lg_pr_8 {
+        padding-left: 8px;
+    }
+}
+
+.update .hisTask {
+    padding: 0;
+}
+
+@media(min-width:1025px) {
+
+    /* .lg_max_w_100 { width:100px; } */
+    .lg_w_35 {
+        width: 35% !important;
+    }
+
+    .lg_pl_0 {
+        padding-left: 0;
+    }
+
+    .update .hisTask {
+        padding: 3px 16px !important;
+    }
+
+    .toggle-currency-btn {
+        position: absolute;
+        top: 10px;
+        left: 92%;
+    }
+
+    html[dir="rtl"] .toggle-currency-btn {
+        right: 92%;
+        left: auto;
+    }
+
+    /* .issueIn {
+        overflow-x: auto;
+    } */
+}
+
+@media(min-width:1200px) {
+    .toggle-currency-btn {
+        left: 21px;
+    }
+
+    html[dir="rtl"] .toggle-currency-btn {
+        right: 21px;
+        left: auto;
+    }
+}
+
+@media(min-width:1600px) {
+    .toggle-currency-btn {
+        left: 47px;
+    }
+
+    html[dir="rtl"] .toggle-currency-btn {
+        right: 47px;
+        left: auto;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hstTable-show {
+        top: 3rem;
+        padding-top: 0 !important;
+        background: transparent;
+    }
+
+    .detailPrice.detailPrc-show {
+        padding: 0% !important;
+        top: 3.5rem;
+        background-color: #fff;
+        display: block;
+        border-radius: 1rem 1rem 0 0;
+    }
+
+    .issueIn .ttlAmount {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        white-space: nowrap;
+    }
+
+    .detailPrice.detailPrc-show .tab-mbDtl {
+        padding: 10px;
+        margin-bottom: 0;
+    }
+
+    .detailPrice.detailPrc-show .scroller {
+        max-height: calc(100vh - 7rem);
+        overflow-y: auto;
+    }
+
+    .update .newHistoryTask .itmBody {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        position: relative;
+    }
+
+    .update .newHistoryTask .itmBody .price__box {
+        position: absolute;
+        top: .5rem;
+        right: 0;
+    }
+
+    .update .newHistoryTask .itmBody .price__box.refer {
+        top: 1.75rem;
+        left: 0;
+        width: 50%;
+    }
+
+    .update .newHistoryTask .itmBody .inv__box {
+        position: absolute;
+        top: 2.75rem;
+        right: 0;
+    }
+
+    html[dir="rtl"] .update .newHistoryTask .itmBody .price__box {
+        right: auto;
+        left: 0;
+    }
+
+    html[dir="rtl"] .update .newHistoryTask .itmBody .price__box.refer {
+        left: auto;
+        right: 0;
+    }
+
+    html[dir="rtl"] .update .newHistoryTask .itmBody .inv__box {
+        right: auto;
+        left: 0;
+    }
+
+
+    .update .d-flex.align-items-center.justify-content-end.his-Paybtn {
+        padding-bottom: 4px;
+    }
+
+    .mb-Acntdetail .tb-bdy {
+        padding-left: 0;
+        padding-bottom: 0 !important;
+        display: flex;
+        justify-content: between;
+    }
+
+    .hstDate .datepicker {
+        font-size: 14px;
+    }
+
+    .numItmclm.order_num {
+        min-height: 4rem;
+    }
+}
+
+@media(min-width:768px) and (max-width:1024px) {
+    .update .newHistoryTask .itmBody .price__box.refer {
+        padding-left: 16px;
+    }
+
+    html[dir="rtl"] .update .newHistoryTask .itmBody .price__box.refer {
+        padding-right: 16px;
+        padding-left: 8px;
+    }
+}
+
+
+@media (max-width:1024px) {
+    .res__filter__box .itmTable {
+        min-height: calc(100vh - 3rem);
+        padding: .75rem .75rem .5rem .75rem;
+    }
+
+    .res__filter__box .back__btn {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .res__filter__box .his-Paybtn {
+        width: 50%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        flex-direction: row;
+        padding-top: .875rem;
+        padding-right: 1rem;
+    }
+
+    html[dir="rtl"] .res__filter__box .his-Paybtn {
+        left: 0;
+        right: auto;
+        flex-direction: row-reverse;
+        padding-left: 1rem;
+        padding-right: 0;
+    }
+
+    .hstTbl-head .numRef,
+    .hstTbl-head .stsHiscol {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .res__filter__box .itmTable .tb-bdy {
+        width: 49%;
+        padding-top: .45rem;
+        padding-bottom: .45rem;
+    }
+
+    .res__filter__box .itmTable .tb-bdy .dropdown,
+    .res__filter__box .itmTable .dropdown-toggle {
+        width: 100%;
+    }
+
+    .res__filter__box .itmTable .dropdown-toggle {
+        min-height: 3.25rem;
+        padding: 7px 10px !important;
+    }
+
+    .res__filter__box .dropdnbtns {
+        margin-top: 1rem;
+    }
+
+    .update .itemBody .shrtHisclm.tb-bdy {
+        padding: 4px 4px 0 !important;
+    }
+
+    .hisTask p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box; 
+        white-space: nowrap;
+    }
+
+    .update .itmBody .stsHiscol {
+        padding-left: 10px;
+    }
+}
+
+@media (max-width:575px) {
+
+    .res__filter__box .itmTable .tb-bdy,
+    .res__filter__box .itmTable .tb-bdy {
+        width: 100%;
+    }
+
+    .res__filter__box .stsHiscol.d-flex.align-items-center {
+        flex-wrap: wrap;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media(min-width:576px) {
+    .sm__ml {
+        margin-left: -0.3rem;
+    }
+}
+
+/* ---- Responsive Filterbox styles end -------- */
+.toggle-currency-btn-disabled {
+    width: 40px;
+    height: 30px;
+    display: none;
+    color: #666C85;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.36px;
+    border: 1px solid #A9B0C0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.toggle-currency-btn-disabled:hover,
+.toggle-currency-btn-disabled:focus {
+    color: #666C85;
+    cursor: default;
+}
+
+.input-group {
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: .5rem;
+}
+
+.input-group button {
+    border-radius: 10px !important;
+}
+
+.input-group input {
+    background-color: white;
+    border-radius: 10px !important;
+    max-width: 200px;
+    height: 32px;
+    padding: 0 .5rem;
+}
+
+.srHisclm {
+    width: 4rem;
+}
+
+html[dir=rtl] .dropdown-item .fa-square {
+    padding: 0 0 0 .5rem !important;
+}
+
+.overflowTable {
+    background-color: #fff;
+}
+
+.site-modal thead tr th {
+    font-size: 12px;
+}
+
+.modal-content {
+    overflow-x: hidden !important;
+}
+
+@media(max-width:767px) {
+    .modal .modal-table {
+        font-size: 5px
+    }
+
+    .modal .table-cell {
+        padding: 4px 5px;
+        font-size: 5px;
+    }
+
+    .modal .fs-13 {
+        font-size: 8px;
+        line-height: 1.2;
+    }
+
+    .modal .fs-13.dropdown-toggle {
+        font-size: 12px;
+    }
+
+    .modal .headerTxt.modal-date {
+        font-size: 9px;
+    }
+
+    .modal .headerTxt {
+        font-size: 12px;
+    }
+
+    .site-modal thead tr th {
+        font-size: 6px;
+        padding: 4px 5px;
+        line-height: 1.2;
+    }
+
+    #view_payment_paid_content th,
+    #view_payment_paid_content td {
+        font-size: 11px;
+    }
+
+    .site-modal .table1 tr td {
+        padding: 0px 5px;
+    }
+
+    .grand-total-tabel tr {
+        height: 28px;
+    }
+}
+
+@media(min-width:992px) {
+    #modalfiltertop {
+        position: absolute;
+        top: 1.7rem;
+        left: 4rem;
+    }
+
+    html[dir="rtl"] #modalfiltertop {
+        left: auto;
+        right: 4rem;
+    }
+
+    html[dir="rtl"] .text-end {
+        text-align: left !important;
+    }
+
+    .mb-modal-close-icon {
+        display: none;
+    }
+}
+
+html[dir="rtl"] .col-md-4.col-5.order-md-3.text-end {
+    text-align: left !important;
+}
+
+.info__table td:nth-child(1) {
+    width: 55%
+}
+
+#view_payment_paid_content .btn-primary {
+    padding: 4.5px 18px;
+    display: inline-flex;
+}
+
+html[dir="rtl"] #view_payment_paid_content .btn-primary .ps-1 {
+    padding-left: 0 !important;
+    padding-right: .25rem;
+}
+
+
+.SummaryItems>div:nth-child(1) {
+    width: 35% !important;
+}
+
+.SummaryItems>div:nth-child(2) {
+    width: 30% !important;
+}
+
+.SummaryItems>div:nth-child(3) {
+    width: 35% !important;
+}
+
+/* Apply styles for exactly 2 divs */
+/* .stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3))) {
+    display: flex;
+    justify-content: space-around;
+    width: 15% !important;
+}
+
+.stsHiscol:has(> div:nth-last-child(2)):not(:has(> div:nth-child(3)))>div {
+    width: 50% !important;
+} */
+
+/* Apply styles for exactly 1 div */
+/* .stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2))) {
+    display: flex;
+    justify-content: space-around;
+    width: 10% !important;
+}
+
+.stsHiscol:has(> div:nth-child(1)):not(:has(> div:nth-child(2)))>div {
+    width: 100% !important;
+} */
+
+
+.issueDtl_accntDtl_main>div:only-child {
+    width: 100%;
+}
+
+
+/* .grand-total-tabel .grand-total:first-of-type {background-color: #7a89ff !important;color: white;}
+.invoice-Details  .grand-total:first-of-type {background-color: #7a89ff !important;color: white;} */
+.grand-total-tabel .grand-total th {
+    background-color: #7a89ff !important;
+    color: white;
+}
+
+.invoice-Details .grand-total th {
+    background-color: #7a89ff !important;
+    color: white;
+}
+
+
+.mb-modal-close-icon {
+    width: 100%;
+    padding: 0;
+    position: static;
+    margin-bottom: .2rem;
+}
+
+/* .modal .btn-primary { gap:.5rem; } */
+html[dir="rtl"] .mb-modal-close-icon {
+    right: auto;
+    left: -10px;
+}
+
+#view_payment_paid_content .mb-modal-close-icon {
+    right: 0px;
+    top: 10px;
+}
+
+.update .tb-bdy {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.update .ordDetail {
+    box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
+}
+
+.update .hisParent-sec {
+    box-shadow: none !important;
+}
+
+.update .itmBody {
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1.2;
+}
+
+.update .dropdown-toggle.runLink .fa-solid {
+    right: 0;
+}
+
+.update .doc-bx:hover .dropdown-toggle.runLink svg path,
+.update .doc-bx:hover .dropdown-toggle.runLink svg rect {
+    stroke: var(--color-white);
+}
+
+.update .itmTable,
+.update .srHisclm p {
+    font-size: 1rem;
+}
+
+.update .hisStk-typ,
+.update .hisReq-typ,
+.update .hisOrd-typ {
+    width: 100%;
+    max-width: 105px;
+}
+
+.update .hisStk-typ p,
+.update .hisReq-typ p,
+.update .hisOrd-typ p {
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+.update .itmTable .dropdown-toggle {
+    height: 43px;
+    font-size: 15px;
+}
+
+.newHistoryTask {
+    position: relative;
+}
+
+.order_num.numItmclm p {
+    color: #232859;
+}
+
+.srHisclm p {
+    font-weight: 600 !important;
+}
+
+@media(min-width:1600px) and (max-width:1800px) {
+
+    .update .hisStk-typ p,
+    .update .hisReq-typ p,
+    .update .hisOrd-typ p,
+    .update .itmTable,
+    .update .itmTable .dropdown-toggle {
+        font-size: 14px !important;
+    }
+
+    .serial {
+        font-size: 18px !important;
+    }
+}
+
+@media(max-width:1599px) {
+
+    .update .itmBody>div:first-child p,
+    .update .hisTask .tb-bdy {
+        font-size: 12px;
+    }
+
+    .update .itmTable .dropdown-toggle {
+        padding: 7px 5px;
+        height: 34px;
+        font-size: 12px;
+    }
+
+    .update .itmTable,
+    .update .hisStk-typ p,
+    .update .hisReq-typ p,
+    .update .hisOrd-typ p {
+        font-size: 12px !important;
+    }
+
+}
+
+@media (min-width:768px) and (max-width:1024px) {
+    .update .hisTory {
+        margin-top: 0;
+        padding: 0 10px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100%;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .itmBody {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 1600px;
+    }
+
+    html[dir=rtl] .newOrder {
+        padding: 9px 12px 0 17px !important;
+    }
+}
+
+@media(min-width: 1024px) {
+
+    .dropdnbtns .numRef,
+    .cntTableData .numRef {
+        width: calc(54% - 185px) !important;
+    }
+
+    .update .res__filter__box .his-Paybtn,
+    .update .shrtHisclm {
+        width: 195px;
+        padding-right: 0 !important;
+    }
+
+    .update .stsHiscol .hisStatusclm,
+    .update .stsHiscol .hisAcntclm {
+        width: 25%;
+    }
+
+    .srHisclm {
+        position: absolute;
+        top: 1rem;
+        left: -4rem;
+        text-align: right;
+    }
+
+    html[dir="rtl"] .srHisclm {
+        right: -4rem;
+        left: auto;
+        text-align: left;
+        padding-left: .5rem;
+    }
+
+    .update .hisParent-sec {
+        padding-left: 4rem;
+        margin-left: -4rem;
+    }
+
+    html[dir="rtl"] .update .hisParent-sec {
+        padding-left: 0;
+        margin-left: 0;
+        padding-right: 6rem;
+        margin-right: -4rem;
+    }
+}
+
+.fw-normal p {
+    font-weight: 400 !important;
+}
+
+.modal-table .table-cell {
+    line-height: 1.3;
+}
+
+.cnfrm:hover .h3,
+.doc-bx:hover .h3,
+.dlt-bx:hover .h3 {
+    color: var(--color-white);
+}
+
+.hisTask .cnfrm:hover a .h3,
+.hisTask .doc-bx:hover a .h3,
+.hisTask .dlt-bx:hover a .h3 {
+    color: var(--color-white);
+}
+
+.hisTask .cnfrm:hover,
+.hisTask .doc-bx:hover,
+.hisTask .dlt-bx:hover {
+    background: var(--color-primary) !important;
+}
+
+.modal-dialog #order_history_popup #modalfiltertop {
+    top: 0 !important;
+}
+
+.d-flex.align-items-start.w-100.gap-3.w-auto.mb-md-0.mb-2.modal-head-btn {
+    position: relative;
+}
+
+@media(max-width:768px) {
+    .modal-header #modalfiltertop {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+}
+
+.modal .tr-bg-1 th {
+    padding: 0 1rem !important;
+    height: 3rem;
+}
+
+html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
+    top: 0;
+    right: 100%;
+    left: auto;
+    margin-top: 0;
+    text-align: start;
+}
+
+.set__left__padding {
+    padding: 8px 0;
+}
+
+@media screen and (max-width: 1024px) {
+    .hisData {
+        padding: 10px 0 0;
+    }
+
+    .paidIsue .col-md-3 {
+        margin-top: 9%;
+    }
+}
+
+.modal-table .table-cell .photo img {
+    max-height: 50px;
+    width: auto;
+}
+
+@media(max-width:767px) {
+    .set__left__padding {
+        padding: 5px 0px;
+        line-height: 1.4;
+    }
+
+    .modal-header {
+        padding: 0px 0 12px 0;
+    }
+
+    .modal-table .table-cell .photo img {
+        max-height: 20px;
+    }
+
+    .dropdown-menu.show {
+        padding: 5px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    #modalfiltertop {
+        position: absolute;
+        top: .75rem !important;
+        left: 4rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .paidIsue {
+        align-items: flex-end;
+    }
+}
+
+html[dir="rtl"] .ps-1 {
+    padding-left: 0 !important;
+    padding-right: .25rem;
+}
+
+html[dir="rtl"] .pe-2 {
+    padding-right: 0 !important;
+    padding-left: .25rem;
+}
+
+@media screen and (min-width: 1600px) {
+    .chkStore img {
+        width: 26px;
+    }
+}
+
+@media screen and (min-device-width: 1024px) and (max-device-width: 1600px) {
+    html[dir="rtl"] .btn.fs-13 {
+        line-height: 8px;
+    }
+}
+
+@media(min-width:1600px) {
+    .itmBody>.srHisclm p {
+        font-size: 16px !important;
+    }
+
+    .btn2 {
+        font-size: 12px;
+    }
+}
+
+@media(min-width:1200px) and (max-width:1599px) {
+    .srHisclm p {
+        font-size: 14px !important;
+    }
+}
+
+.modal .sub-table .table-cell,
+.modal .left__align__text .table-cell {
+    text-align: left !important;
+}
+
+html[dir="rtl"] .modal .sub-table .table-cell,
+html[dir="rtl"] .modal .left__align__text .table-cell {
+    text-align: right !important;
+}
+
+/* requestion order details pdf */
+.requestion__modal__table .table-row .table-cell:nth-child(1),
+.requestion__modal__table .table-row .table-cell:nth-child(2),
+.requestion__modal__table .table-row .table-cell:nth-child(3) {
+    width: 20%;
+}
+
+.requestion__modal__table .table-row .table-cell:nth-child(4) {
+    width: 40%;
+}
+
+.remove__parent__padding .modal-table>.table-row .table-cell:nth-child(1),
+.remove__parent__padding .modal-table>.table-row .table-cell:nth-child(2) {
+    width: 25%;
+}
+
+.remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3) {
+    width: 50%;
+}
+
+.table-cell.left__align__text .table-cell {
+    width: 33% !important;
+}
+
+.total__th {
+    font-size: 1.125rem;
+}
+
+@media (max-width: 1700px) {
+    .total__th {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1023px) and (max-width: 1100px) {
+
+    .update .itmBody>div:first-child p,
+    .update .hisTask .tb-bdy {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1022px) {
+
+    .update .itmBody>div:first-child p,
+    .update .hisTask .tb-bdy {
+        font-size: 1rem;
+    }
+}
