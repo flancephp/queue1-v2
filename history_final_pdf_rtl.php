@@ -383,22 +383,31 @@ $count;
 $issueinClass = '';
 $issueoutClass = '';
 $tabelrowClass = '';
-if ($count >= 1 && $_GET['otherCurrency'] == 1) {
-    $issueinClass = 'width: 55%;';
+if ($count == 1 && $_GET['otherCurrency'] == 1) {
+    $issueinClass = 'width: 50%;';
     $issueoutClass = 'width: 25%;';
+    $varianceClass = 'width: 25%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
+} elseif ($count > 1 && $_GET['otherCurrency'] == 1) {
+    $issueinClass = 'width: 100%;';
+    $issueoutClass = 'width: 50%;';
+    $varianceClass = 'width: 50%;';
     $tabelrowClass = 'display:table-cell';
     $tdwidth = 'width:100%';
 } else {
 
-    if ($_GET['issuedOut'] == 1 || $_GET['variance'] == 1 || $_GET['converted'] == 1) {
-        $issueinClass = 'width: 55%;';
+    if ($_GET['issuedOut'] == 1 || $_GET['variance'] == 1 ||  $_GET['converted'] == 1) {
+        $issueinClass = 'width: 50%;';
         $issueoutClass = 'width:25%;';
+        $varianceClass = 'width: 25%;';
     } else {
-        $issueinClass = 'width: 55%;';
+        $issueinClass = 'width: 50%;';
         $issueoutClass = 'width:25%';
+        $varianceClass = 'width: 25%;';
         $tabelrowClass = 'display:table-cell';
     }
-
+    $tdwidth = 'width:100%';
     $tabelrowClass = '';
 }
 
@@ -426,7 +435,7 @@ $content .= '<table style="font-size:12px;" width="100%">
 
 //variance sections starts here
 if ($_GET['variance'] == 1) {
-    $content .= '<td style="width: 20%;">
+    $content .= '<td style="' . $varianceClass . '">
                 <table style="width:100%; font-size:12px; border-collapse: collapse;text-align:right;">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
                            <td style="width:50%; padding: 8px 5px;text-align:right;" colspan="2">' . showOtherLangText('Variances') . '</td>
@@ -442,36 +451,12 @@ if ($_GET['variance'] == 1) {
 }
 //variance sections ends here
 
-//converted sections starts here
-if ($_GET['converted'] == 1) {
 
-
-    //get converted total
-    $varOrConverted = true;
-    $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
-                                    AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
-
-    $resultSet = mysqli_query($con, $sqlSet);
-    $resRow = mysqli_fetch_array($resultSet);
-    $content .= '<td style="width: 20%;">
-                <table style="width:100%; font-size:12px; border-collapse: collapse;text-align:right;">';
-    $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
-                           <td style="width:50%; padding: 8px 5px;text-align:right;" colspan="2">' . showOtherLangText('Converted') . '</td>
-                            </tr>';
-
-    $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                            <td style="padding: 8px 5px;text-align:right;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode'], 0, 1) . '</td>
-
-                    </tr>
-                </table>
-            </td>';
-}
-//converted sections ends here
 
 
 //Issue out starts here
 if ($_GET['issuedOut'] == 1) {
-    $content .= '<td style="width: 25%;">
+    $content .= '<td style="' . $issueoutClass . '">
                 <table style="width:100%; margin-right:1%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold;">
                         <td style="width:50%; padding: 8px 5px;text-align:right;">' . showOtherLangText('Issued Out') . '</td>
@@ -587,6 +572,33 @@ if ($_GET['issueInSummary'] == 1) {
 
 $content .= '</tr>
     </table>';
+
+//converted sections starts here
+if ($_GET['converted'] == 1) {
+
+
+    //get converted total
+    $varOrConverted = true;
+    $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
+                                    AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
+
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resRow = mysqli_fetch_array($resultSet);
+    $content .= '
+                <table style="font-size:12px;" width="100%">';
+    $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
+                           <td style="width:100%; padding: 8px 5px;text-align:right;" colspan="2">' . showOtherLangText('Converted') . '</td>
+                            </tr>';
+
+    $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
+                            <td style="padding: 8px 5px;text-align:right;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode'], 0, 1) . '</td>
+
+                    </tr>
+                </table>
+            ';
+}
+//converted sections ends here
+
 if ($_GET['summaryAccount'] == 1) {
     $content .= '<table style="width:100%; font-size:12px; margin-block-start: 24px;">
         <tr style="font-weight:bold;">

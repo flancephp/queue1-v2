@@ -746,7 +746,7 @@ if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 
     $resultSet = mysqli_query($con, $sqlSet);
     $resRow = mysqli_fetch_array($resultSet);
 
-    $content .= '<div class=" ' . $varianceClass . ' convertedRow ps-0 pe-0 summaryPart" id="convertedId">
+    $content .= '<div class="fs-12 w-100 convertedRow ps-0 pe-0 summaryPart" id="convertedId">
                                     <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
                                         <div class="table-cell medium">' . showOtherLangText('Converted') . '</div>
                                     </div>

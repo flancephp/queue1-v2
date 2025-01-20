@@ -150,7 +150,7 @@ $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; bord
         <tr>
             <td width="50%" style="font-weight:700;padding: 5px;border:0;">';
 
-if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1) {
+if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
 
 
     $content .= ' <table width="100%" border="0">
