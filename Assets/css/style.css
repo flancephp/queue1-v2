@@ -3478,6 +3478,8 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
+.doc-bx .dropdown-item { white-space: pre; }
+
 .dropdown-item {
   display: block;
   width: 100%;
@@ -3489,7 +3491,7 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
-  border: 0;
+  border: 0;white-space: pre-line;
 }
 .dropdown-item:hover, .dropdown-item:focus {
   color: #1e2125;
@@ -3552,6 +3554,15 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
 }
 .dropdown-menu-dark .dropdown-header {
   color: #adb5bd;
+}
+
+#SupplierText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
 }
 
 .btn-group,
@@ -10516,7 +10527,7 @@ a.sbActive .mb_nvSubIcn {
 .innerDrop .submenu { position: absolute;top: 0;background: #fff;width: 12rem;border-radius: var(--radius);padding: .25rem;right: -12rem;min-width: 12rem !important; }
 .innerDrop .submenu.show { width: 12rem;right: -12rem !important;left: auto !important;transform: none !important; } 
 .innerDrop .submenu.large .dropdown-item { white-space: break-spaces; }
-.submenu .dropdown-item { font-size: 12px;padding: .15rem .5rem; }
+.submenu .dropdown-item { font-size: 12px;padding: .15rem .5rem;white-space: pre-line; }
 
 
 /* Custom Btn CSS Start */
