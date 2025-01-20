@@ -550,42 +550,54 @@ include_once('script/revenueCenterReport_script.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="gt-Data">
-                                        <div class="revFeat position-relative text-center">
-                                            <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="edIt"></span>
-                                                <p class="btn2 d-flex justify-content-center align-items-center">
-                                                    <span><?php echo showOtherLangText('Get Data'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                </p>
-                                            </a>
-                                            <form action="upload_report.php" id="upload_form" name="upload_form"
-                                                method="post" enctype="multipart/form-data">
 
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)"><?php echo showOtherLangText('Enter Guest No.'); ?></a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item gt-Pos" href="easy.php"><?php echo showOtherLangText('Get POS Sales'); ?></a>
-                                                    </li>
-                                                    <li><a target="_blank" class="dropdown-item imp-Data" href="javascript:void(0)" id="btnFileUpload"><?php echo showOtherLangText('Import Data File'); ?></a></li>
+                                    <?php if ($revenueAllPermissions['guest_no']['type_id'] || $revenueAllPermissions['ezee_data']['type_id'] || $revenueAllPermissions['reImport_data']['type_id']) { ?>
 
-                                                    <input type="file" id="uploadFile" name="uploadFile"
-                                                        style="display:none">
+                                        <div class="gt-Data">
+                                            <div class="revFeat position-relative text-center">
+                                                <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="edIt"></span>
+                                                    <p class="btn2 d-flex justify-content-center align-items-center">
+                                                        <span><?php echo showOtherLangText('Get Data'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                    </p>
+                                                </a>
+                                                <form action="upload_report.php" id="upload_form" name="upload_form"
+                                                    method="post" enctype="multipart/form-data">
+
+                                                    <ul class="dropdown-menu">
+                                                        <?php if ($revenueAllPermissions['guest_no']['type_id']) { ?>
+                                                            <li>
+                                                                <a class="dropdown-item ent-Gstno" data-bs-toggle="modal" data-bs-target="#modalEnterGuestNo" href="javascript:void(0)"><?php echo showOtherLangText('Enter Guest No.'); ?></a>
+                                                            </li>
+                                                        <?php } ?>
+
+                                                        <?php if ($revenueAllPermissions['ezee_data']['type_id']) { ?>
+                                                            <li>
+                                                                <a class="dropdown-item gt-Pos" href="easy.php"><?php echo showOtherLangText('Get POS Sales'); ?></a>
+                                                            </li>
+                                                        <?php } ?>
+
+                                                        <?php if ($revenueAllPermissions['reImport_data']['type_id']) { ?>
+                                                            <li><a target="_blank" class="dropdown-item imp-Data" href="javascript:void(0)" id="btnFileUpload"><?php echo showOtherLangText('Import Data File'); ?></a></li>
+
+                                                            <input type="file" id="uploadFile" name="uploadFile"
+                                                                style="display:none">
 
 
-                                                    <li>
-                                                        <a class="dropdown-item dwn-Sample" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/import-revenueCenter-hebrew-lang.xlsx' : 'excelSampleFile/english/import-revenueCenter-english-lang.xlsx'; ?>">
-                                                            <i class="fa-solid fa-arrow-down"></i>
-                                                            <span><?php echo showOtherLangText('Download sample file'); ?></span></a>
+                                                            <li>
+                                                                <a class="dropdown-item dwn-Sample" href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/import-revenueCenter-hebrew-lang.xlsx' : 'excelSampleFile/english/import-revenueCenter-english-lang.xlsx'; ?>">
+                                                                    <i class="fa-solid fa-arrow-down"></i>
+                                                                    <span><?php echo showOtherLangText('Download sample file'); ?></span></a>
 
 
-                                                    </li>
-                                                </ul>
-                                            </form>
+                                                            </li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php } ?>
 
                                 </div>
                             </div>

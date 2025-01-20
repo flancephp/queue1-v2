@@ -38,10 +38,6 @@ if (!isset($_SESSION['supplierIdOrd'])) {
 }
 
 
-$sqlSet = " SELECT * FROM tbl_orders WHERE id = '" . $_GET['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
-$resultSet = mysqli_query($con, $sqlSet);
-$ordRow = mysqli_fetch_array($resultSet);
-
 //insert data in order_details_temp table when user land on this page
 if (isset($_GET['orderId'])) {
 
@@ -83,9 +79,14 @@ if (isset($_GET['orderId'])) {
 
     //add order net value so that in case of its not updated it will update the total here but later 
     //after adding transaciton it needs to be removed from here
-    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
+    orderNetValue($_GET['orderId'], $currencyId);
 } //end
 
+
+
+$sqlSet = " SELECT * FROM tbl_orders WHERE id = '" . $_GET['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+$resultSet = mysqli_query($con, $sqlSet);
+$ordRow = mysqli_fetch_array($resultSet);
 
 
 $curAmtVal = 0;

@@ -3817,12 +3817,29 @@ function get_stock_permissions($designation_id, $accountId)
 	$accessPermission = mysqli_query($con, $sql);
 
 
-	$historyPerm = [];
+	$stockPerm = [];
 	while ($accessPermissionRow = mysqli_fetch_array($accessPermission)) {
-		$historyPerm[$accessPermissionRow['type']] = $accessPermissionRow;
+		$stockPerm[$accessPermissionRow['type']] = $accessPermissionRow;
 	}
 
-	return $historyPerm;
+	return $stockPerm;
+}
+
+function get_revenueReport_permissions($designation_id, $accountId)
+{
+
+	global $con;
+
+	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '7' AND account_id = '" . $accountId . "'  ";
+	$accessPermission = mysqli_query($con, $sql);
+
+
+	$revPerm = [];
+	while ($accessPermissionRow = mysqli_fetch_array($accessPermission)) {
+		$revPerm[$accessPermissionRow['type']] = $accessPermissionRow;
+	}
+
+	return $revPerm;
 }
 
 function access_delete_history_file($accessPermissionRow, $orderId)

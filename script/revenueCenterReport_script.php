@@ -18,11 +18,8 @@ if (!in_array('7', $checkPermission)) {
 	exit;
 }
 
-$accessGuestData = access_guest($_SESSION['designation_id'], $_SESSION['accountId']);
+$revenueAllPermissions = get_revenueReport_permissions($_SESSION['designation_id'], $_SESSION['accountId']);
 
-$accessEzeeData = access_ezee_data($_SESSION['designation_id'], $_SESSION['accountId']);
-
-$accessImportRevCenterData = access_import_revenueCenter_data($_SESSION['designation_id'], $_SESSION['accountId']);
 
 if (!isset($_GET['fromDate'])) {
 	$_GET['fromDate'] = date('d-m-Y', strtotime('-1 days'));
