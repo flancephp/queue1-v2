@@ -21,7 +21,10 @@ if (isset($_SESSION['checkDublicateClick']) && $_SESSION['checkDublicateClick'] 
 
 //test
 //get access of Xcel and pdf file
-$showExcelPdfFile = access_stock_xcl_pdf_file($_SESSION['designation_id'], $_SESSION['accountId']);
+
+$stockAllPermissions = get_stock_permissions($_SESSION['designation_id'], $_SESSION['accountId']);
+
+$showExcelPdfFile = $stockAllPermissions['access_stock_xcl_pdf'];
 
 
 if (isset($_SESSION['processId'])) {
@@ -295,7 +298,7 @@ if (isset($stockUserFilterFields)) {
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/stock-view.css">
- 
+
 </head>
 
 <body>
@@ -406,26 +409,30 @@ if (isset($stockUserFilterFields)) {
                                     </div>
                                 </div>
                                 <!-- <div class="strRemcol"></div> -->
-                                <div class="strfetCol text-center">
-                                    <form action="stockTake.php" id="upload_form" name="upload_form" method="post" enctype="multipart/form-data">
-                                        <div class="row stkRow g-0">
-                                            <input type="hidden" name="storeId" value="<?php echo $_GET['filterByStorage']; ?>" />
-                                            <div class="col-4 stockFeat p-0 p-lg-3 brdLft">
 
-                                                <?php access_raw_item_convert($_SESSION['designation_id'], $_SESSION['accountId']); ?>
+                                <?php if ($stockAllPermissions['convert_raw_items']['type_id'] || $stockAllPermissions['view_stock_take']['type_id'] || $stockAllPermissions['import_stock_take']['type_id']) { ?>
+                                    <div class="strfetCol text-center">
+                                        <form action="stockTake.php" id="upload_form" name="upload_form" method="post" enctype="multipart/form-data">
+                                            <div class="row stkRow g-0">
+                                                <input type="hidden" name="storeId" value="<?php echo $_GET['filterByStorage']; ?>" />
+                                                <div class="col-4 stockFeat p-0 p-lg-3 brdLft">
+
+                                                    <?php access_raw_item_convert($stockAllPermissions['convert_raw_items']); ?>
+                                                </div>
+                                                <div class="col-4 stockFeat p-0 p-lg-3 brdLft">
+                                                    <?php access_view_stockTake($stockAllPermissions['view_stock_take'], $_GET['filterByStorage']);  ?>
+                                                </div>
+                                                <div class="col-4 stockFeat p-0 p-lg-3 dropStk d-flex">
+
+
+                                                    <?php access_import_stockTake($stockAllPermissions['import_stock_take'], $_GET['filterByStorage'], $rightSideLanguage);  ?>
+
+                                                </div>
                                             </div>
-                                            <div class="col-4 stockFeat p-0 p-lg-3 brdLft">
-                                                <?php access_view_stockTake($_SESSION['designation_id'], $_SESSION['accountId'], $_GET['filterByStorage']);  ?>
-                                            </div>
-                                            <div class="col-4 stockFeat p-0 p-lg-3 dropStk d-flex">
+                                        </form>
+                                    </div>
+                                <?php } ?>
 
-
-                                                <?php access_import_stockTake($_SESSION['designation_id'], $_SESSION['accountId'], $_GET['filterByStorage'], $rightSideLanguage);  ?>
-
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -466,17 +473,19 @@ if (isset($stockUserFilterFields)) {
                                                 <img src="Assets/icons/chkColumn.svg" class="flDwn-Icn" id="filterBtn" title="Filter column list" alt="Check Column">
                                             </a>
                                         </div>
-                                        <div class="chkStore">
-                                            <a href="stock_excel.php" target="_blank">
-                                                <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
-                                            </a>
-                                        </div>
-                                        <div class="chkStore">
-                                            <!-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#stock_pdf"> -->
-                                            <a href="javascript:void(0);" onclick="showLightboxStockPdf();">
-                                                <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
-                                            </a>
-                                        </div>
+                                        <?php if ($showExcelPdfFile['type_id'] == 1) { ?>
+                                            <div class="chkStore">
+                                                <a href="stock_excel.php" target="_blank">
+                                                    <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
+                                                </a>
+                                            </div>
+                                            <div class="chkStore">
+                                                <!-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#stock_pdf"> -->
+                                                <a href="javascript:void(0);" onclick="showLightboxStockPdf();">
+                                                    <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
+                                                </a>
+                                            </div>
+                                        <?php } ?>
 
                                     </div>
                                 </div>
@@ -716,15 +725,15 @@ if (isset($stockUserFilterFields)) {
 
                                     <?php if (isset($stockUserFilterFields) && !in_array(13, $stockUserFilterFields)) { ?>
                                     <?php } else { ?>
-                                    <div class="tb-head w-55 stkQtyclm">
-                                        <div class="d-flex justify-content-en align-items-center">
-                                            <p><?php echo showOtherLangText('Unit.c'); ?></p>
-                                            <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newStockTask1', '.unit_c','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                <a onclick="sortTableByColumn('.newStockTask1', '.unit_c','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                            </span>
+                                        <div class="tb-head w-55 stkQtyclm">
+                                            <div class="d-flex justify-content-en align-items-center">
+                                                <p><?php echo showOtherLangText('Unit.c'); ?></p>
+                                                <span class="dblArrow">
+                                                    <a onclick="sortTableByColumn('.newStockTask1', '.unit_c','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask1', '.unit_c','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
                                     <?php } ?>
                                 </div>
                                 <div class="stkPrcol d-flex align-items-center colSize<?php echo $col_class_two_info; ?>">
@@ -1431,7 +1440,7 @@ if (isset($stockUserFilterFields)) {
 
         });
 
-        function editStockTake(barCode) {
+        function editStockTake() {
 
             $.ajax({
                     method: "POST",

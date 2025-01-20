@@ -3808,10 +3808,27 @@ function get_history_permissions($designation_id, $accountId)
 	return $historyPerm;
 }
 
-function access_delete_history_file($accessPermissionRow, $orderId)
+function get_stock_permissions($designation_id, $accountId)
 {
 
 	global $con;
+
+	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '5' AND account_id = '" . $accountId . "'  ";
+	$accessPermission = mysqli_query($con, $sql);
+
+
+	$historyPerm = [];
+	while ($accessPermissionRow = mysqli_fetch_array($accessPermission)) {
+		$historyPerm[$accessPermissionRow['type']] = $accessPermissionRow;
+	}
+
+	return $historyPerm;
+}
+
+function access_delete_history_file($accessPermissionRow, $orderId)
+{
+
+	//global $con;
 
 	if ($accessPermissionRow['type_id'] == 1) {
 
@@ -3843,20 +3860,16 @@ function get_store_permission($designation_id, $accountId)
 	return $resultRow = mysqli_fetch_array($result);
 }
 
-function access_raw_item_convert($designation_id, $accountId)
+function access_raw_item_convert($accessPermissionRow)
 {
 
 	global $con;
-
-	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '5' AND account_id = '" . $accountId . "' AND type = 'convert_raw_items' ";
-	$accessPermission = mysqli_query($con, $sql);
-	$accessPermissionRow = mysqli_fetch_array($accessPermission);
 
 	if ($accessPermissionRow['type_id'] == 1) {
 
 	?>
 
-		<a href="javascript:void(0)" onclick="editStockTake('<?php echo $row['barCode']; ?>');" class="tabFet">
+		<a href="javascript:void(0)" onclick="editStockTake();" class="tabFet">
 			<span class="prdItm"></span>
 			<p class="btn2"><?php echo showOtherLangText('Convert Raw Items') ?></p>
 		</a>
@@ -3868,23 +3881,15 @@ function access_raw_item_convert($designation_id, $accountId)
 }
 
 
-function access_view_stockTake($designation_id, $accountId, $filterByStorage)
+function access_view_stockTake($accessPermissionRow, $filterByStorage)
 {
-
-	global $con;
-
-	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '5' AND account_id = '" . $accountId . "' AND type = 'view_stock_take' ";
-	$accessPermission = mysqli_query($con, $sql);
-	$accessPermissionRow = mysqli_fetch_array($accessPermission);
 
 	if ($accessPermissionRow['type_id'] == 1) {
 
 
 		if (isset($filterByStorage) && $filterByStorage > 0) {
 		?>
-			<!-- <a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="btn btn-primary stay-btn"
-    style="width: 160px;margin-top:2px; "><?php //echo showOtherLangText('View Stock Take') 
-											?></a> -->
+
 			<a href="viewMobileStockTake.php?stockTakeId=<?php echo $filterByStorage ?>" class="tabFet">
 				<span class="prdItm"></span>
 				<p class="btn2"><?php echo showOtherLangText('View Stock Take') ?></p>
@@ -3905,14 +3910,8 @@ function access_view_stockTake($designation_id, $accountId, $filterByStorage)
 }
 
 
-function access_import_stockTake($designation_id, $accountId, $filterByStorage, $rightSideLanguage)
+function access_import_stockTake($accessPermissionRow, $filterByStorage, $rightSideLanguage)
 {
-
-	global $con;
-
-	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '5' AND account_id = '" . $accountId . "' AND type = 'import_stock_take' ";
-	$accessPermission = mysqli_query($con, $sql);
-	$accessPermissionRow = mysqli_fetch_array($accessPermission);
 
 	if ($accessPermissionRow['type_id'] == 1) {
 

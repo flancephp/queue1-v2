@@ -13,11 +13,9 @@ $getLangType = getLangType($_SESSION['language_id']);
 
 if (!in_array('4', $checkPermission)) {
     echo "<script>window.location='index.php'</script>";
-    exit;
 }
 
 $getAllHistoryPermissions = get_history_permissions($_SESSION['designation_id'], $_SESSION['accountId']);
-
 
 
 
@@ -31,7 +29,6 @@ $accessHistoryAccountsPermission = $getAllHistoryPermissions['access_accounts_de
 $accessPaymentPermission = get_access_payment_permission($_SESSION['designation_id'], $_SESSION['accountId']);
 //Access Invoice permission for user
 $accessInvoicePermission = get_access_invoice_permission($_SESSION['designation_id'], $_SESSION['accountId']);
-
 
 
 if (isset($_REQUEST['showFields'])) {
@@ -1151,31 +1148,29 @@ if ($getTxtById == 'storeId') {
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
-                                        <div class="d-flex justify-content-end align-items-center">
-                                            <!-- <div class="chkStore">
+                                    <?php if ($accessHistoryXclPdfPermission['type_id'] == 1) { ?>
+                                        <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
+                                            <div class="d-flex justify-content-end align-items-center">
+                                                <!-- <div class="chkStore">
                                         <a href="javascript:void(0)">
                                             <img src="Assets/icons/history-stock.svg" alt="history stock">
                                         </a>
                                     </div> -->
+                                                <div class="chkStore">
+                                                    <a href="history_excel.php" target="_blank">
+                                                        <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
+                                                    </a>
+                                                </div>
 
-                                    <?php if($accessHistoryXclPdfPermission['type_id'] == 1){?>
-                                            <div class="chkStore">
-                                                <a href="history_excel.php" target="_blank">
-                                                    <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
-                                                </a>
+
+                                                <div class="chkStore">
+                                                    <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" onclick="showOrdersHistory();">
+                                                        <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
+                                                    </a>
+                                                </div>
                                             </div>
-
-
-                                            <div class="chkStore">
-                                                <a href="javascript:void(0)" target="_blank" data-bs-toggle="modal" onclick="showOrdersHistory();">
-                                                    <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
-                                                </a>
-                                            </div>
-                                    <?php }?>
-
                                         </div>
-                                    </div>
+                                    <?php } ?>
                                 </div><!-- /.row -->
 
                                 <div class="collapse" id="collapseSearch">
@@ -2183,6 +2178,7 @@ if ($getTxtById == 'storeId') {
                                                                         if ($accessInvoicePermission['type_id'] == 1) {
 
                                                                             getrequisitionPopup($orderRow['id']);
+                                                                        }
                                                                     }
                                                                 }
                                                                 ?>
