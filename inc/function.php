@@ -2587,7 +2587,7 @@ function editCustomCharge($ordId, $feeType, $customChargeId, $SupplierIdOrdept, 
 
 
 
-function orderNetValue($ordId, $currencyId)
+function orderNetValue($ordId, $currencyId = 0)
 {
 
 	global $con;
@@ -3791,52 +3791,32 @@ function access_history_accounts_detail($designation_id, $accountId)
 }
 
 
-function access__history_permissions($designation_id, $accountId)
+function get_history_permissions($designation_id, $accountId)
 {
 
 	global $con;
 
-	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '4' AND account_id = '" . $accountId . "' AND type = 'access_delete_history' ";
+	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '4' AND account_id = '" . $accountId . "'  ";
 	$accessPermission = mysqli_query($con, $sql);
-	$accessPermissionRow = mysqli_fetch_array($accessPermission);
 
-	if ($accessPermissionRow['type_id'] == 1) {
+
+	$historyPerm = [];
+	while ($accessPermissionRow = mysqli_fetch_array($accessPermission)) {
+		$historyPerm[$accessPermissionRow['type']] = $accessPermissionRow;
 	}
+
+	return $historyPerm;
 }
 
-function access_delete_history_file($designation_id, $accountId, $orderId)
+function access_delete_history_file($accessPermissionRow, $orderId)
 {
 
 	global $con;
-
-	$sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $designation_id . "' AND designation_section_permission_id = '4' AND account_id = '" . $accountId . "' AND type = 'access_delete_history' ";
-	$accessPermission = mysqli_query($con, $sql);
-	$accessPermissionRow = mysqli_fetch_array($accessPermission);
 
 	if ($accessPermissionRow['type_id'] == 1) {
 
 		?>
-		<!-- <div style="width:2%;">
-    <strong>|</strong>
-</div>
-<div style="width: 10%; text-align: center;">
-     <a href="history.php?delOrderId=<?php //echo $orderId;
-										?>#del"
-	        onClick="return confirm('<?php //echo showOtherLangText('Are you sure to Delete this Record?') 
-										?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') 
-																														?>"></a> -->
 
-		<!--   <a href="javascript:void(0)" onClick="getDelNumb('<?php //echo $orderId;
-																	?>');" style="color:#000 !important;"
-        class="glyphicon glyphicon-trash" title="<?php //echo showOtherLangText('Delete') 
-													?>"></a>
-
-</div> -->
-		<!-- <div class="dlt-bx text-center d-flex justify-content-center align-items-center"><a href="javascript:void(0)"
-        onClick="getDelNumb('<?php // echo $orderId;
-								?>');" style="color:#000 !important;" class="glyphicon glyphicon-trash"
-        title="<?php // echo showOtherLangText('Delete') 
-				?>"><span class="dlTe"></span></a></div> -->
 		<a href="javascript:void(0)" onClick="getDelNumb('<?php echo $orderId; ?>');" class="dlt-bx text-center d-flex justify-content-center align-items-center doc__btn delete">
 			<span class="runLink">
 				<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">

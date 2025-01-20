@@ -296,6 +296,10 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                         <span class="fs-13">' . showOtherLangText('Variances') . '</span>
                                     </li>
                                     <li>
+                                        <input type="checkbox" checked="checked" name="converted" onclick="showHideByClassHistory(\'convertedRow\')" class="smryCheckboxHistory summary-convertedRow form-check-input" value="1">
+                                        <span class="fs-13">' . showOtherLangText('Converted') . '</span>
+                                    </li>
+                                    <li>
                                         <input type="checkbox" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
                                         <span class="fs-13">' . showOtherLangText('Accounts') . '</span>
                                     </li>
@@ -563,12 +567,14 @@ if ($count > 1) {
 ?>
 
     <script>
-        if ($('.varianceRow').css('display') == 'none') {
+        if ($('.varianceRow').css('display') == 'none' || $('.convertedRow').css('display') == 'none') {
 
             <?php $issueoutClass = ' col-12'; ?>
         } else {
             <?php $issueoutClass = 'col-6'; ?>
         }
+
+
 
         if ($('.issueOutSection ').css('display') == 'none') {
             <?php $varianceClass = ' col-12'; ?>
@@ -697,8 +703,10 @@ $variancesNevTot = 0;
 $varaincesVal = 0;
 
 //variance starts here
+$varOrConverted = false;
 if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
 
+    $varOrConverted = true;
     $sqlSet = " SELECT od.* FROM tbl_order_details od
                         INNER JOIN tbl_orders o
                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
@@ -724,10 +732,38 @@ if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 
                                     </div>
                                 </div>
                             </div>
-                            </div>
-                        </div>
-                    </div>';
+                           ';
 }
+
+
+//converted starts here
+if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 4) {
+
+    $varOrConverted = true;
+    $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
+                                        AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
+
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resRow = mysqli_fetch_array($resultSet);
+
+    $content .= '<div class=" ' . $varianceClass . ' convertedRow ps-0 pe-0 summaryPart" id="convertedId">
+                                    <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
+                                        <div class="table-cell medium">' . showOtherLangText('Converted') . '</div>
+                                    </div>
+                                    <div class="modal-table fs-12 w-100">
+                                        <div class="table-row thead">
+                                            <div class="table-cell">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</div>
+                                        </div>
+                                    </div>
+                            </div>
+                            ';
+}
+
+if ($varOrConverted) {
+    $content .= ' </div></div></div>';
+}
+
+
 $content .= '<div style="display:none;" class="overflowTable accountSection summaryPart"> 
                         <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
                             <div class="table-row header-row">

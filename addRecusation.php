@@ -260,6 +260,7 @@ if (isset($_POST['placeOrder'])) {
     mysqli_query($con, $qry);
 
     echo '<script>window.location = "runningOrders.php?requisitionAdded=1&orderId=' . $ordId . '"</script>';
+    exit;
 }
 
 //delete item/order level charges
@@ -403,6 +404,7 @@ if ($_SESSION['deptId'] != '') {
                 height: 37px;
             }
         }
+
         @media screen and (max-width: 991px) {
             .reqInfo {
                 padding-right: 0;
@@ -546,7 +548,8 @@ if ($_SESSION['deptId'] != '') {
 
         .form-control.qty-itm {
             font-weight: 700;
-            font-size: .875rem;max-width: 5rem;
+            font-size: .875rem;
+            max-width: 5rem;
         }
 
         .curRow .p-2 {

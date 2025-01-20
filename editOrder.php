@@ -38,6 +38,10 @@ if (!isset($_SESSION['supplierIdOrd'])) {
 }
 
 
+$sqlSet = " SELECT * FROM tbl_orders WHERE id = '" . $_GET['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+$resultSet = mysqli_query($con, $sqlSet);
+$ordRow = mysqli_fetch_array($resultSet);
+
 //insert data in order_details_temp table when user land on this page
 if (isset($_GET['orderId'])) {
 
@@ -76,13 +80,12 @@ if (isset($_GET['orderId'])) {
         $insertQry = " INSERT INTO `tbl_order_details_temp` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`,`note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`) VALUES  " . implode(',', $values);
         mysqli_query($con, $insertQry);
     }
+
+    //add order net value so that in case of its not updated it will update the total here but later 
+    //after adding transaciton it needs to be removed from here
+    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
 } //end
 
-
-
-$sqlSet = " SELECT * FROM tbl_orders WHERE id = '" . $_GET['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
-$resultSet = mysqli_query($con, $sqlSet);
-$ordRow = mysqli_fetch_array($resultSet);
 
 
 $curAmtVal = 0;
@@ -207,6 +210,8 @@ if (isset($_POST['updateOrder'])) {
                 `account_id` = '" . $_SESSION['accountId'] . "'   ";
 
                 mysqli_query($con, $sql);
+
+                // orderNetValue($_GET['orderId'], $currencyId);
             } else {
 
                 $upQry = " UPDATE  `tbl_order_details` SET
@@ -220,13 +225,13 @@ if (isset($_POST['updateOrder'])) {
                 WHERE ordId = '" . $_GET['orderId'] . "' AND pId = '" . $productId . "' AND account_id = '" . $_SESSION['accountId'] . "'  ";
                 mysqli_query($con, $upQry);
 
-                orderNetValue($_GET['orderId'], $currencyId);
+                //orderNetValue($_GET['orderId'], $currencyId);
             }
         } else {
             $delQry = " DELETE FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND pId='" . $productId . "' AND account_id='" . $_SESSION['accountId'] . "' ";
             mysqli_query($con, $delQry);
 
-            orderNetValue($_GET['orderId'], $currencyId);
+            //orderNetValue($_GET['orderId'], $currencyId);
         }
     } //End foreach
 
@@ -270,7 +275,7 @@ if (isset($_POST['updateOrder'])) {
 
 
 
-    //show order net value
+    //add order net value
     orderNetValue($_GET['orderId'], $currencyId);
 
     //Insert few data in order journey tbl to show journey 
@@ -482,8 +487,9 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
 
         @media(min-width:1600px) {
             .nwNxt-Btn1 .btn__box {
-                max-width: 10.875rem !important; 
+                max-width: 10.875rem !important;
             }
+
             /* .nwNxt-Btn1 .btn__box { max-width: 174px !important; } */
             html[dir=rtl] .ordInfo {
                 padding: 0 0px 0 18px;
@@ -751,7 +757,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
             text-align: left !important;
 
         }
-         
+
         .edit-order-section .ttlCr-Type {
             text-align: right;
         }
@@ -923,22 +929,22 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
                     <section class="ordDetail edit-order-section update">
                         <div class="tpBar-grn"></div>
                         <div class="container erdOrder pt-0">
-                        <?php if (isset($_GET['newItemsAdded'])) { ?> 
-                            <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
-                                <p><?php echo showOtherLangText('New items added successfully.'); ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php } ?>
-                        <?php if (isset($_GET['selectAtleastOneProduct'])) { ?> 
-                            <div class="alert alert-danger alert-dismissible fade show mb-0 mt-3" role="alert">
-                                <p>
-                                    <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                            <?php if (isset($_GET['newItemsAdded'])) { ?>
+                                <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
+                                    <p><?php echo showOtherLangText('New items added successfully.'); ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php } ?>
+                            <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show mb-0 mt-3" role="alert">
+                                    <p>
+                                        <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
+                                    </p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
 
-                        <?php } ?>
+                            <?php } ?>
                         </div>
 
                         <div class="stcPart position-relative">
