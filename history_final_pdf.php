@@ -387,22 +387,31 @@ $count;
 $issueinClass = '';
 $issueoutClass = '';
 $tabelrowClass = '';
-if ($count >= 1 && $_GET['otherCurrency'] == 1) {
-    $issueinClass = 'width: 55%;';
+if ($count == 1 && $_GET['otherCurrency'] == 1) {
+    $issueinClass = 'width: 50%;';
     $issueoutClass = 'width: 25%;';
+    $varianceClass = 'width: 25%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
+} elseif ($count > 1 && $_GET['otherCurrency'] == 1) {
+    $issueinClass = 'width: 100%;';
+    $issueoutClass = 'width: 50%;';
+    $varianceClass = 'width: 50%;';
     $tabelrowClass = 'display:table-cell';
     $tdwidth = 'width:100%';
 } else {
 
     if ($_GET['issuedOut'] == 1 || $_GET['variance'] == 1 ||  $_GET['converted'] == 1) {
-        $issueinClass = 'width: 55%;';
+        $issueinClass = 'width: 50%;';
         $issueoutClass = 'width:25%;';
+        $varianceClass = 'width: 25%;';
     } else {
-        $issueinClass = 'width: 55%;';
+        $issueinClass = 'width: 50%;';
         $issueoutClass = 'width:25%';
+        $varianceClass = 'width: 25%;';
         $tabelrowClass = 'display:table-cell';
     }
-
+    $tdwidth = 'width:100%';
     $tabelrowClass = '';
 }
 
@@ -486,7 +495,7 @@ if ($_GET['issueInSummary'] == 1) {
     $content .= '</td>';
 }
 if ($_GET['issuedOut'] == 1) {
-    $content .= '<td style="width: 25%;">
+    $content .= '<td style="' . $issueoutClass . '">
                 <table style="width:100%; margin-right:1%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold;">
                         <td style="padding: 8px 5px;">&nbsp;</td>
@@ -519,7 +528,7 @@ if ($_GET['issuedOut'] == 1) {
 }
 
 if ($_GET['variance'] == 1) {
-    $content .= '<td style="width: 20%;">
+    $content .= '<td style="' . $varianceClass . '">
                 <table style="width:100%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
                            <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Variances') . '</td>
@@ -533,6 +542,8 @@ if ($_GET['variance'] == 1) {
             </td>';
 }
 
+$content .= '</tr>
+    </table>';
 
 if ($_GET['converted'] == 1) {
     //get converted total
@@ -543,8 +554,7 @@ if ($_GET['converted'] == 1) {
     $resultSet = mysqli_query($con, $sqlSet);
     $resRow = mysqli_fetch_array($resultSet);
 
-    $content .= '<td style="width: 20%;">
-                <table style="width:100%; font-size:12px; border-collapse: collapse;">';
+    $content .= '<table style="font-size:12px;" width="98%">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
                            <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Converted') . '</td>
                             </tr>';
@@ -553,7 +563,7 @@ if ($_GET['converted'] == 1) {
                         <td style="padding: 8px 5px;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</td>
                     </tr>
                 </table>
-            </td>';
+            ';
 }
 
 

@@ -139,7 +139,7 @@ if ($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['orderDetails'] == 1 ||
 
 //start summary part
 if (
-    isset($_GET['checkAllSummary']) || isset($_GET['defaultCurrencyAmount']) || isset($_GET['secondCurrencyAmount'])
+    isset($_GET['checkAllSummary']) || isset($_GET['defaultCurrencyAmount']) || isset($_GET['secondCurrency'])
     || isset($_GET['supplierInvoice']) || isset($_GET['payment'])
 
 ) {
@@ -151,7 +151,7 @@ if (
             <td width="25%" style="font-weight:700; text-align: center;padding: 5px;border:0;">' . showOtherLangText('Supplier') . '</td>
             <td width="5-%">
                 <table style="width: 100%;">';
-    if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrencyAmount']  == 1) {
+    if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
         $content .=   '<tr>
                         <td width="40%" style="padding: 5px;border:0;">&nbsp;</td>
                         <td width="40%" style="font-weight:700;padding: 5px;border:0;">' . showOtherLangText('Total') . '</td>
