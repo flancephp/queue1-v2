@@ -587,7 +587,7 @@ if ($_GET['converted'] == 1) {
     $content .= '
                 <table style="font-size:12px;" width="100%">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
-                           <td style="width:100%; padding: 8px 5px;text-align:right;" colspan="2">' . showOtherLangText('Converted') . '</td>
+                           <td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Converted') . '</td>
                             </tr>';
 
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
