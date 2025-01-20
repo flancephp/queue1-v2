@@ -337,12 +337,15 @@ $cond = '';
         .btn__box {
             max-width: 8.875rem;
         }
-        .btn__box .btn-primary { width: 100%; }
-        
+
+        .btn__box .btn-primary {
+            width: 100%;
+        }
+
         @media screen and (min-width: 1600px) {
             .btn__box {
                 max-width: 10.875rem;
-            } 
+            }
         }
 
         @media (min-width:992px) {
@@ -766,6 +769,7 @@ $cond = '';
                 padding-right: 10px;
             }
         }
+
         @media (min-width: 768px) {
             html[dir="rtl"] .text-md-end {
                 text-align: left !important;
@@ -822,16 +826,16 @@ $cond = '';
                         <!-- <div class="global__padding"> -->
                         <div class="container cntTable">
 
-                            <?php if (isset($_GET['selectAtleastOneProduct'])) { ?> 
+                            <?php if (isset($_GET['selectAtleastOneProduct'])) { ?>
                                 <div class="alert alert-danger alert-dismissible fade show mt-3 mb-0" role="alert">
                                     <p>
                                         <?php echo showOtherLangText('Please enter the qty of at least one item.'); ?>
                                     </p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    
-                                </div> 
+
+                                </div>
                             <?php } ?>
-                            <?php if (isset($_GET['newItemsAdded'])) { ?> 
+                            <?php if (isset($_GET['newItemsAdded'])) { ?>
                                 <div class="alert alert-success alert-dismissible fade show mt-3 mb-0" role="alert">
                                     <p><?php echo showOtherLangText('New items added successfully.'); ?>
                                     </p>
@@ -878,7 +882,7 @@ $cond = '';
 
                                 </div>
 
-                                
+
 
 
                                 <div class="row gy-2 gx-0 gx-lg-4 pb-lg-4">
