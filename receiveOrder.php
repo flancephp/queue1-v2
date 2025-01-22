@@ -1280,7 +1280,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                                 <?php
                                                                 if ($ordRow['ordCurId'] > 0) { ?>
                                                                     <div class="p-2 otherCurr">
-                                                                        <p>static data need to fix</p>
+                                                                        <p><?php echo showOtherCur($calTaxOther, $ordRow['ordCurId']); ?></p>
                                                                     </div>
                                                                 <?php } ?>
                                                             </div>
@@ -1476,8 +1476,15 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                 <p><?php echo showOtherCur($showCif['curAmt'], $showCif['currencyId']); ?></p>
                                             </div>
                                         </div>
-                                    <?php }  ?>
+                                    <?php } else {  ?>
+                                        <div class="recTtlPrc-Type d-flex align-items-center">
+                                            <div class="tabTtl-Price"></div>
+                                            <div class="ttlDft-RecPrc tb-bdy">
+                                                <p><?php echo showPrice($showCif['price'], $getDefCurDet['curCode']); ?></p>
+                                            </div>
 
+                                        </div>
+                                    <?php } ?>
 
                                     <div class="recBr-Hide">
                                     </div>
@@ -1531,8 +1538,9 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                 $subTotalAmtDol += ($boxPrice * $qtyVal);
                                 $subTotalAmtOther += ($boxPriceOther * $qtyVal);
                             } else {
-                                $boxPrice = ($row['ordPrice'] * $row['ordFactor']);
-                                $boxPriceOther = ($row['ordCurPrice'] * $row['ordFactor']);
+                                $factor = $row['ordFactor'] > 0 ? $row['ordFactor'] : 1;
+                                $boxPrice = ($row['ordPrice'] * $factor);
+                                $boxPriceOther = ($boxPrice * $curDet['amt']);
                                 $ordQty = $row['ordQty'];
                                 $qtyVal = $row['ordQty'];
                             }
@@ -1595,7 +1603,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
 
                                             ?><div class="ttlDft-RecPrc tb-bdy input">
                                                     <p><input type="text" id="priceIdOther<?php echo $x; ?>" name="priceOther[<?php echo $row['id']; ?>]"
-                                                            autocomplete="off" value="<?php echo $showOtherCurrency; ?>"
+                                                            autocomplete="off" value="<?php echo getPrice($boxPriceOther); ?>"
                                                             size="5" class="form-control qty-itm recQty-Receive" onChange="showTotalOther('<?php echo $x; ?>')">
                                                         <?php echo $curDet['curCode']; ?>
                                                     </p>
