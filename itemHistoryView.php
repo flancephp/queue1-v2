@@ -118,7 +118,7 @@ foreach ($resItemHistory['resRows'] as $item) {
     }
 }
 
-
+$storageDeptRow = getStoreDetailsById($res['storageDeptId']);
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
@@ -349,7 +349,12 @@ foreach ($resItemHistory['resRows'] as $item) {
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1"><?php echo showOtherLangText('Item Profile'); ?></h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Item Profile'); ?>
+                                (<?php echo '<span style="color:#BF0000;  font-weight:bold">' . trim($storageDeptRow['name']) . '</span>'; ?>)</h1>
+
+
+
+
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">

@@ -39,7 +39,7 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css">
-   
+
 
 </head>
 
@@ -768,6 +768,9 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                 </div>
                                                 <div class="otlt-Ajst">
                                                     <p><?php echo showOtherLangText('Adjust'); ?></p>
+                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Adjustment Amount'); ?> "><?php echo getNumFormtPrice($adjustmentAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+
+
                                                 </div>
                                                 <div class="otlt-Pos">
                                                     <p><?php echo showOtherLangText('Sales POS'); ?></p>
