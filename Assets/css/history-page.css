@@ -1153,6 +1153,7 @@ html[dir="rtl"] .mb-modal-close-icon {
 .update .tb-bdy {
     padding-top: 6px;
     padding-bottom: 6px;
+    word-wrap: break-word;
 }
 
 .update .ordDetail {

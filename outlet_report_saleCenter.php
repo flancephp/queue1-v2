@@ -1101,6 +1101,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                 input.style.setProperty('--calendar-icon-position', 'left');
             });
         });
+
+
+        // code added by: shuvro
+        $(".cstBtn-Sale.hideBtn-Prc").click(function () { 
+            if ($(".mbStk-Detail").hasClass('.js-toggle')) { 
+                $(".otlt-stkPrc").toggleClass("go_down");
+            }
+        });
+        $(".slCst-Lnk").click(function () { 
+            $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle"); 
+        });
     </script>
 </body>
 

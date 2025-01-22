@@ -493,7 +493,7 @@ $currResultSet = mysqli_query($con, $curQry);
 
                                                                 <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
                                                                     <li class="dropdown innerDrop">
-                                                                        <a class="item dropdown-item d-flex justify-content-between align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?><i
+                                                                        <a class="item dropdown-item d-flex justify-content-between align-items-center text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?><i
                                                                                 class="fa-solid fa-angle-down"></i></a>
                                                                         <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                                                             <?php
@@ -511,9 +511,9 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                             ?>
                                                                         </ul>
                                                                     </li>
-                                                                    <li><a class="dropdown-item" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
+                                                                    <li><a class="dropdown-item text-nowrap" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
                                                                     <li class="dropdown innerDrop">
-                                                                        <a class="item dropdown-item d-flex justify-content-between align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?><i
+                                                                        <a class="item dropdown-item d-flex justify-content-between align-items-center text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?><i
                                                                                 class="fa-solid fa-angle-down"></i></a>
                                                                         <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
                                                                             <?php
@@ -528,7 +528,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                             ?>
                                                                         </ul>
                                                                     </li>
-                                                                    <li><a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
+                                                                    <li><a class="dropdown-item text-nowrap" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>

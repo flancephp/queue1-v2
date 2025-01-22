@@ -143,7 +143,10 @@
         width: 72%;
         padding: 4px 0px;
     }
-    .currItm-Info > div { min-height: 31px; }
+    .currItm-Info > div { min-height: 26px;padding: 6px; }
+    .itmInfo-Otlt > div { min-height: 26px; }
+    .currItm-Info { padding-top: 24px; }
+    .otlt-stkPrc.go_down { position: relative;top: 30px; }
 
 }
 
