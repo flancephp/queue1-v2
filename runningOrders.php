@@ -342,7 +342,7 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
     <link rel="stylesheet" href="Assets/css/style.css?v=1">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/running-orders-css.css">
-     
+
 </head>
 
 <body>
@@ -528,6 +528,9 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
                             if ($orderRow['ordType'] == 1 || $orderRow['ordType'] == 2) {
 
                                 if ($orderRow['ordType'] == 1) {
+
+                                    orderNetValue($orderRow['id'], $orderRow['ordCurId']); //update nettotal to fix temporary tables update mismatch on receive order page
+
                                     $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'order_supplier' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['supplierId'] . "' and designation_section_permission_id=1 ";
                                 } else {
                                     $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'member' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['recMemberId'] . "' and designation_section_permission_id=2 ";
