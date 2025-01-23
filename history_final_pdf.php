@@ -387,34 +387,40 @@ $count;
 $issueinClass = '';
 $issueoutClass = '';
 $tabelrowClass = '';
-if ($count == 1 && $_GET['otherCurrency'] == 1) {
-    $issueinClass = 'width: 50%;';
-    $issueoutClass = 'width: 25%;';
-    $varianceClass = 'width: 25%;';
-    $tabelrowClass = 'display:table-cell';
-    $tdwidth = 'width:100%';
-} elseif ($count > 1 && $_GET['otherCurrency'] == 1) {
-    $issueinClass = 'width: 100%;';
-    $issueoutClass = 'width: 50%;';
-    $varianceClass = 'width: 50%;';
-    $tabelrowClass = 'display:table-cell';
-    $tdwidth = 'width:100%';
-} else {
+$convertedClass = '';
 
-    if ($_GET['issuedOut'] == 1 || $_GET['variance'] == 1 ||  $_GET['converted'] == 1) {
-        $issueinClass = 'width: 50%;';
-        $issueoutClass = 'width:25%;';
-        $varianceClass = 'width: 25%;';
-    } else {
-        $issueinClass = 'width: 50%;';
-        $issueoutClass = 'width:25%';
-        $varianceClass = 'width: 25%;';
-        $tabelrowClass = 'display:table-cell';
-    }
+if ($_GET['issuedOut'] == 1 && $_GET['issueInSummary'] == 1) {
+    $issueinClass = 'width: 50%;';
+    $issueoutClass = 'width: 50%;';
+    $tabelrowClass = 'display:table-cell';
     $tdwidth = 'width:100%';
-    $tabelrowClass = '';
+} elseif ($_GET['issuedOut'] == 1) {
+    $issueoutClass = 'width: 100%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
+} elseif ($_GET['issueInSummary'] == 1) {
+    $issueinClass = 'width: 100%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
 }
 
+if ($_GET['variance'] == 1 && $_GET['converted'] == 1) {
+
+    $varianceClass = 'width: 50%;';
+    $convertedClass = 'width: 50%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
+} elseif ($_GET['variance'] == 1) {
+
+    $varianceClass = 'width: 100%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
+} elseif ($_GET['converted'] == 1) {
+
+    $convertedClass = 'width: 100%;';
+    $tabelrowClass = 'display:table-cell';
+    $tdwidth = 'width:100%';
+}
 
 
 
@@ -527,23 +533,28 @@ if ($_GET['issuedOut'] == 1) {
     $content .= '</table></td>';
 }
 
-if ($_GET['variance'] == 1) {
-    $content .= '<td style="' . $varianceClass . '">
-                <table style="width:100%; font-size:12px; border-collapse: collapse;">';
-    $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
-                           <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Variances') . '</td>
-                            </tr>';
-
-    $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                        <td style="color: #198754; padding: 8px 5px;"><img src="data:image/svg+xml;base64,' . base64_encode($svg) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) . '</td>
-                        <td style="color: #dc3545; padding: 8px 5px;"><img src="data:image/svg+xml;base64,' . base64_encode($svgDown) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']) . '</td>
-                    </tr>
-                </table>
-            </td>';
-}
 
 $content .= '</tr>
     </table>';
+
+
+
+$content .= '<table style="font-size:12px;" width="98%"><tr>';
+
+if ($_GET['variance'] == 1) {
+    $content .= '<td style="' . $varianceClass . '">
+                    <table style="width:100%; font-size:12px; border-collapse: collapse;">';
+    $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
+                               <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Variances') . '</td>
+                                </tr>';
+
+    $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
+                            <td style="color: #198754; padding: 8px 5px;"><img src="data:image/svg+xml;base64,' . base64_encode($svg) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) . '</td>
+                            <td style="color: #dc3545; padding: 8px 5px;"><img src="data:image/svg+xml;base64,' . base64_encode($svgDown) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']) . '</td>
+                        </tr>
+                    </table>
+                </td>';
+}
 
 if ($_GET['converted'] == 1) {
     //get converted total
@@ -554,7 +565,9 @@ if ($_GET['converted'] == 1) {
     $resultSet = mysqli_query($con, $sqlSet);
     $resRow = mysqli_fetch_array($resultSet);
 
-    $content .= '<table style="font-size:12px;" width="98%">';
+    $content .= '<td style="' . $convertedClass . '">
+    <table style="width:100%; font-size:12px; border-collapse: collapse;">';
+
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
                            <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Converted') . '</td>
                             </tr>';
@@ -562,7 +575,7 @@ if ($_GET['converted'] == 1) {
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
                         <td style="padding: 8px 5px;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</td>
                     </tr>
-                </table>
+                </table></td>
             ';
 }
 

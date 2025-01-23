@@ -590,7 +590,7 @@ if ($count > 1) {
 
 
 
-if ($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0) {
+/*if ($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0) {
     if ($count > 1) {
         $issueinClass = ' col-12';
         $issueoutClass = ' col-6';
@@ -614,11 +614,24 @@ if ($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0) {
     $issueinClass = ' col-3';
     $issueoutClass = ' col-6';
     $varianceClass = ' col-6';
-} else {
-    $issueinClass = '20 col-7';
-    $issueoutClass = '21 col-3';
-    $varianceClass = '22 col-2';
+}*/
+
+if ($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0) {
+
+    $issueinClass = ' col-6';
+    $issueoutClass = ' col-6';
+    $varianceClass = ' col-6';
+} elseif ($checkIfPermissionToNewOrderSec > 0) {
+    $issueinClass = ' col-12';
+    $issueoutClass = ' col-12';
+} elseif ($checkIfPermissionToNewReqSec > 0) {
+    $issueinClass = ' col-12';
+    $issueoutClass = ' col-12';
 }
+
+$convertedClass = 'col-6';
+$varianceClass = 'col-6';
+
 
 //echo 'ooo=>'.$issueinClass.'--'.$issueoutClass.'--'.$varianceClass;
 // exit;   
@@ -746,7 +759,7 @@ if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 
     $resultSet = mysqli_query($con, $sqlSet);
     $resRow = mysqli_fetch_array($resultSet);
 
-    $content .= '<div class="fs-12 w-100 convertedRow ps-0 pe-0 summaryPart" id="convertedId">
+    $content .= '<div class="' . $convertedClass . '  convertedRow ps-0 pe-0 summaryPart" id="convertedId">
                                     <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
                                         <div class="table-cell medium">' . showOtherLangText('Converted') . '</div>
                                     </div>

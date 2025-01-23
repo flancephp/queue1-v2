@@ -42,51 +42,42 @@
 
         }
 
+        $(".issueInSection").removeClass("col-12");
+        $(".issueInSection").removeClass("col-2");
+        $(".issueInSection").removeClass("col-3");
+        $(".issueInSection").removeClass("col-6");
+        $(".issueInSection").removeClass("col-7");
+        $(".issueInSection").removeClass("col-12");
+
+        $(".issueOutSection").removeClass("col-2");
+        $(".issueOutSection").removeClass("col-6");
+        $(".issueOutSection").removeClass("col-7");
+        $(".issueOutSection").removeClass("col-3");
+        $(".issueOutSection").removeClass("col-12");
+
+        $("#varianceId").removeClass("col-2");
+        $("#varianceId").removeClass("col-3");
+        $("#varianceId").removeClass("col-7");
+        $("#varianceId").removeClass("col-6");
+        $("#varianceId").removeClass("col-12");
+
+        if ($('.otherCurSection').is(":visible") && $('#totalOtherCur').val() > 2) {
+
+            $(".issueOutSection").addClass("col-3");
+
+            $("#varianceId").addClass("col-2");
+
+            $(".issueInSection").addClass("col-7");
 
 
-        if ($('.issueInSection').is(":visible") && $('.issueOutSection').is(":visible")) {
+        } else {
 
-            $(".issueOutSection").removeClass("col-12");
-            $(".issueInSection").removeClass("col-12");
+            $(".issueOutSection").addClass("11 col-3");
 
-            $(".issueOutSection").addClass("col-6");
-            $(".issueInSection").addClass("col-6");
+            $(".issueInSection").addClass("22 col-7");
 
-        } else if (!$('.issueOutSection').is(":visible")) {
-
-            $(".issueInSection").removeClass("col-6");
-
-            $(".issueInSection").addClass("col-12");
-
-        } else if (!$('.issueInSection').is(":visible")) {
-
-            $(".issueOutSection").removeClass("col-6");
-
-            $(".issueOutSection").addClass("col-12");
-
+            $("#varianceId").addClass("33 col-2");
         }
-
-        if ($('.varianceRow').is(":visible") && $('.convertedRow').is(":visible")) {
-
-            $(".varianceRow").removeClass("col-12");
-            $(".convertedRow").removeClass("col-12");
-
-            $(".varianceRow").addClass("col-6");
-            $(".convertedRow").addClass("col-6");
-
-        } else if (!$('.varianceRow').is(":visible")) {
-
-            $(".convertedRow").addClass("col-6");
-
-            $(".convertedRow").addClass("col-12");
-
-        } else if (!$('.convertedRow').is(":visible")) {
-            $(".varianceRow").addClass("col-6");
-
-            $(".varianceRow").addClass("col-12");
-
-        }
-
 
 
     });
@@ -218,6 +209,9 @@
             $('.issueInSection').css('display', 'block');
         }
 
+
+
+
         if (targetId == 'issueOutSection') {
             if (!$('.issueOutSection').is(":visible")) {
 
@@ -266,7 +260,6 @@
 
                 //$('.issueInSection').css('display', 'none');
                 $(".summary-issue-in").prop('checked', false);
-                $('.issueInSection').css('display', 'none');
 
 
             } else if ($('.defaultCurSection').is(":visible") || $('.otherCurSection').is(":visible")) {
@@ -275,50 +268,144 @@
             }
         }
 
+        if ($('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible") && !$('.issueOutSection').is(":visible")) {
+            $("#varianceId").removeClass("col-2");
+            $("#varianceId").removeClass("col-6");
+            $("#varianceId").addClass("col-12");
 
+        }
 
-        if ($('.issueInSection').is(":visible") && $('.issueOutSection').is(":visible")) {
-
-            $(".issueOutSection").removeClass("col-12");
+        if ($('.issueInSection').is(":visible") && !$('.varianceRow').is(":visible") && !$('.issueOutSection').is(":visible")) {
+            $(".issueInSection").removeClass("col-7");
             $(".issueInSection").removeClass("col-12");
-
-            $(".issueOutSection").addClass("col-6");
-            $(".issueInSection").addClass("col-6");
-
-        } else if (!$('.issueOutSection').is(":visible")) {
-
-            $(".issueInSection").removeClass("col-6");
-
             $(".issueInSection").addClass("col-12");
 
-        } else if (!$('.issueInSection').is(":visible")) {
+        }
 
+        if ($('.issueOutSection').is(":visible") && !$('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible")) {
+            $(".issueOutSection").removeClass("col-3");
             $(".issueOutSection").removeClass("col-6");
-
             $(".issueOutSection").addClass("col-12");
 
         }
 
-        if ($('.varianceRow').is(":visible") && $('.convertedRow').is(":visible")) {
+        if ($('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && !$('.issueInSection').is(":visible")) {
+            $(".issueOutSection").removeClass("col-3");
+            $(".issueOutSection").removeClass("col-6");
+            $(".issueOutSection").removeClass("col-12");
+            $(".issueOutSection").addClass("col-7");
 
-            $(".varianceRow").removeClass("col-12");
-            $(".convertedRow").removeClass("col-12");
-
-            $(".varianceRow").addClass("col-6");
-            $(".convertedRow").addClass("col-6");
-
-        } else if (!$('.varianceRow').is(":visible")) {
-
-            $(".convertedRow").addClass("col-6");
-
-            $(".convertedRow").addClass("col-12");
-
-        } else if (!$('.convertedRow').is(":visible")) {
-            $(".varianceRow").addClass("col-6");
-
-            $(".varianceRow").addClass("col-12");
+            $("#varianceId").removeClass("col-2");
+            $("#varianceId").removeClass("col-6");
+            $("#varianceId").removeClass("col-12");
+            $("#varianceId").addClass("col-5");
 
         }
+
+        if ($('.issueInSection').is(":visible") && $('.issueOutSection').is(":visible") && !$('.varianceRow').is(":visible")) {
+            $(".issueOutSection").removeClass("col-3");
+            $(".issueOutSection").removeClass("col-6");
+            $(".issueOutSection").removeClass("col-7");
+            $(".issueOutSection").removeClass("col-12");
+            $(".issueOutSection").addClass("col-5");
+
+            $(".issueInSection").removeClass("col-7");
+            //$(".issueInSection").removeClass("col-md-6");
+            //$(".issueInSection").removeClass("col-md-7");
+            $(".issueInSection").removeClass("col-12");
+            $(".issueInSection").addClass("col-7");
+
+
+        }
+
+        if ($('.issueInSection').is(":visible") && !$('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible")) {
+
+            //$(".issueInSection").removeClass("col-2");
+            $(".issueInSection").removeClass("col-6");
+            $(".issueInSection").removeClass("col-7");
+            $(".issueInSection").removeClass("col-12");
+            $(".issueInSection").addClass("col-7");
+
+            $("#varianceId").removeClass("col-2");
+            $("#varianceId").removeClass("col-6");
+            $("#varianceId").removeClass("col-7");
+            $("#varianceId").removeClass("col-12");
+            $("#varianceId").addClass("col-5");
+
+
+        }
+
+        if ($('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible")) {
+            $(".issueOutSection").removeClass("col-5");
+            $(".issueOutSection").removeClass("col-7");
+            // $(".issueOutSection").removeClass("col-md-7");
+            // $(".issueOutSection").removeClass("col-md-3");
+            $(".issueOutSection").removeClass("col-12");
+            $(".issueOutSection").addClass("col-3");
+
+            $(".issueInSection").removeClass("col-6");
+            // $(".issueInSection").removeClass("col-md-3");
+            // $(".issueInSection").removeClass("col-md-6");
+            $(".issueInSection").removeClass("col-7");
+            $(".issueInSection").removeClass("col-12");
+            $(".issueInSection").addClass("col-7");
+
+            $("#varianceId").removeClass("col-2");
+            $("#varianceId").removeClass("col-5");
+            //  $("#varianceId").removeClass("col-md-7");
+            $("#varianceId").removeClass("col-6");
+            $("#varianceId").removeClass("col-12");
+            $("#varianceId").addClass("col-2");
+
+        }
+
+        if (!$('.otherCurSection').is(":visible") && $('.issueOutSection').is(":visible") && $('.varianceRow').is(":visible") && $('.issueInSection').is(":visible")) {
+            $(".issueOutSection").removeClass("col-2");
+            $(".issueOutSection").removeClass("col-6");
+            $(".issueOutSection").removeClass("col-7");
+            $(".issueOutSection").removeClass("col-3");
+            $(".issueOutSection").removeClass("col-12");
+            $(".issueOutSection").addClass("col-3");
+
+            $(".issueInSection").removeClass("col-2");
+            $(".issueInSection").removeClass("col-3");
+            $(".issueInSection").removeClass("col-6");
+            $(".issueInSection").removeClass("col-7");
+            $(".issueInSection").removeClass("col-12");
+            $(".issueInSection").addClass("col-7");
+
+            $("#varianceId").removeClass("col-2");
+            $("#varianceId").removeClass("col-3");
+            $("#varianceId").removeClass("col-7");
+            $("#varianceId").removeClass("col-6");
+            $("#varianceId").removeClass("col-12");
+            $("#varianceId").addClass("col-2");
+
+        }
+
+        if ($('.otherCurSection').is(":visible") && $('#totalOtherCur').val() > 1) {
+
+
+            if ($('.issueOutSection').is(":visible") && !$('#varianceId').is(":visible")) {
+                $(".issueOutSection").addClass("col-12");
+            } else if (!$('.issueOutSection').is(":visible") && $('#varianceId').is(":visible")) {
+                $("#varianceId").addClass("col-12");
+            } else {
+
+                $(".issueOutSection").addClass("col-6");
+
+                $("#varianceId").addClass("col-6");
+            }
+
+
+            $(".issueInSection").addClass("col-12");
+
+        }
+
+
+
+
+
 
 
     }
