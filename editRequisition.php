@@ -496,11 +496,14 @@ $cond = '';
                 padding: 0 16px;
                 display: inline-flex;
                 align-items: center;
+                white-space: nowrap;
+                word-break: keep-all;
             }
 
             .btn__box .fetBtn img {
                 height: 40px;
             }
+            .btn__box { max-width:100%; }
 
         }
 

@@ -9856,7 +9856,7 @@ html[dir=rtl] .mee-3 {
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
-  /* word-break: break-word; */
+  word-break: break-word;
 }
 
 html,
