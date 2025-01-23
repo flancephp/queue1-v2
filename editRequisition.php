@@ -561,6 +561,7 @@ $cond = '';
             .fetBtn {
                 margin-left: auto;
             }
+            .fetBtn a { width: 40px; }
 
             .prdtImg {
                 text-align: center;

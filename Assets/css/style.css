@@ -3254,7 +3254,7 @@ html[dir=rtl] .padLeft40{padding-left:00px; padding-right:40px;}
 }
 
 .dropdown-toggle {
-  white-space: nowrap;
+  white-space: nowrap !important;
 }
 .dropdown-toggle::after {
   display: inline-block;
@@ -3478,7 +3478,8 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.doc-bx .dropdown-item { white-space: pre; }
+.doc-bx .dropdown-item,
+.item.dropdown-menu > li > .dropdown-item { white-space: nowrap; }
 
 .dropdown-item {
   display: block;
@@ -9855,7 +9856,7 @@ html[dir=rtl] .mee-3 {
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
-  word-break: break-word;
+  /* word-break: break-word; */
 }
 
 html,
