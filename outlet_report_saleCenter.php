@@ -770,7 +770,6 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                     <p><?php echo showOtherLangText('Adjust'); ?></p>
                                                     <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Adjustment Amount'); ?> "><?php echo getNumFormtPrice($adjustmentAmtTot, $getDefCurDet['curCode'], 2); ?></p>
 
-
                                                 </div>
                                                 <div class="otlt-Pos">
                                                     <p><?php echo showOtherLangText('Sales POS'); ?></p>
@@ -1106,14 +1105,13 @@ include_once('script/outlet_report_saleCenter_script.php');
         });
 
 
-        // code added by: shuvro
-        $(".cstBtn-Sale.hideBtn-Prc").click(function () { 
-            if ($(".mbStk-Detail").hasClass('.js-toggle')) { 
+        $(".cstBtn-Sale.hideBtn-Prc").click(function() {
+            if ($(".mbStk-Detail").hasClass('.js-toggle')) {
                 $(".otlt-stkPrc").toggleClass("go_down");
             }
         });
-        $(".slCst-Lnk").click(function () { 
-            $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle"); 
+        $(".slCst-Lnk").click(function() {
+            $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle");
         });
     </script>
 </body>
