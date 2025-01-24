@@ -79,7 +79,7 @@ if (isset($_GET['orderId'])) {
 
     //add order net value so that in case of its not updated it will update the total here but later 
     //after adding transaciton it needs to be removed from here
-    orderNetValue($_GET['orderId'], $currencyId);
+    orderNetValue($_GET['orderId'], $tempOrdDetRow['']);
 } //end
 
 
@@ -2011,7 +2011,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                             placeholder="<?php echo showOtherLangText('Service Name'); ?>" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
-                        <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
+                        <input type="text" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
                             placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?>"
                             autocomplete="off"
 

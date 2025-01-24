@@ -326,7 +326,7 @@ $currResultSet = mysqli_query($con, $curQry);
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/add-order.css">
- 
+
 </head>
 
 <body>
@@ -1271,7 +1271,7 @@ supplierId = '" . $_SESSION['supplierId'] . "'
                         <input type="text" class="form-control" id="itemName" name="itemName" value="" placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
-                        <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value="" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
+                        <input type="text" class="form-control" id="feeAmt" name="itemFeeAmt" value="" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
                         <input type="text" class="form-control" id="unit" name="unit" value="" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"

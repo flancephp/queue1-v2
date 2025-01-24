@@ -503,7 +503,10 @@ $cond = '';
             .btn__box .fetBtn img {
                 height: 40px;
             }
-            .btn__box { max-width:100%; }
+
+            .btn__box {
+                max-width: 100%;
+            }
 
         }
 
@@ -564,7 +567,10 @@ $cond = '';
             .fetBtn {
                 margin-left: auto;
             }
-            .fetBtn a { width: 40px; }
+
+            .fetBtn a {
+                width: 40px;
+            }
 
             .prdtImg {
                 text-align: center;
@@ -1794,7 +1800,7 @@ $cond = '';
                         placeholder="<?php echo showOtherLangText('Service Name'); ?>" autocomplete="off"
 
                         onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
-                    <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
+                    <input type="text" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
                         placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?>"
                         autocomplete="off"
 
