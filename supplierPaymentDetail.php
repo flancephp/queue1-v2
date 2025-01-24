@@ -1124,12 +1124,12 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
 
                                     <div class="invTotal">
                                         <table class="w-100">
-                                            <tbody> 
+                                            <tbody>
                                                 <!-- Added: shuvro -->
                                                 <tr class="payDetail">
                                                     <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
                                                     <td>
-                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="" >
+                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
                                                     </td>
                                                 </tr>
                                                 <!-- Added: shuvro -->
@@ -1138,7 +1138,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                                                 <tr class="payDetail">
                                                     <td><?php echo showOtherLangText('Total Amount') . ' (' . $getDefCurDet['curCode'] . ')'; ?></td>
                                                     <td>
-                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmount" id="totalAmount" value="<?php echo showprice($netTotalAmt, $getDefCurDet['curCode']); ?>" autocomplete="off" readonly="" >
+                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmount" id="totalAmount" value="<?php echo showprice($netTotalAmt, $getDefCurDet['curCode']); ?>" autocomplete="off" readonly="">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1473,7 +1473,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                         <input type="text" class="form-control" id="itemName" name="itemName" value="" placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
-                        <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value="" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
+                        <input type="text" class="form-control" id="feeAmt" name="itemFeeAmt" value="" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
                         <input type="text" class="form-control" id="unit" name="unit" value="" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"

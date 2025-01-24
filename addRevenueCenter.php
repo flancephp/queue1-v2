@@ -159,107 +159,107 @@ if (isset($_POST['name'])) {
                                     </div>
                                 </div>
                             </div>
-                    </div>    
+                    </div>
 
-                        <div class="acntStp">
-                            <div class="addUser-Form acntSetup-Form edtRev-cntr row" id="frmEasy" name="frmEasy">
-                                <div class="col-md-6">
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?>:<span class="requiredsign">*</span></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
-                                        </div>
+                    <div class="acntStp">
+                        <div class="addUser-Form acntSetup-Form edtRev-cntr row" id="frmEasy" name="frmEasy">
+                            <div class="col-md-6">
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="Name" class="form-label"><?php echo showOtherLangText('Name') ?>:<span class="requiredsign">*</span></label>
                                     </div>
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="ezzeAddress" class="form-label"><?php
-                                                                                        if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4 || $_SESSION['accountId'] == 5) {
-
-                                                                                            echo showOtherLangText('Assign Ezee Address') . ' :';
-                                                                                        } ?></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <?php
-                                            if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4 || $_SESSION['accountId'] == 5) { ?>
-
-                                                <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
-                                                    <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
-                                                    </option>
-                                                    <option value="21866"
-                                                        <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : ''; ?>>
-                                                        <?php echo showOtherLangText('Fun Beach Hotel(21866)'); ?>
-                                                    </option>
-                                                    <option value="21930"
-                                                        <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : ''; ?>>
-                                                        <?php echo showOtherLangText('Casa Del Mar Hotel(21930)'); ?>
-                                                    </option>
-                                                </select>
-
-                                            <?php } elseif ($_SESSION['accountId'] == 1) { ?>
-
-                                                <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
-
-                                                    <option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
-
-                                                    <option value="21866"><?php echo showOtherLangText('Fun Beach Hotel(21866)') ?></option>
-
-                                                    <option value="21930"><?php echo showOtherLangText('Casa Del Mar Hotel(21930)') ?></option>
-
-                                                </select>
-
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-start acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="" class="form-label"><?php echo showOtherLangText('Set Ezee Category') ?></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="setEze-Ctgry">
-                                                <input type="text" class="form-control" name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
-                                                <a href="javascript:void(0)" class="stEze-Lnk"><i
-                                                        class="fa-solid fa-minus"></i></a>
-                                            </div>
-                                            <div id="additionalContent">
-
-                                            </div>
-                                            <a href="javascript:void(0)" class="stEze-addLnk"><i
-                                                    class="fa-solid fa-plus"></i></a>
-                                        </div>
+                                    <div class="col-md-9">
+                                        <input type="text" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="name" id="name" placeholder="<?php echo showOtherLangText('Casa') ?>">
                                     </div>
                                 </div>
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="ezzeAddress" class="form-label"><?php
+                                                                                    if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4 || $_SESSION['accountId'] == 5) {
 
-                                <div class="col-md-6">
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?>:</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
-                                        </div>
+                                                                                        echo showOtherLangText('Assign Ezee Address') . ' :';
+                                                                                    } ?></label>
                                     </div>
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?>:</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="email" class="form-control" name="email" id="email"
-                                                placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
-                                        </div>
+                                    <div class="col-md-9">
+                                        <?php
+                                        if ($_SESSION['accountId'] == 3 || $_SESSION['accountId'] == 1 || $_SESSION['accountId'] == 4 || $_SESSION['accountId'] == 5) { ?>
+
+                                            <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
+                                                <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
+                                                </option>
+                                                <option value="21866"
+                                                    <?php echo $_GET['hotelId'] == 21866 ? 'selected="selected"' : ''; ?>>
+                                                    <?php echo showOtherLangText('Fun Beach Hotel(21866)'); ?>
+                                                </option>
+                                                <option value="21930"
+                                                    <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : ''; ?>>
+                                                    <?php echo showOtherLangText('Casa Del Mar Hotel(21930)'); ?>
+                                                </option>
+                                            </select>
+
+                                        <?php } elseif ($_SESSION['accountId'] == 1) { ?>
+
+                                            <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
+
+                                                <option value=""><?php echo showOtherLangText('Select Hotel'); ?></option>
+
+                                                <option value="21866"><?php echo showOtherLangText('Fun Beach Hotel(21866)') ?></option>
+
+                                                <option value="21930"><?php echo showOtherLangText('Casa Del Mar Hotel(21930)') ?></option>
+
+                                            </select>
+
+                                        <?php } ?>
                                     </div>
-                                    <div class="row align-items-center acntStp-Row">
-                                        <div class="col-md-3">
-                                            <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?>:</label>
+                                </div>
+                                <div class="row align-items-start acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label"><?php echo showOtherLangText('Set Ezee Category') ?></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="setEze-Ctgry">
+                                            <input type="text" class="form-control" name="catNames[]" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">
+                                            <a href="javascript:void(0)" class="stEze-Lnk"><i
+                                                    class="fa-solid fa-minus"></i></a>
                                         </div>
-                                        <div class="col-md-9">
-                                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
+                                        <div id="additionalContent">
+
                                         </div>
+                                        <a href="javascript:void(0)" class="stEze-addLnk"><i
+                                                class="fa-solid fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="address" class="form-label"><?php echo showOtherLangText('Address') ?>:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main') ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="email" class="form-label"><?php echo showOtherLangText('Email') ?>:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            placeholder="<?php echo showOtherLangText('casa@our-zanzibar.com') ?>">
+                                    </div>
+                                </div>
+                                <div class="row align-items-center acntStp-Row">
+                                    <div class="col-md-3">
+                                        <label for="phone" class="form-label"><?php echo showOtherLangText('Phone number') ?>:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="<?php echo showOtherLangText('+99994341000') ?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
             </div>
@@ -276,7 +276,9 @@ if (isset($_POST['name'])) {
 </body>
 
 </html>
-<?php $x = 0; ?>
+<?php $x = 0;
+$errorMes = showOtherLangText('This field should not be left blank.'); ?>
+
 <script>
     function removeRow(id) {
         $('#' + id).remove();
@@ -285,8 +287,7 @@ if (isset($_POST['name'])) {
         var x = <?php echo $x; ?>;
         $(".stEze-addLnk").on("click", function() {
             x++;
-            var newContent = '<div id="' + x + '" class="setEze-Ctgry"><input oninvalid="this.setCustomValidity('
-            <?php echo showOtherLangText('Please fill out this field.') ?> ')" type="text" id="tags' + x + '" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
+            var newContent = '<div id="' + x + '" class="setEze-Ctgry"><input oninvalid="this.setCustomValidity("This field should not be left blank.") type="text" id="tags' + x + '" name="catNames[]" class="form-control" id="" placeholder="<?php echo showOtherLangText('Hot Drinks') ?>">' +
                 '<a href="javascript:void(0)" onclick="removeRow(' + x + ')" class="stEze-Lnk"><i class="fa-solid fa-minus"></i></a>' +
                 '</div>';
             // Append the new content to the specified element

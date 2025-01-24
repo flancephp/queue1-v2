@@ -1133,7 +1133,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                                                             aria-label="Default select example" name="paymentType"
                                                             id="paymentType" class="form-control"
                                                             oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')"
-                                                            onchange="this.setCustomValidity('')" required >
+                                                            onchange="this.setCustomValidity('')" required>
                                                             <option value=""><?php echo showOtherLangText('Select'); ?>
                                                             </option>
                                                             <?php
@@ -1156,7 +1156,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                                                         <select name="accountId" id="accountId"
                                                             class="form-select form-select-1"
                                                             oninvalid="this.setCustomValidity('Please select an item in the list.')"
-                                                            onchange="getAccountVal(this.value),this.setCustomValidity('')" required >
+                                                            onchange="getAccountVal(this.value),this.setCustomValidity('')" required>
 
                                                             <option value=""><?php echo showOtherLangText('Select'); ?>
                                                             </option>
@@ -1358,7 +1358,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                                                                             <span>Fee percentage %</span>
                                                                         </td>
                                                                         <td>
-                                                                            <div class="stepper "><input type="number"
+                                                                            <div class="stepper "><input type="text"
                                                                                     class="form-control stepper-input"
                                                                                     name="amt" id="amt" value=""
                                                                                     style="width:250px;"
@@ -1450,7 +1450,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                             placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
-                        <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
+                        <input type="text" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
                             placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *"
                             autocomplete="off"
 

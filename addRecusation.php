@@ -308,7 +308,7 @@ if ($_SESSION['deptId'] != '') {
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/add-recusation.css">
- 
+
 </head>
 
 <body>
@@ -1173,7 +1173,7 @@ if ($_SESSION['deptId'] != '') {
                             placeholder="<?php echo showOtherLangText('Service Name'); ?>" autocomplete="off"
 
                             onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')">
-                        <input type="number" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="feeAmt" name="itemFeeAmt"
+                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" class="form-control" id="feeAmt" name="itemFeeAmt"
                             placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?>"
                             autocomplete="off"
 
