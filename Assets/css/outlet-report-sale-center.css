@@ -229,3 +229,8 @@ left: 0;
     left: var(--calendar-icon-position, 0);
 }
  
+.sale-Variance { width: 25%; }
+@media (min-width: 1024px) and (max-width:1399px) {
+    .saleGust { width: 35%; }
+    .sale-Variance, .saleTtl-Cost { width: 30%; }
+}
