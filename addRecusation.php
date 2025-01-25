@@ -305,7 +305,7 @@ if ($_SESSION['deptId'] != '') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel="stylesheet" href="Assets/css/style.css?v=2">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/add-recusation.css">
 
@@ -553,7 +553,7 @@ if ($_SESSION['deptId'] != '') {
                                             $resultSet = mysqli_query($con, $sqlSet);
 
                                             ?>
-                                            <ul class="dropdown-menu requisition_dropdown" style="height: 300px; overflow-y: scroll;">
+                                            <ul class="dropdown-menu requisition_dropdown break-item" style="height: 300px; overflow-y: scroll;">
                                                 <?php
                                                 while ($deptUserRow = mysqli_fetch_array($resultSet)) {
                                                     $sel = $_SESSION['recMemberId'] == $deptUserRow['id'] ? 'selected' : '';

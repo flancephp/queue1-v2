@@ -325,7 +325,7 @@ $currResultSet = mysqli_query($con, $curQry);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/add-order.css">
+    <link rel="stylesheet" href="Assets/css/add-order.css?v=1">
 
 </head>
 
@@ -506,7 +506,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                             //$liCount = 0;
                                                                             while ($resultRow = mysqli_fetch_array($customItemsResult)) {
                                                                                 //$liCount++;
-                                                                                echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='addOrder.php?feeType=1&itemCharges=" . $resultRow['id'] . "&currencyId=" . $_SESSION['currencyId'] . " ' >" . $resultRow['itemName'] . "</a></li>";
+                                                                                echo "<li class='innerLi'><a class='dropdown-item break-item' tabindex='-1' href='addOrder.php?feeType=1&itemCharges=" . $resultRow['id'] . "&currencyId=" . $_SESSION['currencyId'] . " ' >" . $resultRow['itemName'] . "</a></li>";
                                                                             }
                                                                             ?>
                                                                         </ul>
@@ -523,7 +523,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                             //$innerLiCount = 0;
                                                                             while ($resultRow = mysqli_fetch_array($ordFeeFetch)) {
                                                                                 // $innerLiCount++;
-                                                                                echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='addOrder.php?feeType=3&itemCharges=" . $resultRow['id'] . "&currencyId=" . $_SESSION['currencyId'] . " '>" . $resultRow['feeName'] . "</a> ";
+                                                                                echo "<li class='innerLi'><a class='dropdown-item break-item' tabindex='-1' href='addOrder.php?feeType=3&itemCharges=" . $resultRow['id'] . "&currencyId=" . $_SESSION['currencyId'] . " '>" . $resultRow['feeName'] . "</a> ";
                                                                             }
                                                                             ?>
                                                                         </ul>
@@ -567,7 +567,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                             class="btn body3 drp-btn dropdown-toggle dropdown-toggle-split d-flex align-items-center justify-content-between"
                                             data-bs-toggle="dropdown" aria-expanded="false"><span id="supplierText">-<?php echo showOtherLangText('Select'); ?>-</span> <i class="fa-solid fa-angle-down"></i></button>
 
-                                        <ul class="dropdown-menu supplier_dropdown">
+                                        <ul class="dropdown-menu supplier_dropdown break-item">
                                             <?php
                                             $sqlSet = " SELECT DISTINCT(s.id),s.* 
     FROM tbl_suppliers s 

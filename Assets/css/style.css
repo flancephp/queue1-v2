@@ -3478,8 +3478,7 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.doc-bx .dropdown-item,
-.item.dropdown-menu > li > .dropdown-item { white-space: nowrap; }
+.break-item { white-space: pre-line; }
 
 .dropdown-item {
   display: block;
@@ -10292,6 +10291,12 @@ a.sbActive .mb_nvSubIcn {
   max-width: 322px;
 }
 .glb-btn .btn.body3 span { max-width: 257px;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal; }
+
+@media (max-width:575px) {
+  .glb-btn .btn.body3 { max-width: 100%; }
+  .glb-btn .btn.body3 span { max-width: calc(100% - 65px); }
+}
+
 .drp-btn {
   padding: 3px 3px 3px 10px !important;
   background: #ffffff;

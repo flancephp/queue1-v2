@@ -463,10 +463,10 @@ html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625r
   .payment-paid .payment__table th:nth-child(2), 
   .payment-paid .payment__table td:nth-child(2) { width: 15% !important; }
   .payment__table th:nth-child(3), .payment__table td:nth-child(3) { width: 10%; }
-  .payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 20%; }
+  .payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 16%; }
   .payment__table th:nth-child(5), .payment__table td:nth-child(5) { width: 20%; }
-  .payment__table th:nth-child(6), .payment__table td:nth-child(6) { width: 15%; }
-  .payment__table th:nth-child(7), .payment__table td:nth-child(7) { width: 15%; }
+  .payment__table th:nth-child(6), .payment__table td:nth-child(6) { width: 17%; }
+  .payment__table th:nth-child(7), .payment__table td:nth-child(7) { width: 17%;padding-left: 0 !important; }
   .table__col { width: 55%;flex: 0 0 55%; }
 }
 
