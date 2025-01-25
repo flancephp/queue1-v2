@@ -167,7 +167,7 @@ if (isset($_POST['user_name'])) {
                                             </div>
                                             <div class="col-lg-9">
                                                 <input type="text" class="form-control" id="user_name" value="" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required
-                                                    name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>">
+                                                    name="user_name" placeholder="<?php echo showOtherLangText('User Name'); ?>" autocomplete="">
                                             </div>
                                         </div>
                                         <div class="form-field row align-items-center">
@@ -212,7 +212,7 @@ if (isset($_POST['user_name'])) {
                                             </div>
                                             <div class="col-lg-9">
                                                 <input type="password" value="" onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required class="form-control" id="password"
-                                                    name="password" placeholder="<?php echo showOtherLangText('Password') ?>">
+                                                    name="password" placeholder="<?php echo showOtherLangText('Password') ?>" autocomplete="new-password">
                                                 <span toggle="#password"
                                                     class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                                             </div>

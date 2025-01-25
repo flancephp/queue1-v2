@@ -411,7 +411,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
     }
 }
 //end ------------------------------------------------------------------------------------------------------
-
+//
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
@@ -708,7 +708,8 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
             }
 
             .recOrd-TblBody {
-                position: relative;align-items: flex-start !important;
+                position: relative;
+                align-items: flex-start !important;
             }
 
             .update .itmBody>div:first-child {
@@ -734,7 +735,8 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
             }
 
             .update.recieved-order-section .recItm-Name.tb-bdy {
-                width: 80%;min-width:auto;
+                width: 80%;
+                min-width: auto;
             }
 
             .update.recieved-order-section .recPrc-Unit,
@@ -742,7 +744,10 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                 width: 80% !important;
                 margin-left: auto;
             }
-            .update.recieved-order-section .recPrc-Unit { margin-top: -3rem; }
+
+            .update.recieved-order-section .recPrc-Unit {
+                margin-top: -3rem;
+            }
 
             html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,
             html[dir="rtl"] .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center {
