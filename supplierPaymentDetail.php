@@ -1126,12 +1126,14 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                                         <table class="w-100">
                                             <tbody>
                                                 <!-- Added: shuvro -->
-                                                <tr class="payDetail">
-                                                    <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
-                                                    <td>
-                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
-                                                    </td>
-                                                </tr>
+                                                <?php if ($orderRow['ordCurId'] > 0) { ?>
+                                                    <tr class="payDetail">
+                                                        <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
+                                                        <td>
+                                                            <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                                 <!-- Added: shuvro -->
 
 
