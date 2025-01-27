@@ -567,7 +567,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                             class="btn body3 drp-btn dropdown-toggle dropdown-toggle-split d-flex align-items-center justify-content-between"
                                             data-bs-toggle="dropdown" aria-expanded="false"><span id="supplierText">-<?php echo showOtherLangText('Select'); ?>-</span> <i class="fa-solid fa-angle-down"></i></button>
 
-                                        <ul class="dropdown-menu supplier_dropdown break-item">
+                                        <ul class="dropdown-menu supplier_dropdown">
                                             <?php
                                             $sqlSet = " SELECT DISTINCT(s.id),s.* 
     FROM tbl_suppliers s 
@@ -581,7 +581,7 @@ $currResultSet = mysqli_query($con, $curQry);
 
                                                 $color = checkSupplierForMinLevelProducts($supRow['id']) > 0 ? 'pink' : 'white';
                                             ?>
-                                                <li style="background-color:<?php echo $color; ?>" data-id=<?php echo $supRow['id']; ?> data-value="<?php echo $supRow['name']; ?>"><a class="dropdown-item <?php echo $sel; ?>" href="javascript:void(0)"><?php echo  $supRow['name'] ?></a></li>
+                                                <li style="background-color:<?php echo $color; ?>" data-id=<?php echo $supRow['id']; ?> data-value="<?php echo $supRow['name']; ?>"><a class="dropdown-item break-item <?php echo $sel; ?>" href="javascript:void(0)"><?php echo  $supRow['name'] ?></a></li>
                                             <?php } ?>
                                         </ul>
 

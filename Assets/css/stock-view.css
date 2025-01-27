@@ -224,12 +224,12 @@ html[dir=rtl] .mblCnt {
         width: 15%;
     }
 
-    #page1head .stkNamcol>div:nth-child(2),
-    #page1head .stkNamcol>div:nth-child(3),
-    #page1head .stkNamcol>div:nth-child(4),
-    .page1bdy .cntTable .stkNamcol>div:nth-child(2),
-    .page1bdy .cntTable .stkNamcol>div:nth-child(3),
-    .page1bdy .cntTable .stkNamcol>div:nth-child(4) {
+    #page1head .stkNamcol.colSize4>div:nth-child(2),
+    #page1head .stkNamcol.colSize4>div:nth-child(3),
+    #page1head .stkNamcol.colSize4>div:nth-child(4),
+    .page1bdy .cntTable .stkNamcol.colSize4>div:nth-child(2),
+    .page1bdy .cntTable .stkNamcol.colSize4>div:nth-child(3),
+    .page1bdy .cntTable .stkNamcol.colSize4>div:nth-child(4) {
         width: 20% !important;
     }
 
@@ -728,8 +728,16 @@ html[dir=rtl] .mblCnt {
     width: 63% !important;
 }
 
-.stockView .lstPrcol {
-    width: 33.33% !important;
+.stockView .lstPrcol{
+    width: 33.3333% !important;
+}
+.stockView .stkPrcol.colSize2 > .lstPrcol:nth-child(1),
+.stockView .stkPrcol.colSize2 > .lstPrco:nth-child(1) {
+    width: 70% !important;
+}
+.stockView .stkPrcol.colSize2 > .lstPrcol:nth-child(2),
+.stockView .stkPrcol.colSize2 > .lstPrco:nth-child(2) {
+    width: 30% !important;
 }
 
 .dskAll-str {
@@ -792,7 +800,7 @@ html[dir=rtl] .modal-footer .btnBg {
     .stkTblhead .fgcolSize4.lgcolSize1 .stkNamcol,
     .cntTable .fgcolSize4.lgcolSize1 .stkNamcol,
     .stkTblhead .fgcolSize3.lgcolSize1 .stkNamcol,
-    .page2bdy .cntTable .fhcolSize3.fhscolSize1 .stkNamcol {
+    .page2bdy .cntTable .fgcolSize3.fgscolSize1 .stkNamcol {
         width: calc(70% - 55px) !important;
     }
 
@@ -811,7 +819,7 @@ html[dir=rtl] .modal-footer .btnBg {
         width: 40%;
     }
 
-    #page2head.stkTblhead .lgcolSize0 .mbShw .stkPrcol.colSize0, .page2bdy .cntTable .fhscolSize0 .stkPrcol.colSize0 { width: 0% !important; }
+    #page2head.stkTblhead .lgcolSize0 .mbShw .stkPrcol.colSize0, .page2bdy .cntTable .fhscolSize0 .stkPrcol.colSize0 { width: 0% !important;display: none !important; }
     #page2head.stkTblhead .lgcolSize0 .mbHde, .page2bdy .cntTable .fhscolSize0 .mbHde { width: 20%; }
     #page2head.stkTblhead .lgcolSize0 .stkNamcol, .page2bdy .cntTable .fhscolSize0 .stkNamcol { width: 80% !important; }
 }

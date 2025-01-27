@@ -118,7 +118,8 @@ $result = mysqli_query($con, $sql);
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1"><?php echo showOtherLangText('Manage Suppliers') ?></h1>
+                                    <!-- <h1 class="h1"><?php echo showOtherLangText('Manage Suppliers') ?></h1> -->
+                                    <h1 class="h1"><?php echo showOtherLangText('View Mobile Stock Take'); ?></h1>
                                 </div>
                             </div>
                             <?php require_once('header.php'); ?>
