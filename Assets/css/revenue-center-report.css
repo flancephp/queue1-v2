@@ -106,3 +106,14 @@
         margin-bottom: 6px;
     }
 }
+
+.sale-Cstlist,
+.saleCost-prt,
+.revTbl-Hd .sale-Varlist,
+.Variance-prt {
+    width: 35%;
+}
+.sale-Usage, .Usage-prt {
+    width: 30%;
+}
+ 

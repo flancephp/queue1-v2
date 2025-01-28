@@ -800,7 +800,8 @@ html[dir=rtl] .modal-footer .btnBg {
     .stkTblhead .fgcolSize4.lgcolSize1 .stkNamcol,
     .cntTable .fgcolSize4.lgcolSize1 .stkNamcol,
     .stkTblhead .fgcolSize3.lgcolSize1 .stkNamcol,
-    .page2bdy .cntTable .fgcolSize3.fgscolSize1 .stkNamcol {
+    .page2bdy .cntTable .fgcolSize3.lgcolSize1 .stkNamcol,
+    .page2bdy .cntTable .fhcolSize3.fhscolSize1 .stkNamcol {
         width: calc(70% - 55px) !important;
     }
 

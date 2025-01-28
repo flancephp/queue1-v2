@@ -1278,12 +1278,12 @@ if ($getTxtById == 'storeId') {
                                     <div class="row g-3 pb-3">
                                         <div class="col-sm-7"> 
                                             <div class="input-group p-0 justify-content-center justify-content-sm-start">
-                                                <label for="password" class="col-12 col-sm-3 col-md-4 text-center"><?php echo showOtherLangText('Account Password') ?>:</label>
+                                                <label for="password" class="col-6 col-sm-5 col-md-4 text-center"><?php echo showOtherLangText('Account Password') ?>:</label>
                                                 <input type="password" value="" placeholder="" class="form-control border py-3" id="password" name="password" style="height:40px;"> 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
-                                            <div class="d-flex justify-content-center gap-2">
+                                            <div class="d-flex gap-2">
                                                 <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button> 
                                                 <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button> 
                                             </div>

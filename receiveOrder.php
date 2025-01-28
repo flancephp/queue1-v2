@@ -739,11 +739,11 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                 min-width: auto;
             }
 
-            .update.recieved-order-section .recPrc-Unit,
+            /* .update.recieved-order-section .recPrc-Unit,
             .update.recieved-order-section .recTtlPrc-Type.d-flex.align-items-center {
                 width: 80% !important;
                 margin-left: auto;
-            }
+            } */
 
             .update.recieved-order-section .recPrc-Unit {
                 margin-top: -3rem;
