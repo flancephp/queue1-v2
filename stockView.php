@@ -753,7 +753,7 @@ if (isset($stockUserFilterFields)) {
                                     <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                     <?php } else { ?>
                                         <div class="tb-head lstPrcol">
-                                            <div class="d-flex align-items-center justify-content-end">
+                                            <div class="d-flex align-items-center">
                                                 <p><?php echo showOtherLangText('Min Qty'); ?></p>
                                                 <span class="dblArrow">
                                                     <a onclick="sortTableByColumn('.newStockTask1', '.min_qty','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
@@ -997,7 +997,7 @@ if (isset($stockUserFilterFields)) {
                                                 <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
-                                                        <p style="text-align:right;"><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
+                                                        <p><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
                                                         </p>
                                                     </div>
                                                 <?php } ?>

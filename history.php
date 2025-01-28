@@ -1272,20 +1272,22 @@ if ($getTxtById == 'storeId') {
                         if (isset($_GET['delOrderId'])) {
                         ?><br>
 
-                            <div class="hbrw-DelHstry">
-
-
+                            <div class="hbrw-DelHstry"> 
                                 <form method="post" action="" autocomplete="off">
                                     <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
-
-                                    <div class="input-group"><?php echo showOtherLangText('Account Password') ?>:
-                                        <input type="password" value="" placeholder="" class="form-control" name="password">&nbsp;&nbsp;
-                                        <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
-                                        &nbsp;&nbsp;
-
-                                        <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button>
-
-
+                                    <div class="row g-3 pb-3">
+                                        <div class="col-sm-7"> 
+                                            <div class="input-group p-0 justify-content-center justify-content-sm-start">
+                                                <label for="password" class="col-12 col-sm-3 col-md-4 text-center"><?php echo showOtherLangText('Account Password') ?>:</label>
+                                                <input type="password" value="" placeholder="" class="form-control border py-3" id="password" name="password" style="height:40px;"> 
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button> 
+                                                <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button> 
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

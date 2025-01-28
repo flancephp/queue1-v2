@@ -553,14 +553,13 @@ if ($_SESSION['deptId'] != '') {
                                             $resultSet = mysqli_query($con, $sqlSet);
 
                                             ?>
-                                            <ul class="dropdown-menu requisition_dropdown break-item" style="height: 300px; overflow-y: scroll;">
+                                            <ul class="dropdown-menu requisition_dropdown" style="height: 300px; overflow-y: scroll;">
                                                 <?php
                                                 while ($deptUserRow = mysqli_fetch_array($resultSet)) {
                                                     $sel = $_SESSION['recMemberId'] == $deptUserRow['id'] ? 'selected' : '';
                                                 ?>
-                                                    <li data-id=<?php echo $deptUserRow['id']; ?>
-                                                        data-value="<?php echo $deptUserRow['name']; ?>"><a
-                                                            class="dropdown-item <?php echo $sel; ?>"
+                                                    <li data-id=<?php echo $deptUserRow['id']; ?> data-value="<?php echo $deptUserRow['name']; ?>">
+                                                        <a class="dropdown-item break-item <?php echo $sel; ?>"
                                                             href="javascript:void(0)"><?php echo $deptUserRow['name'] ?></a>
                                                     </li>
                                                 <?php

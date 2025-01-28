@@ -1075,13 +1075,13 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                                                         <?php echo showOtherLangText('Service Item'); ?> <i
                                                             class="fa-solid fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu">
+                                                    <ul class="dropdown-menu" style="min-width: 13rem;"> 
                                                         <!-- Dropdown menu links -->
                                                         <?php
                                                         $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";
                                                         $result = mysqli_query($con, $sql);
                                                         while ($resultRow = mysqli_fetch_array($result)) {
-                                                            echo "<li><a class='dropdown-item' tabindex='-1' href='requisitionPaymentDetail.php?page=history&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedFee&id=" . $resultRow['id'] . " ' >" . $resultRow['itemName'] . "</a></li>";
+                                                            echo "<li><a class='dropdown-item break-item' tabindex='-1' href='requisitionPaymentDetail.php?page=history&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedFee&id=" . $resultRow['id'] . " ' >" . $resultRow['itemName'] . "</a></li>";
                                                         }
                                                         ?>
                                                     </ul>
@@ -1102,12 +1102,12 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                                                         <?php echo showOtherLangText('Fee'); ?> <i
                                                             class="fa-solid fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu">
+                                                    <ul class="dropdown-menu" style="min-width: 13rem;">
                                                         <?php
                                                         $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";
                                                         $ordFeeFetch = mysqli_query($con, $sqlQry);
                                                         while ($resultRow = mysqli_fetch_array($ordFeeFetch)) {
-                                                            echo "<li><a class='dropdown-item' tabindex='-1' href='requisitionPaymentDetail.php?page=history&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedPerFee&id=" . $resultRow['id'] . " '>" . $resultRow['feeName'] . "</a></li>";
+                                                            echo "<li><a class='dropdown-item break-item' tabindex='-1' href='requisitionPaymentDetail.php?page=history&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedPerFee&id=" . $resultRow['id'] . " '>" . $resultRow['feeName'] . "</a></li>";
                                                         }
                                                         ?>
                                                     </ul>

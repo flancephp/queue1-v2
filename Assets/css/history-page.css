@@ -1159,6 +1159,9 @@ html[dir="rtl"] .mb-modal-close-icon {
 .update .ordDetail {
     box-shadow: -10px 10px 30px rgba(96, 113, 175, 0.1);
 }
+@media (max-width: 768px) {
+    .update .ordDetail { box-shadow: none; }
+}
 
 .update .hisParent-sec {
     box-shadow: none !important;
@@ -1522,7 +1525,7 @@ html[dir="rtl"] .modal .left__align__text .table-cell {
 
 @media (max-width: 1700px) {
     .total__th {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 }
 
