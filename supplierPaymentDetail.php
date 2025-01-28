@@ -1126,12 +1126,14 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                                         <table class="w-100">
                                             <tbody>
                                                 <!-- Added: shuvro -->
-                                                <tr class="payDetail">
-                                                    <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
-                                                    <td>
-                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
-                                                    </td>
-                                                </tr>
+                                                <?php if ($orderRow['ordCurId'] > 0) { ?>
+                                                    <tr class="payDetail">
+                                                        <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
+                                                        <td>
+                                                            <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                                 <!-- Added: shuvro -->
 
 
@@ -1160,13 +1162,13 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                                                     <a type="button" class="dropdown-item  dropdown-toggle dropdown-toggle-hover  d-j-b" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <?php echo showOtherLangText('Service Item'); ?> <span class="caret"> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu" style="min-width: 13rem;">
+                                                    <ul class="dropdown-menu">
                                                         <!-- Dropdown menu links -->
                                                         <?php
                                                         $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";
                                                         $customItemFee = mysqli_query($con, $sql);
                                                         while ($resultRow = mysqli_fetch_array($customItemFee)) {
-                                                            echo "<li><a class='dropdown-item break-item' tabindex='-1' href='supplierPaymentDetail.php?page=runningTask&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedFee&id=" . $resultRow['id'] . " ' >" . $resultRow['itemName'] . "</a></li>";
+                                                            echo "<li><a class='dropdown-item' tabindex='-1' href='supplierPaymentDetail.php?page=runningTask&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedFee&id=" . $resultRow['id'] . " ' >" . $resultRow['itemName'] . "</a></li>";
                                                         }
                                                         ?>
                                                     </ul>
@@ -1176,18 +1178,18 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
 
                                             <li>
                                             <li>
-                                                <!-- Default dropend button-- -->
+                                                <!-- Default dropend button -->
                                                 <div class="btn-group dropend dropdown-hover w-100">
                                                     <a type="button" class="dropdown-item  dropdown-toggle dropdown-toggle-hover  d-j-b" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <?php echo showOtherLangText('Fee'); ?> <i class="fa-solid fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu" style="min-width: 13rem;">
+                                                    <ul class="dropdown-menu">
                                                         <!-- Dropdown menu links -->
                                                         <?php
                                                         $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";
                                                         $ordFeeFetch = mysqli_query($con, $sqlQry);
                                                         while ($resultRow = mysqli_fetch_array($ordFeeFetch)) {
-                                                            echo "<li class='innerLi'><a class='dropdown-item break-item' tabindex='-1' href='supplierPaymentDetail.php?page=runningTask&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedPerFee&id=" . $resultRow['id'] . " '>" . $resultRow['feeName'] . "</a></li>";
+                                                            echo "<li class='innerLi'><a class='dropdown-item' tabindex='-1' href='supplierPaymentDetail.php?page=runningTask&orderId=" . $orderRow['id'] . "&action=pay&feeType=openFixedPerFee&id=" . $resultRow['id'] . " '>" . $resultRow['feeName'] . "</a></li>";
                                                         }
                                                         ?>
                                                     </ul>
