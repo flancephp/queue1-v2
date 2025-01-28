@@ -1126,14 +1126,12 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                                         <table class="w-100">
                                             <tbody>
                                                 <!-- Added: shuvro -->
-                                                <?php if ($orderRow['ordCurId'] > 0) { ?>
-                                                    <tr class="payDetail">
-                                                        <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
-                                                        <td>
-                                                            <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
-                                                        </td>
-                                                    </tr>
-                                                <?php } ?>
+                                                <tr class="payDetail">
+                                                    <td><?php echo showOtherLangText('Total Amount') . ' (' . $curDetail['curCode'] . ')'; ?></td>
+                                                    <td>
+                                                        <input type="text" style="cursor: text; background:none;" class="form-control form-control-01 px-0" name="totalAmountOther" id="totalAmountOther" value="<?php echo showOtherCur($netTotalAmtOther, $orderRow['ordCurId']); ?>" autocomplete="off" readonly="">
+                                                    </td>
+                                                </tr>
                                                 <!-- Added: shuvro -->
 
 
@@ -1178,7 +1176,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
 
                                             <li>
                                             <li>
-                                                <!-- Default dropend button -->
+                                                <!-- Default dropend button-- -->
                                                 <div class="btn-group dropend dropdown-hover w-100">
                                                     <a type="button" class="dropdown-item  dropdown-toggle dropdown-toggle-hover  d-j-b" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <?php echo showOtherLangText('Fee'); ?> <i class="fa-solid fa-angle-down"></i>
