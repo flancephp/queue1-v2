@@ -76,10 +76,6 @@ if (isset($_GET['orderId'])) {
         $insertQry = " INSERT INTO `tbl_order_details_temp` (`id`, `account_id`, `ordId`, `pId`, `factor`, `price`, `qty`, `qtyReceived`, `totalAmt`,`note`, `lastPrice`, `stockPrice`, `stockQty`, `curPrice`, `currencyId`, `curAmt`, `customChargeId`, `customChargeType`) VALUES  " . implode(',', $values);
         mysqli_query($con, $insertQry);
     }
-
-    //add order net value so that in case of its not updated it will update the total here but later 
-    //after adding transaciton it needs to be removed from here
-    orderNetValue($_GET['orderId'], $tempOrdDetRow['']);
 } //end
 
 

@@ -2662,7 +2662,7 @@ function orderNetValue($ordId, $currencyId = 0)
 
 
 	$updateQry = " UPDATE `tbl_orders` SET  
-				`ordCurId`= '" . $currencyId . "',
+				
 				`ordAmt` =  '" . $netTotalAmt . "',
 				`ordCurAmt` = '" . $netTotalAmtOther . "'
 				WHERE id = '" . $ordId . "' AND account_id = '" . $_SESSION['accountId'] . "'   ";
