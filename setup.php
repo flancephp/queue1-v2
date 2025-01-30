@@ -164,7 +164,7 @@ if (!in_array('8', $checkPermission)) {
                                                 <p class="sub-Text"><?php echo showOtherLangText('Revenue Centers'); ?></p>
                                             </a>
                                         <?php } ?>
-                                        <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
+                                        <!--<a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
                                             <div class="sub-Icns">
                                                 <img src="Assets/icons/contactstup.svg" alt="Contact List">
                                             </div>
@@ -175,22 +175,29 @@ if (!in_array('8', $checkPermission)) {
                                                 <img src="Assets/icons/setup-member.svg" alt="Employees">
                                             </div>
                                             <p class="sub-Text"><?php echo showOtherLangText('Employees'); ?> </p>
-                                        </a>
+                                        </a>-->
                                     </div>
                                 </div>
                             </div>
-                            <div class="stup-clm-2">
-                                <div class="stup-UsrAcnt">
-                                    <a href="itemsManager.php" class="usrAcnt-Dtl usrItm-Manager">
-                                        <img src="Assets/icons/setup-itmmanager.svg" alt="Setup Manager"
-                                            class="stupImg">
-                                        <p class="stItm-para"><?php echo showOtherLangText('Items Manager'); ?></p>
-                                    </a>
 
-                                    <!-- <a href="javascript:void(0)" class="stupLink"><i
+                            <?php
+                            //these all setup values needs to be get data from single function. #optimize
+                            if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'item_manager')) {
+                            ?>
+                                <div class="stup-clm-2">
+                                    <div class="stup-UsrAcnt">
+                                        <a href="itemsManager.php" class="usrAcnt-Dtl usrItm-Manager">
+                                            <img src="Assets/icons/setup-itmmanager.svg" alt="Setup Manager"
+                                                class="stupImg">
+                                            <p class="stItm-para"><?php echo showOtherLangText('Items Manager'); ?></p>
+                                        </a>
+
+                                        <!-- <a href="javascript:void(0)" class="stupLink"><i
                                             class="fa-solid fa-angle-down"></i></a> -->
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } ?>
+
                             <div class="stup-clm-2">
                                 <div class="stup-UsrAcnt">
                                     <a href="javascript:void(0)" class="usrAcnt-Dtl">
@@ -295,12 +302,12 @@ if (!in_array('8', $checkPermission)) {
                                         <?php } ?>
                                         <?php if (getSetupMenuPerByType($_SESSION['designation_id'], $_SESSION['accountId'], 'account_setup')) {
                                         ?>
-                                            <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
+                                            <!-- <a href="javascript:void(0)" class="sbMnu-acntStup disable-Stup">
                                                 <div class="sub-Icns">
                                                     <img src="Assets/icons/setup-department.svg" alt="Payments Type">
                                                 </div>
                                                 <p class="sub-Text"><?php echo showOtherLangText('Payments Type'); ?></p>
-                                            </a>
+                                            </a>-->
                                         <?php } ?>
 
                                     </div>
