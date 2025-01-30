@@ -293,9 +293,9 @@ if (isset($_POST['btnSbt'])) {
 
         /* .overwrite__btn { font-size:1rem;line-height: 1.2;} */
         @media (max-width: 575px) {
-            .overwrite__btn {
+            /* .overwrite__btn {
                 width: 8rem;
-            }
+            } */
 
             .res__info__box {
                 padding-top: 3rem;
@@ -406,7 +406,7 @@ if (isset($_POST['btnSbt'])) {
                                     </div>
                                 </div>
                                 <div class="usrAd-Btn">
-                                    <button type="submit" class="btn btn-primary mb-usrBkbtn overwrite__btn">
+                                    <button type="submit" class="btn btn-primary mb-usrBkbtn overwrite__btn w-auto px-4">
                                         <?php echo showOtherLangText('Overwrite and Save') ?>
                                     </button>
                                 </div>
