@@ -764,7 +764,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                     </div>
 
                     <!-- Item Table Body Start -->
-                    <div id="boxscroll">
+                    <div id="boxscroll" class="pb-5 pb-sm-0">
                         <div class="container cntTable adOtlTable">
                             <?php
 

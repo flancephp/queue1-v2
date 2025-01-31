@@ -381,7 +381,7 @@ $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
                 </section>
 
 
-                <section class="itmhstDetail">
+                <section class="itmhstDetail pb-5 pb-md-0">
 
                     <section class="itm-profileDtl">
                         <div class="btnBg">
@@ -799,7 +799,7 @@ $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
                                         $sidePanelClass = 'mb-itmVwbarVar';
                                         $assignTo = '<span style="color:Blue;font-weight:bold;">' . showOtherLangText('Stock Take') . '</span>';
                                     } else {
-                                        $assignTo = '<span style="color:#Blue;font-weight:bold;">' . showOtherLangText('Raw Item Convert') . '</span>';
+                                        $assignTo = '<span style="color:Blue;font-weight:bold;">' . showOtherLangText('Raw Item Convert') . '</span>';
                                     }
 
                                     $suppMemStoreName = '';

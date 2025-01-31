@@ -627,9 +627,9 @@ font-weight: 400 !important;
         width: 100%;
     }
 
-    .container.hisData {
+    /* .container.hisData {
         margin-top: 1rem;
-    }
+    } */
 
     .issueIn {
         padding-right: 0;

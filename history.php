@@ -1019,27 +1019,31 @@ if ($getTxtById == 'storeId') {
 
                     <section class="ordDetail hisTory">
 
-                        <div class="alrtMessage mx-lg-4 mt-4">
-                            <div class="container">
-                                <a name="del"></a>
-                                <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?>
+                        <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?> 
+                            <div class="alrtMessage mx-lg-4 mt-4">
+                                <div class="container">
+                                    <a name="del"></a>
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <p><?php
-
+                                        <p>
+                                            <?php
+    
                                             echo isset($_GET['status']) ? ' ' . showOtherLangText('New record added successfully') . ' ' : '';
-
+    
                                             echo isset($_GET['delete']) ? ' ' . showOtherLangText('Record deleted successfully.') . ' ' : '';
                                             if (isset($_GET['paymentStatus']) && $_GET['paymentStatus'] == 2) {
                                                 echo ' ' . showOtherLangText('We have initiated a refund in your account') . ' ';
                                             }
-
+    
                                             ?>
                                         </p>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo showOtherLangText('Close'); ?>"></button>
                                     </div>
-                                <?php } ?>
-
-                                <?php if (isset($_GET['deleteerror'])) { ?>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <?php if (isset($_GET['deleteerror'])) { ?>
+                            <div class="alrtMessage mx-lg-4 mt-4">
+                                <div class="container">
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <p><?php
 
@@ -1049,13 +1053,9 @@ if ($getTxtById == 'storeId') {
                                         </p>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo showOtherLangText('Close'); ?>"></button>
                                     </div>
-                                <?php } ?>
-
-
-
-
+                                </div>
                             </div>
-                        </div>
+                        <?php } ?>
 
 
                         <form name="frm" id="frm" method="get" action="">
@@ -1297,7 +1297,7 @@ if ($getTxtById == 'storeId') {
                             <div class="tab-mbDtl">
                                 <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
                             </div>
-                            <div class="scroller">
+                            <div class="scroller pb-5 pb-sm-0">
                                 <div class="row align-items-start issueDtl_accntDtl_main">
                                     <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap d-block">
                                         <div class="overflow-x-auto">

@@ -639,7 +639,7 @@ if ($res['proType'] == 3) {
                                                 </div> -->
                                                     </div>
                                                     <div class="sd-row">
-                                                        <div class="row acntStp-Row">
+                                                        <div class="row acntStp-Row w-100">
                                                             <div class="col-md-3">
                                                                 <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Supplier'); ?><span class="requiredsign">*</span></label>
                                                             </div>
@@ -667,7 +667,7 @@ if ($res['proType'] == 3) {
                                                                             <input type="checkbox" id="supplierOptionCheck"
                                                                                 class="supplierOptionCheck form-check-input mt-0" name="supplierId[]" <?php echo $sel; ?>
                                                                                 value="<?php echo $supRow['id']; ?>" <?php echo $sel; ?>>
-                                                                            <label><?php echo $supRow['name']; ?></label>
+                                                                            <label class="col"><?php echo $supRow['name']; ?></label>
                                                                         </span>
 
                                                                     <?php } ?>
