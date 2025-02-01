@@ -9,7 +9,7 @@ if (!isset($_SESSION['adminidusername'])) {
 }
 
 
-//check page permission
+//check page permission test
 $checkPermission = permission_denied_for_section_pages($_SESSION['designation_id'], $_SESSION['accountId']);
 
 if (!in_array('8', $checkPermission)) {

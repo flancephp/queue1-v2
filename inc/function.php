@@ -3942,7 +3942,7 @@ function access_import_stockTake($accessPermissionRow, $filterByStorage, $rightS
 				</p>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="javascript:void();"
+				<li><a class="dropdown-item" href="javascript:void(0);"
 						id="btnFileUpload"><?php echo showOtherLangText('Import File') ?></a>
 				</li>
 				<li><a class="dropdown-item"
@@ -3965,7 +3965,7 @@ function access_import_stockTake($accessPermissionRow, $filterByStorage, $rightS
 				</p>
 			</a>
 			<ul style="opacity: 0.5;" class="dropdown-menu">
-				<li><a class="dropdown-item" href="javascript:void();"><?php echo showOtherLangText('Import File') ?></a>
+				<li><a class="dropdown-item" href="javascript:void(0);"><?php echo showOtherLangText('Import File') ?></a>
 				</li>
 				<li><a class="dropdown-item" href="javascript:void(0);"
 						title="<?php echo showOtherLangText('Download sample file'); ?>">&#8595;<?php echo showOtherLangText('Download sample file'); ?></a>

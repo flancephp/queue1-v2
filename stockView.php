@@ -1463,11 +1463,13 @@ if (isset($stockUserFilterFields)) {
     </script>
     <script type="text/javascript">
         window.onload = function() {
+            alert('hiii');
             var fileupload = document.getElementById("uploadFile");
             var button = document.getElementById("btnFileUpload");
             button.onclick = function() {
+                alert('upload btn clicked');
                 fileupload.click();
-                console.log('upload btn clicked');
+
 
             };
             fileupload.onchange = function() {
