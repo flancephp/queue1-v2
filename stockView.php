@@ -364,11 +364,11 @@ if (isset($stockUserFilterFields)) {
                                 <div class="storeCol" style="background:transparent !important;">
                                     <div class="store text-center d-flex">
 
-                                        <a href="javascript:void(0)" class="dskAll-str">
+                                        <!-- <a href="javascript:void(0)" class="dskAll-str">
                                             <div class="allStr">
                                                 <h2 class="h2"><?php echo showOtherLangText('All Stores') ?></h2>
                                             </div>
-                                        </a>
+                                        </a> -->
                                         <?php if (mysqli_num_rows($storeQry) > 1) {  ?>
                                             <a href="stockView.php" class="allStore">
                                                 <div class="othStr">
