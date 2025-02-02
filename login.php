@@ -8,7 +8,7 @@ if (isset($_SESSION['adminidusername'])) {
 
 
 if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
-    $url = 'mobileNew/index.php';
+    $url = 'mobile/index.php';
     echo "<script>window.location.href='" . $url . "';</script>";
     exit;
 }

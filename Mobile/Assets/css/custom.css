@@ -1,1370 +1,2682 @@
 @charset "UTF-8";
+:root {
+  --radius: 15px;
+  --radius-sm: 10px;
+}
+
 
 * {
+
   box-sizing: border-box;
+
   font-family: "Inter", sans-serif;
+
   word-break: break-word;
+
 }
+
+
 
 html,
-body {
-  width: 100%;
-  height: auto;
-  min-height: 100%;
-}
 
 body {
-  margin: 0px;
-  padding: 0px;
-  font-style: normal;
-  color: #232859;
-  /* overflow: hidden; */
-  background: url("../images/BG_Desktop.jpg");
-  /* background: url("../images/mobile-bgnew.png"); */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+
+  width: 100%;
+
+  height: auto;
+
+  min-height: 100%;
+
 }
+
+
+
+body {
+
+  margin: 0px;
+
+  padding: 0px;
+
+  font-style: normal;
+
+  color: #232859;
+
+  /* overflow: hidden; */ 
+  background: url("../images/BG_Desktop.jpg");
+
+  /* background: url("../images/mobile-bgnew.png"); */
+
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: center;
+  background-attachment: fixed;
+}
+
+
 
 p {
+
   margin: 0;
+
 }
+
+
 
 .mblFnt1 {
+
   font-size: 16px;
+
   font-weight: 400;
+
   margin: 0;
+
 }
+
+
 
 .mblFnt2 {
+
   font-size: 16px;
+
   font-weight: 700;
-  margin: 0;
+
+  margin: 0;text-transform: capitalize;
+
 }
+
+
 
 input,
+
 button {
+
   outline: none !important;
+
   -webkit-transition: all 0.2s ease;
+
   -moz-transition: all 0.2s ease;
+
   transition: all 0.2s ease;
+
 }
+
+
 
 a {
+
   text-decoration: none;
+
   outline: none;
+
   display: inline-block;
+
 }
+
+
 
 ul,
+
 ol {
+
   margin: 0;
+
   padding: 0;
+
   padding-left: 20px;
+
 }
 
+
+
 img {
+
   max-width: 100%;
+
 }
+
+
 
 /* Scroll Bar CSS Start */
 
+
+
 /* width */
+
 ::-webkit-scrollbar {
+
   width: 7px;
+
   height: 10px;
+
 }
+
+
 
 ::-webkit-scrollbar-track {
+
   background: transparent;
+
 }
+
+
 
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
+
   background: #7a89ff;
+
   border-radius: 10px;
+
 }
+
+
 
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
+
   background: #7a89ff;
+
 }
+
+
 
 /* For Firefox */
+
 .scrollbar {
+
   scrollbar-width: 7px;
+
   scrollbar-color: #7a89ff !important;
+
 }
+
+
 
 .scrollbar::-webkit-scrollbar-thumb {
+
   background-color: #7a89ff;
+
   border-radius: 10px;
+
 }
 
+
+
 .scrollbar::-webkit-scrollbar-track {
+
   background-color: transparent;
+
 }
+
+
 
 /* Scroll Bar CSS End */
 
+
+
 /* Index Page CSS Start */
+
 .headSec {
+
   border-radius: 0px 0px 30px 30px;
+
   border-bottom: 3px solid #48769C;
+
   background: linear-gradient(0deg, rgba(54, 171, 255, 0.00) 0%, rgba(54, 171, 255, 0.00) 100%), #FFF;
+
   padding: 15px 0;
+
 }
+
+
 
 .usrLogo {
+
   border-radius: 50px;
+
   border: 1px solid #8C8FA7;
+
   max-width: 45px;
+
   height: auto;
+
 }
+
+
 
 .mblUsr-clm p {
+
   padding: 0 10px;
+
 }
+
+
 
 .usrLg-Col {
+
   border-radius: 100px;
+
   border: 2px solid #DFE0E8;
+
 }
+
+
 
 .mblBx-Lnk {
+
   border-radius: 30px;
+
   border: 2px solid #C3CAFB;
+
   background: radial-gradient(61.29% 64.97% at 79.7% 42.21%, rgba(255, 255, 255, 0.00) 26.35%, rgba(226, 230, 239, 0.40) 100%), #FFF;
+
   width: 31%;
+
   padding: 30px;
+
   margin: 20px 0;
+
   text-decoration: none;
+
   color: #232859;
+
   position: relative;
+
 }
+
+
 
 .mblBx-Lnk:focus,
+
 .mblBx-Lnk:hover {
+
   color: #232859;
+
 }
+
+
 
 .fieldIcns {
+
   width: 45px;
+
   height: 45px;
+
 }
+
+
 
 .mblBx-Lnk .mblFnt1 {
+
   padding-top: 10px;
+
 }
+
+
 
 .homeCont {
+
   padding: 40px 10px;
+
 }
 
+
+
 .homeBadge {
+
   border-radius: 20px !important;
+
   border: 2px solid #FFF;
+
   background: #7A89FE !important;
+
   box-shadow: 0px -1px 3px 0px rgba(16, 41, 104, 0.54);
+
   font-size: 14px;
+
   top: 8%;
+
   right: -7%;
+
 }
+
+
 
 /* Index Page CSS End */
 
+
+
 /* Storage Stocktaking1 Page CSS Start */
+
 .bckClm {
+
   display: flex;
+
   align-items: center;
+
 }
+
+
 
 .bckClm .mblFnt2 {
+
   padding-left: 10px;
+
 }
+
+
 
 .mblBack-Btn {
+
   color: #413024;
+
   border-radius: 5px;
+
   border: 2px solid #DFE0E8;
+
   padding: 2px 8px;
+
 }
+
+
 
 .mblBack-Btn:focus,
+
 .mblBack-Btn:hover {
+
   color: #413024;
+
 }
+
+
 
 .mbl-Out .dropdown-toggle {
+
   color: #232859;
+
   border: none;
+
   outline: none;
+
   background-color: transparent;
+
   padding: 2px 10px;
+
 }
+
+
 
 .mbl-Out .dropdown-toggle:hover,
+
 .mbl-Out .dropdown-toggle:focus {
+
   color: #232859;
+
   border: none;
+
   background-color: transparent;
+
 }
+
+
 
 .mbl-Out .dropdown-toggle::after {
+
   display: none;
+
 }
+
+
 
 .dropdown-menu.show {
+
   display: inline-block;
+
   border: none;
+
   border-radius: 10px;
+
   padding: 5px 0;
+
   font-size: 14px;
+
   box-shadow: 0px 4px 11px rgba(105, 115, 190, 0.19);
+
 }
+
+
 
 .strgList {
+
   padding: 30px 10px;
+
 }
 
-.strgProduct {
-  border-radius: 15px;
-  border-top: 7px solid #7A89FE;
-  background: #FFF;
-  padding: 20px;
-  display: block;
+
+
+.strgProduct { 
+  border-radius: var(--radius);  
+  background-image: linear-gradient(175deg, #7A89FE 5.37%, #48769C 105.48%); 
+  padding: 8px 4px 4px 4px; 
+  display: block; 
 }
+
+
 
 .storeName {
+
   font-size: 16px;
+
   font-weight: 500;
+
   line-height: 25px;
+
   color: #232859;
+
 }
+
+
 
 .prdCode,
-.prdItm-Count {
-  color: #8C8FA7;
-  font-size: 14px;
-  font-weight: 500;
-  width: 100%;
-}
 
 .prdItm-Count {
-  text-align: end;
-  margin-top: auto;
+
+  color: #8C8FA7;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  width: 100%;
+
 }
+
+
+
+.prdItm-Count {
+
+  text-align: end;
+
+  margin-top: auto;
+
+}
+
+
 
 .PrdDate {
+
   color: #232859;
+
   font-size: 14px;
+
   font-weight: 500;
+
   margin-top: auto;
+
   width: 100%;
+
   text-align: end;
+
 }
 
+
+
 .countClm {
+
   display: flex;
+
   flex-wrap: wrap;
+
 }
+
+
 
 /* Storage Stocktaking1 Page CSS End */
 
+
+
 /* Storage Stocktaking2 Page CSS Start */
-.stockTake-Btn {
-  border-radius: 15px;
-  background: #7A89FE;
-  color: #FFF;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 16px 35px;
+
+.stockTake-Btn { 
+  border-radius: var(--radius); 
+  background: #7A89FE; 
+  color: #FFF; 
+  font-size: 18px; 
+  font-weight: 700; 
+  padding: 16px 35px;height: 70px;gap: 12px;
+  display: inline-flex;justify-content: center;align-items: center;
 }
+
+
 
 .stockTake-Btn:hover,
+
 .stockTake-Btn:focus,
+
 .stockTake-Btn:active {
+
   background: #5060DF;
+
   color: #FFF;
+
 }
+
+
 
 .storeSection {
+
   padding: 30px 10px;
+
 }
 
-.storeDtl {
-  border-radius: 15px;
-  border-top: 7px solid #7A89FE;
-  background: #FFF;
-  box-shadow: 9px 11px 25px 0px rgba(41, 33, 23, 0.32);
-  padding: 30px;
+
+
+.storeDtl { 
+  border-radius: var(--radius); 
+  /* border-top: 7px solid #7A89FE; 
+  background: #FFF;  */
+  box-shadow: 9px 11px 25px 0px rgba(41, 33, 23, 0.32); 
+  padding: 8px 4px 4px 4px; 
+  background-image: linear-gradient(175deg, #7A89FE 5.37%, #48769C 105.48%); 
 }
+
+
 
 .stkData {
+
   width: 48%;
+
   padding-bottom: 15px;
+
 }
+
+
 
 .strHead {
+
   font-size: 16px;
+
   line-height: 25px;
+
   font-weight: 600;
+
   padding-bottom: 8px;
+
 }
 
+
+
 .storeDate,
+
 .storeTime,
+
 .storeType,
+
 .storeCount {
+
   color: #666C85;
+
   font-size: 16px;
+
   font-weight: 600;
+
   line-height: normal;
+
   border-radius: 10px;
+
   background: #FFF;
+
   padding: 15px;
+
   text-align: center;
+
   filter: drop-shadow(0px 8px 30px rgba(105, 115, 190, 0.13));
+
 }
+
+
 
 .storeDate,
+
 .storeTime {
+
   border: 1px solid #7A89FE;
+
 }
 
+
+
 .storeType,
+
 .storeCount {
+
   border: 1px solid #D5D6DD;
+
 }
+
+
 
 /* Storage Stocktaking2 Page CSS End */
 
+
+
 /* Storage Stocktaking3 Page CSS Start */
-.srchBx {
-  max-width: 300px;
-  padding: 3px 3px 3px 13px !important;
-  background: #ffffff;
-  border: 2px solid #d5d6dd;
-  border-radius: 10px !important;
+
+.srchBx { 
+  max-width: calc(100% - 60px); 
+  padding: 3px 3px 3px 13px !important; 
+  background: #ffffff; 
+  border: 2px solid #d5d6dd; 
+  border-radius: 10px !important; 
 }
+
+
 
 .srchBx:focus .input-group-append .btn {
+
   background-color: #5060df !important;
+
   color: #fff !important;
+
   border-color: #5060df;
+
 }
 
-.srchBx .form-control:focus {
-  border: none;
-  background-color: transparent;
-  box-shadow: none;
+
+
+.srchBx .form-control { 
+  font-size: 16px;
+}
+.srchBx .form-control:focus { 
+  border: none; 
+  background-color: transparent; 
+  box-shadow: none; 
 }
 
-.input-group .btn {
-  border-radius: 8px;
-  padding: 7px 10px;
-  font-size: 12px;
-  color: #fff;
+
+
+.input-group .btn { 
+  border-radius: 8px; 
+  padding: 7px 10px; 
+  font-size: 12px; 
+  color: #fff; 
+  width: 42px;
+  height: 42px;
+  font-size: 17px;
 }
+
+
 
 .form-control {
+
   padding: 0;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
+
+  font-size: 14px;
+
+  font-weight: 400; 
+
   color: #666c85;
+
   background-color: transparent;
+
   background-clip: padding-box;
+
   border: none;
+
 }
+
+
 
 .form-control:focus {
+
   box-shadow: none;
+
 }
+
+
 
 .input-group .btn:hover,
+
 .input-group .btn:focus,
+
 .input-group .btn:active {
+
   background-color: #5060df !important;
+
   color: #fff !important;
+
   border-color: #5060df;
+
 }
+
+
 
 .resetBtn {
-  border-radius: 10px;
-  border: 2px solid #DFE0EF;
-  background: #7A89FE;
-  color: #fff;
-  padding: 8px 13px;
+
+  border-radius: 10px; 
+  border: 2px solid #DFE0EF; 
+  background: #7A89FE; 
+  color: #fff; 
+  padding: 8px 13px; 
   margin-left: 8px;
+  height: 52px;
+  width: 52px;
+  font-size: 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
+
+
 
 .resetBtn:focus,
+
 .resetBtn:hover {
+
   background: #5060df;
+
   color: #fff;
+
 }
+
+
 
 .countValue {
+
   color: #7A89FE;
+
   font-size: 18px;
+
   font-weight: 600;
+
   padding: 5px 16px;
+
 }
+
+
 
 .countedItm {
+
   color: #8C8FA7;
+
 }
 
-.finishBtn {
-  color: #FFF;
-  font-size: 16px;
-  font-weight: 700;
-  border-radius: 0px 10px 10px 0px;
-  background: #58D6A0;
-  padding: 8px 16px;
+
+
+.finishBtn { 
+  color: #FFF; 
+  font-size: 16px; 
+  font-weight: 700; 
+  border-radius: 0px 10px 10px 0px; 
+  background: #58D6A0; 
+  padding: 8px 16px; 
   margin-left: auto;
+  height: 52px;
+  gap: 12px;
+  display: inline-flex;
+  min-width: 118px;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 .finishBtn:hover,
+
 .finishBtn:focus {
+
   color: #FFF;
+
   background: #219A67;
+
 }
+
+
 
 .fnshGrp {
+
   border-radius: 12px;
+
   border: 2px solid #DFE0EF;
+
   width: 300px;
+
 }
+
+
 
 .prdctSection {
+
   padding: 30px 10px;
+
 }
+
+
 
 .productList {
+
   border-radius: 10px;
+
   border: 2px solid #C3CAFB;
+
   background: #FFF;
+
   padding: 10px;
+
 }
+
+
 
 .prdctImg {
+
   width: 5%;
+
   text-align: center;
+
   padding: 8px;
+
 }
+
+
 
 .prdctDtl {
+
   width: 45%;
+
 }
+
+
 
 .prdctHide {
+
   width: 35%;
+
 }
+
+
 
 .prdctValue {
+
   width: 15%;
+
   text-align: end;
+
 }
+
+
 
 .prdName {
+
   color: #232859;
+
   font-size: 16px;
+
   font-weight: 500;
+
   line-height: 25px;
+
   padding: 4px 8px;
+
 }
+
+
 
 .prdBarCode {
+
   color: #8C8FA7;
+
   font-size: 14px;
+
   font-weight: 500;
+
   padding: 4px 8px;
+
 }
+
+
 
 .prdUnit {
+
   text-align: center;
+
   color: #6F7CE5;
+
   font-size: 16px;
+
   font-weight: 600;
+
   padding: 4px 8px;
+
 }
 
+
+
 .prdForm {
+
   border-radius: 10px;
+
   border: 1px solid #DFE0E8;
+
   background: #FFF;
+
   padding: 8px 10px;
+
   text-align: center;
+
 }
+
+
 
 /* Storage Stocktaking3 Page CSS End */
 
+
+
 /* Storage Stocktaking4 Page CSS Start */
-.fnshBtn {
-  border-radius: 15px;
-  background: #58D6A0;
-  color: #fff;
-  padding: 15px 35px;
+
+.fnshBtn { 
+  border-radius: var(--radius); 
+  background: #58D6A0; 
+  color: #fff; 
+  padding: 15px 35px;gap: 12px;
+  height: 70px;font-size: 18px;font-weight: 700;display: inline-flex;align-items: center;justify-content: center;
+}
+ 
+@media(max-width:991px){
+  .fnshBtn {width: calc(100% - 80px);padding: 0%;}
+}
+.eyeBtn { 
+  border-radius: var(--radius); 
+  background: #7A89FE; 
+  color: #fff; 
+  padding: 15px 18px;
+  height: 70px;
+  width: 70px;
+  font-size: 23px;
+  display: inline-flex;justify-content: center;align-items: center;
 }
 
-.eyeBtn {
-  border-radius: 15px;
-  background: #7A89FE;
-  color: #fff;
-  padding: 15px 18px;
-}
+
 
 .fnshBtn:Hover,
+
 .fnshBtn:focus {
+
   color: #fff;
+
   background: #219A67;
+
   ;
+
 }
+
+
 
 .eyeBtn:hover,
+
 .eyeBtn:focus {
+
   color: #fff;
+
   background: #5060df;
+
 }
+
+
 
 .finishSection {
+
   padding: 30px 10px 0;
+
 }
+
+
 
 .scflMsg {
+
   background: #58D6A0;
+
   padding: 15px 20px;
+
   border-radius: 50px 50px 0 0;
+
   border-top: 3px solid #48769C;
+
   color: #fff;
+
   font-weight: 700;
+
 }
+
+
 
 .numItems {
+
   text-decoration: underline;
+
 }
+
+
 
 .itmCount-Dtl {
+
   background: #fff;
+  min-height: calc(100vh - 236px);
   padding: 40px;
+
 }
+
+
 
 .taskDetail {
+
   font-weight: 600;
+
 }
 
+
+
 .fw-500 {
+
   font-weight: 500;
+
 }
+
+
 
 /* Storage Stocktaking4 Page CSS End */
 
+
+
 /* Storage Stocktaking5 Page CSS Start */
+
 .fnPrd-Val {
+
   margin-bottom: auto;
+
 }
 
+
+
 .unitNum {
+
   color: #232859;
+
 }
+
+
 
 /* Storage Stocktaking5 Page CSS End */
 
+
+
 /* Storage Stocktaking6 Page CSS Start */
+
 .fnlSection {
+
   padding: 90px 0 20px;
+
 }
+
+
 
 .msgBx-Stock {
+
   border-radius: 50px;
+
   border: 3px solid #48769C;
+
   background: linear-gradient(0deg, rgba(54, 171, 255, 0.00) 0%, rgba(54, 171, 255, 0.00) 100%), #FFF;
+
   max-width: 600px;
+
   padding: 40px 80px;
+
   margin: 0 auto;
+
 }
+
+
 
 .msgBx-Stock h4 {
+
   font-size: 20px;
+
   font-weight: 600;
+
 }
+
+
 
 .msgBx-Stock p {
+
   font-size: 16px;
+
   font-weight: 500;
+
   line-height: 25px;
+
   margin-top: 15px;
+
 }
 
-.homeBtn {
-  border-radius: 15px;
-  background: #7A89FE;
-  color: #FFF;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 16px 35px;
+
+
+.homeBtn { 
+  border-radius: var(--radius); 
+  background: #7A89FE; 
+  color: #FFF; 
+  font-size: 18px; 
+  font-weight: 700; 
+  padding: 16px 35px; 
   margin-top: 30px;
+  height: 70px;
+  min-width: 200px;
+  display: inline-flex;align-items: center;justify-content: center;gap: 12px;
 }
+
+
 
 .homeBtn:hover,
+
 .homeBtn:focus,
+
 .homeBtn:active {
+
   background: #5060DF;
+
   color: #FFF;
+
 }
+
+
 
 /* Storage Stocktaking6 Page CSS End */
 
-/* Receiving Order1 Page CSS Start */
-.receivePrd,
-.receiveStore {
-  border-top: 7px solid #219A67;
+.ellipsis {overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal;}
+
+/* Receiving Order1 Page CSS Start */ 
+.inner__content { border-radius: var(--radius-sm);padding: 16px; }
+.receivePrd, .receiveStore {
+ /* border-top: 7px solid #219A67; */ border-top:0;
+  background-image: linear-gradient(175deg, #219A67 5.37%, #48769C 105.48%);padding: 8px 5px 5px; 
+}
+@media(max-width:767px){
+  .receivePrd, .receiveStore { padding: 8px 3px 3px !important;  }
+
+}
+.orderNum {
+
+  color: #7989FC;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  line-height: 20px;
+
+  letter-spacing: 0.8px;
+
 }
 
-.orderNum {
-  color: #7989FC;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
-  letter-spacing: 0.8px;
-}
+
 
 .ttlStr-Cost {
+
   font-weight: 600;
+
 }
 
+
+
 .receivePrd .PrdDate {
+
   margin-top: 0;
+
 }
+
+
 
 /* Receiving Order1 Page CSS End */
 
+
+
 /* Receiving Order2 Page CSS Start */
+
 .recQuantity {
+
   color: #7A89FE;
+
   font-size: 20px;
+
   font-weight: 600;
+
 }
+
+
 
 .recQuantity span {
+
   color: #8C8FA7;
+
 }
+
+
 
 .recDate {
+
   font-size: 14px;
+
   font-weight: 500;
+
   text-align: end;
+
 }
+
+
 
 .mblOrd-ttl {
+
   font-size: 16px;
+
   font-weight: 700;
+
 }
+
+
 
 .mblOrd-Subttl {
+
   font-size: 14px;
+
   font-weight: 600;
+
 }
+
+
 
 .mblOrd-extra {
+
   font-size: 14px;
+
   font-weight: 500;
+
 }
+
+
 
 .ordCol1 {
+
   width: 12%;
+
 }
+
+
 
 .ordCol2,
+
 .ordCol3 {
+
   width: 15%;
+
 }
+
+
 
 .recPrd-List {
+
   border-radius: 10px;
+
   border: 2px solid #C3CAFB;
+
   background: #FFF;
+
   padding: 10px;
+
 }
+
+
 
 .recUnit {
+
   color: #6F7CE5;
+
   font-weight: 600;
+
   font-size: 14px;
+
   padding: 4px 8px;
+
 }
+
+
 
 .recUnit .unitNum {
+
   font-size: 16px;
+
   color: #232859;
+
 }
+
+
 
 .recPrice {
+
   text-align: end;
+
   font-size: 14px;
+
   font-weight: 500;
+
   padding: 4px 8px;
+
 }
 
+
+
 .receiveProduct {
+
   padding-top: 40px;
+
 }
+
+
 
 /* Receiving Order2 Page CSS End */
 
+
+
 /* Receiving Order3 Page CSS Start */
+
 .recPrdt-Div .prdctHide,
+
 .rcvPrdVal {
+
   width: 25%;
+
 }
+
+
 
 .recPrdt-Div {
+
   padding-top: 30px;
+
 }
+
+
 
 .receiveQty {
+
   display: flex;
+
   flex-wrap: wrap;
+
   align-items: center;
+
   justify-content: end;
+
   padding: 4px 0;
+
   width: 100%;
+
 }
+
+
 
 .receiveQty .prdForm {
+
   width: 40%;
+
 }
+
+
 
 .receiveQty p {
+
   width: 25%;
+
   padding-left: 10px;
+
   text-align: start;
+
   font-size: 14px;
+
   font-weight: 500;
+
 }
+
+
 
 .recPrdt-Div .prdName,
+
 .recPrdt-Div .prdBarCode {
+
   padding: 8px;
+
 }
 
+
+
 .recQty-Unit {
+
   color: #6F7CE5;
+
 }
+
+
 
 /* Receiving Order3 Page CSS End */
 
+
+
 /* Receiving Order5 Page CSS Start */
+
 .recOrd-Price {
+
   text-align: center;
+
   color: #232859;
+
   font-size: 14px;
+
   font-weight: 500;
+
   padding: 4px 8px;
+
 }
+
+
 
 /* Receiving Order5 Page CSS End */
 
+
+
 /* IssueOut1 Page CSS Start */
-.issueOut-Prd,
-.issueOut-Store {
-  border-top: 7px solid #FBA32A;
+
+.issueOut-Prd, 
+.issueOut-Store { 
+  background-image: linear-gradient(175deg, #FBA32A 5.37%, #48769C 105.48%); 
 }
+
+
 
 .issueOut-Prd .storeName {
+
   font-weight: 600;
+
 }
 
+
+
 .issueOut-Prd .PrdDate {
+
   margin-top: 0;
+
 }
+
+
 
 /* IssueOut1 Page CSS End */
 
+
+
 /* IssueOut3 Page CSS Start */
+
 .issueOut-Store .rcvPrdVal {
+
   align-self: stretch;
+
   display: flex;
+
   flex-wrap: wrap;
+
   align-items: stretch;
+
 }
+
+
 
 .issueOut-Store .prdName {
+
   padding: 0 8px;
+
 }
 
+
+
 .issueOut-Div .receiveQty:nth-child(2) {
+
   margin-top: auto;
+
 }
+
+
 
 /* IssueOut3 Page CSS End */
 
+
+
 /* Production1 Page CSS Start */
-.production-Prd,
-.production-Store {
-  border-top: 7px solid #209B9B;
+
+.production-Prd, 
+.production-Store { 
+  background-image: linear-gradient(175deg, #209B9B 5.37%, #48769C 105.48%); 
 }
 
-.production-Prd .PrdDate {
+
+
+.production-Prd .PrdDate { 
   margin-top: 0;
+
 }
+
+
 
 /* Production1 Page CSS End */
 
+
+
 /* Production2 Page CSS Start */
+
 .prdcnTtl,
+
 .prdCnt-Clm {
+
   font-size: 16px;
+
   font-weight: 500;
+
   line-height: 20px;
+
   letter-spacing: 0.8px;
+
 }
+
+
 
 .production-Store .ordCol1,
+
 .production-Store .ordCol2 {
+
   width: 17%;
+
 }
+
+
 
 .prdCnt-Clm {
+
   padding: 4px 8px;
+
 }
+
+
 
 .prd-Qty,
+
 .prd-Count {
+
   width: 50%;
+
 }
+
+
 
 .recipeBtn {
+
   border-radius: 15px;
+
   background: #209B9B;
+
   color: #fff;
+
   padding: 15px;
+
 }
 
+
+
 .recipeBtn:hover,
+
 .recipeBtn:focus {
+
   color: #fff;
+
 }
+
+
 
 /* Production2 Page CSS End */
 
+
+
 /* Production3 Page CSS Start */
+
 .doneBtn {
+
   padding: 15px 60px;
+
 }
+
+
 
 .prdcn-Cntr {
+
   border-radius: 15px;
+
   background: #209B9B;
+
   box-shadow: 9px 11px 25px 0px rgba(41, 33, 23, 0.32);
+
   padding: 5px;
+
 }
+
+
 
 .prdcnProcess {
+
   border-radius: 15px;
+
   border: 2px solid #FFF;
+
   background: #58D6A0;
+
   box-shadow: 0px 0px 6px 0px #FF7152;
+
   padding: 15px;
+
   margin: 15px 30px;
+
   color: #fff;
+
 }
+
+
 
 .prdcnDetails {
+
   width: 97%;
+
 }
+
+
 
 .prdcnLnk {
+
   width: 3%;
+
   text-align: end;
+
 }
+
+
 
 .prdcnShow {
+
   font-size: 20px;
+
   font-weight: 700;
+
   line-height: 20px;
+
 }
+
+
 
 .prdcnHide {
+
   font-size: 16px;
+
   font-weight: 500;
+
   line-height: 25px;
+
   letter-spacing: 0.8px;
+
   margin-top: 5px;
+
   display: none;
+
 }
+
+
 
 .prcsDate {
+
   text-align: end;
+
 }
+
+
 
 .timeLink {
+
   color: #fff;
+
   line-height: 20px;
+
 }
+
+
 
 .timeLink:hover,
+
 .timeLink:focus {
+
   color: #fff;
+
 }
+
+
 
 .productionList .prd-Count {
+
   text-align: end;
+
 }
 
+
+
 .productionList .prdctDtl {
+
   width: 95%;
+
 }
+
+
 
 /* Production3 Page CSS End */
 
+
+
 /* Bar Control1 Page CSS Start */
+
 .form-select,
-.barStr-Date {
-  color: #666C85;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: normal;
-  border-radius: 10px;
-  /* background: #FFF; */
-  padding: 15px;
-  text-align: center;
-  filter: drop-shadow(0px 8px 30px rgba(105, 115, 190, 0.13));
-  border: 1px solid #7A89FE;
-}
 
 .barStr-Date {
-  border-color: #D5D6DD;
-  background: #fff;
+
+  color: #666C85;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: normal;
+
+  border-radius: 10px;
+
+  /* background: #FFF; */
+
+  padding: 15px;
+
+  text-align: center;
+
+  filter: drop-shadow(0px 8px 30px rgba(105, 115, 190, 0.13));
+
+  border: 1px solid #7A89FE;
+
 }
+
+
+
+.barStr-Date {
+
+  border-color: #D5D6DD;
+
+  background: #fff;
+
+}
+
+
 
 .form-select:focus {
+
   border-color: #7A89FE;
+
   box-shadow: none;
+
 }
+
+
 
 .brControl {
-  border-radius: 50px 50px 0 0;
+  min-height: calc(100vh - 194px);
+  border-radius: 50px 50px 0 0; 
   border-top: 3px solid #E260D3;
+  background-image: none;background: #fff;
 }
+
+
 
 .brClm-6 {
+
   width: 48%;
+
 }
+
+
 
 .brClmhead {
+
   font-size: 16px;
+
   font-weight: 600;
+
 }
 
+
+
 option {
+
   font-size: 14px;
+
 }
+
+
 
 /* Bar Control1 Page CSS End */
 
+
+
 /* RTL CSS Start */
 
+
+
 .dropdown-item {
+
   text-align: start;
+
 }
 
+
+
 /* Index Page CSS Start */
+
 html[dir="rtl"] .homeBadge {
+
   right: auto;
+
   left: 6%;
+
 }
+
+
 
 /* Index Page CSS End */
 
+
+
 /* Storage Stocktaking1 Page CSS Start */
+
 html[dir="rtl"] .bckClm .mblFnt2 {
+
   padding-left: 0;
+
   padding-right: 10px;
+
 }
 
+
+
 html[dir="rtl"] .mblBack-Btn .fa-chevron-left {
+
   transform: scaleX(-1);
+
 }
+
+
 
 /* Storage Stocktaking1 Page CSS End */
 
+
+
 /* Storage Stocktaking3 Page CSS Start */
+
 html[dir="rtl"] .resetBtn {
+
   margin-left: 0;
+
   margin-right: 8px;
+
 }
+
+
 
 html[dir="rtl"] .srchBx {
+
   padding: 3px 13px 3px 3px !important;
+
 }
+
+
 
 html[dir="rtl"] .finishBtn {
+
   margin-left: 0;
+
   margin-right: auto;
+
   border-radius: 10px 0px 0px 10px;
+
 }
 
+
+
 html[dir="rtl"] .finishBtn .fa-chevron-right {
+
   transform: scaleX(-1);
+
 }
+
+
 
 /* Storage Stocktaking3 Page CSS End */
 
+
+
 /* Storage Stocktaking6 Page CSS Start */
+
 html[dir="rtl"] .homeBtn .fa-arrow-left {
+
   transform: scaleX(-1);
+
 }
+
+
 
 /* Storage Stocktaking6 Page CSS End */
 
+
+
 /* Receiving Order3 Page CSS Start */
+
 html[dir="rtl"] .receiveQty p {
+
   padding-left: 0px;
+
   padding-right: 10px;
+
 }
+
+
 
 /* Receiving Order3 Page CSS End */
 
+
+
 /* RTL CSS End */
+
+
 
 @media screen and (max-width: 1024px) {
 
+
+
   /* Receiving Order2 Page CSS Start */
+
   .ordCol1 {
+
     width: 15%;
+
   }
 
+
+
   .ordCol2,
+
   .ordCol3 {
+
     width: 20%;
+
   }
+
+
 
   /* Receiving Order2 Page CSS End */
 
+
+
 }
+
+
 
 @media screen and (max-width: 992px) {
 
+
+
   /* Index Page CSS Start */
+
   .mblBx-Lnk {
+
     min-height: 167px;
+
   }
 
+
+
   .homeBadge {
+
     right: -10%;
+
   }
+
+
 
   /* Index Page CSS End */
 
+
+
   /* Storage Stocktaking3 Page CSS Start */
+
   .prdctImg {
+
     width: 8%;
+
   }
 
+
+
   .prdctHide {
+
     width: 32%;
+
   }
+
+
 
   /* Storage Stocktaking3 Page CSS End */
 
+
+
   /* Receiving Order2 Page CSS Start */
+
   .ordCol1 {
+
     width: 20%;
+
   }
 
+
+
   .ordCol2,
+
   .ordCol3 {
+
     width: 35%;
+
   }
+
+
 
   /* Receiving Order2 Page CSS End */
 
+
+
   /* Receiving Order3 Page CSS start */
+
   .receiveQty p {
+
     width: 42%;
+
   }
 
+
+
   .receiveQty .prdForm {
+
     width: 50%;
+
   }
+
+
 
   /* Receiving Order3 Page CSS End */
 
+
+
   /* Production3 Page CSS Start */
+
   .prdcnDetails {
+
     width: 96%;
+
   }
 
+
+
   .prdcnLnk {
+
     width: 4%;
+
   }
+
+
 
   /* Production3 Page CSS End */
 
+
+
   /* RTL CSS Start */
 
+
+
   /* Index Page CSS Start */
+
   html[dir="rtl"] .homeBadge {
+
     left: 11%;
+
   }
+
+
 
   /* Index Page CSS End */
 
+
+
   /* RTL CSS End */
+
+
 
 }
 
+
+
 @media screen and (max-width: 767px) {
 
+
+
   /* Index Page CSS Start */
+
   .headSec .col-md-6 {
+
     width: 50%;
+
   }
+
+
 
   .mblBx-Lnk {
+
     width: 48%;
+
     margin: 8px 0;
+
   }
+
+
 
   .homeBadge {
+
     right: -12%;
+
   }
+
+
 
   .homeCont {
+
     padding: 30px 10px;
+
   }
 
+
+
   .dropdown-menu.show {
+
     min-width: 110px;
+
   }
+
+
 
   /* Index Page CSS End */
 
+
+
   /* Storage Stocktaking1 Page CSS Start */
+
   .strgList {
+
     padding: 30px 0px;
+
   }
+
+
 
   .strgProduct {
-    padding: 20px 15px;
+
+    padding: 7px 3px 3px 3px;
+
   }
+
+
 
   .storeClm,
+
   .countClm {
+
     width: 50%;
+
   }
 
+
+
   .strgProduct.mt-3 {
+
     margin-top: 10px !important;
+
   }
+
+
 
   /* Storage Stocktaking1 Page CSS End */
 
+
+
   /* Storage Stocktaking2 Page CSS Start */
-  .storeDtl {
-    padding: 25px 15px;
+
+  .storeDtl { 
+    padding: 7px 3px 3px 3px; 
   }
+
+
 
   .stkData {
+
     width: 100%;
+
   }
 
-  .stockTake-Btn {
-    display: block;
-    margin-top: 15px;
+
+
+  .stockTake-Btn { 
+    display: flex; 
+    margin-top: 15px; 
   }
+
+
 
   .storeSection {
+
     padding: 30px 0px;
+
   }
+
+
 
   /* Storage Stocktaking2 Page CSS End */
 
+
+
   /* Storage Stocktaking3 Page CSS Start */
+
   .prdctImg {
+
     width: 15%;
+
   }
+
+
 
   .prdctHide {
+
     display: none;
+
   }
+
+
 
   .prdctValue {
+
     width: 30%;
+
   }
+
+
 
   .prdctDtl {
+
     width: 55%;
+
   }
+
+
 
   .productList {
+
     padding: 10px 5px;
+
   }
+
+
 
   .prdctSection {
+
     padding: 20px 0px;
+
   }
+
+
 
   .mblSrchClm {
+
     order: 2;
+
     width: 100% !important;
+
   }
+
+
 
   .mblFnsClm {
+
     order: 1;
+
     width: 100% !important;
+
     padding-bottom: 10px;
+
   }
 
+
+
   .fnshGrp {
+
     width: 100%;
+
   }
+
+
 
   /* Storage Stocktaking3 Page CSS End */
 
+
+
   /* Storage Stocktaking4 Page CSS Start */
+
   .finishSection {
+
     padding: 30px 0px 0;
+
   }
+
+
 
   .finishSection .container {
+
     padding: 0px;
+
   }
+
+
 
   .itmCount-Dtl {
+
     padding: 20px;
+
   }
+
+
 
   .taskDetail .col-md-6 {
+
     width: 50%;
+
   }
 
-  .fnshUpldBtn {
-    margin-top: 15px;
-    display: block;
+
+
+  .fnshUpldBtn { 
+    margin-top: 15px; 
+    display: flex;
+    width: 100%;
   }
+
+
 
   /* Storage Stocktaking4 Page CSS End */
 
+
+
   /* Storage Stocktaking6 Page CSS Start */
+
   .fnlSection {
+
     padding: 40px 0 20px;
+
   }
+
+
 
   .fnlSection .container {
+
     padding: 0;
+
   }
 
+
+
   .msgBx-Stock {
+
     padding: 40px;
+
   }
+
+
 
   /* Storage Stocktaking6 Page CSS End */
 
+
+
   /* Receiving Order2 Page CSS Start */
+
   .ordCol1 {
+
     width: 35%;
+
   }
+
+
 
   .ordCol2,
+
   .ordCol3 {
+
     width: 32%;
+
   }
+
+
 
   .receiveRow .col-md-6 {
+
     width: 50%;
+
   }
 
+
+
   .receiveProduct {
+
     padding-top: 30px;
+
   }
+
+
 
   /* Receiving Order2 Page CSS End */
 
+
+
   /* Receiving Order3 Page CSS Start */
+
   .recPrdt-Div {
+
     padding-top: 20px;
+
   }
+
+
 
   .rcvPrd-Dtl {
+
     width: 50%;
+
   }
+
+
 
   .rcvPrdVal {
+
     width: 35%;
+
   }
 
+
+
   .receiveQty p {
+
     padding-left: 7px;
+
     width: 50%;
+
   }
+
+
 
   /* Receiving Order3 Page CSS End */
 
+
+
   /* Production1 Page CSS Start */
+
   .production-Store .col-md-4:nth-child(1) {
+
     width: 27%;
+
   }
+
+
 
   .production-Store .col-md-4:nth-child(2) {
+
     width: 41%;
+
   }
+
+
 
   .production-Store .col-md-4:nth-child(3) {
+
     width: 32%;
+
   }
 
+
+
   .production-Store .ordCol1,
+
   .production-Store .ordCol2 {
+
     width: 40%;
+
   }
+
+
 
   /* Production1 Page CSS End */
 
+
+
   /* Production3 Page CSS Start */
+
   .prdcnProcess {
+
     margin: 15px;
+
   }
+
+
 
   .prdcnDetails {
+
     width: 93%;
+
   }
+
+
 
   .prdcnLnk {
+
     width: 7%;
+
   }
+
+
 
   .doneBtn {
-    display: block;
+
+    display: flex;
+    width: 100%;
     margin-top: 15px;
+
   }
 
+
+
   .productionList .prdctDtl {
+
     width: 85%;
+
   }
+
+
 
   /* Production3 Page CSS End */
 
+
+
   /* RTL CSS Start */
 
+
+
   /* Index Page CSS Start */
+
   html[dir="rtl"] .homeBadge {
+
     left: 14%;
+
   }
+
+
 
   /* Index Page CSS End */
 
+
+
   /* Receiving Order3 Page CSS Start */
+
   html[dir="rtl"] .receiveQty p {
+
     padding-left: 0px;
+
     padding-right: 7px;
+
   }
+
+
 
   /* Receiving Order3 Page CSS End */
 
+
+
   /* RTL CSS End */
+
+
 
 }

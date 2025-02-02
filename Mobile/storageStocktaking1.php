@@ -1,111 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+    include('../inc/dbConfig.php'); //connection details
+    $pgnm = 'Storage Stocktaking';
+    $storageStocktakingStep = '1';
 
+    //Get language Type 
+    $getLangType = getLangType($_SESSION['language_id']);
+
+    $checkCurPage = checkCurPage();
+    if ($checkCurPage == 1) {
+        echo "<script>window.location.href='".$siteUrl."'</script>";
+        exit;
+    }
+
+    if( !isset($_SESSION['id']) ||  $_SESSION['id'] < 1){
+        echo "<script>window.location.href='".$siteUrl."';</script>";
+        exit;
+    }
+
+    $sqlSet = " SELECT * FROM tbl_stores WHERE account_id = '".$_SESSION['accountId']."'  order by name ";
+    $storeQry = mysqli_query($con, $sqlSet);
+
+    $totalItems = 0;
+    if( isset($_GET['storageId'])){
+        $totalItems = getStorageItemsCount($_GET['storageId']);
+        $storageDeptRow = getStoreDetailsById($_GET['storageId']);
+    }
+?>
+<!DOCTYPE html>
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title>Storage Stocktaking1 - Queue1 Mobile</title>
-    <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Assets/css/custom.css">
-
+    <title><?php echo showOtherLangText('Start') ?> - Queue1 Mobile</title>
+    <?php include('layout/mCss.php'); ?>
 </head>
-
 <body>
-
     <section class="headSec">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 bckClm">
-                    <!-- <img src="Assets/icons/logo.svg" alt="Logo"> -->
-                    <a href="index.php" class="mblBack-Btn"><i class="fa-solid fa-chevron-left"></i></a>
-                    <h2 class="mblFnt2">Storage Stocktaking</h2>
-                </div>
-                <div class="col-md-6">
-                    <div class="mblUsr-clm d-flex align-items-center justify-content-end">
-                        <div class="usrLg-Col d-flex align-items-center">
-                            <div class="dropdown mbl-Out">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-angle-down"></i> <span class="mblFnt1">User</span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="javascript:void(0)">Logout</a></li>
-                                </ul>
-                            </div>
-                            <img src="Assets/images/zanzibar.png" alt="User-logo" class="usrLogo">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include('layout/mHeader.php'); ?>
         </div>
     </section>
-
     <section class="strgList">
         <div class="container">
-            <a href="storageStocktaking2.php" class="strgProduct">
-                <div class="row">
-                    <div class="col-md-6 storeClm">
-                        <p class="storeName">Dry Products</p>
-                        <p class="prdCode"># 107534</p>
-                    </div>
-                    <div class="col-md-6 countClm">
-                        <p class="prdItm-Count">22/22 Item</p>
-                        <p class="PrdDate">16/01/2023</p>
-                    </div>
-                </div>
-            </a>
-            <a href="storageStocktaking2.php" class="strgProduct mt-3">
-                <div class="row">
-                    <div class="col-md-6 storeClm">
-                        <p class="storeName">Dry Products</p>
-                        <p class="prdCode"># 107534</p>
-                    </div>
-                    <div class="col-md-6 countClm">
-                        <p class="prdItm-Count">22/22 Item</p>
-                        <p class="PrdDate">16/01/2023</p>
-                    </div>
-                </div>
-            </a>
-            <a href="storageStocktaking2.php" class="strgProduct mt-3">
-                <div class="row">
-                    <div class="col-md-6 storeClm">
-                        <p class="storeName">Dry Products</p>
-                        <p class="prdCode"># 107534</p>
-                    </div>
-                    <div class="col-md-6 countClm">
-                        <p class="prdItm-Count">22/22 Item</p>
-                        <p class="PrdDate">16/01/2023</p>
-                    </div>
-                </div>
-            </a>
-            <a href="storageStocktaking2.php" class="strgProduct mt-3">
-                <div class="row">
-                    <div class="col-md-6 storeClm">
-                        <p class="storeName">Dry Products</p>
-                        <p class="prdCode"># 107534</p>
-                    </div>
-                    <div class="col-md-6 countClm">
-                        <p class="prdItm-Count">22/22 Item</p>
-                        <p class="PrdDate">16/01/2023</p>
-                    </div>
-                </div>
-            </a>
+            <?php 
+                if(mysqli_num_rows($storeQry) > 0){
+                    while($storage = mysqli_fetch_array($storeQry))
+                    {
+                        $storageId = $storage['id'];
+                        $storageName = $storage['name'];
+                        $totalItems = getStorageItemsCount($storageId);
+                        ?>
+                        <a href="<?php echo $mobileSiteUrl;?>storageStocktaking2.php?storageId=<?php echo $storageId;?>" class="strgProduct mt-3">
+                            <div class="inner__content bg-white"> 
+                                <div class="row g-0">
+                                    <div class="col-md-6 storeClm">
+                                        <p class="storeName mb-1 ellipsis"><?php echo $storageName;?></p>
+                                        <p class="prdCode"># </p>
+                                    </div>
+                                    <div class="col-md-6 countClm">
+                                        <p class="PrdDate"><?php echo date('d/m/Y');?></p>
+                                        <p class="prdItm-Count"><?php echo $totalItems;?>/<?php echo $totalItems;?> Item</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <?php
+                    }
+                }
+            ?>
         </div>
     </section>
-
-
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+    <?php include('layout/mJs.php'); ?>
 </body>
-
 </html>

@@ -1019,21 +1019,21 @@ if ($getTxtById == 'storeId') {
 
                     <section class="ordDetail hisTory">
 
-                        <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?> 
+                        <?php if (isset($_GET['delete']) || isset($_GET['status']) || isset($_GET['paymentStatus'])) { ?>
                             <div class="alrtMessage mx-lg-4 mt-4">
                                 <div class="container">
                                     <a name="del"></a>
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <p>
                                             <?php
-    
+
                                             echo isset($_GET['status']) ? ' ' . showOtherLangText('New record added successfully') . ' ' : '';
-    
+
                                             echo isset($_GET['delete']) ? ' ' . showOtherLangText('Record deleted successfully.') . ' ' : '';
                                             if (isset($_GET['paymentStatus']) && $_GET['paymentStatus'] == 2) {
                                                 echo ' ' . showOtherLangText('We have initiated a refund in your account') . ' ';
                                             }
-    
+
                                             ?>
                                         </p>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo showOtherLangText('Close'); ?>"></button>
@@ -1272,20 +1272,20 @@ if ($getTxtById == 'storeId') {
                         if (isset($_GET['delOrderId'])) {
                         ?><br>
 
-                            <div class="hbrw-DelHstry"> 
+                            <div class="hbrw-DelHstry">
                                 <form method="post" action="" autocomplete="off">
                                     <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
                                     <div class="row g-3 pb-3">
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-7">
                                             <div class="input-group p-0 justify-content-center justify-content-sm-start">
                                                 <label for="password" class="col-6 col-sm-5 col-md-4 text-center"><?php echo showOtherLangText('Account Password') ?>:</label>
-                                                <input type="password" value="" placeholder="" class="form-control border py-3" id="password" name="password" style="height:40px;"> 
+                                                <input type="password" value="" placeholder="" class="form-control border py-3" id="password" name="password" style="height:40px;">
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="d-flex gap-2">
-                                                <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button> 
-                                                <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button> 
+                                                <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
+                                                <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button>
                                             </div>
                                         </div>
                                     </div>
@@ -2050,7 +2050,7 @@ if ($getTxtById == 'storeId') {
 
                                             <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields)) { ?>
                                                 <div class="tb-bdy hisValclm inv__box">
-                                                    <p class="dolValcurr"><?php echo $InvoiceNumber; ?></p>
+                                                    <p class="dolValcurr"><?php echo $orderRow['ordType'] == 1 ? $InvoiceNumber : ''; ?></p>
                                                 </div>
                                             <?php } ?>
 

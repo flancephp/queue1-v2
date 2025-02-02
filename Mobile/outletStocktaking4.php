@@ -1,145 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    include('../inc/dbConfig.php'); //connection details
+    $pgnm = 'Outlet Stocktacking';
+    $outletStocktackingStep = '4';
 
+    //Get language Type 
+    $getLangType = getLangType($_SESSION['language_id']);
+
+    $checkCurPage = checkCurPage();
+    if ($checkCurPage == 2) {
+        echo "<script>window.location.href='".$siteUrl."'</script>";
+        exit;
+    }
+
+    if( !isset($_SESSION['id']) ||  $_SESSION['id'] < 1){
+        echo "<script>window.location.href='".$siteUrl."';</script>";
+        exit;
+    }
+
+    //get temp data
+    $sql=" SELECT * FROM  tbl_mobile_items_temp WHERE stockTakeId = '".$_GET['stockTakeId']."' AND stockTakeType=2 AND `userId` = '".$_SESSION['id']."'  AND account_id = '".$_SESSION['accountId']."'   ";
+    $result = mysqli_query($con, $sql);
+    $tempItemCnt = mysqli_num_rows($result);	
+
+    if( $tempItemCnt < 1){
+        header('location: outletStocktaking2.php?stockTakeId='.$_GET['stockTakeId']);
+        exit;
+    }
+
+    if( isset( $_GET['finish'] ) ){
+        trackStockProcessTime($_GET['stockTakeId'], 2, $_SESSION['id'], 1);
+    }
+
+    $totalItems = getOutLetItemsCount($_GET['stockTakeId']);
+    $stockTakeRow = getRevenueOutLetDetailsById($_GET['stockTakeId']);
+
+    $sql=" SELECT * FROM  tbl_mobile_time_track WHERE stockTakeId = '".$_GET['stockTakeId']."' AND `userId` = '".$_SESSION['id']."' AND `stockTakeType` = 2 AND status=0  AND account_id = '".$_SESSION['accountId']."' ";
+    $result = mysqli_query($con, $sql);
+    $timeTrackRes = mysqli_fetch_array($result);
+
+    $startDate = date('h:i:s A', strtotime($timeTrackRes['start_time']));
+    $endDate = date('h:i:s A', strtotime($timeTrackRes['end_time']));
+
+    if($getLangType == '1')
+    {
+        if(strpos($startDate, AM)){
+            //$startDate = str_replace('AM', 'בבוקר', $startDate);
+            $startDate = str_replace('AM', ''.showOtherLangText('AM').'', $startDate);
+        }
+        else if(strpos($startDate, PM)){
+            //$startDate = str_replace('PM', 'אחר הצהריים', $startDate);
+            $startDate = str_replace('PM', ''.showOtherLangText('PM').'', $startDate);
+        }
+        
+        if(strpos($endDate, AM)){
+            //$endDate = str_replace('AM', 'בבוקר', $endDate);
+            $endDate = str_replace('AM', ''.showOtherLangText('AM').'', $startDate);
+        }
+        else if(strpos($endDate, PM)){
+            //$endDate = str_replace('PM', 'אחר הצהריים', $endDate);
+            $endDate = str_replace('PM', ''.showOtherLangText('PM').'', $startDate);
+        }
+    }
+?>
+<!DOCTYPE html>
+<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <title>Outlet Stocktaking4 - Queue1 Mobile</title>
-    <link rel="icon" type="image/x-icon" href="Assets/images/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Assets/css/custom.css">
-
+    <title><?php echo showOtherLangText('finish and upload') ?> - Queue1 Mobile</title>
+    <?php include('layout/mCss.php'); ?>
 </head>
-
 <body>
-
     <section class="headSec">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 bckClm">
-                    <a href="outletStocktaking3.php" class="mblBack-Btn"><i class="fa-solid fa-chevron-left"></i></a>
-                    <h2 class="mblFnt2">Fun Beach Bar</h2>
-                </div>
-                <div class="col-md-6">
-                    <div class="mblUsr-clm d-flex align-items-center justify-content-end">
-                        <div class="usrLg-Col d-flex align-items-center">
-                            <div class="dropdown mbl-Out">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-angle-down"></i> <span class="mblFnt1">User</span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="javascript:void(0)">Logout</a></li>
-                                </ul>
-                            </div>
-                            <img src="Assets/images/zanzibar.png" alt="User-logo" class="usrLogo">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include('layout/mHeader.php'); ?>
             <div class="d-flex align-items-center justify-content-between pt-3 upldClm">
-                <a href="outletStocktaking5.php" class="eyeBtn"><i class="fa-solid fa-eye"></i></a>
-
-                <a href="outletStocktaking6.php" class="fnshBtn">Finish & Upload <img src="Assets/icons/download.svg"
-                        alt="Finish"></a>
+                <a href="<?php echo $mobileSiteUrl;?>outletStocktaking5.php?revenueId=<?php echo $_GET['revenueId']; ?>&stockTakeId=<?php echo $_GET['stockTakeId'];?>" class="eyeBtn"><i class="fa-solid fa-eye"></i></a>
+                <a href="<?php echo $mobileSiteUrl;?>outletStocktaking6.php?revenueId=<?php echo $_GET['revenueId']; ?>&stockTakeId=<?php echo $_GET['stockTakeId'];?>" class="fnshBtn"><?php echo showOtherLangText('Finish and Upload') ?> <img src="<?php echo $mobileSiteUrl;?>Assets/icons/download.svg"alt="Finish"></a>
             </div>
         </div>
     </section>
-
     <section class="finishSection">
         <div class="container">
             <div class="scflMsg">
-                <p class="text-center">All <span class="numItems">6</span> items counted successfully</p>
+                <p class="text-center">All <span class="numItems"><?php echo $tempItemCnt;?></span> items counted successfully</p>
             </div>
             <div class="itmCount-Dtl">
                 <div class="row align-tems-center taskDetail">
                     <div class="col-md-6">
-                        <p>Outlet</p>
+                        <p><?php echo showOtherLangText('Outlet') ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p>Fun Beach Bar</p>
-                    </div>
-                </div>
-                <div class="row align-tems-center taskDetail pt-3">
-                    <div class="col-md-6">
-                        <p>Date</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="fw-500">01/08/2022</p>
+                        <p><?php echo isset($stockTakeRow['name']) ? $stockTakeRow['name'] : ' '.showOtherLangText('Select Storage').' ';?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
-                        <p>User</p>
+                        <p><?php echo showOtherLangText('Date') ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p class="fw-500">User</p>
-                    </div>
-                </div>
-                <div class="row align-tems-center taskDetail pt-3">
-                    <div class="col-md-6">
-                        <p>Start time</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="fw-500">08:21 AM</p>
+                        <p class="fw-500"><?php echo date('d/m/Y');?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-4">
                     <div class="col-md-6">
-                        <p>Finish time</p>
+                        <p><?php echo showOtherLangText('User') ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p class="fw-500">12:46 PM</p>
-                    </div>
-                </div>
-                <div class="row align-tems-center taskDetail pt-3">
-                    <div class="col-md-6">
-                        <p>Total time</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="fw-500">1705 min</p>
+                        <p class="fw-500"><?php echo $_SESSION['name'];?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
-                        <p>Total items</p>
+                        <p><?php echo showOtherLangText('Start time') ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p class="fw-500">121</p>
-                    </div>
-                </div>
-                <div class="row align-tems-center taskDetail pt-3">
-                    <div class="col-md-6">
-                        <p>Counted</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="fw-500">4</p>
+                        <p class="fw-500"><?php echo $startDate;?></p>
                     </div>
                 </div>
-                <div class="row align-tems-center taskDetail pt-3">
+                <div class="row align-tems-center taskDetail pt-2">
                     <div class="col-md-6">
-                        <p>Not counted</p>
+                        <p><?php echo showOtherLangText('Finish time') ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p class="fw-500">117</p>
+                        <p class="fw-500"><?php echo $endDate;?></p>
+                    </div>
+                </div>
+                <?php
+                    $to_time = strtotime($timeTrackRes['start_time']);
+					$from_time = strtotime($timeTrackRes['end_time']);
+					$diff =  round(abs($to_time - $from_time) / 60)." ".showOtherLangText('min');
+				?>
+                <div class="row align-tems-center taskDetail pt-2">
+                    <div class="col-md-6">
+                        <p><?php echo showOtherLangText('Total Time') ?></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="fw-500"><?php echo $diff;?></p>
+                    </div>
+                </div>
+                <div class="row align-tems-center taskDetail pt-4">
+                    <div class="col-md-6">
+                        <p><?php echo showOtherLangText('Total items') ?></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="fw-500"><?php echo $totalItems;?></p>
+                    </div>
+                </div>
+                <div class="row align-tems-center taskDetail pt-2">
+                    <div class="col-md-6">
+                        <p><?php echo showOtherLangText('Counted') ?></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="fw-500"><?php echo $tempItemCnt;?></p>
+                    </div>
+                </div>
+                <div class="row align-tems-center taskDetail pt-2">
+                    <div class="col-md-6">
+                        <p><?php echo showOtherLangText('Not counted') ?></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="fw-500"><?php echo $totalItems-$tempItemCnt;?></p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-    <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="Assets/js/custom.js"></script>
+    <?php include('layout/mJs.php'); ?>
 </body>
-
 </html>
