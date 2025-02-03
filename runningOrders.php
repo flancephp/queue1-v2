@@ -343,9 +343,11 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/running-orders-css.css">
     <style>
-        .doc-bx .dropdown-item { white-space: nowrap; }
+        .doc-bx .dropdown-item {
+            white-space: nowrap;
+        }
     </style>
-     
+
 </head>
 
 <body>
@@ -1196,6 +1198,12 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
 
     function showHideByClassSummary(targetId) {
 
+
+        if (!$(".summary-default-currency").is(":checked") && !$(".summary-second-currency").is(":checked")) {
+            $('.totalAmtHeading').css('display', 'none');
+        }
+
+
         if ($('.' + targetId).is(":visible")) {
             $('.' + targetId).css('display', 'none');
 
@@ -1213,6 +1221,8 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
 
             if (targetId == 'smryDef_Val' || targetId == 'smryOtr_Val') {
                 $('.sumBreakupAmtText').css('display', 'block');
+                $('.totalAmtHeading').css('display', 'block');
+
 
             }
 

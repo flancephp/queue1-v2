@@ -260,10 +260,10 @@ $content .=   '
         <div class="table-row header-row">
             <div class="table-cell medium">' . showOtherLangText('Task No.') . '</div>
             <div class="table-cell medium">' . showOtherLangText('Supplier') . '</div>
-            <div style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '" class="amountSections smryHead sumBreakupAmtText table-cell left__align__text medium order-dtl-total-head">
+            <div  class="amountSections smryHead sumBreakupAmtText table-cell left__align__text medium order-dtl-total-head">
                 <div class="modal-table">
                     <div class="table-cell py-0"></div>
-                    <div class="table-cell py-0 text-end">' . showOtherLangText('Total') . '</div>
+                    <div class="table-cell py-0 text-end"><span class="totalAmtHeading" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . showOtherLangText('Total') . '</span></div>
                     <div class="table-cell py-0"></div>
                 </div> 
             </div>
