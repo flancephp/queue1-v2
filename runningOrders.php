@@ -1222,8 +1222,6 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
             if (targetId == 'smryDef_Val' || targetId == 'smryOtr_Val') {
                 $('.sumBreakupAmtText').css('display', 'block');
                 $('.totalAmtHeading').css('display', 'block');
-
-
             }
 
 

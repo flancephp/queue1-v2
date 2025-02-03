@@ -274,7 +274,7 @@ $content .=   '
             <div class="table-cell left__align__text">
                 <div class="table-row">
                     <div class="table-cell py-0 "></div>
-                    <div class="table-cell py-0 pe-0"><span class="smryDef_Val smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']) . '</span></div>
+                    <div class="table-cell py-0 pe-0"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getNumFormtPrice($ordDet['ordAmt'], $getDefCurDet['curCode']) . '</span></div>
                     <div class="table-cell py-0 " style="padding-right:0px;"><span class="smryOtr_Val amountSections  smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . showOtherCur($ordDet['ordCurAmt'], $ordDet['ordCurId']) . '</span></div>
                 </div>
             </div>
@@ -297,13 +297,13 @@ $content .=  '</div>
            <div class="table-cell">
                 <div class="sub-table w-100">
                     <div class="table-row">
-                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead">&nbsp;</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">&nbsp;</span></div>
                     </div>
                     <div class="table-row">
-                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead">&nbsp;</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">&nbsp;</span></div>
                     </div>
                     <div class="table-row">
-                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead">&nbsp;</span></div>
+                        <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">&nbsp;</span></div>
                     </div>
                 </div>
             </div>';
