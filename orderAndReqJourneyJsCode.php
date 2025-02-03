@@ -161,6 +161,7 @@
             $('.smryDef_Val').css('display', 'block');
             $('.smryOtr_Val').css('display', 'block');
             $('.sumMainDiv').css('display', 'table-row');
+            $('.totalAmtHeading').css('display', 'block');
 
             $("#summary").prop('checked', true);
             $(".smryCheckbox").prop('checked', true);
@@ -180,6 +181,7 @@
             $('.smryHead').css('display', 'none');
             $('.smryDef_Val').css('display', 'none');
             $('.smryOtr_Val').css('display', 'none');
+            $('.totalAmtHeading').css('display', 'none');
 
         }
 
