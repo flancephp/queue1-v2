@@ -439,19 +439,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             <p class="mbSale-Head">Variance</p>
                                                             <p class="mblStock-Sale fw-bold" title="Variance">' . $variancesVal . '</p>
                                                         </div>
-                                                            <div class="usg-p-g">
-                                                                <p class="mbSale-Head">Usage/Guest</p>
-                                                                <p class="mblStock-Sale" title="Usage/Guest">' . get2DecimalVal($usagePerGuest) . '</p>
-                                                            </div>
-                                                            <div class="avg-usg">
-                                                                <p class="mbSale-Head">Usage Avg</p>
-                                                                <p class="mblStock-Sale" title="Usage Avg">' . get2DecimalVal($usageAvg) . '</p>
-                                                            </div>
-                                                            <div class="usg-lvl">
-                                                                <p class="mbSale-Head">Usage Level</p>
-                                                                <p class="mblStock-Sale" title="Usage Level">' . $usageLevel . '</p>
-
-                                                            </div>
+                                                           
 
                                                         </div>
 
@@ -536,11 +524,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                                 </div>
                                                             </div>
 
-                                                            <div class="otltBd-Avr">
-                                                                <p class="mbSale-Head">' . showOtherLangText('Avr Usage') . '</p>
-                                                                <p class="mblAvg-Dtl" title="' . showOtherLangText('Usage Avg') . '">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
-                                                                <p class="mblAvr-Usg" title="' . showOtherLangText('Usage Avg') . '">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
-                                                            </div>
+                                                           
                                                             <div class="otltBd-Min">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Min') . '</p>
                                                                 <p class="mblMinQty" title="' . showOtherLangText('Min Qty') . '">' . $row['outletMinQty'] . '</p>
@@ -552,6 +536,12 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             <div class="otltBd-Req">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Requisition') . '</p>
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Requisition') . '">' . $requisition . '</p>
+                                                            </div>
+
+                                                             <div class="otltBd-Avr">
+                                                                <p class="mbSale-Head">' . showOtherLangText('Avr Usage') . '</p>
+                                                                <p class="mblAvg-Dtl" title="' . showOtherLangText('Usage Avg') . '">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
+                                                                <p class="mblAvr-Usg" title="' . showOtherLangText('Usage Avg') . '">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -600,7 +590,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                 </div>
                                 <div class="col-md-5 var-Cstcol">
                                     <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                    <p class="sl-varDif this"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
+                                    <p class="sl-varDtl"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
                                         <?php
                                         if ($varPosAmt > 0 || $varNegAmt < 0) {
                                             echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>,' . '<span class="text-dark">' . $varPosAmt . $getDefCurDet['curCode'] . '</span>'.  ' )';
@@ -666,7 +656,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         <div class="sale-Variance text-center saleVar-Inr">
                                             <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                            <p class="sl-varDif"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
+                                            <p class="sl-varDtl"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
 
                                                 <?php
                                                 if ($varPosAmt > 0 || $varNegAmt < 0) {
@@ -694,17 +684,20 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     </div>
                                     <!-- Filter Btn Start -->
                                     <div class="dropdown slCst-fltBtn">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="Assets/icons/filter.svg" alt="Filter">
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>"><?php echo showOtherLangText('All'); ?></a></li>
+                                        <form action="outlet_report_saleCenter.php" id="frmRevType" name="frmRevType" method="post">
 
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>&outLetType=2"><?php echo showOtherLangText('Sales'); ?></a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>&outLetType=1"><?php echo showOtherLangText('Bar Control'); ?></a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>&outLetType=3"><?php echo showOtherLangText('Usage'); ?></a></li>
-                                        </ul>
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="Assets/icons/filter.svg" alt="Filter">
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>"><?php echo showOtherLangText('All'); ?></a></li>
+
+                                                <li><input type="checkbox" name="outLetType[]" value="1" /><?php echo showOtherLangText('Sales'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="2" /><?php echo showOtherLangText('Bar Control'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="3" /><?php echo showOtherLangText('Usage'); ?></li>
+                                            </ul>
+                                        </form>
                                     </div>
                                     <!-- Filter Btn End -->
 
@@ -795,18 +788,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                     <p class="varnVal-Otlt" title="<?php echo showOtherLangText('Amount'); ?>"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 2); ?></p>
                                                 </div>
 
-                                                <div class="usg-p-g">
-                                                    <p><?php echo showOtherLangText('Usage'); ?>/<?php echo showOtherLangText('Guest'); ?></p>
-                                                    <p class="stkVal-Otlt"></p>
-                                                </div>
-                                                <div class="avg-usg">
-                                                    <p><?php echo showOtherLangText('Avg Usage'); ?></p>
-                                                    <p class="stkVal-Otlt"></p>
-                                                </div>
-                                                <div class="usg-lvl">
-                                                    <p><?php echo showOtherLangText('Usage Level'); ?></p>
-                                                    <p class="stkVal-Otlt"></p>
-                                                </div>
+
                                             </div>
 
                                             <div class="otlt-hdNote"></div>
@@ -831,6 +813,25 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                 <div class="otlt-Req">
                                                     <p><?php echo showOtherLangText('Requisition'); ?></p>
                                                 </div>
+
+
+
+                                                <div class="usg-p-g">
+                                                    <p><?php echo showOtherLangText('Usage'); ?>/<?php echo showOtherLangText('Guest'); ?></p>
+                                                    <p class="stkVal-Otlt"></p>
+                                                </div>
+                                                <div class="avg-usg">
+                                                    <p><?php echo showOtherLangText('Avg Usage'); ?></p>
+                                                    <p class="stkVal-Otlt"></p>
+                                                </div>
+                                                <div class="usg-lvl">
+                                                    <p><?php echo showOtherLangText('Usage Level'); ?></p>
+                                                    <p class="stkVal-Otlt"></p>
+                                                </div>
+
+
+
+
                                             </div>
                                         </div>
                                     </div>

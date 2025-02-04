@@ -24,7 +24,7 @@ include_once('script/revenueCenterReport_script.php');
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/revenue-center-report.css"> 
+    <link rel="stylesheet" href="Assets/css/revenue-center-report.css">
 </head>
 
 <body>
@@ -173,9 +173,9 @@ include_once('script/revenueCenterReport_script.php');
                                                 </a>
                                             </div> -->
                                             <div class="chkStore">
-                                                <a href="javascript:void(0)">
+                                                <!--<a href="javascript:void(0)">
                                                     <img src="Assets/icons/stock-xcl.svg" alt="Stock Xcl">
-                                                </a>
+                                                </a>-->
                                             </div>
                                             <div class="chkStore">
                                                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#revenue_center_pdf">
