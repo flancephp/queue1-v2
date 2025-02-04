@@ -685,17 +685,20 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     </div>
                                     <!-- Filter Btn Start -->
                                     <div class="dropdown slCst-fltBtn">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="Assets/icons/filter.svg" alt="Filter">
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>"><?php echo showOtherLangText('All'); ?></a></li>
+                                        <form action="outlet_report_saleCenter.php" id="frmRevType" name="frmRevType" method="post">
 
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>&outLetType=2"><?php echo showOtherLangText('Sales'); ?></a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>&outLetType=1"><?php echo showOtherLangText('Bar Control'); ?></a></li>
-                                            <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>&outLetType=3"><?php echo showOtherLangText('Usage'); ?></a></li>
-                                        </ul>
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="Assets/icons/filter.svg" alt="Filter">
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>"><?php echo showOtherLangText('All'); ?></a></li>
+
+                                                <li><input type="checkbox" name="outLetType[]" value="1" /><?php echo showOtherLangText('Sales'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="2" /><?php echo showOtherLangText('Bar Control'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="3" /><?php echo showOtherLangText('Usage'); ?></li>
+                                            </ul>
+                                        </form>
                                     </div>
                                     <!-- Filter Btn End -->
 

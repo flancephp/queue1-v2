@@ -5,6 +5,8 @@ if (!isset($_SESSION['adminidusername'])) {
     echo "<script>window.location='login.php'</script>";
 }
 
+//this is just for testing...
+
 //Get language Type 
 $getLangType = getLangType($_SESSION['language_id']);
 
