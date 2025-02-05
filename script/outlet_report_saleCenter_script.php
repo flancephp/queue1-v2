@@ -72,7 +72,7 @@ if (!isset($_GET['fromDate'])) {
 	$_GET['toDate'] = date('d-m-Y');
 }
 
-print_r($_POST['outLetType']);
+
 $condOutType = '';
 if (isset($_POST['outLetType'])  && !empty($_POST['outLetType'])) {
 
@@ -81,7 +81,7 @@ if (isset($_POST['outLetType'])  && !empty($_POST['outLetType'])) {
 
 
 
-echo $sql = "SELECT o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty, o.maxQty outletMaxQty, o.factor, o.notes, p.itemName, p.barCode saleBarcode, p.imgName, p.stockPrice itemLastPrice, IF(u.name!='',u.name,p.unitC) countingUnit, IF(ut.name!='',ut.name,o.subUnit) subUnit, i.*
+$sql = "SELECT o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty, o.maxQty outletMaxQty, o.factor, o.notes, p.itemName, p.barCode saleBarcode, p.imgName, p.stockPrice itemLastPrice, IF(u.name!='',u.name,p.unitC) countingUnit, IF(ut.name!='',ut.name,o.subUnit) subUnit, i.*
 
  FROM tbl_outlet_items o
 

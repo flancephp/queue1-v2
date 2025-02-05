@@ -685,18 +685,20 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     </div>
                                     <!-- Filter Btn Start -->
                                     <div class="dropdown slCst-fltBtn">
-                                        <form action="outlet_report_saleCenter.php" id="frmRevType" name="frmRevType" method="post">
+                                        <form action="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>" id="frmRevType" name="frmRevType" method="post">
+                                            <input type="hidden" name="fromDate" value="<?php echo $_GET['fromDate']; ?>" />
+                                            <input type="hidden" name="toDate" value="<?php echo $_GET['toDate']; ?>" />
 
                                             <button class="btn btn-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="Assets/icons/filter.svg" alt="Filter">
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>"><?php echo showOtherLangText('All'); ?></a></li>
+                                                <li><button type="submit" class="dropdown-item"><?php echo showOtherLangText('View Selected'); ?></button></li>
 
-                                                <li><input type="checkbox" name="outLetType[]" value="1" /><?php echo showOtherLangText('Sales'); ?></li>
-                                                <li><input type="checkbox" name="outLetType[]" value="2" /><?php echo showOtherLangText('Bar Control'); ?></li>
-                                                <li><input type="checkbox" name="outLetType[]" value="3" /><?php echo showOtherLangText('Usage'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="2" <?php echo (!isset($_POST['outLetType']) || in_array('2', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Sales'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="1" <?php echo (!isset($_POST['outLetType']) || in_array('1', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Bar Control'); ?></li>
+                                                <li><input type="checkbox" name="outLetType[]" value="3" <?php echo (!isset($_POST['outLetType']) || in_array('3', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Usage'); ?></li>
                                             </ul>
                                         </form>
                                     </div>
