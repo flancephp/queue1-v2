@@ -38,9 +38,8 @@ include_once('script/outlet_report_saleCenter_script.php');
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css">
-
-
+    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=1">
+ 
 </head>
 
 <body class="mb-saleBg">
@@ -594,7 +593,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     <p class="sl-varDtl"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
                                         <?php
                                         if ($varPosAmt > 0 || $varNegAmt < 0) {
-                                            echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>, ' . $varPosAmt . $getDefCurDet['curCode'] . ')';
+                                            echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>,' . '<span class="text-dark">' . $varPosAmt . $getDefCurDet['curCode'] . '</span>'.  ' )';
                                         }
                                         ?>
                                     </p>

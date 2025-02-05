@@ -971,9 +971,9 @@ if ($getTxtById == 'storeId') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css?v=1">
     <link rel="stylesheet" href="Assets/css/module-A.css">
-    <link rel="stylesheet" href="Assets/css/history-page.css">
+    <link rel="stylesheet" href="Assets/css/history-page.css?v=1">
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
-
+ 
 
 
 </head>
@@ -1305,18 +1305,19 @@ if ($getTxtById == 'storeId') {
 
                                                 <?php if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) { ?>
                                                     <div class="issueIn">
-                                                        <div class="dspBlk">
-                                                            <div class="paidIsue d-flex">
-                                                                <div class="col-md-3">
-                                                                    <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
-                                                                    <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
-                                                                </div>
-                                                                <div class="flex-grow-1 text-center">
-                                                                    <p class="gr-Out"><?php echo showOtherLangText('Issued In'); ?></p>
-                                                                    <p class="ttlAmount"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
-                                                                    <p class="pdAmount"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                                    <p class="pendAmount"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                                </div>
+                                                        <!--  -->
+                                                        <!-- <div class="dspBlk">
+                                                            </div> -->
+                                                        <div class="paidIsue d-flex align-items-end">
+                                                            <div class="col-md-3">
+                                                                <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
+                                                                <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                            </div>
+                                                            <div class="flex-grow-1 text-center" style="min-width: max-content;">
+                                                                <p class="gr-Out px-2"><?php echo showOtherLangText('Issued In'); ?></p>
+                                                                <p class="ttlAmount px-2"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
+                                                                <p class="pdAmount px-2"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                <p class="pendAmount px-2"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                                             </div>
                                                         </div>
                                                         <?php
@@ -1336,10 +1337,10 @@ if ($getTxtById == 'storeId') {
                                                                         <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                                     </div>
                                                                     <div class="col-md-9 text-center fw-normal">
-                                                                        <p class="usd-In">$</p>
-                                                                        <p class="ttlAmount"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
-                                                                        <p class="pdAmount"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
-                                                                        <p class="pendAmount"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>
+                                                                        <p class="usd-In px-3">$</p>
+                                                                        <p class="ttlAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
+                                                                        <p class="pdAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
+                                                                        <p class="pendAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1391,10 +1392,10 @@ if ($getTxtById == 'storeId') {
                                                                         <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                                     </div>
                                                                     <div class="col-md-9 text-center fw-normal">
-                                                                        <p class="usd-In"><?php echo ($otherCurrRow['curCode']); ?></p>
-                                                                        <p class="ttlAmount"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
-                                                                        <p class="pdAmount"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '0 &nbsp;'; ?></p>
-                                                                        <p class="pendAmount"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                                        <p class="usd-In px-3"><?php echo ($otherCurrRow['curCode']); ?></p>
+                                                                        <p class="ttlAmount px-3"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                                        <p class="pdAmount px-3"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '0 &nbsp;'; ?></p>
+                                                                        <p class="pendAmount px-3"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1423,10 +1424,10 @@ if ($getTxtById == 'storeId') {
                                                                 <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                             </div>
                                                             <div class="col-md-7 text-center">
-                                                                <p class="rd-In"><?php echo showOtherLangText('Issued Out'); ?></p>
-                                                                <p class="ttlAmount-rec"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
-                                                                <p class="pdAmount-rec"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                                <p class="pendAmount-rec"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                <p class="rd-In px-3"><?php echo showOtherLangText('Issued Out'); ?></p>
+                                                                <p class="ttlAmount-rec px-3"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
+                                                                <p class="pdAmount-rec px-3"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                <p class="pendAmount-rec px-3"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1457,12 +1458,13 @@ if ($getTxtById == 'storeId') {
                                                         }
                                                     }
                                                 ?>
+                                                <?php if(getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) > 0): ?>
                                                     <div class="Variance text-center">
-                                                        <p class="varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                                        <p class="varValue"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
-                                                        <p class="varDif"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
+                                                        <p class="varDtl px-2"><?php echo showOtherLangText('Variances'); ?></p>
+                                                        <p class="varValue px-2"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
+                                                        <p class="varDif px-2"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
                                                     </div>
-
+                                                    <?php endif; ?>
                                                 <?php
                                                 } //end variance
                                                 if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
@@ -1473,10 +1475,12 @@ if ($getTxtById == 'storeId') {
                                                     $resRow = mysqli_fetch_array($resultSet);
 
                                                 ?>
+                                                    <?php if ( getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) > 0): ?>
                                                     <div class="Variance text-center">
-                                                        <p class="varDtl"><?php echo showOtherLangText('Converted'); ?></p>
-                                                        <p class="varValue"><?php echo getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) ?></p>
+                                                        <p class="varDtl px-2"><?php echo showOtherLangText('Converted'); ?></p>
+                                                        <p class="varValue px-2"><?php echo getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) ?></p>
                                                     </div>
+                                                    <?php endif;?>
                                                 <?php } ?>
 
                                             </div>

@@ -145,7 +145,7 @@
     }
     .currItm-Info > div { min-height: 26px;padding: 6px; }
     .itmInfo-Otlt > div { min-height: 26px; }
-    .currItm-Info { padding-top: 24px; }
+    .currItm-Info { padding-top: 25px; }
     .otlt-stkPrc.go_down { position: relative;top: 30px; }
 
 }
@@ -233,4 +233,11 @@ left: 0;
 @media (min-width: 1024px) and (max-width:1399px) {
     .saleGust { width: 35%; }
     .sale-Variance, .saleTtl-Cost { width: 30%; }
+}
+
+.otlt-slno, .otltBd-slno { width: 3.4rem; }
+.otlt-hdImg, .otltBd-hdImg { width: calc(10% - 3.4rem);text-align: left; }
+.otltTbl-bdy { font-weight: 500; }
+@media (max-width:767px) {
+    .currItm-Info > div:nth-child(6) { margin-top: 2px; }
 }
