@@ -31,9 +31,10 @@ $accessPaymentPermission = get_access_payment_permission($_SESSION['designation_
 $accessInvoicePermission = get_access_invoice_permission($_SESSION['designation_id'], $_SESSION['accountId']);
 
 
-if (isset($_REQUEST['showFields'])) {
+if (isset($_POST['showFields'])) {
 
-    $updateQry = " UPDATE tbl_user SET historyUserFilterFields = '" . implode(',', array_unique($_REQUEST['showFields'])) . "' WHERE id = '" . $_SESSION['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ";
+
+    $updateQry = " UPDATE tbl_user SET historyUserFilterFields = '" . implode(',', ($_POST['showFields'])) . "' WHERE id = '" . $_SESSION['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ";
 
     mysqli_query($con, $updateQry);
 } elseif (isset($_REQUEST['clearshowFields'])) {
@@ -1099,7 +1100,6 @@ if ($getTxtById == 'storeId') {
                                         $col_class_two++;
                                     }
                             ?>
-                                    <input type="hidden" name="showFields[<?php echo $key; ?>]" <?php echo $sel; ?> value="<?php echo $val; ?>">
 
                             <?php
                                 }
@@ -1223,52 +1223,64 @@ if ($getTxtById == 'storeId') {
                         </div>
                         <!-- Mobile Date Box End -->
 
-                        <div class="container mb-hisDtl">
-                            <div class="row">
-                                <div class="col-md-5 is-Incol">
-                                    <p class="gr-Out">Issue in</p>
-                                    <p class="ttlAmount"><?php
+                        <?php if ($issueInTotal > 0 || $issueOutTotal > 0) { ?>
 
-                                                            if (isset($issueInTotal)) {
-                                                                $checkIfPermissionToNewOrderSec = checkIfPermissionToNewOrderSec($_SESSION['designation_id'], $_SESSION['accountId']);
+                            <div class="container mb-hisDtl">
+                                <div class="row">
 
+                                    <?php if (isset($issueInTotal) && $issueInTotal > 0) { ?>
+                                        <div class="col-md-5 is-Incol">
+                                            <p class="gr-Out">Issue in</p>
+                                            <p class="ttlAmount"><?php
 
-                                                                if (mysqli_num_rows($checkIfPermissionToNewOrderSec) > 0) {
-                                                                    //$issuedOut = showPrice($issuedInOutArr[1], $getDefCurDet['curCode']);
-                                                                    echo showPrice($issueInTotal, $getDefCurDet['curCode']);
-                                                                } else {
-                                                                    echo '0' . ' ' . $getDefCurDet['curCode'];
-                                                                }
-                                                            } else {
-                                                                echo '0' . ' ' . $getDefCurDet['curCode'];
-                                                            }
-
-                                                            ?></p>
-                                </div>
-                                <div class="col-md-5 is-Outcol">
-                                    <p class="rd-In">Issue Out</p>
-                                    <p class="ttlAmount-rec"><?php
-
-                                                                $checkIfPermissionToNewReqSec = checkIfPermissionToNewReqSec($_SESSION['designation_id'], $_SESSION['accountId']);
-
-                                                                if (mysqli_num_rows($checkIfPermissionToNewReqSec) > 0) {
-                                                                    echo isset($issueOutTotal) ? showPrice($issueOutTotal, $getDefCurDet['curCode']) : 0;
-                                                                } else {
-                                                                    echo '0' . ' ' . $getDefCurDet['curCode'];
-                                                                }
+                                                                    if (isset($issueInTotal)) {
+                                                                        $checkIfPermissionToNewOrderSec = checkIfPermissionToNewOrderSec($_SESSION['designation_id'], $_SESSION['accountId']);
 
 
+                                                                        if (mysqli_num_rows($checkIfPermissionToNewOrderSec) > 0) {
+                                                                            //$issuedOut = showPrice($issuedInOutArr[1], $getDefCurDet['curCode']);
+                                                                            echo showPrice($issueInTotal, $getDefCurDet['curCode']);
+                                                                        } else {
+                                                                            echo '0' . ' ' . $getDefCurDet['curCode'];
+                                                                        }
+                                                                    } else {
+                                                                        echo '0' . ' ' . $getDefCurDet['curCode'];
+                                                                    }
 
-                                                                ?></p>
-                                </div>
-                                <div class="col-md-2 maxBtn">
-                                    <a href="javascript:void(0)" class="maxLink">
-                                        <img src="Assets/icons/maximize.svg" alt="Maximize">
-                                    </a>
+                                                                    ?></p>
+                                        </div>
+                                    <?php } ?>
+
+
+                                    <?php if (isset($issueOutTotal) && $issueOutTotal > 0) { ?>
+                                        <div class="col-md-5 is-Outcol">
+                                            <p class="rd-In">Issue Out</p>
+                                            <p class="ttlAmount-rec"><?php
+
+                                                                        $checkIfPermissionToNewReqSec = checkIfPermissionToNewReqSec($_SESSION['designation_id'], $_SESSION['accountId']);
+
+                                                                        if (mysqli_num_rows($checkIfPermissionToNewReqSec) > 0) {
+                                                                            echo isset($issueOutTotal) ? showPrice($issueOutTotal, $getDefCurDet['curCode']) : 0;
+                                                                        } else {
+                                                                            echo '0' . ' ' . $getDefCurDet['curCode'];
+                                                                        }
+
+
+
+                                                                        ?></p>
+                                        </div>
+                                    <?php } ?>
+
+                                    <?php if ($issueInTotal > 0) { ?>
+                                        <div class="col-md-2 maxBtn">
+                                            <a href="javascript:void(0)" class="maxLink">
+                                                <img src="Assets/icons/maximize.svg" alt="Maximize">
+                                            </a>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
-                        </div>
-
+                        <?php } ?>
 
                         <?php
                         if (isset($_GET['delOrderId'])) {
@@ -1496,20 +1508,26 @@ if ($getTxtById == 'storeId') {
 
                                         <?php
                                         if ($accessHistoryAccountsPermission['type_id'] == 1 && isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields)) {
+
+                                            $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+                                            INNER JOIN tbl_currency c 
+                                                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
+                                            WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdArr . ") ";
+                                            $result = mysqli_query($con, $sqlSet);
+
+                                            $totalAccounts = mysqli_num_rows($result);
+                                            if ($totalAccounts > 0) {
                                         ?>
-                                            <div class="accntDtl">
-                                                <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
+                                                <div class="accntDtl">
+                                                    <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
                                                 <?php
-                                                $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
-            INNER JOIN tbl_currency c 
-                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-            WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdArr . ") ";
-                                                $result = mysqli_query($con, $sqlSet);
+                                            }
 
-                                                while ($resultRow = mysqli_fetch_array($result)) {
 
-                                                    $curCode = $resultRow['curCode'];
-                                                    $balanceAmt = round($resultRow['balanceAmt'], 4);
+                                            while ($resultRow = mysqli_fetch_array($result)) {
+
+                                                $curCode = $resultRow['curCode'];
+                                                $balanceAmt = round($resultRow['balanceAmt'], 4);
                                                 ?>
 
                                                     <div class="d-flex gap-2 py-2 w-100">
@@ -1520,240 +1538,246 @@ if ($getTxtById == 'storeId') {
                                                     </div>
 
                                                 <?php
-                                                }
-                                                ?>
-                                            </div>
-                                        <?php } ?>
+                                            }
 
+                                            if ($totalAccounts > 0) {
+                                                echo '</div>';
+                                            } else {
+                                                //echo '<div class="accntDtl">&nbsp;</div>';
+                                            }
+                                                ?>
+
+                                            <?php }  ?>
+
+                                                </div>
                                     </div>
                                 </div>
-                            </div>
 
 
 
 
-                            <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields) < 11 ? 'hstTbl-head1' : ''; ?>">
+                                <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields) < 11 ? 'hstTbl-head1' : ''; ?>">
 
-                                <!-- Item Table Head Start -->
-                                <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields) < 11 ? 'itmTable1' : ''; ?>">
-                                    <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
-                                        <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
-                                        </svg>
-                                    </button>
+                                    <!-- Item Table Head Start -->
+                                    <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields) < 11 ? 'itmTable1' : ''; ?>">
+                                        <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
+                                            <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
+                                            </svg>
+                                        </button>
 
 
-                                    <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
-                                        <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
-                                            <div class="tb-bdy srHisclm">
-                                                <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
-                                            </div>
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
-
-                                                <div class="tb-bdy numItmclm">
-                                                    <div class="d-flex align-items-center">
-                                                        <p><?php echo showOtherLangText('Number'); ?></p>
-                                                        <span class="dblArrow">
-                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                        </span>
-                                                    </div>
+                                        <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
+                                            <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
+                                                <div class="tb-bdy srHisclm">
+                                                    <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
                                                 </div>
-                                            <?php } ?>
 
+                                                <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
 
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
-
-                                                <div class="tb-bdy date-dpd">
-                                                    <div class="d-flex align-items-center" style=" background:inherit">
-                                                        <div class="dropdown d-flex position-relative">
-                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                            </a>
-
-                                                            <?php echo $dateTypeOptions; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
-
-                                                <div class="tb-bdy user-dpd">
-                                                    <div class="d-flex align-items-center" style="background:inherit;">
-                                                        <div class="dropdown d-flex position-relative">
-                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                            </a>
-                                                            <?php echo $userOptions; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
-
-                                                <div class="tb-bdy type-dpd">
-                                                    <div class="d-flex align-items-center" style=" background:inherit">
-                                                        <div class="dropdown d-flex position-relative w-100">
-                                                            <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                            </a>
-                                                            <?php echo $typeOptions; ?>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            <?php } ?>
-
-
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
-
-                                                <div class="tb-bdy refer-to-dpd">
-                                                    <!--  style="width:100px;min-width:100px" -->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="dropdown d-flex position-relative w-100 lg__7">
-                                                            <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                            </a>
-                                                            <?php echo $suppMemStoreOptions; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-
-                                        </div>
-
-
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
-
-                                            <div class="tb-bdy hisValclm">
-                                                <div class="d-flex align-items-center">
-                                                    <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
-
-                                            <div class="tb-bdy hisValclm">
-                                                <div class="d-flex align-items-center">
-                                                    <p><?php echo showOtherLangText('Value'); ?></p>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
-
-
-                                        <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
-
-                                                <div class="tb-bdy hisStatusclm sm__ml">
-                                                    <div class="d-flex align-items-center">
-                                                        <div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
-                                                            <a class="dropdown-toggle body3 status" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <span id="statusText">
-                                                                    <?php echo showOtherLangText('Status'); ?>
-                                                                </span>
-                                                                <i class="fa-solid fa-angle-down"></i>
-                                                            </a>
-                                                            <?php echo $statusTypeOptions; ?>
-                                                            <span class="dblArrow d-none">
-                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <div class="tb-bdy numItmclm">
+                                                        <div class="d-flex align-items-center">
+                                                            <p><?php echo showOtherLangText('Number'); ?></p>
+                                                            <span class="dblArrow">
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            <?php } ?>
+                                                <?php } ?>
 
 
 
 
-                                            <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields) || !isset($colsArr[15])) { ?>
+                                                <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
 
-                                                <div class="tb-bdy hisStatusclm d-none d-lg-block">
-                                                    <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                        <p><?php echo showOtherLangText('Payment No.'); ?></p>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
+                                                    <div class="tb-bdy date-dpd">
+                                                        <div class="d-flex align-items-center" style=" background:inherit">
+                                                            <div class="dropdown d-flex position-relative">
+                                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                                </a>
 
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
-
-                                                <div class="tb-bdy hisStatusclm d-none d-lg-block">
-                                                    <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                        <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
-
-                                                <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
-
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="dropdown d-flex align-items-center w-100 position-relative">
-                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <span id="accountTxt">
-                                                                    <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
-                                                                    <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
-                                                                </span>
-                                                                <i class="fa-solid fa-angle-down"></i>
-                                                            </a>
-                                                            <?php echo $accountOptions; ?>
+                                                                <?php echo $dateTypeOptions; ?>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                <?php } ?>
 
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
+
+                                                    <div class="tb-bdy user-dpd">
+                                                        <div class="d-flex align-items-center" style="background:inherit;">
+                                                            <div class="dropdown d-flex position-relative">
+                                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                                </a>
+                                                                <?php echo $userOptions; ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
+
+                                                    <div class="tb-bdy type-dpd">
+                                                        <div class="d-flex align-items-center" style=" background:inherit">
+                                                            <div class="dropdown d-flex position-relative w-100">
+                                                                <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                                </a>
+                                                                <?php echo $typeOptions; ?>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                <?php } ?>
+
+
+
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
+
+                                                    <div class="tb-bdy refer-to-dpd">
+                                                        <!--  style="width:100px;min-width:100px" -->
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="dropdown d-flex position-relative w-100 lg__7">
+                                                                <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                                </a>
+                                                                <?php echo $suppMemStoreOptions; ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+                                            </div>
+
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
+
+                                                <div class="tb-bdy hisValclm">
+                                                    <div class="d-flex align-items-center">
+                                                        <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
+                                                    </div>
                                                 </div>
                                             <?php } ?>
-                                        </div>
 
 
-                                        <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
-                                            <div class="label__box action-column-p">
-                                                <div class="d-flex align-items-center justify-content-center">
-                                                    <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
-                                                    <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy hisValclm">
+                                                    <div class="d-flex align-items-center">
+                                                        <p><?php echo showOtherLangText('Value'); ?></p>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+
+                                            <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
+
+                                                    <div class="tb-bdy hisStatusclm sm__ml">
+                                                        <div class="d-flex align-items-center">
+                                                            <div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
+                                                                <a class="dropdown-toggle body3 status" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span id="statusText">
+                                                                        <?php echo showOtherLangText('Status'); ?>
+                                                                    </span>
+                                                                    <i class="fa-solid fa-angle-down"></i>
+                                                                </a>
+                                                                <?php echo $statusTypeOptions; ?>
+                                                                <span class="dblArrow d-none">
+                                                                    <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                                    <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+
+
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields) || !isset($colsArr[15])) { ?>
+
+                                                    <div class="tb-bdy hisStatusclm d-none d-lg-block">
+                                                        <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                                            <p><?php echo showOtherLangText('Payment No.'); ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
+
+                                                    <div class="tb-bdy hisStatusclm d-none d-lg-block">
+                                                        <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                                            <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
+
+                                                    <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
+
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="dropdown d-flex align-items-center w-100 position-relative">
+                                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <span id="accountTxt">
+                                                                        <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
+                                                                        <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
+                                                                    </span>
+                                                                    <i class="fa-solid fa-angle-down"></i>
+                                                                </a>
+                                                                <?php echo $accountOptions; ?>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+
+
+                                            <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
+                                                <div class="label__box action-column-p">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
+                                                        <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
+                                                    </div>
+                                                </div>
+                                                <!-- check box model icon -->
+                                                <div class="chkStore">
+                                                    <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
+                                                        <img src="Assets/icons/chkColumn.svg" alt="Check Column">
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <!-- check box model icon -->
-                                            <div class="chkStore">
-                                                <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
-                                                    <img src="Assets/icons/chkColumn.svg" alt="Check Column">
-                                                </a>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                    <!-- <div class="align-items-center mbTask">
+                                        </div>
+                                        <!-- <div class="align-items-center mbTask">
                                 <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
                             </div> -->
+                                    </div>
+                                    <!-- Item Table Head End -->
                                 </div>
-                                <!-- Item Table Head End -->
-                            </div>
 
-                        <?php } else {
+                            <?php } else {
                             echo '<div id="resFilterBox" class="container" style="text-align:center;min-height:100px;">No records found.</div>';
                         } ?>
-                        <!-- hide main divs if no records found -->
+                            <!-- hide main divs if no records found -->
                     </section>
 
 

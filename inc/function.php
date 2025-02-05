@@ -5798,14 +5798,14 @@ function getAccountIds($accountId, $condWithoutGroup = '')
 	global $con;
 
 	$mainSqlQry = " SELECT
-		GROUP_CONCAT(o.bankAccountId) allBankIds
+		GROUP_CONCAT( DISTINCT(o.bankAccountId) ) allBankIds
 		
 		FROM
 		tbl_order_details od
 		INNER JOIN tbl_orders o ON
 		(o.id = od.ordId) AND o.account_id = od.account_id
 		
-		WHERE o.status = 2 AND o.account_id = '" . $accountId . "' " . $condWithoutGroup . " GROUP BY o.account_id ";
+		WHERE o.status = 2 AND o.account_id = '" . $accountId . "' " . $condWithoutGroup . " AND o.bankAccountId > 0 GROUP BY o.account_id ";
 	$historyQry = mysqli_query($con, $mainSqlQry);
 
 	$hisRow = mysqli_fetch_array($historyQry);

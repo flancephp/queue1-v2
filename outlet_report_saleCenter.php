@@ -128,6 +128,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     </div>
 
                                 </div>
+                                <!--
                                 <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div class="chkStore">
@@ -147,6 +148,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                     </div>
                                 </div>
+                                -->
                             </div>
                             <form action="outlet_report_saleCenter.php" id="frmMobile" name="frmMobile" method="get">
 

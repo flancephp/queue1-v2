@@ -178,9 +178,10 @@ include_once('script/revenueCenterReport_script.php');
                                                 </a>-->
                                             </div>
                                             <div class="chkStore">
+                                                <!--
                                                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#revenue_center_pdf">
                                                     <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
-                                                </a>
+                                                </a>-->
                                             </div>
                                         </div>
                                     </div>
@@ -622,9 +623,10 @@ include_once('script/revenueCenterReport_script.php');
                                             <div class="tab-Filttxt">
                                                 <p><?php echo showOtherLangText('Filter'); ?></p>
                                             </div>
+                                            <!--
                                             <a href="javascript:void(0)">
                                                 <img src="Assets/icons/chkColumn.svg" alt="Check Column">
-                                            </a>
+                                            </a>-->
                                         </div>
                                     </div>
                                 </div>
