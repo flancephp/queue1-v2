@@ -6,7 +6,7 @@ if (!isset($_SESSION['adminidusername'])) {
 }
 
 
-//Get language Type 
+//Get language Type id
 $getLangType = getLangType($_SESSION['language_id']);
 
 //check page permission
@@ -39,7 +39,7 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=1">
- 
+
 </head>
 
 <body class="mb-saleBg">
@@ -593,7 +593,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     <p class="sl-varDtl"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
                                         <?php
                                         if ($varPosAmt > 0 || $varNegAmt < 0) {
-                                            echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>,' . '<span class="text-dark">' . $varPosAmt . $getDefCurDet['curCode'] . '</span>'.  ' )';
+                                            echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>,' . '<span class="text-dark">' . $varPosAmt . $getDefCurDet['curCode'] . '</span>' .  ' )';
                                         }
                                         ?>
                                     </p>

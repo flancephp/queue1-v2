@@ -368,6 +368,8 @@ LEFT JOIN tbl_suppliers sp ON
 WHERE o.status = 2 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
 $historyQry = mysqli_query($con, $mainSqlQry);
 
+$bankAccountIdArr = getAccountIds($_SESSION['accountId'], $condWithoutGroup); //get this to pass into below query in account list section
+
 // $cond = '';
 // $cond1 = '';
 
@@ -973,7 +975,7 @@ if ($getTxtById == 'storeId') {
     <link rel="stylesheet" href="Assets/css/module-A.css">
     <link rel="stylesheet" href="Assets/css/history-page.css?v=1">
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
- 
+
 
 
 </head>
@@ -1148,7 +1150,7 @@ if ($getTxtById == 'storeId') {
                                         </div>
 
                                     </div>
-                                    <?php if ($accessHistoryXclPdfPermission['type_id'] == 1) { ?>
+                                    <?php if ($accessHistoryXclPdfPermission['type_id'] == 1 && mysqli_num_rows($historyQry) > 0) { ?>
                                         <div class="col-md-6 expStrdt d-flex justify-content-end align-items-end">
                                             <div class="d-flex justify-content-end align-items-center">
                                                 <!-- <div class="chkStore">
@@ -1291,455 +1293,467 @@ if ($getTxtById == 'storeId') {
                                     </div>
                                 </form>
                             </div>
-                        <?php } ?>
+                        <?php }
 
-                        <div class="container detailPrice">
-                            <div class="tab-mbDtl">
-                                <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
-                            </div>
-                            <div class="scroller pb-5 pb-sm-0">
-                                <div class="row align-items-start issueDtl_accntDtl_main">
-                                    <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap d-block">
-                                        <div class="overflow-x-auto">
-                                            <div class="d-flex w-100 flex-wrap flex-md-nowrap">
 
-                                                <?php if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) { ?>
-                                                    <div class="issueIn">
-                                                        <!--  -->
-                                                        <!-- <div class="dspBlk">
+                        if (mysqli_num_rows($historyQry) > 0) { ?>
+
+                            <div class="container detailPrice">
+                                <div class="tab-mbDtl">
+                                    <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
+                                </div>
+                                <div class="scroller pb-5 pb-sm-0">
+                                    <div class="row align-items-start issueDtl_accntDtl_main">
+                                        <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap d-block">
+                                            <div class="overflow-x-auto">
+                                                <div class="d-flex w-100 flex-wrap flex-md-nowrap">
+
+                                                    <?php if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) && $issueInTotal > 0) { ?>
+                                                        <div class="issueIn">
+                                                            <!--  -->
+                                                            <!-- <div class="dspBlk">
                                                             </div> -->
-                                                        <div class="paidIsue d-flex align-items-end">
-                                                            <div class="col-md-3">
-                                                                <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
-                                                                <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                            <div class="paidIsue d-flex align-items-end">
+                                                                <div class="col-md-3">
+                                                                    <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
+                                                                    <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                                </div>
+                                                                <div class="flex-grow-1 text-center" style="min-width: max-content;">
+                                                                    <p class="gr-Out px-2"><?php echo showOtherLangText('Issued In'); ?></p>
+                                                                    <p class="ttlAmount px-2"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
+                                                                    <p class="pdAmount px-2"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                    <p class="pendAmount px-2"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                </div>
                                                             </div>
-                                                            <div class="flex-grow-1 text-center" style="min-width: max-content;">
-                                                                <p class="gr-Out px-2"><?php echo showOtherLangText('Issued In'); ?></p>
-                                                                <p class="ttlAmount px-2"><?php echo showprice($issueInTotal, $getDefCurDet['curCode']); ?></p>
-                                                                <p class="pdAmount px-2"><?php echo ($issuedInOutPaidArr[1][1] > 0) ? showPrice($issuedInOutPaidArr[1][1], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                                <p class="pendAmount px-2"><?php echo ($issuedInOutPendingArr[1][0] > 0) ? showPrice($issuedInOutPendingArr[1][0], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                            </div>
-                                                        </div>
-                                                        <?php
-                                                        $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                                                            <?php
+                                                            $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
                                                         INNER JOIN tbl_orders o 
                                                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                                         INNER JOIN tbl_currency c
                                                             ON(od.currencyId=c.id) AND od.account_id=c.account_Id
                                                         WHERE o.status = '2' AND o.ordCurAmt>0 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
-                                                        $result = mysqli_query($con, $sql);
-                                                        if (mysqli_num_rows($result) > 0) { ?>
-                                                            <!-- added on 31-7-24 -->
-                                                            <div class="usdCurr col-4 text-center">
-                                                                <div class="paidIsue d-flex">
-                                                                    <div class="col-md-3">
-                                                                        <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
-                                                                        <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
-                                                                    </div>
-                                                                    <div class="col-md-9 text-center fw-normal">
-                                                                        <p class="usd-In px-3">$</p>
-                                                                        <p class="ttlAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
-                                                                        <p class="pdAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
-                                                                        <p class="pendAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
-
-                                                        $otherCurrRowArr = [];
-                                                        $otherCurrTotalValueArr = [];
-                                                        $otherCurrPendingTotalValueArr = [];
-                                                        while ($otherCurrRows = mysqli_fetch_array($result)) {
-                                                            if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2)) {
-
-                                                                // Total rows of other currency pending amount
-                                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                                                // Sum of total values of pending amount 
-                                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                                                $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                                            } elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
-
-                                                                // Total rows of other currency paid amount
-                                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                                                // Sum of total values of paid amount 
-                                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                                                $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                                            }
-
-                                                            if ($otherCurrRows['currencyId'] > 0) {
-
-                                                                // Total rows of other currency paid amount
-                                                                $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
-
-                                                                // Sum of total values of paid amount 
-                                                                $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
-                                                                $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
-                                                            }
-                                                        }
-
-
-
-                                                        foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
-
-
-                                                            <div class="usdCurr col-4 text-center">
-                                                                <div class="paidIsue d-flex">
-                                                                    <div class="col-md-3">
-                                                                        <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
-                                                                        <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
-                                                                    </div>
-                                                                    <div class="col-md-9 text-center fw-normal">
-                                                                        <p class="usd-In px-3"><?php echo ($otherCurrRow['curCode']); ?></p>
-                                                                        <p class="ttlAmount px-3"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
-                                                                        <p class="pdAmount px-3"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '0 &nbsp;'; ?></p>
-                                                                        <p class="pendAmount px-3"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                            $result = mysqli_query($con, $sql);
+                                                            if (mysqli_num_rows($result) > 0) { ?>
+                                                                <!-- added on 31-7-24 -->
+                                                                <div class="usdCurr col-4 text-center">
+                                                                    <div class="paidIsue d-flex">
+                                                                        <div class="col-md-3">
+                                                                            <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
+                                                                            <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                                        </div>
+                                                                        <div class="col-md-9 text-center fw-normal">
+                                                                            <p class="usd-In px-3">$</p>
+                                                                            <p class="ttlAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
+                                                                            <p class="pdAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
+                                                                            <p class="pendAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                            <?php
+                                                            }
+
+                                                            $otherCurrRowArr = [];
+                                                            $otherCurrTotalValueArr = [];
+                                                            $otherCurrPendingTotalValueArr = [];
+                                                            while ($otherCurrRows = mysqli_fetch_array($result)) {
+                                                                if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2)) {
+
+                                                                    // Total rows of other currency pending amount
+                                                                    $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                                                    // Sum of total values of pending amount 
+                                                                    $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                                    $otherCurrPendingTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                                                } elseif ($otherCurrRows['currencyId'] > 0 && $otherCurrRows['paymentStatus'] == 1) {
+
+                                                                    // Total rows of other currency paid amount
+                                                                    $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                                                    // Sum of total values of paid amount 
+                                                                    $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                                    $otherCurrPaidTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                                                }
+
+                                                                if ($otherCurrRows['currencyId'] > 0) {
+
+                                                                    // Total rows of other currency paid amount
+                                                                    $otherCurrRowArr[$otherCurrRows['currencyId']] = $otherCurrRows;
+
+                                                                    // Sum of total values of paid amount 
+                                                                    $totalSumAmt = $otherCurrRows['totalOrdCurAmt'];
+                                                                    $otherCurrTotalValueArr[$otherCurrRows['currencyId']] += $totalSumAmt;
+                                                                }
+                                                            }
+
+
+
+                                                            foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
+
+
+                                                                <div class="usdCurr col-4 text-center">
+                                                                    <div class="paidIsue d-flex">
+                                                                        <div class="col-md-3">
+                                                                            <p class="pdStatus"><?php echo showOtherLangText('Paid'); ?></p>
+                                                                            <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                                        </div>
+                                                                        <div class="col-md-9 text-center fw-normal">
+                                                                            <p class="usd-In px-3"><?php echo ($otherCurrRow['curCode']); ?></p>
+                                                                            <p class="ttlAmount px-3"><?php echo showOtherCur($otherCurrTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                                            <p class="pdAmount px-3"><?php echo $otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']] != '' ? showOtherCur($otherCurrPaidTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']) : '0 &nbsp;'; ?></p>
+                                                                            <p class="pendAmount px-3"><?php echo showOtherCur($otherCurrPendingTotalValueArr[$otherCurrRow['currencyId']], $otherCurrRow['currencyId']); ?></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            <?php } ?>
+
+
+                                                            <div style="padding-left:.5rem;">
+                                                                <a class="<?php
+                                                                            if (mysqli_num_rows($result) == 0) {
+                                                                                echo 'toggle-currency-btn-disabled';
+                                                                            } else {
+                                                                                echo 'toggle-currency-btn';
+                                                                            }
+                                                                            ?>">$/¥</a>
                                                             </div>
-
-                                                        <?php } ?>
-
-
-                                                        <div style="padding-left:.5rem;">
-                                                            <a class="<?php
-                                                                        if (mysqli_num_rows($result) == 0) {
-                                                                            echo 'toggle-currency-btn-disabled';
-                                                                        } else {
-                                                                            echo 'toggle-currency-btn';
-                                                                        }
-                                                                        ?>">$/¥</a>
                                                         </div>
-                                                    </div>
-                                                <?php
-                                                } //end issue in
-                                                ?>
-                                                <?php if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 2)) { ?>
-                                                    <div class="issueOut">
-                                                        <div class="recIsue d-flex">
-                                                            <div class="col-md-5">
-                                                                <p class="recStatus"><?php echo showOtherLangText('Received'); ?></p>
-                                                                <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
-                                                            </div>
-                                                            <div class="col-md-7 text-center">
-                                                                <p class="rd-In px-3"><?php echo showOtherLangText('Issued Out'); ?></p>
-                                                                <p class="ttlAmount-rec px-3"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
-                                                                <p class="pdAmount-rec px-3"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
-                                                                <p class="pendAmount-rec px-3"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                    <?php
+                                                    } //end issue in
+                                                    ?>
+                                                    <?php if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 2)) && $issueOutTotal > 0) { ?>
+                                                        <div class="issueOut">
+                                                            <div class="recIsue d-flex">
+                                                                <div class="col-md-5">
+                                                                    <p class="recStatus"><?php echo showOtherLangText('Received'); ?></p>
+                                                                    <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
+                                                                </div>
+                                                                <div class="col-md-7 text-center">
+                                                                    <p class="rd-In px-3"><?php echo showOtherLangText('Issued Out'); ?></p>
+                                                                    <p class="ttlAmount-rec px-3"><?php echo showprice($issueOutTotal, $getDefCurDet['curCode']); ?></p>
+                                                                    <p class="pdAmount-rec px-3"> <?php echo ($issuedInOutPaidArr[2][1]) ? showPrice($issuedInOutPaidArr[2][1], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                    <p class="pendAmount-rec px-3"><?php echo ($issuedInOutPendingArr[2][0] > 0) ? showPrice($issuedInOutPendingArr[2][0], $getDefCurDet['curCode']) : '0'; ?></p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                <?php
-                                                } //end issue out
+                                                    <?php
+                                                    } //end issue out
 
-                                                if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 3)) {
-                                                    $variancesPosTot = 0;
-                                                    $variancesNevTot = 0;
-                                                    $varaincesVal = 0;
+                                                    if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 3)) {
+                                                        $variancesPosTot = 0;
+                                                        $variancesNevTot = 0;
+                                                        $varaincesVal = 0;
 
-                                                    //variance starts here
-                                                    // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+                                                        //variance starts here
+                                                        // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
 
-                                                    $sqlSet = " SELECT od.* FROM tbl_order_details od
+                                                        $varDataAvl = false;
+                                                        $sqlSet = " SELECT od.* FROM tbl_order_details od
                                             INNER JOIN tbl_orders o
                                                 ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                             WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " ";
-                                                    $resultSet = mysqli_query($con, $sqlSet);
-                                                    while ($resRow = mysqli_fetch_array($resultSet)) {
+                                                        $resultSet = mysqli_query($con, $sqlSet);
+                                                        while ($resRow = mysqli_fetch_array($resultSet)) {
 
-                                                        $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+                                                            $varDataAvl = true;
+                                                            $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
 
-                                                        if ($varaincesVal > 0) {
-                                                            $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
-                                                        } elseif ($varaincesVal < 0) {
-                                                            $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
+                                                            if ($varaincesVal > 0) {
+                                                                $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
+                                                            } elseif ($varaincesVal < 0) {
+                                                                $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
+                                                            }
                                                         }
-                                                    }
-                                                ?>
-                                                <?php if(getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) > 0): ?>
-                                                    <div class="Variance text-center">
-                                                        <p class="varDtl px-2"><?php echo showOtherLangText('Variances'); ?></p>
-                                                        <p class="varValue px-2"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
-                                                        <p class="varDif px-2"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
-                                                    </div>
-                                                    <?php endif; ?>
-                                                <?php
-                                                } //end variance
-                                                if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
-                                                    $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
+                                                    ?>
+                                                        <?php if ($varDataAvl): ?>
+                                                            <div class="Variance text-center">
+                                                                <p class="varDtl px-2"><?php echo showOtherLangText('Variances'); ?></p>
+                                                                <p class="varValue px-2"><?php echo getPriceWithCur($variancesPosTot, $getDefCurDet['curCode']) ?></p>
+                                                                <p class="varDif px-2"><?php echo  getPriceWithCur($variancesNevTot, $getDefCurDet['curCode']); ?></p>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php
+                                                    } //end variance
+                                                    if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
+                                                        $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
                                         AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
 
-                                                    $resultSet = mysqli_query($con, $sqlSet);
-                                                    $resRow = mysqli_fetch_array($resultSet);
+                                                        $resultSet = mysqli_query($con, $sqlSet);
+                                                        $resRow = mysqli_fetch_array($resultSet);
 
-                                                ?>
-                                                    <?php if ( getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) > 0): ?>
-                                                    <div class="Variance text-center">
-                                                        <p class="varDtl px-2"><?php echo showOtherLangText('Converted'); ?></p>
-                                                        <p class="varValue px-2"><?php echo getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) ?></p>
-                                                    </div>
-                                                    <?php endif;?>
-                                                <?php } ?>
+                                                    ?>
+                                                        <?php if ($resRow['totConvertedAmt'] > 0): ?>
+                                                            <div class="Variance text-center">
+                                                                <p class="varDtl px-2"><?php echo showOtherLangText('Converted'); ?></p>
+                                                                <p class="varValue px-2"><?php echo getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) ?></p>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php } ?>
 
-                                            </div>
-                                        </div><!-- /.d-flex-->
-                                    </div><!-- /.overflow-x-->
+                                                </div>
+                                            </div><!-- /.d-flex-->
+                                        </div><!-- /.overflow-x-->
 
-                                    <?php
-                                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                                    ?>
-                                        <div class="accntDtl">
-                                            <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
-                                            <?php
-                                            $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+                                        <?php
+                                        if ($accessHistoryAccountsPermission['type_id'] == 1 && isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields)) {
+                                        ?>
+                                            <div class="accntDtl">
+                                                <p class="accHead text-center"><?php echo showOtherLangText('Accounts'); ?></p>
+                                                <?php
+                                                $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
             INNER JOIN tbl_currency c 
                 ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-            WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
-                                            $result = mysqli_query($con, $sqlSet);
+            WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdArr . ") ";
+                                                $result = mysqli_query($con, $sqlSet);
 
-                                            while ($resultRow = mysqli_fetch_array($result)) {
+                                                while ($resultRow = mysqli_fetch_array($result)) {
 
-                                                $curCode = $resultRow['curCode'];
-                                                $balanceAmt = round($resultRow['balanceAmt'], 4);
-                                            ?>
+                                                    $curCode = $resultRow['curCode'];
+                                                    $balanceAmt = round($resultRow['balanceAmt'], 4);
+                                                ?>
 
-                                                <div class="d-flex gap-2 py-2 w-100">
-                                                    <p class="w-50"><?php echo $resultRow['accountName'] ?></p>
+                                                    <div class="d-flex gap-2 py-2 w-100">
+                                                        <p class="w-50"><?php echo $resultRow['accountName'] ?></p>
 
-                                                    <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
-                                                        <?php echo $curCode; ?></p>
-                                                </div>
-
-                                            <?php
-                                            }
-                                            ?>
-                                        </div>
-                                    <?php } ?>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields) < 11 ? 'hstTbl-head1' : ''; ?>">
-
-                            <!-- Item Table Head Start -->
-                            <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields) < 11 ? 'itmTable1' : ''; ?>">
-                                <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
-                                    <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
-                                    </svg>
-                                </button>
-                                <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
-                                    <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
-                                        <div class="tb-bdy srHisclm">
-                                            <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
-                                        </div>
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
-
-                                            <div class="tb-bdy numItmclm">
-                                                <div class="d-flex align-items-center">
-                                                    <p><?php echo showOtherLangText('Number'); ?></p>
-                                                    <span class="dblArrow">
-                                                        <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                        <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
-
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
-
-                                            <div class="tb-bdy date-dpd">
-                                                <div class="d-flex align-items-center" style=" background:inherit">
-                                                    <div class="dropdown d-flex position-relative">
-                                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-
-                                                        <?php echo $dateTypeOptions; ?>
+                                                        <p class="posBlnc w-50"><?php echo number_format($balanceAmt); ?>
+                                                            <?php echo $curCode; ?></p>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
 
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
-
-                                            <div class="tb-bdy user-dpd">
-                                                <div class="d-flex align-items-center" style="background:inherit;">
-                                                    <div class="dropdown d-flex position-relative">
-                                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-                                                        <?php echo $userOptions; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
-
-                                            <div class="tb-bdy type-dpd">
-                                                <div class="d-flex align-items-center" style=" background:inherit">
-                                                    <div class="dropdown d-flex position-relative w-100">
-                                                        <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-                                                        <?php echo $typeOptions; ?>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        <?php } ?>
-
-
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
-
-                                            <div class="tb-bdy refer-to-dpd">
-                                                <!--  style="width:100px;min-width:100px" -->
-                                                <div class="d-flex align-items-center">
-                                                    <div class="dropdown d-flex position-relative w-100 lg__7">
-                                                        <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-                                                        <?php echo $suppMemStoreOptions; ?>
-                                                    </div>
-                                                </div>
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                         <?php } ?>
 
                                     </div>
+                                </div>
+                            </div>
 
 
 
 
-                                    <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
+                            <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields) < 11 ? 'hstTbl-head1' : ''; ?>">
 
-                                        <div class="tb-bdy hisValclm">
-                                            <div class="d-flex align-items-center">
-                                                <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
+                                <!-- Item Table Head Start -->
+                                <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields) < 11 ? 'itmTable1' : ''; ?>">
+                                    <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
+                                        <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
+                                        </svg>
+                                    </button>
+
+
+                                    <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
+                                        <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
+                                            <div class="tb-bdy srHisclm">
+                                                <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
                                             </div>
-                                        </div>
-                                    <?php } ?>
 
+                                            <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
 
-
-                                    <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
-
-                                        <div class="tb-bdy hisValclm">
-                                            <div class="d-flex align-items-center">
-                                                <p><?php echo showOtherLangText('Value'); ?></p>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-
-
-
-                                    <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
-
-                                            <div class="tb-bdy hisStatusclm sm__ml">
-                                                <div class="d-flex align-items-center">
-                                                    <div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
-                                                        <a class="dropdown-toggle body3 status" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="statusText">
-                                                                <?php echo showOtherLangText('Status'); ?>
-                                                            </span>
-                                                            <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-                                                        <?php echo $statusTypeOptions; ?>
-                                                        <span class="dblArrow d-none">
-                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                <div class="tb-bdy numItmclm">
+                                                    <div class="d-flex align-items-center">
+                                                        <p><?php echo showOtherLangText('Number'); ?></p>
+                                                        <span class="dblArrow">
+                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php } ?>
+                                            <?php } ?>
 
 
 
 
-                                        <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields) || !isset($colsArr[15])) { ?>
+                                            <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
 
-                                            <div class="tb-bdy hisStatusclm d-none d-lg-block">
-                                                <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                    <p><?php echo showOtherLangText('Payment No.'); ?></p>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
+                                                <div class="tb-bdy date-dpd">
+                                                    <div class="d-flex align-items-center" style=" background:inherit">
+                                                        <div class="dropdown d-flex position-relative">
+                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
 
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
-
-                                            <div class="tb-bdy hisStatusclm d-none d-lg-block">
-                                                <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                    <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
-
-
-                                        <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
-
-                                            <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
-
-                                                <div class="d-flex align-items-center">
-                                                    <div class="dropdown d-flex align-items-center w-100 position-relative">
-                                                        <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <span id="accountTxt">
-                                                                <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
-                                                                <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
-                                                            </span>
-                                                            <i class="fa-solid fa-angle-down"></i>
-                                                        </a>
-                                                        <?php echo $accountOptions; ?>
+                                                            <?php echo $dateTypeOptions; ?>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            <?php } ?>
 
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy user-dpd">
+                                                    <div class="d-flex align-items-center" style="background:inherit;">
+                                                        <div class="dropdown d-flex position-relative">
+                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $userOptions; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy type-dpd">
+                                                    <div class="d-flex align-items-center" style=" background:inherit">
+                                                        <div class="dropdown d-flex position-relative w-100">
+                                                            <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $typeOptions; ?>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            <?php } ?>
+
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
+
+                                                <div class="tb-bdy refer-to-dpd">
+                                                    <!--  style="width:100px;min-width:100px" -->
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="dropdown d-flex position-relative w-100 lg__7">
+                                                            <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $suppMemStoreOptions; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+                                        </div>
+
+
+
+
+                                        <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
+
+                                            <div class="tb-bdy hisValclm">
+                                                <div class="d-flex align-items-center">
+                                                    <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
+                                                </div>
                                             </div>
                                         <?php } ?>
-                                    </div>
 
 
-                                    <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
-                                        <div class="label__box action-column-p">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
-                                                <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
+
+                                        <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
+
+                                            <div class="tb-bdy hisValclm">
+                                                <div class="d-flex align-items-center">
+                                                    <p><?php echo showOtherLangText('Value'); ?></p>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+
+
+
+                                        <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
+
+                                                <div class="tb-bdy hisStatusclm sm__ml">
+                                                    <div class="d-flex align-items-center">
+                                                        <div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
+                                                            <a class="dropdown-toggle body3 status" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="statusText">
+                                                                    <?php echo showOtherLangText('Status'); ?>
+                                                                </span>
+                                                                <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $statusTypeOptions; ?>
+                                                            <span class="dblArrow d-none">
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields) || !isset($colsArr[15])) { ?>
+
+                                                <div class="tb-bdy hisStatusclm d-none d-lg-block">
+                                                    <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                                        <p><?php echo showOtherLangText('Payment No.'); ?></p>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
+
+                                                <div class="tb-bdy hisStatusclm d-none d-lg-block">
+                                                    <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                                        <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
+
+                                                <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
+
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="dropdown d-flex align-items-center w-100 position-relative">
+                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="accountTxt">
+                                                                    <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
+                                                                    <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
+                                                                </span>
+                                                                <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $accountOptions; ?>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+
+
+                                        <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
+                                            <div class="label__box action-column-p">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
+                                                    <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
+                                                </div>
+                                            </div>
+                                            <!-- check box model icon -->
+                                            <div class="chkStore">
+                                                <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
+                                                    <img src="Assets/icons/chkColumn.svg" alt="Check Column">
+                                                </a>
                                             </div>
                                         </div>
-                                        <!-- check box model icon -->
-                                        <div class="chkStore">
-                                            <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
-                                                <img src="Assets/icons/chkColumn.svg" alt="Check Column">
-                                            </a>
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <!-- <div class="align-items-center mbTask">
+                                    </div>
+                                    <!-- <div class="align-items-center mbTask">
                                 <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
                             </div> -->
+                                </div>
+                                <!-- Item Table Head End -->
                             </div>
-                            <!-- Item Table Head End -->
-                        </div>
+
+                        <?php } else {
+                            echo '<div id="resFilterBox" class="container" style="text-align:center;min-height:100px;">No records found.</div>';
+                        } ?>
+                        <!-- hide main divs if no records found -->
                     </section>
 
 

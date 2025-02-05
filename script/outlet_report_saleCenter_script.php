@@ -1,5 +1,5 @@
 <?php
-
+//columns
 $newOrderColumns = [
 	'' . showOtherLangText('Photo') . '',
 	'' . showOtherLangText('BarCode') . '',
