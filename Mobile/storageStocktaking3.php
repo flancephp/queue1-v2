@@ -1,49 +1,50 @@
 <?php
-    include('../inc/dbConfig.php'); //connection details
-    $pgnm = 'Storage Stocktaking';
-    $storageStocktakingStep = '3';
+include('../inc/dbConfig.php'); //connection details
+$pgnm = 'Storage Stocktaking';
+$storageStocktakingStep = '3';
 
-    //Get language Type 
-    $getLangType = getLangType($_SESSION['language_id']);
+//Get language Type 
+$getLangType = getLangType($_SESSION['language_id']);
 
-    $checkCurPage = checkCurPage();
-    if ($checkCurPage == 1) {
-        echo "<script>window.location.href='".$siteUrl."'</script>";
-        exit;
-    }
+$checkCurPage = checkCurPage();
+if ($checkCurPage == 1) {
+    echo "<script>window.location.href='" . $siteUrl . "'</script>";
+    exit;
+}
 
-    if( $_GET['storageId'] < 1){
-        header('location: storageStocktaking1.php');
-        exit;
-    }
+if ($_GET['storageId'] < 1) {
+    header('location: storageStocktaking1.php');
+    exit;
+}
 
-    if( isset( $_GET['start'])){
-        trackStockProcessTime($_GET['storageId'], 1, $_SESSION['id']);
-    }
+if (isset($_GET['start'])) {
+    trackStockProcessTime($_GET['storageId'], 1, $_SESSION['id']);
+}
 
-    $totalItems = getStorageItemsCount($_GET['storageId']);
+$totalItems = getStorageItemsCount($_GET['storageId']);
 
-    //get temp data
-    $sql=" SELECT * FROM  tbl_mobile_items_temp WHERE stockTakeId = '".$_GET['storageId']."' AND stockTakeType=1 AND `userId` = '".$_SESSION['id']."' AND status=0  AND account_id = '".$_SESSION['accountId']."'  ";
-    $result = mysqli_query($con, $sql);
-    $tempItemRows = [];
-    
-    while($row = mysqli_fetch_array($result)){
-        $tempItemRows[$row['pId']] = $row['qty'];
-    }	
+//get temp data
+$sql = " SELECT * FROM  tbl_mobile_items_temp WHERE stockTakeId = '" . $_GET['storageId'] . "' AND stockTakeType=1 AND `userId` = '" . $_SESSION['id'] . "' AND status=0  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+$result = mysqli_query($con, $sql);
+$tempItemRows = [];
 
-    $cond = " where  storageDeptId = '".$_GET['storageId']."' ";
-    $storageDeptRow = getStoreDetailsById($_GET['storageId']);
+while ($row = mysqli_fetch_array($result)) {
+    $tempItemRows[$row['pId']] = $row['qty'];
+}
 
-    $sql = "SELECT tp.*, s.qty stockQty, IF(u.name!='',u.name,tp.unitC) countingUnit FROM tbl_stocks s 
-    INNER JOIN tbl_products tp ON(s.pId = tp.id) AND s.account_id = tp.account_id AND tp.status=1  AND tp.account_id = '".$_SESSION['accountId']."'
+$cond = " where  storageDeptId = '" . $_GET['storageId'] . "' ";
+$storageDeptRow = getStoreDetailsById($_GET['storageId']);
+
+$sql = "SELECT tp.*, s.qty stockQty, IF(u.name!='',u.name,tp.unitC) countingUnit FROM tbl_stocks s 
+    INNER JOIN tbl_products tp ON(s.pId = tp.id) AND s.account_id = tp.account_id AND tp.status=1  AND tp.account_id = '" . $_SESSION['accountId'] . "'
     LEFT JOIN tbl_units u ON(u.id=tp.unitC) AND (u.account_id = tp.account_id) 
-    ". $cond . " GROUP BY tp.id ORDER by tp.catId  ";
+    " . $cond . " GROUP BY tp.id ORDER by tp.catId  ";
 
-    $stockMainQry = mysqli_query($con, $sql);
+$stockMainQry = mysqli_query($con, $sql);
 ?>
 <!DOCTYPE html>
-<html dir="<?php echo $getLangType == '1' ?'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+<html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +52,7 @@
     <title><?php echo showOtherLangText('Start') ?> - Queue1 Mobile</title>
     <?php include('layout/mCss.php'); ?>
 </head>
+
 <body>
     <section class="headSec">
         <div class="container">
@@ -71,8 +73,8 @@
                 </div>
                 <div class="col-md-6 mblFnsClm d-flex justify-content-end">
                     <div class="d-flex align-items-center fnshGrp">
-                        <p class="countValue"><span class="countedItm" id="countedId"><?php echo count($tempItemRows);?></span><span>/<?php echo $totalItems;?></span></p>
-                        <a href="<?php echo $mobileSiteUrl;?>storageStocktaking4.php?storageId=<?php echo $_GET['storageId'];?>&finish=1" class="finishBtn"><?php echo showOtherLangText('Finish') ?> <span><i class="fa-solid fa-chevron-right"></i></span> </a>
+                        <p class="countValue"><span class="countedItm" id="countedId"><?php echo count($tempItemRows); ?></span><span>/<?php echo $totalItems; ?></span></p>
+                        <a href="<?php echo $mobileSiteUrl; ?>storageStocktaking4.php?storageId=<?php echo $_GET['storageId']; ?>&finish=1" class="finishBtn"><?php echo showOtherLangText('Finish') ?> <span><i class="fa-solid fa-chevron-right"></i></span> </a>
                     </div>
                 </div>
             </div>
@@ -81,52 +83,52 @@
     <section class="prdctSection">
         <div class="container">
             <table id="tableId" style="width: 100%;">
-            <?php 
-                while($res = mysqli_fetch_array($stockMainQry)){
+                <?php
+                while ($res = mysqli_fetch_array($stockMainQry)) {
                     $productImage = 'https://cdn-icons-png.flaticon.com/512/68/68958.png';
-                    if( $res['imgName'] != ''){
-                        $productImage = $siteUrl.'uploads/'.$accountImgPath.'/products/'.$res['imgName'];
+                    if ($res['imgName'] != '') {
+                        $productImage = $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $res['imgName'];
                     }
-                    ?>
+                ?>
                     <tr>
                         <td>
                             <div class="productList d-flex align-items-center mt-2">
                                 <div class="prdctImg">
-                                    <img src="<?php echo $productImage;?>" alt="Product">
+                                    <img src="<?php echo $productImage; ?>" alt="Product">
                                 </div>
                                 <div class="prdctDtl">
-                                    <p class="prdName ellipsis"><?php echo $res['itemName'];?></p>
-                                    <p class="prdBarCode"><?php echo $res['barCode'];?></p>
+                                    <p class="prdName ellipsis"><?php echo $res['itemName']; ?></p>
+                                    <p class="prdBarCode"><?php echo $res['barCode']; ?></p>
                                 </div>
                                 <div class="prdctHide">&nbsp;</div>
                                 <div class="prdctValue">
-                                    <input type="text" id="item<?php echo $res['id'];?>" value="" class="form-control prdForm" placeholder="" onmouseout="saveQty('<?php echo $res['id'];?>', this.value);" />
-                                    <input type="hidden" id="itemSaved<?php echo $res['id'];?>" value="<?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : 0;?>" class="input-style" />
-                                    <p class="prdUnit"><strong style="color:#00ad4c;text-align:center;cursor: pointer;" class="qtyCnt" id="qtyCnt<?php echo $res['id'];?>" onclick="toggleQty('<?php echo $res['id'];?>')"><?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : '';?></strong> <?php echo $res['countingUnit'];?></p>
+                                    <input type="text" id="item<?php echo $res['id']; ?>" value="" class="form-control prdForm" placeholder="" onmouseout="saveQty('<?php echo $res['id']; ?>', this.value);" />
+                                    <input type="hidden" id="itemSaved<?php echo $res['id']; ?>" value="<?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : 0; ?>" class="input-style" />
+                                    <p class="prdUnit"><strong style="color:#00ad4c;text-align:center;cursor: pointer;" class="qtyCnt" id="qtyCnt<?php echo $res['id']; ?>" onclick="toggleQty('<?php echo $res['id']; ?>')"><?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : ''; ?></strong> <?php echo $res['countingUnit']; ?></p>
                                 </div>
                             </div>
                         </td>
                     </tr>
                 <?php
                 }
-            ?>
+                ?>
             </table>
         </div>
     </section>
     <?php include('layout/mJs.php'); ?>
     <script type="text/javascript">
-        function toggleQty(id){
-            var qtySaved = $('#itemSaved'+id).val();
-            $('#item'+id).val(qtySaved);
-            $('#item'+id).focus();
-            $('#qtyCnt'+id).text('');
-            $('#itemSaved'+id).val('');
+        function toggleQty(id) {
+            var qtySaved = $('#itemSaved' + id).val();
+            $('#item' + id).val(qtySaved);
+            $('#item' + id).focus();
+            $('#qtyCnt' + id).text('');
+            $('#itemSaved' + id).val('');
         }
 
-        function showMsg(){
+        function showMsg() {
             let rs = confirm('<?php echo showOtherLangText('Are you sure to Reset this page counting data?') ?>');
 
-            if(rs){
+            if (rs) {
                 deleteCount();
             }
             /*$("#dialog").dialog({  
@@ -157,37 +159,35 @@
                 var newQty = 0;
             }
 
-            if(newQty == 0 || newQty == '')
-            {
+            if (newQty == 0 || newQty == '') {
                 return true;
             }
             var savedQty = $('#itemSaved' + pId).val();
             savedQty = Number(savedQty);
 
             var updatedQty = newQty + savedQty;
-            if (updatedQty > 0){
+            if (updatedQty > 0) {
                 var updatedQty = updatedQty;
-            }
-            else{
+            } else {
                 var updatedQty = 0;
             }
-    
+
             $.ajax({
-                method: "POST",
-                url: "ajax.php",
-                data: {
-                    stockTakeId: '<?php echo $_GET['storageId'];?>',
-                    pId: pId,
-                    qty: updatedQty,
-                    stockTakeType: '1'
-                }
-            })
-            .done(function(counted) {
-                $('#countedId').text(counted);
-                $('#qtyCnt' + pId).text(updatedQty);
-                $('#item' + pId).val('');
-                $('#itemSaved' + pId).val(updatedQty);
-            });
+                    method: "POST",
+                    url: "ajax.php",
+                    data: {
+                        stockTakeId: '<?php echo $_GET['storageId']; ?>',
+                        pId: pId,
+                        qty: updatedQty,
+                        stockTakeType: '1'
+                    }
+                })
+                .done(function(counted) {
+                    $('#countedId').text(counted);
+                    $('#qtyCnt' + pId).text(updatedQty);
+                    $('#item' + pId).val('');
+                    $('#itemSaved' + pId).val(updatedQty);
+                });
         }
 
         function myFunction() {
@@ -205,8 +205,7 @@
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
-                    }
-                    else {
+                    } else {
                         tr[i].style.display = "none";
                     }
                 }
@@ -220,27 +219,28 @@
 
         function deleteCount() {
             // if (!confirm('<?php echo showOtherLangText('Are you sure to Reset this page counting data') ?>')) {
-                //     return false;
+            //     return false;
             // }
 
             resetData();
 
-            $('.input-style').val('');
+            $('.form-control').val('');
             $('.qtyCnt').text('');
-            
+
             $.ajax({
-                method: "POST",
-                url: "ajax.php",
-                data: {
-                    resetCount: '1',
-                    stockTakeId: '<?php echo $_GET['storageId'];?>',
-                    stockTakeType: '1'
-                }
-            })
-            .done(function() {
-                $('#countedId').text('0');
-            });
+                    method: "POST",
+                    url: "ajax.php",
+                    data: {
+                        resetCount: '1',
+                        stockTakeId: '<?php echo $_GET['storageId']; ?>',
+                        stockTakeType: '1'
+                    }
+                })
+                .done(function() {
+                    $('#countedId').text('0');
+                });
         }
     </script>
 </body>
+
 </html>

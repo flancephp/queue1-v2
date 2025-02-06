@@ -104,10 +104,7 @@ $toalIssueOutOrders = mysqli_num_rows($assignQry);
             <?php
             }
             ?>
-            <a href="#" class="mblBx-Lnk text-center">
-                <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Production.svg" alt="Production" class="fieldIcns">
-                <p class="mblFnt1">Production</p>
-            </a>
+
             <?php
             if ($_SESSION['accountId'] != 4) {
                 if ($mobUserPermission['bar_control_sales'] == 1) { ?>
@@ -119,6 +116,12 @@ $toalIssueOutOrders = mysqli_num_rows($assignQry);
                 }
             }
             ?>
+            <!--
+            <a href="#" class="mblBx-Lnk text-center">
+                <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Production.svg" alt="Production" class="fieldIcns">
+                <p class="mblFnt1">Production</p>
+            </a>-->
+
         </div>
     </section>
     <?php include('layout/mJs.php'); ?>
