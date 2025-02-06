@@ -298,7 +298,17 @@ if (isset($stockUserFilterFields)) {
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/stock-view.css">
-
+    <style>
+        .colSize0, .mbShw .stkPrcol.colSize0 {
+            width: 0% !important;display: none !important;
+        }
+        .stkTblhead .lgcolSize0 .mbShw, .cntTable .lgcolSize0 .mbShw {
+            width: 100%;
+        }
+        .stkTblhead .lgcolSize0 .stkNamcol, .cntTable .lgcolSize0 .stkNamcol {
+            width: 80% !important;
+        }
+    </style>
 </head>
 
 <body>
