@@ -38,7 +38,8 @@ include_once('script/outlet_report_saleCenter_script.php');
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=1">
+    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=2">
+    
 
 </head>
 
@@ -386,7 +387,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         
                                         <div class="otltBd-itm">
-                                            <p>' . $row['itemName'] .  '<br>' . $row['barCode'] . '</p>
+                                            <p>' . $row['itemName'] .  '<span class="barcode">' . $row['barCode'] . '</span></p>
                                         </div>
                                         <div class="otltBd-itm-typ">
                                             ' . getItemType($row['outletItemType']) . '
@@ -473,11 +474,11 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             <div class="otltBd-var">
                                                                 <p title="Variance Amount">' . getNumFormtPrice($varienceAmt, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
-                                                            <div class="usg-p-g"> 
+                                                            <div class="usg-p-g d-none"> 
                                                             </div>
-                                                            <div class="avg-usg"> 
+                                                            <div class="avg-usg d-none"> 
                                                             </div>
-                                                            <div class="usg-lvl"> 
+                                                            <div class="usg-lvl d-none"> 
                                                             </div>
 
 
@@ -535,7 +536,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                                 <p class="mbSale-Head">' . showOtherLangText('Max') . '</p>
                                                                 <p class="mblMaxQty" title="' . showOtherLangText('Max Qty') . '">' . $row['outletMaxQty'] . '</p>
                                                             </div>
-                                                            <div class="otltBd-Req">
+                                                            <div class="otltBd-Req justify-content-between">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Requisition') . '</p>
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Requisition') . '">' . $requisition . '</p>
                                                             </div>
@@ -694,12 +695,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="Assets/icons/filter.svg" alt="Filter">
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li><button type="submit" class="dropdown-item"><?php echo showOtherLangText('View Selected'); ?></button></li>
+                                            <ul class="dropdown-menu pb-2">
+                                                <li>
+                                                    <button type="submit" class="dropdown-item mb-1 d-flex justify-content-between bg-light align-items-center">
+                                                        <?php echo showOtherLangText('View Selected'); ?>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24"><g fill="none" stroke="#7c8297" stroke-linecap="round" stroke-width="1.5"><path stroke-miterlimit="10" d="M18.024 16.957A8.373 8.373 0 0 1 3.74 11.045"/><path stroke-linejoin="round" d="m17.35 21.25l.832-3.372a1.123 1.123 0 0 0-.854-1.382l-3.372-.843"/><path stroke-miterlimit="10" d="M5.976 7.043a8.373 8.373 0 0 1 14.285 5.912"/><path stroke-linejoin="round" d="m6.65 2.75l-.832 3.372a1.124 1.124 0 0 0 .855 1.382l3.371.843"/></g></svg>
+                                                    </button>
+                                                </li>
 
-                                                <li><input type="checkbox" name="outLetType[]" value="2" <?php echo (!isset($_POST['outLetType']) || in_array('2', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Sales'); ?></li>
-                                                <li><input type="checkbox" name="outLetType[]" value="1" <?php echo (!isset($_POST['outLetType']) || in_array('1', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Bar Control'); ?></li>
-                                                <li><input type="checkbox" name="outLetType[]" value="3" <?php echo (!isset($_POST['outLetType']) || in_array('3', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Usage'); ?></li>
+                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox" name="outLetType[]" value="2" <?php echo (!isset($_POST['outLetType']) || in_array('2', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Sales'); ?></li>
+                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox" name="outLetType[]" value="1" <?php echo (!isset($_POST['outLetType']) || in_array('1', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Bar Control'); ?></li>
+                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox" name="outLetType[]" value="3" <?php echo (!isset($_POST['outLetType']) || in_array('3', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Usage'); ?></li>
                                             </ul>
                                         </form>
                                     </div>
@@ -740,7 +746,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
                                         <div class="otlt-hdImg"></div>
                                         <div class="otlt-itm">
-                                            <p><?php echo showOtherLangText('Item'); ?>/<?php echo showOtherLangText('Bar Code'); ?></p>
+                                            <p><?php echo showOtherLangText('Item'); ?> <span class="barcode">/<?php echo showOtherLangText('Bar Code'); ?></span></p>
                                             <p><?php echo showOtherLangText('Totals'); ?></p>
                                         </div>
 
@@ -800,7 +806,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <div class="flipClm-Hide">
                                             <div class="mbStock">
 
-                                                <div class="otlt-Unit">
+                                                <div class="otlt-Unit pt-0">
                                                     <p class="untCount"><?php echo showOtherLangText('Count Unit'); ?></p>
                                                     <p class="untFtr"><?php echo showOtherLangText('Factor'); ?> </p>
                                                     <p class="untSub"><?php echo showOtherLangText('Sub Unit'); ?></p>
@@ -1057,7 +1063,7 @@ include_once('script/outlet_report_saleCenter_script.php');
         $(document).ready(function() {
 
             $(".cstBtn-Sale").on("click", function() {
-
+                $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode'); 
 
                 if ($("#ShowHideZeroVar.actvSale-Cst").length) {
                     $('.hideVariance').hide();

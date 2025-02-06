@@ -1,4 +1,3 @@
- 
 /* hover effects */
 .reloadBtn a:hover,
 .cstBtn-Sale:hover {
@@ -54,8 +53,9 @@
 }
 
 .otltBd-Min,
-.otltBd-Max {
-    width: 13%;
+.otltBd-Max,
+.otltBd-Req {
+    width: 10%;
 }
 
 .mbStk-Detail {
@@ -63,13 +63,13 @@
     min-height: 40px;
 }
 
-.otlt-Unit {
-    width: 50%;
+.otlt-Unit, .unitBd-div {
+    width: 32.5%;
 }
 
-.unitBd-div {
+/* .unitBd-div {
     width: 50%;
-}
+} */
 
 .otltBd-Unit {
     width: 100%;
@@ -196,7 +196,7 @@
     .usg-p-g,
     .avg-usg,
     .usg-lvl {
-        width: 9.09% !important;
+        width: 12.5% !important;
     }
 
     .otltBd-opnStk,
@@ -210,7 +210,7 @@
     .usg-p-g,
     .avg-usg,
     .usg-lvl {
-        width: 9.09% !important;
+        width: 12.5% !important;
     }
 
     /* .otltBd-opnStk, .otltBd-isn, .otltBd-Ajst { padding-left: 8px; } */
@@ -218,7 +218,14 @@
     .otltBd-var {
         padding-left: 0;
     }
+    .otlt-Min, .otlt-Max, .otlt-avgUsg, .otlt-Req {
+        width: 10%;
+    }
 }
+.flipClm-Hide, .flipInfo-Clm { width: 73%; }
+.barcode { display: none;  }
+.show-barcode .barcode { display: inline-block;  }
+.otltBd-itm.show-barcode .barcode { display: block;  }
 
 /* html[dir="rtl"] .otltBd .form-control[type="date"]::-webkit-calendar-picker-indicator {
 right: auto;
