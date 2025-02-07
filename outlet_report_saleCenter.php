@@ -38,9 +38,8 @@ include_once('script/outlet_report_saleCenter_script.php');
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=2">
-
-
+    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=3">
+ 
 </head>
 
 <body class="mb-saleBg">
@@ -94,7 +93,9 @@ include_once('script/outlet_report_saleCenter_script.php');
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="hstCal">
-                                        <button class="btn btn-primary fab__search__btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+                                        <button class="btn btn-primary fab__search__btn d-lg-none" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseSearch"
+                                            aria-expanded="false" aria-controls="collapseSearch">
                                             <i class="fa-regular fa-calendar p-0"></i>
                                         </button>
                                         <div class="his-featBtn d-none d-lg-inline-block">
@@ -112,14 +113,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                                             <div class="prtDate">
 
                                                 <div class="hstDate">
-                                                    <input type="text" size="10" class="datepicker"
-                                                        name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
+                                                    <input type="text" size="10" class="datepicker" name="fromDate"
+                                                        autocomplete="off"
+                                                        value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
                                                     <span>-</span>
-                                                    <input type="text" size="10" class="datepicker"
-                                                        name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
+                                                    <input type="text" size="10" class="datepicker" name="toDate"
+                                                        autocomplete="off"
+                                                        value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
                                                 </div>
                                                 <div class="reloadBtn">
-                                                    <a href="javascript:void(0)" onClick="return loaderFrm();"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                                    <a href="javascript:void(0)" onClick="return loaderFrm();"><i
+                                                            class="fa-solid fa-arrows-rotate"></i></a>
                                                 </div>
 
 
@@ -158,14 +162,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                                 <div class="collapse" id="collapseSearch">
                                     <div class="mt-4 d-flex gap-2 res__search__box">
                                         <div class="hstDate p-0 border-0">
-                                            <input type="text" size="10" class="datepicker"
-                                                name="fromDate" autocomplete="off" value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
+                                            <input type="text" size="10" class="datepicker" name="fromDate"
+                                                autocomplete="off"
+                                                value="<?php echo isset($_GET['fromDate']) ? $_GET['fromDate'] : date('d-m-Y'); ?>">
                                             <span>-</span>
-                                            <input type="text" size="10" class="datepicker"
-                                                name="toDate" autocomplete="off" value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
+                                            <input type="text" size="10" class="datepicker" name="toDate"
+                                                autocomplete="off"
+                                                value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
                                         </div>
                                         <div class="reloadBtn m-0">
-                                            <a href="javascript:void(0)" onClick="document.frmMobile.submit();"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                            <a href="javascript:void(0)" onClick="document.frmMobile.submit();"><i
+                                                    class="fa-solid fa-arrows-rotate"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -387,7 +394,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         
                                         <div class="otltBd-itm">
-                                            <p>' . $row['itemName'] .  '<span class="barcode">' . $row['barCode'] . '</span></p>
+                                            <p>' . $row['itemName'] . '</p>
                                         </div>
                                         <div class="otltBd-itm-typ">
                                             ' . getItemType($row['outletItemType']) . '
@@ -401,8 +408,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                             <div class="outletInfo">
                                                 <div class="mbStk-Detail">
                                                     <div class="mbHide-Otlt">
-                                                        <div class="itmInfo-Otlt">
-
+                                                        <div class="itmInfo-Otlt"> 
                                                             <div class="otltBd-opnStk d-lg-none">
                                                                 <p class="mbSale-Head">Stock Price</p>
                                                                 <p class="mblStock-Sale" title="Stock Price">' . getNumFormtPrice($stockPrice, $getDefCurDet['curCode'], $decimalPlace) . '</p>
@@ -414,13 +420,11 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             </div>
                                                             <div class="otltBd-isn">
                                                                 <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $row['countingUnit'] : '')
-                                . '</p>
+                                                                <p class="mblStock-Sale fw-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
                                                                 <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $row['countingUnit'] : '') .
-                                '</p>
+                                                                <p class="mblStock-Sale" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
@@ -497,7 +501,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <div class="flipInfo-Clm">
                                             <div class="outletInfo">
                                             
-                                           <div class="mbFlip-Dtl d-none">
+                                            <div class="mbFlip-Dtl d-none">
                                                     <div class="mbFlp-Shw">
                                                         <div class="otltBd-stkPrc">
                                                             <p class="mbSale-Head">' . showOtherLangText('Open Stock') . '</p>
@@ -509,11 +513,15 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                 <div class="mbStk-Flp">
                                                     <div class="mbHide-Otlt">
                                                         <div class="itmInfo-Otlt">
-                                                            <div class="unitBd-div">
-                                                        <div class="otltBd-stkPrc otltBd-stkPrc-1">
-                                                            <p class="mbSale-Head">' . showOtherLangText('Open Stock') . '</p>
-                                                            <p class="opnStk-BdVal"></p>
-                                                        </div>
+                                                            <div class="otltBd-barcode">
+                                                                <span class="d-lg-none">'. showOtherLangText('Bar Code') .'</span>
+                                                                <span>' . $row['barCode'] . '</span>
+                                                            </div>
+                                                            <div class="unitBd-div px-0">
+                                                                <div class="otltBd-stkPrc otltBd-stkPrc-1">
+                                                                    <p class="mbSale-Head">' . showOtherLangText('Open Stock') . '</p>
+                                                                    <p class="opnStk-BdVal"></p>
+                                                                </div>
                                                                 <div class="otltBd-Unithd">
                                                                     <p class="untCount mbSale-Head">' . showOtherLangText('Count Unit') . '</p>
                                                                     <p class="untFtr mbSale-Head">' . showOtherLangText('Factor') . ' </p>
@@ -540,17 +548,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Requisition') . '">' . $requisition . '</p>
                                                             </div>
 
-                                                            <div class="otltBd-Req justify-content-between">
+                                                            <div class="otltBd-guest justify-content-between">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Usage/Guest') . '</p>
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Usage/Guest') . '">' .  getNumFormtPrice($usagePerGuest, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
 
-                                                            <div class="otltBd-Req justify-content-between">
+                                                            <div class="otltBd-avg justify-content-between">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Avg usage') . '</p>
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Avg usage') . '">' .  getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
 
-                                                            <div class="otltBd-Req justify-content-between">
+                                                            <div class="otltBd-level justify-content-between">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Usage level') . '</p>
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Usage/Guest') . '">' .  getNumFormtPrice($usageLevel, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
@@ -594,7 +602,9 @@ include_once('script/outlet_report_saleCenter_script.php');
                                     <p class="tl-Cst"><?php echo showOtherLangText('Total Cost'); ?></p>
                                     <div class="d-flex justify-content-center cst-Value">
                                         <div class="d-flex flex-wrap justify-content-center">
-                                            <p class="prcntage-Val"><?php showPrice($usageItemTotalAmt, $getDefCurDet['curCode'], ''); ?></p>
+                                            <p class="prcntage-Val">
+                                                <?php showPrice($usageItemTotalAmt, $getDefCurDet['curCode'], ''); ?>
+                                            </p>
                                             <p class="cst-Prcntage"><?php echo  $easySalesAmt > 0 ? ('(' . get2DecimalVal(($usageItemTotalAmt / $easySalesAmt) * 100) . '%)') : '';
                                                                     ?></p>
                                         </div>
@@ -602,7 +612,8 @@ include_once('script/outlet_report_saleCenter_script.php');
                                 </div>
                                 <div class="col-md-5 var-Cstcol">
                                     <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                    <p class="sl-varDtl"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
+                                    <p class="sl-varDtl">
+                                        <?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
                                         <?php
                                         if ($varPosAmt > 0 || $varNegAmt < 0) {
                                             echo '(<span style="color:red;">' . $varNegAmt . $getDefCurDet['curCode'] . '</span>,' . '<span class="text-dark">' . $varPosAmt . $getDefCurDet['curCode'] . '</span>' .  ' )';
@@ -645,14 +656,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <div class="gstNo saleGust">
                                             <div class="guestNum d-flex">
                                                 <div class="text-center">
-                                                    <p class="gst-Head"><?php echo showOtherLangText('No. of Guests'); ?></p>
+                                                    <p class="gst-Head">
+                                                        <?php echo showOtherLangText('No. of Guests'); ?></p>
                                                     <p class="gst-Var"><?php echo $guestsTotal; ?></p>
                                                 </div>
                                             </div>
                                             <div class="sl-Num d-flex">
                                                 <div class="text-center">
                                                     <p class="sale-Name"><?php echo showOtherLangText('Sales'); ?></p>
-                                                    <p class="sale-Amunt"><?php showPrice($easySalesAmt, $getDefCurDet['curCode'], ''); ?></p>
+                                                    <p class="sale-Amunt">
+                                                        <?php showPrice($easySalesAmt, $getDefCurDet['curCode'], ''); ?>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -660,7 +674,9 @@ include_once('script/outlet_report_saleCenter_script.php');
                                             <p class="tl-Cst"><?php echo showOtherLangText('Total Cost'); ?></p>
                                             <div class="d-flex justify-content-center cst-Value">
                                                 <div class="d-flex">
-                                                    <p class="prcntage-Val"><?php showPrice($usageItemTotalAmt, $getDefCurDet['curCode'], ''); ?></p>
+                                                    <p class="prcntage-Val">
+                                                        <?php showPrice($usageItemTotalAmt, $getDefCurDet['curCode'], ''); ?>
+                                                    </p>
                                                     <p class="cst-Prcntage"><?php echo  $easySalesAmt > 0 ? ('(' . get2DecimalVal(($usageItemTotalAmt / $easySalesAmt) * 100) . '%)') : '';
                                                                             ?></p>
                                                 </div>
@@ -668,7 +684,8 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         <div class="sale-Variance text-center saleVar-Inr">
                                             <p class="sl-varDtl"><?php echo showOtherLangText('Variances'); ?></p>
-                                            <p class="sl-varDtl"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
+                                            <p class="sl-varDtl">
+                                                <?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 0, ''); ?>
 
                                                 <?php
                                                 if ($varPosAmt > 0 || $varNegAmt < 0) {
@@ -686,8 +703,9 @@ include_once('script/outlet_report_saleCenter_script.php');
                             <div class="row sp-pad1">
                                 <div class="col-md-6 slCst-Srch gap-3">
                                     <div class="input-group srchBx">
-                                        <input type="search" class="form-control" onKeyUp="myFunction()" placeholder="<?php echo showOtherLangText('Search'); ?>" name="search" id="search"
-                                            aria-label="Search">
+                                        <input type="search" class="form-control" onKeyUp="myFunction()"
+                                            placeholder="<?php echo showOtherLangText('Search'); ?>" name="search"
+                                            id="search" aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn" type="button">
                                                 <i class="fa fa-search"></i>
@@ -695,9 +713,12 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                     </div>
                                     <!-- Filter Btn Start -->
-                                    <div class="dropdown slCst-fltBtn">
-                                        <form action="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>" id="frmRevType" name="frmRevType" method="post">
-                                            <input type="hidden" name="fromDate" value="<?php echo $_GET['fromDate']; ?>" />
+                                    <div class="dropdown slCst-fltBtn m-0">
+                                        <form
+                                            action="outlet_report_saleCenter.php?outLetId=<?php echo $_GET['outLetId']; ?>&fromDate=<?php echo $_GET['fromDate']; ?>&toDate=<?php echo $_GET['toDate']; ?>"
+                                            id="frmRevType" name="frmRevType" method="post">
+                                            <input type="hidden" name="fromDate"
+                                                value="<?php echo $_GET['fromDate']; ?>" />
                                             <input type="hidden" name="toDate" value="<?php echo $_GET['toDate']; ?>" />
 
                                             <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -706,22 +727,38 @@ include_once('script/outlet_report_saleCenter_script.php');
                                             </button>
                                             <ul class="dropdown-menu pb-2">
                                                 <li>
-                                                    <button type="submit" class="dropdown-item mb-1 d-flex justify-content-between bg-light align-items-center">
+                                                    <button type="submit"
+                                                        class="dropdown-item mb-1 d-flex justify-content-between bg-light align-items-center">
                                                         <?php echo showOtherLangText('View Selected'); ?>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
-                                                            <g fill="none" stroke="#7c8297" stroke-linecap="round" stroke-width="1.5">
-                                                                <path stroke-miterlimit="10" d="M18.024 16.957A8.373 8.373 0 0 1 3.74 11.045" />
-                                                                <path stroke-linejoin="round" d="m17.35 21.25l.832-3.372a1.123 1.123 0 0 0-.854-1.382l-3.372-.843" />
-                                                                <path stroke-miterlimit="10" d="M5.976 7.043a8.373 8.373 0 0 1 14.285 5.912" />
-                                                                <path stroke-linejoin="round" d="m6.65 2.75l-.832 3.372a1.124 1.124 0 0 0 .855 1.382l3.371.843" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em"
+                                                            height="1.25em" viewBox="0 0 24 24">
+                                                            <g fill="none" stroke="#7c8297" stroke-linecap="round"
+                                                                stroke-width="1.5">
+                                                                <path stroke-miterlimit="10"
+                                                                    d="M18.024 16.957A8.373 8.373 0 0 1 3.74 11.045" />
+                                                                <path stroke-linejoin="round"
+                                                                    d="m17.35 21.25l.832-3.372a1.123 1.123 0 0 0-.854-1.382l-3.372-.843" />
+                                                                <path stroke-miterlimit="10"
+                                                                    d="M5.976 7.043a8.373 8.373 0 0 1 14.285 5.912" />
+                                                                <path stroke-linejoin="round"
+                                                                    d="m6.65 2.75l-.832 3.372a1.124 1.124 0 0 0 .855 1.382l3.371.843" />
                                                             </g>
                                                         </svg>
                                                     </button>
                                                 </li>
 
-                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox" name="outLetType[]" value="2" <?php echo (!isset($_POST['outLetType']) || in_array('2', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Sales'); ?></li>
-                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox" name="outLetType[]" value="1" <?php echo (!isset($_POST['outLetType']) || in_array('1', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Bar Control'); ?></li>
-                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox" name="outLetType[]" value="3" <?php echo (!isset($_POST['outLetType']) || in_array('3', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Usage'); ?></li>
+                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox"
+                                                        name="outLetType[]" value="2"
+                                                        <?php echo (!isset($_POST['outLetType']) || in_array('2', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Sales'); ?>
+                                                </li>
+                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox"
+                                                        name="outLetType[]" value="1"
+                                                        <?php echo (!isset($_POST['outLetType']) || in_array('1', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Bar Control'); ?>
+                                                </li>
+                                                <li class="px-3"><input class="form-check-input me-2" type="checkbox"
+                                                        name="outLetType[]" value="3"
+                                                        <?php echo (!isset($_POST['outLetType']) || in_array('3', $_POST['outLetType'])) ? 'checked="checked"' : ''; ?> /><?php echo showOtherLangText('Usage'); ?>
+                                                </li>
                                             </ul>
                                         </form>
                                     </div>
@@ -733,9 +770,11 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <a href="javascript:void(0)" class="cstBtn-Sale" data-bs-toggle="modal"
                                             data-bs-target="#adjust">
                                             <img src="Assets/icons/Setting_line.svg" alt="Adjustment"
-                                                class="cstBtn-Img"> <span class="cstMb"><?php echo showOtherLangText('Adjust'); ?></span>
+                                                class="cstBtn-Img"> <span
+                                                class="cstMb"><?php echo showOtherLangText('Adjust'); ?></span>
                                         </a>
-                                        <a id="ShowHideZeroVar" href="javascript:void(0)" class="cstBtn-Sale ShowHideZeroVar">
+                                        <a id="ShowHideZeroVar" href="javascript:void(0)"
+                                            class="cstBtn-Sale ShowHideZeroVar">
                                             <img src="Assets/icons/zero.svg" alt="zero" class="cstBtn-Img">
                                         </a>
                                         <a href="javascript:void(0)" class="cstBtn-Sale hideBtn-Info">
@@ -759,10 +798,13 @@ include_once('script/outlet_report_saleCenter_script.php');
                                 <!-- Item Table Head Start -->
                                 <div class="container outletTask d-none d-lg-flex">
                                     <div class="otltTbl-head">
-                                        <div class="otlt-slno"><?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?></div>
+                                        <div class="otlt-slno">
+                                            <?php echo mysqli_num_rows($outLetItemsQry) > 0 ? mysqli_num_rows($outLetItemsQry) : ''; ?>
+                                        </div>
                                         <div class="otlt-hdImg"></div>
                                         <div class="otlt-itm">
-                                            <p><?php echo showOtherLangText('Item'); ?> <span class="barcode">/<?php echo showOtherLangText('Bar Code'); ?></span></p>
+                                            <p><?php echo showOtherLangText('Item'); ?>  
+                                            </p>
                                             <p><?php echo showOtherLangText('Totals'); ?></p>
                                         </div>
 
@@ -778,40 +820,64 @@ include_once('script/outlet_report_saleCenter_script.php');
                                             <div class="mbStock">
                                                 <div class="otlt-opnStk">
                                                     <p><?php echo showOtherLangText('Open Stock'); ?></p>
-                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Open Stock Amount'); ?>"><?php echo getNumFormtPrice($openStockAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="stkVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Open Stock Amount'); ?>">
+                                                        <?php echo getNumFormtPrice($openStockAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
                                                 <div class="otlt-isn">
                                                     <p><?php echo showOtherLangText('Issues In'); ?></p>
-                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Issues In Amount'); ?> "><?php echo getNumFormtPrice($issueInAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="stkVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Issues In Amount'); ?> ">
+                                                        <?php echo getNumFormtPrice($issueInAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
                                                 <div class="otlt-Ajst">
                                                     <p><?php echo showOtherLangText('Adjust'); ?></p>
-                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Adjustment Amount'); ?> "><?php echo getNumFormtPrice($adjustmentAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="stkVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Adjustment Amount'); ?> ">
+                                                        <?php echo getNumFormtPrice($adjustmentAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
 
 
                                                 </div>
                                                 <div class="otlt-Pos">
                                                     <p><?php echo showOtherLangText('Sales POS'); ?></p>
-                                                    <p class="posValue" title="<?php echo showOtherLangText('Sales POS Amount'); ?>"><?php echo getNumFormtPrice($salesAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="posValue"
+                                                        title="<?php echo showOtherLangText('Sales POS Amount'); ?>">
+                                                        <?php echo getNumFormtPrice($salesAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
                                                 <div class="otlt-slBar">
                                                     <p><?php echo showOtherLangText('Sales Bar'); ?></p>
-                                                    <p class="posValue" title="<?php echo showOtherLangText('Sales Bar Amount'); ?>"><?php echo getNumFormtPrice($barControlAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="posValue"
+                                                        title="<?php echo showOtherLangText('Sales Bar Amount'); ?>">
+                                                        <?php echo getNumFormtPrice($barControlAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
                                                 <div class="otlt-clStk">
                                                     <p><?php echo showOtherLangText('Close Stock'); ?></p>
-                                                    <p class="stkVal-Otlt" title="<?php echo showOtherLangText('Close Stock Amount'); ?>"><?php echo getNumFormtPrice($closeStockAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="stkVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Close Stock Amount'); ?>">
+                                                        <?php echo getNumFormtPrice($closeStockAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
 
 
                                                 <div class="otlt-usg">
                                                     <p><?php echo showOtherLangText('Usage'); ?></p>
-                                                    <p class="cstVal-Otlt" title="<?php echo showOtherLangText('Usage Amount'); ?>"><?php echo getNumFormtPrice($usageAmtTot, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="cstVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Usage Amount'); ?>">
+                                                        <?php echo getNumFormtPrice($usageAmtTot, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
 
                                                 <div class="otlt-var">
                                                     <p><?php echo showOtherLangText('Variance'); ?></p>
-                                                    <p class="varnVal-Otlt" title="<?php echo showOtherLangText('Amount'); ?>"><?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 2); ?></p>
+                                                    <p class="varnVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Amount'); ?>">
+                                                        <?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 2); ?>
+                                                    </p>
                                                 </div>
 
 
@@ -821,9 +887,11 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         <div class="flipClm-Hide">
                                             <div class="mbStock">
-
+                                                <div class="otlt-barcode"><?php echo showOtherLangText('Bar Code'); ?>
+                                                </div>
                                                 <div class="otlt-Unit pt-0">
-                                                    <p class="untCount"><?php echo showOtherLangText('Count Unit'); ?></p>
+                                                    <p class="untCount"><?php echo showOtherLangText('Count Unit'); ?>
+                                                    </p>
                                                     <p class="untFtr"><?php echo showOtherLangText('Factor'); ?> </p>
                                                     <p class="untSub"><?php echo showOtherLangText('Sub Unit'); ?></p>
                                                 </div>
@@ -843,7 +911,8 @@ include_once('script/outlet_report_saleCenter_script.php');
 
 
                                                 <div class="usg-p-g">
-                                                    <p><?php echo showOtherLangText('Usage'); ?>/<?php echo showOtherLangText('Guest'); ?></p>
+                                                    <p><?php echo showOtherLangText('Usage'); ?>/<?php echo showOtherLangText('Guest'); ?>
+                                                    </p>
                                                     <p class="stkVal-Otlt"></p>
                                                 </div>
                                                 <div class="avg-usg">
@@ -905,13 +974,16 @@ include_once('script/outlet_report_saleCenter_script.php');
                             value="<?php echo isset($_GET['toDate']) ? $_GET['toDate'] : date('d-m-Y'); ?>">
 
 
-                        <input type="text" class="form-control" name="item" id="item" onChange="checkItemtype(this.value);" placeholder="<?php echo showOtherLangText('Item'); ?>">
+                        <input type="text" class="form-control" name="item" id="item"
+                            onChange="checkItemtype(this.value);"
+                            placeholder="<?php echo showOtherLangText('Item'); ?>">
                         <input type="date" class="form-control" name="adjDate" id="adjDate">
                         <input type="number" class="form-control" name="qty" id="ajstNum" placeholder="1">
 
                         <div style="display:none;" id="barItemAdj" class="my-3">
                             <!-- <div style="width: 35%;"></div> -->
-                            <div class="d-flex align-items-center"><input type="checkbox" name="adjForEnptyBottle" value="1" class="form-check-input" />&nbsp;&nbsp;Tick it to adjust
+                            <div class="d-flex align-items-center"><input type="checkbox" name="adjForEnptyBottle"
+                                    value="1" class="form-check-input" />&nbsp;&nbsp;Tick it to adjust
                                 <?php echo showOtherLangText('empty bottle(s)'); ?> </div>
                         </div>
 
@@ -919,10 +991,12 @@ include_once('script/outlet_report_saleCenter_script.php');
                     </div>
                     <div class="modal-footer justify-content-start">
                         <div class="btnBg">
-                            <button type="submit" name="saveBtn" class="btn btn-primary"><?php echo showOtherLangText('Save'); ?></button>
+                            <button type="submit" name="saveBtn"
+                                class="btn btn-primary"><?php echo showOtherLangText('Save'); ?></button>
                         </div>
                         <div class="btnBg">
-                            <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Cancel'); ?></button>
+                            <button type="submit"
+                                class="btn btn-primary"><?php echo showOtherLangText('Cancel'); ?></button>
                         </div>
                     </div>
                 </div>
@@ -940,206 +1014,206 @@ include_once('script/outlet_report_saleCenter_script.php');
 
     <script type="text/javascript" src="cdn_js/jquery-ui-1.12.1.js"></script>
     <script>
-        $(function() {
-            $(".datepicker").datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
+    $(function() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy'
         });
+    });
 
 
-        function loaderFrm() {
+    function loaderFrm() {
 
-            document.getElementById('frm').submit();
-            return true;
-        }
-
-
-        function checkItemtype(itemName) {
-
-            $.ajax({
-                    method: "POST",
-                    url: "ajax.php",
-
-                    data: {
-                        itemNameVal: itemName,
-                        outLetId: '<?php echo $_GET['outLetId']; ?>'
-                    }
-                })
-                .done(function(itemType) {
-
-                    if (itemType == 1) {
-                        $('#barItemAdj').show();
-                    } else {
-                        $('#barItemAdj').hide();
-                    }
+        document.getElementById('frm').submit();
+        return true;
+    }
 
 
-                });
-        }
+    function checkItemtype(itemName) {
 
-        function updateNote(notes, pId) {
+        $.ajax({
+                method: "POST",
+                url: "ajax.php",
 
-            $.ajax({
-                    method: "POST",
-                    url: "ajax.php",
+                data: {
+                    itemNameVal: itemName,
+                    outLetId: '<?php echo $_GET['outLetId']; ?>'
+                }
+            })
+            .done(function(itemType) {
 
-                    data: {
-                        actionType: 'updateProductNote',
-                        outLetId: '<?php echo $_GET['outLetId']; ?>',
-                        pId: pId,
-                        fromDate: '<?php echo $_GET['fromDate']; ?>',
-                        notes: notes
-                    }
-                })
-                .done(function(note) {
-
-                });
-        }
+                if (itemType == 1) {
+                    $('#barItemAdj').show();
+                } else {
+                    $('#barItemAdj').hide();
+                }
 
 
+            });
+    }
+
+    function updateNote(notes, pId) {
+
+        $.ajax({
+                method: "POST",
+                url: "ajax.php",
+
+                data: {
+                    actionType: 'updateProductNote',
+                    outLetId: '<?php echo $_GET['outLetId']; ?>',
+                    pId: pId,
+                    fromDate: '<?php echo $_GET['fromDate']; ?>',
+                    notes: notes
+                }
+            })
+            .done(function(note) {
+
+            });
+    }
 
 
-        $(document).ready(function() {
 
-            var availableTags = [
-                <?php
+
+    $(document).ready(function() {
+
+        var availableTags = [
+            <?php
 
                 foreach ($proRows as $pId => $pName) {
                     $itemName = $pName . '(' . $pId . ')';
                     echo "'$itemName'" . ',';
                 }
                 ?>
-            ];
+        ];
 
-            $("#item").autocomplete({
-                source: availableTags
-            });
-            $("#itemNotes").autocomplete({
-                source: availableTags
-            });
+        $("#item").autocomplete({
+            source: availableTags
         });
+        $("#itemNotes").autocomplete({
+            source: availableTags
+        });
+    });
 
-        function myFunction() {
-            var parentDivs = document.getElementsByClassName("outletBody-Task");
-            var input = document.getElementById("search");
-            var filter = input.value.toLowerCase();
+    function myFunction() {
+        var parentDivs = document.getElementsByClassName("outletBody-Task");
+        var input = document.getElementById("search");
+        var filter = input.value.toLowerCase();
 
-            for (var i = 0; i < parentDivs.length; i++) {
-                var parentDiv = parentDivs[i];
-                var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
-                var foundInChild = false;
-
-
-                for (var j = 0; j < childNodes.length; j++) {
-                    var childNode = childNodes[j];
-                    var text = childNode.textContent || childNode.innerText;
+        for (var i = 0; i < parentDivs.length; i++) {
+            var parentDiv = parentDivs[i];
+            var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
+            var foundInChild = false;
 
 
-                    if (text.toLowerCase().includes(filter)) {
-                        if (!foundInChild) {
-                            parentDiv.style.display = "flex";
-                        }
-                        childNode.style.display = "flex";
-                        foundInChild = true;
-                    } else {
-                        childNode.style.display = "none"; // Hide non-matching child
+            for (var j = 0; j < childNodes.length; j++) {
+                var childNode = childNodes[j];
+                var text = childNode.textContent || childNode.innerText;
+
+
+                if (text.toLowerCase().includes(filter)) {
+                    if (!foundInChild) {
+                        parentDiv.style.display = "flex";
                     }
-                }
-
-                if (!foundInChild) {
-                    parentDiv.style.display = "none";
-                }
-            }
-        }
-
-        function debounce(fn, delay) {
-            let timeout;
-            return function() {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => fn.apply(this, arguments), delay);
-            };
-        }
-
-
-        document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
-
-        $("#search").on("search", function(evt) {
-            if ($(this).val().length == 0) {
-                resetData();
-            }
-        });
-
-        function resetData() {
-
-            $('#search').val('');
-            myFunction();
-        }
-
-
-        $(document).ready(function() {
-
-            $(".cstBtn-Sale").on("click", function() {
-                $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode');
-
-                if ($("#ShowHideZeroVar.actvSale-Cst").length) {
-                    $('.hideVariance').hide();
+                    childNode.style.display = "flex";
+                    foundInChild = true;
                 } else {
-                    $('.hideVariance').show();
+                    childNode.style.display = "none"; // Hide non-matching child
                 }
-
-
-                if ($(".hideBtn-Info").hasClass("actvSale-Cst")) {
-                    $(".otlt-stkPrc").hide();
-                    $(".otltBd-stkPrc").hide();
-
-                    $(".otltBd-Avr").hide();
-                    $(".otlt-avgUsg").hide();
-
-                } else {
-                    $(".otlt-stkPrc").show();
-                    $(".otltBd-Avr").show();
-                    $(".otlt-avgUsg").show();
-                }
-
-            });
-        });
-
-        $(document).ready(function() {
-
-            $(".cstBtn-Qty").on("click", function() {
-
-
-
-
-                $('.mblStock-Sale').toggle();
-
-
-
-                $(".cstBtn-Qty").toggleClass('actvSale-Cst');
-
-
-
-            });
-
-
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            const dateInputs = document.querySelectorAll('html[dir="rtl"] .otltBd .form-control[type="date"]');
-
-            dateInputs.forEach(input => {
-                input.style.setProperty('--calendar-icon-position', 'left');
-            });
-        });
-
-
-        $(".cstBtn-Sale.hideBtn-Prc").click(function() {
-            if ($(".mbStk-Detail").hasClass('.js-toggle')) {
-                $(".otlt-stkPrc").toggleClass("go_down");
             }
+
+            if (!foundInChild) {
+                parentDiv.style.display = "none";
+            }
+        }
+    }
+
+    function debounce(fn, delay) {
+        let timeout;
+        return function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => fn.apply(this, arguments), delay);
+        };
+    }
+
+
+    document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
+
+    $("#search").on("search", function(evt) {
+        if ($(this).val().length == 0) {
+            resetData();
+        }
+    });
+
+    function resetData() {
+
+        $('#search').val('');
+        myFunction();
+    }
+
+
+    $(document).ready(function() {
+
+        $(".cstBtn-Sale").on("click", function() {
+            $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode');
+
+            if ($("#ShowHideZeroVar.actvSale-Cst").length) {
+                $('.hideVariance').hide();
+            } else {
+                $('.hideVariance').show();
+            }
+
+
+            if ($(".hideBtn-Info").hasClass("actvSale-Cst")) {
+                $(".otlt-stkPrc").hide();
+                $(".otltBd-stkPrc").hide();
+
+                $(".otltBd-Avr").hide();
+                $(".otlt-avgUsg").hide();
+
+            } else {
+                $(".otlt-stkPrc").show();
+                $(".otltBd-Avr").show();
+                $(".otlt-avgUsg").show();
+            }
+
         });
-        $(".slCst-Lnk").click(function() {
-            $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle");
+    });
+
+    $(document).ready(function() {
+
+        $(".cstBtn-Qty").on("click", function() {
+
+
+
+
+            $('.mblStock-Sale').toggle();
+
+
+
+            $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+
+
+
         });
+
+
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const dateInputs = document.querySelectorAll('html[dir="rtl"] .otltBd .form-control[type="date"]');
+
+        dateInputs.forEach(input => {
+            input.style.setProperty('--calendar-icon-position', 'left');
+        });
+    });
+
+
+    $(".cstBtn-Sale.hideBtn-Prc").click(function() {
+        if ($(".mbStk-Detail").hasClass('.js-toggle')) {
+            $(".otlt-stkPrc").toggleClass("go_down");
+        }
+    });
+    $(".slCst-Lnk").click(function() {
+        $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle");
+    });
     </script>
 </body>
 

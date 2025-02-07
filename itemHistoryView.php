@@ -333,8 +333,17 @@ $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
             padding-left: 0;
             padding-right: 8px;
         }
+        @media screen and (max-width: 992px) {
+            .mb-itmVwbarRwConvert {
+                border-radius: 10px 0px 0px 10px;
+                display: inline-block;
+                width: 1.5%;
+                align-self: stretch;
+                background-color: #7a89fe;
+            }
+        }
     </style>
-    <!-- Links for datePicker and dialog popup -->
+    <!-- Links for datePicker and dialog popup --> 
 
 </head>
 
@@ -799,7 +808,8 @@ $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
                                         $sidePanelClass = 'mb-itmVwbarVar';
                                         $assignTo = '<span style="color:Blue;font-weight:bold;">' . showOtherLangText('Stock Take') . '</span>';
                                     } else {
-                                        $assignTo = '<span style="color:Blue;font-weight:bold;">' . showOtherLangText('Raw Item Convert') . '</span>';
+                                        $sidePanelClass = 'mb-itmVwbarRwConvert';
+                                        $assignTo = '<span style="color:#7a89fe;font-weight:bold;">' . showOtherLangText('Raw Item Convert') . '</span>';
                                     }
 
                                     $suppMemStoreName = '';
