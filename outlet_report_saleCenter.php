@@ -39,7 +39,7 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=2">
-    
+
 
 </head>
 
@@ -410,37 +410,39 @@ include_once('script/outlet_report_saleCenter_script.php');
 
                                                             <div class="otltBd-opnStk">
                                                                 <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale" title="Open Stock">' . ($openStock) . '</p>
+                                                                <p class="mblStock-Sale" title="Open Stock">' . ($openStock ? $openStock . ' ' . $row['countingUnit'] : '')   .  '</p>
                                                             </div>
                                                             <div class="otltBd-isn">
                                                                 <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold" title="Issues In">' . showValue($issueIn) . '</p>
+                                                                <p class="mblStock-Sale fw-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $row['countingUnit'] : '')
+                                . '</p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
                                                                 <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale" title="adjustment">' . showValue($adjustment) . '</p>
+                                                                <p class="mblStock-Sale" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $row['countingUnit'] : '') .
+                                '</p>
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold salesQty" title="Sales POS">' . $sales . '</p>
+                                                                <p class="mblStock-Sale fw-bold salesQty" title="Sales POS">' . ($sales ?  $sales . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-slBar">
                                                                 <p class="mbSale-Head">Sales Bar.C</p>
-                                                                <p class="mblStock-Sale fw-bold" title="Sales Bar">' . $barControl . '</p>
+                                                                <p class="mblStock-Sale fw-bold" title="Sales Bar">' . ($barControl ?  $barControl . ' ' . $row['subUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-clStk">
                                                                 <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale" title=""Close Stock">' . $closeStock . '</p>
+                                                                <p class="mblStock-Sale" title=""Close Stock">' . ($closeStock ?  $closeStock . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                               <div class="otltBd-usg">
                                                             <p class="mbSale-Head">Usage</p>
-                                                            <p class="mblStock-Sale fw-bold" title="Usage">' . $usage . '</p>
+                                                            <p class="mblStock-Sale fw-bold" title="Usage">' . ($usage ?  $usage . ' ' . $row['countingUnit'] : '') . '</p>
                                                         </div>
 
 
                                                         <div class="otltBd-var">
                                                             <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold" title="Variance">' . $variancesVal . '</p>
+                                                            <p class="mblStock-Sale fw-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $row['countingUnit'] : '') . '</p>
                                                         </div>
                                                            
 
@@ -474,12 +476,9 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             <div class="otltBd-var">
                                                                 <p title="Variance Amount">' . getNumFormtPrice($varienceAmt, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
-                                                            <div class="usg-p-g d-none"> 
-                                                            </div>
-                                                            <div class="avg-usg d-none"> 
-                                                            </div>
-                                                            <div class="usg-lvl d-none"> 
-                                                            </div>
+                                                            <div class="usg-p-g d-none"> <p title="Usage Amount">' . getNumFormtPrice($usagePerGuest, $getDefCurDet['curCode'], $decimalPlace) . '</p> </div>
+                                                            <div class="avg-usg d-none"><p title="Usage Amount">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p> </div>
+                                                            <div class="usg-lvl d-none"> <p title="Usage Amount">' . getNumFormtPrice($usageLevel, $getDefCurDet['curCode'], $decimalPlace) . '</p> </div>
 
 
                                                         
@@ -541,11 +540,21 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                                 <p class="mblReq fw-bold" title="' . showOtherLangText('Requisition') . '">' . $requisition . '</p>
                                                             </div>
 
-                                                             <div class="otltBd-Avr">
-                                                                <p class="mbSale-Head">' . showOtherLangText('Avr Usage') . '</p>
-                                                                <p class="mblAvg-Dtl" title="' . showOtherLangText('Usage Avg') . '">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
-                                                                <p class="mblAvr-Usg" title="' . showOtherLangText('Usage Avg') . '">' . getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
+                                                            <div class="otltBd-Req justify-content-between">
+                                                                <p class="mbSale-Head">' . showOtherLangText('Usage/Guest') . '</p>
+                                                                <p class="mblReq fw-bold" title="' . showOtherLangText('Usage/Guest') . '">' .  getNumFormtPrice($usagePerGuest, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
+
+                                                            <div class="otltBd-Req justify-content-between">
+                                                                <p class="mbSale-Head">' . showOtherLangText('Avg usage') . '</p>
+                                                                <p class="mblReq fw-bold" title="' . showOtherLangText('Avg usage') . '">' .  getNumFormtPrice($usageAvg, $getDefCurDet['curCode'], $decimalPlace) . '</p>
+                                                            </div>
+
+                                                            <div class="otltBd-Req justify-content-between">
+                                                                <p class="mbSale-Head">' . showOtherLangText('Usage level') . '</p>
+                                                                <p class="mblReq fw-bold" title="' . showOtherLangText('Usage/Guest') . '">' .  getNumFormtPrice($usageLevel, $getDefCurDet['curCode'], $decimalPlace) . '</p>
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -699,7 +708,14 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                 <li>
                                                     <button type="submit" class="dropdown-item mb-1 d-flex justify-content-between bg-light align-items-center">
                                                         <?php echo showOtherLangText('View Selected'); ?>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24"><g fill="none" stroke="#7c8297" stroke-linecap="round" stroke-width="1.5"><path stroke-miterlimit="10" d="M18.024 16.957A8.373 8.373 0 0 1 3.74 11.045"/><path stroke-linejoin="round" d="m17.35 21.25l.832-3.372a1.123 1.123 0 0 0-.854-1.382l-3.372-.843"/><path stroke-miterlimit="10" d="M5.976 7.043a8.373 8.373 0 0 1 14.285 5.912"/><path stroke-linejoin="round" d="m6.65 2.75l-.832 3.372a1.124 1.124 0 0 0 .855 1.382l3.371.843"/></g></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
+                                                            <g fill="none" stroke="#7c8297" stroke-linecap="round" stroke-width="1.5">
+                                                                <path stroke-miterlimit="10" d="M18.024 16.957A8.373 8.373 0 0 1 3.74 11.045" />
+                                                                <path stroke-linejoin="round" d="m17.35 21.25l.832-3.372a1.123 1.123 0 0 0-.854-1.382l-3.372-.843" />
+                                                                <path stroke-miterlimit="10" d="M5.976 7.043a8.373 8.373 0 0 1 14.285 5.912" />
+                                                                <path stroke-linejoin="round" d="m6.65 2.75l-.832 3.372a1.124 1.124 0 0 0 .855 1.382l3.371.843" />
+                                                            </g>
+                                                        </svg>
                                                     </button>
                                                 </li>
 
@@ -1063,7 +1079,7 @@ include_once('script/outlet_report_saleCenter_script.php');
         $(document).ready(function() {
 
             $(".cstBtn-Sale").on("click", function() {
-                $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode'); 
+                $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode');
 
                 if ($("#ShowHideZeroVar.actvSale-Cst").length) {
                     $('.hideVariance').hide();
