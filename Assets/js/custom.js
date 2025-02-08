@@ -294,19 +294,20 @@ $(".fetBtn a").click(function () {
 
 // Stock Page All Store Start
 $(document).ready(function () {
-  $(".allStore").hide();
+  //$(".allStore").hide();
 
   $(".dskAll-str").click(function () {
-    $(".allStore").css("display", "flex");
+   // $(".allStore").css("display", "flex");
     $(".storeCol").css("background", "transparent");
     $(".dskAll-str").hide();
   });
 
-  $(".allStore").click(function () {
+  /*$(".allStore").click(function () {
     $(".dskAll-str").css("display", "flex");
     $(".storeCol").css("background", "transparent");
     $(".allStore").hide();
-  });
+  });*/
+
 });
 // Stock Page All Store End
 
@@ -321,7 +322,7 @@ $(".otrStock").click(function () {
 
   $(".dskAll-str").css("display", "flex");
   $(".storeCol").css("background", "transparent");
-  $(".allStore").hide();
+  //$(".allStore").hide();
 });
 
 // Stock Page Single Store End

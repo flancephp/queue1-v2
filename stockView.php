@@ -299,13 +299,19 @@ if (isset($stockUserFilterFields)) {
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/stock-view.css">
     <style>
-        .colSize0, .mbShw .stkPrcol.colSize0 {
-            width: 0% !important;display: none !important;
+        .colSize0,
+        .mbShw .stkPrcol.colSize0 {
+            width: 0% !important;
+            display: none !important;
         }
-        .stkTblhead .lgcolSize0 .mbShw, .cntTable .lgcolSize0 .mbShw {
+
+        .stkTblhead .lgcolSize0 .mbShw,
+        .cntTable .lgcolSize0 .mbShw {
             width: 100%;
         }
-        .stkTblhead .lgcolSize0 .stkNamcol, .cntTable .lgcolSize0 .stkNamcol {
+
+        .stkTblhead .lgcolSize0 .stkNamcol,
+        .cntTable .lgcolSize0 .stkNamcol {
             width: 80% !important;
         }
     </style>
@@ -380,7 +386,7 @@ if (isset($stockUserFilterFields)) {
                                             </div>
                                         </a> -->
                                         <?php if (mysqli_num_rows($storeQry) > 1) {  ?>
-                                            <a href="stockView.php" class="allStore">
+                                            <a href="stockView.php" class="allStore <?php echo !isset($_GET['filterByStorage']) ? 'selectedAllStore' : ''; ?>">
                                                 <div class="othStr">
                                                     <div class="storeCont">
                                                         <h2 class="h2"><?php echo showOtherLangText('All Stores') ?></h2>
@@ -847,21 +853,26 @@ if (isset($stockUserFilterFields)) {
                                                 <?php } else { ?>
                                                     <div class="tb-bdy stkQtyclm stkQtybdy">
                                                         <span class="d-md-none small-font">Qty:</span>
-                                                        <span><?php echo $row['stockQty']; ?></span>
+                                                        <span><?php echo $row['stockQty'] ? $row['stockQty'] . ' ' . $row['countingUnit'] : ''; ?></span>
                                                     </div>
                                                 <?php } ?>
                                                 <?php if (isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="tb-bdy stkQtyclm stkreqbdy">
                                                         <span class="d-md-none small-font">Req qty:</span>
-                                                        <span style="font-weight:600;"><?php echo $totalTempProQty; ?></span>
+                                                        <span style="font-weight:600;"><?php echo $totalTempProQty ? $totalTempProQty . ' ' . $row['countingUnit'] : ''; ?></span>
                                                     </div>
                                                 <?php } ?>
                                                 <?php if (isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="tb-bdy stkQtyclm stkavabdy">
                                                         <span class="d-md-none small-font"><?php echo showOtherLangText('Avail Qty'); ?>:</span>
-                                                        <span style="font-weight:600;"><?php echo ($row['stockQty'] - $totalTempProQty); ?></span>
+                                                        <span style="font-weight:600;">
+                                                            <?php
+                                                            $avlQty = ($row['stockQty'] - $totalTempProQty);
+
+                                                            echo $avlQty ? $avlQty . ' ' . $row['countingUnit'] : ''; ?>
+                                                        </span>
                                                     </div>
                                                 <?php } ?>
 
@@ -1227,7 +1238,7 @@ if (isset($stockUserFilterFields)) {
         $(function() {
 
             <?php if (!isset($_GET['filterByStorage'])) { ?>
-                $(".allStore").css("display", "flex");
+                // $(".allStore").css("display", "flex");
                 // $(".storeCol").css("background", "#7A89FE");
                 // $(".dskAll-str").hide();
 
