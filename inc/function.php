@@ -5810,6 +5810,6 @@ function getAccountIds($accountId, $condWithoutGroup = '')
 
 	$hisRow = mysqli_fetch_array($historyQry);
 
-	return $hisRow ? $hisRow['allBankIds'] : [];
+	return $hisRow ? $hisRow['allBankIds'] : '';
 }
 ?>

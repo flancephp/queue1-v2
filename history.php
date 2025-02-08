@@ -369,7 +369,7 @@ LEFT JOIN tbl_suppliers sp ON
 WHERE o.status = 2 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
 $historyQry = mysqli_query($con, $mainSqlQry);
 
-$bankAccountIdArr = getAccountIds($_SESSION['accountId'], $condWithoutGroup); //get this to pass into below query in account list section
+$bankAccountIdsStr = getAccountIds($_SESSION['accountId'], $condWithoutGroup); //get this to pass into below query in account list section
 
 // $cond = '';
 // $cond1 = '';
@@ -978,7 +978,9 @@ if ($getTxtById == 'storeId') {
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
     <style>
-        .modal-table .table-cell:nth-child(1) { white-space: nowrap; }
+        .modal-table .table-cell:nth-child(1) {
+            white-space: nowrap;
+        }
     </style>
 
 </head>
@@ -1514,7 +1516,7 @@ if ($getTxtById == 'storeId') {
                                             $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
                                             INNER JOIN tbl_currency c 
                                                 ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-                                            WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdArr . ") ";
+                                            WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdsStr . ") ";
                                             $result = mysqli_query($con, $sqlSet);
 
                                             $totalAccounts = mysqli_num_rows($result);

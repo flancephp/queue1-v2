@@ -189,6 +189,10 @@ AND (o.ordType=1 AND  dp.id > 0 OR o.ordType=2 AND  dp1.id > 0 OR o.ordType=3 OR
 
 $historyQry = mysqli_query($con, $mainSqlQry);
 
+
+$bankAccountIdsStr = getAccountIds($_SESSION['accountId'], $condWithoutGroup); //get this to pass into below query in account list section
+
+
 // Get full address and their logo of client
 $sql = " SELECT c.name AS countryName, cl.* FROM tbl_client cl
 LEFT JOIN tbl_country c ON(cl.country=c.id)
@@ -300,7 +304,7 @@ $content = '<form action="history_pdf_download.php" target="_blank" method="get"
                                         <span class="fs-13">' . showOtherLangText('Converted') . '</span>
                                     </li>
                                     <li>
-                                        <input type="checkbox" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
+                                        <input type="checkbox" checked="checked" name="summaryAccount" onclick="showHideByClassHistory(\'accountSection\')"  class="smryCheckboxHistory summary-account form-check-input" value="1">
                                         <span class="fs-13">' . showOtherLangText('Accounts') . '</span>
                                     </li>
                                 </ul>
@@ -589,52 +593,28 @@ if ($count > 1) {
 }
 
 
-
-/*if ($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0) {
-    if ($count > 1) {
-        $issueinClass = ' col-12';
-        $issueoutClass = ' col-6';
-        $varianceClass = ' col-6';
-    } else {
-        $issueinClass = ' col-7';
-        $issueoutClass = ' col-3';
-        $varianceClass = ' col-2';
-    }
-} elseif ($checkIfPermissionToNewOrderSec > 0) {
-    if ($count > 1) {
-        $issueinClass = ' col-12';
-        $issueoutClass = ' col-6';
-        $varianceClass = ' col-6';
-    } else {
-        $issueinClass = ' col-7';
-        $issueoutClass = ' col-3';
-        $varianceClass = ' col-2';
-    }
-} elseif ($checkIfPermissionToNewReqSec > 0) {
-    $issueinClass = ' col-3';
-    $issueoutClass = ' col-6';
-    $varianceClass = ' col-6';
-}*/
-
-if ($checkIfPermissionToNewOrderSec > 0 && $checkIfPermissionToNewReqSec > 0) {
-
-    $issueinClass = ' col-6';
-    $issueoutClass = ' col-6';
-    $varianceClass = ' col-6';
-} elseif ($checkIfPermissionToNewOrderSec > 0) {
-    $issueinClass = ' col-12';
-    $issueoutClass = ' col-12';
-} elseif ($checkIfPermissionToNewReqSec > 0) {
-    $issueinClass = ' col-12';
-    $issueoutClass = ' col-12';
+//width condition
+$issueinClass = 'col-12';
+$issueoutClass = 'col-12';
+$issueInShowing = false;
+$issueOutShowing = false;
+if ($issueInTotal > 0 && $checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1)) {
+    $issueInShowing = true;
 }
 
-$convertedClass = 'col-6';
-$varianceClass = 'col-6';
+if ($issueOutTotal > 0 && $checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 2)) {
+    $issueOutShowing = true;
+}
+
+if ($issueInShowing && $issueOutShowing) {
+    $issueinClass = 'col-6';
+    $issueoutClass = 'col-6';
+}
 
 
-//echo 'ooo=>'.$issueinClass.'--'.$issueoutClass.'--'.$varianceClass;
-// exit;   
+//end width conditions
+
+//overwrite above in case order type is selcted from history page from drop list
 if ($_SESSION['getVals']['ordType'] != '') {
     if ($_SESSION['getVals']['ordType'] == 1) {
         $issueinClass = 'col-12';
@@ -642,10 +622,13 @@ if ($_SESSION['getVals']['ordType'] != '') {
         $issueoutClass = 'col-12';
     } elseif ($_SESSION['getVals']['ordType'] == 3) {
         $varianceClass = 'col-12';
+    } elseif ($_SESSION['getVals']['ordType'] == 4) {
+        $convertedClass = 'col-12';
     }
 }
+
 //issue in starts here
-if ($checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1)) {
+if ($issueInTotal > 0 && $checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1)) {
     $content .= '<div class="summery-row summery-row1">
                         <div class="row m-0"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="' . count($otherCurrRowArr) . '"/>
                             <div class=" ' . $issueinClass . ' issueInSection px-0 pe-1 summaryPart">
@@ -684,8 +667,10 @@ if ($checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '
     }
     $content .= '</div></div>
                             </div>';
-}
-if ($checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 2)) {
+} //end issue in section
+
+//issue out starts here
+if ($issueOutTotal > 0 && $checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 2)) {
     $content .= '<div class=" ' . $issueoutClass . ' issueOutSection pe-1 ps-0 summaryPart">
                                 <div class="modal-table fs-12 w-100">
                                     <div class="table-row header-row">
@@ -708,18 +693,31 @@ if ($checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVals']['ordType'] == '' 
                                     </div>
                                 </div>
                             </div>';
-}
+} //end issue out
 $variancesPosTot = 0;
 $variancesPosQtyTot = 0;
 $variancesNevQtyTot = 0;
 $variancesNevTot = 0;
 $varaincesVal = 0;
 
-//variance starts here
 $varOrConverted = false;
-if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+
+//converted starts condition only starts so that in vairance width cond.. can be added
+if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 4) {
 
     $varOrConverted = true;
+    $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
+                                        AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
+
+    $resultSet = mysqli_query($con, $sqlSet);
+    $convertedResRow = mysqli_fetch_array($resultSet);
+}
+
+//variance starts here
+$varianceClass = 'col-12';
+if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+
+
     $sqlSet = " SELECT od.* FROM tbl_order_details od
                         INNER JOIN tbl_orders o
                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
@@ -734,7 +732,12 @@ if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 
             $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
         }
     }
-    $content .= '<div class=" ' . $varianceClass . ' varianceRow ps-0 pe-0 summaryPart" id="varianceId">
+
+    if ($variancesPosTot || $variancesNevTot) {
+
+        $varianceClass = $varOrConverted ? 'col-6' : 'col-12';
+
+        $content .= '<div class=" ' . $varianceClass . ' varianceRow ps-0 pe-1 summaryPart" id="varianceId">
                                 <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
                     <div class="table-cell medium">' . showOtherLangText('Variance') . '</div>
                                     </div>
@@ -746,38 +749,56 @@ if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 
                                 </div>
                             </div>
                            ';
+    }
+
+    $varOrConverted = true;
 }
 
 
 //converted starts here
 if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 4) {
 
-    $varOrConverted = true;
-    $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
-                                        AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
 
-    $resultSet = mysqli_query($con, $sqlSet);
-    $resRow = mysqli_fetch_array($resultSet);
+    if ($convertedResRow['totConvertedAmt']) {
 
-    $content .= '<div class="' . $convertedClass . '  convertedRow ps-0 pe-0 summaryPart" id="convertedId">
+        $convertedClass = $varianceClass;
+
+        $content .= '<div class="' . $convertedClass . '  convertedRow ps-0 pe-1 summaryPart" id="convertedId">
                                     <div class="table-row header-row" style=" font-size: 12px; line-height: normal;">
                                         <div class="table-cell medium">' . showOtherLangText('Converted') . '</div>
                                     </div>
                                     <div class="modal-table fs-12 w-100">
                                         <div class="table-row thead">
-                                            <div class="table-cell">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</div>
+                                            <div class="table-cell">' . getPriceWithCur($convertedResRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</div>
                                         </div>
                                     </div>
-                            </div>
-                            ';
+                            </div>';
+    }
 }
+
+
+$_SESSION['issueinClass'] = $issueinClass;
+$_SESSION['issueoutClass'] = $issueoutClass;
+$_SESSION['convertedClass'] = $convertedClass;
+$_SESSION['varianceClass'] = $varianceClass;
 
 if ($varOrConverted) {
     $content .= ' </div></div></div>';
 }
 
 
-$content .= '<div style="display:none;" class="overflowTable accountSection summaryPart"> 
+
+
+
+$sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
+            INNER JOIN tbl_currency c 
+                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
+            WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdsStr . ") ";
+$result = mysqli_query($con, $sqlSet);
+
+if (mysqli_num_rows($result) > 0) {
+
+    $content .= '<div  class="overflowTable accountSection summaryPart"> 
                         <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
                             <div class="table-row header-row">
                                 <div class="table-cell medium">' . showOtherLangText('Accounts') . '</div>
@@ -787,29 +808,27 @@ $content .= '<div style="display:none;" class="overflowTable accountSection summ
                                 <div class="table-cell">&nbsp;</div>
                                 <div class="table-cell">&nbsp;</div>
                             </div>';
-$sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
-            INNER JOIN tbl_currency c 
-                ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-            WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
-$result = mysqli_query($con, $sqlSet);
-$content .= '<div class="table-row thead">';
-$i = 0;
-while ($resultRow = mysqli_fetch_array($result)) {
-    if ($i % 6 == 0 && $i != 0) {
-        $content .= '</div><div class="table-row thead">';
-    }
-    $curCode = $resultRow['curCode'];
-    $balanceAmt = round($resultRow['balanceAmt'], 4);
 
-    $content .= '<div class="table-cell"> ' . number_format($balanceAmt) . '
+    $content .= '<div class="table-row thead">';
+    $i = 0;
+    while ($resultRow = mysqli_fetch_array($result)) {
+        if ($i % 6 == 0 && $i != 0) {
+            $content .= '</div><div class="table-row thead">';
+        }
+        $curCode = $resultRow['curCode'];
+        $balanceAmt = round($resultRow['balanceAmt'], 4);
+
+        $content .= '<div class="table-cell"> ' . number_format($balanceAmt) . '
                         ' . $curCode . '<small>' . $resultRow['accountName'] . '</small></div>';
-    $i++;
-}
-$content .= '</div>';
+        $i++;
+    }
+    $content .= '</div>';
 
 
-$content .= '</div>
+    $content .= '</div>
                     </div>';
+} //end account cond
+
 $content .= '<div class="overflowTable"> 
                         <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">';

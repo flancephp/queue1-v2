@@ -258,6 +258,7 @@ while ($otherCurrRows = mysqli_fetch_array($result)) {
     }
 }
 
+$bankAccountIdsStr = getAccountIds($_SESSION['accountId'], $condWithoutGroup); //get this to pass into below query in account list section
 
 
 
@@ -292,8 +293,8 @@ if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 
 $sqlSet = " SELECT c.curCode, a.* FROM  tbl_accounts a 
 INNER JOIN tbl_currency c 
     ON( c.id=a.currencyId) AND c.account_Id=a.account_Id
-WHERE a.account_id = '" . $_SESSION['accountId'] . "' ";
-$result = mysqli_query($con, $sqlSet);
+WHERE a.account_id = '" . $_SESSION['accountId'] . "' AND a.id IN(" . $bankAccountIdsStr . ") ";
+$accountResult = mysqli_query($con, $sqlSet);
 
 // ==========================================
 
@@ -383,13 +384,38 @@ foreach ($otherCurrRowArr as $otherCurrRow) {
     $otherCurrRow;
 }
 
-$count;
-$issueinClass = '';
-$issueoutClass = '';
-$tabelrowClass = '';
-$convertedClass = '';
 
-if ($_GET['issuedOut'] == 1 && $_GET['issueInSummary'] == 1) {
+if ($count > 1 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
+
+    $issueinClass = 'width: 70%';
+    $issueoutClass = 'width: 30%';
+} elseif ($_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
+    $issueinClass = 'width: 50%';
+    $issueoutClass = 'width: 50%';
+} elseif ($_GET['issueInSummary'] == 1) {
+    $issueinClass = 'width: 100%';
+} elseif ($_GET['issuedOut'] == 1) {
+    $issueoutClass = 'width: 100%';
+}
+
+
+if ($_GET['variance'] == 1 && $_GET['converted'] == 1) {
+
+    $varianceClass = 'width: 50%';
+    $convertedClass = 'width: 50%';
+} elseif ($_GET['variance'] == 1) {
+
+    $varianceClass = 'width: 100%';
+} elseif ($_GET['converted'] == 1) {
+
+    $convertedClass = 'width: 100%';
+}
+
+$tabelrowClass = 'display:table-cell';
+$tdwidth = 'width:100%';
+
+
+/*if ($_GET['issuedOut'] == 1 && $_GET['issueInSummary'] == 1) {
     $issueinClass = 'width: 50%;';
     $issueoutClass = 'width: 50%;';
     $tabelrowClass = 'display:table-cell';
@@ -420,7 +446,7 @@ if ($_GET['variance'] == 1 && $_GET['converted'] == 1) {
     $convertedClass = 'width: 100%;';
     $tabelrowClass = 'display:table-cell';
     $tdwidth = 'width:100%';
-}
+}*/
 
 
 
@@ -443,7 +469,8 @@ if (($_SESSION['getVals']['ordType'] != '' && $_SESSION['getVals']['ordType'] !=
 $content .= '<table style="font-size:12px;" width="98%">
         <tr style="vertical-align: baseline;">';
 
-if ($_GET['issueInSummary'] == 1) {
+//issue in total
+if ($_GET['issueInSummary'] == 1 && $issueInTotal > 0) {
     $content .= '<td style="' . $issueinClass . '"><table style="width:100%; margin-right:1px; font-size:12px; border-collapse: collapse;">
                     <tr style="font-weight:bold;">
                         <td style="padding: 8px 5px;">&nbsp;</td>';
@@ -499,8 +526,10 @@ if ($_GET['issueInSummary'] == 1) {
     $content .=  '
                 </table>';
     $content .= '</td>';
-}
-if ($_GET['issuedOut'] == 1) {
+} //end issue in section
+
+//starts issue out section
+if ($_GET['issuedOut'] == 1 && $issueOutTotal > 0) {
     $content .= '<td style="' . $issueoutClass . '">
                 <table style="width:100%; margin-right:1%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold;">
@@ -531,7 +560,7 @@ if ($_GET['issuedOut'] == 1) {
     }
 
     $content .= '</table></td>';
-}
+} //end issue out section
 
 
 $content .= '</tr>
@@ -541,7 +570,7 @@ $content .= '</tr>
 
 $content .= '<table style="font-size:12px;" width="98%"><tr>';
 
-if ($_GET['variance'] == 1) {
+if ($_GET['variance'] == 1 && ($variancesPosTot || $variancesNevTot)) {
     $content .= '<td style="' . $varianceClass . '">
                     <table style="width:100%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
@@ -565,24 +594,26 @@ if ($_GET['converted'] == 1) {
     $resultSet = mysqli_query($con, $sqlSet);
     $resRow = mysqli_fetch_array($resultSet);
 
-    $content .= '<td style="' . $convertedClass . '">
-    <table style="width:100%; font-size:12px; border-collapse: collapse;">';
+    if ($resRow['totConvertedAmt'] > 0) {
+        $content .= '<td style="' . $convertedClass . '">
+        <table style="width:100%; font-size:12px; border-collapse: collapse;">';
 
-    $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
-                           <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Converted') . '</td>
-                            </tr>';
+        $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
+                            <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Converted') . '</td>
+                                </tr>';
 
-    $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                        <td style="padding: 8px 5px;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</td>
-                    </tr>
-                </table></td>
-            ';
+        $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
+                            <td style="padding: 8px 5px;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) . '</td>
+                        </tr>
+                    </table></td>
+                ';
+    }
 }
 
 
 $content .= '</tr>
     </table>';
-if ($_GET['summaryAccount'] == 1) {
+if ($_GET['summaryAccount'] == 1 && mysqli_num_rows($accountResult) > 0) {
     $content .= '<table style="width:100%; font-size:12px; margin-block-start: 24px;">
         <tr style="font-weight:bold;">
             <td style="padding: 8px 5px;">' . showOtherLangText('Accounts') . '</td>
@@ -596,7 +627,7 @@ if ($_GET['summaryAccount'] == 1) {
 
     $num = 0;
 
-    while ($resultRow = mysqli_fetch_array($result)) {
+    while ($resultRow = mysqli_fetch_array($accountResult)) {
 
 
         if (($num % 6) == 0 && $num > 1) $content .= '</tr><tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">';
@@ -608,10 +639,11 @@ if ($_GET['summaryAccount'] == 1) {
                                                         ' . number_format($balanceAmt) . '
                                                         ' . $curCode . '<small style="display: block; font-weight: 500;font-size: 10px;">' . $resultRow['accountName'] . '</small></td>';
     }
+
+    $content .= '</tr></table>';
 }
 
 
-$content .= '</tr></table>';
 
 
 if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1 || $_GET['itemType'] == 1 || $_GET['itemReferTo'] == 1 || $_GET['itemSupInvNo'] == 1 || $_GET['itemValue'] == 1 || $_GET['itemDefCurrValue'] == 1 || $_GET['itemSecCurrValue'] == 1 || $_GET['itemPaymentNo'] == 1 || $_GET['itemInvNo'] == 1 || $_GET['itemStatus'] == 1 || $_GET['itemAccount'] == 1) {
