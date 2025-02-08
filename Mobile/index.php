@@ -58,70 +58,80 @@ $toalIssueOutOrders = mysqli_num_rows($assignQry);
         </div>
     </section>
     <section class="homeList">
-        <div class="container homeCont d-flex justify-content-between flex-wrap">
+        <div class="container homeCont">
+            <div class="row g-4 g-sm-5 row-cols-md-3 row-cols-2">
             <?php
             if ($mobUserPermission['storage_stocktaking'] == 1) { ?>
-                <a href="<?php echo $mobileSiteUrl; ?>storageStocktaking1.php" class="mblBx-Lnk text-center">
+            <div class="d-flex"> 
+                <a href="<?php echo $mobileSiteUrl; ?>storageStocktaking1.php" class="mblBx-Lnk w-100 m-0 text-center">
                     <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Stoctaking.svg" alt="Storage" class="fieldIcns">
                     <p class="mblFnt1">
                         <?php echo showOtherLangText('Storage Stocktaking') ?>
                     </p>
                 </a>
+            </div>
                 <?php
             }
 
             if ($_SESSION['accountId'] != 4) {
                 if ($mobUserPermission['outlet_stocktaking'] == 1) { ?>
-                    <a href="<?php echo $mobileSiteUrl; ?>outletStocktaking1.php" class="mblBx-Lnk text-center">
+                <div class="d-flex"> 
+                    <a href="<?php echo $mobileSiteUrl; ?>outletStocktaking1.php" class="mblBx-Lnk w-100 m-0 text-center">
                         <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/outlet_Stoctaking.svg" alt="Outlet" class="fieldIcns">
                         <p class="mblFnt1">
                             <?php echo showOtherLangText('Outlet Stocktaking') ?>
                         </p>
                     </a>
+                </div>
                 <?php
                 }
             }
 
             if ($mobUserPermission['receiving_order'] == 1) { ?>
-                <a href="<?php echo $mobileSiteUrl; ?>receiveOrder1.php" class="mblBx-Lnk text-center">
+            <div class="d-flex"> 
+                <a href="<?php echo $mobileSiteUrl; ?>receiveOrder1.php" class="mblBx-Lnk w-100 m-0 text-center">
                     <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Receving.svg" alt="Receving" class="fieldIcns">
                     <p class="mblFnt1"><?php echo showOtherLangText('Receiving') ?></p>
                     <?php
                     echo ($totalReceivingCount > 0) ? '<span class="position-absolute translate-middle badge rounded-pill bg-danger homeBadge">' . $totalReceivingCount . '</span>' : '';
                     ?>
                 </a>
+            </div>
             <?php
             }
 
             if ($mobUserPermission['issuing_out'] == 1) { ?>
-                <a href="<?php echo $mobileSiteUrl; ?>issueOut1.php" class="mblBx-Lnk text-center">
+            <div class="d-flex"> 
+                <a href="<?php echo $mobileSiteUrl; ?>issueOut1.php" class="mblBx-Lnk w-100 m-0 text-center">
                     <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Issue_Out.svg" alt="Issue Out" class="fieldIcns">
                     <p class="mblFnt1"><?php echo showOtherLangText('Issuing Out') ?></p>
                     <?php
                     echo ($toalIssueOutOrders > 0) ? '<span class="position-absolute translate-middle badge rounded-pill bg-danger homeBadge">' . $toalIssueOutOrders . '</span>' : '';
                     ?>
                 </a>
+            </div>
             <?php
             }
             ?>
-
+            <!--
+            <a href="#" class="mblBx-Lnk w-100 m-0 text-center">
+                <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Production.svg" alt="Production" class="fieldIcns">
+                <p class="mblFnt1">Production</p>
+            </a>-->
             <?php
             if ($_SESSION['accountId'] != 4) {
                 if ($mobUserPermission['bar_control_sales'] == 1) { ?>
-                    <a href="<?php echo $mobileSiteUrl; ?>barControl1.php" class="mblBx-Lnk text-center">
+                <div class="d-flex"> 
+                    <a href="<?php echo $mobileSiteUrl; ?>barControl1.php" class="mblBx-Lnk w-100 m-0 text-center">
                         <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Bar_Control.svg" alt="Bar Control" class="fieldIcns">
                         <p class="mblFnt1"><?php echo showOtherLangText('Bar Control Sales') ?></p>
                     </a>
+                </div>
             <?php
                 }
             }
             ?>
-            <!--
-            <a href="#" class="mblBx-Lnk text-center">
-                <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Production.svg" alt="Production" class="fieldIcns">
-                <p class="mblFnt1">Production</p>
-            </a>-->
-
+            </div>
         </div>
     </section>
     <?php include('layout/mJs.php'); ?>

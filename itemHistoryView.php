@@ -337,7 +337,7 @@ $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
             .mb-itmVwbarRwConvert {
                 border-radius: 10px 0px 0px 10px;
                 display: inline-block;
-                width: 1.5%;
+                width: 3%;
                 align-self: stretch;
                 background-color: #7a89fe;
             }

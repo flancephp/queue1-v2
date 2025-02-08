@@ -39,6 +39,9 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=3">
+    <style>
+        .font-bold { font-weight: bold ;}
+    </style>
  
 </head>
 
@@ -411,42 +414,42 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                         <div class="itmInfo-Otlt"> 
                                                             <div class="otltBd-opnStk d-lg-none">
                                                                 <p class="mbSale-Head">Stock Price</p>
-                                                                <p class="mblStock-Sale" title="Stock Price">' . getNumFormtPrice($stockPrice, $getDefCurDet['curCode'], $decimalPlace) . '</p>
+                                                                <p class="mblStock-Sale font-bold" title="Stock Price">' . getNumFormtPrice($stockPrice, $getDefCurDet['curCode'], $decimalPlace) . '</p>
                                                             </div>
 
                                                             <div class="otltBd-opnStk">
                                                                 <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale" title="Open Stock">' . ($openStock ? $openStock . ' ' . $row['countingUnit'] : '')   .  '</p>
+                                                                <p class="mblStock-Sale font-bold" title="Open Stock">' . ($openStock ? $openStock . ' ' . $row['countingUnit'] : '')   .  '</p>
                                                             </div>
                                                             <div class="otltBd-isn">
                                                                 <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale fw-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale  font-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
                                                                 <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale font-bold" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale fw-bold salesQty" title="Sales POS">' . ($sales ?  $sales . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale  font-bold salesQty" title="Sales POS">' . ($sales ?  $sales . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-slBar">
                                                                 <p class="mbSale-Head">Sales Bar.C</p>
-                                                                <p class="mblStock-Sale fw-bold" title="Sales Bar">' . ($barControl ?  $barControl . ' ' . $row['subUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale font-bold" title="Sales Bar">' . ($barControl ?  $barControl . ' ' . $row['subUnit'] : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-clStk">
                                                                 <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale" title=""Close Stock">' . ($closeStock ?  $closeStock . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale font-bold" title=""Close Stock">' . ($closeStock ?  $closeStock . ' ' . $row['countingUnit'] : '') . '</p>
                                                             </div>
                                                               <div class="otltBd-usg">
                                                             <p class="mbSale-Head">Usage</p>
-                                                            <p class="mblStock-Sale fw-bold" title="Usage">' . ($usage ?  $usage . ' ' . $row['countingUnit'] : '') . '</p>
+                                                            <p class="mblStock-Sale  font-bold" title="Usage">' . ($usage ?  $usage . ' ' . $row['countingUnit'] : '') . '</p>
                                                         </div>
 
 
                                                         <div class="otltBd-var">
                                                             <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale fw-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $row['countingUnit'] : '') . '</p>
+                                                            <p class="mblStock-Sale  font-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $row['countingUnit'] : '') . '</p>
                                                         </div>
                                                            
 

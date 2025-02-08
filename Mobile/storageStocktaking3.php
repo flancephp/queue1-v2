@@ -68,7 +68,7 @@ $stockMainQry = mysqli_query($con, $sql);
                         </div>
                     </div>
                     <div class="resetClm">
-                        <a href="javascript:void(0)" class="resetBtn" onClick="showMsg();"><i class="fa-solid fa-ellipsis"></i></a>
+                        <a href="javascript:void(0)" class="resetBtn" onClick="showMsg();"><i class="fa-solid fa-rotate-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 mblFnsClm d-flex justify-content-end">

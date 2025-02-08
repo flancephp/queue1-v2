@@ -977,7 +977,9 @@ if ($getTxtById == 'storeId') {
     <link rel="stylesheet" href="Assets/css/history-page.css?v=1">
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
-
+    <style>
+        .modal-table .table-cell:nth-child(1) { white-space: nowrap; }
+    </style>
 
 </head>
 
