@@ -297,7 +297,7 @@ if (isset($stockUserFilterFields)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/stock-view.css">
+    <link rel="stylesheet" href="Assets/css/stock-view.css?v=1">
     <style>
         .colSize0,
         .mbShw .stkPrcol.colSize0 {
@@ -314,6 +314,7 @@ if (isset($stockUserFilterFields)) {
         .cntTable .lgcolSize0 .stkNamcol {
             width: 80% !important;
         }
+        .selectedAllStore.allStore .othStr { border-color: #6a7bff; }
     </style>
 </head>
 
@@ -1026,7 +1027,7 @@ if (isset($stockUserFilterFields)) {
                                                 <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33 mbLst-value">
-                                                        <p><span class="">Max<?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></span></p>
+                                                        <p><span class="">Max <?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></span></p>
                                                     </div>
                                                 <?php } ?>
 
