@@ -981,9 +981,18 @@ if ($getTxtById == 'storeId') {
         .modal-table .table-cell:nth-child(1) {
             white-space: nowrap;
         }
-        .twoItem > div { min-width: 45% !important; }
-        .threeItem > div { min-width: 32% !important; }
-        .fourItem > div { min-width: 24% !important; }
+
+        .twoItem>div {
+            min-width: 45% !important;
+        }
+
+        .threeItem>div {
+            min-width: 32% !important;
+        }
+
+        .fourItem>div {
+            min-width: 24% !important;
+        }
     </style>
 
 </head>
@@ -1315,7 +1324,70 @@ if ($getTxtById == 'storeId') {
                         <?php }
 
 
-                        if (mysqli_num_rows($historyQry) > 0) { ?>
+                        if (mysqli_num_rows($historyQry) > 0) {
+
+                            $classNameForHeadingSec = 0;
+
+                            if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) && $issueInTotal > 0) {
+                                $classNameForHeadingSec++;
+                            }
+
+                            if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 2)) && $issueOutTotal > 0) {
+                                $classNameForHeadingSec++;
+                            }
+
+                            if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 3)) {
+                                $variancesPosTot = 0;
+                                $variancesNevTot = 0;
+                                $varaincesVal = 0;
+
+                                //variance starts here
+                                // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+
+                                $varDataAvl = false;
+                                $sqlSet = " SELECT od.* FROM tbl_order_details od
+                                    INNER JOIN tbl_orders o
+                                        ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                                    WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " ";
+                                $resultSet = mysqli_query($con, $sqlSet);
+                                while ($resRow = mysqli_fetch_array($resultSet)) {
+
+                                    $varDataAvl = true;
+                                    $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+
+                                    if ($varaincesVal > 0) {
+                                        $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
+                                    } elseif ($varaincesVal < 0) {
+                                        $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
+                                    }
+                                }
+
+                                if ($varDataAvl) {
+                                    $classNameForHeadingSec++;
+                                }
+                            }
+
+                            if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
+
+                                $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
+                AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
+
+                                $resultSet = mysqli_query($con, $sqlSet);
+                                $convrtedRow = mysqli_fetch_array($resultSet);
+
+                                if ($convrtedRow['totConvertedAmt'] > 0) {
+                                    $classNameForHeadingSec++;
+                                }
+                            }
+
+                            $classArr = [1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four'];
+
+                            $classNameForHeading = '';
+                            if ($classNameForHeadingSec) {
+                                $classNameForHeading = $classArr[$classNameForHeadingSec] . 'Item';
+                            }
+
+                        ?>
 
                             <div class="container detailPrice">
                                 <div class="tab-mbDtl">
@@ -1325,7 +1397,7 @@ if ($getTxtById == 'storeId') {
                                     <div class="row align-items-start issueDtl_accntDtl_main">
                                         <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap d-block">
                                             <div class="overflow-x-auto">
-                                                <div class="d-flex w-100 flex-wrap flex-md-nowrap jsPricebox twoItem">
+                                                <div class="d-flex w-100 flex-wrap flex-md-nowrap jsPricebox <?php echo $classNameForHeading; ?>">
 
                                                     <?php if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) && $issueInTotal > 0) { ?>
                                                         <div class="issueIn">
@@ -1459,30 +1531,7 @@ if ($getTxtById == 'storeId') {
                                                     } //end issue out
 
                                                     if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 3)) {
-                                                        $variancesPosTot = 0;
-                                                        $variancesNevTot = 0;
-                                                        $varaincesVal = 0;
 
-                                                        //variance starts here
-                                                        // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
-
-                                                        $varDataAvl = false;
-                                                        $sqlSet = " SELECT od.* FROM tbl_order_details od
-                                            INNER JOIN tbl_orders o
-                                                ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                                            WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " ";
-                                                        $resultSet = mysqli_query($con, $sqlSet);
-                                                        while ($resRow = mysqli_fetch_array($resultSet)) {
-
-                                                            $varDataAvl = true;
-                                                            $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
-
-                                                            if ($varaincesVal > 0) {
-                                                                $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
-                                                            } elseif ($varaincesVal < 0) {
-                                                                $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
-                                                            }
-                                                        }
                                                     ?>
                                                         <?php if ($varDataAvl): ?>
                                                             <div class="Variance text-center">
@@ -1494,17 +1543,13 @@ if ($getTxtById == 'storeId') {
                                                     <?php
                                                     } //end variance
                                                     if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
-                                                        $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
-                                        AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
 
-                                                        $resultSet = mysqli_query($con, $sqlSet);
-                                                        $resRow = mysqli_fetch_array($resultSet);
 
                                                     ?>
-                                                        <?php if ($resRow['totConvertedAmt'] > 0): ?>
+                                                        <?php if ($convrtedRow['totConvertedAmt'] > 0): ?>
                                                             <div class="Variance text-center">
                                                                 <p class="varDtl px-2"><?php echo showOtherLangText('Converted'); ?></p>
-                                                                <p class="varValue px-2"><?php echo getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode']) ?></p>
+                                                                <p class="varValue px-2"><?php echo getPriceWithCur($convrtedRow['totConvertedAmt'], $getDefCurDet['curCode']) ?></p>
                                                             </div>
                                                         <?php endif; ?>
                                                     <?php } ?>
