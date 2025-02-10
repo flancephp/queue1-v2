@@ -2469,7 +2469,17 @@ if ($getTxtById == 'storeId') {
         $('.toggle-currency-btn').click(function() {
             $(this).toggleClass('active');
             $('.usdCurr').toggle();
-            $(".jsPricebox").toggleClass("fourItem twoItem threeItem");
+
+            if ($(this).hasClass('active')) {
+                $(".jsPricebox").removeClass("oneItem");
+                $(".jsPricebox").removeClass("twoItem");
+                $(".jsPricebox").removeClass("threeItem");
+                $(".jsPricebox").removeClass("fourItem");
+            } else {
+                $(".jsPricebox").addClass("<?php echo $classNameForHeading; ?>");
+            }
+
+
         });
 
         function showRawItemAndStockTakeOrder(ordType, ordId) {
