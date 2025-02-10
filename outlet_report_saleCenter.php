@@ -38,12 +38,8 @@ include_once('script/outlet_report_saleCenter_script.php');
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=3">
-    <style>
-        .font-bold { font-weight: bold ;}
-        .otltBd-hdImg img { width: 60px; }
-        .otltTbl-bdy { align-items: flex-start; } 
-    </style>
+    <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=4">
+  
  
 </head>
 

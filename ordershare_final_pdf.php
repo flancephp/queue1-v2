@@ -182,7 +182,7 @@ if (
                     </tr>
                 </table></td>
         </tr>';
-    $content .= '<tr><td width="25%" align="top" style="vertical-align:top;">';
+    $content .= '<tr><td width="35%" align="top" style="vertical-align:top;">';
     if ($_GET['supplierInvoice']  == 1) {
         $content .=   '<table style="width: 100%;">
                         <tr>
@@ -205,7 +205,7 @@ if (
 
     $content .=  '</td>';
     if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
-        $content .= '<td width="25%"></td>
+        $content .= '<td width="15%"></td>
             <td width="50%">
                 <table style="width: 100%;border-collapse: collapse;">';
         $sqlSet = "SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  AND (customChargeType='1' OR customChargeType='0')";
@@ -560,6 +560,7 @@ if ($_GET['taskRecord'] == 1) {
 
 
 $content .= '</body> </html>';
+ 
 // unset($content);
 // $content = '<html>
 // <head>
