@@ -981,6 +981,9 @@ if ($getTxtById == 'storeId') {
         .modal-table .table-cell:nth-child(1) {
             white-space: nowrap;
         }
+        .twoItem > div { min-width: 45% !important; }
+        .threeItem > div { min-width: 32% !important; }
+        .fourItem > div { min-width: 24% !important; }
     </style>
 
 </head>
@@ -1322,7 +1325,7 @@ if ($getTxtById == 'storeId') {
                                     <div class="row align-items-start issueDtl_accntDtl_main">
                                         <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap d-block">
                                             <div class="overflow-x-auto">
-                                                <div class="d-flex w-100 flex-wrap flex-md-nowrap">
+                                                <div class="d-flex w-100 flex-wrap flex-md-nowrap jsPricebox twoItem">
 
                                                     <?php if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) && $issueInTotal > 0) { ?>
                                                         <div class="issueIn">
@@ -2419,7 +2422,9 @@ if ($getTxtById == 'storeId') {
         }
 
         $('.toggle-currency-btn').click(function() {
+            $(this).toggleClass('active');
             $('.usdCurr').toggle();
+            $(".jsPricebox").toggleClass("fourItem twoItem threeItem");
         });
 
         function showRawItemAndStockTakeOrder(ordType, ordId) {

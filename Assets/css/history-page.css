@@ -557,7 +557,8 @@ width: auto !important;
     background-color: #fff;
 }
 
-.toggle-currency-btn:hover {
+.toggle-currency-btn:hover,
+.toggle-currency-btn.active {
     color: #fff !important;
     background-color: #7a89ff;
     border-color: #7a89ff;
