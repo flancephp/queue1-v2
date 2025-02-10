@@ -993,6 +993,20 @@ if ($getTxtById == 'storeId') {
         .fourItem>div {
             min-width: 24% !important;
         }
+
+        @media (min-width: 1025px) {
+            .issueInPrices .usdCurr { flex: 1 0 0%; }
+            .oneCurrIssueOut .issueIn { flex: 45% 0 0; }
+            .twoCurrIssueOut .issueIn { flex: 65% 0 0; }
+
+            .oneCurrIssueOut_var .issueIn { flex: 45% 0 0; }
+            .oneCurrIssueOut_var .issueOut { flex: 30% 0 0; }
+            .twoCurrIssueOut_var .issueIn { flex: 50% 0 0; }
+
+            .oneCurrIssueOut_var_con .issueIn { flex: 36% 0 0; }
+            .oneCurrIssueOut_var_con .issueOut { flex: 25% 0 0; }
+            .oneCurrIssueOut_var_con .Variance { flex: 18% 0 0; }
+        }
     </style>
 
 </head>
