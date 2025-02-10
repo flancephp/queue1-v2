@@ -448,7 +448,7 @@ html[dir="rtl"] .payment__table th:first-child { border-radius: 0 .625rem .625re
 html[dir="rtl"] .payment__table th:last-child { border-radius: .625rem 0 0 .625rem; }
 .payment__table td { padding: 1.125rem;border-bottom: 1px solid #DFE0E8;vertical-align: middle; }
 .payment__table tbody tr:last-child td { border-bottom: 3px solid var(--color-primary);padding-bottom: 1.5rem; }
-.payment__table th:nth-child(1), .payment__table td:nth-child(1) { width: 5%; }
+.payment__table th:nth-child(1), .payment__table td:nth-child(1) { width: 5%;white-space: nowrap; }
 .payment__table th:nth-child(2), .payment__table td:nth-child(2) { width: 25%; }
 .payment__table th:nth-child(3), .payment__table td:nth-child(3) { width: 10%; }
 .payment__table th:nth-child(4), .payment__table td:nth-child(4) { width: 12%; }
