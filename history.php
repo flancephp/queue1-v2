@@ -995,17 +995,41 @@ if ($getTxtById == 'storeId') {
         }
 
         @media (min-width: 1025px) {
-            .issueInPrices .usdCurr { flex: 1 0 0%; }
-            .oneCurrIssueOut .issueIn { flex: 45% 0 0; }
-            .twoCurrIssueOut .issueIn { flex: 65% 0 0; }
+            .issueInPrices .usdCurr {
+                flex: 1 0 0%;
+            }
 
-            .oneCurrIssueOut_var .issueIn { flex: 45% 0 0; }
-            .oneCurrIssueOut_var .issueOut { flex: 30% 0 0; }
-            .twoCurrIssueOut_var .issueIn { flex: 50% 0 0; }
+            .oneCurrIssueOut .issueIn {
+                flex: 45% 0 0;
+            }
 
-            .oneCurrIssueOut_var_con .issueIn { flex: 36% 0 0; }
-            .oneCurrIssueOut_var_con .issueOut { flex: 25% 0 0; }
-            .oneCurrIssueOut_var_con .Variance { flex: 18% 0 0; }
+            .twoCurrIssueOut .issueIn {
+                flex: 65% 0 0;
+            }
+
+            .oneCurrIssueOut_var .issueIn {
+                flex: 45% 0 0;
+            }
+
+            .oneCurrIssueOut_var .issueOut {
+                flex: 30% 0 0;
+            }
+
+            .twoCurrIssueOut_var .issueIn {
+                flex: 50% 0 0;
+            }
+
+            .oneCurrIssueOut_var_con .issueIn {
+                flex: 36% 0 0;
+            }
+
+            .oneCurrIssueOut_var_con .issueOut {
+                flex: 25% 0 0;
+            }
+
+            .oneCurrIssueOut_var_con .Variance {
+                flex: 18% 0 0;
+            }
         }
     </style>
 
@@ -1397,9 +1421,27 @@ if ($getTxtById == 'storeId') {
                             $classArr = [1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four'];
 
                             $classNameForHeading = '';
+                            $classNameForHeadingOnActiveIssueIN = '';
+
                             if ($classNameForHeadingSec) {
                                 $classNameForHeading = $classArr[$classNameForHeadingSec] . 'Item';
+                                $classNameForHeadingOnActiveIssueIN = $classArr[$classNameForHeadingSec] . 'Item';
                             }
+
+                            $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                                                        INNER JOIN tbl_orders o 
+                                                            ON(o.id=od.ordId) AND o.account_id=od.account_Id
+                                                        INNER JOIN tbl_currency c
+                                                            ON(od.currencyId=c.id) AND od.account_id=c.account_Id
+                                                        WHERE o.status = '2' AND o.ordCurAmt>0 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
+                            $resultCurQry = mysqli_query($con, $sql);
+                            $curCount = mysqli_num_rows($resultCurQry);
+
+
+
+
+
+
 
                         ?>
 
@@ -1431,14 +1473,8 @@ if ($getTxtById == 'storeId') {
                                                                 </div>
                                                             </div>
                                                             <?php
-                                                            $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
-                                                        INNER JOIN tbl_orders o 
-                                                            ON(o.id=od.ordId) AND o.account_id=od.account_Id
-                                                        INNER JOIN tbl_currency c
-                                                            ON(od.currencyId=c.id) AND od.account_id=c.account_Id
-                                                        WHERE o.status = '2' AND o.ordCurAmt>0 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
-                                                            $result = mysqli_query($con, $sql);
-                                                            if (mysqli_num_rows($result) > 0) { ?>
+
+                                                            if ($curCount > 0) { ?>
                                                                 <!-- added on 31-7-24 -->
                                                                 <div class="usdCurr col-4 text-center">
                                                                     <div class="paidIsue d-flex">
@@ -1460,7 +1496,7 @@ if ($getTxtById == 'storeId') {
                                                             $otherCurrRowArr = [];
                                                             $otherCurrTotalValueArr = [];
                                                             $otherCurrPendingTotalValueArr = [];
-                                                            while ($otherCurrRows = mysqli_fetch_array($result)) {
+                                                            while ($otherCurrRows = mysqli_fetch_array($resultCurQry)) {
                                                                 if ($otherCurrRows['currencyId'] > 0 && ($otherCurrRows['paymentStatus'] == 0 || $otherCurrRows['paymentStatus'] == 2)) {
 
                                                                     // Total rows of other currency pending amount
@@ -1490,6 +1526,11 @@ if ($getTxtById == 'storeId') {
                                                                 }
                                                             }
 
+                                                            $curCount = count(otherCurrRowArr);
+                                                            $curCount++;
+                                                            if ($curCount > 0) {
+                                                                $classNameForHeadingOnActiveIssueIN .= 'Cur' . $classArr[$curCount];
+                                                            }
 
 
                                                             foreach ($otherCurrRowArr as $otherCurrRow) {  ?>
@@ -2489,6 +2530,8 @@ if ($getTxtById == 'storeId') {
                 $(".jsPricebox").removeClass("twoItem");
                 $(".jsPricebox").removeClass("threeItem");
                 $(".jsPricebox").removeClass("fourItem");
+
+                $(".jsPricebox").addClass("<?php echo $classNameForHeadingOnActiveIssueIN; ?>");
             } else {
                 $(".jsPricebox").addClass("<?php echo $classNameForHeading; ?>");
             }
