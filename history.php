@@ -999,36 +999,58 @@ if ($getTxtById == 'storeId') {
                 flex: 1 0 0%;
             }
 
-            .oneCurrIssueOut .issueIn {
+            .fourItemCurtwo .issueIn {
                 flex: 45% 0 0;
             }
 
-            .twoCurrIssueOut .issueIn {
-                flex: 65% 0 0;
+            .fourItemCurtwo .issueOut {
+                flex: 23% 0 0;
             }
 
-            .oneCurrIssueOut_var .issueIn {
-                flex: 45% 0 0;
+            .fourItemCurtwo .Variance {
+                flex: 15% 0 0;
             }
 
-            .oneCurrIssueOut_var .issueOut {
-                flex: 30% 0 0;
+            .threeItemCurfour .issueIn {
+                flex: 55% 0 0;
             }
 
-            .twoCurrIssueOut_var .issueIn {
-                flex: 50% 0 0;
-            }
-
-            .oneCurrIssueOut_var_con .issueIn {
-                flex: 36% 0 0;
-            }
-
-            .oneCurrIssueOut_var_con .issueOut {
+            .threeItemCurfour .issueOut {
                 flex: 25% 0 0;
             }
 
-            .oneCurrIssueOut_var_con .Variance {
-                flex: 18% 0 0;
+            .twoItemCurtwo .issueIn {
+                flex: 60% 0 0;
+            }
+
+            .twoItemCurthree .issueIn {
+                flex: 65% 0 0;
+            }
+
+            .threeItemCurtwo .issueIn {
+                flex: 50% 0 0;
+            }
+
+            .threeItemCurtwo .issueOut {
+                flex: 20% 0 0;
+            }
+
+            .threeItemCurtwo .Variance {
+                flex: 20% 0 0;
+            }
+
+            .oneItemCurtwo>div {
+                flex: 100% 0 0;
+            }
+
+            .oneItemCurtwo .usdCurr {
+                flex: 23% 0 0;
+            }
+
+            .varDtl {
+                width: max-content;
+                margin: 0 auto;
+                min-width: 8rem;
             }
         }
     </style>
@@ -1556,7 +1578,7 @@ if ($getTxtById == 'storeId') {
 
                                                             <div style="padding-left:.5rem;">
                                                                 <a class="<?php
-                                                                            if (mysqli_num_rows($result) == 0) {
+                                                                            if (mysqli_num_rows($resultCurQry) == 0) {
                                                                                 echo 'toggle-currency-btn-disabled';
                                                                             } else {
                                                                                 echo 'toggle-currency-btn';
@@ -2526,13 +2548,11 @@ if ($getTxtById == 'storeId') {
             $('.usdCurr').toggle();
 
             if ($(this).hasClass('active')) {
-                $(".jsPricebox").removeClass("oneItem");
-                $(".jsPricebox").removeClass("twoItem");
-                $(".jsPricebox").removeClass("threeItem");
-                $(".jsPricebox").removeClass("fourItem");
-
+                $(".jsPricebox").removeClass("<?php echo $classNameForHeading; ?>");
                 $(".jsPricebox").addClass("<?php echo $classNameForHeadingOnActiveIssueIN; ?>");
             } else {
+                $(".jsPricebox").removeClass("<?php echo $classNameForHeadingOnActiveIssueIN; ?>");
+
                 $(".jsPricebox").addClass("<?php echo $classNameForHeading; ?>");
             }
 

@@ -315,6 +315,17 @@ if (isset($stockUserFilterFields)) {
             width: 80% !important;
         }
         .selectedAllStore.allStore .othStr { border-color: #6a7bff; }
+        @media (min-width: 768px) { 
+            .stkTblhead .fgcolSize0 .mbHde, .cntTable .fgcolSize0 .mbHde {
+                width: 40%;
+            }
+            .fgcolSize0 .mbShw .stkPrcol, .fgcolSize0 .mbShw .stkPrcol { width: 100% !important; }
+
+            .stkTblhead .fgcolSize1 .mbHde, .cntTable .fgcolSize1 .mbHde { width: 40%; }
+            .stkTblhead .fgcolSize1 .stkNamcol, .cntTable .fgcolSize1 .stkNamcol { width: 40%; }
+            .fgcolSize1 .mbShw .stkPrcol, .fgcolSize1 .mbShw .stkPrcol { width: 90% !important; }
+            .counter__col { width: 68px; }
+        }
     </style>
 </head>
 

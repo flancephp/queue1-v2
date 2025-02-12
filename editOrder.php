@@ -430,6 +430,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
         }
 
         @media(min-width:992px) {
+            .defaultQtyPl { padding-left: 12px; }
             html[dir=rtl] .newFeature.col {
                 padding: 0 50px 0 83px;
             }
@@ -1541,7 +1542,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                                             </div>
                                             <div class="prdtCnt-Scnd d-lg-flex align-items-center">
                                                 <div class="itm-Quantity tb-bdy">
-                                                    1
+                                                    <span class="defaultQtyPl">1</span>
                                                 </div>
                                                 <div class="ttlCr-Type d-flex flex-wrap align-items-center">
                                                     <div class="ttlDft-Crcy tb-bdy">
