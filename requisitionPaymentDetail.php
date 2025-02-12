@@ -868,7 +868,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
                                                         <div class="d-flex gap-1">
                                                             <a title="<?php echo showOtherLangText('Delete') ?>"
                                                                 href="javascript:void(0)"
-                                                                onClick="getDelNumb('<?php echo $showCif['id']; ?>', '<?php echo $_GET['orderId']; ?>');"
+                                                                onClick="getDelNumb('<?php echo $row['id']; ?>', '<?php echo $_GET['orderId']; ?>');"
                                                                 style="color:#808080" class="glyphicon glyphicon-trash"><span
                                                                     class="dlTe"></span></a>
 
@@ -1075,7 +1075,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'   AND od.account_id = '" . $_SESSION
                                                         <?php echo showOtherLangText('Service Item'); ?> <i
                                                             class="fa-solid fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu" style="min-width: 13rem;"> 
+                                                    <ul class="dropdown-menu" style="min-width: 13rem;">
                                                         <!-- Dropdown menu links -->
                                                         <?php
                                                         $sql = " SELECT * FROM tbl_custom_items_fee WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";

@@ -258,7 +258,7 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
     $sqlSet = mysqli_query($con, $sql);
     $tempOrdDetRow = mysqli_fetch_array($sqlSet);
 
-    if ($tempOrdDetRow['customChargeId'] && $tempOrdDetRow['customChargeType']) {
+    if ($tempOrdDetRow['customChargeId'] > 0 && $tempOrdDetRow['customChargeType']) {
         $sql = " DELETE FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' and customChargeId='" . $tempOrdDetRow['customChargeId'] . "' and customChargeType='" . $tempOrdDetRow['customChargeType'] . "' ";
         $resultSet = mysqli_query($con, $sql);
     }
