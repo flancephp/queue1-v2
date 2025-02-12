@@ -251,7 +251,7 @@ if (!empty($_POST['feeName'])) {
 }
 //end
 
-//delete item level / order level charges
+//delete item level / order level charges done
 if (isset($_GET['delId']) && $_GET['orderId']) {
 
     $sql = " SELECT * FROM tbl_order_details_temp WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' and id='" . $_GET['delId'] . "' ";
