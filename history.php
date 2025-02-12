@@ -2204,7 +2204,7 @@ if ($getTxtById == 'storeId') {
                                                     <div class="tb-bdy hisTypclm">
                                                         <div class=" d-flex align-items-center <?php echo $class1; ?>">
                                                             <div class="<?php echo $class; ?>">&nbsp;</div>
-                                                            <p><?php echo $ordType; ?></p>
+                                                            <p class="col"><?php echo $ordType; ?></p>
                                                         </div>
                                                     </div>
                                                 <?php } ?>
