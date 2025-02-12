@@ -130,7 +130,7 @@ if (isset($_POST['pId']) && $_POST['orderId'] && isset($_POST['qty'])) {
 		$resHtml .= '<div class="price justify-content-between taxRow">
                                                 <div class="p-2 delIcn text-center">
 
-			<a title="' . showOtherLangText('Delete') . '" href="javascript:void(0)" onClick="getDelNumb(' . $fixRow['id'] . ', 3)" style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a>
+			<a title="' . showOtherLangText('Delete') . '" href="javascript:void(0)" onClick="getDelNumb(' . $fixRow['id'] . ', ' . $_POST['orderId'] . ')" style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a>
 
 			</div><div class="p-2 txnmRow"><p>' . $feeName . '</p></div><div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
@@ -152,7 +152,7 @@ if (isset($_POST['pId']) && $_POST['orderId'] && isset($_POST['qty'])) {
 
 
 		$resHtml .= '<div class="price justify-content-between taxRow">
-                                                <div class="p-2 delIcn text-center"><a title="' . showOtherLangText('Delete') . '" href="javascript:void(0)" onClick="getDelNumb(' . $perRow['id'] . ', 3)" style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a></a></div> <div class="p-2 txnmRow">
+                                                <div class="p-2 delIcn text-center"><a title="' . showOtherLangText('Delete') . '" href="javascript:void(0)" onClick="getDelNumb(' . $perRow['id'] . ', ' . $_POST['orderId'] . ')" style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a></a></div> <div class="p-2 txnmRow">
                                                     <p>' . $feeName . ' ' . $perRow['amt'] . ' %</p></div><div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
                                                         <p> ' . getNumFormtPrice($perChargeTotal, $getDefCurDet['curCode']) . '</p>
@@ -176,7 +176,7 @@ if (isset($_POST['pId']) && $_POST['orderId'] && isset($_POST['qty'])) {
 		$taxPerChargesTotal = (($chargePrice + $totalFixedCharges + $totalPerCharges) * $taxRow['price'] / 100);
 
 		$resHtml .= '<div class="price justify-content-between taxRow">
-                                                <div class="p-2 delIcn text-center"><a title="' . showOtherLangText('Delete') . '" href="javascript:void(0)" onClick="getDelNumb(' . $taxRow['id'] . ', 3)" style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a></a></div> <div class="p-2 txnmRow">
+                                                <div class="p-2 delIcn text-center"><a title="' . showOtherLangText('Delete') . '" href="javascript:void(0)" onClick="getDelNumb(' . $taxRow['id'] . ', ' . $_POST['orderId'] . ')" style="color:#808080" class="glyphicon glyphicon-trash"><i class="fa-solid fa-trash-can"></i></a></a></div> <div class="p-2 txnmRow">
                                                     <p>' . $feeName . ' ' . $taxRow['amt'] . ' %</p></div><div class="d-flex align-items-center justify-content-end curRow">
                                                     <div class="p-2">
                                                         <p> ' . getNumFormtPrice($taxPerChargesTotal, $getDefCurDet['curCode']) . '</p>
