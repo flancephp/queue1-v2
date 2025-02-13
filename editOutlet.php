@@ -479,7 +479,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                     <div class="col-md-6 addOutlet-Btn">
                                         <div class="itmLnk-Row">
 
-                                            <a style="display:<?php echo $sqlResultRow > 0 ? 'inline-flex' : 'none'; ?>" href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto showHideRevData" data-bs-toggle="modal" data-bs-target="#add-Item">
+                                            <a style="display:<?php echo $sqlResultRow  ? 'inline-flex' : 'none'; ?>" href="addCategory.php" class="btn btn-primary mb-usrBkbtn res__w__auto showHideRevData" data-bs-toggle="modal" data-bs-target="#add-Item">
                                                 <span class="mb-UsrBtn"><i class="fa-solid fa-plus"></i><span class="nstdSpan"><?php echo showOtherLangText('Add Item'); ?></span></span>
                                                 <span class="dsktp-Btn"><?php echo showOtherLangText('Add Item'); ?></span>
                                             </a>
@@ -563,8 +563,8 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input class="form-check-input" type="checkbox" id="setOutlet" name="setOutlet"
-                                                            value="<?php echo $sqlResultRow > 0 ? '1' : '0'; ?>"
-                                                            <?php echo $sqlResultRow > 0 ? 'checked' : ''; ?>
+                                                            value="<?php echo $sqlResultRow ? '1' : '0'; ?>"
+                                                            <?php echo $sqlResultRow ? 'checked' : ''; ?>
                                                             onClick="showRevOutLetItems();" />
                                                     </div>
                                                 </div>
@@ -573,7 +573,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                 ?>
 
 
-                                                <div class="outletChk" id="revCenId" style="display:<?php echo $sqlResultRow > 0 ? 'block;' : 'none;'; ?>">
+                                                <div class="outletChk" id="revCenId" style="display:<?php echo $sqlResultRow ? 'block;' : 'none;'; ?>">
                                                     <div class="row align-items-center acntStp-Row">
                                                         <div class="col-md-4">
                                                             <label for="revenueCenter" class="form-label"><?php echo showOtherLangText('Revenue Center'); ?>:<span class="requiredsign">*</span></label>
@@ -667,7 +667,7 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                                 ?>
                                                 <div class="padLeft40" style="width:100%;">
 
-                                                    <div class="row align-items-center acntStp-Row showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>">
+                                                    <div class="row align-items-center acntStp-Row showHideRevData" style="display:<?php echo $sqlResultRow ? 'block' : 'none'; ?>">
                                                         <div class="col-md-4 colDisable">&nbsp;</div>
                                                         <div class="col-8 ">
                                                             <input type="checkbox" id="addressCheck" class="form-check-input" name="addressCheck" <?php echo $deptUserRow['isAddressCheck'] == 1 ? 'checked="checked"' : ''; ?> value="1"
@@ -713,9 +713,9 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                         </div>
                     </form>
                     <div class="container">
-                        <p class="subTittle1 flowItm showHideRevData d-none d-lg-block" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>"><?php echo showOtherLangText('Follow Items List'); ?></p>
+                        <p class="subTittle1 flowItm showHideRevData d-none d-lg-block" style="display:<?php echo $sqlResultRow ? 'block' : 'none'; ?>"><?php echo showOtherLangText('Follow Items List'); ?></p>
                     </div>
-                    <div class="container outlet-Tblhead position-relative showHideRevData" style="display:<?php echo $sqlResultRow > 0 ? 'block' : 'none'; ?>">
+                    <div class="container outlet-Tblhead position-relative showHideRevData" style="display:<?php echo $sqlResultRow ? 'block' : 'none'; ?>">
                         <!-- Item Table Head Start -->
                         <div class="d-none d-lg-flex align-items-center itmTable">
                             <div class="tb-head imgOlt-Clm">

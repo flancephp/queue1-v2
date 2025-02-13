@@ -39,8 +39,8 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=4">
-  
- 
+
+
 </head>
 
 <body class="mb-saleBg">
@@ -381,6 +381,8 @@ include_once('script/outlet_report_saleCenter_script.php');
 
                             $salesPriceText =  '<span class="showhideprice"><br>' . $salesAmt . '<br></span>';
 
+                            $unit = $row['outletItemType'] == 1 ? $row['subUnit'] : $row['countingUnit'];
+
                             $itemsLists .= ' <!-- Item Table Body Start -->
                                 <div class="container outletBody-Task ' . $varianceShowHideClass . '" >
                                 
@@ -417,19 +419,19 @@ include_once('script/outlet_report_saleCenter_script.php');
 
                                                             <div class="otltBd-opnStk">
                                                                 <p class="mbSale-Head">Open Stock</p>
-                                                                <p class="mblStock-Sale font-bold" title="Open Stock">' . ($openStock ? $openStock . ' ' . $row['countingUnit'] : '')   .  '</p>
+                                                                <p class="mblStock-Sale font-bold" title="Open Stock">' . ($openStock ? $openStock . ' ' . $unit : '')   .  '</p>
                                                             </div>
                                                             <div class="otltBd-isn">
                                                                 <p class="mbSale-Head">Issues In</p>
-                                                                <p class="mblStock-Sale  font-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale  font-bold" title="Issues In">' . ($issueIn ? showValue($issueIn) . ' ' . $unit : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-Ajst">
                                                                 <p class="mbSale-Head">Adjust</p>
-                                                                <p class="mblStock-Sale font-bold" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale font-bold" title="adjustment">' . ($adjustment ? showValue($adjustment) . ' ' . $unit : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-Pos">
                                                                 <p class="mbSale-Head">Sales POS</p>
-                                                                <p class="mblStock-Sale  font-bold salesQty" title="Sales POS">' . ($sales ?  $sales . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale  font-bold salesQty" title="Sales POS">' . ($sales ?  $sales . ' ' . $unit : '') . '</p>
                                                             </div>
                                                             <div class="otltBd-slBar">
                                                                 <p class="mbSale-Head">Sales Bar.C</p>
@@ -437,17 +439,17 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             </div>
                                                             <div class="otltBd-clStk">
                                                                 <p class="mbSale-Head">Close Stock</p>
-                                                                <p class="mblStock-Sale font-bold" title=""Close Stock">' . ($closeStock ?  $closeStock . ' ' . $row['countingUnit'] : '') . '</p>
+                                                                <p class="mblStock-Sale font-bold" title=""Close Stock">' . ($closeStock ?  $closeStock . ' ' . $unit : '') . '</p>
                                                             </div>
                                                               <div class="otltBd-usg">
                                                             <p class="mbSale-Head">Usage</p>
-                                                            <p class="mblStock-Sale  font-bold" title="Usage">' . ($usage ?  $usage . ' ' . $row['countingUnit'] : '') . '</p>
+                                                            <p class="mblStock-Sale  font-bold" title="Usage">' . ($usage ?  $usage . ' ' . $unit : '') . '</p>
                                                         </div>
 
 
                                                         <div class="otltBd-var">
                                                             <p class="mbSale-Head">Variance</p>
-                                                            <p class="mblStock-Sale  font-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $row['countingUnit'] : '') . '</p>
+                                                            <p class="mblStock-Sale  font-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $unit : '') . '</p>
                                                         </div>
                                                            
 
@@ -515,7 +517,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                     <div class="mbHide-Otlt">
                                                         <div class="itmInfo-Otlt">
                                                             <div class="otltBd-barcode">
-                                                                <span class="d-lg-none">'. showOtherLangText('Bar Code') .'</span>
+                                                                <span class="d-lg-none">' . showOtherLangText('Bar Code') . '</span>
                                                                 <span>' . $row['barCode'] . '</span>
                                                             </div>
                                                             <div class="unitBd-div px-0">
@@ -804,7 +806,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         <div class="otlt-hdImg"></div>
                                         <div class="otlt-itm">
-                                            <p><?php echo showOtherLangText('Item'); ?>  
+                                            <p><?php echo showOtherLangText('Item'); ?>
                                             </p>
                                             <p><?php echo showOtherLangText('Totals'); ?></p>
                                         </div>
@@ -1015,206 +1017,206 @@ include_once('script/outlet_report_saleCenter_script.php');
 
     <script type="text/javascript" src="cdn_js/jquery-ui-1.12.1.js"></script>
     <script>
-    $(function() {
-        $(".datepicker").datepicker({
-            dateFormat: 'dd-mm-yy'
+        $(function() {
+            $(".datepicker").datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
         });
-    });
 
 
-    function loaderFrm() {
+        function loaderFrm() {
 
-        document.getElementById('frm').submit();
-        return true;
-    }
-
-
-    function checkItemtype(itemName) {
-
-        $.ajax({
-                method: "POST",
-                url: "ajax.php",
-
-                data: {
-                    itemNameVal: itemName,
-                    outLetId: '<?php echo $_GET['outLetId']; ?>'
-                }
-            })
-            .done(function(itemType) {
-
-                if (itemType == 1) {
-                    $('#barItemAdj').show();
-                } else {
-                    $('#barItemAdj').hide();
-                }
+            document.getElementById('frm').submit();
+            return true;
+        }
 
 
-            });
-    }
+        function checkItemtype(itemName) {
 
-    function updateNote(notes, pId) {
+            $.ajax({
+                    method: "POST",
+                    url: "ajax.php",
 
-        $.ajax({
-                method: "POST",
-                url: "ajax.php",
+                    data: {
+                        itemNameVal: itemName,
+                        outLetId: '<?php echo $_GET['outLetId']; ?>'
+                    }
+                })
+                .done(function(itemType) {
 
-                data: {
-                    actionType: 'updateProductNote',
-                    outLetId: '<?php echo $_GET['outLetId']; ?>',
-                    pId: pId,
-                    fromDate: '<?php echo $_GET['fromDate']; ?>',
-                    notes: notes
-                }
-            })
-            .done(function(note) {
-
-            });
-    }
+                    if (itemType == 1) {
+                        $('#barItemAdj').show();
+                    } else {
+                        $('#barItemAdj').hide();
+                    }
 
 
+                });
+        }
+
+        function updateNote(notes, pId) {
+
+            $.ajax({
+                    method: "POST",
+                    url: "ajax.php",
+
+                    data: {
+                        actionType: 'updateProductNote',
+                        outLetId: '<?php echo $_GET['outLetId']; ?>',
+                        pId: pId,
+                        fromDate: '<?php echo $_GET['fromDate']; ?>',
+                        notes: notes
+                    }
+                })
+                .done(function(note) {
+
+                });
+        }
 
 
-    $(document).ready(function() {
 
-        var availableTags = [
-            <?php
+
+        $(document).ready(function() {
+
+            var availableTags = [
+                <?php
 
                 foreach ($proRows as $pId => $pName) {
                     $itemName = $pName . '(' . $pId . ')';
                     echo "'$itemName'" . ',';
                 }
                 ?>
-        ];
+            ];
 
-        $("#item").autocomplete({
-            source: availableTags
+            $("#item").autocomplete({
+                source: availableTags
+            });
+            $("#itemNotes").autocomplete({
+                source: availableTags
+            });
         });
-        $("#itemNotes").autocomplete({
-            source: availableTags
-        });
-    });
 
-    function myFunction() {
-        var parentDivs = document.getElementsByClassName("outletBody-Task");
-        var input = document.getElementById("search");
-        var filter = input.value.toLowerCase();
+        function myFunction() {
+            var parentDivs = document.getElementsByClassName("outletBody-Task");
+            var input = document.getElementById("search");
+            var filter = input.value.toLowerCase();
 
-        for (var i = 0; i < parentDivs.length; i++) {
-            var parentDiv = parentDivs[i];
-            var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
-            var foundInChild = false;
+            for (var i = 0; i < parentDivs.length; i++) {
+                var parentDiv = parentDivs[i];
+                var childNodes = parentDiv.getElementsByClassName("otltBd-itm");
+                var foundInChild = false;
 
 
-            for (var j = 0; j < childNodes.length; j++) {
-                var childNode = childNodes[j];
-                var text = childNode.textContent || childNode.innerText;
+                for (var j = 0; j < childNodes.length; j++) {
+                    var childNode = childNodes[j];
+                    var text = childNode.textContent || childNode.innerText;
 
 
-                if (text.toLowerCase().includes(filter)) {
-                    if (!foundInChild) {
-                        parentDiv.style.display = "flex";
+                    if (text.toLowerCase().includes(filter)) {
+                        if (!foundInChild) {
+                            parentDiv.style.display = "flex";
+                        }
+                        childNode.style.display = "flex";
+                        foundInChild = true;
+                    } else {
+                        childNode.style.display = "none"; // Hide non-matching child
                     }
-                    childNode.style.display = "flex";
-                    foundInChild = true;
-                } else {
-                    childNode.style.display = "none"; // Hide non-matching child
+                }
+
+                if (!foundInChild) {
+                    parentDiv.style.display = "none";
                 }
             }
-
-            if (!foundInChild) {
-                parentDiv.style.display = "none";
-            }
         }
-    }
 
-    function debounce(fn, delay) {
-        let timeout;
-        return function() {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => fn.apply(this, arguments), delay);
-        };
-    }
-
-
-    document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
-
-    $("#search").on("search", function(evt) {
-        if ($(this).val().length == 0) {
-            resetData();
+        function debounce(fn, delay) {
+            let timeout;
+            return function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(this, arguments), delay);
+            };
         }
-    });
-
-    function resetData() {
-
-        $('#search').val('');
-        myFunction();
-    }
 
 
-    $(document).ready(function() {
+        document.getElementById("search").addEventListener("input", debounce(myFunction, 300));
 
-        $(".cstBtn-Sale").on("click", function() {
-            $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode');
-
-            if ($("#ShowHideZeroVar.actvSale-Cst").length) {
-                $('.hideVariance').hide();
-            } else {
-                $('.hideVariance').show();
+        $("#search").on("search", function(evt) {
+            if ($(this).val().length == 0) {
+                resetData();
             }
-
-
-            if ($(".hideBtn-Info").hasClass("actvSale-Cst")) {
-                $(".otlt-stkPrc").hide();
-                $(".otltBd-stkPrc").hide();
-
-                $(".otltBd-Avr").hide();
-                $(".otlt-avgUsg").hide();
-
-            } else {
-                $(".otlt-stkPrc").show();
-                $(".otltBd-Avr").show();
-                $(".otlt-avgUsg").show();
-            }
-
         });
-    });
 
-    $(document).ready(function() {
+        function resetData() {
 
-        $(".cstBtn-Qty").on("click", function() {
-
-
-
-
-            $('.mblStock-Sale').toggle();
+            $('#search').val('');
+            myFunction();
+        }
 
 
+        $(document).ready(function() {
 
-            $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+            $(".cstBtn-Sale").on("click", function() {
+                $(".otltBd-itm, .otlt-itm").toggleClass('show-barcode');
 
+                if ($("#ShowHideZeroVar.actvSale-Cst").length) {
+                    $('.hideVariance').hide();
+                } else {
+                    $('.hideVariance').show();
+                }
+
+
+                if ($(".hideBtn-Info").hasClass("actvSale-Cst")) {
+                    $(".otlt-stkPrc").hide();
+                    $(".otltBd-stkPrc").hide();
+
+                    $(".otltBd-Avr").hide();
+                    $(".otlt-avgUsg").hide();
+
+                } else {
+                    $(".otlt-stkPrc").show();
+                    $(".otltBd-Avr").show();
+                    $(".otlt-avgUsg").show();
+                }
+
+            });
+        });
+
+        $(document).ready(function() {
+
+            $(".cstBtn-Qty").on("click", function() {
+
+
+
+
+                $('.mblStock-Sale').toggle();
+
+
+
+                $(".cstBtn-Qty").toggleClass('actvSale-Cst');
+
+
+
+            });
 
 
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInputs = document.querySelectorAll('html[dir="rtl"] .otltBd .form-control[type="date"]');
 
-
-    });
-    document.addEventListener('DOMContentLoaded', () => {
-        const dateInputs = document.querySelectorAll('html[dir="rtl"] .otltBd .form-control[type="date"]');
-
-        dateInputs.forEach(input => {
-            input.style.setProperty('--calendar-icon-position', 'left');
+            dateInputs.forEach(input => {
+                input.style.setProperty('--calendar-icon-position', 'left');
+            });
         });
-    });
 
 
-    $(".cstBtn-Sale.hideBtn-Prc").click(function() {
-        if ($(".mbStk-Detail").hasClass('.js-toggle')) {
-            $(".otlt-stkPrc").toggleClass("go_down");
-        }
-    });
-    $(".slCst-Lnk").click(function() {
-        $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle");
-    });
+        $(".cstBtn-Sale.hideBtn-Prc").click(function() {
+            if ($(".mbStk-Detail").hasClass('.js-toggle')) {
+                $(".otlt-stkPrc").toggleClass("go_down");
+            }
+        });
+        $(".slCst-Lnk").click(function() {
+            $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle");
+        });
     </script>
 </body>
 
