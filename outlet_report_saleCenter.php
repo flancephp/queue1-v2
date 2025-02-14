@@ -451,12 +451,6 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             <p class="mbSale-Head">Variance</p>
                                                             <p class="mblStock-Sale  font-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $unit : '') . '</p>
                                                         </div>
-
-
-                                                        <div class="otltBd-Req justify-content-between">
-                                                                <p class="mbSale-Head">' . showOtherLangText('Requisition') . '</p>
-                                                                <p class="mblReq fw-bold" title="' . showOtherLangText('Requisition') . '">' . $requisition . '</p>
-                                                            </div>
                                                            
 
                                                         </div>
@@ -552,7 +546,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                                 <p class="mbSale-Head">' . showOtherLangText('Max') . '</p>
                                                                 <p class="mblMaxQty" title="' . showOtherLangText('Max Qty') . '">' . $row['outletMaxQty'] . '</p>
                                                             </div>
-                                                            
+                                                           
 
                                                             <div class="otltBd-guest justify-content-between">
                                                                 <p class="mbSale-Head">' . showOtherLangText('Usage/Guest') . '</p>
@@ -885,6 +879,18 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                         <?php echo getNumFormtPrice($varienceTotalAmt, $getDefCurDet['curCode'], 2); ?>
                                                     </p>
                                                 </div>
+
+                                                <div class="otlt-Req">
+                                                    <p><?php echo showOtherLangText('Requisition'); ?></p>
+                                                    <p class="varnVal-Otlt"
+                                                        title="<?php echo showOtherLangText('Requisition'); ?>">
+                                                        <?php echo $requisition; ?>
+                                                    </p>
+                                                </div>
+
+
+
+
 
 
                                             </div>
