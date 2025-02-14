@@ -74,8 +74,8 @@ if (isset($_POST['updateOrder'])) {
     foreach ($_POST['productIds'] as $productId) {
 
         if (isset($_POST['qty'][$productId]) && $_POST['qty'][$productId] < 1) {
-            $Qry = " DELETE FROM  `tbl_order_details` WHERE ordId = '" . $_GET['orderId'] . "' AND pId = '" . $productId . "' ";
-            mysqli_query($con, $Qry);
+            $qry = "DELETE FROM `tbl_order_details` WHERE ordId = " . $_GET['orderId'] . " AND pId = " . $productId . " AND account_id='" . $_SESSION['accountId'] . "' ";
+            mysqli_query($con, $qry);
         } elseif (isset($_POST['qty'][$productId]) && $_POST['qty'][$productId] > 0) {
 
             $prodPrice = str_replace(',', '', $_POST['price'][$productId]);
@@ -181,6 +181,7 @@ if (isset($_POST['updateOrder'])) {
     mysqli_query($con, $delQry);
 
     echo '<script>window.location="runningOrders.php?updated=1&orderId=' . $_GET['orderId'] . '"</script>';
+    exit;
 } //end udpdate order
 
 //add item fee & custom fee modal box 
@@ -218,6 +219,7 @@ if (!empty($_POST['itemName'])) {
     editCustomCharge($_GET['orderId'], 1, $itemCharges, $_SESSION['ordDeptId'], 1);
 
     echo '<script>window.location="editRecusation.php?orderId=' . $_GET['orderId'] . '"</script>';
+    exit;
 }
 
 
@@ -239,6 +241,7 @@ if (!empty($_POST['feeName'])) {
     editCustomCharge($_GET['orderId'], 3, $itemCharges, $_SESSION['ordDeptId'], 1);
 
     echo '<script>window.location="editRecusation.php?orderId=' . $_GET['orderId'] . '"</script>';
+    exit;
 }
 //end
 
@@ -249,14 +252,17 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
     $sqlSet = mysqli_query($con, $sql);
     $tempOrdDetRow = mysqli_fetch_array($sqlSet);
 
-    $sql = " DELETE FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' and customChargeId='" . $tempOrdDetRow['customChargeId'] . "' and customChargeType='" . $tempOrdDetRow['customChargeType'] . "' ";
-    $resultSet = mysqli_query($con, $sql);
+    if ($tempOrdDetRow) {
+        $sql = " DELETE FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' and customChargeId='" . $tempOrdDetRow['customChargeId'] . "' and customChargeType='" . $tempOrdDetRow['customChargeType'] . "' ";
+        $resultSet = mysqli_query($con, $sql);
+    }
 
     $sql = " DELETE FROM tbl_order_details_temp WHERE id='" . $_GET['delId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
     $resultSet = mysqli_query($con, $sql);
 
 
     echo '<script>window.location="editRecusation.php?orderId=' . $_GET['orderId'] . '&delete=1"</script>';
+    exit;
 } //end 
 
 $cond = '';

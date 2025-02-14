@@ -78,8 +78,8 @@ if (isset($_POST['updateOrder'])) {
     foreach ($_POST['productIds'] as $productId) {
 
         if (isset($_POST['qty'][$productId]) && $_POST['qty'][$productId] < 1) {
-            echo $Qry = " DELETE FROM  `tbl_order_details` WHERE ordId = '" . $_GET['orderId'] . "' AND pId = '" . $productId . "' ";
-            die;
+            $Qry = " DELETE FROM  `tbl_order_details` WHERE ordId = '" . $_GET['orderId'] . "' AND pId = '" . $productId . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+
             mysqli_query($con, $Qry);
         } elseif (isset($_POST['qty'][$productId]) && $_POST['qty'][$productId] > 0) {
 

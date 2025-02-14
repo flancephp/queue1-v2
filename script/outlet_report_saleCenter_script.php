@@ -81,7 +81,7 @@ if (isset($_POST['outLetType'])  && !empty($_POST['outLetType'])) {
 
 
 
-$sql = "SELECT o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty, o.maxQty outletMaxQty, o.factor, o.notes, p.itemName, p.barCode saleBarcode, p.imgName, p.stockPrice itemLastPrice, IF(u.name!='',u.name,p.unitC) countingUnit, IF(ut.name!='',ut.name,o.subUnit) subUnit, i.*
+$sql = "SELECT o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty, o.maxQty outletMaxQty, o.factor, o.notes, trim(p.itemName) itemName, p.barCode saleBarcode, p.imgName, p.stockPrice itemLastPrice, IF(u.name!='',u.name,p.unitC) countingUnit, IF(ut.name!='',ut.name,o.subUnit) subUnit, i.*
 
  FROM tbl_outlet_items o
 
@@ -94,7 +94,7 @@ LEFT JOIN tbl_units ut ON (ut.id = o.subUnit) AND (ut.account_id = o.account_id)
 
 LEFT JOIN tbl_daily_import_items i ON(p.barCode = i.barCode) AND (p.account_id = i.account_id) AND i.outLetId=o.outLetId 
 
-WHERE o.outLetId = '" . $_GET['outLetId'] . "' AND o.account_id = '" . $_SESSION['accountId'] . "'   GROUP BY o.pId order by i.id asc  ";
+WHERE o.outLetId = '" . $_GET['outLetId'] . "' AND o.account_id = '" . $_SESSION['accountId'] . "'   GROUP BY o.pId order by trim(p.itemName) asc  ";
 $outLetItemsQry = mysqli_query($con, $sql);
 
 
