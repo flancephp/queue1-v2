@@ -451,6 +451,14 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                             <p class="mbSale-Head">Variance</p>
                                                             <p class="mblStock-Sale  font-bold" title="Variance">' . ($variancesVal ?  $variancesVal . ' ' . $unit : '') . '</p>
                                                         </div>
+
+                                                        <div class="otltBd-var">
+                                                            <p class="mbSale-Head">Variance</p>
+                                                            <p class="mblStock-Sale  font-bold" title="Requisition">' . $requisition . '</p>
+                                                        </div>
+
+
+                                                        
                                                            
 
                                                         </div>
@@ -884,7 +892,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                     <p><?php echo showOtherLangText('Requisition'); ?></p>
                                                     <p class="varnVal-Otlt"
                                                         title="<?php echo showOtherLangText('Requisition'); ?>">
-                                                        <?php echo $requisition; ?>
+
                                                     </p>
                                                 </div>
 
