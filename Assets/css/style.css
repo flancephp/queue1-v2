@@ -15329,6 +15329,7 @@ html[dir=rtl] .form-select:focus {
 @media (min-width: 1601px) {
   html[dir=rtl] .form-select { 
     padding-left: 56px !important;
+    padding-right: 10px !important;
   }
   
 }
@@ -15668,6 +15669,7 @@ img.previewImg {
     background-size: 50px 42px;
     padding-right: 58px !important;
   }
+  html[dir=rtl] .form-select { padding-right: 10px !important; }
 }
 
 

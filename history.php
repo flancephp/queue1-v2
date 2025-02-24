@@ -974,87 +974,10 @@ if ($getTxtById == 'storeId') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css?v=1">
     <link rel="stylesheet" href="Assets/css/module-A.css">
-    <link rel="stylesheet" href="Assets/css/history-page.css?v=1">
+    <link rel="stylesheet" href="Assets/css/history-page.css?v=3">
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
-    <style>
-        .modal-table .table-cell:nth-child(1) {
-            white-space: nowrap;
-        }
-
-        .twoItem>div {
-            min-width: 45% !important;
-        }
-
-        .threeItem>div {
-            min-width: 32% !important;
-        }
-
-        .fourItem>div {
-            min-width: 24% !important;
-        }
-
-        @media (min-width: 1025px) {
-            .issueInPrices .usdCurr {
-                flex: 1 0 0%;
-            }
-
-            .fourItemCurtwo .issueIn {
-                flex: 45% 0 0;
-            }
-
-            .fourItemCurtwo .issueOut {
-                flex: 23% 0 0;
-            }
-
-            .fourItemCurtwo .Variance {
-                flex: 15% 0 0;
-            }
-
-            .threeItemCurfour .issueIn {
-                flex: 55% 0 0;
-            }
-
-            .threeItemCurfour .issueOut {
-                flex: 25% 0 0;
-            }
-
-            .twoItemCurtwo .issueIn {
-                flex: 60% 0 0;
-            }
-
-            .twoItemCurthree .issueIn {
-                flex: 65% 0 0;
-            }
-
-            .threeItemCurtwo .issueIn {
-                flex: 50% 0 0;
-            }
-
-            .threeItemCurtwo .issueOut {
-                flex: 20% 0 0;
-            }
-
-            .threeItemCurtwo .Variance {
-                flex: 20% 0 0;
-            }
-
-            .oneItemCurtwo>div {
-                flex: 100% 0 0;
-            }
-
-            .oneItemCurtwo .usdCurr {
-                flex: 23% 0 0;
-            }
-
-            .varDtl {
-                width: max-content;
-                margin: 0 auto;
-                min-width: 8rem;
-            }
-        }
-    </style>
-
+     
 </head>
 
 <body>
@@ -1366,13 +1289,15 @@ if ($getTxtById == 'storeId') {
                                 <form method="post" action="" autocomplete="off">
                                     <input type="hidden" name="delOrderId" value="<?php echo $_GET['delOrderId']; ?>" />
                                     <div class="row g-3 pb-3">
-                                        <div class="col-sm-7">
-                                            <div class="input-group p-0 justify-content-center justify-content-sm-start">
+                                        <div class="col-sm-6">
+                                            <div class="row g-0 p-0 justify-content-center justify-content-sm-start align-items-center">
                                                 <label for="password" class="col-6 col-sm-5 col-md-4 text-center"><?php echo showOtherLangText('Account Password') ?>:</label>
-                                                <input type="password" value="" placeholder="" class="form-control border py-3" id="password" name="password" style="height:40px;">
+                                                <div class="col"> 
+                                                    <input type="password" value="" placeholder="" class="form-control bg-white border py-3 px-3" id="password" name="password" style="border-radius:1rem;">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
                                             <div class="d-flex gap-2">
                                                 <button type="submit" class="btn btn-primary"><?php echo showOtherLangText('Delete Now') ?></button>
                                                 <button type="button" onclick="location.href='history.php'" class="btn btn-primary"><?php echo showOtherLangText('Cancel') ?></button>

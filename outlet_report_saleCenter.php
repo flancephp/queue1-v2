@@ -40,7 +40,9 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=5">
 
-
+    <style>
+        .otltTbl-bdy { align-items: flex-start; }
+    </style>
 </head>
 
 <body class="mb-saleBg">

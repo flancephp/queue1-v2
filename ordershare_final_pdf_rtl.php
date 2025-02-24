@@ -400,8 +400,8 @@ if ($_GET['supplierInvoice']  == 1) {
     $content .=   '<table style="width: 100%;text-align: right;">
                    <tr>
                        
-                       <td style="padding: 5px;border:0;text-align: right;">' . $ordDet['invNo'] . '</td>
-                       <td style="padding: 5px;border:0;text-align:right;"> ' . showOtherLangText('Supplier Invoice') . ' #</td>
+                       <td style="padding: 5px;border:0;text-align: right;width:50%;">' . $ordDet['invNo'] . '</td>
+                       <td style="padding: 5px;border:0;text-align: right;width:50%;"> ' . showOtherLangText('Supplier Invoice') . ' #</td>
                    </tr>
                </table>';
 }
@@ -410,8 +410,8 @@ if ($_GET['payment']  == 1 && $ordDet['paymentId'] > 0) {
     $content .=   '<table style="width: 100%;">
                        <tr>
                            
-                           <td style="padding: 5px;border:0;text-align: right;">' . $ordDet['paymentId'] . '</td>
-                           <td style="padding: 5px;border:0;text-align: right;"> ' . showOtherLangText('Payment') . ' #</td>
+                           <td style="padding: 5px;border:0;text-align: right;width:50%;">' . $ordDet['paymentId'] . '</td>
+                           <td style="padding: 5px;border:0;text-align: right;width:50%;"> ' . showOtherLangText('Payment') . ' #</td>
                        </tr>
                    </table>';
 }
@@ -654,9 +654,9 @@ if ($_GET['taskRecord'] == 1) {
 }
 
 
-$content .= '</body>
+ $content .= '</body>
              </html>';
-
+ 
 
 // unset($content);
 // $content = '<html>

@@ -725,7 +725,7 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
             }
 
             .update .prdtImg {
-                width: 20%;
+                width: 20%;min-height: 55px;
                 text-align: center;
             }
 
@@ -746,7 +746,10 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
             } */
 
             .update.recieved-order-section .recPrc-Unit {
-                margin-top: -3rem;
+                margin-top: -3rem;padding-left: 3rem;
+            }
+            html[dir="rtl"] .update.recieved-order-section .recPrc-Unit {
+                padding-right: 3rem;padding-left: 0;
             }
 
             html[dir="rtl"] .update.recieved-order-section .recPrc-Unit,

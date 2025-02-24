@@ -347,6 +347,10 @@ WHERE u.userType=1 AND dssp.is_mobile = 1 AND dssp.type = '" . $type . "' AND ds
         .modal .table-cell:nth-child(1) {
             white-space: nowrap;
         }
+        @media screen and (max-width: 767px) {
+
+            html[dir="rtl"] .val-run { text-align: left; }
+        }
     </style>
 
 </head>
