@@ -121,7 +121,7 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
             //photo section goes here
             if ($row['Photo'] != '' && file_exists($bulkImgUploadPath . trim($row['Photo']))) {
                 if ($res['imgName'] != '') {
-                    @unlink($bulkImgUploadPath . $res['imgName']);
+                    @unlink($target_dir . $accountImgPath . '/products/' . $res['imgName']);
                 }
 
                 $ext  = end(explode(".", $row['Photo']));

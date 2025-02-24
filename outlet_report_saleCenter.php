@@ -309,7 +309,7 @@ include_once('script/outlet_report_saleCenter_script.php');
 
 
                             $note = getNoteDet($row['outLetId'], $row['pId'], $_GET['fromDate']);
-                            $requisition = $requisition > 0 ? '<span style="color:grey; font-weight: bold;">' . $requisition . '</span> <span style="color:grey;font-size: 12px;">' . $row['countingUnit'] . '</span>' : $requisition;
+                            $requisition = $requisition > 0 ? '<span style="color:grey; font-weight: bold;">' . $requisition . '</span> <span style="color:grey;">' . $row['countingUnit'] . '</span>' : $requisition;
 
 
                             //Get prices
@@ -397,7 +397,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         </div>
                                         
                                         <div class="otltBd-itm">
-                                            <p>' . $row['itemName'] . '</p>
+                                            <p>' . $row['itemName'] . '<br>' . $row['barCode'] . '</p>
                                         </div>
                                         <div class="otltBd-itm-typ">
                                             ' . getItemType($row['outletItemType']) . '
@@ -453,7 +453,7 @@ include_once('script/outlet_report_saleCenter_script.php');
                                                         </div>
 
                                                         <div class="otltBd-var">
-                                                            <p class="mbSale-Head">Variance</p>
+                                                            <p class="mbSale-Head">Requisition</p>
                                                             <p class="mblStock-Sale  font-bold" title="Requisition">' . $requisition . '</p>
                                                         </div>
 
