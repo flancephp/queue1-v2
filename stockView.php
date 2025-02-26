@@ -1030,7 +1030,7 @@ if (isset($stockUserFilterFields)) {
                                                 <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
-                                                        <p><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
+                                                        <p><span class="mbLst-value">Min <?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?></span>
                                                         </p>
                                                     </div>
                                                 <?php } ?>

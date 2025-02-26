@@ -325,8 +325,8 @@ $currResultSet = mysqli_query($con, $curQry);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
-    <link rel="stylesheet" href="Assets/css/add-order.css?v=1">
-
+    <link rel="stylesheet" href="Assets/css/add-order.css?v=2">
+     
 </head>
 
 <body>

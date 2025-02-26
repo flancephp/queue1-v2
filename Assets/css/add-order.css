@@ -32,6 +32,7 @@
 .prcTable {
     font-size: 1rem;
 }
+html[dir="rtl"] .dflt-Currency.tb-head > .col:nth-child(2) { padding-right: 1rem; }
 
 @media(max-width:991px) {
 
@@ -48,6 +49,7 @@ content: attr(data-text);display: block;font-size: 9px;color: #777;line-height: 
     .mb-brCode .ord-StockQty {
         width: 50% !important;
     }
+    .mb-brCode .ord-brCode { margin-bottom: 4px; }
 }
 
 @media screen and (min-width: 1600px) {
