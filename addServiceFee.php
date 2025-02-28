@@ -196,7 +196,7 @@ if (isset($_POST['itemName'])) {
 
                                 <div class="row align-items-center acntStp-Row">
                                     <div class="col-md-3">
-                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> $:<span class="requiredsign">*</span></label>
+                                        <label for="feeAmount" class="form-label"><?php echo showOtherLangText('Fee Amount'); ?> <?php echo $getDefCurDet['curCode']; ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input placeholder="<?php echo showOtherLangText('20'); ?>" type="text" class="form-control" name="amt" id="amt"

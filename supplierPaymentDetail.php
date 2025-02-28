@@ -1643,7 +1643,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION[
             var supplierEmail = $('#supplierEmail').val();
             var supplierPhone = $('#supplierPhone').val();
 
-            if (supplierInvoice != '' && supplierName != '' && supplierAddress != '' && supplierContact != '' &&
+            if (supplierInvoice != '' && supplierName != '' && supplierAddress != '' &&
                 supplierPhone != '') {
                 $.ajax({
                     method: "POST",

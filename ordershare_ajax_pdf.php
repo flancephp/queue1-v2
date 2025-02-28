@@ -279,7 +279,7 @@ $content .=   '
                 </div>
             </div>
         </div>
-        <div class="SummaryItems table-row">
+        <div class="table-row">
             <div class="table-cell">
                 <div class="sub-table w-100 table-amount-val-same-alignment">
                     <div class="table-row">

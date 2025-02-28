@@ -977,7 +977,7 @@ if ($getTxtById == 'storeId') {
     <link rel="stylesheet" href="Assets/css/history-page.css?v=3">
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
-     
+
 </head>
 
 <body>
@@ -1292,7 +1292,7 @@ if ($getTxtById == 'storeId') {
                                         <div class="col-sm-6">
                                             <div class="row g-0 p-0 justify-content-center justify-content-sm-start align-items-center">
                                                 <label for="password" class="col-6 col-sm-5 col-md-4 text-center"><?php echo showOtherLangText('Account Password') ?>:</label>
-                                                <div class="col"> 
+                                                <div class="col">
                                                     <input type="password" value="" placeholder="" class="form-control bg-white border py-3 px-3" id="password" name="password" style="border-radius:1rem;">
                                                 </div>
                                             </div>

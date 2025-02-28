@@ -314,17 +314,41 @@ if (isset($stockUserFilterFields)) {
         .cntTable .lgcolSize0 .stkNamcol {
             width: 80% !important;
         }
-        .selectedAllStore.allStore .othStr { border-color: #6a7bff; }
-        @media (min-width: 768px) { 
-            .stkTblhead .fgcolSize0 .mbHde, .cntTable .fgcolSize0 .mbHde {
+
+        .selectedAllStore.allStore .othStr {
+            border-color: #6a7bff;
+        }
+
+        @media (min-width: 768px) {
+
+            .stkTblhead .fgcolSize0 .mbHde,
+            .cntTable .fgcolSize0 .mbHde {
                 width: 40%;
             }
-            .fgcolSize0 .mbShw .stkPrcol, .fgcolSize0 .mbShw .stkPrcol { width: 100% !important; }
 
-            .stkTblhead .fgcolSize1 .mbHde, .cntTable .fgcolSize1 .mbHde { width: 40%; }
-            .stkTblhead .fgcolSize1 .stkNamcol, .cntTable .fgcolSize1 .stkNamcol { width: 40%; }
-            .fgcolSize1 .mbShw .stkPrcol, .fgcolSize1 .mbShw .stkPrcol { width: 90% !important; }
-            .counter__col { width: 68px; }
+            .fgcolSize0 .mbShw .stkPrcol,
+            .fgcolSize0 .mbShw .stkPrcol {
+                width: 100% !important;
+            }
+
+            .stkTblhead .fgcolSize1 .mbHde,
+            .cntTable .fgcolSize1 .mbHde {
+                width: 40%;
+            }
+
+            .stkTblhead .fgcolSize1 .stkNamcol,
+            .cntTable .fgcolSize1 .stkNamcol {
+                width: 40%;
+            }
+
+            .fgcolSize1 .mbShw .stkPrcol,
+            .fgcolSize1 .mbShw .stkPrcol {
+                width: 90% !important;
+            }
+
+            .counter__col {
+                width: 68px;
+            }
         }
     </style>
 </head>
@@ -865,14 +889,14 @@ if (isset($stockUserFilterFields)) {
                                                 <?php } else { ?>
                                                     <div class="tb-bdy stkQtyclm stkQtybdy">
                                                         <span class="d-md-none small-font">Qty:</span>
-                                                        <span><?php echo $row['stockQty'] ? $row['stockQty'] . ' ' . $row['countingUnit'] : ''; ?></span>
+                                                        <span><?php echo $row['stockQty'] >= 0 ? $row['stockQty'] . ' ' . $row['countingUnit'] : ''; ?></span>
                                                     </div>
                                                 <?php } ?>
                                                 <?php if (isset($stockUserFilterFields) && !in_array(5, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="tb-bdy stkQtyclm stkreqbdy">
                                                         <span class="d-md-none small-font">Req qty:</span>
-                                                        <span style="font-weight:600;"><?php echo $totalTempProQty ? $totalTempProQty . ' ' . $row['countingUnit'] : ''; ?></span>
+                                                        <span style="font-weight:600;"><?php echo $totalTempProQty >= 0 ? $totalTempProQty . ' ' . $row['countingUnit'] : ''; ?></span>
                                                     </div>
                                                 <?php } ?>
                                                 <?php if (isset($stockUserFilterFields) && !in_array(4, $stockUserFilterFields)) { ?>
@@ -883,7 +907,7 @@ if (isset($stockUserFilterFields)) {
                                                             <?php
                                                             $avlQty = ($row['stockQty'] - $totalTempProQty);
 
-                                                            echo $avlQty ? $avlQty . ' ' . $row['countingUnit'] : ''; ?>
+                                                            echo $avlQty >= 0 ? $avlQty . ' ' . $row['countingUnit'] : ''; ?>
                                                         </span>
                                                     </div>
                                                 <?php } ?>
@@ -1030,7 +1054,7 @@ if (isset($stockUserFilterFields)) {
                                                 <?php if (isset($stockUserFilterFields) && !in_array(16, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
                                                     <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
-                                                        <p><span class="mbLst-value">Min <?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?></span>
+                                                        <p><span class="mbLst-value">Min</span><?php echo $row['minLevel'] ? $row['minLevel'] : 0; ?>
                                                         </p>
                                                     </div>
                                                 <?php } ?>
