@@ -977,7 +977,11 @@ if ($getTxtById == 'storeId') {
     <link rel="stylesheet" href="Assets/css/history-page.css?v=3">
     <!-- <link rel="stylesheet" href="Assets/css/style_p.css"> -->
 
-
+    <style>
+        @media (min-width: 1025px) {
+            html[dir="rtl"] .issueIn {  margin-right: 0px; }
+        }
+    </style>
 </head>
 
 <body>

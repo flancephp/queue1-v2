@@ -169,20 +169,20 @@ $content .= '<br>
 if ($ordersRow['ordCurId'] > 0) {
 
 
-  $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;padding-left:.75rem;text-align: right;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Total')  . '</th>';
+  $content .= '<th style="font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;padding-left:.75rem;text-align: right;border-top-left-radius:10px;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Total')  . '</th>';
 } else {
 
 
-  $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;padding-left:.5rem;text-align: right;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Total')  . '</th>';
+  $content .= '<th style="font-weight: 700; font-size: 12px; font-weight: 700; background:#7A89FF;padding-left:.5rem;text-align: right;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Total')  . '</th>';
 }
 
 if ($ordersRow['ordCurId'] > 0) {
 
 
-  $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; background:#7A89FF;padding-left:.5rem;text-align: right;">
+  $content .= '<th style="font-weight: 700; font-size: 12px; background:#7A89FF;padding-left:.5rem;padding-right:.5rem;text-align: right;">
                                                                 ' . '(' . $sqlResultRow['curCode'] . showOtherLangText('Price') . '</th>';
 } else {
-  $content .= '<th style=" background: #A9B0C0 !important; font-weight: 700; font-size: 12px; background:#7A89FF;padding-left:.5rem;text-align: right;">
+  $content .= '<th style="font-weight: 700; font-size: 12px; background:#7A89FF;padding-left:.5rem;padding-right:.5rem;text-align: right;">
                                                                 ' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Price') .  '</th>';
 }
 
@@ -207,23 +207,19 @@ $resultSet = mysqli_query($con, $sql);
 $x = 0;
 while ($showCif = mysqli_fetch_array($resultSet)) {
   $x++;
-  $content .= '<tr style="height:48px;">';
+  $content .= '<tr class="other" style="height:48px;">';
+
 
   if ($ordersRow['ordCurId'] > 0) {
 
 
-    $content .=  '<td style="font-size: 12px; padding: .5rem .5rem .5rem .75rem;">' . showOtherCur($showCif['amt'] * $sqlResultRow['amt'], $ordersRow['ordCurId'], 0, 1) . '</td>';
+    $content .=  '<td style="font-size: 12px; padding: .5rem .5rem .5rem .75rem;font-weight:bold;">' . showOtherCur($showCif['amt'] * $sqlResultRow['amt'], $ordersRow['ordCurId'], 0, 1) . '</td>';
   } else {
-    $content .=  '<td style="font-size: 12px; padding: .5rem;">' . getPriceWithCur($showCif['amt'], $getDefCurDet['curCode'], 0, 1) . '</td>';
+    $content .=  '<td style="font-size: 12px; padding: .5rem;font-weight:bold;">' . getPriceWithCur($showCif['amt'], $getDefCurDet['curCode'], 0, 1) . '</td>';
   }
+ 
 
-
-
-
-
-
-
-  $content .=  '
+  $content .=  '<td style="font-size: 12px; padding: .5rem;"></td>
                     <td style="font-size: 12px; padding: .5rem;">1</td>
                     <td style="font-size: 12px; padding: .5rem;">1</td>
                     <td style="font-size: 12px; padding: .5rem;">' . reverseRTLTextForPdf($showCif['unit']) . '</td>
@@ -309,13 +305,13 @@ if ($ordCountRow > 0) {
     $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
                     <th style="font-size:16px; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . showOtherCur($totalPriceOther, $ordersRow['ordCurId'], 0, 1) . '</th>
   
-        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . showOtherLangText('Sub Total') . '</th>
+        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;text-align:right;">' . showOtherLangText('Sub Total') . '</th>
             </tr>';
   } else {
     $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
                     <th style="font-size:16px; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . getPriceWithCur($chargePrice, $getDefCurDet['curCode'], 0, 1) . '</th>
     
-        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . showOtherLangText('Sub Total') . '</th>
+        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;text-align:right;">' . showOtherLangText('Sub Total') . '</th>
              </tr>';
   }
 }
@@ -350,13 +346,13 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
     $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
                     <th style="font-size:16px; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . showOtherCur($fixedChargesOther, $ordersRow['ordCurId'], 0, 1) . '</th>
    
-        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . reverseRTLTextForPdf($row['feeName']) . '</th>
+        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;text-align:right;">' . reverseRTLTextForPdf($row['feeName']) . '</th>
              </tr>';
   } else {
     $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
                     <th style="font-size:16px; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . getPriceWithCur($fixedCharges, $getDefCurDet['curCode'], 0, 1) . '</th>
     
-        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . reverseRTLTextForPdf($row['feeName']) . '</th>
+        <th style="font-size:16px;line-height:21.78px;padding:0 12px !important;text-align:right;">' . reverseRTLTextForPdf($row['feeName']) . '</th>
              </tr>';
   }
 } //Ends order lelvel fixed discount charges
@@ -430,22 +426,22 @@ if ($ordersRow['ordCurId'] > 0) {
 
   $content .= '<tbody>
           <tr style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
-                      <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . showOtherCur($netTotalAmtOther, $ordersRow['ordCurId'], 0, 1) . '</th>
+                      <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . showOtherCur($netTotalAmtOther, $ordersRow['ordCurId'], 0, 1) . '</th>
   
-          <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Grand Total') . '</th>
+          <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;text-align:right;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Grand Total') . '</th>
           </tr>
         </tbody>
         <tbody>
           <tr style="font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
-            <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode'], 0, 1) . '</th>
-                     <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Grand Total') . '</th>
+            <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode'], 0, 1) . '</th>
+                     <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;text-align:right;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Grand Total') . '</th>
 
             </tr>
         </tbody>';
 } else {
   $content .= '<tbody><tr><td colspan="2" style="padding:4px;"></td></tr><tr style="background:#7A89FF;color:white;font-size:18px;line-height:21.78px;text-align:left;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
-            <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode'], 0, 1) . '</th>
-                     <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Grand Total') . '</th>
+            <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode'], 0, 1) . '</th>
+                     <th style="font-size:18px;line-height:21.78px;padding:0 12px !important;text-align:right;">' . ' (' . $getDefCurDet['curCode'] . ')' . showOtherLangText('Grand Total') . '</th>
 
             </tr>
         </tbody>';
@@ -500,4 +496,4 @@ $content .= '  </td></tr>
 </html>';
 
 
-//echo $content;
+// echo $content;
