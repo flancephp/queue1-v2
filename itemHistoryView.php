@@ -32,10 +32,10 @@ $typeArr = [
 
 ];
 
-
-
+ 
 $typeOptions =  '<ul class="dropdown-menu ordertype" dt-ft-size >';
-$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id=' . $_GET['id'] . '&fromDate=' . $_GET['fromDate'] . '&toDate=' . $_GET['toDate'] . '">View All</a></li>';
+$typeOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id=' . $_GET['id'] . '&fromDate=' . $_GET['fromDate'] . '&toDate=' . $_GET['toDate'] . '">' . showOtherLangText('View All') . '</a></li>';
+
 
 foreach ($typeArr as $typeKey => $typeVal) {
 
@@ -57,7 +57,8 @@ $sqlQry = " SELECT s.*, od.pId AS pId FROM  tbl_suppliers s
 $resultStore = mysqli_query($con, $sqlQry);
 
 $suppMemStoreOptions = '<ul class="dropdown-menu referto" >';
-$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id=' . $_GET['id'] . '&fromDate=' . $_GET['fromDate'] . '&toDate=' . $_GET['toDate'] . '">View All</a></li>';
+$suppMemStoreOptions .= '<li><a class="dropdown-item stockTake-pr" href="itemHistoryView.php?id=' . $_GET['id'] . '&fromDate=' . $_GET['fromDate'] . '&toDate=' . $_GET['toDate'] . '">' . showOtherLangText('View All') . '</a></li>';
+
 
 while ($suppRow = mysqli_fetch_array($resultStore)) {
 
@@ -394,7 +395,7 @@ $storageDeptRow = getStoreDetailsById($res['storageDeptId']);
 
                     <section class="itm-profileDtl">
                         <div class="btnBg">
-                            <a href="stockView.php" class="btn btn-primary">Back</a>
+                            <a href="stockView.php" class="btn btn-primary"><?php echo showOtherLangText('Back') ?></a>
                         </div>
                         <div class="itemImage">
                             <div class="itemImage-bg">

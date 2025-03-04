@@ -412,7 +412,7 @@ if (isset($_GET['hotelId'])) {
                 <section class="usr-info">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-end">
-                            <h1 class="h1">Get POS Sales</h1>
+                            <h1 class="h1"><?php echo showOtherLangText('Get POS Sales'); ?></h1>
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-end">
                             <div class="mbPage">
@@ -424,7 +424,7 @@ if (isset($_GET['hotelId'])) {
                                     </button>
                                 </div>
                                 <div class="mbpg-name">
-                                    <h1 class="h1">Get POS Sales</h1>
+                                    <h1 class="h1"><?php echo showOtherLangText('Get POS Sales'); ?></h1>
                                 </div>
                             </div>
                             <?php require_once('header.php'); ?>

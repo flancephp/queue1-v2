@@ -69,26 +69,26 @@
         <div class="container">
             <div class="storeDtl">
                 <div class="inner__content bg-white"> 
-                    <h3 class="mblFnt2">Outlet Stocktaking</h3>
+                    <h3 class="mblFnt2"><?php echo showOtherLangText('Outlet Stocktaking') ?></h3>
                     <div class="d-flex justify-content-between align-items-center flex-wrap pt-3">
                         <div class="stkData">
-                            <p class="strHead">Date</p>
+                            <p class="strHead"><?php echo showOtherLangText('Date') ?></p>
                             <p class="storeDate"><?php echo date('d/m/Y');?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Time</p>
+                            <p class="strHead"><?php echo showOtherLangText('Time') ?></p>
                             <p class="storeTime"><?php echo date('h:i');?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Revenue Center</p>
+                            <p class="strHead"><?php echo showOtherLangText('Revenue Center') ?></p>
                             <p class="storeType"><?php echo $revenueCenterName;?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Outlet</p>
+                            <p class="strHead"><?php echo showOtherLangText('Outlet') ?></p>
                             <p class="storeType"><?php echo $outletName;?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Total Items To Count</p>
+                            <p class="strHead"><?php echo showOtherLangText('Total Items To Count') ?></p>
                             <p class="storeCount"><?php echo $totalItems;?>/<?php echo $totalItems;?></p>
                         </div>
                     </div>

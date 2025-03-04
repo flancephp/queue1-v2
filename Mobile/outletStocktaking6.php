@@ -67,9 +67,9 @@
     </section>
     <section class="fnlSection">
         <div class="container">
-            <div class="msgBx-Stock text-center">
-                <h4>congratulations</h4>
-                <p>Outlet stock take updated successfully</p>
+            <div class="msgBx-Stock text-center">  
+                <h4 class="text-capitalize"><?php echo showOtherLangText('congratulations') ?></h4>
+                <p><?php echo showOtherLangText('Outlet stock take updated successfully') ?></p>
                 <a href="<?php echo $mobileSiteUrl;?>index.php" class="homeBtn"><i class="fa-solid fa-arrow-left"></i> <span><?php echo showOtherLangText('Home') ?></span></a>
             </div>
         </div>

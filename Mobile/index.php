@@ -116,7 +116,7 @@ $toalIssueOutOrders = mysqli_num_rows($assignQry);
             <!--
             <a href="#" class="mblBx-Lnk w-100 m-0 text-center">
                 <img src="<?php echo $mobileSiteUrl; ?>Assets/icons/Production.svg" alt="Production" class="fieldIcns">
-                <p class="mblFnt1">Production</p>
+                <p class="mblFnt1"><?php echo showOtherLangText('Production') ?></p>
             </a>-->
             <?php
             if ($_SESSION['accountId'] != 4) {

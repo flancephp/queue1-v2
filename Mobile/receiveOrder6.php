@@ -101,10 +101,10 @@
     </section>
     <section class="fnlSection">
         <div class="container">
-            <div class="msgBx-Stock text-center">
-                <h4>congratulations</h4>
-                <p>Receiving has been sent successfully for review.</p>
-                <a href="<?php echo $mobileSiteUrl;?>index.php" class="homeBtn"><i class="fa-solid fa-arrow-left"></i> <span>Home</span></a>
+            <div class="msgBx-Stock text-center"> 
+                <h4 class="text-center"><?php echo showOtherLangText('congratulations') ?></h4>
+                <p><?php echo showOtherLangText('Receiving has been sent successfully for review.') ?></p>
+                <a href="<?php echo $mobileSiteUrl;?>index.php" class="homeBtn"><i class="fa-solid fa-arrow-left"></i> <span><?php echo showOtherLangText('Home') ?></span></a>
             </div>
         </div>
     </section>

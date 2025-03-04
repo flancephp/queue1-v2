@@ -102,7 +102,7 @@ $ordQry = mysqli_query($con, $sql);
                 <div class="col-md-6 mblFnsClm d-flex justify-content-end">
                     <div class="d-flex align-items-center fnshGrp">
                         <p class="countValue"><span class="countedItm" id="countedId"><?php echo count($tempItemRows); ?></span><span>/<?php echo $orderDet['totalItem']; ?></span></p>
-                        <a href="<?php echo $mobileSiteUrl; ?>issueOut4.php?finish=1&assignId=<?php echo $_GET['assignId']; ?>&stockTakeId=<?php echo $assignRow['orderId']; ?>" class="finishBtn">Finish <span><i class="fa-solid fa-chevron-right"></i></span> </a>
+                        <a href="<?php echo $mobileSiteUrl; ?>issueOut4.php?finish=1&assignId=<?php echo $_GET['assignId']; ?>&stockTakeId=<?php echo $assignRow['orderId']; ?>" class="finishBtn"><?php echo showOtherLangText('Finish') ?> <span><i class="fa-solid fa-chevron-right"></i></span> </a>
                     </div>
                 </div>
             </div>

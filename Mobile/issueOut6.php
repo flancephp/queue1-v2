@@ -98,7 +98,7 @@ $mebRes = mysqli_fetch_array($resultSet);
     <section class="fnlSection">
         <div class="container">
             <div class="msgBx-Stock text-center">
-                <h4><?php echo showOtherLangText('Congratulations') ?></h4>
+                <h4 class="text-capitalize"><?php echo showOtherLangText('congratulations') ?></h4>
                 <p><?php echo showOtherLangText('Issue Out done successfully.') ?></p>
                 <a href="<?php echo $mobileSiteUrl; ?>index.php" class="homeBtn"><i class="fa-solid fa-arrow-left"></i> <span><?php echo showOtherLangText('Home') ?></span></a>
             </div>

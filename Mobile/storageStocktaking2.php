@@ -57,19 +57,19 @@
                     <h3 class="mblFnt2"><?php echo showOtherLangText('Storage Stocktaking') ?></h3>
                     <div class="d-flex justify-content-between align-items-center flex-wrap pt-3">
                         <div class="stkData">
-                            <p class="strHead">Date</p>
+                            <p class="strHead"><?php echo showOtherLangText('Date') ?></p>
                             <p class="storeDate"><?php echo date('d/m/Y');?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Time</p>
+                            <p class="strHead"><?php echo showOtherLangText('Time') ?></p>
                             <p class="storeTime"><?php echo date('h:i');?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Storage</p>
+                            <p class="strHead"><?php echo showOtherLangText('Storage') ?></p>
                             <p class="storeType"><?php echo $storageName;?></p>
                         </div>
                         <div class="stkData">
-                            <p class="strHead">Total Items To Count</p>
+                            <p class="strHead"><?php echo showOtherLangText('Total Items To Count') ?></p>
                             <p class="storeCount"><?php echo $totalItems;?>/<?php echo $totalItems;?></p>
                         </div>
                     </div>
