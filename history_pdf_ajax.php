@@ -629,6 +629,7 @@ if ($_SESSION['getVals']['ordType'] != '') {
 
 //issue in starts here
 if ($issueInTotal > 0 && $checkIfPermissionToNewOrderSec > 0 && ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 1)) {
+
     $content .= '<div class="summery-row summery-row1">
                         <div class="row m-0"><input type="hidden" name="totalOtherCur" id="totalOtherCur" value="' . count($otherCurrRowArr) . '"/>
                             <div class=" ' . $issueinClass . ' issueInSection px-0 pe-1 summaryPart">
