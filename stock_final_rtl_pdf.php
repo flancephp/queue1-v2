@@ -365,13 +365,13 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
             $content .= '<td style="padding: 8px 5px;border:0;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockLastPrice'])  . '</td>';
         }
         if ($_GET['avlQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . ($row['stockQty'] - $totalTempProQty) . ' ' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . $row['countingUnit'] . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $totalTempProQty . ' ' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;">' . $row['countingUnit'] .  ' ' . $totalTempProQty .   '</td>';
         }
         if ($_GET['qty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . $row['stockQty'] . ' ' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . $row['countingUnit'] .  ' ' . $row['stockQty'] .   '</td>';
         }
         if ($_GET['itemName'] == 1 && $_GET['barCode'] == 1) {
             $content .= '<td style="padding: 8px 5px;border:0;">' . reverseRTLTextForPdf($row['itemName']) . ' <br>' . $row['barCode'] . '</td>';

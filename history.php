@@ -979,7 +979,9 @@ if ($getTxtById == 'storeId') {
 
     <style>
         @media (min-width: 1025px) {
-            html[dir="rtl"] .issueIn {  margin-right: 0px; }
+            html[dir="rtl"] .issueIn {
+                margin-right: 0px;
+            }
         }
     </style>
 </head>
@@ -1434,7 +1436,7 @@ if ($getTxtById == 'storeId') {
                                                                             <p class="pendStatus"><?php echo showOtherLangText('Pending'); ?></p>
                                                                         </div>
                                                                         <div class="col-md-9 text-center fw-normal">
-                                                                            <p class="usd-In px-3">$</p>
+                                                                            <p class="usd-In px-3"><?php echo $getDefCurDet['curCode']; ?></p>
                                                                             <p class="ttlAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency, $getDefCurDet['curCode']); ?></p>
                                                                             <p class="pdAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_paid, $getDefCurDet['curCode']); ?></p>
                                                                             <p class="pendAmount px-3"><?php echo showprice($issueInTotal_defaultcurrency_pending, $getDefCurDet['curCode']); ?></p>

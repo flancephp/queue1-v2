@@ -52,19 +52,19 @@ if (isset($_POST['approveBtn']) && ($_POST['refund'] == "refundAmt" || $_POST['r
         $cmd = "SELECT * FROM tbl_order_details WHERE ordId='" . $_POST['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' AND pId > 0 ";
         $ordersQry = mysqli_query($con, $cmd);
 
-        while ($orderRow = mysqli_fetch_array($ordersQry)) {
-            if ($orderRow['qtyReceived'] > 0) {
-                $qty = $orderRow['qtyReceived'];
+        while ($ordDet = mysqli_fetch_array($ordersQry)) {
+            if ($ordDet['qtyReceived'] > 0) {
+                $qty = $ordDet['qtyReceived'];
             } else {
-                $qty = $orderRow['qty'];
+                $qty = $ordDet['qty'];
             }
 
-            $factor = $orderRow['factor'];
+            $factor = $ordDet['factor'];
 
             $upQry = " UPDATE `tbl_stocks` SET
             `qty` = (qty - ($qty * $factor)),
-            `stockValue` = ( stockValue - " . $orderRow['totalAmt'] . " )
-            WHERE pId = '" . $orderRow['pId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'   ";
+            `stockValue` = ( stockValue - " . $ordDet['totalAmt'] . " )
+            WHERE pId = '" . $ordDet['pId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'   ";
             mysqli_query($con, $upQry);
         }
     }
@@ -495,7 +495,7 @@ WHERE orderId = '" . $_GET['orderId'] . "' ";
                                             if ($orderRow['ordCurId'] > 0) {
                                             ?>
                                                 <th class="th-bg-1">
-                                                    <?php echo showOtherLangText('Total'); ?>(<?php echo $getDefCurDet['curCode'] ?>)
+                                                    <?php echo showOtherLangText('Total'); ?>(<?php echo $curDetail['curCode'] ?>)
                                                 </th>
                                             <?php } else { ?>
                                                 <th class="th-bg-1">
@@ -576,13 +576,13 @@ WHERE orderId = '" . $_GET['orderId'] . "' ";
                                                 if ($orderRow['ordCurId'] > 0) { ?>
 
                                                     <td class="pay-dt" style="font-weight: bold;">
-                                                        <?php echo $row['qtyReceived'] > 0 ? showOtherCur($row['ordCurPrice'] * $row['factor'] * $row['qtyReceived'], ($orderRow['ordCurId'])) : showOtherCur($row['ordQty'] * $row['factor'] * $row['ordCurPrice'], ($orderRow['ordCurId'])); ?>
+                                                        <?php echo $row['qtyReceived'] > 0 ? showOtherCur(($row['ordCurPrice'] * $row['factor'] * $row['qtyReceived']), $orderRow['ordCurId']) : showOtherCur(($row['ordQty'] * $row['factor'] * $row['ordCurPrice']), $orderRow['ordCurId']); ?>
                                                     </td>
 
                                                 <?php } else { ?>
 
                                                     <td class="pay-dt" style="font-weight: bold;">
-                                                        <?php echo $row['qtyReceived'] > 0 ? showPrice($row['ordPrice'] * $row['factor'] * $row['qtyReceived'], $getDefCurDet['curCode']) : showPrice($row['ordPrice'] * $row['factor'] * $row['ordQty'], $getDefCurDet['curCode']); ?>
+                                                        <?php echo $row['qtyReceived'] > 0 ? showPrice(($row['ordPrice'] * $row['factor'] * $row['qtyReceived']), $getDefCurDet['curCode']) : showPrice(($row['ordPrice'] * $row['factor'] * $row['ordQty']), $getDefCurDet['curCode']); ?>
                                                     </td>
                                             </tr>
                                         <?php } ?>
