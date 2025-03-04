@@ -350,6 +350,11 @@ if (isset($stockUserFilterFields)) {
                 width: 68px;
             }
         }
+        @media (max-width: 767px) {
+            html[dir="rtl"] .mbLst-value {
+                padding-left: 6px;padding-right: 0px;
+            }
+        }
     </style>
 </head>
 
@@ -1061,8 +1066,8 @@ if (isset($stockUserFilterFields)) {
 
                                                 <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
-                                                    <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33 mbLst-value">
-                                                        <p><span class="">Max <?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></span></p>
+                                                    <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
+                                                        <p><span class="mbLst-value">Max</span><?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></p>
                                                     </div>
                                                 <?php } ?>
 

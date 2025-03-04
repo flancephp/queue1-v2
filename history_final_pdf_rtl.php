@@ -330,7 +330,7 @@ if ($_GET['address'] == 1 || $_GET['logo'] == 1) {
 
 
     if ($_GET['logo'] == 1) {
-        $content .= '<td width="50%" align="right">';
+        $content .= '<td width="50%" align="left">';
         if ($clientDetRow["logo"] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/clientLogo/" . $clientDetRow["logo"])) {
             $content .= '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/clientLogo/' . $clientDetRow['logo'] . '" style="object-fit: scale-down; height: 60px; width: auto;">';
         } else {
@@ -346,7 +346,7 @@ if ($_GET['address'] == 1 || $_GET['logo'] == 1) {
         $content .= '<table style="width: 100%; border-spacing: 0; margin-top: 5px;">
                      <tbody>
                         <tr>
-                           <td style="font-size: 13px; line-height: 15px; font-weight: 400;">
+                           <td style="font-size: 13px; line-height: 15px; font-weight: 400;text-align:right;">
                               ' . $clientDetRow['address_one'] . ' <br>' . $clientDetRow['address_two'] . '
                               ' . $clientDetRow['city'] . ', ' . $clientDetRow['countryName'] . '<br>
                               ' . $clientDetRow['email'] . '<br>
@@ -359,7 +359,7 @@ if ($_GET['address'] == 1 || $_GET['logo'] == 1) {
         $content .= '<table style="width: 100%; border-spacing: 0;">
                   <tbody>
                      <tr>
-                        <td>' . $clientDetRow['accountName'] . '</td>
+                        <td style="text-align:right;">' . $clientDetRow['accountName'] . '</td>
                      </tr>
                   </tbody>
                   </table>';
@@ -474,7 +474,7 @@ if (($_SESSION['getVals']['ordType'] != '' && $_SESSION['getVals']['ordType'] !=
     $_GET['converted'] = 0;
 }
 
-$content .= '<table style="font-size:12px;" width="98%">
+$content .= '<table style="font-size:12px;" width="100%">
         <tr style="vertical-align: baseline;">';
 
 
@@ -485,21 +485,21 @@ if ($_GET['issuedOut'] == 1 && $issueOutTotal > 0) {
                 <table style="width:100%; margin-right:1%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold;">
                         
-                        <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Issued Out') . '</td><td style="padding: 8px 5px;">&nbsp;</td>
+                        <td style="width:50%; padding: 8px 5px;text-align:right;">' . showOtherLangText('Issued Out') . '</td><td style="padding: 8px 5px;text-align:right;">&nbsp;</td>
                         </tr>';
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
                         ';
-    $content .= ($issueOutTotal > 0) ? '<td style="padding: 8px 5px;">' . getPriceWithCur($issueOutTotal, $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td>&nbsp;</td>';
+    $content .= ($issueOutTotal > 0) ? '<td style="padding: 8px 5px;text-align:right;">' . getPriceWithCur($issueOutTotal, $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td>&nbsp;</td>';
 
-    $content .= '<td style="padding: 8px 5px;">' . showOtherLangText('Total') . '</td>';
+    $content .= '<td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Total') . '</td>';
 
     if ($_GET['receiveSection'] == 1) {
         $content .= '</tr>
                         <tr>
                             ';
 
-        $content .= ($issuedInOutPaidArr[2][1]) ? '<td style="font-weight:bold; padding: 8px 5px;">' . getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td>&nbsp;</td>';
-        $content .= '<td style="padding: 8px 5px;">' . showOtherLangText('Received') . '</td></tr>';
+        $content .= ($issuedInOutPaidArr[2][1]) ? '<td style="font-weight:bold; padding: 8px 5px;text-align:right;">' . getPriceWithCur($issuedInOutPaidArr[2][1], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td>&nbsp;</td>';
+        $content .= '<td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Received') . '</td></tr>';
     }
 
 
@@ -508,8 +508,8 @@ if ($_GET['issuedOut'] == 1 && $issueOutTotal > 0) {
                                    ';
         // $content .= '<td style="font-weight:bold; padding: 8px 5px;">1,279.69 $</td>';
 
-        $content .= ($issuedInOutPendingArr[2][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;">' . getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td>&nbsp;</td>';
-        $content .= ' <td style="padding: 8px 5px;">' . showOtherLangText('Pending') . '</td></tr>';
+        $content .= ($issuedInOutPendingArr[2][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;text-align:right;">' . getPriceWithCur($issuedInOutPendingArr[2][0], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td>&nbsp;</td>';
+        $content .= ' <td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Pending') . '</td></tr>';
     }
 
     $content .= '</table></td>';
@@ -539,12 +539,12 @@ if ($_GET['issueInSummary'] == 1 && $issueInTotal > 0) {
         // Issue In other currency total
         foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow) {
             //$content .= '<td style="padding: 8px 5px;">3,200 $</td>';
-            $content .= ($otherCurrTotalValueArr[$currencyId] > 0) ?  '<td style="padding: 8px 5px;text-align:right;">' . showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId, 1) . '</td>' :  '<td style="padding: 8px 5px;">&nbsp;</td>';
+            $content .= ($otherCurrTotalValueArr[$currencyId] > 0) ?  '<td style="padding: 8px 5px;text-align:right;width:33.333%;">' . showOtherCur($otherCurrTotalValueArr[$currencyId], $currencyId, 1) . '</td>' :  '<td style="padding: 8px 5px;">&nbsp;</td>';
         }
     }
 
 
-    $content .= ($_GET['defaultCurrency'] == 1 && $issueInTotal > 0) ? '<td style="padding: 8px 5px;text-align:right;">' . getPriceWithCur($issueInTotal, $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td style="padding: 8px 5px;">&nbsp;</td>';
+    $content .= ($_GET['defaultCurrency'] == 1 && $issueInTotal > 0) ? '<td style="padding: 8px 5px;text-align:right;width:33.333%;">' . getPriceWithCur($issueInTotal, $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td style="padding: 8px 5px;">&nbsp;</td>';
     $content .= '<td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Total') . '</td>';
 
     $content .= '</tr>';
@@ -558,13 +558,13 @@ if ($_GET['issueInSummary'] == 1 && $issueInTotal > 0) {
         if ($_GET['otherCurrency'] == 1) {
             foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow) {
                 //$content .=  '<td style="padding: 8px 5px;">1,200 $</td>';
-                $content .= ($otherCurrPaidTotalValueArr[$currencyId] > 0) ?  '<td style="padding: 8px 5px;text-align:right;" class="issue-in-oth-curr">55</td>' :  '<td style="padding: 8px 5px;text-align:right;">&nbsp;</td>';
+                $content .= ($otherCurrPaidTotalValueArr[$currencyId] > 0) ?  '<td style="padding: 8px 5px;text-align:right;width:33.333%;" class="issue-in-oth-curr">55</td>' :  '<td style="padding: 8px 5px;text-align:right;">&nbsp;</td>';
             }
         }
 
-        $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPaidArr[1][1] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;text-align:right;">' . getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td style="font-weight: bold;padding: 5px 5px;text-align:right;">&nbsp;</td>';
+        $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPaidArr[1][1] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;text-align:right;width:33.333%;">' . getPriceWithCur($issuedInOutPaidArr[1][1], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td style="font-weight: bold;padding: 5px 5px;text-align:right;">&nbsp;</td>';
 
-        $content .=  ' <td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Paid') . '</td></tr>';
+        $content .=  ' <td style="padding: 8px 5px;text-align:right;width:33.333%;">' . showOtherLangText('Paid') . '</td></tr>';
     }
 
     if ($_GET['pendingSection'] == 1) {
@@ -575,15 +575,16 @@ if ($_GET['issueInSummary'] == 1 && $issueInTotal > 0) {
         if ($_GET['otherCurrency'] == 1) {
             // Issue In other currency total pending
             foreach ($otherCurrRowArr as $currencyId => $countOtherCurrRow) {
-                $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?  '<td style=" padding: 8px 5px;text-align:right;">' . showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId, 1) . '</td>' : '<td style=" padding: 8px 5px;text-align:right;">&nbsp;</td>';
+                $content .= ($otherCurrPendingTotalValueArr[$currencyId] > 0) ?  '<td style=" padding: 8px 5px;text-align:right;width:33.333%;">' . showOtherCur($otherCurrPendingTotalValueArr[$currencyId], $currencyId, 1) . '</td>' : '<td style=" padding: 8px 5px;text-align:right;">&nbsp;</td>';
             }
             // End Issue In other currency total pending
         }
 
-        $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPendingArr[1][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;text-align:right;">' . getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td style="font-weight:bold; padding: 8px 5px;text-align:right;">&nbsp;</td>';
+        $content .= ($_GET['defaultCurrency'] == 1 && $issuedInOutPendingArr[1][0] > 0) ? '<td style="font-weight:bold; padding: 8px 5px;text-align:right;width:33.333%;">' . getPriceWithCur($issuedInOutPendingArr[1][0], $getDefCurDet['curCode'], 0, 1) . '</td>' : '<td style="font-weight:bold; padding: 8px 5px;text-align:right;">&nbsp;</td>';
 
 
-        $content .=  '<td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Pending') . '</td><td style="padding: 8px 5px;text-align:right;">&nbsp;</td></tr>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;">' . showOtherLangText('Pending') . '</td>
+        </tr>';
     }
     $content .=  '
                 </table>';
@@ -595,7 +596,7 @@ $content .= '</tr>
 
 
 
-$content .= '<table style="font-size:12px;" width="98%"><tr>';
+$content .= '<table style="font-size:12px;" width="100%"><tr>';
 
 
 
@@ -613,11 +614,11 @@ if ($_GET['converted'] == 1) {
         <table style="width:100%; font-size:12px; border-collapse: collapse;">';
 
         $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
-                            <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Converted') . '</td>
+                            <td style="width:50%; padding: 8px 5px;text-align:right;">' . showOtherLangText('Converted') . '</td>
                                 </tr>';
 
         $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                            <td style="padding: 8px 5px;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode'], 0, 1) . '</td>
+                            <td style="padding: 8px 5px;text-align:right;">' . getPriceWithCur($resRow['totConvertedAmt'], $getDefCurDet['curCode'], 0, 1) . '</td>
                         </tr>
                     </table></td>
                 ';
@@ -629,13 +630,13 @@ if ($_GET['variance'] == 1 && ($variancesPosTot || $variancesNevTot)) {
     $content .= '<td style="' . $varianceClass . '">
                     <table style="width:100%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
-                               <td style="width:50%; padding: 8px 5px;">' . showOtherLangText('Variances') . '</td>
+                               <td style="width:50%; padding: 8px 5px;text-align:right;">' . showOtherLangText('Variances') . '</td>
                                 </tr>';
 
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                                <td style="color: #dc3545; padding: 8px 5px;"><img src="data:image/svg+xml;base64,' . base64_encode($svgDown) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode'], 0, 1) . '</td>
+                                <td style="color: #dc3545; padding: 8px 5px;text-align:right;"><img src="data:image/svg+xml;base64,' . base64_encode($svgDown) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode'], 0, 1) . '</td>
 
-                            <td style="color: #198754; padding: 8px 5px;"><img src="data:image/svg+xml;base64,' . base64_encode($svg) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode'], 0, 1) . '</td>
+                            <td style="color: #198754; padding: 8px 5px;text-align:right;"><img src="data:image/svg+xml;base64,' . base64_encode($svg) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode'], 0, 1) . '</td>
                         </tr>
                     </table>
                 </td>';
@@ -662,7 +663,7 @@ if ($_GET['summaryAccount'] == 1 && mysqli_num_rows($accountResult) > 0) {
         $num++;
         $curCode = $resultRow['curCode'];
         $balanceAmt = round($resultRow['balanceAmt'], 4);
-        $content .= '<td style="padding: 8px 5px;text-align:left;">
+        $content .= '<td style="padding: 8px 5px;text-align:right;">
                                                                 
                                                         ' . $curCode . ' ' . number_format($balanceAmt) . '
                                                         <small style="display: block; font-weight: 500;font-size: 10px;">' . $resultRow['accountName'] . '</small></td>';
@@ -1012,4 +1013,4 @@ if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1
 $content .= '</tbody></table></body>
 </html>';
 
-//echo $content;s
+// echo $content;
