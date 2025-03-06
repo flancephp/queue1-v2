@@ -123,7 +123,12 @@ $content .=   '<head>
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
       <link href="./PDF Design_files/css2" rel="stylesheet">
-     
+      <style>
+        @page { margin: 10px 10px; }
+        th {
+            text-align:right;
+        }
+    </style>
    </head>';
 $content .= '<body style="font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;">';
 $content .=   '<table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
@@ -173,9 +178,9 @@ $content .= '</td>';
 $content .= '</tr>
          </tbody>
       </table>
-      <table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
+      <table style="width: 100%; border-collapse: collapse;margin-bottom:14px; border-top:1px solid #d2d2d2;border-bottom:1px solid #d2d2d2;">
         <tr>
-            <td style="width: 50%;padding-block: 20px;">
+            <td style="width: 50%;padding: 16px 0 0 0;">
                 <div style="display: flex; align-items: center;">
                     <div style="flex: 1; text-align: left; font-size: 15px;">' . date('d-m-Y') . '</div>
                     <div style="flex: 1;text-align: right;">
@@ -392,3 +397,4 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
 }
 $content .= '</body>
      </html>';
+// echo $content;

@@ -376,12 +376,12 @@ $content .= '</tbody>
         <tr>
             <td style="width: 50%; border-top: 1px solid #d2d2d2; border-bottom: 1px solid #d2d2d2; padding-top: 15px;">
                 <div style="display: flex; align-items: center;">
-                    <div style="flex: 1;">
-                        <h6 style="font-weight: bold; font-size: 15px; margin: 0;line-height:18px;">' . showOtherLangText('History Report') . '</h6>
-                    </div>
-                    <div style="flex: 1; text-align: right; font-size: 15px;margin:0;line-height:18px;">
+                    <div style="flex: 1; text-align: left; font-size: 15px;margin:0;line-height:18px;">
                         <small>' . showOtherLangText('To') . '</small> ' . $fromDate . '<small> ' . showOtherLangText('From') . '</small> ' . $toDate . '
                     </div>
+                    <div style="flex: 1;">
+                        <h6 style="font-weight: bold; font-size: 15px; margin: 0;line-height:18px;text-align:right;">' . showOtherLangText('History Report') . '</h6>
+                    </div> 
                 </div>
             </td>
         </tr>
@@ -613,7 +613,7 @@ if ($_GET['converted'] == 1) {
         $content .= '<td style="' . $convertedClass . '">
         <table style="width:100%; font-size:12px; border-collapse: collapse;">';
 
-        $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
+        $content .= '<tr style="font-weight:bold; padding: 8px 5px;"> 
                             <td style="width:50%; padding: 8px 5px;text-align:right;">' . showOtherLangText('Converted') . '</td>
                                 </tr>';
 
@@ -630,13 +630,20 @@ if ($_GET['variance'] == 1 && ($variancesPosTot || $variancesNevTot)) {
     $content .= '<td style="' . $varianceClass . '">
                     <table style="width:100%; font-size:12px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold; padding: 8px 5px;">
+                               <td style="width:50%; padding: 8px 5px;text-align:right;"></td>
                                <td style="width:50%; padding: 8px 5px;text-align:right;">' . showOtherLangText('Variances') . '</td>
                                 </tr>';
 
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2); font-weight:bold;">
-                                <td style="color: #dc3545; padding: 8px 5px;text-align:right;"><img src="data:image/svg+xml;base64,' . base64_encode($svgDown) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode'], 0, 1) . '</td>
+                                <td style="color: #dc3545; padding: 8px 5px;text-align:right;">
+                                    ' . getPriceWithCur($variancesNevTot, $getDefCurDet['curCode'], 0, 1) . '
+                                    <img src="data:image/svg+xml;base64,' . base64_encode($svgDown) . '" alt="icon"  width="18" height="18" />
+                                </td>
 
-                            <td style="color: #198754; padding: 8px 5px;text-align:right;"><img src="data:image/svg+xml;base64,' . base64_encode($svg) . '" alt="icon"  width="18" height="18" />' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode'], 0, 1) . '</td>
+                            <td style="color: #198754; padding: 8px 5px;text-align:right;">
+                                ' . getPriceWithCur($variancesPosTot, $getDefCurDet['curCode'], 0, 1) . '
+                                <img src="data:image/svg+xml;base64,' . base64_encode($svg) . '" alt="icon"  width="18" height="18" />
+                            </td>
                         </tr>
                     </table>
                 </td>';

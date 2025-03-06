@@ -210,7 +210,7 @@ if (
             
             </td>
             <td style="text-align: right;padding:8px 5px; font-weight: 700;border:0;">' . reverseRTLTextForPdf($suppliers) . '</td>
-            <td style="padding-right:10px;text-align: right;">
+            <td style="padding-right:10px;text-align: right;font-weight: 700;">
 
                 ' . $ordDet['ordNumber'] . '
             </td>
@@ -662,7 +662,7 @@ if ($_GET['taskRecord'] == 1) {
 $content .= '</body>
              </html>';
  
-
+// echo $content;
 // unset($content);
 // $content = '<html>
 // <head>
