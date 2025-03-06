@@ -64,7 +64,7 @@ $resultSet = mysqli_query($con, $sqlSet);
 $mebRes = mysqli_fetch_array($resultSet);
 
 
-$sql = "SELECT tp.*, od.id ordDetId,  od.price ordPrice, od.curPrice,  od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitC) countingUnit FROM tbl_order_details od 
+echo $sql = "SELECT tp.*, od.id ordDetId,  od.price ordPrice, od.curPrice,  od.qty ordQty, od.totalAmt, od.factor ordFactor, IF(u.name!='',u.name,tp.unitC) countingUnit FROM tbl_order_details od 
 	INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
 	LEFT JOIN tbl_units u ON(u.id=tp.unitC) AND u.account_id = tp.account_id
     WHERE od.ordId = '" . $assignRow['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' ORDER BY tp.storageDeptId DESC  ";
