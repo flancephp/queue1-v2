@@ -115,7 +115,7 @@
     <section class="finishSection">
         <div class="container">
             <div class="scflMsg">
-                <p class="text-center">All <span class="numItems"><?php echo $tempItemCnt;?></span> items counted successfully</p>
+                <p class="text-center"><?php echo showOtherLangText('All') ?> <span class="numItems"><?php echo $tempItemCnt;?></span> <?php echo showOtherLangText('items counted successfully') ?></p>
             </div>
             <div class="itmCount-Dtl">
                 <div class="row align-tems-center taskDetail">
