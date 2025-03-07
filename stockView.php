@@ -350,9 +350,11 @@ if (isset($stockUserFilterFields)) {
                 width: 68px;
             }
         }
+
         @media (max-width: 767px) {
             html[dir="rtl"] .mbLst-value {
-                padding-left: 6px;padding-right: 0px;
+                padding-left: 6px;
+                padding-right: 0px;
             }
         }
     </style>
@@ -592,8 +594,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex align-items-center w-20">
                                                 <p style="color:#1c2047 !important; font-weight: 400;"><?php echo showOtherLangText('Item'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkItmclm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -604,8 +606,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex justify-content-en align-items-center">
                                                 <p><?php echo showOtherLangText('Qty'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkQtybdy');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -616,8 +618,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex justify-content-en align-items-center">
                                                 <p><?php echo showOtherLangText('Req Qty'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkreqbdy');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -628,8 +630,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex justify-content-en align-items-center">
                                                 <p><?php echo showOtherLangText('Avail Qty'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkavabdy','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkavabdy','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.stkavabdy');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -643,8 +645,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex align-items-center">
                                                 <p><?php echo showOtherLangText('Last Price'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Last','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Last');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -655,8 +657,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex align-items-center">
                                                 <p><?php echo showOtherLangText('Stock Price'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-Stock');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -668,8 +670,8 @@ if (isset($stockUserFilterFields)) {
                                             <div class="d-flex align-items-center">
                                                 <p><?php echo showOtherLangText('Stock Value'); ?></p>
                                                 <span class="dblArrow">
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','asc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                    <a onclick="sortTableByColumn('.newStockTask1', '.stockValDefault','desc',1);" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                    <a onclick="sortTableByColumn('.newStockTask', '.mb-stockValue');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                 </span>
                                             </div>
                                         </div>
@@ -935,7 +937,7 @@ if (isset($stockUserFilterFields)) {
 
                                                 <?php if (isset($stockUserFilterFields) && !in_array(18, $stockUserFilterFields)) { ?>
                                                 <?php } else { ?>
-                                                    <div class="tb-bdy lstPrcol stkPrcbdy mb-Last">
+                                                    <div class="tb-bdy lstPrcol stkPrcbdy mb-stockValue">
                                                         <p><span class="mbLst-value lstValueSize">S. Value</span><?php echo getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode']; ?></p>
                                                     </div>
                                                 <?php } ?>
@@ -1377,9 +1379,27 @@ if (isset($stockUserFilterFields)) {
         }
 
 
+        var fildArr = [];
 
-        function sortTableByColumn(table, field, order, displayArea) {
-            sortElementsByText(table, field, order, displayArea);
+        function sortTableByColumn(table, field, displayArea) {
+
+
+            if (fildArr[field] === undefined) //Todo
+            {
+                fildArr[field] = 'asc';
+            }
+
+            console.log(fildArr[field]);
+
+            if (fildArr[field] == 'asc') {
+                orderSort = 'desc';
+                fildArr[field] = 'desc';
+
+            } else {
+                orderSort = 'asc';
+                fildArr[field] = 'asc';
+            }
+            sortElementsByText(table, field, orderSort, displayArea);
         }
 
         function sortElementsByText(container, textElement, order, displayArea) {
