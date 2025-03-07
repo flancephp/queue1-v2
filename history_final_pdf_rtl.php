@@ -303,7 +303,7 @@ $svgDown = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewB
 
 
 $content = '<!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -671,9 +671,21 @@ if ($_GET['summaryAccount'] == 1 && mysqli_num_rows($accountResult) > 0) {
         $curCode = $resultRow['curCode'];
         $balanceAmt = round($resultRow['balanceAmt'], 4);
         $content .= '<td style="padding: 8px 5px;text-align:right;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="100%" style="text-align: right;">
+                                ' . $curCode . ' ' . number_format($balanceAmt) . '
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100%" style="font-weight: 500; font-size: 10px; text-align: right;padding-right:20%;">
+                                    ' . $resultRow['accountName'] . ' 
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>';
                                                                 
-                                                        ' . $curCode . ' ' . number_format($balanceAmt) . '
-                                                        <small style="display: block; font-weight: 500;font-size: 10px;">' . $resultRow['accountName'] . '</small></td>';
     }
 
     $content .= '</tr></table>';
