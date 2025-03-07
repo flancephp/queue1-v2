@@ -80,10 +80,9 @@ $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-
         <h4
           style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 22px; margin-bottom: 0;padding-right:16%;">';
 $content .= showOtherLangText('Stock take details');
-$content .=  '</h4>
-
-  <h4
-          style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 12px; margin-top: 0;">
+$content .=  '</h4> 
+        <h4
+          style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 12px; margin-top: 0;margin-left:-10%;">
           ' . reverseRTLTextForPdf($storageDeptRow['name']) . '
         </h4>
         

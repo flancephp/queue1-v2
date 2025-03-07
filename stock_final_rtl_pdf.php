@@ -128,6 +128,17 @@ $content .=   '<head>
         th {
             text-align:right;
         }
+            .head1 { width:5%; }
+            .head2 { width:5%; }
+            .head3 { width:8%; }
+            .head4 { width:10%; }
+            .head5 { width:8%; }
+            .head6 { width:8%; }
+            .head7 { width:8%; }
+            .head8 { width:8%; }
+            .head9 { width:8%; }
+            .head10 { width:8%; }
+            .head11 { width:13%; }
     </style>
    </head>';
 $content .= '<body style="font-family: firefly, DejaVu Sans, sans-serif, Inter; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;">';
@@ -355,40 +366,40 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
         $content .= '<tr>';
 
         if ($_GET['suplr'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . reverseRTLTextForPdf($supNames) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:13%;">' . reverseRTLTextForPdf($supNames) . '</td>';
         }
         if ($_GET['subCat'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . reverseRTLTextForPdf($catNames) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . reverseRTLTextForPdf($catNames) . '</td>';
         }
         if ($_GET['stockValue'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockValue']) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockValue']) . '</td>';
         }
         if ($_GET['stockPrice'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['sPrice']) .  '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['sPrice']) .  '</td>';
         }
         if ($_GET['lastPrice'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockLastPrice'])  . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockLastPrice'])  . '</td>';
         }
         if ($_GET['avlQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . $row['countingUnit'] . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;">' . $row['countingUnit'] . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $row['countingUnit'] .  ' ' . $totalTempProQty .   '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $row['countingUnit'] .  ' ' . $totalTempProQty .   '</td>';
         }
         if ($_GET['qty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . $row['countingUnit'] .  ' ' . $row['stockQty'] .   '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;">' . $row['countingUnit'] .  ' ' . $row['stockQty'] .   '</td>';
         }
         if ($_GET['itemName'] == 1 && $_GET['barCode'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . reverseRTLTextForPdf($row['itemName']) . ' <br>' . $row['barCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:10%;">' . reverseRTLTextForPdf($row['itemName']) . ' <br>' . $row['barCode'] . '</td>';
         } elseif ($_GET['itemName'] == 1 || $_GET['barCode'] == 1) {
             $data = $_GET['itemName'] == 1 ? reverseRTLTextForPdf($row['itemName']) : $row['barCode'];
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $data . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $data . '</td>';
         }
 
         if ($_GET['photo'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $img . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $img . '</td>';
         }
-        $content .= '<td style="padding: 8px 5px;border:0;">' . $i . '</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;width:5%;">' . $i . '</td>';
 
         $content .= '</tr>';
     }
