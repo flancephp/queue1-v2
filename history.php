@@ -1639,8 +1639,8 @@ if ($getTxtById == 'storeId') {
                                                         <div class="d-flex align-items-center">
                                                             <p><?php echo showOtherLangText('Number'); ?></p>
                                                             <span class="dblArrow">
-                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                                             </span>
                                                         </div>
                                                     </div>
@@ -1734,7 +1734,10 @@ if ($getTxtById == 'storeId') {
 
                                                 <div class="tb-bdy hisValclm">
                                                     <div class="d-flex align-items-center">
-                                                        <p><?php echo showOtherLangText('Value'); ?></p>
+                                                        <p><?php echo showOtherLangText('Value'); ?> </p>
+                                                        <a onclick="sortTableByColumn('.newHistoryTask', '.hisValclm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
+
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -2840,17 +2843,37 @@ if ($getTxtById == 'storeId') {
         });
 
 
-        function sortTableByColumn(table, field, order) {
-            sortElementsByText(table, field, order);
+        var fildArr = [];
+
+        function sortTableByColumn(table, field, displayArea) {
+
+
+            if (fildArr[field] === undefined) //Todo
+            {
+                fildArr[field] = 'asc';
+            }
+
+            console.log(fildArr[field]);
+
+            if (fildArr[field] == 'asc') {
+                orderSort = 'desc';
+                fildArr[field] = 'desc';
+
+            } else {
+                orderSort = 'asc';
+                fildArr[field] = 'asc';
+            }
+            sortElementsByText(table, field, orderSort, displayArea);
         }
 
-        function sortElementsByText(container, textElement, order) {
+
+        function sortElementsByText(container, textElement, order, displayArea) {
             var elements = $(container).get();
 
             elements.sort(function(a, b) {
                 var textA = $(a).find(textElement).text().trim();
                 var textB = $(b).find(textElement).text().trim();
-
+                // Check if textA and textB are numbers
                 var isNumA = !isNaN(parseFloat(textA)) && isFinite(textA);
                 var isNumB = !isNaN(parseFloat(textB)) && isFinite(textB);
 
@@ -2865,7 +2888,11 @@ if ($getTxtById == 'storeId') {
             });
 
             $.each(elements, function(index, element) {
-                $('.cntTableData').append(element);
+                if (displayArea == 1) {
+                    $('.cntTableData1').append(element);
+                } else {
+                    $('.cntTableData').append(element);
+                }
             });
         }
     </script>

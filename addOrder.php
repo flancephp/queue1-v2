@@ -326,7 +326,7 @@ $currResultSet = mysqli_query($con, $curQry);
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/style1.css">
     <link rel="stylesheet" href="Assets/css/add-order.css?v=2">
-     
+
 </head>
 
 <body>
@@ -842,6 +842,10 @@ $currResultSet = mysqli_query($con, $curQry);
                             <div class="prdtCnt-Fst d-flex align-items-center">
                                 <div class="Itm-Name tb-head">
                                     <p><?php echo showOtherLangText('Item'); ?></p>
+                                    <span class="dblArrow">
+                                        <a onclick="sortTableByColumn('.newOrdTaskMainRow', '.Itm-Name');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
+                                    </span>
                                 </div>
                                 <div class="Itm-brCode tb-head">
                                     <p><?php echo showOtherLangText('Bar Code'); ?></p>
@@ -913,7 +917,7 @@ $currResultSet = mysqli_query($con, $curQry);
                     </div>
 
                     <div id="boxscroll" class="compact__tb__bdy">
-                        <div class="container cntTable">
+                        <div class="container cntTable addOrderTable">
                             <?php
                             if (isset($_SESSION['itemChargesOrd'][1]) && count($_SESSION['itemChargesOrd'][1]) > 0) {
                                 while ($row = mysqli_fetch_array($resRows)) //start custom item charge loop
@@ -1053,7 +1057,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                         value="<?php echo $row['price']; ?>" />
                                     <input type="hidden" name="factor[<?php echo $row['id']; ?>]" id="factor<?php echo $x; ?>"
                                         value="<?php echo $row['factor']; ?>" />
-                                    <div class="newOrdTask">
+                                    <div class="newOrdTask newOrdTaskMainRow">
                                         <div class="d-flex align-items-center border-bottom itmBody newOrd-CntPrt">
                                             <div class="prdtImg tb-bdy">
                                                 <p><?php echo $x; ?></p>
@@ -1100,6 +1104,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                 onChange="showTotal(this.value, '<?php echo $x; ?>', '<?php echo $row['id']; ?>')"
                                                                 value="<?php echo $showQtyMinValue ? $showQtyMinValue : ''; ?>" size="1"
                                                                 autocomplete="off"></strong>
+                                                        <span class="qty-itm-hid" id="qtyItem<?php echo $row['id']; ?>"></span>
                                                     </div>
                                                 </div>
                                                 <div class="ttlCr-Type d-flex align-items-center text-start res__label__item" data-text="<?php echo showOtherLangText('Total'); ?>">
@@ -1482,11 +1487,16 @@ supplierId = '" . $_SESSION['supplierId'] . "'
     // }
 
     function showTotal(qty, priceId, pId) {
+
+
+
         //console.log('hello');
         //call ajax to save qty changes in database
         if (isNaN(qty) || qty == '') {
             qty = 0;
         }
+
+        $('#qtyItem' + pId).html(qty);
 
         $.ajax({
                 method: "POST",
@@ -1505,6 +1515,7 @@ supplierId = '" . $_SESSION['supplierId'] . "'
                 $('#totalPrice' + priceId).html(responseObj.productPrice);
 
                 $('#totalPriceOther' + priceId).html(responseObj.totalPriceOther);
+
             });
 
         //end  
@@ -1570,4 +1581,59 @@ supplierId = '" . $_SESSION['supplierId'] . "'
     }).on('mouseleave', function() {
         $('.subitem', this).hide();
     });
+</script>
+
+<script>
+    var fildArr = [];
+
+    function sortTableByColumn(table, field, displayArea) {
+
+
+        if (fildArr[field] === undefined) //Todo
+        {
+            fildArr[field] = 'asc';
+        }
+
+        console.log(fildArr[field]);
+
+        if (fildArr[field] == 'asc') {
+            orderSort = 'desc';
+            fildArr[field] = 'desc';
+
+        } else {
+            orderSort = 'asc';
+            fildArr[field] = 'asc';
+        }
+        sortElementsByText(table, field, orderSort, displayArea);
+    }
+
+
+    function sortElementsByText(container, textElement, order, displayArea) {
+        var elements = $(container).get();
+
+        elements.sort(function(a, b) {
+            var textA = $(a).find(textElement).text().trim();
+            var textB = $(b).find(textElement).text().trim();
+            // Check if textA and textB are numbers
+            var isNumA = !isNaN(parseFloat(textA)) && isFinite(textA);
+            var isNumB = !isNaN(parseFloat(textB)) && isFinite(textB);
+
+            if (isNumA && isNumB) {
+                // If both are numbers, compare them as numbers
+                return order === 'asc' ? parseFloat(textA) - parseFloat(textB) : parseFloat(textB) - parseFloat(
+                    textA);
+            } else {
+                // Otherwise, compare them as strings
+                return order === 'asc' ? textA.localeCompare(textB) : textB.localeCompare(textA);
+            }
+        });
+
+        $.each(elements, function(index, element) {
+            if (displayArea == 1) {
+                $('.cntTableData1').append(element);
+            } else {
+                $('.cntTableData').append(element);
+            }
+        });
+    }
 </script>
