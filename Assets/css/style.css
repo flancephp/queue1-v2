@@ -22438,3 +22438,5 @@ td.text-right{
     right: auto;
   }
 }
+
+.dblArrow img { height: 15px;width: auto; }
