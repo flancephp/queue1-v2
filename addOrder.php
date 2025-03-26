@@ -841,9 +841,9 @@ $currResultSet = mysqli_query($con, $curQry);
                             </div>
                             <div class="prdtCnt-Fst d-flex align-items-center">
                                 <div class="Itm-Name tb-head">
-                                    <p><?php echo showOtherLangText('Item'); ?></p>
+                                    <span><?php echo showOtherLangText('Item'); ?></span>
                                     <span class="dblArrow">
-                                        <a onclick="sortTableByColumn('.newOrdTaskMainRow', '.Itm-Name');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+                                        <a onclick="sortTableByColumn('.newOrdTaskMainRow', '.Itm-Name');" href="javascript:void(0)" class="d-bloc aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
 
                                     </span>
                                 </div>

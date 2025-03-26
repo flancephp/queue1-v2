@@ -160,10 +160,10 @@ $content .= '</td><td width="45%">&nbsp;</td>';
 
 $content .= '<td width="35%" style="text-align:right;" >';
 if ($_GET['address'] == 1) {
-    $content .= '<table style="width: 100%; border-spacing: 0;text-align:right;">
+    $content .= '<table style="width: 100%; border-spacing: 0;text-align:right;padding-right:70px;">
                      <tbody>
                         <tr> 
-                           <td style="font-size: 14px; line-height: 16px; font-weight: 600;width: 100%;">' . $clientDetRow['accountName'] . '</td>
+                           <td style="font-size: 14px; line-height: 16px; font-weight: 600;width: 100%;">' . reverseRTLTextForPdf($clientDetRow['accountName']) . '</td>
                         </tr>
                      </tbody>
                   </table>
@@ -324,19 +324,45 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
     // Item Table column Header
     foreach ($headerArr as $key => $header) {
         if ($key == '1') {
-            $content .= '<td style="padding: 8px 5px;border:0;text-align: right;" class="head' . $key . '">' . $header . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;text-align: right;width:5%;" class="head' . $key . '">' . $header . '</td>';
         } elseif ($key == '2') {
-            $content .= '<td style="padding: 5px 8px;border:0;text-align: right;" class="head' . $key . '">' . $header . '</td>';
-        } elseif ($key == '3' && $_GET['itemName'] == 0 && $_GET['barCode'] == 1) {
-
-            $content .= '<td style="padding: 5px 8px;text-align: right;width:50px;border:0;" class="head' . $key . '">' . showOtherLangText('BarCode') . '</td>';
-        } elseif ($key == '3' && $_GET['itemName'] == 1 && $_GET['barCode'] == 0) {
-
-            $content .= '<td style="padding: 5px 8px;text-align: right;width:50px;border:0;" class="head' . $key . '">' . showOtherLangText('Item') . '</td>';
+            $content .= '<td style="padding: 5px 8px;border:0;text-align: right;width:10%;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '3' && $_GET['itemName'] == 0 && $_GET['barCode'] == 1) { 
+            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . showOtherLangText('BarCode') . '</td>';
+        } elseif ($key == '3' && $_GET['itemName'] == 1 && $_GET['barCode'] == 0) { 
+            $content .= '<td style="padding: 5px 8px;text-align: right;width:8%;border:0;" class="head' . $key . '">' . showOtherLangText('Item') . '</td>';
+        } elseif ($key == '4') {
+            $content .= '<td style="padding: 5px 8px;text-align: left;border:0;width:8%;backgroud: red;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '5') {
+            $content .= '<td style="padding: 5px 8px;text-align: left;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '6') {
+            $content .= '<td style="padding: 5px 8px;text-align: left;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '7') {
+            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '8') {
+            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '9') {
+            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
+        } elseif ($key == '10') {
+            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
         } else {
-            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;" class="head' . $key . '">' . $header . '</td>';
+            $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:13%;" class="head' . $key . '">' . $header . '</td>';
         }
     }
+    // foreach ($headerArr as $key => $header) {
+    //     if ($key == '1') {
+    //         $content .= '<td style="padding: 8px 5px;border:0;text-align: right;width:5%;" class="head' . $key . '">' . $header . '</td>';
+    //     } elseif ($key == '2') {
+    //         $content .= '<td style="padding: 5px 8px;border:0;text-align: right;width:8%;" class="head' . $key . '">' . $header . '</td>';
+    //     } elseif ($key == '3' && $_GET['itemName'] == 0 && $_GET['barCode'] == 1) {
+
+    //         $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . showOtherLangText('BarCode') . '</td>';
+    //     } elseif ($key == '3' && $_GET['itemName'] == 1 && $_GET['barCode'] == 0) { 
+    //         $content .= '<td style="padding: 5px 8px;text-align: right;width:8%;border:0;" class="head' . $key . '">' . showOtherLangText('Item') . '</td>';
+    //     } else {
+    //         $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . $header . '</td>';
+    //     }
+    // }
     $content .= '</tr>';
     //get confirmed requsitions total qty of each productd
     $productsConfirmedQtyArr = getConfirmTotalQtyReq($_SESSION['accountId']);
@@ -381,13 +407,13 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
             $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockLastPrice'])  . '</td>';
         }
         if ($_GET['avlQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;">' . $row['countingUnit'] . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;text-align:left;">' . reverseRTLTextForPdf($row['countingUnit']) . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $row['countingUnit'] .  ' ' . $totalTempProQty .   '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;text-align:left;">' . reverseRTLTextForPdf($row['countingUnit']) .  ' ' . $totalTempProQty .   '</td>';
         }
         if ($_GET['qty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;">' . $row['countingUnit'] .  ' ' . $row['stockQty'] .   '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;text-align:left;">' . reverseRTLTextForPdf($row['countingUnit']) .  ' ' . $row['stockQty'] .   '</td>';
         }
         if ($_GET['itemName'] == 1 && $_GET['barCode'] == 1) {
             $content .= '<td style="padding: 8px 5px;border:0;width:10%;">' . reverseRTLTextForPdf($row['itemName']) . ' <br>' . $row['barCode'] . '</td>';
