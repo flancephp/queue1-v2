@@ -774,6 +774,9 @@ if ($_SESSION['deptId'] != '') {
                             <div class="reqCnt-Fst d-flex align-items-center">
                                 <div class="reqClm-Itm tb-head">
                                     <p><?php echo showOtherLangText('Item'); ?></p>
+                                    <span class="dblArrow">
+                                        <a onclick="sortTableByColumn('.newReqTask', '.reqClm-Itm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+                                    </span>
                                 </div>
                                 <div class="reqClm-Br tb-head">
                                     <p><?php echo showOtherLangText('Bar Code'); ?></p>
@@ -799,10 +802,8 @@ if ($_SESSION['deptId'] != '') {
                                     <div class="d-flex align-items-center">
                                         <p><?php echo showOtherLangText('Qty'); ?></p>
                                         <span class="dblArrow">
-                                            <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
-                                                    class="fa-solid fa-angle-up"></i></a>
-                                            <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
-                                                    class="fa-solid fa-angle-down"></i></a>
+                                            <a onclick="sortTableByColumn('.newReqTask', '.qty-itm-hid');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
                                         </span>
                                     </div>
                                 </div>
@@ -826,7 +827,7 @@ if ($_SESSION['deptId'] != '') {
                     </div>
 
                     <div id="boxscroll" class="compact__tb__bdy">
-                        <div class="container cntTable">
+                        <div class="container cntTable cntTableData">
                             <!-- Item Table Body Start -->
                             <?php
                             $x = 0;
@@ -1015,6 +1016,9 @@ if ($_SESSION['deptId'] != '') {
                                                         name="qty[<?php echo $row['id']; ?>]"
                                                         onChange="showTotal(this.value, '<?php echo $x; ?>', '<?php echo $availableQty > 0 ? $availableQty : 0; ?>', '<?php echo $row['id']; ?>', '<?php echo $row['proType']; ?>')"
                                                         value="<?php echo $proQty; ?>" autocomplete="off" size="1">
+
+                                                    <span class="qty-itm-hid" id="qtyItem<?php echo $row['id']; ?>" style="display:none"><?php echo $proQty ? $proQty : ''; ?></span>
+
                                                 </div>
                                                 <?php echo $getColumnPermission['item_price'] == 1 ? '<div class="reqClm-Ttl tb-bdy"><p id="totalPrice' . $x . '">' . getPriceWithCur($totalQtyPrice, $getDefCurDet['curCode']) . '</p></div>' : ''; ?>
                                             </div>
@@ -1300,6 +1304,8 @@ if ($_SESSION['deptId'] != '') {
                 qty = 0;
             }
 
+            $('#qtyItem' + pId).html(qty);
+
 
             $.ajax({
                     method: "POST",
@@ -1432,6 +1438,61 @@ if ($_SESSION['deptId'] != '') {
             </div>
         </div>
     </div>
+
+    <script>
+        var fildArr = [];
+
+        function sortTableByColumn(table, field, displayArea) {
+
+
+            if (fildArr[field] === undefined) //Todo
+            {
+                fildArr[field] = 'asc';
+            }
+
+            console.log(fildArr[field]);
+
+            if (fildArr[field] == 'asc') {
+                orderSort = 'desc';
+                fildArr[field] = 'desc';
+
+            } else {
+                orderSort = 'asc';
+                fildArr[field] = 'asc';
+            }
+            sortElementsByText(table, field, orderSort, displayArea);
+        }
+
+
+        function sortElementsByText(container, textElement, order, displayArea) {
+            var elements = $(container).get();
+
+            elements.sort(function(a, b) {
+                var textA = $(a).find(textElement).text().trim();
+                var textB = $(b).find(textElement).text().trim();
+                // Check if textA and textB are numbers
+                var isNumA = !isNaN(parseFloat(textA)) && isFinite(textA);
+                var isNumB = !isNaN(parseFloat(textB)) && isFinite(textB);
+
+                if (isNumA && isNumB) {
+                    // If both are numbers, compare them as numbers
+                    return order === 'asc' ? parseFloat(textA) - parseFloat(textB) : parseFloat(textB) - parseFloat(
+                        textA);
+                } else {
+                    // Otherwise, compare them as strings
+                    return order === 'asc' ? textA.localeCompare(textB) : textB.localeCompare(textA);
+                }
+            });
+
+            $.each(elements, function(index, element) {
+                if (displayArea == 1) {
+                    $('.cntTableData1').append(element);
+                } else {
+                    $('.cntTableData').append(element);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

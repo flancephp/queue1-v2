@@ -878,10 +878,18 @@ $currResultSet = mysqli_query($con, $curQry);
                                     <div class="itm-Quantity tb-head w-100">
                                         <div class="d-flex align-items-center">
                                             <p><?php echo showOtherLangText('Qty'); ?></p>
+
                                             <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newOrdTaskMainRow', '.qty-itm-hid');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
+                                            </span>
+
+
+                                            <!-- <span class="dblArrow">
                                                 <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
                                                 <a href="addOrder.php?sort=qty" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
-                                            </span>
+                                            </span>-->
+
                                         </div>
                                     </div>
                                 </div>
@@ -917,7 +925,7 @@ $currResultSet = mysqli_query($con, $curQry);
                     </div>
 
                     <div id="boxscroll" class="compact__tb__bdy">
-                        <div class="container cntTable addOrderTable">
+                        <div class="container cntTable addOrderTable cntTableData">
                             <?php
                             if (isset($_SESSION['itemChargesOrd'][1]) && count($_SESSION['itemChargesOrd'][1]) > 0) {
                                 while ($row = mysqli_fetch_array($resRows)) //start custom item charge loop
@@ -1104,7 +1112,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                 onChange="showTotal(this.value, '<?php echo $x; ?>', '<?php echo $row['id']; ?>')"
                                                                 value="<?php echo $showQtyMinValue ? $showQtyMinValue : ''; ?>" size="1"
                                                                 autocomplete="off"></strong>
-                                                        <span class="qty-itm-hid" id="qtyItem<?php echo $row['id']; ?>"></span>
+                                                        <span class="qty-itm-hid" id="qtyItem<?php echo $row['id']; ?>" style="display:none"><?php echo $showQtyMinValue ? $showQtyMinValue : ''; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="ttlCr-Type d-flex align-items-center text-start res__label__item" data-text="<?php echo showOtherLangText('Total'); ?>">
@@ -1307,9 +1315,17 @@ supplierId = '" . $_SESSION['supplierId'] . "'
     </form>
 
     <?php require_once('footer.php'); ?>
+
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+
+
     <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
