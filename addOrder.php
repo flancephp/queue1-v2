@@ -1112,7 +1112,7 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                 onChange="showTotal(this.value, '<?php echo $x; ?>', '<?php echo $row['id']; ?>')"
                                                                 value="<?php echo $showQtyMinValue ? $showQtyMinValue : ''; ?>" size="1"
                                                                 autocomplete="off"></strong>
-                                                        <span class="qty-itm-hid" id="qtyItem<?php echo $row['id']; ?>" style="display:none"><?php echo $showQtyMinValue ? $showQtyMinValue : ''; ?></span>
+                                                        <span class="qty-itm-hid d-none" id="qtyItem<?php echo $row['id']; ?>" style="display:none"><?php echo $showQtyMinValue ? $showQtyMinValue : ''; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="ttlCr-Type d-flex align-items-center text-start res__label__item" data-text="<?php echo showOtherLangText('Total'); ?>">

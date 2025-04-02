@@ -125,11 +125,15 @@ WHERE id='" . $_SESSION['accountId'] . "' ";
                 </section>
 
                 <section class="ordDetail userDetail">
-                    <h6 style="color:#038B00"><?php
-
-                                                echo isset($_GET['updated']) ? ' ' . showOtherLangText('Account Updated Successfully') . ' ' : '';
-
-                                                ?></h6>
+                    <!-- <h6 style="color:#038B00"><?php // echo isset($_GET['updated']) ? ' ' . showOtherLangText('Account Updated Successfully') . ' ' : ''; ?></h6> -->
+                    <?php if (isset($_GET['updated'])) { ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <p><?php echo isset($_GET['updated']) ? ' ' . showOtherLangText('Account Updated Successfully') . ' ' : ''; ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="container">
                             <div class="usrBtns d-flex align-items-center justify-content-between">

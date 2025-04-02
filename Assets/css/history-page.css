@@ -399,7 +399,7 @@ html[dir="rtl"] .modal-head-row ul.dropdown-menu {
 
     .lgcolSize0 .stsHiscol.colSize0,
     .lgcolSize0 .stsHiscol.colSize0 {
-        width: 0% !important;
+        width: 0% !important;display: none !important;
     }
 
     .dropdnbtns.lgcolSize0 .numRef,
@@ -408,7 +408,7 @@ html[dir="rtl"] .modal-head-row ul.dropdown-menu {
     }
 
     .fgcolSize0 .numRef.colSize0 {
-        width: 0% !important;
+        width: 0% !important;display: none !important;
     }
 
 

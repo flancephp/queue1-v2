@@ -678,7 +678,7 @@ if ($_GET['summaryAccount'] == 1 && mysqli_num_rows($accountResult) > 0) {
                                 </td>
                             </tr>
                             <tr>
-                                <td width="100%" style="font-weight: 500; font-size: 10px; text-align: right;padding-right:20%;">
+                                <td width="100%" style="font-weight: 700; font-size: 10px; text-align: right;padding-right:0%;">
                                     ' . $resultRow['accountName'] . ' 
                                 </td>
                             </tr>
