@@ -1733,7 +1733,7 @@ if ($getTxtById == 'storeId') {
                                             <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
 
                                                 <div class="tb-bdy hisValclm">
-                                                    <div class="d-flex align-items-center">
+                                                    <div class="d-flex align-items-center gap-1">
                                                         <p><?php echo showOtherLangText('Value'); ?> </p>
                                                         <a onclick="sortTableByColumn('.newHistoryTask', '.hisValclm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
 

@@ -22439,4 +22439,5 @@ td.text-right{
   }
 }
 
-.dblArrow img { height: 15px;width: auto; }
+.dblArrow img,
+.aglStock img { height: 15px;width: auto; }
