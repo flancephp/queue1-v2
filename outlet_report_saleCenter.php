@@ -41,7 +41,9 @@ include_once('script/outlet_report_saleCenter_script.php');
     <link rel="stylesheet" href="Assets/css/outlet-report-sale-center.css?v=5">
 
     <style>
-        .otltTbl-bdy { align-items: flex-start; }
+        .otltTbl-bdy {
+            align-items: flex-start;
+        }
     </style>
 </head>
 
@@ -815,6 +817,10 @@ include_once('script/outlet_report_saleCenter_script.php');
                                         <div class="otlt-itm">
                                             <p><?php echo showOtherLangText('Item'); ?>
                                             </p>
+                                            <span class="dblArrow">
+                                                <a onclick="sortTableByColumn('.newStockTask', '.otltBd-itm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
+                                            </span>
                                             <p><?php echo showOtherLangText('Totals'); ?></p>
                                         </div>
 
@@ -1234,6 +1240,60 @@ include_once('script/outlet_report_saleCenter_script.php');
         $(".slCst-Lnk").click(function() {
             $(this).parent().siblings().find(".mbStk-Detail").toggleClass("js-toggle");
         });
+    </script>
+
+    <script>
+        var fildArr = [];
+
+        function sortTableByColumn(table, field, displayArea) {
+
+
+            if (fildArr[field] === undefined) //Todo
+            {
+                fildArr[field] = 'asc';
+            }
+
+            console.log(fildArr[field]);
+
+            if (fildArr[field] == 'asc') {
+                orderSort = 'desc';
+                fildArr[field] = 'desc';
+
+            } else {
+                orderSort = 'asc';
+                fildArr[field] = 'asc';
+            }
+            sortElementsByText(table, field, orderSort, displayArea);
+        }
+
+        function sortElementsByText(container, textElement, order, displayArea) {
+            var elements = $(container).get();
+
+            elements.sort(function(a, b) {
+                var textA = $(a).find(textElement).text().trim();
+                var textB = $(b).find(textElement).text().trim();
+                // Check if textA and textB are numbers
+                var isNumA = !isNaN(parseFloat(textA)) && isFinite(textA);
+                var isNumB = !isNaN(parseFloat(textB)) && isFinite(textB);
+
+                if (isNumA && isNumB) {
+                    // If both are numbers, compare them as numbers
+                    return order === 'asc' ? parseFloat(textA) - parseFloat(textB) : parseFloat(textB) - parseFloat(
+                        textA);
+                } else {
+                    // Otherwise, compare them as strings
+                    return order === 'asc' ? textA.localeCompare(textB) : textB.localeCompare(textA);
+                }
+            });
+
+            $.each(elements, function(index, element) {
+                if (displayArea == 1) {
+                    $('.cntTableData1').append(element);
+                } else {
+                    $('.cntTableData').append(element);
+                }
+            });
+        }
     </script>
 </body>
 

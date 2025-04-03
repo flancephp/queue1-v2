@@ -434,7 +434,7 @@ if (isset($_POST['btnSbt'])) {
                                                 </a>
                                             </div>
                                             <div class="chkStore">
-                                                <a href="stocktake_pdf_download.php" target="_blank">
+                                                <a href="stocktake_pdf_download.php?getLangType=<?php echo $getLangType; ?>" target=" _blank">
                                                     <img src="Assets/icons/stock-pdf.svg" alt="Stock PDF">
                                                 </a>
                                             </div>

@@ -217,7 +217,7 @@ while ($showCif = mysqli_fetch_array($resultSet)) {
   } else {
     $content .=  '<td style="font-size: 12px; padding: .5rem;font-weight:bold;">' . getPriceWithCur($showCif['amt'], $getDefCurDet['curCode'], 0, 1) . '</td>';
   }
- 
+
 
   $content .=  '<td style="font-size: 12px; padding: .5rem;"></td>
                     <td style="font-size: 12px; padding: .5rem;">1</td>
