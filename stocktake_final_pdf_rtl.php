@@ -84,7 +84,7 @@ $content = '<!DOCTYPE html>
     </style>
    </head>';
 $content .= '<body style="font-family: \'Inter\', sans-serif;color: #232859; font-weight: 400;font-size: 12px; line-height: 14px;">
-      <table style="width: 100%; border-spacing: 0; padding-bottom: 16px;">
+      <table style="width: 100%; border-spacing: 0; padding-bottom: 16px;text-align:right;">
          <tbody>
             <tr valign="top">
 
@@ -122,7 +122,7 @@ $content .= '</td>
             </tr>
          </tbody>
       </table>';
-$content .= '<table style="width: 100%; border-collapse: collapse; margin-block-end: 32px;">
+$content .= '<table style="width: 100%; border-collapse: collapse; margin-bottom: 32px;" width="100%">
         <tr>
             <td style="width: 50%; border-block: 1px solid #d2d2d2; padding-block: 20px;">
                 <div style="display: flex; align-items: center;">
@@ -135,7 +135,7 @@ $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-
                         <h6 style="font-weight: 600; font-size: 16px; margin: 0; text-align: center;">' . reverseRTLTextForPdf($storeRowAcc['name']) . '</h6>
                     </div>
                     
-                    <div style="flex: 1; text-align: right; font-size: 15px;">
+                    <div style="flex: 1; text-align: right; font-size: 15px;padding-right:70px;">
                      <h6 style="font-weight: 600; font-size: 16px; margin: 0;">' . showOtherLangText('Stock View') . '</h6>
                     
                    </div>
@@ -156,11 +156,11 @@ while ($variancerow = mysqli_fetch_array($varianceQry)) {
     $stockview_pdf[] = $variancerow;
 }
 
-$content .= '<table style="font-size:12px;" width="100%">
+$content .= '<table style="font-size:12px;width:100%;" width="100%">
         <tr style="vertical-align: baseline;">
 
-         <td style="width: 50%;">
-                <table style="width:100%; margin-right:1px; font-size:12px; border-collapse: collapse;">
+            <td style="width: 50%;">
+                <table style="width:100%;font-size:12px; border-collapse: collapse;">
                     <tr style="font-weight:bold;" align="center">
                         <td style="padding: 8px 5px;">-Variance</td>
                     </tr>
@@ -171,7 +171,7 @@ $content .= '<table style="font-size:12px;" width="100%">
             </td>
 
             <td style="width: 50%;">
-                <table style="width:100%; margin-right:1px; font-size:12px; border-collapse: collapse;">
+                <table style="width:100%;font-size:12px; border-collapse: collapse;">
                     <tr style="font-weight:bold;"" align="center">
                     <td style="padding: 8px 5px;">+Variance</td>
                         <td style="padding: 8px 5px;">&nbsp;</td>
@@ -194,31 +194,31 @@ $content .= '<table style="font-size:12px;" width="100%">
 $content .= '<table style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">
         <tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">
 
-            <td style="padding: 8px 5px;">' . showOtherLangText('Variances') . '</td>
-            <td style="padding: 8px 5px;">' . showOtherLangText('Stock take Qty') . '</td>
-            <td style="padding: 8px 5px;">' . showOtherLangText('Stock Qty') . '</td>
-            <td style="padding: 8px 5px;">' . showOtherLangText('Barcode') . '</td>
-            <td style="padding: 8px 5px;">' . showOtherLangText('Item') . '</td>
-            <td style="padding: 8px 5px;">' . showOtherLangText('Photo') . '</td>
-            <td style="padding: 8px 5px;">#</td>
+            <td style="padding: 8px 5px;text-align:center;width:15%;vertical-align: middle;margin-top:-15px;"><div style="padding-left:72px;height:20px;">' . reverseRTLTextForPdf(showOtherLangText('Variances')) . '</div></td>
+            <td style="padding: 8px 5px;text-align:right;width:15%;"><div style="height:20px;">' . reverseRTLTextForPdf(showOtherLangText('Stock take Qty')) . '</div></td>
+            <td style="padding: 8px 5px;text-align:right;width:10%;padding-right:50px;">' . reverseRTLTextForPdf(showOtherLangText('Stock Qty')) . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:20%;padding-left:115px;"><div style="height:20px;">' . reverseRTLTextForPdf(showOtherLangText('Barcode')) . '</div></td>
+            <td style="padding: 8px 5px;text-align:right;width:15%;padding-left:90px;">' . showOtherLangText('Item') . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:15%;padding-left:80px;">' . showOtherLangText('Photo') . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:10%;">#</td>
        
         </tr>';
 $i = 0;
 foreach ($stockview_pdf as $row) {
     $i++;
     $content .=  '<tr>
-            <td style="padding: 8px 5px; color:#dc3545;">' . ($fileDataRows[$row['barCode']] - $row['stockQty']) . '</td>
-            <td style="padding: 8px 5px; font-weight: 600;">' . $fileDataRows[$row['barCode']] . '</td>
-            <td style="padding: 8px 5px;">' . $row['stockQty'] . '</td>
-            <td style="padding: 8px 5px;">' . $row['barCode'] . '</td>
-            <td style="padding: 8px 5px;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
-            <td style="padding: 8px 5px;">';
+            <td style="padding: 8px 5px;text-align:right;width:15%;">' . ($fileDataRows[$row['barCode']] - $row['stockQty']) . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:15%;font-weight:600;">' . $fileDataRows[$row['barCode']] . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:10%;">' . $row['stockQty'] . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:20%;">' . $row['barCode'] . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:15%;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:15%;">';
     if ($row['imgName'] != ''  && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
         $content .=  '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'] . '" width="60" height="60">';
     }
     $content .=  '</td>
 
-            <td style="padding: 8px 5px;">' . $i . '</td>
+            <td style="padding: 8px 5px;text-align:right;width:10%;">' . $i . '</td>
             
         </tr>';
 }
@@ -226,3 +226,5 @@ foreach ($stockview_pdf as $row) {
 $content .= '</table>
         </body>
         </html>';
+// echo $content;
+// die;
