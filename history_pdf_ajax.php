@@ -799,7 +799,7 @@ $result = mysqli_query($con, $sqlSet);
 
 if (mysqli_num_rows($result) > 0) {
 
-    $content .= '<div  class="overflowTable accountSection summaryPart"> 
+    $content .= '<div  class="overflowTable accountSection summaryPart px-2"> 
                         <div class="modal-table fs-12 w-100 mt-4 historyAccountSection">
                             <div class="table-row header-row">
                                 <div class="table-cell medium">' . showOtherLangText('Accounts') . '</div>
@@ -830,7 +830,7 @@ if (mysqli_num_rows($result) > 0) {
                     </div>';
 } //end account cond
 
-$content .= '<div class="overflowTable"> 
+$content .= '<div class="overflowTable px-2"> 
                         <div class="modal-table fs-12 w-100 mt-4">
                             <div class="table-row thead">';
 $payInvText = '<span class="head10 itemSectionPart">' . showOtherLangText('Pay') . '</span> <span class="head11">' . showOtherLangText('Inv No.') . '</span>';
