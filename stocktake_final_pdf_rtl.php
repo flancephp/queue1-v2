@@ -108,6 +108,7 @@ $content .= '</td>
                      <tbody>
                         <tr>
                            <td style="font-size: 13px; line-height: 15px; font-weight: 400;text-align:right;">
+                           
                               ' . reverseRTLTextForPdf($clientDetRow['address_one']) . '<br>
                               ' . reverseRTLTextForPdf($clientDetRow['address_two']) . '<br>
                               ' . reverseRTLTextForPdf($clientDetRow['city']) . ', ' . reverseRTLTextForPdf($clientDetRow['countryName']) . '<br>
@@ -211,7 +212,7 @@ foreach ($stockview_pdf as $row) {
             <td style="padding: 8px 5px;text-align:right;width:15%;font-weight:600;">' . $fileDataRows[$row['barCode']] . '</td>
             <td style="padding: 8px 5px;text-align:right;width:10%;">' . $row['stockQty'] . '</td>
             <td style="padding: 8px 5px;text-align:right;width:20%;">' . $row['barCode'] . '</td>
-            <td style="padding: 8px 5px;text-align:right;width:15%;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
+            <td> <span style="font-weight: 600; font-size: 16px; margin: 0; text-align: right;">' . reverseRTLTextForPdf($row['itemName']) . '</span></td>
             <td style="padding: 8px 5px;text-align:right;width:15%;">';
     if ($row['imgName'] != ''  && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
         $content .=  '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'] . '" width="60" height="60">';

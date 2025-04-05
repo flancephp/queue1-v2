@@ -1,42 +1,15 @@
 <?php
 include('inc/dbConfig.php'); //connection details
-set_time_limit(0);
 
 
-$outletArr = [
-    [31, 136],
-    [27, 135],
-    [27, 134],
-    [27, 133],
-    [25, 122],
-    [8, 55],
-    [8, 136],
-    [8, 53],
-    [6, 46],
-    [5, 39],
-    [5, 37],
-    [5, 36],
-    [4, 31],
-    [4, 34],
-    [4, 32],
-    [3, 44],
-    [3, 42],
-    [3, 41],
-    [31, 136],
-    [31, 136]
-];
+$qry = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='queue2_10308048';";
 
-/*$outletArr = [
+$sqlQry = mysqli_query($con, $qry);
 
-    [3, 42]
+while ($res = mysqli_fetch_array($sqlQry)) {
 
-];*/
+    $sql = "ALTER TABLE " . $res['TABLE_NAME'] . " ADD `newOldId` INT NOT NULL;";
 
 
-foreach ($outletArr as $outLetRow) {
-    addOutletDataDateWise(1, $outLetRow[0], $outLetRow[1]);
-
-    // echo 'RevId=' . $outLetRow[0] . '=' . $outLetRow[1];
-
-    //echo '<br><br>';
+    mysqli_query($con, $sql);
 }
