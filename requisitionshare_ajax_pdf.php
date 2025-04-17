@@ -302,7 +302,7 @@ if ($ordDet['invNo'] != '') {
 $content .= '  
                                     <div class="table-cell" style="width: 20%;"></div>
                                     <div class="table-cell" style="width: 20%;"></div> 
-                                    <div class="table-cell" style="width: 40%;">';
+                                    <div class="table-cell p-0" style="width: 40%;border: 1px solid #DFE0E8;border-top: 0;">';
 $sqlSet = "SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='" . $_REQUEST['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  AND (customChargeType='1' OR customChargeType='0')";
 $resultSet = mysqli_query($con, $sqlSet);
 $chargeRow = mysqli_fetch_array($resultSet);
@@ -318,7 +318,7 @@ $showGrandTotal = false;
 if ($ordCountRow > 0) {
 
     $showGrandTotal = true;
-    $content .= '<div class="d-flex set__left__padding"> 
+    $content .= '<div class="d-flex set__left__padding border-bottom ps-2"> 
                                             <div class="col-7"><span class="amountSections smryHead" >' . showOtherLangText('Sub Total') . '</span></div>
                                             <div class="col-5"><span class="smryDef_Val amountSections smryHead" >' . getPriceWithCur($chargePrice, $getDefCurDet['curCode']) . '</div>
                                         </div>';
@@ -335,7 +335,7 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 {
     $fixedCharges += $row['price'];
     $fixedChargesOther += $row['curAmt'];
-    $content .= '<div class="d-flex set__left__padding"> 
+    $content .= '<div class="d-flex set__left__padding border-bottom ps-2"> 
                                             <div class="col-7"><span class="amountSections smryHead" >' . $row['feeName'] . '</span></div>
                                             <div class="col-5"><span class="smryDef_Val amountSections smryHead" >' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</div>
                                         </div>';
@@ -355,7 +355,7 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 
     $calDiscount = ($chargePrice * $row['price'] / 100);
     $calDiscountOther = ($chargePriceOther * $row['price'] / 100);
-    $content .= '<div class="d-flex set__left__padding"> 
+    $content .= '<div class="d-flex set__left__padding border-bottom ps-2"> 
                                         <div class="col-7"><span class="amountSections smryHead" >' . $row['feeName'] . '</span></div>
                                         <div class="col-5"><span class="smryDef_Val amountSections smryHead" >' . getPriceWithCur($calDiscount, $getDefCurDet['curCode']) . '</span></div>        
                                         </div>';
@@ -376,7 +376,7 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
     $totalTaxChargesOther += $row['curAmt'];
     $calTax = (($chargePrice + $fixedCharges + $totalCalDiscount) * $row['price'] / 100);
     $calTaxOther = (($chargePriceOther + $fixedChargesOther + $totalCalDiscountOther) * $row['price'] / 100);
-    $content .= '<div class="d-flex set__left__padding"> 
+    $content .= '<div class="d-flex set__left__padding border-bottom ps-2"> 
                                         <div class="col-7"><span class="amountSections smryHead" >' . $row['feeName'] . '</span></div>
                                         <div class="col-5"><span class="smryDef_Val amountSections smryHead" >' . getPriceWithCur($calTax, $getDefCurDet['curCode']) . '</span></div>
                                         </div>';
@@ -390,7 +390,7 @@ $netTotalAmt = ($chargePrice + $fixedCharges + $totalCalDiscount + $totalTax);
 $netTotalAmtOther = ($chargePriceOther + $fixedChargesOther + $totalCalDiscountOther + $totalTaxOther);
 
 if ($showGrandTotal) {
-    $content .= '<div class="d-flex set__left__padding"> 
+    $content .= '<div class="d-flex set__left__padding ps-2 grand__total__box"> 
                                         <div class="col-7"><span class="amountSections smryHead" >' . showOtherLangText('Grand Total') . '</span></div>
                                         <div class="col-5"><span class="smryDef_Val amountSections smryHead" >' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']) . '</span></div>
                                     </div>';
@@ -399,7 +399,7 @@ if ($showGrandTotal) {
 
 $content .= '</div></div></div></div>';
 
-$content .= '<div class="overflow-aut"><div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead itemMainDiv">';
+$content .= '<div class="overflow-aut table__striped__bg"><div class="modal-table fs-12 w-100 mt-4"><div class="table-row thead itemMainDiv">';
 $content .= '<div class="table-cell" class="slno">#</div>';
 $content .= '<div class="table-cell"><span style="display:none;"   class="photo">' . showOtherLangText('Photo') . '</span></div>';
 $content .= '<div class="table-cell"><span   class="itmProd">' . showOtherLangText('Item') . '</span></div>';

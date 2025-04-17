@@ -142,7 +142,7 @@ foreach ($resultRows as $row) {
         <td style="padding: 8px 5px;">' . $row['qty'] . '</td>
         <td style="padding: 8px 5px;">' . reverseRTLTextForPdf($row['unitC']) . '</td>
         <td style="padding: 8px 5px;">' . $row['barCode'] . '</td>
-        <td style="padding: 8px 5px;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
+        <td style="padding: 8px 5px;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
         <td style="padding: 8px 5px;">' . $i . '</td>
       
     </tr>';

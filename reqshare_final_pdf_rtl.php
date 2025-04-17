@@ -532,7 +532,7 @@ if (
         $reqQty = '';
         if ($_GET['reqQty'] == 1) {
             $reqQty = '1';
-            $content .= '<td style="padding: 5px;">' . $reqQty . '</td>';
+            $content .= '<td style="padding: 5px;font-weight:700;">' . $reqQty . '</td>';
         }
 
         $unit = '';
@@ -549,7 +549,7 @@ if (
         }
         if ($_GET['itemName'] == 1) {
             $itemName = $row['itemName'];
-            $content .= '<td style="padding: 5px;">' . reverseRTLTextForPdf($itemName) . '</td>';
+            $content .= '<td style="padding: 5px;font-weight:700">' . reverseRTLTextForPdf($itemName) . '</td>';
         }
 
 
@@ -584,7 +584,7 @@ if (
             $content .= '<td style="padding: 5px;">' . $row['qty'] . '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 5px;">' . $row['requestedQty'] . '</td>';
+            $content .= '<td style="padding: 5px;font-weight:700;">' . $row['requestedQty'] . '</td>';
         }
         if ($_GET['unit'] == 1) {
             $content .= '<td style="padding: 5px;">' . reverseRTLTextForPdf($row['countingUnit']) . '</td>';
@@ -597,7 +597,7 @@ if (
             $content .= '<td style="padding: 5px;">' . $row['barCode'] . '</td>';
         }
         if ($_GET['itemName'] == 1) {
-            $content .= '<td style="padding: 5px;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
+            $content .= '<td style="padding: 5px;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
         }
         if ($_GET['photo'] == 1) {
             $img = '';
@@ -656,3 +656,6 @@ if ($_GET['taskRecord'] == 1) {
 
 
 $content .= '</body></html>';
+
+// echo $content;
+// die();

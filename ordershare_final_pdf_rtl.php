@@ -509,7 +509,7 @@ while ($row = mysqli_fetch_array($otherChrgQry)) {
     }
 
     if ($_GET['receivedQty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">1</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">1</td>';
     }
 
 
@@ -536,7 +536,7 @@ while ($row = mysqli_fetch_array($otherChrgQry)) {
     }
 
     if ($_GET['itemName'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
     }
 
     if ($_GET['photo'] == 1) {
@@ -567,7 +567,7 @@ while ($row = mysqli_fetch_array($proresultSet)) {
     }
 
     if ($_GET['receivedQty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">
                 ' . $row['qtyReceived'] . '</td>';
     }
 
@@ -594,7 +594,7 @@ while ($row = mysqli_fetch_array($proresultSet)) {
     }
 
     if ($_GET['itemName'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
     }
 
     if ($_GET['photo'] == 1) {
