@@ -65,7 +65,7 @@ LEFT JOIN tbl_suppliers sp ON(ps.supplierId = sp.id) AND ps.account_id = sp.acco
 
 
 
-WHERE tp.account_id ='" . $_SESSION['accountId'] . "' " . $cond . " GROUP BY tp.id ORDER by s.id DESC ";
+WHERE tp.account_id ='" . $_SESSION['accountId'] . "' " . $cond . " GROUP BY tp.id ORDER by tp.catId DESC, s.id DESC ";
 
 $stockMainQry = mysqli_query($con, $sql);
 

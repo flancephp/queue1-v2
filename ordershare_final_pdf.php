@@ -27,7 +27,7 @@ $ordDet = mysqli_fetch_array($qry);
 $sql = "SELECT od.*, tp.itemName, tp.barCode, tp.imgName, IF(u.name!='',u.name,tp.unitP) purchaseUnit FROM tbl_order_details od 
         INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
         LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
-        WHERE od.ordId = '" . $_GET['orderId'] . "' AND od.account_id = '" . $_SESSION['accountId'] . "'  ";
+        WHERE od.ordId = '" . $_GET['orderId'] . "' AND od.account_id = '" . $_SESSION['accountId'] . "' order by tp.catId  ";
 
 $proresultSet = mysqli_query($con, $sql);
 

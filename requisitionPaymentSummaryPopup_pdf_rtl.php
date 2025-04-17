@@ -5,7 +5,7 @@ if (isset($_GET['orderId'])) {
   $sql = "SELECT tp.*, od.price ordPrice, IF(u.name!='',u.name,tp.unitC) countingUnit, od.qty ordQty, od.totalAmt, od.factor ordFactor FROM tbl_order_details od 
 INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
 LEFT JOIN tbl_units u ON(u.id = tp.unitC) AND u.account_id = tp.account_id
-WHERE od.ordId = '" . $_GET['orderId'] . "'   AND tp.account_id = '" . $_SESSION['accountId'] . "' ";
+WHERE od.ordId = '" . $_GET['orderId'] . "'   AND tp.account_id = '" . $_SESSION['accountId'] . "' order by tp.catId ";
   $ordQry = mysqli_query($con, $sql);
 }
 

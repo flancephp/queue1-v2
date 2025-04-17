@@ -105,7 +105,7 @@ if (isset($_SESSION['stockTake'])) {
         $sql = "SELECT p.*, s.qty stockQty, IF(u.name!='',u.name,p.unitC) unitC FROM tbl_stocks s 
         INNER JOIN tbl_products p ON(s.pId = p.id) AND s.account_id = p.account_id 
         LEFT JOIN tbl_units u ON(u.id=p.unitC) AND (u.account_id = p.account_id)
-        WHERE p.barCode IN( " . implode(',', $barCodesArr) . " ) AND p.account_id = '" . $_SESSION['accountId'] . "'  ";
+        WHERE p.barCode IN( " . implode(',', $barCodesArr) . " ) AND p.account_id = '" . $_SESSION['accountId'] . "' order by p.catId  ";
         $importQry = mysqli_query($con, $sql);
 
 

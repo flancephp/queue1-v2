@@ -14,15 +14,15 @@ LEFT JOIN tbl_units uc ON
 LEFT JOIN tbl_category pc ON(pc.id = tp.parentCatId) AND pc.account_id = tp.account_id
 
 LEFT JOIN tbl_category c ON(c.id = tp.catId)  AND c.account_id = tp.account_id
-where tp.account_id = '".$_SESSION['accountId']."'
+where tp.account_id = '" . $_SESSION['accountId'] . "'
 
-	    GROUP BY tp.id order by tp.id desc  ";
+	    GROUP BY tp.id order by tp.catId desc  ";
 
 $stockQry = mysqli_query($con, $mainSqlQry);
 
 
 
-$header  = 
+/*$header  = 
 
 	[
 
@@ -52,9 +52,39 @@ $header  =
 
 		14 => ''.showOtherLangText('MaxLevel').''
 
+	];*/
+
+$header  =
+
+	[
+		1 => '' . ('Serial') . '',
+		2 => '' . ('Item') . '',
+
+		3 => '' . ('BarCode') . '',
+
+		4 => '' . ('Category') . '',
+
+		5 => '' . ('SubCategory') . '',
+
+		6 => '' . ('Storage') . '',
+
+		7 => '' . ('Supplier') . '',
+
+		8 => '' . ('Departments') . '',
+
+		9 => '' . ('PUnit') . '',
+
+		10 => '' . ('Factor') . '',
+
+		11 => '' . ('CUnit') . '',
+
+		12 => '' . ('LastPrice') . '',
+
+		13 => '' . ('MinLevel') . '',
+
+		14 => '' . ('MaxLevel') . ''
+
 	];
-
-
 
 
 
@@ -66,7 +96,7 @@ header('Content-Disposition: attachment; filename=ItemList.csv');
 
 $output = fopen('php://output', 'w');
 
-fprintf($output, chr(0xEF) .chr(0xBB) .chr(0xBF));
+fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
 fputcsv($output, $header);
 
@@ -77,10 +107,10 @@ fputcsv($output, $header);
 
 
 //------------------------------------------------------------------------------------------------------------------------------------
+$i = 0;
+while ($row = mysqli_fetch_array($stockQry)) {
 
-while($row = mysqli_fetch_array($stockQry) )
-
-{
+	$i++;
 
 	$deptNames = getProdcutDepartments($row['id']);
 
@@ -90,77 +120,63 @@ while($row = mysqli_fetch_array($stockQry) )
 
 	$catNames = ($row['childCatName'] == 'z' ? '' :  $row['childCatName']);
 
-	 
 
-	 $csvRow =  [
 
-			2 => $row['itemName'],
+	$csvRow =  [
 
-			3 => "\t".$row['barCode'],
+		1 => $i,
+		2 => $row['itemName'],
 
-			4 => $row['parentCatName'],
+		3 => "\t" . $row['barCode'],
 
-			5 => $catNames,
+		4 => $row['parentCatName'],
 
-			6 => $storageDeptRow['name'],
+		5 => $catNames,
 
-			
+		6 => $storageDeptRow['name'],
 
-			7 => $supNames,
 
-			8 => $deptNames,
 
-			9 => $row['purchaseUnit'],
+		7 => $supNames,
 
-			
+		8 => $deptNames,
 
-			10 => $row['factor'],
+		9 => $row['purchaseUnit'],
 
-			
 
-			11 => $row['countingUnit'],
 
-			12 => getPrice($row['price']).' '.$getDefCurDet['curCode'],
+		10 => $row['factor'],
 
-			13 => $row['minLevel'],
 
-			14 => $row['maxLevel']
 
-		  ];
+		11 => $row['countingUnit'],
 
-		  
+		12 => getPrice($row['price']) . ' ' . $getDefCurDet['curCode'],
 
-		
+		13 => $row['minLevel'],
 
-	if( isset($_SESSION['showFieldsStock']) )
+		14 => $row['maxLevel']
 
-	{
+	];
 
-		foreach($csvRow as $key=>$val)
 
-		{
 
-			if( !in_array($key, $_SESSION['showFieldsStock']) )
 
-			{
+
+	if (isset($_SESSION['showFieldsStock'])) {
+
+		foreach ($csvRow as $key => $val) {
+
+			if (!in_array($key, $_SESSION['showFieldsStock'])) {
 
 				unset($csvRow[$key]);
-
 			}
-
 		}
-
-	}		
+	}
 
 
 
 	fputcsv($output, $csvRow);
-
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-?>
-

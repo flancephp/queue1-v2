@@ -32,7 +32,7 @@ $otherChrgQry = mysqli_query($con, $sqlCustomItems);
 $sql = "SELECT od.*, tp.itemName, tp.barCode, tp.imgName, IF(u.name!='', u.name, tp.unitC) countingUnit FROM tbl_order_details od 
 		INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
 		LEFT JOIN tbl_units u ON(u.id = tp.unitC) AND u.account_id = tp.account_id
-		WHERE od.ordId = '" . $_GET['orderId'] . "' AND od.account_id = '" . $_SESSION['accountId'] . "' and od.qty > 0 ";
+		WHERE od.ordId = '" . $_GET['orderId'] . "' AND od.account_id = '" . $_SESSION['accountId'] . "' and od.qty > 0 order by tp.catId ";
 $proresultSet = mysqli_query($con, $sql);
 
 

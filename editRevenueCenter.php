@@ -221,7 +221,7 @@ if ($hotelId > 0) {
                                             <div class="col-md-9">
 
                                                 <?php
-                                                if (in_array($_SESSION['accountId'], $allowedRevenueCenterAccounts)) { ?>
+                                                if ($_SESSION['accountId'] == 1 && in_array($_SESSION['accountId'], $allowedRevenueCenterAccounts)) { ?>
 
                                                     <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
                                                         <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
@@ -234,6 +234,22 @@ if ($hotelId > 0) {
                                                             <?php echo $_GET['hotelId'] == 21930 ? 'selected="selected"' : ''; ?>>
                                                             <?php echo showOtherLangText('Casa Del Mar Hotel(21930)'); ?>
                                                         </option>
+                                                    </select>
+
+                                                <?php }  ?>
+
+
+                                                <?php
+                                                if ($_SESSION['accountId'] == 3 && in_array($_SESSION['accountId'], $allowedRevenueCenterAccounts)) { ?>
+
+                                                    <select name="hotelId" id="hotelId" class="form-select" aria-label="Default select example">
+                                                        <option value=""><?php echo showOtherLangText('Select Hotel'); ?>
+                                                        </option>
+                                                        <option value="29624"
+                                                            <?php echo $_GET['hotelId'] == 29624 ? 'selected="selected"' : ''; ?>>
+                                                            <?php echo showOtherLangText('Mnarani Hotel(29624)'); ?>
+                                                        </option>
+
                                                     </select>
 
                                                 <?php }  ?>

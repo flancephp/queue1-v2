@@ -2,11 +2,11 @@
 include('inc/dbConfig.php'); //connection details
 
 if (isset($_GET['orderId'])) {
-    $sql = "SELECT tp.*, od.price ordPrice, IF(u.name!='',u.name,tp.unitC) countingUnit, od.qty ordQty, od.totalAmt, od.factor ordFactor FROM tbl_order_details od 
+  $sql = "SELECT tp.*, od.price ordPrice, IF(u.name!='',u.name,tp.unitC) countingUnit, od.qty ordQty, od.totalAmt, od.factor ordFactor FROM tbl_order_details od 
 INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id
 LEFT JOIN tbl_units u ON(u.id = tp.unitC) AND u.account_id = tp.account_id
-WHERE od.ordId = '" . $_GET['orderId'] . "'   AND tp.account_id = '" . $_SESSION['accountId'] . "' ";
-    $ordQry = mysqli_query($con, $sql);
+WHERE od.ordId = '" . $_GET['orderId'] . "'   AND tp.account_id = '" . $_SESSION['accountId'] . "' order by tp.catId ";
+  $ordQry = mysqli_query($con, $sql);
 }
 
 
@@ -58,21 +58,21 @@ $content = '<!DOCTYPE html>
 
 if (isset($_GET['orderId']) && $paymentRow['paymentStatus'] == 1) {
 
-    $content .= '<div  style="text-align: right;position:absolute;right:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
+  $content .= '<div  style="text-align: right;position:absolute;right:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
       <div style="padding: 1% 4%;">
         <!-- Header Section -->
       <table style="width: 100%; border-collapse: collapse;text-align: right;">
         <tr>
           <td><p style="font-size:40px;font-weight:700;line-height:40px;text-align: right;color:#42AD7F !important; margin-bottom: 0;text-transform: uppercase;">' . showOtherLangText('RECEIVED') . '</p>';
 } elseif ($_GET['paymentStatus'] == 2) {
-    $content .= '<div  style="text-align: right;position:absolute;right:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
+  $content .= '<div  style="text-align: right;position:absolute;right:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#42AD7F;"></div>
       <div style="padding: 1% 4%;">
         <!-- Header Section -->
       <table style="width: 100%; border-collapse: collapse;text-align: right;">
         <tr>
           <td><p style="font-size:40px;font-weight:700;line-height:40px;text-align: right;color:#42AD7F !important; margin-bottom: 0;text-transform: uppercase;">' . showOtherLangText('REFUNDED') . '</p>';
 } else {
-    $content .= '<div  style="position:absolute;right:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#E99624;"></div>
+  $content .= '<div  style="position:absolute;right:0;top:0;bottom:0;width:9px;border-radius:0px 10px 10px 0px;z-index:1;background-color:#E99624;"></div>
       <div style="padding: 1% 4%;">
         <!-- Header Section -->
       <table style="width: 100%; border-collapse: collapse;text-align: right;">
@@ -88,7 +88,7 @@ $clientResultRow = mysqli_fetch_array($clientResult);
 
 if ($clientResultRow['logo'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/clientLogo/" . $clientResultRow['logo'])) {
 
-    $content .= '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/clientLogo/' . $clientResultRow['logo'] . '" width="100" style="object-fit: contain;">';
+  $content .= '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/clientLogo/' . $clientResultRow['logo'] . '" width="100" style="object-fit: contain;">';
 }
 $content .= '</td>
         </tr>
@@ -144,10 +144,10 @@ $content .= ' <td style="width: 50%;" style="vertical-align:top;">
 $content .= '<td style="padding:0;height:30px;font-size:16px;font-weight:600;line-height:16px;color:#666C85 !important;">';
 if ($paymentRow['paymentStatus'] == 1) {
 
-    $content .= date('h:i:s Y-m-d', strtotime($paymentRow['paymentDateTime']));
+  $content .= date('h:i:s Y-m-d', strtotime($paymentRow['paymentDateTime']));
 } else {
 
-    $content .=  date('h:i:s Y-m-d', strtotime($ordersRow['ordDateTime']));
+  $content .=  date('h:i:s Y-m-d', strtotime($ordersRow['ordDateTime']));
 }
 $content .= '</td>';
 $content .= '<td style="padding:0;height:30px;font-size:16px;line-height:16px;padding-right:1rem;color:#666C85 !important;color:#1C2047 !important;font-weight: bold;"># ' . showOtherLangText('Date') . '</td>
@@ -190,8 +190,8 @@ $sql = "SELECT cif.itemName, cif.unit,cif.amt, tod.* FROM tbl_order_details tod
 $resultSet = mysqli_query($con, $sql);
 $x = 0;
 while ($showCif = mysqli_fetch_array($resultSet)) {
-    $x++;
-    $content .= '<tr style="height:48px;">
+  $x++;
+  $content .= '<tr style="height:48px;">
                     <td style="font-size: 12px; font-weight: 700; padding:8px;border-bottom: 1px solid #DFE0E8;">' . getPriceWithCur($showCif['amt'], $getDefCurDet['curCode'], 0, 1) . '</td>
                     <td style="font-size: 12px; padding: 8px 8px 8px 16px;border-bottom: 1px solid #DFE0E8;">' . getPriceWithCur($showCif['amt'], $getDefCurDet['curCode'], 0, 1) . '</td>
                     <td style="font-size: 12px; padding: 8px;border-bottom: 1px solid #DFE0E8;">1</td>
@@ -206,13 +206,13 @@ while ($showCif = mysqli_fetch_array($resultSet)) {
 $sum = 0;
 while ($row = mysqli_fetch_array($ordQry)) {
 
-    $x++;
-    $totalPrice = round($row['price'], 2);
-    $Quantity = $row['ordQty'];
-    $bill_total = ($totalPrice * $Quantity);
-    $sum = $sum + $bill_total;
-    $orderId = $_GET['orderId'];
-    $content .= '<tr style="height:48px;">
+  $x++;
+  $totalPrice = round($row['price'], 2);
+  $Quantity = $row['ordQty'];
+  $bill_total = ($totalPrice * $Quantity);
+  $sum = $sum + $bill_total;
+  $orderId = $_GET['orderId'];
+  $content .= '<tr style="height:48px;">
                 <td style=" font-size: 12px; font-weight: 700; padding: 8px;border-bottom: 1px solid #DFE0E8;">' . getPriceWithCur($row['ordQty'] * $row['ordPrice'], $getDefCurDet['curCode'], 0, 1) . '</td>
                 <td style=" font-size: 12px; padding: 8px 8px 8px 16px;border-bottom: 1px solid #DFE0E8;">' . getPriceWithCur($row['ordPrice'], $getDefCurDet['curCode'], 0, 1) . '</td>
                 <td style=" font-size: 12px; padding: 8px;border-bottom: 1px solid #DFE0E8;">' . $row['ordQty'] . '</td>
@@ -243,7 +243,7 @@ $ordCountResult = mysqli_query($con, $ordCount);
 $ordCountRow = mysqli_num_rows($ordCountResult);
 
 if ($ordCountRow > 0) {
-    $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
+  $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
             <th style="font-size:16px;font-weight:600; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . getPriceWithCur($chargePrice, $getDefCurDet['curCode'], 0, 1) . '</th>
                       <th style="font-size:16px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;width:70%">' . showOtherLangText('Sub Total') . '</th>
 
@@ -268,9 +268,9 @@ $totalFixedCharges = $totalSum['totalFixedCharges'];
 
 while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 {
-    $fixedCharges = $row['price'];
+  $fixedCharges = $row['price'];
 
-    $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
+  $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
                 <th style="font-size:16px;font-weight:600; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;">' . getPriceWithCur($fixedCharges, $getDefCurDet['curCode'], 0, 1) . '</th>
        
     <th style="font-size:16px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;">' . reverseRTLTextForPdf($row['feeName']) . '</th>
@@ -287,19 +287,19 @@ $itemIds = [];
 $totalCharges = 0;
 while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 {
-    $itemIds[] = $row['customChargeId'];
-    $totalCharges = $row['totalAmt'];
-    $perCharges += $row['totalAmt'];
+  $itemIds[] = $row['customChargeId'];
+  $totalCharges = $row['totalAmt'];
+  $perCharges += $row['totalAmt'];
 
-    $discountPercent = $chargePrice * $totalCharges / 100;
-    $totalDiscountPercent = $chargePrice * $perCharges / 100;
-    if ($row) {
-        $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
+  $discountPercent = $chargePrice * $totalCharges / 100;
+  $totalDiscountPercent = $chargePrice * $perCharges / 100;
+  if ($row) {
+    $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;">
                     <th style="font-size:16px;font-weight:600; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;text-align: right;">' . getPriceWithCur($discountPercent, $getDefCurDet['curCode'], 0, 1) . '</th>
    
         <th style="font-size:16px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;text-align: right;">% ' .  $row['totalAmt'] . reverseRTLTextForPdf($row['feeName']) .  ' </th>
           </tr>';
-    }
+  }
 } //End of order level discount
 
 //Starts order level tax discount charges
@@ -311,11 +311,11 @@ $ordQry = mysqli_query($con, $sql);
 $taxCharges = 0;
 while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 {
-    $tax = $row['price'];
+  $tax = $row['price'];
 
-    $taxCharges = (($chargePrice + $totalFixedCharges + $totalDiscountPercent) * $tax / 100);
-    $totalTaxCharges += (($chargePrice + $totalFixedCharges + $totalDiscountPercent) * $tax / 100);
-    $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;text-align: right;">
+  $taxCharges = (($chargePrice + $totalFixedCharges + $totalDiscountPercent) * $tax / 100);
+  $totalTaxCharges += (($chargePrice + $totalFixedCharges + $totalDiscountPercent) * $tax / 100);
+  $content .= '<tr style="color:#666C85; font-size:18px;line-height:21.78px;text-align: right;height:38px;border:none !important;font-weight: bold; max-height: 38px;text-align: right;">
                 <th style="font-size:16px;font-weight:600; color: #232859;line-height:21.78px;padding:0 12px !important;border-radius:0 10px 10px 0 !important;text-align: right;">' . getPriceWithCur($taxCharges, $getDefCurDet['curCode'], 0, 1) . '</th>
        
     <th style="font-size:16px;font-weight:600;line-height:21.78px;padding:0 12px !important;border-radius:10px 0 0 10px !important;text-align: right;">% ' . $row['price'] . ' ' . reverseRTLTextForPdf($row['feeName']) .  '</th>

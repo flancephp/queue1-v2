@@ -1222,7 +1222,7 @@ $cond = '';
                             INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id AND tp.status=1
                             INNER JOIN tbl_stocks s ON(s.pId = tp.id) AND s.account_id=tp.account_Id
                             LEFT JOIN tbl_units u ON(u.id = tp.unitC) AND u.account_id = tp.account_id 
-                            WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' and od.qty > 0  ORDER BY tp.itemName ";
+                            WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' and od.qty > 0  ORDER BY tp.catId ";
                         $orderQry = mysqli_query($con, $sql);
 
                         ?>

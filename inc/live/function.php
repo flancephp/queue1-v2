@@ -5444,375 +5444,6 @@ function checkStockQtyRequisition($orderId, $accountId, $errorStockPriceChanged 
 	echo '<div class="modal-content">' . $errorMes . '</div>';
 } //End Check stock quantity while issue out
 
-
-function getRevenueTotals($outLetId, $fromDate, $toDate)
-{
-
-	global $con;
-
-
-	$sql = "SELECT o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty, o.maxQty outletMaxQty, o.factor, o.notes, p.itemName, p.barCode saleBarcode, p.imgName, p.stockPrice itemLastPrice, IF(u.name!='',u.name,p.unitC) countingUnit, IF(ut.name!='',ut.name,o.subUnit) subUnit, i.*
-
-					FROM tbl_outlet_items o
-
-					INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id) AND o.status=1 
-					LEFT JOIN tbl_units u ON (u.id = p.unitC) 
-					LEFT JOIN tbl_units ut ON (ut.id = o.subUnit) AND (ut.account_id = o.account_id) AND o.outLetId = '" . $outLetId . "'
-
-
-
-					LEFT JOIN tbl_daily_import_items i ON(p.barCode = i.barCode) AND (p.account_id = i.account_id) AND i.outLetId=o.outLetId 
-
-					WHERE o.outLetId = '" . $outLetId . "' AND o.account_id = '" . $_SESSION['accountId'] . "'   GROUP BY o.pId order by i.id asc  ";
-	$outLetItemsQry = mysqli_query($con, $sql);
-
-
-	//echo "<br><br>";
-	//Get last row of each item for close stock for date range
-	if ($fromDate && $toDate) {
-		$sql = "SELECT  i.*, p.stockPrice itemLastPrice, p.barCode saleBarcode
-						
-						FROM tbl_outlet_items o
-						
-						INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id) AND o.status=1 
-						
-						
-						INNER JOIN tbl_daily_import_items i ON(p.barCode = i.barCode) AND (p.account_id = i.account_id) AND i.outLetId=o.outLetId AND i.importedOn	 BETWEEN '" . date('Y-m-d', strtotime($fromDate)) . "' AND '" . date('Y-m-d', strtotime($toDate)) . "' 
-						
-						
-						WHERE o.outLetId = '" . $outLetId . "' AND o.account_id = '" . $_SESSION['accountId'] . "'  order by i.importedOn   ";
-		$outLetItemsForCountsTotals = mysqli_query($con, $sql);
-
-		$itemFirstReportRowArr = [];
-
-		$itemLastReportRowArr = [];
-
-		$itemsTotalsArr = [];
-
-		$importedDatesArr = [];
-
-		while ($rowOfReport = mysqli_fetch_array($outLetItemsForCountsTotals)) {
-			$barCode = $rowOfReport['barCode'];
-
-			$itemsTotalsArr[$barCode]['usageNoOfDays'] += 1;
-			$itemsTotalsArr[$barCode]['usagePerDayTot'] += $rowOfReport['usagePerDay'];
-			$itemsTotalsArr[$barCode]['usagePerGuestTot'] += $rowOfReport['usagePerGuest'];
-			$itemsTotalsArr[$barCode]['easySalesTot'] += $rowOfReport['easySales'];
-			$itemsTotalsArr[$barCode]['barControlTot'] += $rowOfReport['barControl'];
-
-			$itemsTotalsArr[$barCode]['issueInTot'] += $rowOfReport['issueIn'];
-			$itemsTotalsArr[$barCode]['adjmentTot'] += $rowOfReport['adjment'];
-
-			if ($rowOfReport['adjForEnptyBottle'] == 1) {
-				$itemsTotalsArr[$barCode]['adjForEnptyBottle'] = $rowOfReport['adjForEnptyBottle'];
-			}
-
-
-			if (!isset($itemFirstReportRowArr[$rowOfReport['barCode']])) {
-				$itemFirstReportRowArr[$rowOfReport['barCode']] = $rowOfReport;
-			}
-
-			$itemLastReportRowArr[$rowOfReport['barCode']] = $rowOfReport;
-		}
-	}
-	//End
-
-
-	//get Totals of easy sales amount
-	$dailyImportQrysql = "select SUM(sales) totalsSalesAmt FROM tbl_daily_import 
-								WHERE  outLetId = '" . $outLetId . "' AND account_id = '" . $_SESSION['accountId'] . "' AND importDate	 BETWEEN '" . date('Y-m-d', strtotime($fromDate)) . "' AND '" . date('Y-m-d', strtotime($toDate)) . "' GROUP BY outLetId  ";
-	$dailyImportQry = mysqli_query($con, $dailyImportQrysql);
-
-	$dailyImportArr = mysqli_fetch_array($dailyImportQry);
-
-	$easySalesAmt = ($dailyImportArr['totalsSalesAmt'] ? $dailyImportArr['totalsSalesAmt'] : 0);
-	//end		 get Totals of easy sales amount	\
-
-
-	$sql = "SELECT guests, sales, importDate importDate FROM  tbl_daily_import
-
-					WHERE outLetId = '" . $outLetId . "' AND account_id = '" . $_SESSION['accountId'] . "' AND
-						importDate  between '" . date('Y-m-d', strtotime($fromDate)) . "' AND '" . date('Y-m-d', strtotime($toDate)) . "'  ";
-	$imptQry = mysqli_query($con, $sql);
-
-	$datesArr = [];
-	$salesTot = 0;
-	while ($imprtRes = mysqli_fetch_array($imptQry)) {
-		$salesTot += $imprtRes['sales'];
-
-		if (!in_array($row['importDate'], $datesArr)) {
-			$guestsTotal += $imprtRes['guests'];
-			$datesArr[] = $imprtRes['importDate'];
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//each item data fetching-----------------------------------------------------------------------------------------------------
-
-	$x = 0;
-	while ($row = mysqli_fetch_array($outLetItemsQry)) {
-		$x++;
-
-
-		$dailyImportedData = $itemFirstReportRowArr[$row['saleBarcode']]; //$row;
-
-
-		$stockPrice = $dailyImportedData['stockPrice'];
-		$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['itemLastPrice'];
-
-
-		//all columns data is here
-		$usageAvg = $dailyImportedData['usageAvg'];
-		$usagePerGuest = $dailyImportedData['usagePerGuest'];
-
-		$issueIn = $dailyImportedData['issueIn'];
-		$adjustment = $dailyImportedData['adjment'];
-		$sales = $dailyImportedData['easySales'];
-		$barControl = $dailyImportedData['barControl'];
-		$closeStockDone = $dailyImportedData['closeStockDone'];
-
-		if (($fromDate != $toDate)  &&  isset($dailyImportedData['saleBarcode'])) {
-
-			$itemFirstRowDetailsArr = $itemFirstReportRowArr[$dailyImportedData['saleBarcode']];
-			$openStock = $itemFirstRowDetailsArr['openStock'];
-			//$stockPrice = $itemFirstRowDetailsArr['stockPrice'];
-
-			$itemLastRowDetailsArr = $itemLastReportRowArr[$dailyImportedData['saleBarcode']];
-
-			$stockPrice = $itemLastRowDetailsArr['stockPrice'] > 0 ? $itemLastRowDetailsArr['stockPrice'] : $itemLastRowDetailsArr['itemLastPrice'];
-
-			$closeStock = $itemLastRowDetailsArr['closeStock'];
-
-
-			$itemsTotalCntArr = $itemsTotalsArr[$dailyImportedData['saleBarcode']];
-
-			$usageAvg = ($itemsTotalCntArr['usageNoOfDays'] && $itemsTotalCntArr['usagePerDayTot']) ? ($itemsTotalCntArr['usagePerDayTot'] / $itemsTotalCntArr['usageNoOfDays']) : '';
-			$usagePerGuest = $itemsTotalCntArr['usagePerGuestTot'];
-
-			$issueIn = $itemsTotalCntArr['issueInTot'];
-			$adjustment = $itemsTotalCntArr['adjmentTot'];
-			$sales = $itemsTotalCntArr['easySalesTot'];
-			$barControl = $itemsTotalCntArr['barControlTot'];
-
-			$adjForEnptyBottle = isset($itemsTotalCntArr['adjForEnptyBottle']) ? $itemsTotalCntArr['adjForEnptyBottle'] : 0;
-		} else {
-			$openStock = $dailyImportedData['openStock'];
-			//$stockPriceForOpenStock = $dailyImportedData['stockPrice'];
-
-			$closeStock = $dailyImportedData['closeStock'];
-			$adjForEnptyBottle = $dailyImportedData['adjForEnptyBottle'];
-		}
-
-		$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['itemLastPrice']; //if still its zero then assign from product
-
-
-
-		$usageCloseStock = $adjForEnptyBottle == 1 ? ($closeStock + $adjustment) : $closeStock; //in case of empty bottle adjustment
-
-		$usage = ($closeStockDone) ? (($openStock + $issueIn + $barControl) - ($usageCloseStock)) : ''; //(Open Stock+Issue In) - (Close Stock)
-
-		$usageLevel = $usageAvg ?  (get2DecimalVal(($usage / $usageAvg) - 1) . '%') : '';
-
-		if ($row['outletItemType'] == 3) //usage item type=3, bar=1, sales=2
-		{
-			$varience = ''; //(Sales+Adjustment) - (Usage )
-			$varienceAmt = '';
-		} else {
-			$adjustmentForVarinc = $adjForEnptyBottle == 1 ? 0 : $adjustment;
-
-			$varience = $closeStockDone > 0 ? (($sales + $adjustmentForVarinc) - $usage) : ''; //(Sales+Adjustment) - (Usage )
-			$varienceAmt = $varience * $stockPrice;
-			$varienceTotalAmt += $varienceAmt;
-		}
-
-
-		$usageItemAmt = $usage * $stockPrice;
-		$usageItemTotalAmt += $usageItemAmt;
-
-
-		//requisition qty
-		$requisition = '';
-		if (($fromDate == $toDate) && ($closeStockDone) && ($closeStock < $row['outletMinQty']) && $dailyImportedData['requisition'] == 0) {
-
-			$requisition = ($row['outletMaxQty'] - $closeStock);
-			$requisition = ($requisition > 0) && $row['factor'] ? ceil($requisition / $row['factor']) : '';
-		}
-		if (($fromDate == $toDate) && $dailyImportedData['requisition'] > 0) {
-
-			$requisition = (($row['outletMaxQty'] - $closeStock) - ($dailyImportedData['requisition'] * $row['factor']));
-			$requisition = ($requisition > 0) && $row['factor'] ? ceil($requisition / $row['factor']) : '';
-		}
-
-
-
-
-
-
-		//Get prices
-		$issueInAmt = ($issueIn * $stockPrice);
-		$adjustmentAmt = ($adjustment * $stockPrice);
-		$openStockAmt =  ($openStock * $stockPrice);
-		$closeStockAmt = ($closeStock * $stockPrice);
-		$usageAmt =  ($usage * $stockPrice);
-		$barControlAmt =  ($barControl * $stockPrice);
-		$salesAmt = ($sales * $stockPrice);
-		//end get prices
-
-		//get total -----------------------------------------------------------------------------------------------------------------				
-
-		$issueInAmtTot += $issueInAmt;
-		$adjustmentAmtTot += $adjustmentAmt;
-		$salesAmtTot += $salesAmt;
-		$openStockAmtTot += $openStockAmt;
-		$closeStockAmtTot += $closeStockAmt;
-		$usageAmtTot += $usageAmt;
-		$barControlAmtTot += $barControlAmt;
-
-
-		$decimalPlace = 2;
-
-		$issueInAmt = getNumFormtPrice(($issueInAmt), $getDefCurDet['curCode'], $decimalPlace);
-		$adjustmentAmt = getNumFormtPrice(($adjustmentAmt), $getDefCurDet['curCode'], $decimalPlace);
-		$openStockAmt = getNumFormtPrice(($openStockAmt), $getDefCurDet['curCode'], $decimalPlace);
-		$closeStockAmt = $closeStockAmt ? getNumFormtPrice(($closeStockAmt), $getDefCurDet['curCode'], $decimalPlace) : '';
-		$usageAmt = getNumFormtPrice(($usageAmt), $getDefCurDet['curCode'], $decimalPlace);
-		$barControlAmt = getNumFormtPrice(($barControlAmt), $getDefCurDet['curCode'], $decimalPlace);
-		$varienceAmt = getNumFormtPrice(($varienceAmt), $getDefCurDet['curCode'], $decimalPlace);
-		$salesAmt = getNumFormtPrice(($salesAmt), $getDefCurDet['curCode'], $decimalPlace);
-		//end total ------------------------------------------------------------------------------------------------------------------	
-
-		if ($varienceAmt > 0) {
-			$varPosAmt += $varienceAmt;
-		}
-
-		if ($varienceAmt != '' && $varienceAmt < 0) {
-			$varNegAmt += $varienceAmt;
-		}
-
-
-		//if close stock is done then only show zero/other values
-		if ($closeStockDone != 1 && ($fromDate == $toDate)) {
-			$requisition = '';
-			$openStock = '';
-			$closeStock = '';
-			$usage = '';
-			$variancesText = '';
-			$usagePerGuest = '';
-			$usageAvg = '';
-			$usageLevel = '';
-
-			$adjustmentAmt = '';
-			$openStockAmt = '';
-			$closeStockAmt = '';
-			$usageAmt = '';
-			$salesAmt = '';
-		}
-
-		$issueIn = $issueIn ? $issueIn : '';
-		$barControl = $barControl ? $barControl : '';
-		$barControlAmt = $barControlAmt ? $barControlAmt : '';
-	} //end while loop
-	//end each item data fet...---------------------------------------------------------------------------------------------------
-
-
-
-	$outLetDataArr =
-		[
-			'salesTotal' => $easySalesAmt,
-			'guestsTotal' => $guestsTotal,
-			'usageTotal' => $usageAmtTot,
-			'usagePer' => 0,
-			'varience' => $varienceTotalAmt,
-			'usagePerGuest' => 0,
-			'usageLevel' => 0,
-		];
-
-	return $outLetDataArr;
-}
-
-function isMenuActive($pages)
-{
-	// Get the current page URL
-	$current_url = $_SERVER['REQUEST_URI'];
-
-	if (!is_array($pages)) {
-		$pages = [$pages];
-	}
-
-	// Check if the current URL contains any of the given pages
-	foreach ($pages as $page) {
-		if (strpos($current_url, $page) !== false) {
-			return "active"; // Return 'active' if it matches any page
-		}
-	}
-
-	// Return empty string if none of the pages match
-	return "";
-}
-
-function isSubMenuActive($page)
-{
-	// Get the current page URL
-	$current_url = $_SERVER['REQUEST_URI'];
-
-	// Check if the current URL contains the given page
-	if (strpos($current_url, $page) !== false) {
-		return "sbActive"; // Return 'active' if it matches
-	} else {
-		return ""; // Return empty string if it doesn't match
-	}
-}
-
-function getSortingNumber($accountId)
-{
-	global $con;
-
-	$sqlSet = " SELECT * FROM tbl_orders where  `status`=2 AND  account_id = '" . $accountId . "' order by sortingNo desc limit 1 ";
-	$ordQry = mysqli_query($con, $sqlSet);
-	$ordResult = mysqli_fetch_array($ordQry);
-
-	$lastSortingNo = 0;
-	if ($ordResult) {
-		$lastSortingNo =  $ordResult['sortingNo'];
-	}
-
-	//Give new sorting number for each new order
-	$sortingNo = $lastSortingNo > 0 ? ($lastSortingNo + 1) : 100000;
-
-	return $sortingNo;
-}
-
-function getAccountIds($accountId, $condWithoutGroup = '')
-{
-	global $con;
-
-	$mainSqlQry = " SELECT
-		GROUP_CONCAT( DISTINCT(o.bankAccountId) ) allBankIds
-		
-		FROM
-		tbl_order_details od
-		INNER JOIN tbl_orders o ON
-		(o.id = od.ordId) AND o.account_id = od.account_id
-		
-		WHERE o.status = 2 AND o.account_id = '" . $accountId . "' " . $condWithoutGroup . " AND o.bankAccountId > 0 GROUP BY o.account_id ";
-	$historyQry = mysqli_query($con, $mainSqlQry);
-
-	$hisRow = mysqli_fetch_array($historyQry);
-
-	return $hisRow ? $hisRow['allBankIds'] : '';
-}
-
 function getRevenueTotalsDemo($outLetId, $fromDate, $toDate)
 {
 
@@ -6075,4 +5706,547 @@ function getRevenueTotalsDemo($outLetId, $fromDate, $toDate)
 
 	return $outLetDataArr;
 }
+
+function getRevenueTotals($outLetId, $fromDate, $toDate)
+{
+
+	global $con;
+
+
+	//echo "<br><br>";
+	//Get last row of each item for close stock for date range
+	if ($fromDate && $toDate) {
+		$sql = "SELECT  o.pId, o.outLetId, o.itemType outletItemType, o.minQty outletMinQty,
+		 				o.maxQty outletMaxQty, o.factor, o.notes, p.itemName, p.barCode saleBarcode, p.imgName,
+		  				p.stockPrice itemLastPrice,	i.*
+
+						
+						FROM tbl_outlet_items o
+						
+						INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id) AND o.status=1 
+						
+						INNER JOIN tbl_daily_import_items i ON(p.barCode = i.barCode) AND (p.account_id = i.account_id) AND i.outLetId=o.outLetId AND i.importedOn	 BETWEEN '" . date('Y-m-d', strtotime($fromDate)) . "' AND '" . date('Y-m-d', strtotime($toDate)) . "' 
+						
+						
+						WHERE o.outLetId = '" . $outLetId . "' AND o.account_id = '" . $_SESSION['accountId'] . "'  order by i.importedOn   ";
+		$outLetItemsForCountsTotals = mysqli_query($con, $sql);
+
+		$itemFirstReportRowArr = [];
+
+		$itemLastReportRowArr = [];
+
+		$itemsTotalsArr = [];
+
+		$outletAllItemsArr = [];
+
+		while ($rowOfReport = mysqli_fetch_array($outLetItemsForCountsTotals)) {
+			$barCode = $rowOfReport['barCode'];
+			$outletAllItemsArr[$barCode] = $rowOfReport;
+
+
+			$itemsTotalsArr[$barCode]['usageNoOfDays'] += 1;
+			$itemsTotalsArr[$barCode]['usagePerDayTot'] += $rowOfReport['usagePerDay'];
+			$itemsTotalsArr[$barCode]['usagePerGuestTot'] += $rowOfReport['usagePerGuest'];
+			$itemsTotalsArr[$barCode]['easySalesTot'] += $rowOfReport['easySales'];
+			$itemsTotalsArr[$barCode]['barControlTot'] += $rowOfReport['barControl'];
+
+			$itemsTotalsArr[$barCode]['issueInTot'] += $rowOfReport['issueIn'];
+			$itemsTotalsArr[$barCode]['adjmentTot'] += $rowOfReport['adjment'];
+
+			if ($rowOfReport['adjForEnptyBottle'] == 1) {
+				$itemsTotalsArr[$barCode]['adjForEnptyBottle'] = $rowOfReport['adjForEnptyBottle'];
+			}
+
+
+			if (!isset($itemFirstReportRowArr[$rowOfReport['barCode']])) {
+				$itemFirstReportRowArr[$rowOfReport['barCode']] = $rowOfReport;
+			}
+
+			$itemLastReportRowArr[$rowOfReport['barCode']] = $rowOfReport;
+		}
+	}
+	//End
+
+
+
+	//get Totals of easy sales amount
+	$dailyImportQrysql = "select SUM(sales) totalsSalesAmt, SUM(guests) guestsTotal FROM tbl_daily_import 
+								WHERE  outLetId = '" . $outLetId . "' AND account_id = '" . $_SESSION['accountId'] . "' AND importDate	 BETWEEN '" . date('Y-m-d', strtotime($fromDate)) . "' AND '" . date('Y-m-d', strtotime($toDate)) . "' GROUP BY outLetId  ";
+	$dailyImportQry = mysqli_query($con, $dailyImportQrysql);
+
+	$dailyImportArr = mysqli_fetch_array($dailyImportQry);
+
+	$easySalesAmt = ($dailyImportArr['totalsSalesAmt'] ? $dailyImportArr['totalsSalesAmt'] : 0);
+	$guestsTotal = ($dailyImportArr['guestsTotal'] ? $dailyImportArr['guestsTotal'] : 0);
+	//end		 get Totals of easy sales amount	\
+
+
+
+	//each item data fetching-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+	$x = 0;
+	foreach ($outletAllItemsArr as $row) {
+		$x++;
+
+
+		$dailyImportedData = $itemFirstReportRowArr[$row['saleBarcode']]; //$row;
+
+
+		$stockPrice = $dailyImportedData['stockPrice'];
+		$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['itemLastPrice'];
+
+
+		//all columns data is here
+		$usageAvg = $dailyImportedData['usageAvg'];
+		$usagePerGuest = $dailyImportedData['usagePerGuest'];
+
+		$issueIn = $dailyImportedData['issueIn'];
+		$adjustment = $dailyImportedData['adjment'];
+		$sales = $dailyImportedData['easySales'];
+		$barControl = $dailyImportedData['barControl'];
+		$closeStockDone = $dailyImportedData['closeStockDone'];
+
+		if (($fromDate != $toDate)  &&  isset($dailyImportedData['saleBarcode'])) {
+
+			$itemFirstRowDetailsArr = $itemFirstReportRowArr[$dailyImportedData['saleBarcode']];
+			$openStock = $itemFirstRowDetailsArr['openStock'];
+			//$stockPrice = $itemFirstRowDetailsArr['stockPrice'];
+
+			$itemLastRowDetailsArr = $itemLastReportRowArr[$dailyImportedData['saleBarcode']];
+
+			$stockPrice = $itemLastRowDetailsArr['stockPrice'] > 0 ? $itemLastRowDetailsArr['stockPrice'] : $itemLastRowDetailsArr['itemLastPrice'];
+
+			$closeStock = $itemLastRowDetailsArr['closeStock'];
+
+
+			$itemsTotalCntArr = $itemsTotalsArr[$dailyImportedData['saleBarcode']];
+
+			$usageAvg = ($itemsTotalCntArr['usageNoOfDays'] && $itemsTotalCntArr['usagePerDayTot']) ? ($itemsTotalCntArr['usagePerDayTot'] / $itemsTotalCntArr['usageNoOfDays']) : '';
+			$usagePerGuest = $itemsTotalCntArr['usagePerGuestTot'];
+
+			$issueIn = $itemsTotalCntArr['issueInTot'];
+			$adjustment = $itemsTotalCntArr['adjmentTot'];
+			$sales = $itemsTotalCntArr['easySalesTot'];
+			$barControl = $itemsTotalCntArr['barControlTot'];
+
+			$adjForEnptyBottle = isset($itemsTotalCntArr['adjForEnptyBottle']) ? $itemsTotalCntArr['adjForEnptyBottle'] : 0;
+		} else {
+			$openStock = $dailyImportedData['openStock'];
+			//$stockPriceForOpenStock = $dailyImportedData['stockPrice'];
+
+			$closeStock = $dailyImportedData['closeStock'];
+			$adjForEnptyBottle = $dailyImportedData['adjForEnptyBottle'];
+		}
+
+		$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['itemLastPrice']; //if still its zero then assign from product
+
+
+
+		$usageCloseStock = $adjForEnptyBottle == 1 ? ($closeStock + $adjustment) : $closeStock; //in case of empty bottle adjustment
+
+		$usage = ($closeStockDone) ? (($openStock + $issueIn + $barControl) - ($usageCloseStock)) : ''; //(Open Stock+Issue In) - (Close Stock)
+
+		$usageLevel = $usageAvg ?  (get2DecimalVal(($usage / $usageAvg) - 1) . '%') : '';
+
+		if ($row['outletItemType'] == 3) //usage item type=3, bar=1, sales=2
+		{
+			$varience = ''; //(Sales+Adjustment) - (Usage )
+			$varienceAmt = '';
+		} else {
+			$adjustmentForVarinc = $adjForEnptyBottle == 1 ? 0 : $adjustment;
+
+			$varience = $closeStockDone > 0 ? (($sales + $adjustmentForVarinc) - $usage) : ''; //(Sales+Adjustment) - (Usage )
+			$varienceAmt = $varience * $stockPrice;
+			$varienceTotalAmt += $varienceAmt;
+		}
+
+
+		$usageItemAmt = $usage * $stockPrice;
+		$usageItemTotalAmt += $usageItemAmt;
+
+
+		//requisition qty
+		$requisition = '';
+		if (($fromDate == $toDate) && ($closeStockDone) && ($closeStock < $row['outletMinQty']) && $dailyImportedData['requisition'] == 0) {
+
+			$requisition = ($row['outletMaxQty'] - $closeStock);
+			$requisition = ($requisition > 0) && $row['factor'] ? ceil($requisition / $row['factor']) : '';
+		}
+		if (($fromDate == $toDate) && $dailyImportedData['requisition'] > 0) {
+
+			$requisition = (($row['outletMaxQty'] - $closeStock) - ($dailyImportedData['requisition'] * $row['factor']));
+			$requisition = ($requisition > 0) && $row['factor'] ? ceil($requisition / $row['factor']) : '';
+		}
+
+
+
+
+
+
+		//Get prices
+		$issueInAmt = ($issueIn * $stockPrice);
+		$adjustmentAmt = ($adjustment * $stockPrice);
+		$openStockAmt =  ($openStock * $stockPrice);
+		$closeStockAmt = ($closeStock * $stockPrice);
+		$usageAmt =  ($usage * $stockPrice);
+		$barControlAmt =  ($barControl * $stockPrice);
+		$salesAmt = ($sales * $stockPrice);
+		//end get prices
+
+		//get total -----------------------------------------------------------------------------------------------------------------				
+
+		$issueInAmtTot += $issueInAmt;
+		$adjustmentAmtTot += $adjustmentAmt;
+		$salesAmtTot += $salesAmt;
+		$openStockAmtTot += $openStockAmt;
+		$closeStockAmtTot += $closeStockAmt;
+		$usageAmtTot += $usageAmt;
+		$barControlAmtTot += $barControlAmt;
+
+
+		$decimalPlace = 2;
+
+		$issueInAmt = getNumFormtPrice(($issueInAmt), $getDefCurDet['curCode'], $decimalPlace);
+		$adjustmentAmt = getNumFormtPrice(($adjustmentAmt), $getDefCurDet['curCode'], $decimalPlace);
+		$openStockAmt = getNumFormtPrice(($openStockAmt), $getDefCurDet['curCode'], $decimalPlace);
+		$closeStockAmt = $closeStockAmt ? getNumFormtPrice(($closeStockAmt), $getDefCurDet['curCode'], $decimalPlace) : '';
+		$usageAmt = getNumFormtPrice(($usageAmt), $getDefCurDet['curCode'], $decimalPlace);
+		$barControlAmt = getNumFormtPrice(($barControlAmt), $getDefCurDet['curCode'], $decimalPlace);
+		$varienceAmt = getNumFormtPrice(($varienceAmt), $getDefCurDet['curCode'], $decimalPlace);
+		$salesAmt = getNumFormtPrice(($salesAmt), $getDefCurDet['curCode'], $decimalPlace);
+		//end total ------------------------------------------------------------------------------------------------------------------	
+
+		if ($varienceAmt > 0) {
+			$varPosAmt += $varienceAmt;
+		}
+
+		if ($varienceAmt != '' && $varienceAmt < 0) {
+			$varNegAmt += $varienceAmt;
+		}
+
+
+		//if close stock is done then only show zero/other values
+		if ($closeStockDone != 1 && ($fromDate == $toDate)) {
+			$requisition = '';
+			$openStock = '';
+			$closeStock = '';
+			$usage = '';
+			$variancesText = '';
+			$usagePerGuest = '';
+			$usageAvg = '';
+			$usageLevel = '';
+
+			$adjustmentAmt = '';
+			$openStockAmt = '';
+			$closeStockAmt = '';
+			$usageAmt = '';
+			$salesAmt = '';
+		}
+
+		$issueIn = $issueIn ? $issueIn : '';
+		$barControl = $barControl ? $barControl : '';
+		$barControlAmt = $barControlAmt ? $barControlAmt : '';
+	} //end while loop
+	//end each item data fet...---------------------------------------------------------------------------------------------------
+
+
+
+	$outLetDataArr =
+		[
+			'salesTotal' => $easySalesAmt,
+			'guestsTotal' => $guestsTotal,
+			'usageTotal' => $usageAmtTot,
+			'usagePer' => 0,
+			'varience' => $varienceTotalAmt,
+			'usagePerGuest' => 0,
+			'usageLevel' => 0,
+		];
+
+	return $outLetDataArr;
+}
+
+function isMenuActive($pages)
+{
+	// Get the current page URL
+	$current_url = $_SERVER['REQUEST_URI'];
+
+	if (!is_array($pages)) {
+		$pages = [$pages];
+	}
+
+	// Check if the current URL contains any of the given pages
+	foreach ($pages as $page) {
+		if (strpos($current_url, $page) !== false) {
+			return "active"; // Return 'active' if it matches any page
+		}
+	}
+
+	// Return empty string if none of the pages match
+	return "";
+}
+
+function isSubMenuActive($page)
+{
+	// Get the current page URL
+	$current_url = $_SERVER['REQUEST_URI'];
+
+	// Check if the current URL contains the given page
+	if (strpos($current_url, $page) !== false) {
+		return "sbActive"; // Return 'active' if it matches
+	} else {
+		return ""; // Return empty string if it doesn't match
+	}
+}
+
+function getSortingNumber($accountId)
+{
+	global $con;
+
+	$sqlSet = " SELECT * FROM tbl_orders where  `status`=2 AND  account_id = '" . $accountId . "' order by sortingNo desc limit 1 ";
+	$ordQry = mysqli_query($con, $sqlSet);
+	$ordResult = mysqli_fetch_array($ordQry);
+
+	$lastSortingNo = 0;
+	if ($ordResult) {
+		$lastSortingNo =  $ordResult['sortingNo'];
+	}
+
+	//Give new sorting number for each new order
+	$sortingNo = $lastSortingNo > 0 ? ($lastSortingNo + 1) : 100000;
+
+	return $sortingNo;
+}
+
+function getAccountIds($accountId, $condWithoutGroup = '')
+{
+	global $con;
+
+	$mainSqlQry = " SELECT
+		GROUP_CONCAT( DISTINCT(o.bankAccountId) ) allBankIds
+		
+		FROM
+		tbl_order_details od
+		INNER JOIN tbl_orders o ON
+		(o.id = od.ordId) AND o.account_id = od.account_id
+		
+		WHERE o.status = 2 AND o.account_id = '" . $accountId . "' " . $condWithoutGroup . " AND o.bankAccountId > 0 GROUP BY o.account_id ";
+	$historyQry = mysqli_query($con, $mainSqlQry);
+
+	$hisRow = mysqli_fetch_array($historyQry);
+
+	return $hisRow ? $hisRow['allBankIds'] : '';
+}
+
+
+
+function addOutletDataDateWise($accountId, $revId, $outLetId)
+{
+
+	global $con;
+
+	$sql = "SELECT  i.*
+
+				FROM tbl_outlet_items o
+
+				INNER JOIN tbl_products p ON(p.id = o.pId) AND (p.account_id = o.account_id) AND o.status=1 
+
+				INNER JOIN   tbl_daily_import_items i ON(p.barCode = i.barCode) AND (p.account_id = i.account_id) AND i.outLetId=o.outLetId 
+
+			WHERE i.outLetId = '" . $outLetId . "' AND o.outLetId = '" . $outLetId . "' AND i.account_id = '" . $accountId . "'     order by i.importedOn asc   ";
+	$outLetItemsQry = mysqli_query($con, $sql);
+
+
+	//each item data fetching-----------------------------------------------------------------------------------------------------
+
+
+	$issueInAmtTot = 0;
+	$adjustmentAmtTot = 0;
+	$salesAmtTot = 0;
+	$openStockAmtTot = 0;
+	$closeStockAmtTot = 0;
+	$usageAmtTot = 0;
+	$barControlAmtTot = 0;
+	$adjForEnptyBottle = 0;
+	$varienceTotalAmt = 0;
+	$usageItemTotalAmt = 0;
+	$dateWiseOutletData = [];
+	$x = 0;
+	while ($dailyImportedData = mysqli_fetch_array($outLetItemsQry)) {
+		$x++;
+
+		$date = $dailyImportedData['importedOn'];
+
+		if (!isset($dateWiseOutletData[$date])) {
+
+			$issueInAmtTot = 0;
+			$adjustmentAmtTot = 0;
+			$salesAmtTot = 0;
+			$openStockAmtTot = 0;
+			$closeStockAmtTot = 0;
+			$usageAmtTot = 0;
+			$barControlAmtTot = 0;
+			$adjForEnptyBottle = 0;
+			$varienceTotalAmt = 0;
+			$usageItemTotalAmt = 0;
+		}
+
+		$stockPrice = $dailyImportedData['stockPrice'];
+		$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['lastPrice'];
+
+
+		//all columns data is here
+
+		$issueIn = $dailyImportedData['issueIn'];
+		$adjustment = $dailyImportedData['adjment'];
+		$sales = $dailyImportedData['easySales'];
+		$barControl = $dailyImportedData['barControl'];
+		$closeStockDone = $dailyImportedData['closeStockDone'];
+		$openStock = $dailyImportedData['openStock'];
+		$closeStock = $dailyImportedData['closeStock'];
+		$adjForEnptyBottle = $dailyImportedData['adjForEnptyBottle'];
+
+		$stockPrice = $stockPrice > 0 ? $stockPrice : $dailyImportedData['lastPrice']; //if still its zero then assign from product
+
+		$usageCloseStock = $adjForEnptyBottle == 1 ? ($closeStock + $adjustment) : $closeStock; //in case of empty bottle adjustment
+
+		$usage = ($closeStockDone) ? (($openStock + $issueIn + $barControl) - ($usageCloseStock)) : ''; //(Open Stock+Issue In) - (Close Stock)
+
+		/*echo 'closeStockDone=' . $closeStockDone . 'openStock=' . $openStock . 'openStock=' . $issueIn . 'barControl=' . $barControl . 'usageCloseStock=' . $usageCloseStock;
+
+			echo '<br>';
+
+			echo 'usage=' . $usage . 'stockPrice=' . $stockPrice;
+			echo '<br>';*/
+
+		if ($dailyImportedData['itemType'] == 2) //for non usage type 1 and usage type 2. In case of usage variance will be 0
+		{
+			$varience = ''; //(Sales+Adjustment) - (Usage )
+			$varienceAmt = '';
+		} else {
+			$adjustmentForVarinc = $adjForEnptyBottle == 1 ? 0 : $adjustment;
+
+			$varience = $closeStockDone > 0 ? (($sales + $adjustmentForVarinc) - $usage) : ''; //(Sales+Adjustment) - (Usage )
+			$varienceAmt = $varience * $stockPrice;
+			$varienceTotalAmt += $varienceAmt;
+		}
+
+
+		$usageItemAmt = $usage * $stockPrice;
+		$usageItemTotalAmt += $usageItemAmt;
+
+
+
+
+
+
+		//Get prices
+		$issueInAmt = ($issueIn * $stockPrice);
+		$adjustmentAmt = ($adjustment * $stockPrice);
+		$openStockAmt =  ($openStock * $stockPrice);
+		$closeStockAmt = ($closeStock * $stockPrice);
+		$usageAmt =  ($usage * $stockPrice);
+		$barControlAmt =  ($barControl * $stockPrice);
+		$salesAmt = ($sales * $stockPrice);
+		//end get prices
+
+		//get total -----------------------------------------------------------------------------------------------------------------				
+
+		$issueInAmtTot += $issueInAmt;
+		$adjustmentAmtTot += $adjustmentAmt;
+		$salesAmtTot += $salesAmt;
+		$openStockAmtTot += $openStockAmt;
+		$closeStockAmtTot += $closeStockAmt;
+		$usageAmtTot += $usageAmt;
+		$barControlAmtTot += $barControlAmt;
+
+
+		$dateWiseOutletData[$date] = ['importedOn' => $date, 'usageAmtTot' => $usageAmtTot, 'varienceTotalAmt' => $varienceTotalAmt, 'salesAmtTot' => $salesAmtTot];
+	} //end while loop
+
+
+
+	foreach ($dateWiseOutletData as $outLetReport) {
+
+		$sql = "INSERT INTO `revenue_center_outletreport_new` 
+	
+				SET 
+				
+				`account_id` = '" . $accountId . "',
+				`revId` = '" . $revId . "',
+				`outLetId`  = '" . $outLetId . "',
+				`sales`  = '" . $outLetReport['salesAmtTot'] . "',
+				`cost`  = '" . $outLetReport['usageAmtTot'] . "',
+				`variance`  = '" .  $outLetReport['varienceTotalAmt'] . "',
+				`createdDate`  = '" . $outLetReport['importedOn'] . "'	";
+
+
+		//echo "<br><br>";
+
+		mysqli_query($con, $sql);
+	}
+
+
+
+
+	echo '<br>its done=' . $x;
+}
+
+
+
+
+
+function getRevenueTotals_new($accountId, $outLetId, $fromDate, $toDate)
+{
+	global $con;
+
+	$fromDate = date('Y-m-d', strtotime($fromDate));
+	$toDate = date('Y-m-d', strtotime($toDate));
+
+	$sql = "SELECT   SUM(cost) usageTotal, SUM(variance) varienceTotal  FROM revenue_center_outletreport_new 	WHERE outLetId = '" . $outLetId . "'  AND account_id = '" . $accountId . "' AND 
+			(createdDate BETWEEN  '" . $fromDate . "' AND  '" . $toDate . "')  GROUP BY  outLetId ";
+	$outLetItemsQry = mysqli_query($con, $sql);
+
+
+
+
+	$result =  mysqli_fetch_array($outLetItemsQry);
+
+	if (!$result) {
+		$result = [];
+
+		$result['usageTotal'] = 0;
+		$result['varienceTotal'] = 0;
+	}
+
+	return $result;
+}
+
+function getEasySalesAndGuestData($accountId, $outLetId, $fromDate, $toDate)
+{
+
+	global $con;
+
+	$fromDate = date('Y-m-d', strtotime($fromDate));
+	$toDate = date('Y-m-d', strtotime($toDate));
+
+	//get Totals of easy sales amount
+	$dailyImportQrysql = "select SUM(sales) totalsSalesAmt, guests FROM tbl_daily_import 
+								WHERE  outLetId = '" . $outLetId . "' AND account_id = '" . $accountId . "' AND importDate	 BETWEEN '" . date('Y-m-d', strtotime($fromDate)) . "' AND '" . date('Y-m-d', strtotime($toDate)) . "' GROUP BY outLetId  ";
+	$dailyImportQry = mysqli_query($con, $dailyImportQrysql);
+
+	$dailyImportArr = mysqli_fetch_array($dailyImportQry);
+
+	if (!$dailyImportArr) {
+
+		return ['totalsSalesAmt' => 0, 'guests' => 0];
+	}
+
+	return $dailyImportArr;
+}
+
 ?>

@@ -138,7 +138,9 @@ if (isset($_POST['placeOrder'])) {
 
         if (isset($_SESSION['productIds'][$productId]) && ($_POST['qty'][$productId] == '' || $_POST['qty'][$productId] == 0)) {
             unset($_SESSION['productIds'][$productId]);
-        } elseif ($_POST['qty'][$productId] > 0) {
+        }
+
+        if ($_POST['qty'][$productId] > 0) {
             $noProductQtyFilled = false;
 
             $_SESSION['productIds'][$productId]['qty'] = $_POST['qty'][$productId];
@@ -275,7 +277,7 @@ $cond = '';
 if ($_SESSION['deptId'] != '') {
     $cond .= " AND pd.deptId = '" . $_SESSION['deptId'] . "' ";
 
-    $orderBy = isset($_GET['sort']) ?  ' t.qty desc' : 'p.itemName';
+    $orderBy = isset($_GET['sort']) ?  ' t.qty desc' : 'p.catId';
 
     $sqlSet = " SELECT p.*, t.notes, IF(u.name!='',u.name,p.unitC) as countingUnit, s.qty stockQty FROM tbl_products p
     LEFT JOIN tbl_units u ON(u.id=p.unitC) AND u.account_id = p.account_id 
@@ -802,8 +804,10 @@ if ($_SESSION['deptId'] != '') {
                                     <div class="d-flex align-items-center">
                                         <p><?php echo showOtherLangText('Qty'); ?></p>
                                         <span class="dblArrow">
-                                            <a onclick="sortTableByColumn('.newReqTask', '.qty-itm-hid');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
-
+                                            <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
+                                                    class="fa-solid fa-angle-up"></i></a>
+                                            <a href="addRecusation.php?sort=qty" class="d-block aglStock"><i
+                                                    class="fa-solid fa-angle-down"></i></a>
                                         </span>
                                     </div>
                                 </div>

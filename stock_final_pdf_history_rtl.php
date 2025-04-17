@@ -15,7 +15,7 @@ $sql = "SELECT od.*, tp.itemName, tp.barCode, IF(u.name!='',u.name,tp.unitC) uni
                 ON(od.pId = tp.id) AND od.account_id = tp.account_id
             LEFT JOIN tbl_units u 
                 ON(tp.unitC = u.id) AND tp.account_id = u.account_id
-            WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION['accountId'] . "' ";
+            WHERE od.ordId = '" . $_GET['orderId'] . "'  AND od.account_id = '" . $_SESSION['accountId'] . "' order by tp.catId ";
 
 $proresultSet = mysqli_query($con, $sql);
 

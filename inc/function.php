@@ -270,7 +270,7 @@ function checkSupplierForMinLevelProducts($supId)
 			
 	LEFT JOIN tbl_stocks s ON(s.pId = p.id) AND s.account_id = p.account_id 
 	  
-	WHERE  ps.supplierId = '" . $supId . "'  AND ps.account_id = '" . $_SESSION['accountId'] . "'  ";
+	WHERE  ps.supplierId = '" . $supId . "'  AND ps.account_id = '" . $_SESSION['accountId'] . "' order by p.catId  ";
 	$proresultSet = mysqli_query($con, $sqlSet);
 
 
@@ -1096,7 +1096,7 @@ function getOutLetProducts($outLetId)
 	global $con;
 	$sql = "SELECT  p.id, p.itemName FROM tbl_outlet_items o
  					INNER JOIN tbl_products p ON(p.id = o.pId) AND p.account_id = o.account_id 
-		 WHERE o.outLetId = '" . $outLetId . "'  AND o.account_id = '" . $_SESSION['accountId'] . "'  ";
+		 WHERE o.outLetId = '" . $outLetId . "'  AND o.account_id = '" . $_SESSION['accountId'] . "' order by p.catId ";
 	$outLetItemsQry = mysqli_query($con, $sql);
 
 	$proDetails = [];
@@ -1167,7 +1167,7 @@ function  getOutLetFormatedData($outLetId, $rows)
 
 	$sql = "SELECT p.barCode, o.itemType, o.factor FROM tbl_outlet_items o 
 		INNER JOIN tbl_products p ON(p.id = o.pId) AND p.account_id = o.account_id  
-		WHERE o.outLetId = '" . $outLetId . "'  AND p.account_id = '" . $_SESSION['accountId'] . "'   ";
+		WHERE o.outLetId = '" . $outLetId . "'  AND p.account_id = '" . $_SESSION['accountId'] . "' order by p.catId  ";
 	$outLetItemsQry = mysqli_query($con, $sql);
 
 	$formatedRows = [];
@@ -1225,7 +1225,7 @@ function addIssueOutInReport($productsRow, $outLetId)
 				  
 				INNER JOIN tbl_revenue_center_departments rcd ON(rcd.id = o.outLetId) AND rcd.account_id = o.account_id
 			WHERE rcd.deptId = '" . $outLetId . "'  AND p.account_id = '" . $_SESSION['accountId'] . "'  
-			  AND p.id IN(" . implode(',', $pIds) . ") ";
+			  AND p.id IN(" . implode(',', $pIds) . ") order by p.catId ";
 
 	$outLetItemsQry = mysqli_query($con, $sql);
 
@@ -1320,7 +1320,7 @@ function correctIssueOutInReport($productsRow, $outLetId, $setDateTimeDate)
 	$sql = "SELECT p.barCode, o.itemType, o.factor, o.outLetId, p.id pId, p.price FROM tbl_outlet_items o 
 				INNER JOIN tbl_products p ON(p.id = o.pId) AND p.account_id = o.account_id  
 				INNER JOIN tbl_revenue_center_departments rcd ON(rcd.id = o.outLetId) AND rcd.account_id = o.account_id
-			WHERE rcd.deptId = '" . $outLetId . "'  AND p.account_id = '" . $_SESSION['accountId'] . "'  AND o.itemType=3 AND p.id IN(" . implode(',', $pIds) . ")  ";
+			WHERE rcd.deptId = '" . $outLetId . "'  AND p.account_id = '" . $_SESSION['accountId'] . "'  AND o.itemType=3 AND p.id IN(" . implode(',', $pIds) . ") order by p.catId ";
 	$outLetItemsQry = mysqli_query($con, $sql);
 
 	$formatedRows = [];
@@ -2055,7 +2055,7 @@ function reportStockTakeFromMobile($stockTakeId, $userId, $stockTakeType)
 		ON(s.pId = tp.id) AND s.account_id = tp.account_id AND tp.status=1 AND s.stockTakeId = '" . $stockTakeId . "' AND s.userId = '" . $userId . "' AND s.stockTakeType='" . $stockTakeType . "' AND s.status=1
 		INNER JOIN tbl_outlet_items o ON(o.pId = s.pId) AND o.account_id = s.account_id AND o.outLetId = s.stockTakeId
 		WHERE  s.account_id = '" . $_SESSION['accountId'] . "' 
-	    GROUP BY tp.id   ";
+	    GROUP BY tp.id order by tp.catId  ";
 	$stockMainQry = mysqli_query($con, $sql);
 
 	$formatedRows = [];
@@ -3410,7 +3410,7 @@ function addAutoFillReqReport($ordId, $account_id, $recMemberId)
 	global $con;
 
 	$sql = "SELECT p.barCode, d.* FROM tbl_order_details d inner join tbl_products p ON(p.id=d.pId)
-			WHERE d.ordId = '" . $ordId . "'  AND d.account_id = '" . $account_id . "' and d.autoFillQty > 0 ";
+			WHERE d.ordId = '" . $ordId . "'  AND d.account_id = '" . $account_id . "' and d.autoFillQty > 0 order by p.catId ";
 	$ordDetailsQry = mysqli_query($con, $sql);
 
 	$date = date('Y-m-d', strtotime('-1 day'));
@@ -5306,7 +5306,7 @@ function ActiveReqAutoFill($cond)
         (p.id = pd.productId) AND p.account_id = pd.account_id
     INNER JOIN tbl_stocks s ON
         (s.pId = p.id) AND s.account_id = p.account_id 
-    WHERE p.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " AND p.status=1 GROUP BY(id)  ORDER BY p.itemName ";
+    WHERE p.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " AND p.status=1 GROUP BY(id)  order by p.catId ";
 	$proList = mysqli_query($con, $sqlSet);
 
 	$autoFillArr = [];
@@ -5363,7 +5363,7 @@ function checkStockQtyRequisition($orderId, $accountId, $errorStockPriceChanged 
 		INNER JOIN tbl_stocks s ON(od.pId = s.pId) AND od.account_id = s.account_id
 		INNER JOIN tbl_products p ON(p.id = s.pId) AND s.account_id = p.account_id
 
-	    WHERE od.ordId = '" . $orderId . "'  AND od.account_id = '" . $accountId . "' AND s.qty < od.qty ";
+	    WHERE od.ordId = '" . $orderId . "'  AND od.account_id = '" . $accountId . "' AND s.qty < od.qty order by p.catId ";
 	$ordQry = mysqli_query($con, $sql);
 
 	$sql = " SELECT * FROM tbl_orders WHERE id = '" . $orderId . "' AND account_id = '1' ";
@@ -5404,7 +5404,7 @@ function checkStockQtyRequisition($orderId, $accountId, $errorStockPriceChanged 
 		INNER JOIN tbl_stocks s ON(od.pId = s.pId) AND od.account_id = s.account_id
 		INNER JOIN tbl_products p ON(p.id = s.pId) AND s.account_id = p.account_id
 
-	    WHERE od.ordId = '" . $orderId . "'  AND od.account_id = '" . $accountId . "' AND FLOOR(s.stockPrice) != FLOOR(od.price) ";
+	    WHERE od.ordId = '" . $orderId . "'  AND od.account_id = '" . $accountId . "' AND FLOOR(s.stockPrice) != FLOOR(od.price) order by p.catId ";
 		$ordQry = mysqli_query($con, $sql);
 
 		$productNamesData = '';

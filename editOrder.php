@@ -430,7 +430,10 @@ if (isset($_GET['delId']) && $_GET['orderId']) {
         }
 
         @media(min-width:992px) {
-            .defaultQtyPl { padding-left: 12px; }
+            .defaultQtyPl {
+                padding-left: 12px;
+            }
+
             html[dir=rtl] .newFeature.col {
                 padding: 0 50px 0 83px;
             }
@@ -1401,7 +1404,7 @@ INNER JOIN tbl_products tp ON(od.pId = tp.id) AND od.account_id = tp.account_id 
 LEFT JOIN tbl_stocks s ON(s.pId=tp.id) AND s.account_id=tp.account_Id
 INNER JOIN tbl_orders o ON(o.id = od.ordId) AND o.account_id = od.account_id
 LEFT JOIN tbl_units u ON(u.id = tp.unitP) AND u.account_id = tp.account_id
-WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' ORDER BY tp.itemName ";
+WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['accountId'] . "' ORDER BY tp.catId ";
                         $ordQry = mysqli_query($con, $sql);
 
                         ?>
@@ -1734,7 +1737,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                 FROM tbl_products p
                 LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
                 LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
-                WHERE 1=1 " . $cond . " AND p.status=1  AND p.account_id = '" . $_SESSION['accountId'] . "' ORDER BY itemName ";
+                WHERE 1=1 " . $cond . " AND p.status=1  AND p.account_id = '" . $_SESSION['accountId'] . "' ORDER BY p.catId ";
                                             $proresultSet = mysqli_query($con, $sqlSet);
                                         ?>
                                             <div class="btnBg text-center text-md-end">
@@ -1766,7 +1769,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                     FROM tbl_products p
                     LEFT JOIN tbl_stocks s ON(s.pId=p.id) AND s.account_id=p.account_Id
                     LEFT JOIN tbl_units u ON(u.id=p.unitP) AND u.account_id = p.account_id 
-                    WHERE 1=1 " . $cond . " AND p.status=1  AND p.account_id = '" . $_SESSION['accountId'] . "' GROUP BY p.id ORDER BY itemName ";
+                    WHERE 1=1 " . $cond . " AND p.status=1  AND p.account_id = '" . $_SESSION['accountId'] . "' GROUP BY p.id ORDER BY p.catId ";
                                                 $proresultSet = mysqli_query($con, $sqlSet);
                                 ?>
                                     <div class="container nordPrice position-relative">

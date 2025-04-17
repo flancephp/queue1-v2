@@ -60,7 +60,7 @@ LEFT JOIN tbl_category c ON
 LEFT JOIN tbl_productsuppliers ps ON(ps.productId = tp.id) AND ps.account_id = tp.account_id
 LEFT JOIN tbl_suppliers sp ON(ps.supplierId = sp.id) AND ps.account_id = sp.account_id
 
-WHERE tp.account_id ='" . $_SESSION['accountId'] . "' " . $cond . " GROUP BY tp.id ORDER by s.id DESC ";
+WHERE tp.account_id ='" . $_SESSION['accountId'] . "' " . $cond . " GROUP BY tp.id ORDER by tp.catId DESC, s.id DESC ";
 
 $stockMainQry = mysqli_query($con, $sql);
 //End stock lists
@@ -327,9 +327,9 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
             $content .= '<td style="padding: 8px 5px;border:0;text-align: right;width:5%;" class="head' . $key . '">' . $header . '</td>';
         } elseif ($key == '2') {
             $content .= '<td style="padding: 5px 8px;border:0;text-align: right;width:10%;" class="head' . $key . '">' . $header . '</td>';
-        } elseif ($key == '3' && $_GET['itemName'] == 0 && $_GET['barCode'] == 1) { 
+        } elseif ($key == '3' && $_GET['itemName'] == 0 && $_GET['barCode'] == 1) {
             $content .= '<td style="padding: 5px 8px;text-align: right;border:0;width:8%;" class="head' . $key . '">' . showOtherLangText('BarCode') . '</td>';
-        } elseif ($key == '3' && $_GET['itemName'] == 1 && $_GET['barCode'] == 0) { 
+        } elseif ($key == '3' && $_GET['itemName'] == 1 && $_GET['barCode'] == 0) {
             $content .= '<td style="padding: 5px 8px;text-align: right;width:8%;border:0;" class="head' . $key . '">' . showOtherLangText('Item') . '</td>';
         } elseif ($key == '4') {
             $content .= '<td style="padding: 5px 8px;text-align: left;border:0;width:8%;backgroud: red;" class="head' . $key . '">' . $header . '</td>';

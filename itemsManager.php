@@ -1,6 +1,7 @@
 <?php
 include('inc/dbConfig.php'); //connection details
 
+//ini_set('display_errors', '1');
 if (!isset($_SESSION['adminidusername'])) {
     echo "<script>window.location='login.php'</script>";
 }
@@ -69,33 +70,48 @@ $itemUserFilterFields = $userDetails['itemUserFilterFields'] ?     explode(',', 
 $fileDataRows = [];
 if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '') {
 
-    $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
 
-    $i = 0;
-    foreach ($xlsx->rows() as $row) {
-        if ($i == 0) {
-            $i++;
-            continue;
+    //for csv
+
+    $ext = pathinfo($_FILES['uploadFile']['name'], PATHINFO_EXTENSION);
+    if ($ext == 'csv') {
+
+        $rows = csv_to_array($_FILES['uploadFile']['tmp_name'], ',');
+    }   //end csv
+    else {
+
+
+        //for exls file
+
+        $xlsx = SimpleXLSX::parse($_FILES["uploadFile"]["tmp_name"]);
+
+        $i = 0;
+        foreach ($xlsx->rows() as $row) {
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
+
+
+            $rows[] = [
+                'Item' => $row[0],
+                'BarCode' => trim($row[1]),
+                'Category' => $row[2],
+                'SubCategory' => $row[3],
+                'Storage' => $row[4],
+                'Supplier' => $row[5],
+                'Departments' => $row[6],
+                'PUnit' => $row[7],
+                'Factor' => $row[8],
+                'CUnit' => $row[9],
+                'LastPrice' => $row[10],
+                'MinLevel' => $row[11],
+                'MaxLevel' => $row[12],
+                'Photo' => $row[13]
+            ];
         }
-
-        $rows[] = [
-            'Item' => $row[0],
-            'BarCode' => $row[1],
-            'Category' => $row[2],
-            'SubCategory' => $row[3],
-            'Storage' => $row[4],
-            'Supplier' => $row[5],
-            'Departments' => $row[6],
-            'PUnit' => $row[7],
-            'Factor' => $row[8],
-            'CUnit' => $row[9],
-            'LastPrice' => $row[10],
-            'MinLevel' => $row[11],
-            'MaxLevel' => $row[12],
-            'Photo' => $row[13]
-        ];
     }
-
+    //end xls
     //----------------------------------
 
 
@@ -168,9 +184,10 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
             $supRow = mysqli_fetch_array($resultSet);
 
 
+
             $sql = $insrtOrUpdate . " `tbl_products` SET
-		`itemName` = '" . $row['Item'] . "',
-		`barCode` = '" . $row['BarCode'] . "',
+		`itemName` = '" . trim($row['Item']) . "',
+		`barCode` = '" . trim($row['BarCode']) . "',
 		`unitP` = '" . $unitPRes['id'] . "',
 		`factor` = '" . $row['Factor'] . "',
 		`unitC` = '" . $unitCRes['id'] . "',
@@ -187,6 +204,7 @@ if (isset($_FILES['uploadFile']['name']) && $_FILES['uploadFile']['name'] != '')
 		"
                 . $imgFiled
                 . $where;
+
 
             mysqli_query($con, $sql);
 
@@ -302,7 +320,7 @@ LEFT JOIN tbl_productsuppliers ps ON(ps.productId=p.id) AND ps.account_id = p.ac
 LEFT JOIN tbl_suppliers ts ON(ps.supplierId = ts.id) AND ps.account_id = ts.account_id		
 					
 WHERE p.account_id = '" . $_SESSION['accountId'] . "'  " . $cond . "
-GROUP BY p.id ORDER BY p.id DESC ";
+GROUP BY p.id ORDER BY p.catId DESC ";
 $mainQry = mysqli_query($con, $sql);
 
 //---------------------------------------------

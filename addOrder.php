@@ -276,7 +276,7 @@ if ($_SESSION['supplierId'] != '') {
 
 
 
-$orderBy = isset($_GET['sort']) ?  ' t.qty desc' : 'p.itemName';
+$orderBy = isset($_GET['sort']) ?  ' t.qty desc' : 'p.catId';
 
 
 $supplierId = $_SESSION['supplierId'] > 0 ? $_SESSION['supplierId'] : -1;
@@ -842,10 +842,7 @@ $currResultSet = mysqli_query($con, $curQry);
                             <div class="prdtCnt-Fst d-flex align-items-center">
                                 <div class="Itm-Name tb-head">
                                     <span><?php echo showOtherLangText('Item'); ?></span>
-                                    <span class="dblArrow">
-                                        <a onclick="sortTableByColumn('.newOrdTaskMainRow', '.Itm-Name');" href="javascript:void(0)" class="d-bloc aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
 
-                                    </span>
                                 </div>
                                 <div class="Itm-brCode tb-head">
                                     <p><?php echo showOtherLangText('Bar Code'); ?></p>
@@ -880,8 +877,10 @@ $currResultSet = mysqli_query($con, $curQry);
                                             <p><?php echo showOtherLangText('Qty'); ?></p>
 
                                             <span class="dblArrow">
-                                                <a onclick="sortTableByColumn('.newOrdTaskMainRow', '.qty-itm-hid');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
-
+                                                <a href="addOrder.php?sort=qty" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-up"></i></a>
+                                                <a href="addOrder.php?sort=qty" class="d-block aglStock"><i
+                                                        class="fa-solid fa-angle-down"></i></a>
                                             </span>
 
 

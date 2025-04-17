@@ -195,7 +195,7 @@ $result = mysqli_query($con, $sql);
                                                         <p class="userTittle"><?php echo $designationName; ?></p>
                                                     </div>
                                                     <div class="tb-bdy usrTtl-Clm">
-                                                        <p class="userTittle"><?php echo $row['userType'] == 0 ? 'Web User' : 'Mobile User'; ?></p>
+                                                        <p class="userTittle"><?php echo $row['userType'] == 0 ? showOtherLangText('Web User') : showOtherLangText('Mobile User'); ?></p>
                                                     </div>
                                                 </div>
                                                 <div class="usrTbl-Icns">

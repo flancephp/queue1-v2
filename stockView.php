@@ -137,7 +137,7 @@ LEFT JOIN tbl_stores st ON(st.id = tp.storageDeptId) AND st.account_id = tp.acco
 LEFT JOIN tbl_designation_sub_section_permission dssp
 ON(st.id=dssp.type_id) AND st.account_id=dssp.account_Id
 
-WHERE tp.account_id ='" . $_SESSION['accountId'] . "' " . $cond . " GROUP BY tp.id ORDER by s.id DESC ";
+WHERE tp.account_id ='" . $_SESSION['accountId'] . "' " . $cond . " GROUP BY tp.id ORDER by tp.catId DESC, s.id DESC  ";
 
 $stockMainQry = mysqli_query($con, $sql);
 $stockMainQry_hide = mysqli_query($con, $sql);
@@ -1066,12 +1066,7 @@ if (isset($stockUserFilterFields)) {
                                                     </div>
                                                 <?php } ?>
 
-                                                <?php if (isset($stockUserFilterFields) && !in_array(17, $stockUserFilterFields)) { ?>
-                                                <?php } else { ?>
-                                                    <div class="min_qty tb-bdy lstPrco stkPrcbdy mb-Value md__33">
-                                                        <p><span class="mbLst-value">Max</span><?php echo $row['maxLevel'] ? $row['maxLevel'] : 0; ?></p>
-                                                    </div>
-                                                <?php } ?>
+
 
                                             </div>
                                         </div>
