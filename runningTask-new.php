@@ -899,7 +899,7 @@
                        </table>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" >Approve</button>
+                        <button type="button" class="btn btn-primary" >Approve</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                     </div>

@@ -250,7 +250,6 @@
             mysqli_query($con, $qry);
 
             echo '<script>window.location = "runningOrders.php?requisitionAdded=1&orderId=' . $ordId . '"</script>';
-            exit;
         } else {
             echo '<script>window.location = "addRecusation.php?errorProduct=1"</script>';
         }
@@ -3228,7 +3227,7 @@
                                 placeholder="<?php echo showOtherLangText('Service Name'); ?>" autocomplete="off"
 
                                 onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
-                            <input type="number" class="form-control" id="feeAmt" name="itemFeeAmt" value=""
+                            <input type="number"  class="form-control" id="feeAmt" name="itemFeeAmt" value=""
                                 placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?>"
                                 autocomplete="off"
 

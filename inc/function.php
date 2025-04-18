@@ -4705,9 +4705,12 @@ if (isset($_SESSION['language_id'])) {
 //this must be used only for pdf and not for other pages
 function reverseRTLTextForPdf($text)
 {
+
 	// check if the line contains Hebrew characters from the start too
 	// to avoid flipping dates etc.
+
 	if (isset($_GET['getLangType']) &&  $_GET['getLangType']  == 1) {
+
 
 		preg_match_all('/./us', $text, $ar);
 
@@ -4717,9 +4720,16 @@ function reverseRTLTextForPdf($text)
 		// flip english back to ltr
 		$words = explode(' ', $text);
 		foreach ($words as $i => $word):
-			if (!preg_match("/\p{Hebrew}/u", $word)):
+			/*if (!preg_match("/\p{Hebrew}/u", $word)):
 				$words[$i] = implode('', array_reverse(str_split($word)));
+			endif;*/
+
+			if (strpos(trim($word), ')') !== false || strpos(trim($word), '(') !== false):
+
+				$words[$i] = str_replace(['(', ')'], '', $word);
+
 			endif;
+
 		endforeach;
 
 		return $text = implode(' ', $words);
