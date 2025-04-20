@@ -77,7 +77,7 @@ $content  .=  '</tbody>
 
 
 $content  .= ' 
-                    <table class="modal-table fs-12 w-100 mt-4">
+                    <table class="modal-table fs-12 w-100 mt-4 table__striped__bg">
                         <thead>
                             <tr>
                                 <th>' . showOtherLangText('#') . '</th>
@@ -96,7 +96,7 @@ foreach ($resultRows as $row) {
     $i++;
     $content  .= '<tr>
                                 <td>' . $i . '</td>
-                                <td>' . $row['itemName'] . '</td>
+                                <td style="font-weight:bold;">' . $row['itemName'] . '</td>
                                 <td>' . $row['barCode'] . '</td>
                                 <td>' . $row['unitC'] . '</td>
                                 <td>' . $row['qty'] . '</td>

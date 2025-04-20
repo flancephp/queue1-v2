@@ -22443,17 +22443,29 @@ td.text-right{
 .aglStock img { height: 15px;width: auto; }
 
 /* global modal table tr td background and border setup: shuvro */
+.modal-table .itmProd {
+  font-weight: 700;color: #000;
+}
 #itemDiv .modal-table .table-row:not(.thead):nth-child(2n + 1),
 #taskDiv .modal-table .table-row:not(.thead):nth-child(2n + 1),
+.overflowTable.itemSectionPartMain.itemSectionPart .modal-table .table-row:not(.thead):nth-child(2n + 1),
 .table__striped__bg .modal-table .table-row:not(.thead):nth-child(2n + 1) {
   background-color: #F9F9FB;
 }
 #itemDiv .modal-table .table-row:not(.thead),
 #taskDiv .modal-table .table-row:not(.thead),
+.overflowTable.itemSectionPartMain.itemSectionPart .modal-table .table-row:not(.thead),
 .table__striped__bg .modal-table .table-row:not(.thead) {
   border-bottom:1px solid #DFE0E8;
 }
 
 .grand__total__box {
   background-color: #E5E7FF;font-weight: 700;color: #000000;
+}
+
+.table__striped__bg tbody tr:nth-child(2n + 2) td {
+  background-color: #F9F9FB;
+}
+.table__striped__bg tbody tr td {
+  border-bottom:1px solid #DFE0E8;
 }

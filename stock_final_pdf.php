@@ -243,7 +243,7 @@ $content .= '</table>
         </tr>
     </table>';
 if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_GET['qty'] == 1 || $_GET['reqQty'] == 1 || $_GET['avlQty'] == 1 || $_GET['lastPrice'] == 1 || $_GET['stockPrice'] == 1 || $_GET['stockValue'] == 1 || $_GET['subCat'] == 1 || $_GET['suplr'] == 1) {
-    $content .= '<table style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">';
+    $content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%" style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">';
     $content .= '<tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">';
     $headerArr =
         [
@@ -329,6 +329,8 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
     //foreach($_SESSION['stockRows'] as $row)
     {
         $i++;
+        $bgColor = ($i % 2== 0) ? 'white' : '#F9F9FB';
+
         $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
         if ($totalProQty > 0) {
             $totalTempProQty = $totalProQty;
@@ -345,40 +347,40 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
         } else {
             $img = '<img src="' . $siteUrl . 'uploads/sample-prod-img.jpg" width="40" height="40">';
         }
-        $content .= '<tr>';
-        $content .= '<td style="padding: 8px 5px;border:0;">' . $i . '</td>';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
+        $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
         if ($_GET['photo'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $img . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $img . '</td>';
         }
         if ($_GET['itemName'] == 1 && $_GET['barCode'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $row['itemName'] . ' <br>' . $row['barCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $row['itemName'] . ' <br>' . $row['barCode'] . '</td>';
         } elseif ($_GET['itemName'] == 1 || $_GET['barCode'] == 1) {
             $data = $_GET['itemName'] == 1 ? $row['itemName'] : $row['barCode'];
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $data . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $data . '</td>';
         }
         if ($_GET['qty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . $row['stockQty'] . ' ' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;border-bottom:1px solid #DFE0E8;">' . $row['stockQty'] . ' ' . $row['countingUnit'] . '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $totalTempProQty . ' ' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $totalTempProQty . ' ' . $row['countingUnit'] . '</td>';
         }
         if ($_GET['avlQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;">' . ($row['stockQty'] - $totalTempProQty) . ' ' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;border-bottom:1px solid #DFE0E8;">' . ($row['stockQty'] - $totalTempProQty) . ' ' . $row['countingUnit'] . '</td>';
         }
         if ($_GET['lastPrice'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . getPrice($row['stockLastPrice']) . ' ' . $getDefCurDet['curCode'] . '</td>';
         }
         if ($_GET['stockPrice'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . getPrice($row['sPrice']) . ' ' . $getDefCurDet['curCode'] . '</td>';
         }
         if ($_GET['stockValue'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . getPrice($row['stockValue']) . ' ' . $getDefCurDet['curCode'] . '</td>';
         }
         if ($_GET['subCat'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $catNames . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $catNames . '</td>';
         }
         if ($_GET['suplr'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;">' . $supNames . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;border-bottom:1px solid #DFE0E8;">' . $supNames . '</td>';
         }
         $content .= '</tr>';
     }

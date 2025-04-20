@@ -228,7 +228,7 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             </td>
             <td width="25%"></td>
             <td width="22%"></td>
-            <td width="28%">
+            <td width="28%" style="border-left: 1px solid #DFE0E8;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
                         <td width="50%" style="padding: 5px;">' . showOtherLangText('Sub Total') . '</td>
@@ -261,7 +261,7 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             </td>
             <td width="25%"></td>
             <td width="22%"></td>
-            <td width="28%">
+            <td width="28%" style="border: 1px solid #DFE0E8;border-top:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
                         <td width="50%" style="padding: 5px;">' . showOtherLangText('Sub Total') . '</td>
@@ -292,7 +292,7 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             </td>
             <td width="25%"></td>
             <td width="22%"></td>
-            <td width="28%">
+            <td width="28%" style="border: 1px solid #DFE0E8;border-top:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
                         <td width="50%" style="padding: 5px;">' . $row['feeName'] . '</td>
@@ -325,7 +325,7 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             </td>
             <td width="25%"></td>
             <td width="22%"></td>
-            <td width="28%">
+            <td width="28%" style="border: 1px solid #DFE0E8;border-top:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
                         <td width="50%" style="padding: 5px;">' . $row['feeName'] . '</td>
@@ -360,7 +360,7 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             </td>
             <td width="25%"></td>
             <td width="22%"></td>
-            <td width="28%">
+            <td width="28%" style="border: 1px solid #DFE0E8;border-top:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
                         <td width="50%" style="padding: 5px;">' . $row['feeName'] . '</td>
@@ -387,7 +387,7 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             </td>
             <td width="25%"></td>
             <td width="22%"></td>
-            <td width="28%">
+            <td width="28%" style="border: 1px solid #DFE0E8;border-top:0;background-color: #E5E7FF;font-weight:700;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr>
                         <td width="50%" style="padding: 5px;">' . showOtherLangText('Grand Total') . '</td>
@@ -417,7 +417,7 @@ if (
 
 ) {
 
-    $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">';
+    $content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">';
     $content .= '<tr style="background-color: rgba(122, 137, 255, 0.2);">';
     $content .= '<th style="font-weight:700;padding:8px 5px;">#</th>';
     $photo = '';
@@ -476,60 +476,61 @@ if (
 
 
     $i = 0;
+    $bgColor = ($i % 2== 0) ? 'white' : '#F9F9FB';
     while ($row = mysqli_fetch_array($otherChrgQry)) {
 
         $i++;
-        $content .= '<tr>';
-        $content .= '<td style="padding: 5px;">' . $i . '</td>';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
+        $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
         if ($_GET['photo'] == 1) {
             $img = '';
-            $content .= '<td style="padding: 5px;">' . $img . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $img . '</td>';
         }
 
         if ($_GET['itemName'] == 1) {
             $itemName = $row['itemName'];
-            $content .= '<td style="padding: 5px;">' . $itemName . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;font-weight:700">' . $itemName . '</td>';
         }
 
         if ($_GET['barcode'] == 1) {
-            $content .= '<td style="padding: 5px;"></td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;"></td>';
         }
 
         $price = '';
         if ($_GET['price'] == 1 && $getColumnPermission['item_price'] == 1) {
             $price = getPriceWithCur($row['price'], $getDefCurDet['curCode']);
-            $content .= '<td style="padding: 5px;">' . $price . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $price . '</td>';
         }
 
         $unit = '';
         if ($_GET['unit'] == 1) {
             $unit = $row['unit'];
-            $content .= '<td style="padding: 5px;">' . $unit . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $unit . '</td>';
         }
 
         $reqQty = '';
         if ($_GET['reqQty'] == 1) {
             $reqQty = '1';
-            $content .= '<td style="padding: 5px;">' . $reqQty . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $reqQty . '</td>';
         }
 
         $qty = '';
         if ($_GET['qty'] == 1) {
             $qty = '1';
-            $content .= '<td style="padding: 5px;">' . $qty . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $qty . '</td>';
         }
 
 
         $total = '';
         if ($_GET['total'] == 1 && $getColumnPermission['item_price'] == 1) {
             $total = getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']);
-            $content .= '<td style="padding: 5px;">' . $total . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $total . '</td>';
         }
 
         $note = '';
         if ($_GET['note'] == 1) {
             $note = $row['note'];
-            $content .= '<td style="padding: 5px;">' . $note . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $note . '</td>';
         }
 
         $content .= '</tr>';
@@ -542,45 +543,46 @@ if (
 
     while ($row = mysqli_fetch_array($proresultSet)) {
         $i++;
-        $content .= '<tr>';
-        $content .= '<td style="padding: 5px;">' . $i . '</td>';
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
+        $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
         if ($_GET['photo'] == 1) {
             $img = '';
             if ($row['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
                 $img = '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'] . '" style="width:30px; height:auto;">';
             }
-            $content .= '<td style="padding: 5px;">' . $img . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $img . '</td>';
         }
         if ($_GET['itemName'] == 1) {
-            $content .= '<td style="padding: 5px;">' . $row['itemName'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;font-weight:700">' . $row['itemName'] . '</td>';
         }
         if ($_GET['barcode'] == 1) {
-            $content .= '<td style="padding: 5px;">' . $row['barCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['barCode'] . '</td>';
         }
         if ($_GET['price'] == 1 && $getColumnPermission['item_price'] == 1) {
-            $content .= '<td style="padding: 5px;">
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">
                 ' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</td>';
         }
         if ($_GET['unit'] == 1) {
-            $content .= '<td style="padding: 5px;">' . $row['countingUnit'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['countingUnit'] . '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 5px;">' . $row['requestedQty'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['requestedQty'] . '</td>';
         }
         if ($_GET['qty'] == 1) {
 
-            $content .= '<td style="padding: 5px;">' . $row['qty'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['qty'] . '</td>';
         }
 
         if ($_GET['total'] == 1 && $getColumnPermission['item_price'] == 1) {
 
-            $content .= '<td style="padding: 5px;">
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">
                 ' . getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']) . '</td>';
         }
 
         if ($_GET['note'] == 1) {
 
-            $content .= '<td style="padding: 5px;">' . $row['note'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['note'] . '</td>';
         }
 
 
@@ -591,7 +593,7 @@ if (
 
 //order journey starts here
 if ($_GET['taskRecord'] == 1) {
-    $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">
+    $content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: left;">
     ';
 
 
@@ -605,14 +607,16 @@ if ($_GET['taskRecord'] == 1) {
 
 
     while ($orderJourney = mysqli_fetch_array($orderJourneyQry)) {
-        $content .= '<tr>
-            <td style="padding: 5px;">' . showOtherLangText(ucfirst($orderJourney['action'])) . '</td>                          
-            <td style="padding: 5px;">' . date('d/m/Y
+        $j++;
+        $bgColor2 = ($j % 2 != 0) ? 'white' : '#F9F9FB';
+        $content .= '<tr style="background-color: ' . $bgColor2 . ';">
+            <td style="padding: 5px;border-bottom: 1px solid #dfe0e8;">' . showOtherLangText(ucfirst($orderJourney['action'])) . '</td>                          
+            <td style="padding: 5px;border-bottom: 1px solid #dfe0e8;">' . date('d/m/Y
                 h:iA', strtotime($orderJourney['ordDateTime'])) . '</td>
-            <td style="padding: 5px;">' . ucfirst($orderJourney['name']) . '(' . ucfirst($orderJourney['designation_name']) . ')</td>
-            <td style="padding: 5px;">' .
+            <td style="padding: 5px;border-bottom: 1px solid #dfe0e8;">' . ucfirst($orderJourney['name']) . '(' . ucfirst($orderJourney['designation_name']) . ')</td>
+            <td style="padding: 5px;border-bottom: 1px solid #dfe0e8;">' .
             getPriceWithCur($orderJourney['amount'], $getDefCurDet['curCode']) . '</td>                          
-            <td style="padding: 5px;">' . ucfirst($orderJourney['notes']) . '</td>
+            <td style="padding: 5px;border-bottom: 1px solid #dfe0e8;">' . ucfirst($orderJourney['notes']) . '</td>
         </tr> ';
     }
 

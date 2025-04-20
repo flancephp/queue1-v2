@@ -63,7 +63,7 @@ $content  .=  '<tr>
                             </tr>';
 $content  .= '</tbody>
                     </table> 
-                    <table class="modal-table fs-12 w-100 mt-3 mt-lg-4">
+                    <table class="modal-table fs-12 w-100 mt-3 mt-lg-4 table__striped__bg">
                         <thead>
                             <tr>
                                 <th>' . showOtherLangText('#') . '</th>

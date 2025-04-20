@@ -192,7 +192,7 @@ $content = '<!DOCTYPE html>
         </tr>
     </table>';
     
-    $content .= '<table style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">
+    $content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%" style="width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;">
         <tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">
         <td style="padding: 8px 5px;">#</td>
         <td style="padding: 8px 5px;">'.showOtherLangText('Photo').'</td>
@@ -206,20 +206,21 @@ $content = '<!DOCTYPE html>
      foreach($stockview_pdf as $row)
      {   
         $i++;
-    $content .=  '<tr>
-            <td style="padding: 8px 5px;">'.$i.'</td>
-            <td style="padding: 8px 5px;">'; 
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
+    $content .=  '<tr style="background-color: ' . $bgColor . ';">
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">'.$i.'</td>
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">'; 
                      if( $row['imgName'] != ''  && file_exists( dirname(__FILE__)."/uploads/".$accountImgPath."/products/".$row['imgName'] )  )
                      {  
                        $content .=  '<img src="'.$siteUrl.'uploads/'.$accountImgPath.'/products/'.$row['imgName'].'" width="60" height="60">';
                         
                      }
            $content .=  '</td>
-            <td style="padding: 8px 5px;">'.$row['itemName'].'</td>
-            <td style="padding: 8px 5px;">'.$row['barCode'].'</td>
-            <td style="padding: 8px 5px;">'.$row['stockQty'].'</td>
-            <td style="padding: 8px 5px; font-weight: 600;">'.$fileDataRows[$row['barCode']].'</td>
-            <td style="padding: 8px 5px; color:#dc3545;">'.($fileDataRows[$row['barCode']] - $row['stockQty']).'</td>
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;font-weight:700;">'.$row['itemName'].'</td>
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">'.$row['barCode'].'</td>
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">'.$row['stockQty'].'</td>
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8; font-weight: 600;">'.$fileDataRows[$row['barCode']].'</td>
+            <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8; color:#dc3545;">'.($fileDataRows[$row['barCode']] - $row['stockQty']).'</td>
         </tr>';
       }
         
