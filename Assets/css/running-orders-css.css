@@ -371,10 +371,27 @@ html[dir="rtl"] .fa-share-square.pe-2 {
 .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(2) {
     width: 25%;
 }
-
+.remove__parent__padding .modal-table>.table-row .table-cell:nth-child(1) {
+    text-align: left;
+}
+.remove__parent__padding .modal-table>.table-row .table-cell:nth-child(2) {
+    text-align: right;
+}
 .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3) {
-    width: 50%;
+    width: 50%;text-align: right;
     display: table-cell !important;
+}
+
+html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(1) { text-align: right; }
+html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3),
+html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(2) {
+    text-align: left;
+}
+html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3) .smryOtr_Val {
+    display: block;text-align: left;padding-left: 10px;
+}
+html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell.py-0 .smryOtr_Val {
+    padding-left: 0px; 
 }
 
 .table-cell.left__align__text .table-cell {

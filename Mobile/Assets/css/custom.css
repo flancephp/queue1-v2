@@ -1194,7 +1194,7 @@ img {
 
 /* Storage Stocktaking6 Page CSS End */
 
-.ellipsis {overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal;}
+.ellipsis {overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;white-space: normal;line-height: 1.25; }
 
 /* Receiving Order1 Page CSS Start */ 
 .inner__content { border-radius: var(--radius-sm);padding: 16px; }

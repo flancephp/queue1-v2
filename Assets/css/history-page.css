@@ -1704,3 +1704,8 @@ html[dir="rtl"] .modal .left__align__text .table-cell {
         min-width: 8rem;
     }
 }
+
+
+#Raw_Convert_Item_details_content .modal-table .itmProd {
+    font-weight: 400;    color: #232859;
+}

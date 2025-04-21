@@ -325,7 +325,7 @@ if ($ordCountRow > 0) {
     $showGrandTotal = true;
     $content .= '<div class="table-cell p-0">
                 <div class="sub-table w-100 border border-top-0">
-                    <div class="table-row border-bottom">
+                    <div class="table-row border-bottom" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
                         <div class="table-cell" style="width:33.33%"><span class="sumBreakupAmtText amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . showOtherLangText('Sub Total') . '</span></div>
                         <div class="table-cell" style="width:33.33%"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getPriceWithCur($chargePrice, $getDefCurDet['curCode']) . '
                                 </span></div>';
@@ -350,7 +350,7 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
     $fixedCharges += $row['price'];
     $fixedChargesOther += $row['curAmt'];
 
-    $content .= '<div class="table-row border-bottom">
+    $content .= '<div class="table-row border-bottom" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
                         <div class="table-cell" style="width:33.33%"><span class="sumBreakupAmtText amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . $row['feeName'] . '</span></div>
                         <div class="table-cell" style="width:33.33%"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '
                                     </span></div>
@@ -375,7 +375,7 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 
     $calDiscount = ($chargePrice * $row['price'] / 100);
     $calDiscountOther = ($chargePriceOther * $row['price'] / 100);
-    $content .= '<div class="table-row border-bottom">
+    $content .= '<div class="table-row border-bottom" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
                         <div class="table-cell" style="width:33.33%"><span class="sumBreakupAmtText amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . $row['feeName'] . '</span></div>
                         <div class="table-cell" style="width:33.33%"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getPriceWithCur($calDiscount, $getDefCurDet['curCode']) . '
                  </span></div>
@@ -402,7 +402,7 @@ while ($row = mysqli_fetch_array($ordQry)) //show here order level charges
 
     $calTax = (($chargePrice + $fixedCharges + $totalCalDiscount) * $row['price'] / 100);
     $calTaxOther = (($chargePriceOther + $fixedChargesOther + $totalCalDiscountOther) * $row['price'] / 100);
-    $content .= '<div class="table-row border-bottom">
+    $content .= '<div class="table-row border-bottom" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
                         <div class="table-cell" style="width:33.33%"><span class="sumBreakupAmtText amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . $row['feeName'] . '</span></div>
                         <div class="table-cell" style="width:33.33%"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getPriceWithCur($calTax, $getDefCurDet['curCode']) . '
                     </span></div>
@@ -419,7 +419,7 @@ $netTotalAmt = ($chargePrice + $fixedCharges + $totalCalDiscount + $totalTax);
 $netTotalAmtOther = ($chargePriceOther + $fixedChargesOther + $totalCalDiscountOther + $totalTaxOther);
 
 if ($showGrandTotal) {
-    $content .= '<div class="table-row grand__total__box">
+    $content .= '<div class="table-row grand__total__box" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
                         <div class="table-cell"><span class="sumBreakupAmtText amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . showOtherLangText('Grand Total') . '</span></div>
                         <div class="table-cell"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode']) . '
                     </span></div> <div class="table-cell"><span class="smryOtr_Val amountSections  smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . showOtherCur($netTotalAmtOther, $ordDet['ordCurId']) . '
@@ -455,7 +455,7 @@ if ($ordDet['ordCurId'] > 0) {
 }
 $content .=   '<div class="table-cell"><span   class="itmPrcunit">' . showOtherLangText('Unit') . '</span></div>';
 $content .=   '<div class="table-cell"><span   class="itmPurqty">' . showOtherLangText('Qty') . '</span></div>';
-$content .=   '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"  class="itmRecqty">' . showOtherLangText('Rec Qty.') . '</span></div>';
+$content .=   '<div class="table-cell" style="font-weight:bold;"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"  class="itmRecqty">' . showOtherLangText('Rec Qty.') . '</span></div>';
 $content .=   '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"  class="itmTotal">' . showOtherLangText('Total') . '(' . $getDefCurDet['curCode'] . ')</span></div>';
 if ($ordDet['ordCurId'] > 0) {
     $content .=   '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"  class="otherCurTotal">' . showOtherLangText('Total') . '(' . $curDet['curCode'] . ')</span></div>';
@@ -477,8 +477,8 @@ while ($row = mysqli_fetch_array($otherChrgQry)) {
         $content .=  '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="otherCurPrice">' . getPriceWithCur(($row['curAmt']), $curDet['curCode'], $curDet['decPlace']) . '</span></div>';
     }
     $content .=  '<div class="table-cell"><span    class="itmPrcunit">' . $row['unit'] . '</span></div>';
-    $content .=  '<div class="table-cell"><span    class="itmPurqty">1</span></div>';
-    $content .=  '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="itmRecqty">1</span></div>';
+    $content .=  '<div class="table-cell" style="font-weight:bold;"><span    class="itmPurqty">1</span></div>';
+    $content .=  '<div class="table-cell" style="font-weight:bold;"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="itmRecqty">1</span></div>';
 
 
     $content .= '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="itmTotal">' . getPriceWithCur($row['price'], $getDefCurDet['curCode']) . '</span></div>';
@@ -508,7 +508,7 @@ while ($row = mysqli_fetch_array($proresultSet)) {
     }
     $content .= '<div class="table-cell"><span    class="itmPrcunit">' . $row['purchaseUnit'] . '</span></div>';
     $content .= '<div class="table-cell"><span    class="itmPurqty">' . $row['qty'] . '</span></div>';
-    $content .= '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="itmRecqty">' . $row['qtyReceived'] . '</span></div>';
+    $content .= '<div class="table-cell" style="font-weight:bold;"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="itmRecqty">' . $row['qtyReceived'] . '</span></div>';
     $content .= '<div class="table-cell"><span style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '"   class="itmTotal">' . getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode']) . '</span></div>';
     if ($ordDet['ordCurId'] > 0) {
         $content .= '<div class="table-cell">

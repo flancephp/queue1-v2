@@ -493,108 +493,110 @@ $content .=    ' <th style="font-weight:700;padding:8px 5px;text-align: right;">
 $i = 0;
 while ($row = mysqli_fetch_array($otherChrgQry)) {
     $i++;
-    $content .=   '<tr>';
+    $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
+    $content .=   '<tr style="background-color: ' . $bgColor . ';">';
 
 
     if ($_GET['note'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['note'] . '</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $row['note'] . '</td>';
     }
 
     if ($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
     }
 
     if ($_GET['total'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['price'], $getDefCurDet['curCode'], 0, 1) . '</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . getPriceWithCur($row['price'], $getDefCurDet['curCode'], 0, 1) . '</td>';
     }
 
     if ($_GET['receivedQty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">1</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;font-weight:700;">1</td>';
     }
 
 
 
     if ($_GET['qty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">1</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">1</td>';
     }
 
     if ($_GET['unit'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . reverseRTLTextForPdf($row['unit']) . '</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['unit']) . '</td>';
     }
 
     if ($_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">
                 ' . getPriceWithCur(($row['curAmt']), $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
     }
 
     if ($_GET['price'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['price'], $getDefCurDet['curCode'], 0, 1) . '</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . getPriceWithCur($row['price'], $getDefCurDet['curCode'], 0, 1) . '</td>';
     }
 
     if ($_GET['barcode'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right"></td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;"></td>';
     }
 
     if ($_GET['itemName'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
+        $content .=  '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
     }
 
     if ($_GET['photo'] == 1) {
-        $content .= '<td style="padding: 5px;text-align:right"></td>';
+        $content .= '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;"></td>';
     }
 
-    $content .=   '<td style="padding: 5px;text-align:right">' . $i . '</td>';
+    $content .=   '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
 
     $content .=  '</tr>';
 }
 
 while ($row = mysqli_fetch_array($proresultSet)) {
     $i++;
-    $content .=   '<tr>';
+    $bgColor2 = ($i % 2 != 0) ? 'white' : '#F9F9FB';
+    $content .=   '<tr style="background-color: ' . $bgColor2 . ';">';
 
 
     if ($_GET['note'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . reverseRTLTextForPdf($row['note']) . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['note']) . '</td>';
     }
 
     if ($_GET['secondCurrencyTotal'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . getPriceWithCur($row['curAmt'], $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
     }
 
     if ($_GET['total'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">
                 ' . getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode'], 0, 1) . '</td>';
     }
 
     if ($_GET['receivedQty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;font-weight:700;">
                 ' . $row['qtyReceived'] . '</td>';
     }
 
     if ($_GET['qty'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['qty'] . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $row['qty'] . '</td>';
     }
 
     if ($_GET['unit'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . reverseRTLTextForPdf($row['purchaseUnit']) . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['purchaseUnit']) . '</td>';
     }
 
     if ($_GET['secondCurrencyPrice'] == 1 && $ordDet['ordCurId'] > 0) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">
                 ' . getPriceWithCur($row['curPrice'] * $row['factor'], $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
     }
 
     if ($_GET['price'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">
                 ' . getPriceWithCur($row['price'] * $row['factor'], $getDefCurDet['curCode'], 0, 1) . '</td>';
     }
 
     if ($_GET['barcode'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right">' . $row['barCode'] . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $row['barCode'] . '</td>';
     }
 
     if ($_GET['itemName'] == 1) {
-        $content .=  '<td style="padding: 5px;text-align:right;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
+        $content .=  '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>';
     }
 
     if ($_GET['photo'] == 1) {
@@ -603,10 +605,10 @@ while ($row = mysqli_fetch_array($proresultSet)) {
         if ($row['imgName'] != '' && file_exists(dirname(__FILE__) . "/uploads/" . $accountImgPath . "/products/" . $row['imgName'])) {
             $img = '<img src="' . $siteUrl . 'uploads/' . $accountImgPath . '/products/' . $row['imgName'] . '" width="60" height="60">';
         }
-        $content .= '<td style="padding: 5px;text-align:right">' . $img . '</td>';
+        $content .= '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $img . '</td>';
     }
 
-    $content .=   '<td style="padding: 5px;text-align:right">' . $i . '</td>';
+    $content .=   '<td style="padding: 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
 
     $content .=  '</tr>';
 }
@@ -634,23 +636,25 @@ if ($_GET['taskRecord'] == 1) {
            ';
 
 
-
+    $j=0;
     while ($orderJourney = mysqli_fetch_array($orderJourneyQry)) {
-        $content .= '<tr>';
-        $content .=  '<td style="padding: 5px;text-align: right;">' . ucfirst($orderJourney['notes']) . '</td>';
+        $j++;
+        $bgColor3 = ($j % 2 != 0) ? 'white' : '#F9F9FB';
+        $content .= '<tr style="background-color: ' . $bgColor3 . ';">';
+        $content .=  '<td style="padding: 5px;text-align: right;border-bottom:1px solid #DFE0E8;">' . ucfirst($orderJourney['notes']) . '</td>';
 
         if ($_GET['secondCurrency'] == 1 && $curDet['curCode'] != '') {
-            $content .=  '<td style="padding: 5px;text-align: right;">' .
+            $content .=  '<td style="padding: 5px;text-align: right;border-bottom:1px solid #DFE0E8;">' .
                 getPriceWithCur($orderJourney['otherCur'], $curDet['curCode'], $curDet['decPlace'], 1) . '</td>';
         }
 
-        $content .= '<td style="padding: 5px;text-align: right;">' . getPriceWithCur($orderJourney['amount'], $getDefCurDet['curCode'], 0, 1) . '</td>
+        $content .= '<td style="padding: 5px;text-align: right;border-bottom:1px solid #DFE0E8;">' . getPriceWithCur($orderJourney['amount'], $getDefCurDet['curCode'], 0, 1) . '</td>
         
-        <td style="padding: 5px;text-align: right;">' . '(' . ucfirst(reverseRTLTextForPdf($orderJourney['designation_name'])) . ')' . ucfirst(reverseRTLTextForPdf($orderJourney['name'])) . '</td>
+        <td style="padding: 5px;text-align: right;border-bottom:1px solid #DFE0E8;">' . '(' . ucfirst(reverseRTLTextForPdf($orderJourney['designation_name'])) . ')' . ucfirst(reverseRTLTextForPdf($orderJourney['name'])) . '</td>
         
-        <td style="padding: 5px;text-align: right;">' . date('h:iA d/m/Y', strtotime($orderJourney['ordDateTime'])) . '</td>
+        <td style="padding: 5px;text-align: right;border-bottom:1px solid #DFE0E8;">' . date('h:iA d/m/Y', strtotime($orderJourney['ordDateTime'])) . '</td>
 
-        <td style="padding: 5px;text-align: right;">' . showOtherLangText(ucfirst($orderJourney['action'])) . '</td>';
+        <td style="padding: 5px;text-align: right;border-bottom:1px solid #DFE0E8;">' . showOtherLangText(ucfirst($orderJourney['action'])) . '</td>';
 
         $content .=   '</tr>';
     }

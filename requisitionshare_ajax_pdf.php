@@ -319,7 +319,7 @@ if ($ordCountRow > 0) {
 
     $showGrandTotal = true;
     $content .= '<div class="d-flex set__left__padding border border-top-0 ps-2"> 
-                                            <div class="col-7"><span class="amountSections smryHead" >' . showOtherLangText('Sub Total') . '</span></div>
+                                            <div class="col-7"><span class="amountSections smryHead test" >' . showOtherLangText('Sub Total') . '</span></div>
                                             <div class="col-5"><span class="smryDef_Val amountSections smryHead" >' . getPriceWithCur($chargePrice, $getDefCurDet['curCode']) . '</div>
                                         </div>';
 }

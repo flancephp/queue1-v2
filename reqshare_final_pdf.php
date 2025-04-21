@@ -476,10 +476,10 @@ if (
 
 
     $i = 0;
-    $bgColor = ($i % 2== 0) ? 'white' : '#F9F9FB';
     while ($row = mysqli_fetch_array($otherChrgQry)) {
-
+        
         $i++;
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
         $content .= '<tr style="background-color: ' . $bgColor . ';">';
         $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
         if ($_GET['photo'] == 1) {
@@ -635,3 +635,6 @@ if ($_GET['taskRecord'] == 1) {
 $content .= '</body>';
 
 $content .= '</html>';
+// echo $content;
+// die();
+
