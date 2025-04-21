@@ -168,8 +168,8 @@ if (!$permissionRow) {
                                         <div class="webItem pt-4 collapse " id="web" data-bs-parent="#titletype">
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newOrder">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="new_order" value="1">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="new_order" value="1" data-bs-toggle="collapse" data-bs-target="#newOrder">
                                                     <label class="medium" for="new_order"><?php echo showOtherLangText('New Order') ?></label>
                                                 </div>
 
@@ -248,8 +248,8 @@ if (!$permissionRow) {
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newRequisition">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="new-requisition-section" value="2">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="new-requisition-section" value="2" data-bs-toggle="collapse" data-bs-target="#newRequisition">
                                                     <label class="medium" for="new-requisition-section"><?php echo showOtherLangText('New Requisition'); ?></label>
                                                 </div>
 
@@ -330,8 +330,8 @@ if (!$permissionRow) {
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#runningtasks">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="running_tasks" value="3">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="running_tasks" value="3" data-bs-toggle="collapse" data-bs-target="#runningtasks">
                                                     <label class="medium" for="running_tasks"><?php echo showOtherLangText('Running Tasks'); ?></label>
                                                 </div>
                                                 <div class="collapse py-4" id="runningtasks">
@@ -387,8 +387,8 @@ if (!$permissionRow) {
 
 
                                             <div>
-                                                <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#history">
-                                                    <input type="checkbox" class="form-check-input" id="t_history" name="section_check[]" value="4">
+                                                <div class="checkbox-list border-bottom pt-3 pb-2">
+                                                    <input type="checkbox" class="form-check-input" id="t_history" name="section_check[]" value="4" data-bs-toggle="collapse" data-bs-target="#history">
                                                     <label class="medium" for="t_history"><?php echo showOtherLangText('History'); ?></label>
                                                 </div>
                                                 <div class="collapse py-4" id="history">
@@ -441,8 +441,8 @@ if (!$permissionRow) {
 
 
                                                 <div>
-                                                    <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#stock">
-                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="stock-section" value="5">
+                                                    <div class="checkbox-list border-bottom pt-3 pb-2">
+                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="stock-section" value="5" data-bs-toggle="collapse" data-bs-target="#stock">
                                                         <label class="medium" for="stock1"><?php echo showOtherLangText('Stock'); ?></label>
                                                     </div>
                                                     <div class="collapse py-4" id="stock">
@@ -519,61 +519,10 @@ if (!$permissionRow) {
 
 
 
-                                                <div>
-                                                    <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#newstock">
-                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="new_stock" value="6">
-                                                        <label class="medium" for="new_stock"><?php echo showOtherLangText('New Stocktake'); ?></label>
-                                                    </div>
-                                                    <div class="collapse py-4" id="newstock">
-
-
-                                                        <div class="row pb-2">
-                                                            <div class="col-md-2 col-4"></div>
-                                                            <div class="col-md-10 col-8">
-                                                                <div class="d-flex align-items-center gap-3">
-                                                                    <div class="newStockTake-radio enableNewStockTake">
-                                                                        <input type="checkbox" class="form-check-input" id="checkallNewStockTake" name="check_all" checked>
-                                                                        <label class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
-                                                                    </div>
-                                                                    <div class="newStockTake-radio desableNewStockTake">
-                                                                        <input type="checkbox" class="form-check-input" id="uncheckallNewStockTake" name="uncheck_all">
-                                                                        <label class="fs-13 semibold"><?php echo showOtherLangText('Uncheck All'); ?></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
-                                                        foreach ($newStockTakeArr as $newStockTakeSubRow) {
-                                                        ?>
-                                                            <div class="row align-items-center pb-2">
-                                                                <div class="col-md-2 col-4">
-                                                                    <p class="semibold fs-13"> <?php echo showOtherLangText($newStockTakeSubRow['title']) ?>:</p>
-                                                                </div>
-                                                                <div class="col-md-10 col-8">
-
-                                                                    <div class="d-flex align-items-center gap-3">
-                                                                        <div class="newStockTake-radio enableNewStockTake">
-                                                                            <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" value="1" checked>
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Enable'); ?></label>
-                                                                        </div>
-                                                                        <div class="newStockTake-radio desableNewStockTake">
-                                                                            <input type="radio" name="<?php echo $newStockTakeSubRow['name'] ?>" class="form-check-input" value="0">
-                                                                            <label class="fs-13"><?php echo showOtherLangText('Disable'); ?></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </div>
-
-                                                </div>
-
 
                                                 <div>
                                                     <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#revenuecenter">
-                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="revenueCenter-section" value="7">
+                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="revenueCenter-section" value="7" data-bs-toggle="collapse" data-bs-target="#revenuecenter">
                                                         <label class="medium" for="revenue_center"><?php echo showOtherLangText('Revenue Center'); ?></label>
                                                     </div>
                                                     <div class="collapse py-4" id="revenuecenter">
@@ -625,8 +574,8 @@ if (!$permissionRow) {
 
 
                                                 <div>
-                                                    <div class="checkbox-list border-bottom pt-3 pb-2" data-bs-toggle="collapse" data-bs-target="#setup">
-                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="setup1" value="8">
+                                                    <div class="checkbox-list border-bottom pt-3 pb-2">
+                                                        <input type="checkbox" name="section_check[]" class="form-check-input" id="setup1" value="8" data-bs-toggle="collapse" data-bs-target="#setup">
                                                         <label class="medium" for="setup1"><?php echo showOtherLangText('Setup'); ?></label>
                                                     </div>
                                                     <div class="collapse py-4" id="setup">
@@ -777,7 +726,25 @@ if (!$permissionRow) {
         $("#type_web").click();
         $(".supplierCheckall").on('click', function() {
             $('.supplierCheckbox:checkbox').not(this).prop('checked', this.checked);
+
+            if ($("#supplierCheckbox").is(':checked')) {
+                $('#new_order').prop('checked', true);
+            } else {
+                $('#new_order').prop('checked', false);
+            }
+
+
         });
+
+        $(".supplierCheckbox").on('click', function() {
+            if ($(".supplierCheckbox").is(':checked')) {
+                $('#new_order').prop('checked', true);
+            } else {
+                $('#new_order').prop('checked', false);
+            }
+        });
+
+
         $('#checkallOrder').prop('checked', true);
         $('.order-enable').prop('checked', true);
         $("#memberall").on('click', function() {
