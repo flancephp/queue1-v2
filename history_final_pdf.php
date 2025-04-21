@@ -647,7 +647,7 @@ if ($_GET['summaryAccount'] == 1 && mysqli_num_rows($accountResult) > 0) {
 
 
 if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1 || $_GET['itemType'] == 1 || $_GET['itemReferTo'] == 1 || $_GET['itemSupInvNo'] == 1 || $_GET['itemValue'] == 1 || $_GET['itemDefCurrValue'] == 1 || $_GET['itemSecCurrValue'] == 1 || $_GET['itemPaymentNo'] == 1 || $_GET['itemInvNo'] == 1 || $_GET['itemStatus'] == 1 || $_GET['itemAccount'] == 1) {
-    $content .= '<table style="padding-top:10px;width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;"><tbody>
+    $content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%" style="padding-top:10px;width:100%; font-size:12px; margin-block-start: 24px; border-collapse: collapse;"><tbody>
         <tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">';
     $pmntInvText = 'Pay/Inv No.';
 
@@ -777,6 +777,7 @@ if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1
 
 
         $i++;
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
         // supplier Store Member name
         if ($orderRow['suppName'] == '' && $orderRow['storeName'] == '') {
             $suppMemStoreId = $orderRow['deptUserName'];
@@ -982,12 +983,12 @@ if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1
         }
 
         // Open tr tag
-        $content .= '<tr>';
+        $content .= '<tr style="background-color: '. $bgColor .';">';
 
         foreach ($colsValArr as $key => $columnVal) {
 
 
-            $content .= '<td style="padding: 8px 5px;">' . $columnVal . '</td>'; // pint all data row wise in td
+            $content .= '<td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . $columnVal . '</td>'; // pint all data row wise in td
 
         }
 

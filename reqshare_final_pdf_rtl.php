@@ -508,57 +508,57 @@ if (
     while ($row = mysqli_fetch_array($otherChrgQry)) {
 
         $i++;
-        $content .= '<tr>';
-
-
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
+ 
         $note = '';
         if ($_GET['note'] == 1) {
             $note = $row['note'];
-            $content .= '<td style="padding: 5px;">' . reverseRTLTextForPdf($note) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($note) . '</td>';
         }
 
         $total = '';
         if ($_GET['total'] == 1 && $getColumnPermission['item_price'] == 1) {
             $total = getPriceWithCur($row['totalAmt'], $getDefCurDet['curCode'], 0, 1);
-            $content .= '<td style="padding: 5px;">' . $total . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $total . '</td>';
         }
 
         $qty = '';
         if ($_GET['qty'] == 1) {
             $qty = '1';
-            $content .= '<td style="padding: 5px;">' . $qty . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $qty . '</td>';
         }
 
         $reqQty = '';
         if ($_GET['reqQty'] == 1) {
             $reqQty = '1';
-            $content .= '<td style="padding: 5px;font-weight:700;">' . $reqQty . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;font-weight:700;">' . $reqQty . '</td>';
         }
 
         $unit = '';
         if ($_GET['unit'] == 1) {
             $unit = $row['unit'];
-            $content .= '<td style="padding: 5px;">' . reverseRTLTextForPdf($unit) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($unit) . '</td>';
         }
 
-        $content .= '<td style="padding: 5px;"></td>';
+        $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;"></td>';
         $price = '';
         if ($_GET['price'] == 1 && $getColumnPermission['item_price'] == 1) {
             $price = getPriceWithCur($row['price'], $getDefCurDet['curCode'], 0, 1);
-            $content .= '<td style="padding: 5px;">' . $price . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $price . '</td>';
         }
         if ($_GET['itemName'] == 1) {
             $itemName = $row['itemName'];
-            $content .= '<td style="padding: 5px;font-weight:700">' . reverseRTLTextForPdf($itemName) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;font-weight:700">' . reverseRTLTextForPdf($itemName) . '</td>';
         }
 
 
         if ($_GET['photo'] == 1) {
             $img = '';
-            $content .= '<td style="padding: 5px;">' . $img . '</td>';
+            $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $img . '</td>';
         }
 
-        $content .= '<td style="padding: 5px;">' . $i . '</td>';
+        $content .= '<td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
 
         $content .= '</tr>';
     }

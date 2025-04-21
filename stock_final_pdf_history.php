@@ -98,7 +98,7 @@ $content .=  '<tr style="background-color: rgba(122, 137, 255, 0.2);">
         </tr>';
 $content .= '</table>';
 
-$content .= '<table style="width:100%; font-size:12px;padding-top:20px; margin-block-start: 24px; border-collapse: collapse;">
+$content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%" style="width:100%; font-size:12px;padding-top:20px; margin-block-start: 24px; border-collapse: collapse;">
     <tr style="font-weight:bold; background-color: rgba(122, 137, 255, 0.2);">
       <td style="padding: 8px 5px;">' . showOtherLangText('#') . '</td>
       <td style="padding: 8px 5px;">' . showOtherLangText('Item Name') . '</td>
@@ -112,16 +112,17 @@ $content .= '<table style="width:100%; font-size:12px;padding-top:20px; margin-b
 $i = 0;
 foreach ($resultRows as $row) {
   $i++;
-  $content .= '<tr>
-      <td style="padding: 8px 5px;">' . $i . '</td>
-      <td style="padding: 8px 5px;">' . $row['itemName'] . '</td>
-      <td style="padding: 8px 5px;">' . $row['barCode'] . '</td>
-      <td style="padding: 8px 5px;">' . $row['unitC'] . '</td>
-      <td style="padding: 8px 5px;">' . $row['qty'] . '</td>
-      <td style="padding: 8px 5px;">' . $row['qtyReceived'] . '</td>
-      <td style="padding: 8px 5px;">
+  $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
+  $content .= '<tr style="background-color: ' . $bgColor . ';">
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . $i . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;font-weight:700;">' . $row['itemName'] . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . $row['barCode'] . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . $row['unitC'] . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . $row['qty'] . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . $row['qtyReceived'] . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">
             ' . ($row['qtyReceived'] - $row['qty']) . '</td>
-      <td style="padding: 8px 5px;">' . getPriceWithCur(($row['qtyReceived'] - $row['qty']) * $row['stockPrice'], $getDefCurDet['curCode']) . '</td>
+      <td style="padding: 8px 5px;border-bottom: 1px solid #ede0e8;">' . getPriceWithCur(($row['qtyReceived'] - $row['qty']) * $row['stockPrice'], $getDefCurDet['curCode']) . '</td>
       </tr>';
 }
 
@@ -132,3 +133,6 @@ $content .= '</table>
       </body>
 
       </html>';
+
+// echo $content;
+// die();
