@@ -227,7 +227,7 @@ if (
 
     if ($_GET['defaultCurrencyAmount']  == 1 || $_GET['secondCurrency']  == 1) {
         $content .= '
-                <table style="width: 100%;border-collapse: collapse;text-align: right;">';
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" style="width: 100%;border-collapse: collapse;text-align: right;border:1px solid #DFE0E8;border-top:0;">';
         $sqlSet = "SELECT SUM(totalAmt) AS sum1, SUM(curAmt) AS totalAmtOther FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "'  AND (customChargeType='1' OR customChargeType='0')";
         $resultSet = mysqli_query($con, $sqlSet);
         $chargeRow = mysqli_fetch_array($resultSet);
@@ -378,7 +378,7 @@ if (
         $netTotalAmtOther = ($chargePriceOther + $fixedChargesOther + $totalCalDiscountOther + $totalTaxOther);
 
         if ($showGrandTotal) {
-            $content .= '<tr style="border-top: 1px solid #ddd;text-align: right;">
+            $content .= '<tr style="border-top: 1px solid #ddd;text-align: right;font-weight:bold;background-color: #E5E7FF;color:#000;">
                      
                      
                      <td style="padding: 5px;border:0;width:30%;text-align: right;">';

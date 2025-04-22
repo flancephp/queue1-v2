@@ -78,9 +78,7 @@ $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-
     
 
         <h4
-          style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 22px; margin-bottom: 0;padding-right:16%;">';
-$content .= showOtherLangText('Stock take details');
-$content .=  '</h4> 
+          style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 22px; margin-bottom: 0;padding-right:16%;">' . showOtherLangText('Stock take details') . '</h4> 
         <h4
           style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 12px; margin-top: 0;margin-left:-12%;">
           ' . reverseRTLTextForPdf($storageDeptRow['name']) . '
@@ -128,22 +126,22 @@ $content .= '<table style="width:100%; font-size:12px;padding-top:20px; margin-b
 $i = 0;
 foreach ($resultRows as $row) {
     $i++;
-
+    $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
     $varAmt = ($row['qtyReceived'] - $row['qty']);
     $varAmt = $varAmt < 0 ? (str_replace('-', '', $varAmt) . '-') : $varAmt;
 
     $content .= '
-    <tr>
-          <td style="padding: 8px 5px;">' . getPriceWithCur(($row['qtyReceived'] - $row['qty']) * $row['stockPrice'], $getDefCurDet['curCode'], 0, 1) . '</td>
+    <tr style="background-color: ' . $bgColor . ';">
+          <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . getPriceWithCur(($row['qtyReceived'] - $row['qty']) * $row['stockPrice'], $getDefCurDet['curCode'], 0, 1) . '</td>
 
-          <td style="padding: 8px 5px;">
+          <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">
             ' . $varAmt . '</td>
-        <td style="padding: 8px 5px;">' . $row['qtyReceived'] . '</td>
-        <td style="padding: 8px 5px;">' . $row['qty'] . '</td>
-        <td style="padding: 8px 5px;">' . reverseRTLTextForPdf($row['unitC']) . '</td>
-        <td style="padding: 8px 5px;">' . $row['barCode'] . '</td>
-        <td style="padding: 8px 5px;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
-        <td style="padding: 8px 5px;">' . $i . '</td>
+        <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['qtyReceived'] . '</td>
+        <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['qty'] . '</td>
+        <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['unitC']) . '</td>
+        <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $row['barCode'] . '</td>
+        <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;font-weight:700;">' . reverseRTLTextForPdf($row['itemName']) . '</td>
+        <td style="padding: 8px 5px;border-bottom:1px solid #DFE0E8;">' . $i . '</td>
       
     </tr>';
 }

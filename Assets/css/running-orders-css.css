@@ -385,10 +385,10 @@ html[dir="rtl"] .fa-share-square.pe-2 {
 html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(1) { text-align: right; }
 html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3),
 html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(2) {
-    text-align: left;
+    text-align: right;
 }
 html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell:nth-child(3) .smryOtr_Val {
-    display: block;text-align: left;padding-left: 10px;
+    display: block;text-align: right;padding-left: 10px;
 }
 html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell.py-0 .smryOtr_Val {
     padding-left: 0px; 
@@ -407,5 +407,5 @@ html[dir="rtl"] .remove__parent__padding .modal-table>.table-row .table-cell.py-
 }
 
 html[dir="rtl"] .sumBreakupAmtText {
-    text-align: right;
+    text-align: right;padding-right: 4px;
 }
