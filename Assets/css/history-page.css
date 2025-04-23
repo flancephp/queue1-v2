@@ -1482,6 +1482,9 @@ html[dir="rtl"] .dropend .dropdown-menu[data-bs-popper] {
 .set__left__padding {
     padding: 8px 0;
 }
+html[dir="rtl"] .set__left__padding.ps-2 {
+    padding-right: .5rem !important;
+}
 
 @media screen and (max-width: 1024px) {
     .hisData {

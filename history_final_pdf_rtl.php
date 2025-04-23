@@ -817,6 +817,7 @@ if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1
 
 
         $i++;
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
         // supplier Store Member name
         if ($orderRow['suppName'] == '' && $orderRow['storeName'] == '') {
             $suppMemStoreId = $orderRow['deptUserName'];
@@ -1013,12 +1014,12 @@ if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1
         }
 
         // Open tr tag
-        $content .= '<tr>';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
 
         foreach ($colsValArr as $key => $columnVal) {
 
 
-            $content .= '<td style="padding: 8px 5px;text-align:right;">' . $columnVal . '</td>'; // pint all data row wise in td
+            $content .= '<td style="padding: 8px 5px;text-align:right;border-bottom:1px solid #DFE0E8;">' . $columnVal . '</td>'; // pint all data row wise in td
 
         }
 

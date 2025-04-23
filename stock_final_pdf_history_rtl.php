@@ -72,13 +72,13 @@ $content .= '<body style="' . ($_GET['getLangType'] == '1'
     : 'font-family: \'Inter\', sans-serif; color: #232859; font-weight: 400; font-size: 12px; line-height: 14px;') . '">';
 
 
-$content .= '<table style="width: 100%; border-collapse: collapse; margin-block-end: 20px;">
+    $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-end: 20px; ">
     <tr>
       <td>
     
 
         <h4
-          style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 22px; margin-bottom: 0;padding-right:16%;">' . showOtherLangText('Stock take details') . '</h4> 
+          style="text-align: center; line-height: 1.2; color: #232859; font-size: 22px;font-family: firefly, DejaVu Sans, sans-serif, Inter; margin-bottom: 0;">' . showOtherLangText('Stock take details') . '</h4> 
         <h4
           style="font-weight: 600;text-align: center; line-height: 1.2; color: #232859; font-size: 12px; margin-top: 0;margin-left:-12%;">
           ' . reverseRTLTextForPdf($storageDeptRow['name']) . '
@@ -90,6 +90,7 @@ $content .= '<table style="width: 100%; border-collapse: collapse; margin-block-
 
 
 $content .=  '<table style="width:100%; font-size:12px; margin-block-start: 20px; border-collapse: collapse; text-align:right;">
+     
     <tr style="font-weight:bold;">
      <td style="padding: 8px 5px;">' . showOtherLangText('Total') . '</td>
       <td style="padding: 8px 5px;">' . showOtherLangText('Date') . '</td>
@@ -153,3 +154,4 @@ $content .= '</table>
       </body>
 
       </html>';
+ 

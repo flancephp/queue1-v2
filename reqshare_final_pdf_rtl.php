@@ -143,7 +143,7 @@ if ($_GET['address'] == 1 || $_GET['logo'] == 1 || $_GET['reqDetailsTitle'] == 1
 } //end address section
 
 //Department details
-$content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;">';
+$content .= '<table border="0" cellpadding="5" cellspacing="0" width="100%"  style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px;">';
 if (
     $_GET['taskNo']  == 1 ||
     $_GET['department']  == 1 ||
@@ -276,11 +276,11 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
 
             $showGrandTotal = true;
             $content .= '<tr>
-                                    <td width="28%">
+                                    <td width="28%" style="border:1px solid #DFE0E8;border-top:0;padding:0;">
                                         <table style="width: 100%;border-collapse: collapse;">
                                             <tr> 
                                                 <td width="50%" style="padding: 5px;">' . getPriceWithCur($chargePrice, $getDefCurDet['curCode'], 0, 1) . '</td>
-                                                <td width="50%" style="padding: 5px;">' . showOtherLangText('Sub Total') . '</td>
+                                                <td width="50%" style="padding: 5px;padding-right: 8px;">' . showOtherLangText('Sub Total') . '</td>
                                             </tr>
                                         </table>
                                     </td>
@@ -310,11 +310,11 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             $fixedChargesOther += $row['curAmt'];
             $content .= '<tr>
 
-             <td width="28%">
+             <td width="28%" style="border:1px solid #DFE0E8;border-top:0;padding:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr> 
                         <td width="50%" style="padding: 5px;">' . getPriceWithCur($row['price'], $getDefCurDet['curCode'], 0, 1) . '</td>
-                        <td width="50%" style="padding: 5px;">' . reverseRTLTextForPdf($row['feeName']) . '</td>
+                        <td width="50%" style="padding: 5px;padding-right: 8px;">' . reverseRTLTextForPdf($row['feeName']) . '</td>
                     </tr>
                 </table>
               </td>
@@ -344,11 +344,11 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             $calDiscount = ($chargePrice * $row['price'] / 100);
             $calDiscountOther = ($chargePriceOther * $row['price'] / 100);
             $content .= '<tr>
-            <td width="28%">
+            <td width="28%" style="border:1px solid #DFE0E8;border-top:0;padding:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr> 
                         <td width="50%" style="padding: 5px;">' . getPriceWithCur($calDiscount, $getDefCurDet['curCode'], 0, 1) . '</td>
-                        <td width="50%" style="padding: 5px;">' . reverseRTLTextForPdf($row['feeName']) . '</td>
+                        <td width="50%" style="padding: 5px;padding-right: 8px;">' . reverseRTLTextForPdf($row['feeName']) . '</td>
                     </tr>
                 </table>
               </td>
@@ -380,11 +380,11 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
             $calTax = (($chargePrice + $fixedCharges + $totalCalDiscount) * $row['price'] / 100);
             $calTaxOther = (($chargePriceOther + $fixedChargesOther + $totalCalDiscountOther) * $row['price'] / 100);
             $content .= '<tr>
-             <td width="28%">
+             <td width="28%" style="border:1px solid #DFE0E8;border-top:0;padding:0;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr> 
                         <td width="50%" style="padding: 5px;">' . getPriceWithCur($calTax, $getDefCurDet['curCode'], 0, 1) . '</td>
-                        <td width="50%" style="padding: 5px;">' . reverseRTLTextForPdf($row['feeName']) . '</td>
+                        <td width="50%" style="padding: 5px;padding-right: 8px;">' . reverseRTLTextForPdf($row['feeName']) . '</td>
                     </tr>
                 </table>
               </td>
@@ -408,11 +408,11 @@ if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
         if ($showGrandTotal) {
 
             $content .= '<tr>
-            <td width="28%">
+            <td width="28%" style="border:1px solid #DFE0E8;border-top:0;padding:0;font-weight:700;color:#000;background-color: #E5E7FF;">
                 <table style="width: 100%;border-collapse: collapse;">
                     <tr> 
                         <td width="50%" style="padding: 5px;">' . getPriceWithCur($netTotalAmt, $getDefCurDet['curCode'], 0, 1) . '</td>
-                        <td width="50%" style="padding: 5px;">' . showOtherLangText('Grand Total') . '</td>
+                        <td width="50%" style="padding: 5px;padding-right: 8px;">' . showOtherLangText('Grand Total') . '</td>
                     </tr>
                 </table>
               </td>
@@ -635,7 +635,7 @@ if ($_GET['taskRecord'] == 1) {
     $j=0;
     while ($orderJourney = mysqli_fetch_array($orderJourneyQry)) {
         $j++;
-        $bgColor3 = ($i % 2== 0) ? 'white' : '#F9F9FB';
+        $bgColor3 = ($j % 2 != 0) ? 'white' : '#F9F9FB';
         $content .= '<tr style="background-color: ' . $bgColor3 . ';">
         <td style="padding: 5px;border-bottom:1px solid #DFE0E8;">' . ucfirst(reverseRTLTextForPdf($orderJourney['notes'])) . '</td>
         <td style="padding: 5px;border-bottom:1px solid #DFE0E8;">' .

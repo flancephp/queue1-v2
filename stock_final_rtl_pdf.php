@@ -373,6 +373,7 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
     //foreach($_SESSION['stockRows'] as $row)
     {
         $i++;
+        $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
         $totalProQty = isset($productsConfirmedQtyArr[$row['id']]) ? $productsConfirmedQtyArr[$row['id']] : 0;
         if ($totalProQty > 0) {
             $totalTempProQty = $totalProQty;
@@ -389,43 +390,43 @@ if ($_GET['photo'] == 1 || $_GET['itemName'] == 1 || $_GET['barCode'] == 1 || $_
         } else {
             $img = '<img src="' . $siteUrl . 'uploads/sample-prod-img.jpg" width="40" height="40">';
         }
-        $content .= '<tr>';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
 
         if ($_GET['suplr'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:13%;">' . reverseRTLTextForPdf($supNames) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:13%;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($supNames) . '</td>';
         }
         if ($_GET['subCat'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . reverseRTLTextForPdf($catNames) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($catNames) . '</td>';
         }
         if ($_GET['stockValue'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockValue']) . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;border-bottom:1px solid #DFE0E8;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockValue']) . '</td>';
         }
         if ($_GET['stockPrice'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['sPrice']) .  '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;border-bottom:1px solid #DFE0E8;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['sPrice']) .  '</td>';
         }
         if ($_GET['lastPrice'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockLastPrice'])  . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;border-bottom:1px solid #DFE0E8;">' . $getDefCurDet['curCode'] . ' ' . getPrice($row['stockLastPrice'])  . '</td>';
         }
         if ($_GET['avlQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;text-align:left;">' . reverseRTLTextForPdf($row['countingUnit']) . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;text-align:left;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['countingUnit']) . ' ' . ($row['stockQty'] - $totalTempProQty) .   '</td>';
         }
         if ($_GET['reqQty'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;text-align:left;">' . reverseRTLTextForPdf($row['countingUnit']) .  ' ' . $totalTempProQty .   '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;text-align:left;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['countingUnit']) .  ' ' . $totalTempProQty .   '</td>';
         }
         if ($_GET['qty'] == 1) {
-            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;text-align:left;">' . reverseRTLTextForPdf($row['countingUnit']) .  ' ' . $row['stockQty'] .   '</td>';
+            $content .= '<td style="padding: 8px 5px; font-weight: 600;border:0;width:8%;text-align:left;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['countingUnit']) .  ' ' . $row['stockQty'] .   '</td>';
         }
         if ($_GET['itemName'] == 1 && $_GET['barCode'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:10%;">' . reverseRTLTextForPdf($row['itemName']) . ' <br>' . $row['barCode'] . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:10%;border-bottom:1px solid #DFE0E8;">' . reverseRTLTextForPdf($row['itemName']) . ' <br>' . $row['barCode'] . '</td>';
         } elseif ($_GET['itemName'] == 1 || $_GET['barCode'] == 1) {
             $data = $_GET['itemName'] == 1 ? reverseRTLTextForPdf($row['itemName']) : $row['barCode'];
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $data . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;border-bottom:1px solid #DFE0E8;">' . $data . '</td>';
         }
 
         if ($_GET['photo'] == 1) {
-            $content .= '<td style="padding: 8px 5px;border:0;width:8%;">' . $img . '</td>';
+            $content .= '<td style="padding: 8px 5px;border:0;width:8%;border-bottom:1px solid #DFE0E8;">' . $img . '</td>';
         }
-        $content .= '<td style="padding: 8px 5px;border:0;width:5%;">' . $i . '</td>';
+        $content .= '<td style="padding: 8px 5px;border:0;width:5%;border-bottom:1px solid #DFE0E8;">' . $i . '</td>';
 
         $content .= '</tr>';
     }

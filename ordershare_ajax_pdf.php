@@ -325,7 +325,7 @@ if ($ordCountRow > 0) {
     $showGrandTotal = true;
     $content .= '<div class="table-cell p-0">
                 <div class="sub-table w-100 border border-top-0">
-                    <div class="table-row border-bottom" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
+                    <div class="table-row border-bottom test_class" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">
                         <div class="table-cell" style="width:33.33%"><span class="sumBreakupAmtText amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . showOtherLangText('Sub Total') . '</span></div>
                         <div class="table-cell" style="width:33.33%"><span class="smryDef_Val amountSections smryHead" style="' . (($_POST['isSupDet'] == 1) ? 'display:none;' : '') . '">' . getPriceWithCur($chargePrice, $getDefCurDet['curCode']) . '
                                 </span></div>';
