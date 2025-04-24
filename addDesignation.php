@@ -176,7 +176,7 @@ if (!$permissionRow) {
                                                 <div class="collapse py-4" id="newOrder">
                                                     <p class="supplier-text bold pb-2"><?php echo showOtherLangText('Supplier'); ?></p>
                                                     <div class="supplier-text pb-3">
-                                                        <input type="checkbox" class="supplierCheckall form-check-input" class="form-check-input" id="suppliercheckall">
+                                                        <input type="checkbox" class="supplierCheckall form-check-input" class="form-check-input" id="supplierCheckall">
                                                         <label for="suppliercheckall" class="fs-13 semibold"><?php echo showOtherLangText('Check all') ?></label>
                                                     </div>
 
@@ -187,7 +187,7 @@ if (!$permissionRow) {
                                                         ?>
                                                             <div class="supplier-main-listbox col-xl-3 col-md-4 col-sm-6 col-6">
                                                                 <div class="supplier-inner-listbox">
-                                                                    <input type="checkbox" name="new_supplierCheck[]" id="supplierCheckbox"
+                                                                    <input type="checkbox" name="new_supplierCheck[]"
                                                                         class="supplierCheckbox  form-check-input" value="<?php echo $supplierRow['id'] ?>">
                                                                     <label><?php echo $supplierRow['name'] ?></label>
                                                                 </div>
@@ -259,7 +259,7 @@ if (!$permissionRow) {
 
 
                                                     <div class="supplier-text pb-3">
-                                                        <input type="checkbox" class="form-check-input" id="memberall">
+                                                        <input type="checkbox" class="form-check-input" id="memberCheckall">
                                                         <label for="memberall" class="fs-13 semibold"><?php echo showOtherLangText('Check All'); ?></label>
                                                     </div>
 
@@ -331,7 +331,7 @@ if (!$permissionRow) {
 
                                             <div>
                                                 <div class="checkbox-list border-bottom pt-3 pb-2">
-                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="running_tasks" value="3" data-bs-toggle="collapse" data-bs-target="#runningtasks">
+                                                    <input type="checkbox" name="section_check[]" class="form-check-input" id="runningTask-section" value="3" data-bs-toggle="collapse" data-bs-target="#runningtasks">
                                                     <label class="medium" for="running_tasks"><?php echo showOtherLangText('Running Tasks'); ?></label>
                                                 </div>
                                                 <div class="collapse py-4" id="runningtasks">
@@ -448,6 +448,11 @@ if (!$permissionRow) {
                                                     <div class="collapse py-4" id="stock">
 
                                                         <p class="supplier-text bold pb-2"><?php echo showOtherLangText('Store Access'); ?>:</p>
+
+                                                        <div class="supplier-text pb-3">
+                                                            <input type="checkbox" class="storeCheckAll form-check-input" class="form-check-input" id="storeCheckAll">
+                                                            <label for="storeCheckAll" class="fs-13 semibold"><?php echo showOtherLangText('Check All') ?></label>
+                                                        </div>
 
                                                         <div class="row title-listing-item">
 
@@ -719,201 +724,8 @@ if (!$permissionRow) {
     <script type="text/javascript" src="Assets/js/custom.js"></script>
 </body>
 
+<?php
+include('title_js_code.php');
+?>
+
 </html>
-<script>
-    $(document).ready(function() {
-        // $('#type_web').prop('checked', true);
-        $("#type_web").click();
-        $(".supplierCheckall").on('click', function() {
-            $('.supplierCheckbox:checkbox').not(this).prop('checked', this.checked);
-
-            if ($("#supplierCheckbox").is(':checked')) {
-                $('#new_order').prop('checked', true);
-            } else {
-                $('#new_order').prop('checked', false);
-            }
-
-
-        });
-
-        $(".supplierCheckbox").on('click', function() {
-            if ($(".supplierCheckbox").is(':checked')) {
-                $('#new_order').prop('checked', true);
-            } else {
-                $('#new_order').prop('checked', false);
-            }
-        });
-
-
-        $('#checkallOrder').prop('checked', true);
-        $('.order-enable').prop('checked', true);
-        $("#memberall").on('click', function() {
-            $('.requisitionCheckbox:checkbox').not(this).prop('checked', this.checked);
-        });
-        $('#checkallRunningtask').prop('checked', true);
-        $("#checkallStock").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallStock").is(':checked')) {
-                $('#uncheckallStock').prop('checked', false);
-            }
-
-            $('.enableStock input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallStock").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallStock").is(':checked')) {
-                $('#checkallStock').prop('checked', false);
-            }
-
-            $('.desableStock input:radio').not(this).prop('checked', this.checked);
-        });
-
-
-
-        $("#checkallOrder").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallOrder").is(':checked')) {
-                $('#uncheckallOrder').prop('checked', false);
-            }
-
-            $('.enableOrder input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallOrder").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallOrder").is(':checked')) {
-                $('#checkallOrder').prop('checked', false);
-            }
-
-            $('.desableOrder input:radio').not(this).prop('checked', this.checked);
-        });
-
-        // requisition check all/ uncheck all
-        $("#checkallRequisition").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallRequisition").is(':checked')) {
-                $('#uncheckallRequisition').prop('checked', false);
-            }
-
-            $('.enableRequisition input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallRequisition").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallRequisition").is(':checked')) {
-                $('#checkallRequisition').prop('checked', false);
-            }
-
-            $('.desableRequisition input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#checkallRunningtask").on('click', function() {
-            if ($("#uncheckallRunningtask").is(':checked')) {
-                $('#uncheckallRunningtask').prop('checked', false);
-            }
-            $('.enableRunningtask input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallRunningtask").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallRunningtask").is(':checked')) {
-                $('#checkallRunningtask').prop('checked', false);
-            }
-
-            $('.desableRunningtask input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#checkallNewStockTake").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallNewStockTake").is(':checked')) {
-                $('#uncheckallNewStockTake').prop('checked', false);
-            }
-
-            $('.enableNewStockTake input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallNewStockTake").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallNewStockTake").is(':checked')) {
-                $('#checkallNewStockTake').prop('checked', false);
-            }
-
-            $('.desableNewStockTake input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#checkallSetup").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallSetup").is(':checked')) {
-                $('#uncheckallSetup').prop('checked', false);
-            }
-
-            $('.enableSetup input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallSetup").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallSetup").is(':checked')) {
-                $('#checkallSetup').prop('checked', false);
-            }
-
-            $('.desableSetup input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#checkallMobileSection").on('click', function() {
-
-            if ($("#uncheckallMobileSection").is(':checked')) {
-                $('#uncheckallMobileSection').prop('checked', false);
-            }
-
-            $('.enableMobileSection input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallMobileSection").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallMobileSection").is(':checked')) {
-                $('#checkallMobileSection').prop('checked', false);
-            }
-
-            $('.desableMobileSection input:radio').not(this).prop('checked', this.checked);
-        });
-
-        //RevenueCenter check all/uncheck all
-        $("#checkallRevenueCenter").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallRevenueCenter").is(':checked')) {
-                $('#uncheckallRevenueCenter').prop('checked', false);
-            }
-
-            $('.enableRevenueCenter input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallRevenueCenter").on('click', function() {
-            //alert('clicked');
-            if ($("#checkallRevenueCenter").is(':checked')) {
-                $('#checkallRevenueCenter').prop('checked', false);
-            }
-
-            $('.desableRevenueCenter input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#checkallHistory").on('click', function() {
-            //alert('clicked');
-            if ($("#uncheckallHistory").is(':checked')) {
-                $('#uncheckallHistory').prop('checked', false);
-            }
-
-            $('.enableHistory input:radio').not(this).prop('checked', this.checked);
-        });
-
-        $("#uncheckallHistory").on('click', function() {
-            // alert('clicked');
-            if ($("#checkallHistory").is(':checked')) {
-                $('#checkallHistory').prop('checked', false);
-            }
-
-            $('.desableHistory input:radio').not(this).prop('checked', this.checked);
-        });
-
-    });
-</script>

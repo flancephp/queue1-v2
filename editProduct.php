@@ -250,7 +250,7 @@ if ($res['proType'] == 3) {
                                                 Item</span></a>
                                     </div> -->
                                         <div class="btnBg">
-                                            <button type="submit" class="btn btn-primary mb-usrBkbtn"><span
+                                            <button type="submit" class="btn btn-primary mb-usrBkbtn submitBtn"><span
                                                     class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                                     class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                         </div>
@@ -664,7 +664,7 @@ if ($res['proType'] == 3) {
                                                                         $sel = in_array($supRow['id'], $supIdsArr) ? 'checked="checked"' : '';
                                                                     ?>
                                                                         <span class="d-flex align-items-center gap-1 mb-1 fs-13">
-                                                                            <input type="checkbox" id="supplierOptionCheck"
+                                                                            <input type="checkbox"
                                                                                 class="supplierOptionCheck form-check-input mt-0" name="supplierId[]" <?php echo $sel; ?>
                                                                                 value="<?php echo $supRow['id']; ?>" <?php echo $sel; ?>>
                                                                             <label class="col"><?php echo $supRow['name']; ?></label>
@@ -698,7 +698,7 @@ if ($res['proType'] == 3) {
                                                                     $deprtIdsArr = explode(',', $proDepartsR['deptIds']);
                                                                     $sel = in_array($departRows['id'], $deprtIdsArr) ? 'checked="checked"' : '';
                                                                 ?> <span class="d-flex align-items-center gap-1 mb-1 fs-13">
-                                                                        <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck form-check-input mt-0"
+                                                                        <input type="checkbox" class="deptOptionCheck form-check-input mt-0"
                                                                             name="deptId[]" <?php echo $sel; ?> value="<?php echo $departRows['id']; ?>">
                                                                         <?php echo $departRows['name']; ?>
                                                                     </span>
@@ -882,4 +882,19 @@ if ($res['proType'] == 3) {
     function removeRow(id) {
         $('#' + id).remove();
     }
+
+    $(".submitBtn").on('click', function() {
+
+        var returnVal = 0;
+        var mes = '';
+
+        if ($('.supplierOptionCheck:checked').length == 0 || $('.deptOptionCheck:checked').length == 0) {
+
+            mes = '<?php echo showOtherLangText('Please fill all mandatory fields.') ?>';
+            alert(mes);
+            return false;
+        }
+
+        return true;
+    });
 </script>

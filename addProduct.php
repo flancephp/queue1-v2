@@ -119,6 +119,7 @@ if (isset($_POST['itemName'])) {
             }
 
             echo "<script>window.location='itemsManager.php?added=1'</script>";
+            exit;
         }
     }
 }
@@ -223,7 +224,7 @@ if (isset($_POST['itemName'])) {
                                                 Item</span></a>
                                     </div> -->
                                         <div class="btnBg">
-                                            <button type="submit" class="btn btn-primary"><span
+                                            <button type="submit" class="btn btn-primary submitBtn"><span
                                                     class="mb-UsrBtn"><i class="fa-regular fa-floppy-disk"></i></span> <span
                                                     class="dsktp-Btn"><?php echo showOtherLangText('Save'); ?></span></button>
                                         </div>
@@ -603,7 +604,7 @@ if (isset($_POST['itemName'])) {
                                                                 $sel = $_REQUEST['supplierId'] == $supRow['id'] ? 'checked="checked"' : '';
                                                             ?>
                                                                 <span class="d-flex align-items-center gap-1 mb-1 fs-13">
-                                                                    <input type="checkbox" id="supplierOptionCheck"
+                                                                    <input type="checkbox"
                                                                         class="supplierOptionCheck form-check-input mt-0" name="supplierId[]"
                                                                         value="<?php echo $supRow['id']; ?>" <?php echo $sel; ?>>
                                                                     <label><?php echo $supRow['name']; ?></label>
@@ -632,7 +633,7 @@ if (isset($_POST['itemName'])) {
                                                         $resultSet = mysqli_query($con, $sqlSet);
                                                         while ($departRows = mysqli_fetch_array($resultSet)) {
                                                         ?> <span class="d-flex align-items-center gap-1 mb-1 fs-13">
-                                                                <input type="checkbox" id="deptOptionCheck" class="deptOptionCheck form-check-input mt-0"
+                                                                <input type="checkbox" class="deptOptionCheck form-check-input mt-0"
                                                                     name="deptId[]" value="<?php echo $departRows['id']; ?>">
                                                                 <?php echo $departRows['name']; ?>
                                                             </span>
@@ -822,4 +823,19 @@ if (isset($_POST['itemName'])) {
     function removeRow(id) {
         $('#' + id).remove();
     }
+
+    $(".submitBtn").on('click', function() {
+
+        var returnVal = 0;
+        var mes = '';
+
+        if ($('.supplierOptionCheck:checked').length == 0 || $('.deptOptionCheck:checked').length == 0) {
+
+            mes = '<?php echo showOtherLangText('Please fill all mandatory fields.') ?>';
+            alert(mes);
+            return false;
+        }
+
+        return true;
+    });
 </script>

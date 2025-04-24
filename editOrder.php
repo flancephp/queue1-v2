@@ -1785,6 +1785,7 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                                             <div class="prdtCnt-Fst d-flex align-items-center">
                                                 <div class="Itm-Name tb-head">
                                                     <p><?php echo showOtherLangText('Item'); ?></p>
+                                                    h
                                                 </div>
                                                 <div class="Itm-brCode tb-head">
                                                     <p><?php echo showOtherLangText('Bar Code'); ?></p>
@@ -1794,7 +1795,11 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                                                         <div class="tb-head">
                                                             <p><?php echo showOtherLangText('P.Price'); ?></p>
                                                         </div>
-
+                                                    </div>
+                                                    <div class="crncy-Type w-50">
+                                                        <div class="tb-head">
+                                                            <p><?php echo showOtherLangText('P.Price'); ?> (<?php echo $curDet['curCode']; ?>)</p>
+                                                        </div>
                                                     </div>
                                                     <div class="itm-Unit tb-head">
                                                         <p><?php echo showOtherLangText('P.Unit'); ?></p>
@@ -1898,9 +1903,25 @@ WHERE od.ordId = '" . $_GET['orderId'] . "' AND tp.account_id = '" . $_SESSION['
                                                                                 name="curAmt[<?php echo $row['id']; ?>]"
                                                                                 value="<?php echo getPrice($row['curAmt']); ?>" />
                                                                         </p>
+
                                                                     </div>
 
                                                                 </div>
+
+
+                                                                <?php if ($ordRow['ordCurId'] > 0) { ?>
+
+
+                                                                    <div class="crncy-Type w-50 ">
+                                                                        <div class=" tb-bdy " data-text="<?php echo showOtherLangText('P.Price'); ?>">
+                                                                            <p><?php echo   showOtherCur(($row['price'] * $row['factor'] * $curAmtVal), $ordRow['ordCurId']); ?> </p>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                <?php } ?>
+
                                                                 <div class="itm-Unit tb-bdy " data-text="<?php echo showOtherLangText('P.Unit'); ?>">
                                                                     <p><?php echo $row['purchaseUnit']; ?></p>
                                                                 </div>
