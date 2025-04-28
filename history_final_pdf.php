@@ -385,10 +385,14 @@ foreach ($otherCurrRowArr as $otherCurrRow) {
 }
 
 
-if ($count > 1 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
+if ($count < 4 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
 
     $issueinClass = 'width: 70%';
     $issueoutClass = 'width: 30%';
+} elseif ($count > 3 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
+
+    $issueinClass = 'width: 100%';
+    $issueoutClass = 'width: 100%';
 } elseif ($_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
     $issueinClass = 'width: 50%';
     $issueoutClass = 'width: 50%';
@@ -397,6 +401,7 @@ if ($count > 1 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
 } elseif ($_GET['issuedOut'] == 1) {
     $issueoutClass = 'width: 100%';
 }
+
 
 
 if ($_GET['variance'] == 1 && $_GET['converted'] == 1) {
@@ -468,6 +473,7 @@ if (($_SESSION['getVals']['ordType'] != '' && $_SESSION['getVals']['ordType'] !=
 
 $content .= '<table style="font-size:12px;" width="98%">
         <tr style="vertical-align: baseline;">';
+
 
 //issue in total
 if ($_GET['issueInSummary'] == 1 && $issueInTotal > 0) {
@@ -983,7 +989,7 @@ if ($_GET['itemTaskNo'] == 1 || $_GET['itemDate'] == 1 || $_GET['itemUser'] == 1
         }
 
         // Open tr tag
-        $content .= '<tr style="background-color: '. $bgColor .';">';
+        $content .= '<tr style="background-color: ' . $bgColor . ';">';
 
         foreach ($colsValArr as $key => $columnVal) {
 

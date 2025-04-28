@@ -606,7 +606,7 @@ if ($issueOutTotal > 0 && $checkIfPermissionToNewReqSec > 0 && ($_SESSION['getVa
     $issueOutShowing = true;
 }
 
-if ($issueInShowing && $issueOutShowing) {
+if ($issueInShowing && $issueOutShowing &&  ($count < 4)) {
     $issueinClass = 'col-6';
     $issueoutClass = 'col-6';
 }

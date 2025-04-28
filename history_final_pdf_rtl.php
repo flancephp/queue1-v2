@@ -393,10 +393,14 @@ foreach ($otherCurrRowArr as $otherCurrRow) {
 }
 
 
-if ($count > 1 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
+if ($count < 4 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
 
     $issueinClass = 'width: 70%';
     $issueoutClass = 'width: 30%';
+} elseif ($count > 3 && $_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
+
+    $issueinClass = 'width: 100%';
+    $issueoutClass = 'width: 100%';
 } elseif ($_GET['issueInSummary'] == 1 && $_GET['issuedOut'] == 1) {
     $issueinClass = 'width: 50%';
     $issueoutClass = 'width: 50%';
@@ -685,7 +689,6 @@ if ($_GET['summaryAccount'] == 1 && mysqli_num_rows($accountResult) > 0) {
 
                         </table>
                     </td>';
-                                                                
     }
 
     $content .= '</tr></table>';
