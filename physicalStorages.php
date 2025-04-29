@@ -47,7 +47,7 @@ if (isset($_POST['name'])) {
 
     if (isset($_POST['name']) && $_POST['name']  && $_POST['id'] > 0) {
 
-        $sql = "SELECT * FROM tbl_stores WHERE name = '" . trim($_POST['name']) . "' AND id != '" . $_POST['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ";
+        $sql = "SELECT * FROM tbl_stores WHERE `name` = '" . trim($_POST['name']) . "' AND id != '" . $_POST['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' ";
 
         $result = mysqli_query($con, $sql);
 
@@ -55,7 +55,9 @@ if (isset($_POST['name'])) {
 
         if ($res) {
 
-            echo "<script>window.location='physicalStorages.php?error=" . $_POST['name'] . " '</script>";
+            $errorMes = ' ' . showOtherLangText('This Store name already exists.') . ' ';
+            echo "<script>window.location='physicalStorages.php?errorMes=" . $errorMes . "';</script>";
+            exit;
         }
 
         $sql = "UPDATE `tbl_stores` SET
@@ -65,7 +67,7 @@ if (isset($_POST['name'])) {
         mysqli_query($con, $sql);
         echo "<script>window.location='physicalStorages.php?update=" . $_POST['id'] . " '</script>";
     } else {
-        $checkStors = " SELECT * FROM tbl_stores WHERE name='" . $_POST['name'] . "' AND account_id='" . $_SESSION['accountId'] . "'  ";
+        $checkStors = " SELECT * FROM tbl_stores WHERE `name`='" . $_POST['name'] . "' AND account_id='" . $_SESSION['accountId'] . "'  ";
         $resultSet = mysqli_query($con, $checkStors);
         $resultRow = mysqli_num_rows($resultSet);
 
@@ -88,7 +90,11 @@ if (isset($_POST['name'])) {
             echo "<script>window.location='physicalStorages.php?update=" . $_POST['id'] . " '</script>";
         } else {
 
-            echo    "<script>window.location='physicalStorages.php?error=" . $_POST['name'] . " '</script>";
+            $errorMes = ' ' . showOtherLangText('This Store name already exists.') . ' ';
+
+
+            echo    "<script>window.location='physicalStorages.php?errorMes=" . $errorMes . " '</script>";
+            exit;
         }
     }
 }
@@ -170,14 +176,24 @@ if (isset($_POST['name'])) {
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php } ?>
+
                         <?php if (isset($_GET['err'])) { ?>
+
+                            <?php $_GET['errorMes'] = showOtherLangText('Storage cannot be deleted as it is being used in some product'); ?>
+
+                        <?php } ?>
+
+                        <?php if (isset($_GET['errorMes'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p>
-                                    <?php echo isset($_GET['err']) ? ' ' . showOtherLangText('Storage cannot be deleted as it is being used in some product') . ' ' : ''; ?>
+                                <p><?php
+                                    echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                    ?>
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php } ?>
+
+
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">

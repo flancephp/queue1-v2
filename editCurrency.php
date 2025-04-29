@@ -15,6 +15,18 @@ if (!$permissionRow) {
 
 if (isset($_POST['currency'])) {
 
+
+    $sqlSet = " SELECT * FROM tbl_currency WHERE `currency`='" . $_POST['currency'] . "' AND id != '" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This currency already exists.') . ' ';
+        echo "<script>window.location='editCurrency.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        exit;
+    }
+
     $sql = "UPDATE `tbl_currency` SET 
 	`currency` = '" . $_POST['currency'] . "',
 	`amt` = '" . $_POST['amt'] . "',
@@ -88,6 +100,17 @@ $det = mysqli_fetch_array($res);
                 </section>
 
                 <section class="ordDetail userDetail">
+
+                    <?php if (isset($_GET['errorMes'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php
+                                echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
+
                     <div class="container">
                         <form class="addUser-Form acntSetup-Form" role="form" action="" method="post" enctype="multipart/form-data">
                             <div class="usrBtns d-flex align-items-center justify-content-between">

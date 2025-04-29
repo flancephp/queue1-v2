@@ -19,6 +19,19 @@ if (!$permissionRow) {
 
 if (isset($_POST['accountName'])) {
 
+
+    $sqlSet = " SELECT * FROM tbl_accounts WHERE `accountName` = '" . $_POST['accountName'] . "' AND id != '" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This account name already exists.') . ' ';
+        echo "<script>window.location='editAccount.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        exit;
+    }
+
+
     $error = '';
     if (isset($_POST['balanceAmt']) &&  isset($_POST['pass'])) {
         $query = "SELECT * FROM tbl_user WHERE id = '" . $_SESSION['id'] . "'  AND account_id = '" . $_SESSION['accountId'] . "' AND password = '" . $_POST['pass'] . "' AND status = 1 ";
@@ -107,6 +120,17 @@ $det = mysqli_fetch_array($res);
                 </section>
 
                 <section class="ordDetail userDetail">
+
+                    <?php if (isset($_GET['errorMes'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php
+                                echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
+
                     <div class="container">
                         <form role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
                             <div class="usrBtns d-flex align-items-center justify-content-between">
@@ -133,7 +157,7 @@ $det = mysqli_fetch_array($res);
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="accountName" id="accountName"
-                                            placeholder="Main Sale USD" value="<?php echo isset($det['accountName']) ? $det['accountName'] : ''; ?>"  oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required >
+                                            placeholder="Main Sale USD" value="<?php echo isset($det['accountName']) ? $det['accountName'] : ''; ?>" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required>
                                     </div>
                                 </div>
 
@@ -142,7 +166,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="accountNumber" class="form-label"><?php echo showOtherLangText('Account Number'); ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text"  class="form-control" value="<?php echo isset($det['accountNumber']) ? $det['accountNumber'] : ''; ?>" name="accountNumber" id="accountNumber" placeholder="0003" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')"  required >
+                                        <input type="text" class="form-control" value="<?php echo isset($det['accountNumber']) ? $det['accountNumber'] : ''; ?>" name="accountNumber" id="accountNumber" placeholder="0003" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required>
                                     </div>
                                 </div>
 
@@ -157,7 +181,7 @@ $det = mysqli_fetch_array($res);
                                         $sqlSet = " SELECT * FROM tbl_currency WHERE account_id = '" . $_SESSION['accountId'] . "'  order by id  ";
                                         $resultSet = mysqli_query($con, $sqlSet);
                                         ?>
-                                        <select  name="currencyId" id="currencyId" class="form-select" aria-label="Default select example" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required
+                                        <select name="currencyId" id="currencyId" class="form-select" aria-label="Default select example" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required
                                             class="form-control">
                                             <option value=""><?php echo showOtherLangText('Select'); ?></option>
                                             <?php while ($cur = mysqli_fetch_array($resultSet)) {

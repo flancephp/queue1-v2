@@ -173,7 +173,7 @@ $res = mysqli_fetch_array($result);
                         <div class="container">
                             <?php if (isset($_GET['error'])) { ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <p><?php echo isset($_GET['error']) ? ' ' . showOtherLangText('Supplier already exist') . ' ' : ''; ?></p>
+                                    <p><?php echo isset($_GET['error']) ? ' ' . showOtherLangText('This Supplier already exists.') . ' ' : ''; ?></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>

@@ -18,6 +18,19 @@ if (!$permissionRow) {
 
 if (isset($_POST['feeName'])) {
 
+
+    $sqlSet = " SELECT * FROM tbl_order_fee WHERE `feeName` = '" . $_POST['feeName'] . "' AND `feeType` = '" . $_POST['feeType'] . "' AND id != '" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This fee already exists.') . ' ';
+        echo "<script>window.location='editAdditionalFee.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        exit;
+    }
+
+
     $sql = "UPDATE `tbl_order_fee` SET 
 `feeName` = '" . $_POST['feeName'] . "',
 `feeType` = '" . $_POST['feeType'] . "',
@@ -91,6 +104,17 @@ $det = mysqli_fetch_array($res);
                 </section>
 
                 <section class="ordDetail userDetail">
+
+                    <?php if (isset($_GET['errorMes'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php
+                                echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
+
                     <div class="container">
                         <form role="form" class="addUser-Form acntSetup-Form" action="" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
@@ -119,7 +143,7 @@ $det = mysqli_fetch_array($res);
                                         <label for="feeName" class="form-label"><?php echo showOtherLangText('Fee Name'); ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="feeName" id="feeName" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"onchange="this.setCustomValidity('')" required value="<?php echo isset($det['feeName']) ? $det['feeName'] : ''; ?>"
+                                        <input type="text" class="form-control" name="feeName" id="feeName" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onchange="this.setCustomValidity('')" required value="<?php echo isset($det['feeName']) ? $det['feeName'] : ''; ?>"
                                             placeholder="<?php echo showOtherLangText('Ace Transport charge'); ?>">
                                     </div>
                                 </div>

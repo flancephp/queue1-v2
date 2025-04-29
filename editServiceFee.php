@@ -19,6 +19,17 @@ if (!$permissionRow) {
 
 if (isset($_POST['itemName'])) {
 
+    $sqlSet = " SELECT * FROM tbl_custom_items_fee WHERE `itemName` = '" . $_POST['itemName'] . "' AND id != '" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This service name already exists.') . ' ';
+        echo "<script>window.location='editServiceFee.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        exit;
+    }
+
     $sql = "UPDATE  `tbl_custom_items_fee` SET 
 			`itemName` = '" . $_POST['itemName'] . "',
 			`amt` = '" . $_POST['amt'] . "',
@@ -102,6 +113,17 @@ $det = mysqli_fetch_array($res);
                                                 ?></h6>
 
                     <div class="container">
+
+                        <?php if (isset($_GET['errorMes'])) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p><?php
+                                    echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                    ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php } ?>
+
                         <form class="addUser-Form acntSetup-Form" action="editServiceFee.php" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
                             <div class="usrBtns d-flex align-items-center justify-content-between">

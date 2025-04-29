@@ -137,7 +137,7 @@ if (isset($_POST['name'])) {
                             <?php if (isset($_GET['error'])) { ?>
 
                                 <div class="alert alert-danger alert-dismissible fade show lg__left__margin mb-0  mt-3" role="alert">
-                                    <p><?php echo showOtherLangText('Already exists, try another name.'); ?></p>
+                                    <p><?php echo showOtherLangText('This Revenue center already exists.'); ?></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div><br />
 

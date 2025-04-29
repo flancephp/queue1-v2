@@ -66,6 +66,18 @@ if (isset($_GET['delId']) && $_GET['delId']) {
 // form data save start from here
 if (isset($_POST['name']) && isset($_POST['deptId'])) {
 
+
+    $sqlSet = " SELECT * FROM tbl_deptusers WHERE `name` = '" . $_POST['name'] . "' AND id != '" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This Outlet name already exists.') . ' ';
+        echo "<script>window.location='editOutlet.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        exit;
+    }
+
     // user can update there outlet name and department name from here
     $updateQry = " UPDATE tbl_deptusers SET 
 `deptId` = '" . $_POST['deptId'] . "',
@@ -460,14 +472,23 @@ if (isset($_POST['outLetId']) && !empty($_POST['outLetId'])) {
                                             aria-label="Close"></button>
                                     </div>
                                 <?php } ?>
+
                                 <?php if (isset($_GET['error'])) { ?>
+                                    <?php echo $_GET['errorMes'] = showOtherLangText('Product already exist in this outlet');
+                                    ?>
+                                <?php } ?>
+
+
+                                <?php if (isset($_GET['errorMes'])) { ?>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <p><?php echo isset($_GET['error']) ? ' ' . showOtherLangText('Product already exist in this outlet') . ' ' : '';
-                                            ?></p>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
+                                        <p><?php
+                                            echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                            ?>
+                                        </p>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php } ?>
+
                                 <div class="row">
                                     <div class="col-md-6 bkOutlet-Btn">
                                         <div class="btnBg">

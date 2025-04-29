@@ -57,6 +57,7 @@ if (isset($_POST['name']) && isset($_POST['deptId']) && $_POST['deptId'] > 0) {
     } else {
 
         echo '<script>window.location="addOutlet.php?error=' . $_POST['name'] . '&deptId=' . $_POST['deptId'] . '"</script>';
+        die;
     }
 
 
@@ -228,7 +229,7 @@ $deptResult = mysqli_query($con, $deptQry);
                         <?php if (isset($_GET['error'])) { ?>
 
                             <div class="alert alert-danger alert-dismissible fade show lg__left__margin mb-0  mt-3" role="alert">
-                                <p><?php echo showOtherLangText('Already exists, try another name.'); ?></p>
+                                <p><?php echo showOtherLangText('This Outlet name already exists.'); ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div><br />
 
@@ -276,8 +277,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     <label for="Name" class="form-label"><?php echo showOtherLangText('Name'); ?>:<span class="requiredsign">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="name" id="name" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required
-                                                        placeholder="<?php echo showOtherLangText('Casa Kitchen'); ?>">
+                                                    <input type="text" class="form-control" name="name" id="name" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center acntStp-Row">
@@ -329,8 +329,8 @@ $deptResult = mysqli_query($con, $deptQry);
 
                                                             ?>
                                                             <select name="revCenter" id="revCenter" class="form-select selectOption"
-                                                                aria-label="Default select example" id="selectRvcntr" 
-                                                                onchange="getrevCenter();" >
+                                                                aria-label="Default select example" id="selectRvcntr"
+                                                                onchange="getrevCenter();">
 
                                                                 <option value=""><?php echo showOtherLangText('Select'); ?></option>
 
@@ -351,7 +351,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                            <select name="outLetType" id="outLetType" class="form-select selectOption" 
+                                                            <select name="outLetType" id="outLetType" class="form-select selectOption"
                                                                 onchange="getOutletType();">
 
                                                                 <option value=""><?php echo showOtherLangText('Select'); ?></option>
@@ -383,7 +383,7 @@ $deptResult = mysqli_query($con, $deptQry);
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="cstmSelect">
-                                                            <textarea class="form-control" style="resize: vertical;" placeholder="<?php echo showOtherLangText('Main'); ?>" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
+                                                            <textarea class="form-control" style="resize: vertical;" name="address" id="address" value="" cols="20" rows="2" autocomplete="off"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -599,4 +599,13 @@ $deptResult = mysqli_query($con, $deptQry);
             'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
             w + ', height=' + h + ', top=' + top + ', left=' + left);
     }
+
+    $("#setOtlt").click(function() {
+
+
+        $("#revCenter").prop('required', true);
+        $("#outLetType").prop('required', true);
+
+
+    });
 </script>

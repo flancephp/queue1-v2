@@ -21,6 +21,18 @@ if (!$permissionRow) {
 if (isset($_POST['accountName'])) {
 
 
+    $sqlSet = " SELECT * FROM tbl_accounts WHERE `accountName` = '" . $_POST['accountName'] . "'  AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This account already exists.') . ' ';
+        echo "<script>window.location='addAccount.php?errorMes=" . $errorMes . "';</script>";
+        exit;
+    }
+
+
     if (empty($_POST['currencyId'])) {
 
         $currencyId = 'USD';
@@ -122,13 +134,21 @@ if (isset($_POST['accountName'])) {
                 <section class="ordDetail userDetail">
                     <div class="container">
                         <?php if (isset($_GET['error_invalid_pass'])) { ?>
+                            <?php $_GET['errorMes'] = showOtherLangText('Invalid Password'); ?>
+
+                        <?php } ?>
+
+
+                        <?php if (isset($_GET['errorMes'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['error_invalid_pass']) ? ' ' . showOtherLangText('Invalid Password') . ' ' : ''; ?>
+                                <p><?php
+                                    echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                    ?>
                                 </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php } ?>
+
                         <form role="form" action="" method="post" class="addUser-Form acntSetup-Form" enctype="multipart/form-data">
                             <div class="usrBtns d-flex align-items-center justify-content-between">
                                 <div class="usrBk-Btn">

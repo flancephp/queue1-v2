@@ -18,7 +18,7 @@ if (!$permissionRow) {
 
 if (isset($_POST['feeName'])) {
 
-    $sql = " SELECT * FROM tbl_order_fee WHERE `feeName` = '" . $_POST['feeName'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
+    $sql = " SELECT * FROM tbl_order_fee WHERE `feeName` = '" . $_POST['feeName'] . "' AND `feeType` = '" . $_POST['feeType'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
     $feeQrycheck = mysqli_query($con, $sql);
     $feeResCheck = mysqli_fetch_array($feeQrycheck);
 
@@ -202,8 +202,8 @@ if (isset($_POST['feeName'])) {
                                         <label for="feePercentage" class="form-label"><?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text"  class="form-control" name="amt" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required 
-                                        value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="<?php echo showOtherLangText('10'); ?>">
+                                        <input type="text" class="form-control" name="amt" value="" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required
+                                            value="<?php echo isset($_POST['amt']) ? $_POST['amt'] : ''; ?>" id="amt" placeholder="<?php echo showOtherLangText('10'); ?>">
                                     </div>
                                 </div>
                                 <?php

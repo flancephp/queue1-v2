@@ -72,6 +72,7 @@ if (isset($_POST['itemName'])) {
         }
 
         echo "<script>window.location ='manageServiceFee.php?added=1'</script>";
+        die;
     } //end else here
 }
 

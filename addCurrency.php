@@ -14,6 +14,19 @@ if (!$permissionRow) {
 
 if (isset($_POST['currency'])) {
 
+
+    $sqlSet = " SELECT * FROM tbl_currency WHERE `currency`='" . $_POST['currency'] . "'  AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This currency already exists.') . ' ';
+        echo "<script>window.location='editCurrency.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        exit;
+    }
+
+
     $sql = "INSERT INTO `tbl_currency` SET 
 	`currency` = '" . $_POST['currency'] . "',
 	`amt` = '" . $_POST['amt'] . "',
@@ -86,6 +99,17 @@ if (isset($_POST['currency'])) {
                 </section>
 
                 <section class="ordDetail userDetail">
+
+                    <?php if (isset($_GET['errorMes'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php
+                                echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
+
                     <div class="container">
                         <form role="form" action="" method="post" class="addUser-Form acntSetup-Form">
                             <div class="usrBtns d-flex align-items-center justify-content-between">
@@ -111,7 +135,7 @@ if (isset($_POST['currency'])) {
                                         <label for="currency" class="form-label"><?php echo showOtherLangText('Currency'); ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required class="form-control" name="currency" id="currency" value="" placeholder="EUR">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="currency" id="currency" value="" placeholder="EUR">
                                     </div>
                                 </div>
 
@@ -120,7 +144,7 @@ if (isset($_POST['currency'])) {
                                         <label for="currencyCode" class="form-label"><?php echo showOtherLangText('Currency Code'); ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')"  required class="form-control" name="curCode" id="curCode" placeholder="€">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" name="curCode" id="curCode" placeholder="€">
                                     </div>
                                 </div>
 
@@ -129,7 +153,7 @@ if (isset($_POST['currency'])) {
                                         <label for="amountAgainst" class="form-label"><?php echo showOtherLangText('Amount Against') . ' (' . $getDefCurDet['curCode'] . '1)'; ?>:<span class="requiredsign">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')"  required class="form-control" id="amt" name="amt" placeholder="0.89">
+                                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" id="amt" name="amt" placeholder="0.89">
                                     </div>
                                 </div>
 

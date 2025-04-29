@@ -33,10 +33,26 @@ if (isset($_POST['itemName'])) {
     $result = mysqli_query($con, $sql);
     $res = mysqli_fetch_array($result);
 
+
     if ($res > 0) {
         $msg = ' ' . showOtherLangText('Bar Code Already Exist') . ' ';
         //exit();
     } else {
+        $sqlSet = " SELECT * FROM tbl_products WHERE `itemName` = '" . addslashes($_POST['itemName']) . "'  AND account_id='" . $_SESSION['accountId'] . "' ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $resultSetRow = mysqli_num_rows($resultSet);
+
+        if ($resultSetRow > 0) {
+
+            $msg = ' ' . showOtherLangText('Item name already exists.') . ' ';
+        }
+    }
+
+    if ($msg == '') {
+
+
+
+
         if ($_POST['maxLevel'] < $_POST['minLevel']) {
             $msg1 = ' ' . showOtherLangText('MaxLevel should be greater than minLevel.') . ' ';
         } else {

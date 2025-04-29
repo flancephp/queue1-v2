@@ -42,6 +42,18 @@ if (isset($_POST['userType']) && $_POST['userType'] != '') {
 
 if (isset($_POST['user_name'])) {
 
+
+    $sqlSet = " SELECT * FROM tbl_user WHERE `name` = '" . $_POST['user_name'] . "'  AND account_id='" . $_SESSION['accountId'] . "' ";
+    $resultSet = mysqli_query($con, $sqlSet);
+    $resultSetRow = mysqli_num_rows($resultSet);
+
+    if ($resultSetRow > 0) {
+
+        $errorMes = ' ' . showOtherLangText('This User name already exists.') . ' ';
+        echo "<script>window.location='editUser.php?errorMes=" . $errorMes . "';</script>";
+        exit;
+    }
+
     if ($_POST['mobile_user'] == 1) {
         $userType = '1';
     } else {
@@ -74,6 +86,7 @@ if (isset($_POST['user_name'])) {
     mysqli_query($con, $sql);
 
     echo "<script>window.location='users.php?added=1'</script>";
+    die;
 }
 
 
@@ -136,6 +149,17 @@ if (isset($_POST['user_name'])) {
                 </section>
 
                 <section class="ordDetail userDetail">
+
+                    <?php if (isset($_GET['errorMes'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php
+                                echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
+
                     <form name="frm" id="frm" method="post" enctype="multipart/form-data" action="">
                         <div class="container">
 

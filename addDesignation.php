@@ -107,7 +107,7 @@ if (!$permissionRow) {
                             <?php } ?>
                             <?php if (isset($_GET['error'])) { ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <p><?php echo showOtherLangText('You can not create the same title name as this name already created'); ?></p>
+                                    <p><?php echo showOtherLangText('This title already exists.'); ?></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>

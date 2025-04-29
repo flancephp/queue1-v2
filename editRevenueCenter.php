@@ -24,8 +24,8 @@ if (isset($_POST['name'])) {
 
     if ($resultSetRow > 0) {
 
-        $errorMes = ' ' . showOtherLangText('This Revenue center name already taken.') . ' ';
-        echo "<script>window.location='editrevenueCenter.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
+        $errorMes = ' ' . showOtherLangText('This Revenue center name already exists.') . ' ';
+        echo "<script>window.location='editRevenueCenter.php?errorMes=" . $errorMes . "&id=" . $_POST['id'] . "';</script>";
         exit;
     }
 
@@ -182,6 +182,18 @@ if ($hotelId > 0) {
                 </section>
 
                 <section class="ordDetail userDetail">
+
+
+                    <?php if (isset($_GET['errorMes'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p><?php
+                                echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                ?>
+                            </p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
+
                     <form action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
                         <div class="container">

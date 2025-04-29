@@ -27,6 +27,18 @@ if (isset($_POST['itemName'])) {
         exit;
     } else {
 
+
+
+        $sqlSet = " SELECT * FROM tbl_products WHERE `itemName` = '" . addslashes($_POST['itemName']) . "' AND id != '" . $_GET['id'] . "'  AND account_id='" . $_SESSION['accountId'] . "' ";
+        $resultSet = mysqli_query($con, $sqlSet);
+        $resultSetRow = mysqli_num_rows($resultSet);
+
+        if ($resultSetRow > 0) {
+            echo "<script>window.location='editProduct.php?error=itemName&id=" . $_POST['id'] . "'</script>";
+            exit;
+        }
+
+
         if ($_POST['maxLevel'] < $_POST['minLevel']) {
             $msg = ' ' . showOtherLangText('MaxLevel should be greater than minLevel.') . ' ';
         } else {
@@ -223,9 +235,18 @@ if ($res['proType'] == 3) {
                 <section class="ordDetail userDetail itmMngDetail pb-5">
                     <div class="container">
 
-                        <?php if (isset($_GET['error']) && $_GET['error'] == 'barCode') { ?>
+                        <?php if (isset($_GET['error'])) {
+
+                            if ($_GET['error'] == 'barCode') {
+                                $message = ' ' . showOtherLangText('Bar Code Already Exist') . ' ';
+                            } elseif ($_GET['error'] == 'itemName') {
+                                $message = ' ' . showOtherLangText('Item name already exists.') . ' ';
+                            }
+
+
+                        ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo ' ' . showOtherLangText('Bar Code Already Exist') . ' '; ?></p>
+                                <p><?php echo $message; ?></p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>

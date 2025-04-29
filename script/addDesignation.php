@@ -29,6 +29,7 @@ if (isset($_POST['designation_name'])) {
 	$sqlResult = mysqli_query($con, $sql);
 	if (mysqli_fetch_array($sqlResult)) {
 		echo "<script>window.location='addDesignation.php?error=1'</script>";
+		exit;
 	} else {
 		$fieldsArr = [
 			'designation_name' => $_POST['designation_name'],

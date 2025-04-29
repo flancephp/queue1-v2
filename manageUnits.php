@@ -59,11 +59,25 @@ if (isset($_POST['name'])) {
         mysqli_query($con, $insQry);
         echo '<script>window.location="manageUnits.php?added=1"</script>';
     } else {
-        echo '<script>window.location="manageUnits.php?error=1&name=' . $_POST['name'] . ' "</script>';
+        $errorMes = ' ' . showOtherLangText('This unit name already exists.') . ' ';
+
+        echo '<script>window.location="manageUnits.php?errorMes=' . $errorMes . ' "</script>';
+        die;
     }
 }
 
 if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
+
+
+    $unitQry = " SELECT * FROM tbl_units WHERE `name`='" . $_POST['editUnit'] . "' AND id !='" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
+    $unitResult = mysqli_query($con, $unitQry);
+    $unitRow = mysqli_num_rows($unitResult);
+    if ($unitRow > 0) {
+        $errorMes = ' ' . showOtherLangText('This unit name already exists.') . ' ';
+
+        echo '<script>window.location="manageUnits.php?errorMes=' . $errorMes . ' "</script>';
+        die;
+    }
 
     $unitQry = " SELECT * FROM tbl_units WHERE id ='" . $_POST['id'] . "' AND account_id='" . $_SESSION['accountId'] . "' ";
 
@@ -77,6 +91,7 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
 
 
         echo '<script>window.location="manageUnits.php?edit=1"</script>';
+        exit;
     }
 }
 
@@ -158,13 +173,21 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
                             </div>
                         <?php } ?>
                         <?php if (isset($_GET['err'])) { ?>
+                            <?php echo $errorMes = showOtherLangText('Unit cannot be delete as it is being used in product');
+                            ?>
+                        <?php } ?>
+
+
+                        <?php if (isset($_GET['errorMes'])) { ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <p><?php echo isset($_GET['err']) ? ' ' . showOtherLangText('Unit cannot be delete as it is being used in product') . ' ' : '';
-                                    ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <p><?php
+                                    echo isset($_GET['errorMes']) ? ' ' . $_GET['errorMes'] . ' ' : '';
+                                    ?>
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php } ?>
+
                         <div class="usrBtns d-flex align-items-center justify-content-between">
                             <div class="usrBk-Btn">
                                 <div class="btnBg">
@@ -301,7 +324,7 @@ if (isset($_POST['editUnit']) && isset($_POST['id']) && $_POST['id'] > 0) {
                     </div>
                     <div class="modal-body">
 
-                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')"  onChange="this.setCustomValidity('')" required class="form-control" id="editUnit" name="editUnit" placeholder="<?php echo showOtherLangText('Name') ?>*">
+                        <input type="text" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" onChange="this.setCustomValidity('')" required class="form-control" id="editUnit" name="editUnit" placeholder="<?php echo showOtherLangText('Name') ?>*">
 
                         <input type="hidden" name="id" id="edit-id" value="" />
                     </div>
