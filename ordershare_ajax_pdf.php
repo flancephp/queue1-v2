@@ -138,11 +138,11 @@ $content .= '<div class="modal-header position-relative">
                                         <span class="fs-13">' . showOtherLangText('Second Currency Amount') . '</span>
                                     </li>
                                     <li>
-                                        <input type="checkbox" value="1" onclick="showHideByClassSummary(\'smrySuplr\')"  name="supplierInvoice" class="smryCheckbox summary-payment form-check-input" value="1" ' . (($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"') . '>
+                                        <input type="checkbox" value="1" onclick="showHideByClassSummary(\'smrySuplr\')"  name="supplierInvoice" class="smryCheckbox summary-payment form-check-input" value="1" ' . (($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? 'disabled="disabled"' : 'checked="checked"') . '>
                                         <span class="fs-13">' . showOtherLangText('Supplier Invoice') . ' #</span>
                                     </li>
                                     <li>
-                                        <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" ' . (($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? '' : 'checked="checked"') . ' value="1">
+                                        <input type="checkbox"  name="payment" class="smryCheckbox summary-payment form-check-input" onClick="showHideByClassSummary(\'smryPayment\')" ' . (($_POST['isSupDet'] == 1 || $_POST['page'] == 'order') ? 'disabled="disabled"' : 'checked="checked"') . ' value="1">
                                         <span class="fs-13">' . showOtherLangText('Payment') . '#</span>
                                     </li>
                                 </ul>

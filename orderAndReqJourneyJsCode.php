@@ -144,7 +144,7 @@
     });
 
     $('body').on('click', '.smryChk-All', function() {
-
+        console.log('hi');
         $('#show-smry').css('display', 'block');
         $('#show-header').css('display', 'none');
         $('#show-itm').css('display', 'none');

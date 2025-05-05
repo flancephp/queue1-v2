@@ -287,10 +287,10 @@ $content  .=     '</div></div>
                                     <div class="table-row">';
 if ($ordDet['invNo'] != '') {
     $content .= '<div class="table-cell" style="width: 20%;">
-                                            <div class="sub-table w-100" style="">
-                                                <div class="table-row">
-                                                    <div class="table-cell"># Invoice</div>
-                                                    <div class="table-cell">' . $ordDet['invNo'] . '</div>
+                                            <div class="sub-table w-100 ">
+                                                <div class="table-row smrySuplr sumMainDiv">
+                                                    <div class="table-cell "># Invoice</div>
+                                                    <div class="table-cell ">' . $ordDet['invNo'] . '</div>
                                                 </div>
                                             </div>
                                         </div>  

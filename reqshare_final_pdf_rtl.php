@@ -227,31 +227,26 @@ if (
     $content .= '</tr>'; //end sup det
 }
 
-if ($_GET['customerInvoice']  == 1  || $_GET['amount']  == 1) {
+if ($_GET['Invoice']  == 1  || $_GET['amount']  == 1) {
     // $content .= '<table style="color: #000; vertical-align: top; font-size: 12px; width: 100%;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;">';
     // $content .= '<thead style="vertical-align: middle;">';
     // $content .='<tr>  ';
 
-    if ($_GET['customerInvoice']  == 1) {
+    if ($_GET['Invoice']  == 1) {
         $content .= '<tr>
-            <td width="28%">
-                <table style="width: 100%;border-collapse: collapse;">
-                    <tr>
-                        <td width="50%" style="padding: 5px;">Dummy data</td>
-                        <td width="50%" style="padding: 5px;">Sub Total</td> 
-                    </tr>
-                </table>
-            </td>
+           
 
             
-            <td width="25%"></td>
-            <td width="22%"></td>
-
-            <td width="25%" valign="top">
+          
+             <td width="25%" valign="top" colspan="4">
                 <table style="width: 100%;">
                     <tr>
-                        <td style="padding: 5px;"># Invoice</td>
-                        <td style="padding: 5px;">' . ($ordDet['invNo'] ? setPaymentId($ordDet['invNo']) : '') . '</td>
+                    <td>
+                     
+                        <span style="padding: 5px;">' . ($ordDet['invNo'] ? setPaymentId($ordDet['invNo']) : '') . '</span>
+                        <span style="padding: 5px;"># ' . showOtherLangText('Invoice') . '</span>
+                    </td>
+                       
                     </tr>
                 </table>
             </td>
@@ -510,7 +505,7 @@ if (
         $i++;
         $bgColor = ($i % 2 != 0) ? 'white' : '#F9F9FB';
         $content .= '<tr style="background-color: ' . $bgColor . ';">';
- 
+
         $note = '';
         if ($_GET['note'] == 1) {
             $note = $row['note'];
@@ -619,7 +614,7 @@ if (
 //order journey starts here
 
 if ($_GET['taskRecord'] == 1) {
-    
+
     $content .= '<table width="100%" style="font-size: 12px; line-height: 14px; border-spacing: 0; margin-top: 20px; text-align: right;">
     ';
 
@@ -632,7 +627,7 @@ if ($_GET['taskRecord'] == 1) {
             <th style="font-weight:700;padding:8px 5px;">' . showOtherLangText('Status') . '</th>           
            </tr>';
 
-    $j=0;
+    $j = 0;
     while ($orderJourney = mysqli_fetch_array($orderJourneyQry)) {
         $j++;
         $bgColor3 = ($j % 2 != 0) ? 'white' : '#F9F9FB';

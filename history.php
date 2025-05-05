@@ -366,8 +366,17 @@ LEFT JOIN tbl_user u ON
 (o.orderBy = u.id) AND o.account_id = u.account_id
 LEFT JOIN tbl_suppliers sp ON
 (o.supplierId = sp.id) AND o.account_id = sp.account_id
+
+
 WHERE o.status = 2 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond . " ";
 $historyQry = mysqli_query($con, $mainSqlQry);
+
+
+if ($orderRow['ordType'] == 1) {
+    $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'order_supplier' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['supplierId'] . "' and designation_section_permission_id=1 ";
+} else {
+    $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'member' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['recMemberId'] . "' and designation_section_permission_id=2 ";
+}
 
 $bankAccountIdsStr = getAccountIds($_SESSION['accountId'], $condWithoutGroup); //get this to pass into below query in account list section
 
