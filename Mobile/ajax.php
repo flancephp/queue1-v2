@@ -107,9 +107,10 @@ if (isset($_POST['revId'])) {
 
 
 if (isset($_POST['resetCount'])   && $_POST['stockTakeId'] > 0  && $_POST['stockTakeType'] > 0 && $_SESSION['id'] > 0) {
+
 	$sql = " DELETE FROM `tbl_mobile_items_temp`  WHERE stockTakeId = '" . $_POST['stockTakeId'] . "' AND `userId` = '" . $_SESSION['id'] . "' AND `stockTakeType` = '" . $_POST['stockTakeType'] . "' AND account_id = '" . $_SESSION['accountId'] . "' ";
 	mysqli_query($con, $sql);
 
-	//$sql=" DELETE FROM  tbl_mobile_time_track WHERE stockTakeId = '".$_POST['stockTakeId']."' AND `userId` = '".$_SESSION['id']."' AND `stockTakeType` = '".$_POST['stockTakeType']."'  AND account_id = '".$_SESSION['accountId']."'  ";
-	//$result = mysqli_query($con, $sql);
+	$sql = " DELETE FROM  tbl_mobile_time_track WHERE stockTakeId = '" . $_POST['stockTakeId'] . "' AND `userId` = '" . $_SESSION['id'] . "' AND `stockTakeType` = '" . $_POST['stockTakeType'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+	$result = mysqli_query($con, $sql);
 }

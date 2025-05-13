@@ -418,6 +418,12 @@ $currResultSet = mysqli_query($con, $curQry);
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
+
                                     <div class="ordInfo newFeatures">
                                         <div class="container">
                                             <div class="mbFeature">
@@ -482,6 +488,11 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                 </ul>
 
                                                             </div>
+
+
+
+
+
                                                             <div class="col-md-3 ordFeature drpFee position-relative">
                                                                 <a href="javascript:void(0)" class="dropdown-toggle tabFet <?php echo $disableClickClass; ?>" id="dropBtn"
                                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -531,6 +542,8 @@ $currResultSet = mysqli_query($con, $curQry);
                                                                     <li><a class="dropdown-item text-nowrap" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
                                                                 </ul>
                                                             </div>
+
+
                                                         </div>
                                                     </div>
 
@@ -539,6 +552,9 @@ $currResultSet = mysqli_query($con, $curQry);
                                             </div>
                                         </div>
                                     </div>
+
+
+
                                     <div class="smBtn nwNxt-Btn">
                                         <div class="btnBg">
 

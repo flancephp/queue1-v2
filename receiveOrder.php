@@ -20,7 +20,93 @@ $permissionRes = mysqli_query($con, $sql);
 $permissionRow = mysqli_fetch_array($permissionRes);
 if (!$permissionRow) {
     echo "<script>window.location='index.php'</script>";
+    exit;
 }
+
+
+$sqlSet = " SELECT * FROM tbl_orders WHERE id = '" . $_GET['orderId'] . "'  AND account_id = '" . $_SESSION['accountId'] . "'  ";
+$resultSet = mysqli_query($con, $sqlSet);
+$ordRow = mysqli_fetch_array($resultSet);
+
+//start additional charges---------------------------------------------------------------------------------- 
+
+//Add item charges in list
+if (isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType'] == '1') {
+    editCustomCharge($_GET['orderId'], $_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd']);
+    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
+}
+
+
+//Add order charges in list
+if (isset($_GET['itemCharges']) && $_GET['itemCharges'] > 0 && $_GET['feeType'] == '3') {
+    editCustomCharge($_GET['orderId'], $_GET['feeType'], $_GET['itemCharges'], $_SESSION['supplierIdOrd']);
+    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
+}
+
+
+if (!empty($_POST['itemName'])) {
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+
+    $sql = " INSERT INTO `tbl_custom_items_fee` SET 
+    `itemName` = '" . $_POST['itemName'] . "',
+    `unit` = '" . $_POST['unit'] . "',
+    `amt` = '" . $_POST['itemFeeAmt'] . "',
+    `visibility` = '" . $showHideInList . "',
+    `account_id` = '" . $_SESSION['accountId'] . "'  ";
+    mysqli_query($con, $sql);
+    $itemCharges = mysqli_insert_id($con);
+
+    editCustomCharge($_GET['orderId'], 1, $itemCharges, $_SESSION['supplierIdOrd']);
+    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
+
+    echo '<script>window.location="receiveOrder.php?orderId=' . $_GET['orderId'] . '&supplierId=' . $_SESSION['supplierIdOrd'] . '&currencyId=' . $ordRow['ordCurId'] . ' "</script>';
+    exit;
+}
+
+
+if (!empty($_POST['feeName'])) {
+    $showHideInList = isset($_POST['visibility']) ? 1 : 0;
+
+    $sql = " INSERT INTO `tbl_order_fee` SET 
+    `feeName` = '" . $_POST['feeName'] . "',
+    `feeType` = '" . $_POST['feeType'] . "',
+    `amt` = '" . $_POST['amt'] . "',
+    `visibility` = '" . $showHideInList . "',
+    `isTaxFee` = '" . $_POST['isTaxFee'] . "',
+    `account_id` = '" . $_SESSION['accountId'] . "'  ";
+
+    mysqli_query($con, $sql);
+
+    $itemCharges = mysqli_insert_id($con);
+
+    editCustomCharge($_GET['orderId'], 3, $itemCharges, $_SESSION['supplierIdOrd']);
+    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
+
+    echo '<script>window.location="receiveOrder.php?orderId=' . $_GET['orderId'] . '&supplierId=' . $_SESSION['supplierIdOrd'] . '&currencyId=' . $ordRow['ordCurId'] . ' "</script>';
+    exit;
+}
+
+
+//delete item level / order level charges
+if (isset($_GET['delId']) && $_GET['orderId']) {
+
+    $sql = " SELECT * FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' and id='" . $_GET['delId'] . "' ";
+    $sqlSet = mysqli_query($con, $sql);
+    $tempOrdDetRow = mysqli_fetch_array($sqlSet);
+
+    if ($tempOrdDetRow['customChargeId'] && $tempOrdDetRow['customChargeType']) {
+        $sql = " DELETE FROM tbl_order_details WHERE ordId='" . $_GET['orderId'] . "' AND account_id = '" . $_SESSION['accountId'] . "' and customChargeId='" . $tempOrdDetRow['customChargeId'] . "' and customChargeType='" . $tempOrdDetRow['customChargeType'] . "' ";
+        $resultSet = mysqli_query($con, $sql);
+    }
+
+
+
+    orderNetValue($_GET['orderId'], $ordRow['ordCurId']);
+
+    echo '<script>window.location="receiveOrder.php?orderId=' . $_GET['orderId'] . '&supplierId=' . $_SESSION['supplierIdOrd'] . '&delete=1"</script>';
+    exit;
+} //end
+//end additional charges-------------------------------------------------------------------------------------
 
 //update invoice number when user change it
 if (isset($_POST['invoiceNumber']) && isset($_POST['orderId'])) {
@@ -412,6 +498,9 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
 }
 //end ------------------------------------------------------------------------------------------------------
 //
+
+
+
 ?>
 <!DOCTYPE html>
 <html dir="<?php echo $getLangType == '1' ? 'rtl' : ''; ?>" lang="<?php echo $getLangType == '1' ? 'he' : ''; ?>">
@@ -1008,53 +1097,154 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                             </div>
                                         </div>
 
-                                        <div class="ordInfo rcvInfo newFeatures">
 
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="ordInfo newFeatures">
                                             <div class="container">
-                                                <div class="mbFeature mb-2 mb-lg-0">
-                                                    <div class="row gx-0 justify-content-end">
+                                                <div class="mbFeature">
+                                                    <div class="row g-0 justify-content-end">
+                                                        <div class="col-md-7 text-center filder__btns w-100">
+                                                            <div class="row featRow p-0">
 
-                                                        <div class="text-center w-100 md-max-fit-content">
-                                                            <div class="row featRow stkRow divider p-0 position-relative">
-                                                                <div class="stockFeat p-0   d-flex">
-                                                                    <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <span class="edIt"></span>
-                                                                        <p class="btn2 d-flex justify-content-center align-items-center gap-1 text-wrap text-center">
-                                                                            <span><?php echo showOtherLangText('Import receiving file'); ?></span> <i class="fa-solid fa-angle-down fa-angle-up"></i>
+
+
+
+                                                                <div
+                                                                    class="col-md-3 ordFeature dropdown drpCurr position-relative">
+                                                                    <div class="stockFeat p-0   d-flex">
+                                                                        <a href="javascript:void(0)" class="dropdown-toggle tabFet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            <span class="edIt"></span>
+                                                                            <p class="btn2 d-flex justify-content-center align-items-center gap-1 text-wrap text-center">
+                                                                                <span><?php echo showOtherLangText('Import receiving file'); ?></span> <i class="fa-solid fa-angle-down fa-angle-up"></i>
+                                                                            </p>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li>
+                                                                                <a id="btnFileUpload" href="javascript:void(0)" class="dropdown-item fw-normal nav_sub text-nowrap">
+                                                                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 22">
+                                                                                        <path d="M14 6.5a1 1 0 1 0 2 0zm-10 15a1 1 0 1 0 0-2zm-2.4-1.6.7-.7zm13-15.5-.8.5zm-.5-.6-.5.9zm-12.8.6.9.5zm.6-.6.5.9zM2 16.5V7H0v9.5zm2 3H2.6l-.3-.3-1.4 1.4q.3.5 1.2.8h.8l1.1.1zm-4-3v2.3q.2 1 .9 1.8l1.4-1.4-.2-.6-.1-2.1zm16-10V5l-.5-1.2L13.8 5l.2.4v1.2zm-4.5-2H13q.5 0 .6.2l1-1.7-1.4-.5h-1.7zm4-.7-.8-.8-1.1 1.7.2.2zM2 7V5.5q0-.5.2-.6L.5 4 0 5.2V7zm2.5-4.5H2.8a3 3 0 0 0-1.5.5l1.1 1.7.6-.2h1.5zM2.2 4.9l.2-.2-1-1.7-.9.8z" fill="#8C8FA7" />
+                                                                                        <path d="M5 3.5q.2-1.8 2-2h2a2 2 0 1 1 0 4H7a2 2 0 0 1-2-2Z" stroke="#8C8FA7" stroke-width="2" />
+                                                                                        <path d="M5 10.5h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
+                                                                                        <path d="m12.9 19 4.9-5.5.4-.5.3-.5a2 2 0 0 0-.3-2l-.4-.4-.5-.5-.6-.5a2 2 0 0 0-1.5 0l-.7.5-.4.5-4.8 5.3-.5.6-.2.7-.4 1.8v.5q-.2.4.3 1 .7.5 1 .4l.5-.2 1.5-.3.8-.4z" stroke="#8C8FA7" stroke-width="2" />
+                                                                                    </svg>
+                                                                                    <span><?php echo showOtherLangText('Import Receiving File'); ?><input type="file" id="uploadFile" name="uploadFile" style="display:none"></span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>" target="_blank" class="dropdown-item fw-normal nav_sub text-nowrap">
+                                                                                    <!-- <span class="sampleFile"></span> -->
+                                                                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 31">
+                                                                                        <path d="M24.8 7.7q2.4-.1 3.1.4l.7.7q.5.8.4 3.2v11.5q.2 3.3-.7 4.2t-4.2.7H17q-3.3.2-4.2-.7t-.7-4.2V12q-.1-2.4.4-3.2l.7-.7c.6-.4 1.4-.4 3.2-.4" stroke="#8C8FA7" stroke-width="2" />
+                                                                                        <path d="M16.9 7.7c0-1.3 1-2.4 2.4-2.4h2.4a2.4 2.4 0 0 1 0 4.9h-2.4Q17 10 16.9 7.7Z" stroke="#8C8FA7" stroke-width="2" />
+                                                                                        <path d="m5 19-.7.7.7.7.7-.7zM6 7a1 1 0 0 0-2 0zM.3 15.6l4 4 1.4-1.5-4-4zm5.4 4 4-4-1.4-1.5-4 4zm.3-.8V7H4v12zm8.9 4.2v-6.6h4.4v1.1h-3v1.6H19v1.1h-2.9v1.6h3.1v1.1zm9.9-4.5-.2-.4-.3-.3-.4-.2-.5-.1q-.5 0-.9.3t-.6.7l-.2 1.1q0 .7.2 1.2t.6.8l.9.2q.5 0 .8-.2.3 0 .5-.4l.2-.8h.3-1.7v-1h2.7v.8q0 .9-.3 1.5-.4.7-1 1l-1.5.3q-1 0-1.6-.4-.8-.3-1.1-1.1-.4-.7-.4-1.8 0-.8.2-1.5l.7-1q.4-.5 1-.7.4-.2 1.2-.2l1 .1.9.5a3 3 0 0 1 .9 1.6z" fill="#8C8FA7" />
+                                                                                    </svg>
+                                                                                    <span><?php echo showOtherLangText('Download Sample File'); ?></span>
+                                                                                </a>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+
+
+                                                                <div class="col-md-3 ordFeature drpFee position-relative">
+                                                                    <a href="javascript:void(0)" class="dropdown-toggle tabFet <?php echo $disableClickClass; ?>" id="dropBtn"
+                                                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <span class="fee"></span>
+                                                                        <p class="btn2"><?php echo showOtherLangText('Fee'); ?> <i
+                                                                                class="fa-solid fa-angle-down"></i>
                                                                         </p>
                                                                     </a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li>
-                                                                            <a id="btnFileUpload" href="javascript:void(0)" class="dropdown-item fw-normal nav_sub text-nowrap">
-                                                                                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 22">
-                                                                                    <path d="M14 6.5a1 1 0 1 0 2 0zm-10 15a1 1 0 1 0 0-2zm-2.4-1.6.7-.7zm13-15.5-.8.5zm-.5-.6-.5.9zm-12.8.6.9.5zm.6-.6.5.9zM2 16.5V7H0v9.5zm2 3H2.6l-.3-.3-1.4 1.4q.3.5 1.2.8h.8l1.1.1zm-4-3v2.3q.2 1 .9 1.8l1.4-1.4-.2-.6-.1-2.1zm16-10V5l-.5-1.2L13.8 5l.2.4v1.2zm-4.5-2H13q.5 0 .6.2l1-1.7-1.4-.5h-1.7zm4-.7-.8-.8-1.1 1.7.2.2zM2 7V5.5q0-.5.2-.6L.5 4 0 5.2V7zm2.5-4.5H2.8a3 3 0 0 0-1.5.5l1.1 1.7.6-.2h1.5zM2.2 4.9l.2-.2-1-1.7-.9.8z" fill="#8C8FA7" />
-                                                                                    <path d="M5 3.5q.2-1.8 2-2h2a2 2 0 1 1 0 4H7a2 2 0 0 1-2-2Z" stroke="#8C8FA7" stroke-width="2" />
-                                                                                    <path d="M5 10.5h4" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-                                                                                    <path d="m12.9 19 4.9-5.5.4-.5.3-.5a2 2 0 0 0-.3-2l-.4-.4-.5-.5-.6-.5a2 2 0 0 0-1.5 0l-.7.5-.4.5-4.8 5.3-.5.6-.2.7-.4 1.8v.5q-.2.4.3 1 .7.5 1 .4l.5-.2 1.5-.3.8-.4z" stroke="#8C8FA7" stroke-width="2" />
-                                                                                </svg>
-                                                                                <span><?php echo showOtherLangText('Import Receiving File'); ?><input type="file" id="uploadFile" name="uploadFile" style="display:none"></span>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="<?php echo $rightSideLanguage == 1 ? 'excelSampleFile/hebrew/receive-items-hebrew-lang.xlsx' : 'excelSampleFile/english/receive-items-english-lang.xlsx'; ?>" target="_blank" class="dropdown-item fw-normal nav_sub text-nowrap">
-                                                                                <!-- <span class="sampleFile"></span> -->
-                                                                                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 31">
-                                                                                    <path d="M24.8 7.7q2.4-.1 3.1.4l.7.7q.5.8.4 3.2v11.5q.2 3.3-.7 4.2t-4.2.7H17q-3.3.2-4.2-.7t-.7-4.2V12q-.1-2.4.4-3.2l.7-.7c.6-.4 1.4-.4 3.2-.4" stroke="#8C8FA7" stroke-width="2" />
-                                                                                    <path d="M16.9 7.7c0-1.3 1-2.4 2.4-2.4h2.4a2.4 2.4 0 0 1 0 4.9h-2.4Q17 10 16.9 7.7Z" stroke="#8C8FA7" stroke-width="2" />
-                                                                                    <path d="m5 19-.7.7.7.7.7-.7zM6 7a1 1 0 0 0-2 0zM.3 15.6l4 4 1.4-1.5-4-4zm5.4 4 4-4-1.4-1.5-4 4zm.3-.8V7H4v12zm8.9 4.2v-6.6h4.4v1.1h-3v1.6H19v1.1h-2.9v1.6h3.1v1.1zm9.9-4.5-.2-.4-.3-.3-.4-.2-.5-.1q-.5 0-.9.3t-.6.7l-.2 1.1q0 .7.2 1.2t.6.8l.9.2q.5 0 .8-.2.3 0 .5-.4l.2-.8h.3-1.7v-1h2.7v.8q0 .9-.3 1.5-.4.7-1 1l-1.5.3q-1 0-1.6-.4-.8-.3-1.1-1.1-.4-.7-.4-1.8 0-.8.2-1.5l.7-1q.4-.5 1-.7.4-.2 1.2-.2l1 .1.9.5a3 3 0 0 1 .9 1.6z" fill="#8C8FA7" />
-                                                                                </svg>
-                                                                                <span><?php echo showOtherLangText('Download Sample File'); ?></span>
-                                                                            </a>
-                                                                        </li>
 
+                                                                    <ul class="item dropdown-menu dropdown__menu" id="dropdownMenu">
+                                                                        <li class="dropdown innerDrop">
+                                                                            <a class="item dropdown-item d-flex justify-content-between align-items-center text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Service Item'); ?><i
+                                                                                    class="fa-solid fa-angle-down"></i></a>
+                                                                            <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
+                                                                                <?php
+                                                                                //add item fee & custom fee modal box 
+                                                                                $sql = " SELECT * 
+                FROM tbl_custom_items_fee 
+                WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";
+                                                                                $customItemsResult = mysqli_query($con, $sql);
+
+                                                                                //$liCount = 0;
+                                                                                while ($resultRow = mysqli_fetch_array($customItemsResult)) {
+                                                                                    //$liCount++;
+                                                                                    echo "<li class='innerLi'><a class='dropdown-item break-item' tabindex='-1' href='receiveOrder.php?orderId=" . $_GET['orderId'] . "&feeType=1&itemCharges=" . $resultRow['id'] . "&currencyId=" . $_SESSION['currencyId'] . " ' >" . $resultRow['itemName'] . "</a></li>";
+                                                                                }
+                                                                                ?>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li><a class="dropdown-item text-nowrap" class="sub-btn std-btn mb-usrBkbtn" data-bs-toggle="modal" data-bs-target="#new-service-item" href="javascript:void(0)"><?php echo showOtherLangText('New Service Item'); ?></a></li>
+                                                                        <li class="dropdown innerDrop">
+                                                                            <a class="item dropdown-item d-flex justify-content-between align-items-center text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo showOtherLangText('Fee'); ?><i
+                                                                                    class="fa-solid fa-angle-down"></i></a>
+                                                                            <ul class="subitem submenu large list-unstyled dropdown-menu dropdown__menu">
+                                                                                <?php
+                                                                                //add item fee & custom fee modal box 
+                                                                                $sqlQry = " SELECT * FROM tbl_order_fee WHERE visibility='1' AND account_id='" . $_SESSION['accountId'] . "' ";
+                                                                                $ordFeeFetch = mysqli_query($con, $sqlQry);
+                                                                                //$innerLiCount = 0;
+                                                                                while ($resultRow = mysqli_fetch_array($ordFeeFetch)) {
+                                                                                    // $innerLiCount++;
+                                                                                    echo "<li class='innerLi'><a class='dropdown-item break-item' tabindex='-1' href='receiveOrder.php?orderId=" . $_GET['orderId'] . "&feeType=3&itemCharges=" . $resultRow['id'] . "&currencyId=" . $_SESSION['currencyId'] . " '>" . $resultRow['feeName'] . "</a> ";
+                                                                                }
+                                                                                ?>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li><a class="dropdown-item text-nowrap" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#new-fees-item"><?php echo showOtherLangText('New Fee') ?></a></li>
                                                                     </ul>
                                                                 </div>
+
+
                                                             </div>
                                                         </div>
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                         <div class="col-md-2 text-end smBtn nwNxt-Btn pe-0">
                                             <div class="btnBg">
@@ -1188,9 +1378,10 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                     ?>
                                                         <div class="price justify-content-between taxRow">
                                                             <div class="p-2 delIcn text-center">
-                                                                <!-- <a href="javascript:void(0)">
-                                                            <i class="fa-solid fa-trash-can"></i>
-                                                        </a> -->
+                                                                <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                                    href="javascript:void(0)">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </a>
                                                             </div>
                                                             <div class="p-2 txnmRow">
                                                                 <p><?php echo $row['feeName']; ?></p>
@@ -1230,9 +1421,10 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                     ?>
                                                         <div class="price justify-content-between taxRow">
                                                             <div class="p-2 delIcn text-center">
-                                                                <!-- <a href="javascript:void(0)">
-                                                            <i class="fa-solid fa-trash-can"></i>
-                                                        </a> -->
+                                                                <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                                    href="javascript:void(0)">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </a>
                                                             </div>
                                                             <div class="p-2 txnmRow">
                                                                 <p><?php echo $row['feeName']; ?>
@@ -1278,9 +1470,10 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                                     ?>
                                                         <div class="price justify-content-between taxRow">
                                                             <div class="p-2 delIcn text-center">
-                                                                <!-- <a href="javascript:void(0)">
-                                                            <i class="fa-solid fa-trash-can"></i>
-                                                        </a> -->
+                                                                <a onClick="getDelNumb('<?php echo $row['id'] ?>', '<?php echo $row['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                                                    href="javascript:void(0)">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </a>
                                                             </div>
                                                             <div class="p-2 txnmRow">
                                                                 <p> <?php echo $row['feeName']; ?>
@@ -1439,7 +1632,11 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
                                     </div>
 
                                     <div class="prdtImg tb-bdy">
-                                        <p></p>
+                                        <a title="<?php echo showOtherLangText('Delete') ?>"
+                                            href="javascript:void(0)"
+                                            onClick="getDelNumb('<?php echo $showCif['id'] ?>', '<?php echo $showCif['ordId'] ?>', '<?php echo $_SESSION['supplierIdOrd'] ?>');"
+                                            style="color:#808080" class="glyphicon glyphicon-trash"><i
+                                                class="fa-solid fa-trash-can"></i></a>
                                     </div>
 
                                     <div class="recItm-Name tb-bdy">
@@ -1767,6 +1964,109 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
         </div>
     </main>
 
+
+    <!-- Add Service Item Popup Start -->
+
+    <form action="" name="addNewFee" class="addUser-Form row container glbFrm-Cont" id="addNewFee" method="post" autocomplete="off">
+        <div class="modal" tabindex="-1" id="new-fees-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Add Fee'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="currencyPopupForm" value="<?php echo $_SESSION['currencyId'] ?>">
+                        <input type="text" class="form-control" name="feeName" id="feeName" value=""
+                            autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Fee Name'); ?>"
+
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
+                        <select class="form-control" name="feeType" id="typeOfFee"
+                            oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please select an item in the list.') ?>')" onChange="this.setCustomValidity('')" required>
+                            <option value="2"><?php echo showOtherLangText('Fixed Fee'); ?></option>
+                            <option value="3"><?php echo showOtherLangText('Percentage Fee'); ?>
+                            </option>
+                        </select>
+                        <input type="text" class="form-control" id="amt" name="amt" value=""
+                            autocomplete="off"
+                            placeholder="<?php echo showOtherLangText('Fee Amount') . ' ' . $getDefCurDet['curCode']; ?>"
+
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required />
+
+                    </div>
+                    <div>
+                        <input type="checkbox" name="feeType" id="feeType" class="optionCheck" value="1">
+                        <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('Tax fee'); ?></span>
+                        <div class="feeSave">
+                            <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                            <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" id="feesave_add" name="feesave_add" class="sub-btn btn-primary btn std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form action="" name="addServiceFeeFrm" class="addUser-Form row container glbFrm-Cont" id="addServiceFeeFrm" method="post" autocomplete="off">
+        <div class="modal" tabindex="-1" id="new-service-item" aria-labelledby="add-CategoryLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title h1"><?php echo showOtherLangText('Service Name'); ?></h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="itemName" name="itemName" value="" placeholder="<?php echo showOtherLangText('Service Name'); ?> *" autocomplete="off"
+
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
+                        <input type="text" class="form-control" id="feeAmt" name="itemFeeAmt" value="" placeholder="<?php echo showOtherLangText('Amount') . ' ' . $getDefCurDet['curCode']; ?> *" autocomplete="off"
+
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
+                        <input type="text" class="form-control" id="unit" name="unit" value="" placeholder="<?php echo showOtherLangText('Unit'); ?> *" autocomplete="off"
+
+                            onChange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('<?php echo showOtherLangText('Please fill out this field.') ?>')" required>
+                    </div>
+                    <div>
+                        <div class="feeSave">
+                            <input type="checkbox" class="optionCheck" id="visibility" name="visibility" value="1">
+                            <span class="subTittle1" style="vertical-align:text-top;"><?php echo showOtherLangText('save to fixed service item list'); ?></span><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btnBg">
+                            <button type="submit" id="addFee" name="addFee" class="btn btn-primary std-btn"><?php echo showOtherLangText('Add'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal" tabindex="-1" id="delete-popup" aria-labelledby="add-DepartmentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title h1"><?php echo showOtherLangText('Are you sure to delete this record?') ?>
+                    </h1>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="d-flex gap-3">
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn btn-primary std-btn"><?php echo showOtherLangText('No'); ?></button>
+                        <button type="button" onclick=""
+                            class="deletelink btn btn-primary std-btn"><?php echo showOtherLangText('Yes'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="Assets/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="Assets/js/custom.js"></script>
@@ -1905,4 +2205,31 @@ while ($row = mysqli_fetch_array($orderQryClone)) {
             document.getElementById('upload_form').submit();
         };
     };
+</script>
+
+
+<style>
+    .subitem {
+        display: none;
+    }
+</style>
+<script>
+    $('.item').on('mouseover', 'li', function() {
+        $(this).children(".subitem").show().end().siblings().find('.subitem').hide();
+    }).on('mouseleave', function() {
+        $('.subitem', this).hide();
+    });
+
+
+    function getDelNumb(delId, orderId, supplierId) {
+        var newOnClick = "window.location.href='receiveOrder.php?delId=" + delId + "&orderId=" + orderId + "&supplierId=" +
+            supplierId + "'";
+
+        //console.log('click',newOnClick);
+        //return false;
+
+        $('.deletelink').attr('onclick', newOnClick);
+        $('#delete-popup').modal('show');
+
+    }
 </script>

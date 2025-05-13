@@ -1237,7 +1237,11 @@ if ($getTxtById == 'storeId') {
                         </div>
                         <!-- Mobile Date Box End -->
 
-                        <?php if ($issueInTotal > 0 || $issueOutTotal > 0) { ?>
+                        <?php
+
+
+
+                        if (mysqli_num_rows($historyQry) > 0 && ($issueInTotal > 0 || $issueOutTotal > 0)) { ?>
 
                             <div class="container mb-hisDtl">
                                 <div class="row">
@@ -1324,80 +1328,80 @@ if ($getTxtById == 'storeId') {
                         <?php }
 
 
-                        if (mysqli_num_rows($historyQry) > 0) {
 
-                            $classNameForHeadingSec = 0;
 
-                            if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) && $issueInTotal > 0) {
-                                $classNameForHeadingSec++;
-                            }
+                        $classNameForHeadingSec = 0;
 
-                            if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 2)) && $issueOutTotal > 0) {
-                                $classNameForHeadingSec++;
-                            }
+                        if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 1)) && $issueInTotal > 0) {
+                            $classNameForHeadingSec++;
+                        }
 
-                            if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 3)) {
-                                $variancesPosTot = 0;
-                                $variancesNevTot = 0;
-                                $varaincesVal = 0;
+                        if ((!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 2)) && $issueOutTotal > 0) {
+                            $classNameForHeadingSec++;
+                        }
 
-                                //variance starts here
-                                // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+                        if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 3)) {
+                            $variancesPosTot = 0;
+                            $variancesNevTot = 0;
+                            $varaincesVal = 0;
 
-                                $varDataAvl = false;
-                                $sqlSet = " SELECT od.* FROM tbl_order_details od
+                            //variance starts here
+                            // if ($_SESSION['getVals']['ordType'] == '' || $_SESSION['getVals']['ordType'] == 3) {
+
+                            $varDataAvl = false;
+                            $sqlSet = " SELECT od.* FROM tbl_order_details od
                                     INNER JOIN tbl_orders o
                                         ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                     WHERE o.ordType = '3' AND o.status = '2' AND o.account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " ";
-                                $resultSet = mysqli_query($con, $sqlSet);
-                                while ($resRow = mysqli_fetch_array($resultSet)) {
+                            $resultSet = mysqli_query($con, $sqlSet);
+                            while ($resRow = mysqli_fetch_array($resultSet)) {
 
-                                    $varDataAvl = true;
-                                    $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
+                                $varDataAvl = true;
+                                $varaincesVal = $resRow['qtyReceived'] - $resRow['qty'];
 
-                                    if ($varaincesVal > 0) {
-                                        $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
-                                    } elseif ($varaincesVal < 0) {
-                                        $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
-                                    }
-                                }
-
-                                if ($varDataAvl) {
-                                    $classNameForHeadingSec++;
+                                if ($varaincesVal > 0) {
+                                    $variancesPosTot += ($varaincesVal * $resRow['stockPrice']);
+                                } elseif ($varaincesVal < 0) {
+                                    $variancesNevTot += ($varaincesVal * $resRow['stockPrice']);
                                 }
                             }
 
-                            if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
+                            if ($varDataAvl) {
+                                $classNameForHeadingSec++;
+                            }
+                        }
 
-                                $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
+                        if (!isset($_GET['ordType']) || !$_GET['ordType'] || ($_GET['ordType'] == 4)) {
+
+                            $sqlSet = " SELECT SUM(ordAmt) totConvertedAmt FROM  tbl_orders o  WHERE ordType = '4' 
                 AND status = '2' AND account_id = '" . $_SESSION['accountId'] . "' " . $condWithoutGroup . " GROUP BY ordType ";
 
-                                $resultSet = mysqli_query($con, $sqlSet);
-                                $convrtedRow = mysqli_fetch_array($resultSet);
+                            $resultSet = mysqli_query($con, $sqlSet);
+                            $convrtedRow = mysqli_fetch_array($resultSet);
 
-                                if ($convrtedRow['totConvertedAmt'] > 0) {
-                                    $classNameForHeadingSec++;
-                                }
+                            if ($convrtedRow['totConvertedAmt'] > 0) {
+                                $classNameForHeadingSec++;
                             }
+                        }
 
-                            $classArr = [1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four'];
+                        $classArr = [1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four'];
 
-                            $classNameForHeading = '';
-                            $classNameForHeadingOnActiveIssueIN = '';
+                        $classNameForHeading = '';
+                        $classNameForHeadingOnActiveIssueIN = '';
 
-                            if ($classNameForHeadingSec) {
-                                $classNameForHeading = $classArr[$classNameForHeadingSec] . 'Item';
-                                $classNameForHeadingOnActiveIssueIN = $classArr[$classNameForHeadingSec] . 'Item';
-                            }
+                        if ($classNameForHeadingSec) {
+                            $classNameForHeading = $classArr[$classNameForHeadingSec] . 'Item';
+                            $classNameForHeadingOnActiveIssueIN = $classArr[$classNameForHeadingSec] . 'Item';
+                        }
 
-                            $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
+                        $sql = " SELECT od.currencyId, c.curCode, o.ordCurAmt AS totalOrdCurAmt, o.paymentStatus FROM tbl_order_details od
                                                         INNER JOIN tbl_orders o 
                                                             ON(o.id=od.ordId) AND o.account_id=od.account_Id
                                                         INNER JOIN tbl_currency c
                                                             ON(od.currencyId=c.id) AND od.account_id=c.account_Id
                                                         WHERE o.status = '2' AND o.ordCurAmt>0 AND o.account_id = '" . $_SESSION['accountId'] . "' " . $cond1 . "";
-                            $resultCurQry = mysqli_query($con, $sql);
-                            $curCount = mysqli_num_rows($resultCurQry);
+                        $resultCurQry = mysqli_query($con, $sql);
+                        $curCount = mysqli_num_rows($resultCurQry);
 
 
 
@@ -1407,10 +1411,12 @@ if ($getTxtById == 'storeId') {
 
                         ?>
 
-                            <div class="container detailPrice">
-                                <div class="tab-mbDtl">
-                                    <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
-                                </div>
+                        <div class="container detailPrice">
+                            <div class="tab-mbDtl">
+                                <a href="javascript:void(0)" class="tab-revLnk"><i class="fa-solid fa-arrow-left"></i></a>
+                            </div>
+                            <?php if (mysqli_num_rows($historyQry) > 0) { ?>
+
                                 <div class="scroller pb-5 pb-sm-0">
                                     <div class="row align-items-start issueDtl_accntDtl_main">
                                         <div class="issueDtl px-xl-4 px-xxl-5 flex-wrap d-block">
@@ -1622,233 +1628,234 @@ if ($getTxtById == 'storeId') {
                                     </div>
                                 </div>
 
+                            <?php } //hide top sections if no records found
+                            ?>
 
 
 
-                                <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields) < 11 ? 'hstTbl-head1' : ''; ?>">
 
-                                    <!-- Item Table Head Start -->
-                                    <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields) < 11 ? 'itmTable1' : ''; ?>">
-                                        <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
-                                            <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
-                                            </svg>
-                                        </button>
+                            <div id="resFilterBox" class="container position-relative hstTbl-head px-0 res__filter__box <?php echo count($historyUserFilterFields) < 11 ? 'hstTbl-head1' : ''; ?>">
+
+                                <!-- Item Table Head Start -->
+                                <div class=" mt-2 itmTable position-relative <?php echo count($historyUserFilterFields) < 11 ? 'itmTable1' : ''; ?>">
+                                    <button type="button" id="closeResFilterBox" class="btn btn-primary d-flex justify-content-center align-items-center d-lg-none back__btn p-0">
+                                        <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 4.68552L1.2969 3.97443L0.577728 4.68552L1.2969 5.39662L2 4.68552ZM14 5.68552C14.5523 5.68552 15 5.23781 15 4.68552C15 4.13324 14.5523 3.68552 14 3.68552V5.68552ZM5.2969 0.0193784L1.2969 3.97443L2.7031 5.39662L6.7031 1.44156L5.2969 0.0193784ZM1.2969 5.39662L5.2969 9.35167L6.7031 7.92949L2.7031 3.97443L1.2969 5.39662ZM2 5.68552H14V3.68552H2V5.68552Z" fill="white" />
+                                        </svg>
+                                    </button>
 
 
-                                        <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
-                                            <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
-                                                <div class="tb-bdy srHisclm">
-                                                    <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
+                                    <div class="align-items-center d-flex dropdnbtns fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
+                                        <div class="numRef numRef1 align-items-center colSize<?php echo $col_class_one; ?>">
+                                            <div class="tb-bdy srHisclm">
+                                                <p class="serial"><?php echo mysqli_num_rows($historyQry) > 0 ? mysqli_num_rows($historyQry) : ''; ?></p>
+                                            </div>
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy numItmclm">
+                                                    <div class="d-flex align-items-center">
+                                                        <p><?php echo showOtherLangText('Number'); ?></p>
+                                                        <span class="dblArrow">
+                                                            <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
+                                                        </span>
+                                                    </div>
                                                 </div>
+                                            <?php } ?>
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
 
-                                                    <div class="tb-bdy numItmclm">
-                                                        <div class="d-flex align-items-center">
-                                                            <p><?php echo showOtherLangText('Number'); ?></p>
-                                                            <span class="dblArrow">
-                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.hisOrd');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
 
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy date-dpd">
+                                                    <div class="d-flex align-items-center" style=" background:inherit">
+                                                        <div class="dropdown d-flex position-relative">
+                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+
+                                                            <?php echo $dateTypeOptions; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy user-dpd">
+                                                    <div class="d-flex align-items-center" style="background:inherit;">
+                                                        <div class="dropdown d-flex position-relative">
+                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $userOptions; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
+
+                                                <div class="tb-bdy type-dpd">
+                                                    <div class="d-flex align-items-center" style=" background:inherit">
+                                                        <div class="dropdown d-flex position-relative w-100">
+                                                            <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $typeOptions; ?>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            <?php } ?>
+
+
+
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
+
+                                                <div class="tb-bdy refer-to-dpd">
+                                                    <!--  style="width:100px;min-width:100px" -->
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="dropdown d-flex position-relative w-100 lg__7">
+                                                            <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $suppMemStoreOptions; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+                                        </div>
+
+
+
+
+                                        <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
+
+                                            <div class="tb-bdy hisValclm">
+                                                <div class="d-flex align-items-center">
+                                                    <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+
+
+
+                                        <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
+
+                                            <div class="tb-bdy hisValclm">
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <p><?php echo showOtherLangText('Value'); ?> </p>
+                                                    <a onclick="sortTableByColumn('.newHistoryTask', '.hisValclm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
+
+
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+
+
+
+                                        <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
+
+                                            <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
+
+                                                <div class="tb-bdy hisStatusclm sm__ml">
+                                                    <div class="d-flex align-items-center">
+                                                        <div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
+                                                            <a class="dropdown-toggle body3 status" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="statusText">
+                                                                    <?php echo showOtherLangText('Status'); ?>
+                                                                </span>
+                                                                <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $statusTypeOptions; ?>
+                                                            <span class="dblArrow d-none">
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
+                                                                <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                <?php } ?>
+                                                </div>
+                                            <?php } ?>
 
 
 
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
+                                            <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields) || !isset($colsArr[15])) { ?>
 
-                                                    <div class="tb-bdy date-dpd">
-                                                        <div class="d-flex align-items-center" style=" background:inherit">
-                                                            <div class="dropdown d-flex position-relative">
-                                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span id="dateTypeText"><?php echo showOtherLangText('Date'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                                </a>
-
-                                                                <?php echo $dateTypeOptions; ?>
-                                                            </div>
-                                                        </div>
+                                                <div class="tb-bdy hisStatusclm d-none d-lg-block">
+                                                    <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                                        <p><?php echo showOtherLangText('Payment No.'); ?></p>
                                                     </div>
-                                                <?php } ?>
+                                                </div>
+                                            <?php } ?>
 
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
 
-                                                    <div class="tb-bdy user-dpd">
-                                                        <div class="d-flex align-items-center" style="background:inherit;">
-                                                            <div class="dropdown d-flex position-relative">
-                                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span id="userText"><?php echo showOtherLangText('User'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                                </a>
-                                                                <?php echo $userOptions; ?>
-                                                            </div>
-                                                        </div>
+                                            <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
+
+                                                <div class="tb-bdy hisStatusclm d-none d-lg-block">
+                                                    <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
+                                                        <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
                                                     </div>
-                                                <?php } ?>
+                                                </div>
+                                            <?php } ?>
 
 
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
+                                            <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
 
-                                                    <div class="tb-bdy type-dpd">
-                                                        <div class="d-flex align-items-center" style=" background:inherit">
-                                                            <div class="dropdown d-flex position-relative w-100">
-                                                                <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span id="TypeText"><?php echo showOtherLangText('Type'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                                </a>
-                                                                <?php echo $typeOptions; ?>
-                                                            </div>
-                                                        </div>
+                                                <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
 
-                                                    </div>
-                                                <?php } ?>
-
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
-
-                                                    <div class="tb-bdy refer-to-dpd">
-                                                        <!--  style="width:100px;min-width:100px" -->
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="dropdown d-flex position-relative w-100 lg__7">
-                                                                <a class="dropdown-toggle body3 w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span id="refertotext"><?php echo showOtherLangText('Refer To'); ?></span> <i class="fa-solid fa-angle-down"></i>
-                                                                </a>
-                                                                <?php echo $suppMemStoreOptions; ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-
-                                            </div>
-
-
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields) || !isset($colsArr[8])) { ?>
-
-                                                <div class="tb-bdy hisValclm">
                                                     <div class="d-flex align-items-center">
-                                                        <p><?php echo showOtherLangText('Supplier inv no'); ?></p>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-
-
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
-
-                                                <div class="tb-bdy hisValclm">
-                                                    <div class="d-flex align-items-center gap-1">
-                                                        <p><?php echo showOtherLangText('Value'); ?> </p>
-                                                        <a onclick="sortTableByColumn('.newHistoryTask', '.hisValclm');" href="javascript:void(0)" class="d-block aglStock"><img src="Assets/icons/sort.png" width="15" height="15"></a>
-
-
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-
-
-
-                                            <div class="stsHiscol d-flex align-items-center colSize<?php echo $col_class_two; ?>">
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields) || !isset($colsArr[14])) { ?>
-
-                                                    <div class="tb-bdy hisStatusclm sm__ml">
-                                                        <div class="d-flex align-items-center">
-                                                            <div style="width: 80%;" class="dropdown d-flex align-items-center  position-relative">
-                                                                <a class="dropdown-toggle body3 status" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span id="statusText">
-                                                                        <?php echo showOtherLangText('Status'); ?>
-                                                                    </span>
-                                                                    <i class="fa-solid fa-angle-down"></i>
-                                                                </a>
-                                                                <?php echo $statusTypeOptions; ?>
-                                                                <span class="dblArrow d-none">
-                                                                    <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','asc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-up"></i></a>
-                                                                    <a onclick="sortTableByColumn('.newHistoryTask', '.his-pendStatus','desc');" href="javascript:void(0)" class="d-block aglStock"><i class="fa-solid fa-angle-down"></i></a>
+                                                        <div class="dropdown d-flex align-items-center w-100 position-relative">
+                                                            <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <span id="accountTxt">
+                                                                    <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
+                                                                    <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
                                                                 </span>
-                                                            </div>
+                                                                <i class="fa-solid fa-angle-down"></i>
+                                                            </a>
+                                                            <?php echo $accountOptions; ?>
                                                         </div>
                                                     </div>
-                                                <?php } ?>
 
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields) || !isset($colsArr[15])) { ?>
-
-                                                    <div class="tb-bdy hisStatusclm d-none d-lg-block">
-                                                        <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                            <p><?php echo showOtherLangText('Payment No.'); ?></p>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields) || !isset($colsArr[16])) { ?>
-
-                                                    <div class="tb-bdy hisStatusclm d-none d-lg-block">
-                                                        <div class="d-flex align-items-center justify-content-between" style=" min-width: fit-content !important;">
-                                                            <p style="color: #666c85; font-weight:600; "><?php echo showOtherLangText('Inv No.'); ?></p>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields) || !isset($colsArr[17])) { ?>
-
-                                                    <div class="tb-bdy hisAcntclm" style="padding-left: 0px;">
-
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="dropdown d-flex align-items-center w-100 position-relative">
-                                                                <a class="dropdown-toggle body3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <span id="accountTxt">
-                                                                        <span class="d-none d-lg-inline-block"><?php echo showOtherLangText('Account'); ?></span>
-                                                                        <span class="d-lg-none"><?php echo showOtherLangText('Account'); ?></span>
-                                                                    </span>
-                                                                    <i class="fa-solid fa-angle-down"></i>
-                                                                </a>
-                                                                <?php echo $accountOptions; ?>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-
-
-                                            <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
-                                                <div class="label__box action-column-p">
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
-                                                        <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
-                                                    </div>
                                                 </div>
-                                                <!-- check box model icon -->
-                                                <div class="chkStore">
-                                                    <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
-                                                        <img src="Assets/icons/chkColumn.svg" alt="Check Column">
-                                                    </a>
-                                                </div>
-                                            </div>
-
+                                            <?php } ?>
                                         </div>
-                                        <!-- <div class="align-items-center mbTask">
+
+
+                                        <div class="d-flex align-items-center justify-content-lg-end justify-content-between his-Paybtn">
+                                            <div class="label__box action-column-p">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <p class="d-none d-lg-block"><?php echo showOtherLangText('Action'); ?></p>
+                                                    <p class="d-lg-none fs-6"><?php echo showOtherLangText('Filter'); ?></p>
+                                                </div>
+                                            </div>
+                                            <!-- check box model icon -->
+                                            <div class="chkStore">
+                                                <a class="dropdown-item p-0" style="width: fit-content;" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#checkbox_module">
+                                                    <img src="Assets/icons/chkColumn.svg" alt="Check Column">
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- <div class="align-items-center mbTask">
                                 <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
                             </div> -->
-                                    </div>
-                                    <!-- Item Table Head End -->
                                 </div>
+                                <!-- Item Table Head End -->
+                            </div>
 
-                            <?php } else {
-                            echo '<div id="resFilterBox" class="container" style="text-align:center;min-height:100px;">No records found.</div>';
-                        } ?>
+
                             <!-- hide main divs if no records found -->
                     </section>
 
@@ -1858,461 +1865,468 @@ if ($getTxtById == 'storeId') {
                             <div class="container position-relative hstTbl-bd cntTableData">
                                 <!-- Item Table Body Start -->
                                 <?php
-                                $variances = [];
-                                $x = 0;
-                                $varianceAmtText = '';
-                                while ($orderRow = mysqli_fetch_array($historyQry)) {
+                                if (mysqli_num_rows($historyQry) < 1) {
+                                    echo '<div id="resFilterBox" class="container" style="text-align:center;min-height:100px;">No records found.</div>';
+                                } else {
 
-                                    //this is temporary fix need to do with function or main query above
-                                    if ($orderRow['ordType'] == 1 || $orderRow['ordType'] == 2) {
+                                    $variances = [];
+                                    $x = 0;
+                                    $varianceAmtText = '';
+                                    while ($orderRow = mysqli_fetch_array($historyQry)) {
+
+                                        //this is temporary fix need to do with function or main query above
+                                        if ($orderRow['ordType'] == 1 || $orderRow['ordType'] == 2) {
+
+                                            if ($orderRow['ordType'] == 1) {
+                                                $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'order_supplier' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['supplierId'] . "' and designation_section_permission_id=1 ";
+                                            } else {
+                                                $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'member' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['recMemberId'] . "' and designation_section_permission_id=2 ";
+                                            }
+
+                                            $checkSubPerQry = mysqli_query($con, $sql);
+
+                                            if (mysqli_num_rows($checkSubPerQry) < 1) {
+                                                continue; //exclude this order as user don't have its permission
+                                            }
+                                        } //end temp query
+
+                                        $x++;
+                                        $variancesTotAmt = 0;
+                                        if ($orderRow['suppName'] == '' && $orderRow['storeName'] == '') {
+                                            $suppMemStoreId = $orderRow['deptUserName'];
+                                        } elseif ($orderRow['deptUserName'] == '' && $orderRow['storeName'] == '') {
+                                            $suppMemStoreId = $orderRow['suppName'];
+                                        } else {
+                                            $suppMemStoreId = $orderRow['storeName'];
+                                        }
+
+                                        if ($getTxtById == 'suppId') {
+                                            $suppMemStoreId = $orderRow['suppName'];
+                                        } elseif ($getTxtById == 'deptUserId') {
+                                            $suppMemStoreId = $orderRow['deptUserName'];
+                                        } elseif ($getTxtById == 'storeId') {
+                                            $suppMemStoreId = $orderRow['storeName'];
+                                        }
+
+                                        // for date time filter
+                                        if ($_GET['dateType'] == 1) {
+                                            $dateType = ($orderRow['ordDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['ordDateTime'])) : '');
+                                        } elseif ($_GET['dateType'] == 2) {
+                                            $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime'])) : '');
+                                        } elseif ($_GET['dateType'] == 3) {
+                                            $dateType = ($orderRow['paymentDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['paymentDateTime'])) : date('d/m/y h:i', strtotime($orderRow['setDateTime'])));
+                                        } else {
+                                            $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime'])) : '');
+                                        }
+                                        $dateType .= "<br><span>" . $orderRow['sortingNo'] . "</span>";
+
+                                        $userName = $orderRow['userName'];
 
                                         if ($orderRow['ordType'] == 1) {
-                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'order_supplier' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['supplierId'] . "' and designation_section_permission_id=1 ";
+                                            $ordType = showOtherLangText('Issued In');
+                                        } elseif ($orderRow['ordType'] == 2) {
+                                            $ordType = showOtherLangText('Issued Out');
+                                        } elseif ($orderRow['ordType'] == 3) {
+
+                                            if (!isset($variances[$orderRow['id']])) {
+                                                $variances[$orderRow['id']] = getOrdItemVariancesAmt($orderRow['id']);
+                                            }
+
+                                            $variancesTotAmt = $variances[$orderRow['id']]['variancesTot'];
+
+                                            $varPosAmt = $variances[$orderRow['id']]['varPosAmt'];
+                                            $varNegAmt = $variances[$orderRow['id']]['varNegAmt'];
+                                            //style="color:black"
+                                            $varianceAmtText = '<span >' . getNumFormtPrice($varPosAmt, $getDefCurDet['curCode']) . '</span><br>';
+                                            $varianceAmtText .= '<span style="color:#F37870;">' . getNumFormtPrice($varNegAmt, $getDefCurDet['curCode']) . '</span>';
+
+
+                                            $ordType = showOtherLangText('Stock Take');
                                         } else {
-                                            $sql = " SELECT * FROM tbl_designation_sub_section_permission WHERE designation_id = '" . $_SESSION['designation_id'] . "' AND type = 'member' AND account_id = '" . $_SESSION['accountId'] . "' and type_id = '" . $orderRow['recMemberId'] . "' and designation_section_permission_id=2 ";
+                                            $ordType = showOtherLangText('Raw Item Convert');
                                         }
 
-                                        $checkSubPerQry = mysqli_query($con, $sql);
 
-                                        if (mysqli_num_rows($checkSubPerQry) < 1) {
-                                            continue; //exclude this order as user don't have its permission
-                                        }
-                                    } //end temp query
+                                        $curDet =  getCurrencyDet($orderRow['ordCurId']);
 
-                                    $x++;
-                                    $variancesTotAmt = 0;
-                                    if ($orderRow['suppName'] == '' && $orderRow['storeName'] == '') {
-                                        $suppMemStoreId = $orderRow['deptUserName'];
-                                    } elseif ($orderRow['deptUserName'] == '' && $orderRow['storeName'] == '') {
-                                        $suppMemStoreId = $orderRow['suppName'];
-                                    } else {
-                                        $suppMemStoreId = $orderRow['storeName'];
-                                    }
+                                        $paymentId = ($orderRow['paymentId']) ? $orderRow['paymentId'] : '';
 
-                                    if ($getTxtById == 'suppId') {
-                                        $suppMemStoreId = $orderRow['suppName'];
-                                    } elseif ($getTxtById == 'deptUserId') {
-                                        $suppMemStoreId = $orderRow['deptUserName'];
-                                    } elseif ($getTxtById == 'storeId') {
-                                        $suppMemStoreId = $orderRow['storeName'];
-                                    }
-
-                                    // for date time filter
-                                    if ($_GET['dateType'] == 1) {
-                                        $dateType = ($orderRow['ordDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['ordDateTime'])) : '');
-                                    } elseif ($_GET['dateType'] == 2) {
-                                        $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime'])) : '');
-                                    } elseif ($_GET['dateType'] == 3) {
-                                        $dateType = ($orderRow['paymentDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['paymentDateTime'])) : date('d/m/y h:i', strtotime($orderRow['setDateTime'])));
-                                    } else {
-                                        $dateType = ($orderRow['setDateTime'] != '0000-00-00 00:00:00' ? date('d/m/y h:i', strtotime($orderRow['setDateTime'])) : '');
-                                    }
-                                    $dateType .= "<br><span>" . $orderRow['sortingNo'] . "</span>";
-
-                                    $userName = $orderRow['userName'];
-
-                                    if ($orderRow['ordType'] == 1) {
-                                        $ordType = showOtherLangText('Issued In');
-                                    } elseif ($orderRow['ordType'] == 2) {
-                                        $ordType = showOtherLangText('Issued Out');
-                                    } elseif ($orderRow['ordType'] == 3) {
-
-                                        if (!isset($variances[$orderRow['id']])) {
-                                            $variances[$orderRow['id']] = getOrdItemVariancesAmt($orderRow['id']);
+                                        if ($orderRow['paymentStatus'] == 1 && $orderRow['ordType'] == 1) {
+                                            $paymentStatus = '<strong style="color:#1C9FFF;">' . showOtherLangText('Paid') . '</strong>';
+                                        } elseif ($orderRow['paymentStatus'] == 1 && $orderRow['ordType'] == 2) {
+                                            $paymentStatus = '<strong style="color:#038F00;">' . showOtherLangText('Received') . '</strong>';
+                                        } elseif ($orderRow['ordType'] == 3 || $orderRow['ordType'] == 4) {
+                                            $paymentStatus = '<strong>&nbsp;</strong>';
+                                        } elseif (($orderRow['ordType'] == 2 && $orderRow['receive_inv'] == 0) || $orderRow['ordType'] == 2 && $accessInvoicePermission['type_id'] == 0) {
+                                            $paymentStatus = '<strong>&nbsp;</strong>';
+                                        } elseif ($orderRow['ordType'] == 1 && $accessPaymentPermission['type_id'] == 0) {
+                                            $paymentStatus = '<strong>&nbsp;</strong>';
+                                        } else {
+                                            $paymentStatus = '<strong style="color:#FC9C2C;">' . showOtherLangText('Pending') . '</strong>';
                                         }
 
-                                        $variancesTotAmt = $variances[$orderRow['id']]['variancesTot'];
 
-                                        $varPosAmt = $variances[$orderRow['id']]['varPosAmt'];
-                                        $varNegAmt = $variances[$orderRow['id']]['varNegAmt'];
-                                        //style="color:black"
-                                        $varianceAmtText = '<span >' . getNumFormtPrice($varPosAmt, $getDefCurDet['curCode']) . '</span><br>';
-                                        $varianceAmtText .= '<span style="color:#F37870;">' . getNumFormtPrice($varNegAmt, $getDefCurDet['curCode']) . '</span>';
+                                        $InvoiceNumber = $orderRow['invNo'];
 
+                                        $colsValArr =
+                                            [
+                                                1 => $orderRow['ordNumber'],
+                                                2 => $dateType,
+                                                3 => $userName,
+                                                4 => $ordType,
+                                                7 => $suppMemStoreId,
+                                                8 => ($orderRow['ordType'] == 1) ? $InvoiceNumber : ' ',
+                                                10 => ($orderRow['ordType'] == 3) ? $varianceAmtText : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+                                                    . '<br>' .
+                                                    ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''),
+                                                14 => $paymentStatus,
+                                                15 => ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''),
+                                                16 => ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' ',
+                                                17 => ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''),
 
-                                        $ordType = showOtherLangText('Stock Take');
-                                    } else {
-                                        $ordType = showOtherLangText('Raw Item Convert');
-                                    }
-
-
-                                    $curDet =  getCurrencyDet($orderRow['ordCurId']);
-
-                                    $paymentId = ($orderRow['paymentId']) ? $orderRow['paymentId'] : '';
-
-                                    if ($orderRow['paymentStatus'] == 1 && $orderRow['ordType'] == 1) {
-                                        $paymentStatus = '<strong style="color:#1C9FFF;">' . showOtherLangText('Paid') . '</strong>';
-                                    } elseif ($orderRow['paymentStatus'] == 1 && $orderRow['ordType'] == 2) {
-                                        $paymentStatus = '<strong style="color:#038F00;">' . showOtherLangText('Received') . '</strong>';
-                                    } elseif ($orderRow['ordType'] == 3 || $orderRow['ordType'] == 4) {
-                                        $paymentStatus = '<strong>&nbsp;</strong>';
-                                    } elseif (($orderRow['ordType'] == 2 && $orderRow['receive_inv'] == 0) || $orderRow['ordType'] == 2 && $accessInvoicePermission['type_id'] == 0) {
-                                        $paymentStatus = '<strong>&nbsp;</strong>';
-                                    } elseif ($orderRow['ordType'] == 1 && $accessPaymentPermission['type_id'] == 0) {
-                                        $paymentStatus = '<strong>&nbsp;</strong>';
-                                    } else {
-                                        $paymentStatus = '<strong style="color:#FC9C2C;">' . showOtherLangText('Pending') . '</strong>';
-                                    }
-
-
-                                    $InvoiceNumber = $orderRow['invNo'];
-
-                                    $colsValArr =
-                                        [
-                                            1 => $orderRow['ordNumber'],
-                                            2 => $dateType,
-                                            3 => $userName,
-                                            4 => $ordType,
-                                            7 => $suppMemStoreId,
-                                            8 => ($orderRow['ordType'] == 1) ? $InvoiceNumber : ' ',
-                                            10 => ($orderRow['ordType'] == 3) ? $varianceAmtText : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
-                                                . '<br>' .
-                                                ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''),
-                                            14 => $paymentStatus,
-                                            15 => ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''),
-                                            16 => ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' ',
-                                            17 => ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''),
-
-                                        ];
+                                            ];
 
 
 
-                                    if (isset($_GET['ordType'])) {
-                                        switch ($_GET['ordType']) {
+                                        if (isset($_GET['ordType'])) {
+                                            switch ($_GET['ordType']) {
 
-                                            case 1:
+                                                case 1:
 
-                                                unset($colsValArr[5]);
-                                                unset($colsValArr[6]);
-                                                unset($colsValArr[9]);
-                                                unset($colsValArr[11]);
-                                                unset($colsValArr[16]);
-                                                break;
+                                                    unset($colsValArr[5]);
+                                                    unset($colsValArr[6]);
+                                                    unset($colsValArr[9]);
+                                                    unset($colsValArr[11]);
+                                                    unset($colsValArr[16]);
+                                                    break;
 
-                                            case 2:
+                                                case 2:
 
-                                                unset($colsValArr[8]);
-                                                unset($colsValArr[9]);
-                                                unset($colsValArr[11]);
-                                                unset($colsValArr[15]);
-                                                break;
+                                                    unset($colsValArr[8]);
+                                                    unset($colsValArr[9]);
+                                                    unset($colsValArr[11]);
+                                                    unset($colsValArr[15]);
+                                                    break;
 
-                                            case 3:
+                                                case 3:
 
-                                                unset($colsValArr[5]);
-                                                unset($colsValArr[6]);
-                                                unset($colsValArr[8]);
-                                                unset($colsValArr[11]);
-                                                unset($colsValArr[14]);
-                                                unset($colsValArr[15]);
-                                                unset($colsValArr[16]);
-                                                unset($colsValArr[17]);
-                                                unset($colsValArr[18]);
-                                                break;
+                                                    unset($colsValArr[5]);
+                                                    unset($colsValArr[6]);
+                                                    unset($colsValArr[8]);
+                                                    unset($colsValArr[11]);
+                                                    unset($colsValArr[14]);
+                                                    unset($colsValArr[15]);
+                                                    unset($colsValArr[16]);
+                                                    unset($colsValArr[17]);
+                                                    unset($colsValArr[18]);
+                                                    break;
 
 
-                                            case 4:
+                                                case 4:
 
-                                                unset($colsValArr[5]);
-                                                unset($colsValArr[6]);
-                                                unset($colsValArr[7]);
-                                                unset($colsValArr[8]);
-                                                unset($colsValArr[9]);
-                                                unset($colsValArr[11]);
-                                                unset($colsValArr[14]);
-                                                unset($colsValArr[15]);
-                                                unset($colsValArr[16]);
-                                                unset($colsValArr[17]);
-                                                unset($colsValArr[18]);
-                                                break;
+                                                    unset($colsValArr[5]);
+                                                    unset($colsValArr[6]);
+                                                    unset($colsValArr[7]);
+                                                    unset($colsValArr[8]);
+                                                    unset($colsValArr[9]);
+                                                    unset($colsValArr[11]);
+                                                    unset($colsValArr[14]);
+                                                    unset($colsValArr[15]);
+                                                    unset($colsValArr[16]);
+                                                    unset($colsValArr[17]);
+                                                    unset($colsValArr[18]);
+                                                    break;
+                                            }
                                         }
-                                    }
 
-                                    if ($accessHistoryAccountsPermission['type_id'] == 0) {
-                                        unset($colsValArr[14]);
-                                        unset($colsValArr[15]);
-                                        unset($colsValArr[16]);
-                                        unset($colsValArr[17]);
-                                    }
+                                        if ($accessHistoryAccountsPermission['type_id'] == 0) {
+                                            unset($colsValArr[14]);
+                                            unset($colsValArr[15]);
+                                            unset($colsValArr[16]);
+                                            unset($colsValArr[17]);
+                                        }
 
-                                    if ($_GET['statusType'] == 1) {
-                                        unset($colsValArr[5]);
-                                        unset($colsValArr[6]);
-                                        unset($colsValArr[9]);
-                                        unset($colsValArr[11]);
-                                        unset($colsValArr[16]);
-                                    }
+                                        if ($_GET['statusType'] == 1) {
+                                            unset($colsValArr[5]);
+                                            unset($colsValArr[6]);
+                                            unset($colsValArr[9]);
+                                            unset($colsValArr[11]);
+                                            unset($colsValArr[16]);
+                                        }
 
-                                    if ($_GET['statusType'] == 2) {
-                                        unset($colsValArr[8]);
-                                        unset($colsValArr[9]);
-                                        unset($colsValArr[11]);
-                                        unset($colsValArr[15]);
-                                    }
+                                        if ($_GET['statusType'] == 2) {
+                                            unset($colsValArr[8]);
+                                            unset($colsValArr[9]);
+                                            unset($colsValArr[11]);
+                                            unset($colsValArr[15]);
+                                        }
 
-                                    // for panding payment
-                                    if ($_GET['statusType'] == 3) {
-                                        unset($colsValArr[11]);
-                                        unset($colsValArr[15]);
-                                        unset($colsValArr[16]);
-                                        unset($colsValArr[17]);
-                                    }
+                                        // for panding payment
+                                        if ($_GET['statusType'] == 3) {
+                                            unset($colsValArr[11]);
+                                            unset($colsValArr[15]);
+                                            unset($colsValArr[16]);
+                                            unset($colsValArr[17]);
+                                        }
 
-                                    if ($getTxtById == 'suppId') {
-                                        unset($colsValArr[6]);
-                                        unset($colsValArr[9]);
-                                        unset($colsValArr[11]);
-                                        unset($colsValArr[16]);
-                                    }
+                                        if ($getTxtById == 'suppId') {
+                                            unset($colsValArr[6]);
+                                            unset($colsValArr[9]);
+                                            unset($colsValArr[11]);
+                                            unset($colsValArr[16]);
+                                        }
 
-                                    if ($getTxtById == 'deptUserId') {
-                                        unset($colsValArr[8]);
-                                        unset($colsValArr[9]);
-                                        unset($colsValArr[11]);
-                                        unset($colsValArr[15]);
-                                    }
-                                    // for store
-                                    if ($getTxtById == 'storeId') {
-                                        unset($colsValArr[5]);
-                                        unset($colsValArr[6]);
-                                        unset($colsValArr[8]);
-                                        unset($colsValArr[11]);
-                                        unset($colsValArr[14]);
-                                        unset($colsValArr[15]);
-                                        unset($colsValArr[16]);
-                                        unset($colsValArr[17]);
-                                        unset($colsValArr[18]);
-                                    }
+                                        if ($getTxtById == 'deptUserId') {
+                                            unset($colsValArr[8]);
+                                            unset($colsValArr[9]);
+                                            unset($colsValArr[11]);
+                                            unset($colsValArr[15]);
+                                        }
+                                        // for store
+                                        if ($getTxtById == 'storeId') {
+                                            unset($colsValArr[5]);
+                                            unset($colsValArr[6]);
+                                            unset($colsValArr[8]);
+                                            unset($colsValArr[11]);
+                                            unset($colsValArr[14]);
+                                            unset($colsValArr[15]);
+                                            unset($colsValArr[16]);
+                                            unset($colsValArr[17]);
+                                            unset($colsValArr[18]);
+                                        }
 
-                                    if ($orderRow['ordType'] == 1) {
-                                        $mclass = 'mb-hstryBareq';
-                                    } elseif ($orderRow['ordType'] == 2) {
-                                        $mclass = 'mb-hstryBarord';
-                                    } elseif ($orderRow['ordType'] == 3) {
-                                        $mclass = 'mb-hstryBarstk';
-                                    } else {
-                                        $mclass = 'mb-hstryBarstk';
-                                    }
+                                        if ($orderRow['ordType'] == 1) {
+                                            $mclass = 'mb-hstryBareq';
+                                        } elseif ($orderRow['ordType'] == 2) {
+                                            $mclass = 'mb-hstryBarord';
+                                        } elseif ($orderRow['ordType'] == 3) {
+                                            $mclass = 'mb-hstryBarstk';
+                                        } else {
+                                            $mclass = 'mb-hstryBarstk';
+                                        }
                                 ?>
 
 
-                                    <div class="hisTask newHistoryTask <?php if ($x > 1) {
-                                                                            echo 'mt-2';
-                                                                        } ?>">
-                                        <div class="<?php echo $mclass; ?>">&nbsp;</div>
-                                        <div class="align-items-center itmBody fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
-                                            <div class="numRef numRef2 align-items-center colSize<?php echo $col_class_one; ?>">
-                                                <div class="tb-bdy srHisclm" style="min-width: fit-content;">
-                                                    <p class="serial"><?php echo $x; ?></p>
-                                                </div>
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
-
-                                                    <div class="tb-bdy numItmclm order_num">
-                                                        <p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p>
+                                        <div class="hisTask newHistoryTask <?php if ($x > 1) {
+                                                                                echo 'mt-2';
+                                                                            } ?>">
+                                            <div class="<?php echo $mclass; ?>">&nbsp;</div>
+                                            <div class="align-items-center itmBody fgcolSize<?php echo $col_class_one; ?> lgcolSize<?php echo $col_class_two; ?>">
+                                                <div class="numRef numRef2 align-items-center colSize<?php echo $col_class_one; ?>">
+                                                    <div class="tb-bdy srHisclm" style="min-width: fit-content;">
+                                                        <p class="serial"><?php echo $x; ?></p>
                                                     </div>
-                                                <?php } ?>
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
+                                                    <?php if (isset($historyUserFilterFields) && in_array(1, $historyUserFilterFields)) { ?>
 
-                                                    <div class="tb-bdy hisDateclm date">
-                                                        <p class="fstDt"><?php echo $dateType; ?></p>
-                                                    </div>
-                                                <?php } ?>
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
-
-                                                    <div class="tb-bdy hisDateclm"><?php echo $userName; ?> </div>
-                                                <?php } ?>
-
-                                                <?php
-                                                if ($orderRow['ordType'] == 1) {
-                                                    $class = 'reqBar-gr';
-                                                    $class1 = 'hisReq-typ';
-                                                } elseif ($orderRow['ordType'] == 2) {
-                                                    $class = 'ordBar-rd';
-                                                    $class1 = 'hisOrd-typ';
-                                                } elseif ($orderRow['ordType'] == 3) {
-                                                    $class = 'stckBar-bl';
-                                                    $class1 = 'hisStk-typ';
-                                                } else {
-                                                    $class = 'stckBar-bl';
-                                                    $class1 = 'hisStk-typ';
-                                                }
-                                                ?>
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
-                                                    <div class="tb-bdy hisTypclm">
-                                                        <div class=" d-flex align-items-center <?php echo $class1; ?>">
-                                                            <div class="<?php echo $class; ?>">&nbsp;</div>
-                                                            <p class="col"><?php echo $ordType; ?></p>
+                                                        <div class="tb-bdy numItmclm order_num">
+                                                            <p class="hisOrd">#<?php echo $orderRow['ordNumber']; ?></p>
                                                         </div>
-                                                    </div>
-                                                <?php } ?>
+                                                    <?php } ?>
 
+                                                    <?php if (isset($historyUserFilterFields) && in_array(2, $historyUserFilterFields)) { ?>
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
-
-                                                    <div class="tb-bdy hisRefrclm price__box refer">
-                                                        <p class="refTomember"><?php echo $suppMemStoreId; ?></p>
-                                                    </div>
-                                                <?php } ?>
-
-                                            </div>
-
-                                            <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields)) { ?>
-                                                <div class="tb-bdy hisValclm inv__box">
-                                                    <p class="dolValcurr"><?php echo $orderRow['ordType'] == 1 ? $InvoiceNumber : ''; ?></p>
-                                                </div>
-                                            <?php } ?>
+                                                        <div class="tb-bdy hisDateclm date">
+                                                            <p class="fstDt"><?php echo $dateType; ?></p>
+                                                        </div>
+                                                    <?php } ?>
 
 
 
-                                            <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
-                                                <div class="tb-bdy hisValclm price__box">
-                                                    <p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? $varianceAmtText : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
-                                                                                . '<br>' .
-                                                                                ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
-                                                </div>
-                                            <?php } ?>
+                                                    <?php if (isset($historyUserFilterFields) && in_array(3, $historyUserFilterFields)) { ?>
 
-                                            <div class="stsHiscol d-flex align-items-center lg_w_35 colSize<?php echo $col_class_two; ?>">
+                                                        <div class="tb-bdy hisDateclm"><?php echo $userName; ?> </div>
+                                                    <?php } ?>
 
-                                                <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields)) { ?>
-                                                    <div class="tb-bdy flex hisStatusclm ps-0 lg_pr_8">
-                                                        <p class="his-pendStatus"><?php echo $paymentStatus; ?></p>
-                                                    </div>
-                                                <?php } ?>
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields)) { ?>
-                                                    <div class="tb-bdy flex hisStatusclm lg_pl_0">
-                                                        <p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p>
-                                                    </div>
-                                                <?php } ?>
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields)) { ?>
-
-                                                    <div class="tb-bdy flex hisStatusclm lg_pl_0">
-                                                        <p class="his-pendStatus"><?php echo ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' '; ?></p>
-                                                    </div> <?php } ?>
-
-
-
-                                                <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields)) { ?>
-
-                                                    <div class="tb-bdy flex hisAcntclm">
-                                                        <p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p>
-                                                    </div><?php } ?>
-
-
-                                            </div>
-
-                                            <div class="tb-bdy shrtHisclm">
-                                                <div class="mb-Acntdetail">
-                                                    <div class="tb-bdy">
-                                                        <p>Account</p>
-                                                        <p class="mb-Acntnum"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex gap-2 align-items-center justify-content-end his-Paybtn">
                                                     <?php
-                                                    if ($orderRow['ordType'] == 1) //order
-                                                    {
+                                                    if ($orderRow['ordType'] == 1) {
+                                                        $class = 'reqBar-gr';
+                                                        $class1 = 'hisReq-typ';
+                                                    } elseif ($orderRow['ordType'] == 2) {
+                                                        $class = 'ordBar-rd';
+                                                        $class1 = 'hisOrd-typ';
+                                                    } elseif ($orderRow['ordType'] == 3) {
+                                                        $class = 'stckBar-bl';
+                                                        $class1 = 'hisStk-typ';
+                                                    } else {
+                                                        $class = 'stckBar-bl';
+                                                        $class1 = 'hisStk-typ';
+                                                    }
+                                                    ?>
 
-                                                        if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                                                            if ($accessPaymentPermission['type_id'] == 1) {
-
-                                                                getOrderPaymentLink($orderRow['id']);
-                                                            } else {
-                                                    ?><span style="width: 53%;">&nbsp;</span><?php
-                                                                                            }
-                                                                                        } else {
-                                                                                                ?><span style="width: 53%;">&nbsp;</span><?php
-                                                                                                                                        }
-                                                                                                                                    } elseif ($orderRow['ordType'] == 2) {
-                                                                                                                                        if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                                                                                                                                            if ($accessInvoicePermission['type_id'] == 1) {
-
-                                                                                                                                                getrequisitionPaymentLink($orderRow['id']);
-                                                                                                                                            } else {
-                                                                                                                                            ?><span style="width: 66%;">&nbsp;</span><?php
-                                                                                                                                                                                    }
-                                                                                                                                                                                } else {
-                                                                                                                                                                                        ?><span style="width: 66%;">&nbsp;</span><?php
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                            } else {
-
-                                                                                                                                                                                                                                echo '<div class="cnfrm" style=" border: none; background: transparent !important; box-shadow: none;"></div>';
-                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                    ?>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
-                                                            <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <!-- <span class="docMent"></span> -->
-                                                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect x="5.04102" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2" />
-                                                                    <path d="M9.04102 9H15.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-                                                                    <path d="M9.04102 13H15.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-                                                                    <path d="M9.04102 17H13.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
-                                                                </svg>
-
-                                                                <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i class="fa-solid fa-angle-down"></i>
-                                                                </p>
-                                                            </a>
-
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Details'); ?></a>
-                                                                </li>
-                                                                <?php
-                                                                if ($orderRow['ordType'] == 1) {
-
-                                                                ?>
-                                                                    <li>
-                                                                        <a class="dropdown-item" href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id']; ?>','<?php echo $orderRow['ordType']; ?>', '1');"><i class="far fa-share-square"></i>&nbsp;<?php echo showOtherLangText('Details(Supplier)') ?></a>
-                                                                    </li>
-                                                                <?php
-                                                                }
-                                                                if ($orderRow['ordType'] == 1) //order
-                                                                {
-
-                                                                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                                                                        if ($accessPaymentPermission['type_id'] == 1) {
-
-                                                                            getPayPopup($orderRow['id']);
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                if ($orderRow['ordType'] == 2) {
-                                                                    if ($accessHistoryAccountsPermission['type_id'] == 1) {
-                                                                        if ($accessInvoicePermission['type_id'] == 1) {
-
-                                                                            getrequisitionPopup($orderRow['id']);
-                                                                        }
-                                                                    }
-                                                                }
-                                                                ?>
-                                                            </ul>
+                                                    <?php if (isset($historyUserFilterFields) && in_array(4, $historyUserFilterFields)) { ?>
+                                                        <div class="tb-bdy hisTypclm">
+                                                            <div class=" d-flex align-items-center <?php echo $class1; ?>">
+                                                                <div class="<?php echo $class; ?>">&nbsp;</div>
+                                                                <p class="col"><?php echo $ordType; ?></p>
+                                                            </div>
                                                         </div>
-                                                        <?php
-                                                        access_delete_history_file($getAllHistoryPermissions['access_delete_history'], $orderRow['id']);
-                                                        ?>
+                                                    <?php } ?>
 
+
+                                                    <?php if (isset($historyUserFilterFields) && in_array(7, $historyUserFilterFields) || !isset($colsArr[7])) { ?>
+
+                                                        <div class="tb-bdy hisRefrclm price__box refer">
+                                                            <p class="refTomember"><?php echo $suppMemStoreId; ?></p>
+                                                        </div>
+                                                    <?php } ?>
+
+                                                </div>
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(8, $historyUserFilterFields)) { ?>
+                                                    <div class="tb-bdy hisValclm inv__box">
+                                                        <p class="dolValcurr"><?php echo $orderRow['ordType'] == 1 ? $InvoiceNumber : ''; ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+
+
+                                                <?php if (isset($historyUserFilterFields) && in_array(10, $historyUserFilterFields)) { ?>
+                                                    <div class="tb-bdy hisValclm price__box">
+                                                        <p class="dolValcurr"><?php echo ($orderRow['ordType'] == 3) ? $varianceAmtText : getNumFormtPrice($orderRow['ordAmt'], $getDefCurDet['curCode'])
+                                                                                    . '<br>' .
+                                                                                    ($orderRow['ordCurAmt'] > 0 ? showOtherCur($orderRow['ordCurAmt'], $curDet['id']) : ''); ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <div class="stsHiscol d-flex align-items-center lg_w_35 colSize<?php echo $col_class_two; ?>">
+
+                                                    <?php if (isset($historyUserFilterFields) && in_array(14, $historyUserFilterFields)) { ?>
+                                                        <div class="tb-bdy flex hisStatusclm ps-0 lg_pr_8">
+                                                            <p class="his-pendStatus"><?php echo $paymentStatus; ?></p>
+                                                        </div>
+                                                    <?php } ?>
+
+
+                                                    <?php if (isset($historyUserFilterFields) && in_array(15, $historyUserFilterFields)) { ?>
+                                                        <div class="tb-bdy flex hisStatusclm lg_pl_0">
+                                                            <p class="his-pendStatus"><?php echo ($orderRow['paymentStatus'] > 0 ? setPaymentId($paymentId) : ''); ?></p>
+                                                        </div>
+                                                    <?php } ?>
+
+
+
+                                                    <?php if (isset($historyUserFilterFields) && in_array(16, $historyUserFilterFields)) { ?>
+
+                                                        <div class="tb-bdy flex hisStatusclm lg_pl_0">
+                                                            <p class="his-pendStatus"><?php echo ($orderRow['ordType'] == 2) ? $InvoiceNumber : ' '; ?></p>
+                                                        </div> <?php } ?>
+
+
+
+                                                    <?php if (isset($historyUserFilterFields) && in_array(17, $historyUserFilterFields)) { ?>
+
+                                                        <div class="tb-bdy flex hisAcntclm">
+                                                            <p class="hisAccount"><?php echo ($orderRow['paymentStatus'] == 1 ? $orderRow['accountName'] : ''); ?></p>
+                                                        </div><?php } ?>
+
+
+                                                </div>
+
+                                                <div class="tb-bdy shrtHisclm">
+                                                    <div class="mb-Acntdetail">
+                                                        <div class="tb-bdy">
+                                                            <p>Account</p>
+                                                            <p class="mb-Acntnum"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex gap-2 align-items-center justify-content-end his-Paybtn">
+                                                        <?php
+                                                        if ($orderRow['ordType'] == 1) //order
+                                                        {
+
+                                                            if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                                                if ($accessPaymentPermission['type_id'] == 1) {
+
+                                                                    getOrderPaymentLink($orderRow['id']);
+                                                                } else {
+                                                        ?><span style="width: 53%;">&nbsp;</span><?php
+                                                                                                }
+                                                                                            } else {
+                                                                                                    ?><span style="width: 53%;">&nbsp;</span><?php
+                                                                                                                                            }
+                                                                                                                                        } elseif ($orderRow['ordType'] == 2) {
+                                                                                                                                            if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                                                                                                                                if ($accessInvoicePermission['type_id'] == 1) {
+
+                                                                                                                                                    getrequisitionPaymentLink($orderRow['id']);
+                                                                                                                                                } else {
+                                                                                                                                                ?><span style="width: 66%;">&nbsp;</span><?php
+                                                                                                                                                                                        }
+                                                                                                                                                                                    } else {
+                                                                                                                                                                                            ?><span style="width: 66%;">&nbsp;</span><?php
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                } else {
+
+                                                                                                                                                                                                                                    echo '<div class="cnfrm" style=" border: none; background: transparent !important; box-shadow: none;"></div>';
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                        ?>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div class="doc-bx text-center d-flex justify-content-center align-items-center position-relative">
+                                                                <a href="javascript:void(0)" class="dropdown-toggle runLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <!-- <span class="docMent"></span> -->
+                                                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect x="5.04102" y="4" width="14" height="17" rx="2" stroke="#8C8FA7" stroke-width="2" />
+                                                                        <path d="M9.04102 9H15.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
+                                                                        <path d="M9.04102 13H15.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
+                                                                        <path d="M9.04102 17H13.041" stroke="#8C8FA7" stroke-width="2" stroke-linecap="round" />
+                                                                    </svg>
+
+                                                                    <p class="btn2"><?php echo showOtherLangText('Documents'); ?> <i class="fa-solid fa-angle-down"></i>
+                                                                    </p>
+                                                                </a>
+
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" href="javascript:void(0)" onClick="return openPopup('<?php echo $orderRow['ordType']; ?>', '<?php echo $orderRow['id']; ?>')"><i class="far fa-square pe-2"></i><?php echo showOtherLangText('View Details'); ?></a>
+                                                                    </li>
+                                                                    <?php
+                                                                    if ($orderRow['ordType'] == 1) {
+
+                                                                    ?>
+                                                                        <li>
+                                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="return showOrderJourney('<?php echo $orderRow['id']; ?>','<?php echo $orderRow['ordType']; ?>', '1');"><i class="far fa-share-square"></i>&nbsp;<?php echo showOtherLangText('Details(Supplier)') ?></a>
+                                                                        </li>
+                                                                    <?php
+                                                                    }
+                                                                    if ($orderRow['ordType'] == 1) //order
+                                                                    {
+
+                                                                        if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                                                            if ($accessPaymentPermission['type_id'] == 1) {
+
+                                                                                getPayPopup($orderRow['id']);
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    if ($orderRow['ordType'] == 2) {
+                                                                        if ($accessHistoryAccountsPermission['type_id'] == 1) {
+                                                                            if ($accessInvoicePermission['type_id'] == 1) {
+
+                                                                                getrequisitionPopup($orderRow['id']);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    ?>
+                                                                </ul>
+                                                            </div>
+                                                            <?php
+                                                            access_delete_history_file($getAllHistoryPermissions['access_delete_history'], $orderRow['id']);
+                                                            ?>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="align-items-center mbTask">
+                                                <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="align-items-center mbTask">
-                                            <a href="javascript:void(0)" class="statusLink mb-hisLink"><i class="fa-solid fa-angle-down"></i></a>
-                                        </div>
-                                    </div>
-                                <?php  } ?>
+                                <?php  } //end while
+
+                                } //end if
+                                ?>
 
 
                             </div>

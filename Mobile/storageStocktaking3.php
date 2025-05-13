@@ -103,7 +103,7 @@ $stockMainQry = mysqli_query($con, $sql);
                                 <div class="prdctHide">&nbsp;</div>
                                 <div class="prdctValue">
                                     <input type="text" id="item<?php echo $res['id']; ?>" value="" class="form-control prdForm" placeholder="" onchange="saveQty('<?php echo $res['id']; ?>', this.value);" />
-                                    <input type="hidden" id="itemSaved<?php echo $res['id']; ?>" value="<?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : 0; ?>" class="input-style" />
+                                    <input type="hidden" id="itemSaved<?php echo $res['id']; ?>" value="<?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : 0; ?>" class="itemSaved input-style" />
                                     <p class="prdUnit"><strong style="color:#00ad4c;text-align:center;cursor: pointer;" class="qtyCnt" id="qtyCnt<?php echo $res['id']; ?>" onclick="toggleQty('<?php echo $res['id']; ?>')"><?php echo isset($tempItemRows[$res['id']]) ? $tempItemRows[$res['id']] : ''; ?></strong> <?php echo $res['countingUnit']; ?></p>
                                 </div>
                             </div>
@@ -236,6 +236,8 @@ $stockMainQry = mysqli_query($con, $sql);
                 })
                 .done(function() {
                     $('#countedId').text('0');
+                    $('.itemSaved').val('');
+
                 });
         }
     </script>
